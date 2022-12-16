@@ -1,23 +1,11 @@
-# **FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Stratix 10 FPGA**
-
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. 
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document.
-
-All information provided here is subject to change without notice. Contact your Intel representative to obtain the latest Intel product specifications and roadmaps.
-
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request.
-Intel, the Intel logo, Agilex, Altera, Arria, Cyclone, Enpirion, eASIC, easicopy, MAX, Nios, Quartus, Stratix words and logos are trademarks of Intel Corporation or its subsidiaries in the U.S. and/or other countries. Intel warrants performance of its FPGA and semiconductor products to current specifications in accordance with Intel's standard warranty, but reserves the right to make changes to any products and services at any time without notice. Intel assumes no responsibility or liability arising out of the application or use of any information, product, or service described herein except as expressly agreed to in writing by Intel. Intel customers are advised to obtain the latest version of device specifications before relying on any published information and before placing orders for products or services.
-
-*Other names and brands may be claimed as the property of others.
-Copyright © 2022, Intel Corporation. All rights reserved.
-
+# **FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel Stratix 10 FPGA**
 
 ## **Table of Contents**
 
 [**1 Overview**](#overview)
 * [**1.1 About this Document**](#about_doc)
 * [**1.2 Glossary**](#glossary)
-* [**1.3 Introduction to the Intel Open FPGA Stack**](#Intro_to_IOFS)
+* [**1.3 Introduction to the Open FPGA Stack**](#Intro_to_IOFS)
 * [**1.4 IOFS Features**](#IOFS_Features)
 
     * [**1.4.1 FPGA Interface Manager**](#FIM)<br>
@@ -86,10 +74,10 @@ Copyright © 2022, Intel Corporation. All rights reserved.
 
 [**12 HSSI Subsystem**](#ethernet)<br>
 * [**12.1 HSSI Subsystem Overview**](#hssi_overview)<br>
-* [**12.2 Intel OFS HSSI Subsystem Interfaces**](#hssi_subsystem_intf)<br>
-    * [**12.2.1 Intel OFS HSSI Subsystem FIM Interfaces**](#hssi_fim_intf)
-    * [**12.2.2 Intel OFS HSSI Subsystem AFU Interfaces**](#hssi_afu_intf)<br>
-    * [**12.2.3 Intel OFS HSSI Sideband Interface**](#hssi_sideband_intf)<br>
+* [**12.2 OFS HSSI Subsystem Interfaces**](#hssi_subsystem_intf)<br>
+    * [**12.2.1 OFS HSSI Subsystem FIM Interfaces**](#hssi_fim_intf)
+    * [**12.2.2 OFS HSSI Subsystem AFU Interfaces**](#hssi_afu_intf)<br>
+    * [**12.2.3 OFS HSSI Sideband Interface**](#hssi_sideband_intf)<br>
     * [**12.2.4 Reconfiguration Interfaces**](#hssi_sideband_intf)<br>
         * [**12.2.4.1 Reconfiguration Sequence**](#hssi_reconfig_seq)<br>
     * [**12.2.5 HSSI Control and Status Register (CSR) Map**](#hssi_csr)<br>
@@ -118,9 +106,8 @@ Copyright © 2022, Intel Corporation. All rights reserved.
     * [**14.2.5 AFU Access Violation**](#afu-access-violation)<br>
     * [**14.2.6 AFU MMIO Response Timeout**](#afu-response-timeout)<br>`
 
-[**15 Intel OFS Design Hierarchy**](#iofs-design)<br>
-* [**15.1 CoreFIM Fabric**](#corefim-fabric)<br>
-* [**15.2 I/O Periphery Components**](#io-per-components)<br>
+[**15 OFS Design Guidance**](#design_guidance)<br>
+
 
 ## **1 Overview**
 <a name="overview"></a>
@@ -130,40 +117,40 @@ Copyright © 2022, Intel Corporation. All rights reserved.
 
 
 
-This document describes the hardware architecture of the Intel<sup>&reg;</sup>​ Open FPGA Stack (Intel OFS)
+This document describes the hardware architecture of the​ Open FPGA Stack (OFS)
 targeting the Intel<sup>&reg;</sup> Stratix 10 FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
 
 
 ### **1.2 Glossary**
 <a name="glossary"></a>
-This table defines some of the common terms used when discussing Intel OFS.
+This table defines some of the common terms used when discussing OFS.
 
 **Table 1-1 Glossary Table**
 
 | Acronym    | Expansion                                                      | Description                                                                                                                                                                                                                                                                           |
 |:----------:|:--------------------------------------------------------------:|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| AFU        | Accelerator Functional Unit                                    | Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance.  <b>Note:</b>  An AFU region is the part of the design where an AFU may reside.  This AFU may or may not be a partial reconfiguration region. |
+| AFU        | Accelerator Functional Unit                                    | Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance.  <b>Note:</b>  An AFU region is the part of the design where an workload may reside.  This AFU may or may not be a partial reconfiguration region. |
 | BBB        | Basic Building Block                                           | Features within an AFU or part of an FPGA interface that can be reused across designs.  These building blocks do not have stringent interface requirements like the FIM’s AFU and host interface requires.  All BBBs must have a (globally unique identifier) GUID.                   |
 | FIM        | FPGA Interface Manager                                         | Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs.  The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.                                       |
 | FME        | FPGA Management Engine                                         | Provides a way to manage the platform and enable acceleration functions on the platform.                                                                                                                                                                                              |
-|Intel OFS    | Intel Open FPGA Stack |A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.         |
+|OFS    | Open FPGA Stack |A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.         |
 | OPAE SDK   | Open Programmable Acceleration Engine Software Development Kit | A collection of APIs, software tools and upstreamed Linux* drivers to facilitate the development of software applications that allow the host to manage the FPGA accelerator card in an abstracted way.                                                                                                                                                     |
 |OPAE        | Open Programmable Acceleration Engine Software Development Kit (OPAE SDK)    | A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.|
 | PIM        | Platform Interface Manager                                     | An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.                              |
 | UVM        | Universal Verification Methodology                                     | It is a standardized methodology for verifying a design.                              |
-| Intel<sup>&reg;</sup> FPGA PAC D5005        | Intel FPGA Programmable Acceleration Card D5005                    | A high performance PCI Express* (PCIe*)-based FPGA acceleration card for data centers.  This card is the target platform for the initial Intesl OFS release.                              |
+| Intel<sup>&reg;</sup> FPGA PAC D5005        | Intel FPGA Programmable Acceleration Card D5005                    | A high performance PCI Express* (PCIe*)-based FPGA acceleration card for data centers.  This card is the target platform for the OFS release for Intel Stratix 10.                              |
   |
 
 
 
-### **1.3 Introduction to the Intel Open FPGA Stack**
+### **1.3 Introduction to the Open FPGA Stack**
 <a name="Intro_to_IOFS"></a>
 
-The Intel Open FPGA Stack (Intel OFS) is a modular collection of hardware
+The Open FPGA Stack (OFS) is a modular collection of hardware
 platform components, open source upstreamed software, and broad
-ecosystem support that enables an efficient path to develop a custom FPGA platform.  Intel OFS Provides a framework of FPGA synthesizable code, simulation environment and synthesis/simulation scripts. 
-The key components of Intel OFS include:
--   Target development platforms such as Intel-branded Programmable Acceleration Cards (PACs), Acceleration Development Platforms (ADPs) and third-pary platforms.
+ecosystem support that enables an efficient path to develop a custom FPGA platform.  OFS Provides a framework of FPGA synthesizable code, simulation environment and synthesis/simulation scripts. 
+The key components of OFS include:
+-   Target development platforms such as Intel-branded Programmable Acceleration Cards (PACs), Acceleration Development Platforms (ADPs) and third-party platforms.
 
 - Board Management Controller RTL and firmware that supports telemetry monitoring, remote configuration updates and most importantly a root of trust for the platform.
 
@@ -173,7 +160,7 @@ The key components of Intel OFS include:
 
 - AFU examples both in the git repository and workload examples provided by 3rd party vendors
 
-- The OpenCL shim provides a layer that is used by the OpenCL/OneAPI runtime to communicate with the kernel.
+- The OneAPI shim provides a layer that is used by the OpenCL/OneAPI runtime to communicate with the kernel.
 
 - Accelerator simulation through UVM
 
@@ -182,48 +169,41 @@ The key components of Intel OFS include:
 - Support for other frameworks to be built on top of the OPAE such as DPDK 
 
 
-**Figure 1-1 Intel OFS Ingredients**
 
-<img src="images/OFS_Stack.png" alt="drawing" style="width:350px">
 
-These components are available in a two GitHub* locations:
-<ul><li>Intel OFS hardware GitHub site</li>
-<li>Intel OPAE software GitHub site</li>
-</ul>
+<p>The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Intel Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Intel sales representative.</p>
 
-<p>The Intel OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board managment conroller RTL and firmware source code are also provided.  These repositories can be found in the Intel Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Intel sales representative.</p>
-
-**Table 1-2 Intel OFS GitHub Repositories** (<https://github.com/otcshare/>)
+**Table 1-2 OFS GitHub Repositories** (<https://github.com/OFS/>)
 
 | Repository| Contains                                                               |
 |:--------------------------:|------------------------------------------------------------------------|
-| intel-ofs-fim              | Contains FIM or shell RTL, automated compilation scripts, unit tests and UVM test framework.  |                                       |                       |
-| ofs-hld        | Contains the hardware and software components you need to develop your own OpenCL board support package    |
-| intel-fpga-bmc             | Provides the Intel OFS Board Management Controller RTL, firmware, scripts and collateral targeting the Intel FPGA PAC D5005 which can be leveraged for your own Intel OFS design.  |
-| intel-ofs-docs             | Intel OFS collateral for FPGA and software developers                       |
+| ofs-fim-common             | Contains common modules shared by all OFS designs.  This repository is a submodule of each platform repository.  | 
+| ofs-d5005             | Contains FIM or shell RTL design, automated compilation scripts, unit tests and UVM test framework.  |                                       |                       |                    |
 
 <p> The OPAE software GitHub site is fully opensource and contains resources for both software and workload developers.</p>
 
 
-**Table 1-3 OPAE Public Git Repository** (<https://github.com/OPAE/)>
+**Table 1-3 OPAE Public Git Repositories** (<https://github.com/OFS)>
 
   | OPAE Git Repository Folder |  Contains|
   |:-:|-------------------------------------|
+  | linux-dfl | Contains OFS Linux drivers that are being upstreamed to the Linux kernel. |
+   | linux-dfl-backport | Backport versions of the linux-dfl to older kernel versions. |
   |opae-sdk   |  Contains the files for building and installing OPAE SDK from source.|
- | linux-dfl | Contains OFS Linux drivers that are being upstreamed to the Linux kernel. |
- | ofs-platform-afu-bbb  |  Contains the files and scripts to build the platform interface manager.|
- | opae-libs  |   A set of OPAE C and Python API userspace libraries for managing FPGA resources and is part of OPAE SDK.|
- | opae-sim   | Contains the files for an AFU developer to build the Accelerator Funcitonal Unit Simulation Environment (ASE) for workload development.|
+ | opae-sim | Contains an AFU/Workload simulator for software/hardware co-simulation. |
+ | examples-afu  |  Contains simple AFU tutorials.||
 
- 
 Providing the hardware and software source code and supporting test
 frameworks in a GitHub repository allows you to easily customize your own
 designs with the latest versions.
 
-### **1.4 Intel OFS Features**
+
+Most hardware and software ingredients are available in our OFS GitHub location.  For access to the board management controller firmware and RTL or our security guide for OFS, please contact a local Intel sales representative. 
+
+### **1.4 OFS Features**
 <a name="IOFS_Features"></a>
 
-The Intel OFS architecture within the FPGA comprises two partitions:
+The OFS architecture within the FPGA comprises two partitions:
 
 -   FPGA Interface Manager (FIM)
 
@@ -237,7 +217,7 @@ The AFU partition is provided for custom acceleration workloads and may contain 
 
 #### **1.4.1 FPGA Interface Manager (FIM)**
 <a name="FIM"></a>
-The updated Intel OFS architecture for Intel Stratix 10 FPGA devices improves upon the modularity, configurability and scalability of the first release of the Intel OFS architecture while maintaining compatbility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are: 
+The updated OFS architecture for Intel Stratix 10 FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are: 
 
 * PCIe Subsystem
 * HSSI Subsystem
@@ -250,55 +230,48 @@ The updated Intel OFS architecture for Intel Stratix 10 FPGA devices improves up
 
 The AFU Region provides design space for custom workloads and contains both static and partial reconfiguration regions.  Partial reconfiguration allows you to update your specific logic blocks or entire workload while the rest of your static design is still in operation.
 
-Note that as discussed previously, the BMC RTL and firmware, the Intel OFS OPAE software stack and support for building your own customer board support package are also provided in separate Intel OFS repositories.
+Note that as discussed previously, the BMC RTL and firmware, the OFS OPAE software stack and support for building your own customer board support package are also provided in separate OFS repositories.
 
-**Figure 1-2 Intel OFS for Intel Stratix 10 Block Diagram**
+**Figure 1-2 OFS for Intel Stratix 10 Block Diagram**
 
 
 <img src="images/BaseShell.png" alt="drawing" style="width:500px">
 
-The table below compares the updates to the Intel OFS release targeting the Intel Stratix 10 FPGA to the original early access code repository release.
+The table below details the features of the OFS release targeting the Intel Stratix 10 FPGA .
 
 **Table 1-4 Features**
 <table>
     <thead>
         <tr>
             <th>Key Feature</th>
-            <th>Intel OFS EA</th>
-            <th>Intel OFS Update</th>
+            <th>OFS Update</th>
             <th>Comments</th>      
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>PCIe</td>
-            <td>H-tile PCIe* Gen3x16</td>
-            <td>Same</td>
-            <td>Added PCIe TLP adapter for new data mover packet format</td>
+            <td>H-tile PCIe Gen3x16 Interface</td>
+            <td>Integrates PCIe TLP adapter for new data mover packet format. MSI-X vector and PBA tables are located in the PCIe subsystem. Interrupts from  FME as well as four user interrupts coming from PF0.VF1 are supported.</td>
         </tr>
         <tr>
             <td>Memory</td>
-            <td>Up to 4 Avalon Memory Mapped channels of DDR4 (configured to 4x8GB, 72-bit per bank)
-</td>
             <td>Two Avalon Memory Mapped channels provided as default with capability to compile design with four channels support.</td>
             <td>-</td>
         </tr>
  <tr>
             <td>HSSI</td>
-            <td>1 Arm* AMBA* 4 AXI4-Stream channel of 10G Ethernet, using the low latency Etherenet 10G MAC Intel FPGA IP interfacing to an E-tile PHY.
+            <td>1 Arm* AMBA* 4 AXI4-Stream channel of 10G Ethernet, using the low latency Ethernet 10G MAC Intel FPGA IP interfacing to an E-tile PHY.
 </td>
-            <td>Same</td>
             <td>-</td>
         </tr>
  <tr>
-            <td>Mangeability</td>
+            <td>Manageability</td>
             <td>SPI interface to Board Management Controller targeting Intel FPGA PAC D5005</td>
-            <td>Same</td>
             <td>-</td>
         </tr>
 <tr>
             <td>CoreFIM</td>
-            <td>Limited configurability</td>
             <td>Flexible configuration support using Arm* AMBA* 4 AXI4-Stream Physical Function/Virtual Function (PF/VF) Demux/Mux and AFU Peripheral Fabric (APF) and Board Peripheral (BPF) Fabric Interconnects. 
 </td>
             <td>APF and BPF fabrics are Platform Designer generated IPs. The Arm* AMBA* 4 AXI4-Stream PF/VF Demux/Mux is a new component.
@@ -306,41 +279,33 @@ The table below compares the updates to the Intel OFS release targeting the Inte
         </tr>
        <tr>
             <td>Physical Function/Virtual</td>
-            <td>1 PF and 1 VF support only</td>
             <td>1 PF/3VF configuration is provided as an example but the architecture now supports full virtualization with the ability to expand to whatever the PCIe tile supports.</td>
             <td>-</td>
         </tr>
 <tr>
             <td>Partial Reconfiguration</td>
-            <td>1 Partial Reconfiguration region suppported in hardware and software</td>
-            <td>Same</td>
-            <td>Available Q4 2021</td>
+            <td>1 Partial Reconfiguration region supported in hardware and software</td>
+            <td>-</td>
         </tr>
 <tr>
             <td>Sample test PR AFUs</td>
-            <td>Various samples provided in ofs-examples folder.</td>
             <td>Host exerciser modules provided to exercise interfaces.  These modules are provided in both the flat and PR AFU examples.</td>
             <td>-</td>
         </tr>
 <tr>
-            <td>OpenCL</td>
+            <td>OneAPI</td>
             <td>Yes</td>
-            <td>Yes</td>
-            <td>Available Q4 2021</td>
+            <td>Available Q1 2023</td>
         </tr>
        <tr>
             <td>Software Support</td>
-            <td>OPAE software stack similar to what is provided with Intel FPGA PAC D5005.</td>
-            <td>Same, with added tools to support full virtualization.</td>
+            <td>OFS software stack with support for full virtualization.</td>
             <td>-</td>
         </tr>
      </tbody>
 </table>
 
 
-##### **Subsystem Interfaces**
-
-The PCIe, EMIF and HSSI interfaces in this design use the same components as was provided in our EA code line.  One exception is that MSI-X support and a new TLP Adapater have been added onto the PCIe subsystem.  Example MSI-X vector and PBA tables are located in the PCIe subsystem which currently support interrupts from  FME as well as four user interrupts coming from PF0.VF1.
 
 ##### **FPGA Management Engine (FME)**
 
@@ -363,7 +328,7 @@ without data abstraction. Memory-mapped I/O (MMIO) CSR accesses are routed to th
 
 ##### **Virtualization**
 
-This design supports virtualization by making use of the virualization functionality in the PCIe Hard IP and mapping packets to the appropriate physical or virtual function through a PF/VF multiplexer.  This reference FIM supports 1 PF and 3 VFs as an example; however, you may extend your configuration to whatever the PCIe Hard IP can support or what your application requires.
+This design supports virtualization by making use of the virtualization functionality in the PCIe Hard IP and mapping packets to the appropriate physical or virtual function through a PF/VF multiplexer.  This reference FIM supports 1 PF and 3 VFs as an example; however, you may extend your configuration to whatever the PCIe Hard IP can support or what your application requires.
 
 #### **1.4.2 AFU**
 <a name="afu"></a>
@@ -378,7 +343,6 @@ space.  The port is part of the FPGA Interface Unit (FIU) that resides in the FI
 You can compile your design in one of the following ways:
 * Your entire AFU resides in a partial reconfiguration region of the FPGA 
 * The AFU is part of the static region and is compiled a flat design
-* Your AFU contains both static and PR regions.
 
 In this design, PF0.VF1 and PF0.VF2 map to host exerciser modules (HEM) that map to HE-LB and HE-HSSI respectively.  
 
@@ -420,17 +384,17 @@ traversing the DFH registers.
 <img src="images/DFH-traversal.png" alt="drawing" style="width:350px">
 
 
-#### **1.4.5 Intel OFS Reference Design**
+#### **1.4.5 OFS Reference Design**
 <a name="iofs_ref_design"></a>
-Intel OFS provides FIM designs you can use as a starting point for your
+OFS provides FIM designs you can use as a starting point for your
 own custom design. These designs target a specific programmable
 acceleration card or development kit and exercise key FPGA device
-interfaces. The Intel Stratix<sup>&reg;</sup> 10 code line for Intel OFS targets the Intel FPGA PAC D5005.  FIM designs are released to
-<https://github.com/otcshare/intel-ofs-fim> for evaluation and use.  
+interfaces. The Intel Stratix<sup>&reg;</sup> 10 code line for OFS targets the Intel FPGA PAC D5005.  FIM designs are released to
+<https://github.com/OFS/ofs-d5005> for evaluation and use.  
 
 #### **1.4.6 FIM Simulation**
 <a name="fim_sim"></a>
-Intel OFS provides a UVM environment for
+OFS provides a UVM environment for
 the FIM and a framework for new feature verification. UVM provides a
 modular, reusable, and scalable testbench structure by providing an API
 framework that can be deployed across multiple projects. The FIM
@@ -446,36 +410,36 @@ include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found here <https://github.com/otcshare/intel-ofs-fim/tree/master/verification> for evaluation and use. 
+The verification infrastructure can be in the verification folder here <https://github.com/OFS/ofs-d5005> for evaluation and use. 
 
 
 
 
-## **2 Intel OFS High Level Architecture**
+## **2 OFS High Level Architecture**
 <a name="high_level_arch"></a>
 
-Intel OFS provides distinct datapaths that simplifies the design and integration process for add or for removing interface modules:
+OFS provides distinct datapaths that simplifies the design and integration process for add or for removing interface modules:
 
 * **High Bandwidth datapath** for AFU-attached high performance peripherals (HSSI, Memory, HPS, workload).
-* **Low Bandwidth datapath** for Intel OFS management and slow peripheral components (JTAG, I2C, SMBus).
+* **Low Bandwidth datapath** for OFS management and slow peripheral components (JTAG, I2C, SMBus).
 * **AFU Peripheral Fabric (APF) to Board Peripheral Fabric (BPF) path** to communicate with interface control and status registers (CSRs) and board components.
 * **Peer-to-peer datapath** between AFU components.
 * **Peer-to-peer datapath** between BPF components.
 
 Depending on your design goals, you can present peripherals to software as:
 
-* Intel OFS managed peripherals with a device feature header that is part of a device feature list.
+* OFS managed peripherals with a device feature header that is part of a device feature list.
 * Native driver managed peripherals that are exposed through an independent physical function or virtual function.
 
-**Figure 2-1 Intel OFS Datapath Structure**
+**Figure 2-1 OFS Datapath Structure**
 <img src="images/OFS-Datapaths.PNG" alt="drawing" style="width:350px">
 
 
 ## **3 PCIe Interface**
 <a name="pcie"></a>
-The FIM's H-tile PCIe* hard IP is a Gen3x16 design.  The IP supports SR-IOV and is configured to provide one PF and three VFs.  Native PCIe TLP packets are sent through the PCIe using Arm AMBA 4 AXI-4 Stream Protocol.  Before they reach the AFU, however, the packets go through an adapter that converts any headers to a data mover format that is forward compatible with Intel Agilex FPGA devices and beyond.  This adapter was added to the proven subsystem design that was established in the early access Intel OFS release.  
+The FIM's H-tile PCIe* hard IP is a Gen3x16 design.  The IP supports SR-IOV and is configured to provide one PF and three VFs.  Native PCIe TLP packets are sent through the PCIe using Arm AMBA 4 AXI-4 Stream Protocol.  Before they reach the AFU, however, the packets go through an adapter that converts any headers to a data mover format that is forward compatible with Intel Agilex FPGA devices and beyond.   
 
-**Figure 3-1 Intel OFS FIM RX-TX Datapath**
+**Figure 3-1 OFS FIM RX-TX Datapath**
 
 <img src="images/IOFS_TX-RX-Datpath.png" alt="drawing" style="width:350px">
 
@@ -486,7 +450,7 @@ Some key features of the PCIe interface are:
 <thead>
 <tr>
 <th align="center">Feature</th>
-<th align="center">Intel OFS for Intel Stratix 10 Configuration</th>	
+<th align="center">OFS for Intel Stratix 10 Configuration</th>	
 </tr>
 </thead>
 <tbody><tr><td>Mode</td>	
@@ -565,11 +529,11 @@ The Arm AMBA 4 AXI4 interfaces to the AFU use the `VALID` and `READY` signal for
 ### **3.4 Arm AMBA 4 AXI4-Stream Interface**
 <a name="axis-interface"></a>
 
-   The table below shows the high-level signal mapping of the channels for the Intel OFS for Intel Stratix 10 FPGA.  If you have previously used the Intel OFS EA architecture, that mapping is provided as a comparison as well in this table.  
+   The table below shows the high-level signal mapping of the channels for the OFS for Intel Stratix 10 FPGA.  If you have previously used the OFS EA architecture, that mapping is provided as a comparison as well in this table.  
 
 **Table 3-1 AXI4-Stream RX Channel**
 
-|AXI4-Stream Signal  |Source  |Intel OFS Stratix 10 Mapping  |Intel OFS Early Access Mapping |
+|AXI4-Stream Signal  |Source  |OFS Stratix 10 Mapping  |OFS Early Access Mapping |
 |:--:|--------------|--------------------|------------------|
 |ACLK     | Clock Source | PCLK = 250 MHz |  PCLK = 250 MHz|
 |AResetn  | Reset Source | System Reset  | System Reset |
@@ -577,7 +541,7 @@ The Arm AMBA 4 AXI4 interfaces to the AFU use the `VALID` and `READY` signal for
 |TREADY   | Slave        | Ready        | Ready        |
 |TDATA    | Master| Width=512 bits<br> <b>When packet includes a header (32 bytes) and data the packing scheme is:</b><br> <b>16B data mover header:</b><br> 4B prefix <br>PF Number<br>VM Number<br> VF Active<br> Slot Number<br> Memory Mapped Number<br>8B Address/Metadata<br> <b>Data:</b> 32B <br><b>If the packet is only data then all 64 bytes comprise data      | [TLP_CH] [8n] <br> n=49 (392 bits)<br>TLP_CH=2 (2TLP data streams)<br>Mapping of each TLP data stream<br> [391:136] payload (32-byte data payload)<br> [135:8]: hdr (16 byte header) <br>[7:3]: rsvd0 (reserved bits)<br>[2]: end of packet (eop) <br> [1]: start of packet (sop) <br> [0]: valid (TLP packet on data stream is valid)   
 |TLAST    | Master     | Set to 1'b1 when end of packet is sent; otherwise TLAST is 1'b0   |  Set to 1'b1 when end of packet is sent; otherwise TLAST is 1'b0 |
-|TKEEP    |Byte Qualifier | Signal indicates whetehr content of the associated byte is valid.  Invalid bytes are allowed only during TLAST cycle.  Valid bytes always start from Byte 0. |  Signal indicates whetehr content of the associated byte is valid.  Invalid bytes are allowed only during TLAST cycle.  Valid bytes always start from Byte 0.|
+|TKEEP    |Byte Qualifier | Signal indicates whether content of the associated byte is valid.  Invalid bytes are allowed only during TLAST cycle.  Valid bytes always start from Byte 0. |  Signal indicates whether content of the associated byte is valid.  Invalid bytes are allowed only during TLAST cycle.  Valid bytes always start from Byte 0.|
 |TUSER |Master |WIDTH = 10 <br> Bit 0 is always equal to 1'b1 to indicate data mover header format<br> [4:1] - Indicates header position on the TDATA bus and is always equal to 4'b0001 indicating that the header starts from Byte0.<br>All other bits of TUSER are unused.      | [TLP_CH][u-1:0]<br> u=21 <br>Sideband of each TLP data stream<br>[20]: ummio_rd (Unsupported MMIO request)<br>[19:0]: destination routing ID, where:<br>[19:17]= BAR offset[2:0]<br>[16:4]=VF number[12:0]<br>[3:1]=PF number[2:0]<br>[0]=vf_active, indicating if the virtual function feature is enabled |
 
 **Figure 3-3 AXI4-Stream RX Request Cycle Header Format**
@@ -610,7 +574,7 @@ Note that:
 
 **Table 3-2 AXI4-Stream TX Channel**
 
-|AXI4-Stream Signal  |Source  |Intel OFS Stratix 10 Mapping  |Intel OFS Early Access Mapping |
+|AXI4-Stream Signal  |Source  |OFS Stratix 10 Mapping  |OFS Early Access Mapping |
 |:--:|--------------|--------------------|-------------|
 |ACLK     | Clock Source | PCLK = 250 MHz | PCLK = 250 MHz |
 |AResetn  | Reset Source | System Reset  | System Reset  |
@@ -683,7 +647,7 @@ The AFU Interface Handler resides inline between the PCIe AXI4-Stream Adapter an
 ### **5.1 AFU Error Handling**
 <a name="afu_error_handling"></a>
 
-In this Intel OFS design, the AFU Interface Handler handles error logging for all VFs in the AFU. Errors handled are as follows
+In this OFS design, the AFU Interface Handler handles error logging for all VFs in the AFU. Errors handled are as follows
 
 <table>
     <thead> 
@@ -732,12 +696,12 @@ In this Intel OFS design, the AFU Interface Handler handles error logging for al
     </tbody>
 </table>
 
-To view the CSR space for the AFU interface handle, go [here](https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/src/fims/d5005/afu/AFU_INTF_CSR.xls).
+To view the CSR space for the AFU interface handle, go to the src/afu_top/AFU_INTF_CSR.xls file [here](https://github.com/OFS/ofs-d5005).
 
 ## **6 Interconnect Fabric**
 <a name="interconnect"></a>
 
-There are three types of interconnect fabric in the Intel OFS FIM design:
+There are three types of interconnect fabric in the OFS FIM design:
  * AXI4-Stream mux/demux fabric
  * AFU Periheral Fabric (APF)
  * Board Peripheral Fabric (BPF)
@@ -748,7 +712,7 @@ There are three types of interconnect fabric in the Intel OFS FIM design:
 
 TLP packets sent from upstream PCIe Subsystem on AXI4-Stream channel are demultiplexed in the AXI4-Stream PF/VF mux/demux fabric and routed to the respective PF/VF function based on the PF/VF information in the TLP header, such as vf_active or the PF/VF number. On the opposite direction, TLP packets from downstream PF/VF function are muxed in the fabric and sent to PCIe subsystem over AXI4-Stream channel.
 
-All host MMIO requests targeting PF0 BAR0 are routed to the ST2MM module. The ST2MM converts MMIO TLP packets into AXI-Lite memory requests and places the requests onto AFU Peripheral Fabric (APF). AFU peripherals, such as Intel OFS managed AFU features and ST2MM) and Board Peripheral Fabric (BPF) are interconnected by APF. The BPF is the interconnect fabric one hiearchy below APF which connects all the board peripherals. Both APF and BPF allow multiple AXI4-Lite master and slave interconnect topology.
+All host MMIO requests targeting PF0 BAR0 are routed to the ST2MM module. The ST2MM converts MMIO TLP packets into AXI-Lite memory requests and places the requests onto AFU Peripheral Fabric (APF). AFU peripherals, such as OFS managed AFU features and ST2MM) and Board Peripheral Fabric (BPF) are interconnected by APF. The BPF is the interconnect fabric one hiearchy below APF which connects all the board peripherals. Both APF and BPF allow multiple AXI4-Lite master and slave interconnect topology.
 
 
 The following table summarizes the mechanism for configuring PF/VF functions:
@@ -783,7 +747,7 @@ You have two options to generate APF/BPF IPs.
 
 * Use Quartus Platform Designer.  This method requires familiarity with Quartus Platform Designer.  With this option, you manually enter each address space and define the associated master and slave interface in a table provided by the Platform Designer.  The parameters and attributes such as data width, address width, number of outstanding cycles, … etc. are also set to the desired values.  After this is completed, you then connect each master and slave interface in the table.  Platform Designer then generates the RTL files according to the table.  For more details, please refer to the [Intel Quartus Prime Pro Edition User Guide](https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/ug/ug-qpp-platform-designer.pdf).
 
-* Use the APF/BPF script that reads in `iofs_dfl.txt` and automatically generates APF/BPF IPs.  Both APF and BPF are generated from Platform Designer using hardware TCL scripts. To provide a more user friendly experience to Intel OFS Rel 1 and AC ADP customers, a perl script `dfh2tcl.pl` has been developed to provide a higher level of abstraction.
+* Use the APF/BPF script that reads in `iofs_dfl.txt` and automatically generates APF/BPF IPs.  Both APF and BPF are generated from Platform Designer using hardware TCL scripts. To provide a more user friendly experience to OFS Rel 1 and AC ADP customers, a perl script `dfh2tcl.pl` has been developed to provide a higher level of abstraction.
 The below figure illustrates the high level flow:
 
  **Figure 6-2 APF/BPF Generation**
@@ -882,11 +846,11 @@ The AXI4-Stream PF/VF Mux/Demux routes the PCIe TLP packets from the PCIe subsyt
 The AXI4-Stream PF/VF mux arbitrates PCIe TLP packets from downstream PF/VF to the PCIe SS AXI-S TX channel.
 The PF/VF Mux/Demux is an M x N switch that allows any M port to target any N port, and any N port to target any M port, where M is the number of host/upstream ports, and N is the numbers functions/downstream ports.  M and N values are parameterized in the RTL for adding, removing, or remapping of FPGA functional units/modules to PF/VF.  
 
-The fpga top package file, https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/src/includes/top_cfg_pkg.sv,  contains these parameters as well as the mapping of N port’s PF/VF.
+The fpga top package file, found in the src/includes/ofs_fim_cfg_pkg.sv file [here](https://github.com/OFS/ofs-d5005)  contains these parameters as well as the mapping of N port’s PF/VF.
 
 Structurally, M x N switch is composed of M number of N:1 mux, and N number of M:1 mux.  Each mux output has an arbiter that perform round robin priority arbitration of its inputs.  At the mux output is a FIFO with depth greater than the handshake round trip delay.  The FIFO allows the switch to arbitrarily insert pipeline/register stages for timing.
 
-Note that M x N switch is design for AXI streaming, but it can be easily converted to AVST.  The protocol signals pass through switch intact – only ready, valid, and last (common between AVST and AXI) effect switch operation.  The data width of the switch is also parameterized in the top package file (https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/src/includes/top_cfg_pkg.sv).  
+Note that M x N switch is design for AXI streaming, but it can be easily converted to AVST.  The protocol signals pass through switch intact – only ready, valid, and last (common between AVST and AXI) effect switch operation.  The data width of the switch is also parameterized in the src/includes/ofs_fim_cfg_pkg.sv file [here](https://github.com/OFS/ofs-d5005).  
 
 The default mapping is shown below:
 
@@ -904,14 +868,14 @@ The default mapping is shown below:
 </tbody>
 </table>
 
-For information on how to modify the PF/VF mapping for your own design, refer to the Intel OFS FIM Developer Guide. https://github.com/otcshare/intel-ofs-docs/tree/master/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md
+For information on how to modify the PF/VF mapping for your own design, refer to the [OFS FIM Developer Guide](https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md).
 
 ### **6.6 Unified Tag Remapping**
 <a name="tag_remap"></a>
 
 When a FPGA function sends out a read cycle, it allocates a unique tag which is subsequently used to identify the read completion.  The tag is considered busy; it cannot be assigned to another read cycle until read completion.  While a tag may be unique within a unit, two different units could unknowingly send out two read cycles of the same tag.  The PCIe subsystem requires unique tags for all read cycles irrespective of their origins.  Therefore, a mechanism is needed to uniquify tag globally across different units.
 
-Intel OFS contains a tag remapper (tag_remap) that intercepts the read cycle, finds a globally unique tag, and replaces the original tag value.  It also restores the original tag value when returning completion to the read requester.  tag_remap is placed between the AXI4-Stream interface of the PCIE subsystem and the PF/VF Mux/Demux.
+OFS contains a tag remapper (tag_remap) that intercepts the read cycle, finds a globally unique tag, and replaces the original tag value.  It also restores the original tag value when returning completion to the read requester.  tag_remap is placed between the AXI4-Stream interface of the PCIE subsystem and the PF/VF Mux/Demux.
 
 The logic is described as follows:
 
@@ -950,7 +914,7 @@ The FIM and AFU expose their functionalities to the host software through a set 
 ### **7.1 Base Address Register (BAR) Layout**
 <a name="BAR_layout"></a>
 
-The function, BAR and external feature region starting address are put into a platform specific parameter SystemVerilog package file https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/src/fims/d5005/includes/ofs_fim_cfg_pkg.sv. 
+The function, BAR and external feature region starting address are put into a platform specific parameter SystemVerilog package file src/includes/ofs_fim_cfg_pkg.sv file [here](https://github.com/OFS/ofs-d5005).  
 You can modify the parameterization according to your platform requirements, however you must ensure the corresponding software driver is also updated to align with the new assignment. 
 
 **Table 7-1 BAR Layouts**
@@ -968,7 +932,7 @@ You can modify the parameterization according to your platform requirements, how
         <tr>
             <td rowspan=5>PF0</td>
             <td rowspan=2>-</td>
-            <td>Intel OFS Managed Peripherals</td>
+            <td>OFS Managed Peripherals</td>
             <td rowspan="2">BAR 0</td>
             <td>512K</td>
         </tr>
@@ -1000,7 +964,7 @@ You can modify the parameterization according to your platform requirements, how
 ### **7.2 Feature Region**
 <a name="feature_region"></a>
 A group of related CSRs can be categorized as a feature region. For example, a DMA engine has queue management function and quality of service (QoS) function; these are two different features of the DMA engine. A feature region is contained within a single PCIe BAR and cannot span across two BAR region boundaries. 
- You can view the PF0 BAR0 MMIO mapping by referencing the [fme_csr_pkg.sv](https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/src/fme/fme_csr_pkg.sv) file.
+ You can view the PF0 BAR0 MMIO mapping by referencing thesrc/common/fme/fme_csr_pkg.sv file [here](https://github.com/OFS/ofs-fim-common) file.
 
 
 A Device Feature Header (DFH) register marks the start of the feature region and sub-feature region, and you must place it at the first address of the region. Each DFH starts at 4KB boundary. A DFH register contains information that OPAE software requires to enumerate the feature. It also has an offset field that points to the next DFH in a feature list. OPAE software traverses the linked list of DFHs in each BAR region to discover all the features implemented on the platform. The `EOL` field in a DFH marks the end of a DFH list and is only set in the DFH of the last feature in the feature list. The feature type field in the DFH is used to differentiate between the different types of feature region. Basic building blocks (BBB) and private features are always a child of an AFU or FPGA Interface Unit (FIU) and must be contained within an AFU or FIU, respectively.  
@@ -1057,7 +1021,7 @@ In the following two cases, the FIM terminates MMIO Read requests by sending a c
 #### **7.3.2	Register Attribute Definition**
 <a name="reg_attribute_def"></a>
 
-**Table 7-4: Intel OFS Register Attribute Definitions**
+**Table 7-4: OFS Register Attribute Definitions**
 
 |Attribute|	Expansion| Description|
 |:-----------:|:-----------:|-----------------------------|
@@ -1128,7 +1092,7 @@ The table below captures the FIM and AFU features in the supported BAR regions. 
 
 ## **8 FIM Clocks**
 <a name="clocks"></a>
-The following table provides the clocks available in the Intel OFS reference design that targets the Intel FPGA PAC D5005.  Clocks that the high speed serial interface (HSSI) or external memory interface provide to the FIM may be different depending on if you modify your external features with different components.  The system I/O PLL IP can be found at https://github.com/otcshare/intel-ofs-fim/tree/master/bbs/design/clock/stratix10/pac_d5005 in the repository.
+The following table provides the clocks available in the OFS reference design that targets the Intel FPGA PAC D5005.  Clocks that the high speed serial interface (HSSI) or external memory interface provide to the FIM may be different depending on if you modify your external features with different components.
 
 **Table 8-1: External Clock Source**
 
@@ -1162,7 +1126,7 @@ The following table provides the clocks available in the Intel OFS reference des
 ### **9.1	Reset Signals**
 <a name="reset_signals"></a>
 
-The system reset of Intel OFS reference platform is driven by `nPERST` pin, `pcie_reset_status` signal from the PCIe hard IP, the `INIT_DONE` and `nCONFIG` pins of the FPGA, and the locked signal of the SYS IOPLL that provides system clocks to FIM.  
+The system reset of OFS reference platform is driven by `nPERST` pin, `pcie_reset_status` signal from the PCIe hard IP, the `INIT_DONE` and `nCONFIG` pins of the FPGA, and the locked signal of the SYS IOPLL that provides system clocks to FIM.  
 
 Upon power-on, the reset module in the FIM holds the FIM in reset until all the reset conditions are de-activated:
 
@@ -1204,7 +1168,7 @@ Once the platform is successfully enumerated, driver can then be loaded to start
 ## **10 Interrupts**
 <a name="interrupts"></a>
 
-The Intel OFS platform supports interrupt through MSI-X feature. The Intel OFS reference platform supports at least 4 FME interrupts (PF only) and 4 AFU interrupts (PF and VF). 
+The OFS platform supports interrupt through MSI-X feature. The OFS reference platform supports at least 4 FME interrupts (PF only) and 4 AFU interrupts (PF and VF). 
 
 
 ### **10.1 MSI-X**
@@ -1234,7 +1198,7 @@ VF supports 5 interrupt vectors:
 ## **11 External Memory Interface (EMIF)**
 <a name="emif"></a>
 
-There are four DDR4 external memory interfaces on the Intel OFS EA FIM that targets the Intel FPGA PAC D5005 FIM for each of the four DDR4 banks (DDR4a, DDR4b, DDR4c, and DDR4d).
+There are four DDR4 external memory interfaces on the OFS EA FIM that targets the Intel FPGA PAC D5005 FIM for each of the four DDR4 banks (DDR4a, DDR4b, DDR4c, and DDR4d).
 Two of the DDR4 external memory interfaces and the associated clocks are directly exposed to AFU except for two Avalon Memory Mapped pipeline bridges to facilitate timing closure across PR boundary. The Avalon Memory Mapped interfaces of each external memory interface are connected to an Avalon-MM pipeline bridge (avmm_bridge) in the FIM, which is then connected to another Avalon-MM pipeline bridge in the PR or AFU region. 
 An AFU should use the USER_CLK associated with a memory interface when interfacing with the memory interface for better timing performance.
 
@@ -1371,11 +1335,11 @@ Avalon Memory-Mapped is the native interface protocol used by Intel EMIF IP. AFU
 
 The high speed serial interface (HSSI) subsystem architecture provides portability to different Ethernet configurations across platforms and generations and reusability of the hardware framework and software stack. This reference FIM contains the Low Latency Ethernet 10G MAC IP and provides a Linux driver that can be leveraged for customization. 
 
-The HSSI design is leveraged from our Intel OFS EA release so prior customers can easily maintain compatibility with past designs.
+The HSSI design is leveraged from our OFS EA release so prior customers can easily maintain compatibility with past designs.
 
 A host exerciser, named he-hssi, is provided in the pr_slot of the AFU partition. The Ethernet interface to the AFU has an AXI4-Stream data and sideband interface. The HSSI control and status registers in the FIM are accessible by the AXI4-Stream memory mapped interface. 
 
-### **12.2 Intel OFS HSSI Subsystem Interfaces**
+### **12.2 OFS HSSI Subsystem Interfaces**
 <a name="hssi_subsystem_intf"></a>
 
 #### **12.2.1 HSSI Subsystem FIM Interfaces**
@@ -1440,26 +1404,26 @@ The HSSI subsystem provides the following interfaces to the AFU region:
 3.	AXI4-Stream Ethernet Sideband Interface (from FIM)
 4.	Ethernet Clock Interface (eth_clock) (from FIM)
 
-The he-hssi uses the APF interface for HSSI CSR (MMIO) accesses. The AXI4-Stream Ethernet data and side band interface along with Ethernet clocks communicate directly to the he-hssi module in the AFU region through platform independent data structures provided by the PIM.  Even if you implement a different MAC you typically can leverage these data structures defined in https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/ipss/d5005/eth/inc/ofs_fim_eth_avst_if.sv without modification.
+The he-hssi uses the APF interface for HSSI CSR (MMIO) accesses. The AXI4-Stream Ethernet data and side band interface along with Ethernet clocks communicate directly to the he-hssi module in the AFU region through platform independent data structures provided by the PIM.  Even if you implement a different MAC you typically can leverage these data structures defined in the hssi/inc/ofs_fim_eth_avst_if.sv file [here](https://github.com/OFS/ofs-d5005) without modification.
 
-While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/ipss/d5005/eth/s10/includes/ofs_fim_eth_plat_if_pkg.sv. Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.
+While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file h[here](https://github.com/OFS/ofs-d500). Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.
 
 ####  **12.2.3 HSSI Sideband Interface**
 <a name="hssi_sideband_intf"></a>
 
 The AXI4-Stream sideband interface has been been defined to allow for time sensitive status and flow control information. It does not have the optional `tready` signal and assumes the slave always accepts  information. 
-The Ethernet sideband interface varies widely across IPs and operating modes and device generations. In Intel OFS Stratix 10 FIM, the Ethernet sideband signals are mapped to the AXI4-Stream interface and interface variations can be accommodated by customizing the `tdata` signals of the sideband interface in platform specific interface packages using the PIM. 
+The Ethernet sideband interface varies widely across IPs and operating modes and device generations. In OFS Stratix 10 FIM, the Ethernet sideband signals are mapped to the AXI4-Stream interface and interface variations can be accommodated by customizing the `tdata` signals of the sideband interface in platform specific interface packages using the PIM. 
 
-As an example, please refer to ofs_fim_eth_sideband_tx_axis_if interface in [ofs_fim_eth_if.sv](https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/ipss/d5005/eth/inc/ofs_fim_eth_if.sv).
+As an example, please refer to ofs_fim_eth_sideband_tx_axis_if interface in the ipss/hssi/inc/ofs_fim_eth_if.sv found [here](https://github.com/OFS/ofs-d500).
 
-The t_axis_eth_sideband_tx and t_axis_eth_sideband_rx structures are found in [ofs_fim_eth_if_pkg.sv](https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/ipss/d5005/eth/inc/ofs_fim_eth_if_pkg.sv).
+The t_axis_eth_sideband_tx and t_axis_eth_sideband_rx structures are found in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file [here](https://github.com/OFS/ofs-d5005).
 
-Platform specific details for the 10GbE example are from [ofs_fim_eth_plat_if_pkg.sv](https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/ipss/d5005/eth/s10/includes/ofs_fim_eth_plat_if_pkg.sv)
+Platform specific details for the 10GbE example are from the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file [here](https://github.com/OFS/ofs-d5005).
  
 #### **12.2.4 Reconfiguration Interfaces**
 <a name="hssi_reconfig_intf"></a>
 
-The reconfiguration interface in the Intel OFS EA design consists of abstracted and consolidated memory-mapped transceiver reconfiguration interfaces that are exposed to the HSSI CSRs. The reconfiguration interface directly exposes the address space of the MAC and PHY IPs in order to allow a software driver to perform dynamic reconfiguration of those IPs (i.e. read/write access to the Native PHY CSRs). Therefore, to use this interface you must be familiar with the CSR memory maps of the corresponding Intel IP cores. 
+The reconfiguration interface in the OFS EA design consists of abstracted and consolidated memory-mapped transceiver reconfiguration interfaces that are exposed to the HSSI CSRs. The reconfiguration interface directly exposes the address space of the MAC and PHY IPs in order to allow a software driver to perform dynamic reconfiguration of those IPs (i.e. read/write access to the Native PHY CSRs). Therefore, to use this interface you must be familiar with the CSR memory maps of the corresponding Intel IP cores. 
  
 The table below summarizes all the ports associated with Reconfiguration Interfaces. 
   
@@ -1537,14 +1501,14 @@ Example: If Num_CSR_interface=2 & Num_channels_CSR_interface=2 then channel(0,1)
 HSSI_CTRL, HSSI_STATUS0, HSSI_STATUS1 provide control and status information and can scale upto 8 channels. 
 HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers are for the reconfiguration interface,  and additional mailbox registers could be added depending on the number of CSR interfaces the design exposes. 
 
-The HSSI CSR Map can be found [here](https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/ipss/d5005/eth/s10/hssi_ss_csr.xls).
+The HSSI CSR Map can be found in the ipss/hssi/s10/hssi_ss_csr.xls file [here](https://github.com/OFS/ofs-d5005).
 
 #### **12.2.6 HSSI Host Exercisier (HE-HSSI)**
 <a name="hssi_eth_afu"></a>
 
  HE-HSSI is an Ethernet AFU that handles client side ethernet traffic. The reference HE-HSSI has following features:
 
-* HE-HSSI wraps the 10G Ethernet AFU that was provided in the Intel OFS EA FIM with a wrapper that provides an E-tile compatible interface with Intel OFS for Intel Stratix 10 and Intel Agilex FPGAs.
+* HE-HSSI wraps the 10G Ethernet AFU that was provided in the OFS EA FIM with a wrapper that provides an E-tile compatible interface with OFS for Intel Stratix 10 and Intel Agilex FPGAs.
 * Includes 10GbE traffic generator and checker (monitor)
 * Provides pause signals to the HSSI subsystem for XON and XOFF generation
 * It can generate traffic or incoming traffic that can be looped back into transmit path by enabling loopback mode, which will bypass traffic generator
@@ -1581,7 +1545,7 @@ The HE-HSSI Ethernet block diagram is below.
 The reference HSSI AFU contains the following registers and a similar arrangement of register space can be implemented for other usecase specific HSSI AFUs.
 * AFU DFH Register: Device feature header for the AFU (AFU_DFH)
 * AFU ID Registers: 128-bit UUID for the AFU which occupies two 64-bit registers (AFU_ID_L, AFU_ID_H)
-* Mailbox Registers: Command and Data register for traffic controller register access. It follows the standard access method defined for Intel OFS. Access method and implementation is same as Reconfiguration Interface defined for the HSSI FIM. (TRAFFIC_CTRL_CMD, TRAFFIC_CTRL_DATA)
+* Mailbox Registers: Command and Data register for traffic controller register access. It follows the standard access method defined for OFS. Access method and implementation is same as Reconfiguration Interface defined for the HSSI FIM. (TRAFFIC_CTRL_CMD, TRAFFIC_CTRL_DATA)
 * Channel Select Register: Channel select register for traffic controller mailbox access. It is used in cases where more than one channel is in the AFU, else it defaults to zero, meaning channel-0 is selected. (TRAFFIC_CTRL_PORT_SEL)
 * Scratchpad Register: Scratchpad register for CSR access checking. (AFU_SCRATCHPAD) 
 
@@ -1617,7 +1581,7 @@ The HSSI user space application exports a control interface to the HSSI AFU's pa
 ### **12.4 User Guidelines**
 <a name="hssi_user_guidelines"></a>
 
-You can either leverage Ethernet example designs from platform designer or use your own custom IP’s. However below recommendations would help leverage the infrastructure of the Intel OFS stack:
+You can either leverage Ethernet example designs from platform designer or use your own custom IP’s. However below recommendations would help leverage the infrastructure of the OFS stack:
 * Follow the Ethernet-GBS interface standard, customize platform specific sideband and clock intefaces.
 * Follow the reconfiguration interface example and reuse the hssi_csr block by modifying the memory map (change address decoder map accordingly as well.)
 
@@ -1646,7 +1610,7 @@ The isolation logic is provided on the output signals of the PR region to ensure
 2. Upstream software or PCIe link checker: Identifies invalid traffic from PCIe that violates either FIM specifications or PCIe specifications. For example, this checker flags an application sending traffic if it violates the FIM specification or creates a PCIe link issue by causing completion timeout or malformed TLP. 
 3. FIM - Checks for bugs in the FIM fabric.
 
-Errors reported by the checker are logged in either the FME error registers or Port error registers, or both, as shown in the table below.  For more details on each of the registers, please refer to https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/bbs/csr/stratix10/pac_d5005/s10_iofs_csr_map_update_fme_ral_.xls or the SystemVerilog file: https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/src/fme/fme_csr.sv.
+Errors reported by the checker are logged in either the FME error registers or Port error registers, or both, as shown in the table below.  For more details on each of the registers, please refer to src/common/protocol_checker/protocol_checker_csr.xml file [here] https://github.com/OFS/ofs-fim-common or the SystemVerilog file src/common/fme/xls/d5005/FME_CSR.xls found [here](https://github.com/OFS/ofs-fim-common).
 
 
 **Table 14-1: Error Registers**
@@ -1689,12 +1653,12 @@ The FME_ERROR0 register flags CoreFIM FME errors in the Global Error (GLBL_ERROR
 <a name="pcie-error0"></a>
 The PCIe Avalon-ST to AXI4-Stream bridge monitors the PCIe link for errors and logs any such errors in the PCIE0_ERROR register (in PCIE0 feature region) and PCIE0_ERROR register in the GLBL_ERR private feature.    The error bits in the PCIE0_ERROR register are sticky bits that you can only clear through software or through a system reset. Writing a 1 to the error field in the register clears the corresponding error bit. Writing a 1 to the corresponding bit in PCIE0_ERROR0_MASK masks the error.  
 
-If you have other external FME features, you can add similar <external_module>_ERROR registers to this space. Please refer to the following spreadsheet: https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/bbs/csr/stratix10/pac_d5005/fme_csr_pcie.xls or the SystemVerilog file: https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/src/fme/fme_csr.sv for more details on this register. 
+If you have other external FME features, you can add similar <external_module>_ERROR registers to this space. Please refer to the following spreadsheet: https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/bbs/csr/stratix10/pac_d5005/fme_csr_pcie.xls or the SystemVerilog file the SystemVerilog file src/common/fme/xls/d5005/FME_CSR.xls found [here](https://github.com/OFS/ofs-fim-common) for more details on this register. 
 
 ---
 **NOTE**
 
-The PCIE0_ERROR register is located in both the Global Error external feature memory space and a separate PCIe external feature memory space.  OPAE software supports the PCIe external feature memory space beginning at offset 0x40000 for Intel OFS EA and going forward.  PCIe registers beginning at 0x4000 in the Global Error external feature memory space is there for backward compatibility to the Intel FPGA PAC D5005 v2.0.1 Acceleration Stack.
+The PCIE0_ERROR register is located in both the Global Error external feature memory space and a separate PCIe external feature memory space.  OPAE software supports the PCIe external feature memory space beginning at offset 0x40000 for OFS EA and going forward.  PCIe registers beginning at 0x4000 in the Global Error external feature memory space is there for backward compatibility to the Intel FPGA PAC D5005 v2.0.1 Acceleration Stack.
 
 ---
 
@@ -1768,7 +1732,7 @@ The FIM is designed to gracefully handle MMIO request scenarios.
 
 #### **14.2.1 Unsupported Functions and BARs**
 <a name="unsupport-func-bar"></a>
-The Intel OFS FIM EA has only one PCIe link and all MMIO requests from the host are sent through this link. The PCIe hard IP in the FIM guarantees that only TLP packets for the functions and BARs supported by the FIM (as configured in PCIe HIP IP instantiation) are sent to the FIM on the PCIe Avalon Streaming interface.
+The OFS FIM EA has only one PCIe link and all MMIO requests from the host are sent through this link. The PCIe hard IP in the FIM guarantees that only TLP packets for the functions and BARs supported by the FIM (as configured in PCIe HIP IP instantiation) are sent to the FIM on the PCIe Avalon Streaming interface.
 
 #### **14.2.2	MMIO Request Decoding**
 <a name="mmio-req-decoding"></a>
@@ -1793,28 +1757,12 @@ An AFU MMIO Response timeout functions in the same manner described in the [MMIO
 
 
 
-## **15 Intel OFS Design Hierarchy**
-<a name="Intel OFS-design"></a>
-
-Files for design, build and unit test simulation are found at https://github.com/otcshare/intel-ofs-fim.  This repository folder holds the following directories:
-
-**Table 15-1: Design Hierarchy**
-
-|File Path  |Description  |
-|---------|---------|
-|ipss/ofs_r1     | Contains interface IP:<br> * EMIF<br>* Ethernet Interface<br>* PCIe      |
-|sim/ofs_r1  | Control and Status Register files used for UVM RAL model generation.  Refer to ofs-uvm repository for more information.        |
-|src    | Top level design directory that contains the design files for:<br>* FME<br>* Hardware exercisers<br>* Interrupts<br>* Port gasket<br>     |
-|syn   | Contains scripts and setup for building the FIM design.      |
-|verification     | Contains scripts and setup for running UVM environment  |
 
 
+## **15 Design Guidance**
+<a name="design_guidance"></a> 
 
-
-### **15-1 Design Guidance**
-<a name="io-per-components"></a> 
-
-The Intel OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the FPGA Interface Manager Developer Guide: Intel Open FPGA Stack for Intel Stratix 10
+The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel Stratix 10
 
 **Table 15-1 Features**
 
@@ -1859,13 +1807,27 @@ The Intel OFS FIM is designed with configurability and scalability in mind.  At 
 <tr>
             <td>5</td>
             <td>Update UVM testbench</td>
-            <td>* The Intel OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory and HSSI.<br>* User must update the UVM testbench to reflect new RTL behavior for any customization changes.<br>See The <i>UVM Simulation User Guide: Intel OFS for Intel Stratix 10 FPGA</i>.
+            <td>* The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory and HSSI.<br>* User must update the UVM testbench to reflect new RTL behavior for any customization changes.<br>See The <i>UVM Simulation User Guide: OFS for Intel Stratix 10 FPGA</i>.
 
 </td>
         </tr>  
      </tbody>
 </table>
 
-For more information on modifying the FIM, refer to the <i>FPGA Interface Manager Developer's Guide: Intel OFS for Intel Stratix 10 FPGA</i>. https://github.com/otcshare/intel-ofs-docs/tree/master/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md
+For more information on modifying the FIM, refer to the <i>FPGA Interface Manager Developer's Guide: OFS for Intel Stratix 10 FPGA</i>. https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md
+
+
+## Notices & Disclaimers
+Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.   
+
 
 
