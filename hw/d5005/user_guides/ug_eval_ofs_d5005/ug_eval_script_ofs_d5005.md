@@ -1,12 +1,4 @@
-<h1>Platform Evaluation Script: Intel® Open FPGA Stack for Intel Stratix 10 FPGA</h1>
-
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document.
-
-All information provided here is subject to change without notice. Contact your Intel representative to obtain the latest Intel product specifications and roadmaps.
-
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Intel, the Intel logo, Agilex, Altera, Arria, Cyclone, Enpirion, eASIC, easicopy, MAX, Nios Quartus, Stratix words and logos are trademarks of Intel Corporation or its subsidiaries in the U.S. and/or other countries. Intel warrants performance of its FPGA and semiconductor products to current specifications in accordance with Intel\'s standard warranty, but reserves the right to make changes to any products and services at any time without notice. Intel assumes no responsibility or liability arising out of the application or use of any information, product, or service described herein except as expressly agreed to in writing by Intel. Intel customers are advised to obtain the latest version of device specifications before relying on any published information and before placing orders for products or services.
-
-Other names and brands may be claimed as the property of others. Copyright © 2022, Intel Corporation. All rights reserved.
+<h1>OFS Evaluation Quick Start Guide: Intel® Open FPGA Stack for Intel Stratix 10 FPGA</h1>
 
 ## **Table of Contents**
 
@@ -1190,3 +1182,15 @@ This section will describe the most common compile build scenarios if a user wan
 </tr>
      </tbody>
 </table>
+
+# Notices & Disclaimers
+Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.   

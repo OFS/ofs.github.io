@@ -1,17 +1,7 @@
-# Getting Started Guide: Intel<sup>&reg;</sup> Open FPGA Stack for Intel Stratix 10
-
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. 
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document.
-
-All information provided here is subject to change without notice. Contact an Intel representative to obtain the latest Intel product specifications and roadmaps.
-
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request.
-Intel, the Intel logo, Agilex, Altera, Arria, Cyclone, Enpirion, eASIC, easicopy, MAX, Nios, Quartus, Stratix words and logos are trademarks of Intel Corporation or its subsidiaries in the U.S. and/or other countries. Intel warrants performance of its FPGA and semiconductor products to current specifications in accordance with Intel's standard warranty, but reserves the right to make changes to any products and services at any time without notice. Intel assumes no responsibility or liability arising out of the application or use of any information, product, or service described herein except as expressly agreed to in writing by Intel. Intel customers are advised to obtain the latest version of device specifications before relying on any published information and before placing orders for products or services.
-
-*Other names and brands may be claimed as the property of others.
-Copyright <sup>&copy;</sup> 2022, Intel Corporation. All rights reserved.
+# Getting Started Guide: Open FPGA Stack for Intel Stratix 10
 
 ## **Table of Contents**
+
 [**1.0 Introduction**](#heading-1.0)\
 | -- [1.1 About This Document](#heading-1.1)\
 | -- [1.2 Terminology](#heading-1.2)\
@@ -30,8 +20,7 @@ Copyright <sup>&copy;</sup> 2022, Intel Corporation. All rights reserved.
 | -- [3.2 Cooling Requirements for the Intel® FPGA PAC D5005](#heading-3.2)\
 [**4.0 OFS DFL Kernel Drivers**](#heading-4.0)\
 | -- [4.1 OFS DFL Kernel Driver Environment Setup](#heading-4.1)\
-| -- [4.2 Building and Installing the OFS DFL Kernel Drivers from Source](#heading-4.2) \
-| -- [4.3 Installing the Pre-Built OFS DFL Kernel Drivers](#heading-4.3) \
+| -- [4.2 Building and Installing the OFS DFL Kernel Drivers from Source](#heading-4.2)  \
 [**5.0 OPAE Software Development Kit**](#heading-5.0)\
 | -- [5.1 OPAE SDK Build Environment Setup](#heading-5.1)\
 | -- | -- [5.1.1 Building and Installing the OPAE SDK from Source](#heading-5.1.1)\
@@ -46,9 +35,11 @@ Copyright <sup>&copy;</sup> 2022, Intel Corporation. All rights reserved.
 | -- | -- [5.2.7 opae.io](#heading-5.2.7) \
 | -- | -- [5.2.8 host_exeriser](#heading-5.2.8) \
 | -- | -- [5.2.9 Running the Host Exerciser Modules](#heading-5.2.9) \
-[**6.0 Programming the OFS FIM and BMC**](#heading-6.0)\
-| -- [6.1 Programming the OFS FIM](#heading-6.1)\
-| -- [6.2 Programming the OFS BMC](#heading-6.2)\
+[**6.0 Compiling OFS FIM**](#heading-6.0)\
+[**7.0 Programming the OFS FIM and BMC**](#heading-7.0)\
+| -- [7.1 Programming the OFS FIM](#heading-7.1)\
+| -- | -- [7.1.1 Programming the FIM](#heading-7.1.1)\
+| -- [7.2 Programming the OFS BMC](#heading-7.2)\
 List of Figures\
 [Figure 2‑1 FIM Overview](#figure-2-1)
 
@@ -62,7 +53,7 @@ List of Tables\
 [Table 5-3 BMC Version Summary](#table-5-3)\
 [Table 5-4 PACSign Overview](#table-5-4)\
 [Table 5-5 VF to HEM Mappings](#table-5-5)\
-[Table 6-1 Previous FIM Releases](#table-6-1)
+[Table 7-1 Previous FIM Releases](#table-7-1)
 
 <a name="heading-1.0"></a>
 
@@ -72,7 +63,7 @@ List of Tables\
 
 ### **1.1 About This Document**
 
-This document helps users to get started in evaluating the Intel® Open FPGA Stack (OFS) for Intel Stratix 10 FPGA targeting the Intel FPGA PAC D5005. After reviewing the document a user shall be able to:
+This document helps users to get started in evaluating the Open FPGA Stack (OFS) for Intel Stratix 10 FPGA targeting the Intel FPGA PAC D5005. After reviewing the document a user shall be able to:
 
 - Set up a development environment with all OFS ingredients
 - Build and install the OFS Linux Kernel drivers
@@ -123,16 +114,15 @@ The following flow charts show a high level overview of the initial bringup proc
 |OpenCL Shim| Provides a layer that is used by the OpenCL/OneAPI runtime to communicate with the kernel|
 
 <a name="heading-1.3"></a>
+
 ### **1.3 Introduction to OFS**
 
 Each OFS reference FIM targets a specific platform, but the modular hardware, software, simulation and test infrastructure allows you to modify each part of the design and test environment for your own custom acceleration platform card. The current OFS reference FIM for Stratix 10 FPGA targets the Intel FPGA PAC D5005 board. This document focuses exclusively on the OFS release targeting the Intel FPGA PAC D5005 board.
 
-The OFS repositories (in [OTCShare](https://github.com/otcshare) and [OPAE](https://github.com/OPAE)) on GitHub provide the following components targeting an Intel FPGA PAC D5005:
+The OFS repositories (in [OFS](https://github.com/OFS)) on GitHub provide the following components targeting an Intel FPGA PAC D5005:
 
 - **opae-sdk**: Contains the Open Programmable Acceleration Software Development Kit source code and build scripts.
-The following submodule repositories are contained within `opae-sdk`:
-- - **opae-libs**: Contains OPAE SDK libraries and their associated build scripts.
-- - **opae-test**: Contains a testing framework for the OPAE SDK.
+The following submodule repositories are contained within `opae-sdk`
 - **linux-dfl**: Contains Linux kernel-level driver source code and build scripts.
 - **intel-ofs-fim**: Contains the source code, build scripts and verification suite for FPGA RTL source code
 - **ofs-hld-shim**: Contains the necessary files to generate Shim/BSP for OFS Cards, using OPAE SDK Interfaces.
@@ -147,9 +137,7 @@ The information in this document is intended for customers evaluating the Open F
 
 ### **1.5 Reference Documents**
 
-Please refer to the README on the OTCshare GitHub for an updated list of collateral on the [otcshare GitHub page](https://github.com/otcshare/intel-ofs-docs).
-
-
+Please refer to the README on the OFS GitHub for an updated list of collateral on the [OFS GitHub page](https://github.com/OFS/ofs.github.io).
 
 <a name="heading-1.6"></a>
 
@@ -167,7 +155,7 @@ The following table highlights the hardware which makes up the Best Known Config
 | --------- |
 | 1 x Intel FPGA PAC D5005|  
 | 1 x [Supported Server Model](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html) |
-| 1 x [Intel FPGA Download Cable II](https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html)   **(Optional, only required if loading images via JTAG)*|
+| 1 x [Intel FPGA Download Cable II](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/cables-adapters.html)   **(Optional, only required if loading images via JTAG)*|
 
 The following table highlights the versions of the software which comprise the OFS stack. The installation of the user-space OPAE SDK on top of the kernel-space linux-dfl drivers is discussed in subsequent sections of this document.
 
@@ -180,13 +168,12 @@ The following table highlights the versions of the software which comprise the O
 | FPGA Platform | [Intel FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html)|
 | OPAE SDK |  [Tag: 2.3.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.3.0-1)|
 | Kernel Drivers | [Tag: ofs-2022.3-2](https://github.com/OPAE/linux-dfl/releases/tag/ofs-2022.3-2) |
-| HLD Shim | Not supported this release  |
-| OFS FIM Source Code| [Branch: reelase/1.0.x ](https://github.com/OFS/ofs-fim-common/tree/release/1.0.x)|
+| HLD Shim | [Tag: ofs-2022.3-d5005-RC1](https://github.com/intel-innersource/applications.fpga.ofs.high-level-design-shim.source/tree/ofs-2022.3-d5005-RC1)  |
+| OFS FIM Source Code| [Branch: release/1.0.x](https://github.com/OFS/ofs-fim-common/tree/release/1.0.x)|
 | Intel Quartus Prime Pro Edition Design Software | [22.3 for Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html)  |
 | Operating System | [Red Hat Enterprise Linux 8.2](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel FPGA PAC D5005 can be found on the [OFS 2022.3 ***NEED LINK](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-1.3.0) official release drop on GitHub.
-
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel FPGA PAC D5005 can be found on the [OFS 2022.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.0-rc3) official release drop on GitHub.
 
 <a name="heading-2.0"></a>
 
@@ -196,21 +183,15 @@ A download page containing the release and already-compiled FIM binary artifacts
 
 ### **2.1 Hardware Components**
 
-The OFS hardware architecture decomposes all designs into a standard
-set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel Stratix 10 FPGA ***NEED LINK](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md).
+The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel Stratix 10 FPGA](https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md).
 
-OFS is a blanket term which can be used to collectively refer to all
-ingredients of the OFS reference design, which includes the core hardware
-components discussed below and software.
+OFS is a blanket term which can be used to collectively refer to all ingredients of the OFS reference design, which includes the core hardware components discussed below and software.
 
 <a name="heading-2.1.1"></a>
 
 #### **2.1.1 FPGA Interface Manager**
 
-The FPGA Interface Manager (FIM) or 'shell' provides platform management
-functionality, clocks, resets, and interface access to the host and
-peripheral features on the acceleration platform. The FIM is implemented
-in a static region of the FPGA device.
+The FPGA Interface Manager (FIM) or 'shell' provides platform management functionality, clocks, resets, and interface access to the host and peripheral features on the acceleration platform. The FIM is implemented in a static region of the FPGA device.
 
 The primary components of the FIM reference design are:
 
@@ -224,7 +205,7 @@ The primary components of the FIM reference design are:
 
 The FPGA Management Engine (FME) provides management features for the platform and the loading/unloading of accelerators through partial reconfiguration.
 
-For more information on the FIM and its external connections, please refer to the [FPGA Interface Manager Technical Reference Manual  ***FIX LINK](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md), and the [Intel FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/programmable/documentation/cvl1520030638800.html). Below is a high-level block diagram of the FIM.
+For more information on the FIM and its external connections, please refer to the [FPGA Interface Manager Technical Reference Manual](https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md), and the [Intel FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/programmable/documentation/cvl1520030638800.html). Below is a high-level block diagram of the FIM.
 
 <a name="figure-2-1"></a>
 
@@ -256,7 +237,7 @@ The AFU provided in this release is comprised of the following functions:
 - Host exercisers to test PCIe, memory and HSSI interfaces (these can be removed from the AFU region after your FIM design is complete to provide more resource area for workloads).
 - Port gasket and partial reconfiguration support.
 
-For more information on the Platform Interface Manager (PIM) and AFU development and testing, please refer to the [Accelerator Functional Unit Developer Guide: Open FPGA Stack  ***FIX LINK](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/dev_guides/AFU%20User%20Guide/AFU_User_Guide.md).
+For more information on the Platform Interface Manager (PIM) and AFU development and testing, please refer to the [Accelerator Functional Unit Developer Guide: Open FPGA Stack](https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005.md).
 
 <a name="heading-2.2"></a>
 
@@ -274,16 +255,11 @@ OFS DFL driver software provides the bottom-most API to FPGA platforms. Librarie
 
 Currently OFS for Intel Stratix 10 FPGA targets the Intel FPGA PAC D5005. Because the Intel FPGA PAC D5005 is a production card, you must prepare the card in order to receive a new non-production bitstream. For these instructions, please contact an Intel representative for instructions.
 
-In addition, refer to sections 2.1-2.3 of the [Intel Acceleration
-Stack Quick Start Guide: Intel FPGA Programmable Acceleration Card
-D5005](https://www.intel.com/content/www/us/en/programmable/documentation/edj1542148561811.html)
-for a complete overview of the physical installation process and ESD
-precautions for the D5005 platform.
+In addition, refer to sections 2.1-2.3 of the [Intel Acceleration Stack Quick Start Guide: Intel FPGA Programmable Acceleration Card D5005](https://www.intel.com/content/www/us/en/programmable/documentation/edj1542148561811.html) for a complete overview of the physical installation process and ESD precautions for the D5005 platform.
 
 ---
 
-**Note:** Ensure that the system meets all the following requirements
-before proceeding to install the Intel® FPGA PAC D5005 into a server.
+**Note:** Ensure that the system meets all the following requirements   before proceeding to install the Intel® FPGA PAC D5005 into a server.
 
 ---
 
@@ -303,11 +279,9 @@ before proceeding to install the Intel® FPGA PAC D5005 into a server.
 
 ### **3.1 Supported Processors for Intel D5005**
 
-OFS requires that the deployment machine's Xeon processor must support the following technologies. These options must also be
-enabled in the BIOS and as kernel parameters. The process to enable these parameters will be discussed the section on driver installation:
+OFS requires that the deployment machine's Xeon processor must support the following technologies. These options must also be enabled in the BIOS and as kernel parameters. The process to enable these parameters will be discussed the section on driver installation:
 
-- Intel VT-d (Intel Virtualization Technology for IA-32 and Intel 64
-    Processors)
+- Intel VT-d (Intel Virtualization Technology for IA-32 and Intel 64 Processors)
 - Intel VT-x (Intel Virtualization Technology for Directed I/O)
 - Intel IOMMU
 
@@ -336,7 +310,7 @@ subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 
-If using the pre-built linux-dfl and OPAE SDK packages available on the [2022.2 release page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-1.3.0), skip forward to [section 4.3 Installing the Pre-Built OFS DFL Kernel Drivers](#heading-4-3)
+
 
 **2.** You must satisfy the following package dependencies if building and installing the drivers from source. Double check that all packages have been found and installed:
 
@@ -353,19 +327,18 @@ sudo pip3 uninstall setuptools
 sudo pip3 install --upgrade setuptools --prefix=/usr
 
 sudo pip3 install Pybind11==2.10.0
-
-
 ```
 
-It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/user/Intel_OFS/`. If you have created a different top-level directory, replace this path with your custom path.
+It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/user/OFS/`. If you have created a different top-level directory, replace this path with your custom path.
 
 **3.** Initialize an empty git repository and clone the LTS tagged DFL driver source code:
 
 ```bash session
-cd /home/user/Intel_OFS/
+cd /home/user/OFS/
 git init
-git clone https://github.com/OPAE/linux-dfl.git
-cd /home/user/Intel_OFS/linux-dfl
+git clone https://github.com/OPAE/linux-dfl
+cd /home/user/OFS/linux-dfl
+git checkout tags/ofs-2022.3-2 -b fpga-ofs-dev-5.15-lts
  
 ```
 
@@ -374,11 +347,7 @@ cd /home/user/Intel_OFS/linux-dfl
 ```bash session
 git describe 
 ofs-2022.3-2
-
-
 ```
-
-
 
 <a name="heading-4.2"></a>
 
@@ -387,7 +356,7 @@ ofs-2022.3-2
 **1.** The following set of instructions walk you through copying an existing kernel configuration file on your machine and changing the minimal required configuration settings.:
 
 ```bash session
-cd /home/user/Intel_OFS/linux-dfl
+cd /home/user/OFS/linux-dfl
 cp /boot/config-`uname -r` .config
 cat configs/dfl-config >> .config
 echo 'CONFIG_LOCALVERSION="-dfl"' >> .config
@@ -404,7 +373,7 @@ make olddefconfig
 **2.** Linux kernel builds take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
 
 ```bash session
-cd /home/user/Intel_OFS/linux-dfl
+cd /home/user/OFS/linux-dfl
 make -j `nproc`
 make -j `nproc` modules
 ```
@@ -412,12 +381,12 @@ make -j `nproc` modules
 **3.** The user has two options for installation from source:
 
 - Using the built-in install option from the kernel Makefile.
-- Locally building a set of RPM/DEP packages.
+- Locally building a set of RPM/DEB packages.
 
 **3.a** This first flow will directly install the kernel and kernel module files without the need to create a package first:
 
 ```bash session
-cd /home/user/Intel_OFS/linux-dfl
+cd /home/user/OFS/linux-dfl
 sudo make -j `nproc` modules_install
 sudo make -j `nproc` install
 ```
@@ -432,7 +401,7 @@ sudo make -j `nproc` install
 If you are concerned about the size of the resulting package and binaries, they can significantly reduce the size of the package and object files by using the make variable INSTALL_MOD_STRIP. If this is not a concern, feel free to skip this step. The below instructions will build a set of binary RPM packages:
 
 ```bash session
-cd /home/user/Intel_OFS/linux-dfl
+cd /home/user/OFS/linux-dfl
 make INSTALL_MOD_STRIP=1 binrpm-pkg
 ```
 
@@ -456,21 +425,23 @@ uname -r
 
 ```bash session
 lsmod | grep -e fpga -e dfl
-spi_altera_dfl         20480  0
+#output
 uio_dfl                20480  0
-dfl_emif               16384  0
+spi_altera_dfl         20480  0
 uio                    20480  1 uio_dfl
+dfl_emif               16384  0
 spi_altera_core        16384  1 spi_altera_dfl
-dfl_fme_br             16384  0
 dfl_fme_region         20480  0
-dfl_fme_mgr            20480  2
-dfl_fme                49152  0
+dfl_fme_br             16384  0
+dfl_fme_mgr            20480  0
 dfl_afu                36864  0
+dfl_fme                49152  0
 dfl_pci                20480  0
 dfl                    40960  8 dfl_pci,s10hssi,uio_dfl,dfl_fme,dfl_fme_br,dfl_afu,spi_altera_dfl,dfl_emif
 fpga_region            20480  3 dfl_fme_region,dfl_fme,dfl
 fpga_bridge            20480  4 dfl_fme_region,fpga_region,dfl_fme,dfl_fme_br
 fpga_mgr               24576  4 dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme
+
 ```
 
 If an Intel FPGA PAC D5005 card is not installed in the system and/or does not have the appropriate FIM configured, the user may read version information of the DFL drivers directly from `/lib/modules`:
@@ -478,20 +449,19 @@ If an Intel FPGA PAC D5005 card is not installed in the system and/or does not h
 ```bash session
 cd /usr/lib/modules/`uname -r`/kernel/drivers/fpga
 modinfo dfl* fpga* | grep ^name
+#output
 name:           dfl_afu
 name:           dfl_fme_br
 name:           dfl_fme
 name:           dfl_fme_mgr
 name:           dfl_fme_region
 name:           dfl_hssi
-name:           dfl_intel_s10_iopll
 name:           dfl
 name:           dfl_n3000_nios
 name:           dfl_pci
 name:           fpga_bridge
-name:           fpga_image_load
 name:           fpga_mgr
-name:           fpga_region
+name:           fpga_regions
 ```
 
 **6.** Four kernel parameters must be added to the boot command-line for the newly installed kernel. First, open the file `grub`:
@@ -501,6 +471,7 @@ sudo vim /etc/default/grub
 ```
 
 <a name="redirect-step12"></a>
+<a name="step-7"></a>
 
 **7.** In the variable GRUB_CMDLINE_LINUX add the parameters shown after `quiet`:
 
@@ -509,7 +480,6 @@ GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/roo
 ```
 
 *Note: If you wish to instead set hugepages on a per session bassis, they can perform the following step. These settings will be lost on reboot.*
-
 
 ```bash session
 mkdir -p /mnt/huge 
@@ -528,44 +498,25 @@ sudo grub2-mkconfig  -o /boot/efi/EFI/redhat/grub.cfg
 
 ```bash session
 cat /proc/cmdline
-BOOT_IMAGE=(hd1,gpt2)/vmlinuz-5.15.52-dfl root=/dev/mapper/cl-root ro crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200 rhgb quiet
+BOOT_IMAGE=(hd0,gpt2)/vmlinuz-5.15.77-dfl root=/dev/mapper/rhel_bapvedell028-root ro crashkernel=auto resume=/dev/mapper/rhel_bapvedell028-swap rd.lvm.lv=rhel_bapvedell028/root rd.lvm.lv=rhel_bapvedell028/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200
 ```
 
-<a name="heading-4.3"></a>
-
-### **4.3 Installing Pre-Built Packages for the OFS DFL Kernel Drivers**
-**Need to verify if the pre-built binaries are provided.  If yes, then update version and links**
-
-
-To use the pre-built Linux DFL packages, the user will need to download the files [kernel-5.15.52_dfl-1.x86_64-2022.07.13-b2_g511655e.tar.gz](https://github.com/otcshare/intel-ofs-fim/releases/download/ofs-1.3.0/kernel-5.15.52_dfl-1.x86_64-2022.07.13-b2_g511655e.tar.gz) and [opae-2.1.1-1.x86_64-2022.07.13-b2_gd6c7bb07.tar.gz](https://github.com/otcshare/intel-ofs-fim/releases/download/ofs-1.3.0/opae-2.1.1-1.x86_64-2022.07.13-b2_gd6c7bb07.tar.gz) from the [OFS 2022.2 release page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-1.3.0). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
-
-```bash
-tar xf kernel-5.15.52_dfl-1.x86_64-2022.07.13-b2_g511655e.tar.gz
-sudo dnf localinstall kernel-5.15.52_dfl_g511655e_2022.07.13-1.x86_64.rpm \
-kernel-devel-5.15.52_dfl_g511655e_2022.07.13-1.x86_64.rpm \
-kernel-headers-5.15.52_dfl_g511655e_2022.07.13-1.x86_64.rpm
-### OR
-sudo dnf localinstall kernel-5.15.52_dfl_g511655e_2022.07.13-1.src.rpm
-```
-
-After installation has completed you should continue with steps 4-9 in previous section [4.2 Building and Installing the OFS DFL Kernel Drivers from Source](#heading-4-2).
 
 <a name="heading-5.0"></a>
 
 ## **5.0 OPAE Software Development Kit**
 
-The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [Open Source](https://01.org/OPAE) page.
+The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [Open Source](https://github.com/OFS/opae-sdk) page.
 
-The OPAE SDK source code is contained within a single GitHub repository
-hosted at the [OPAE Github](https://github.com/OPAE/opae-sdk). This repository is open source.
+The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE Github](https://github.com/OFS/opae-sdk). This repository is open source.
 
 <a name="heading-5.1"></a>
 
 ### **5.1 OPAE SDK Build Environment Setup**
 
-Ensure the local environment matches the supported Operating System discussed in section [Table 1-4: Software Version Summary](#table-1-4). This installation process assumes you have access to an internet connection in order to pull specific GitHub repositories, and to satisfy package dependencies.
+Ensure the local environment matches the supported Operating System discussed in section [Table 1-3: Software Version Summary](#table-1-3). This installation process assumes you have access to an internet connection in order to pull specific GitHub repositories, and to satisfy package dependencies.
 
-If you wish to install the pre-built OPAE packages skip to section [5.2.2 Installing the OPAE SDK from Pre-Built Packages](#heading-5-1-2).
+
 
 <a name="heading-5-1-1"></a>
 
@@ -596,28 +547,29 @@ python3 -m pip install --user jsonschema virtualenv pudb pyyaml
 
 sudo pip3 uninstall setuptools
 
+sudo pip3 install --upgrade setuptools --prefix=/usr
+
 sudo pip3 install Pybind11==2.10.0
 
-sudo pip3 install setuptools==59.6.0 --prefix=/usr
 ```
 
-It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/user/Intel_OFS/`. If you have created a different top-level directory, replace this path with your custom path.
+It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/user/OFS/`. If you have created a different top-level directory, replace this path with your custom path.
 
 **4.** Initialize an empty git repository and clone the tagged OPAE SDK source code:
 
 ```bash session
-cd /home/user/Intel_OFS/
+cd /home/user/OFS/
 git init
 git clone https://github.com/OPAE/opae-sdk.git
 cd opae-sdk
-git checkout  tags/2.3.0-1 
+git checkout tags/2.3.0-1 -b release/2.3.0
 ```
 
 **5.** Verify that the correct tag has been checkout out:
 
 ```bash session
 git describe --tags
-2.1.1-1
+2.3.0-1
 
 ```
 
@@ -633,6 +585,7 @@ cd packaging/opae/rpm
 ```bash session
 
 ls | grep rpm
+#output
 opae-2.3.0-1.el8.src.rpm
 opae-2.3.0-1.el8.x86_64.rpm
 opae-debuginfo-2.3.0-1.el8.x86_64.rpm
@@ -641,28 +594,29 @@ opae-devel-2.3.0-1.el8.x86_64.rpm
 opae-devel-debuginfo-2.3.0-1.el8.x86_64.rpm
 opae-extra-tools-2.3.0-1.el8.x86_64.rpm
 opae-extra-tools-debuginfo-2.3.0-1.el8.x86_64.rpm
-
+```
 Remove the opae-2.3.0-1.el8.src.rpm file as it is not used.
-
+```bash session
 rm opae-2.3.0-1.el8.src.rpm
 ```
+
+
 
 <a name="#prebuilt-skip-step3-opae"></a>
 
 **7.a** Install the user-built OPAE SDK packages:
 
 ```bash session
-
 sudo dnf clean all
 
 sudo dnf localinstall -y opae*.rpm
 ```
 
-
-**4.** Check that all packages have been installed:
+**8.** Check that all packages have been installed:
 
 ```bash session
 rpm -qa | grep opae
+#output
 opae-extra-tools-2.3.0-1.el8.x86_64
 opae-debugsource-2.3.0-1.el8.x86_64
 opae-2.3.0-1.el8.x86_64
@@ -674,45 +628,6 @@ opae-devel-debuginfo-2.3.0-1.el8.x86_64
 
 You can query information about each installed package using `rpm -qi <package__name>`.
 
-<a name="heading-5-1-2"></a>
-
-#### **5.1.2 Installing the OPAE SDK from Pre-Built Packages**
-
-**Need to get binaries and version if included**
-
-To use pre-built OPAE SDK packages, you must downloaded file [opae-2.1.1-1.x86_64-2022.07.13-b2_gd6c7bb07.tar.gz](https://github.com/otcshare/intel-ofs-fim/releases/download/ofs-1.3.0/opae-2.1.1-1.x86_64-2022.07.13-b2_gd6c7bb07.tar.gz) from the [2022.2 Github release page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-1.3.0) in the Artifacts folder.
-
-1. The following steps walk through unpacking and installing the OPAE pre-built packages.
-
-```bash session
-tar xf opae-2.1.1-1.x86_64-2022.07.13-b2_gd6c7bb07.tar.gz
-
-rm opae-2.1.1-1_gd6c7bb07_2022.07.13.el8.src.rpm
-
-sudo dnf localinstall opae-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64.rpm \
-opae-2.1.1-1.x86_64-2022.07.13-b2_gd6c7bb07.tar.gz \
-opae-debuginfo-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64.rpm \
-opae-debugsource-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64.rpm \
-opae-devel-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64.rpm \
-opae-devel-debuginfo-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64.rpm \
-opae-extra-tools-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64.rpm \
-opae-extra-tools-debuginfo-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64.rpm \
-```
-
-2. Check that all packages have been installed:
-
-```bash session
-rpm -qa | grep opae
-opae-devel-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64
-opae-debuginfo-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64
-opae-devel-debuginfo-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64
-opae-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64
-opae-extra-tools-debuginfo-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64
-opae-debugsource-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64
-opae-extra-tools-2.1.1-1_gd6c7bb07_2022.07.13.el8.x86_64
-```
-
-You can query information about each installed package using `rpm -vi <package__name>`.
 
 <a name="heading-5.2"></a>
 
@@ -720,7 +635,7 @@ You can query information about each installed package using `rpm -vi <package__
 
 The OPAE SDK user-space tools sit upon the kernel-space DFL drivers. In order to use OPAE SDK functionality the user needs to complete the steps outlined in the previous section [4.1 OFS DFL Kernel Driver Environment Setup](#heading-4.1) before attempting to run any OPAE commands or flows. You must have least one D5005 card with the appropriate FIM is present in your system. The steps to read and load a new FIM version are discussed in section [6.1 Programming the OFS FIM](#heading-6.1). After both the DFL kernel-space drivers have been installed and the FIM has been upgraded, you may proceed to test the OPAE commands discussed below.
 
-This section covers basic functionality of the commonly used OPAE tools and their expected results. These steps may also be used to verify that all OFS software installation has been completed successfully. A complete overview of the OPAE tools can be found on the [OPAE GitHub page](https://github.com/OPAE/opae-sdk/tree/2.0.11-1/doc/src/fpga_tools) and in your cloned GitHub repo at `<your path>/test/opae-sdk/doc/src/fpga_tools`. More commands are listed than are defined in the list below - most of these are called by other tools and do not need to be called directly themselves.
+This section covers basic functionality of the commonly used OPAE tools and their expected results. These steps may also be used to verify that all OFS software installation has been completed successfully. A complete overview of the OPAE tools can be found on the [OPAE GitHub page](https://github.com/OFS/opae-sdk/tree/2.3.0-1/doc/src/fpga_tools) and in your cloned GitHub repo at `<your path>/opae-sdk/doc/src/fpga_tools`. More commands are listed than are defined in the list below - most of these are called by other tools and do not need to be called directly themselves.
 
 <a name="heading-5.2.1"></a>
 
@@ -742,7 +657,7 @@ fpgasupdate [--log-level=<level>] file [bdf]
 
 **Description:** The fpgasupdate command implements a secure firmware update.
 
-|Command	|args (optional)|	Description|
+|Command |args (optional)| Description|
 | ----- | ----- | ----- |
 | | --log-level <level> | Specifies the `log-level` which is the level of information output to your command tool. The following seven levels  are available: `state`, `ioctl`, `debug`, `info`, `warning`, `error`, `critical`. Setting `--log-level=state` provides the most verbose output. Setting `--log-level=ioctl` provides the second most information, and so on. The default level is `info`.  |
 | | file |  Specifies the secure update firmware file to be programmed. This file may be to program a static region (SR), programmable region (PR), root entry hash, key cancellation, or other device-specific firmware. |
@@ -750,22 +665,19 @@ fpgasupdate [--log-level=<level>] file [bdf]
 
 <a name="table-5-2"></a>
 
-#### **Table 5-2: FIM Version Summary for OFS 2022.4 Release**
-**Need version from provided binary**
+#### **Table 5-2: FIM Version Summary for OFS 2022.3 Release**
+
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| 1 |  0x40100027740A327 | bf531bcf-a896-5171-ab31-601a4ab754b6 | d5005_page1_unsigned.bin | [OFS 2022.2 Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-1.3.0)|
+| 1 |  0x401000287428628 | d51533ad-aee6-5dab-80fb-a44bbf579b68 | d5005_page1_unsigned.bin | [OFS 2022.3 Release Page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.0-rc3)|
 
 <a name="table-5-3"></a>
 
 #### **Table 5-3: BMC Version Summary for OFS 2022.2 Release**
 
-**Need open source repo link to BMC file**
-
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
 | 2.0.13 | unsigned_bmc_fw.bin | [intel-bmc-fpga repository](https://github.com/otcshare/intel-fpga-bmc/tree/master/release_packages/darby_rot_release_package_max10_v2.0.8_nios_fw_v2.0.13_Y22WW14) |
-
 
 <a name="heading-5.2.2"></a>
 
@@ -792,14 +704,13 @@ For systems with multiple FPGA devices, you can specify the BDF to limit the out
 | | -D, --device | PCIe device number of resource. |
 | | -F, --function | PCIe function number of resource. |
 | errors | {fme, port, all} --clear, -c | First agument to the errors command specifies the resource type to display in human readable format. The second optional argument clears errors for the given FPGA resource. |
-|power|	 	|Provides total power in watts that the FPGA hardware consumes|
-|temp|	 	|Provides FPGA temperature values in degrees Celsius|
-|port|	 	|Provides information about the port|
-|fme|	 	|Provides information about the FME|
-|bmc|	 	|Provides BMC sensors information|
-|mac|	 	|Provides information about MAC ROM connected to FPGA|
-|phy|	-G, --group \<group> |Provides information about ethernet PHYs in FPGA. \<group> can be 0, 1, all.|
-|security|		|Provides information about the security keys, hashes, and flash count, if available.|
+|power|   |Provides total power in watts that the FPGA hardware consumes|
+|temp|   |Provides FPGA temperature values in degrees Celsius|
+|port|   |Provides information about the port|
+|fme|   |Provides information about the FME|
+|bmc|   |Provides BMC sensors information|
+|mac|   |Provides information about MAC ROM connected to FPGA|
+|security|  |Provides information about the security keys, hashes, and flash count, if available.|
 
 *Note: Your Bitstream ID and PR Interface Id may not match the below examples.*
 
@@ -807,43 +718,43 @@ The following examples walk through sample outputs generated by `fpgainfo`.
 
 ```bash session
 sudo fpgainfo fme
-
+#output
 Open FPGA Stack Platform
 Board Management Controller, MAX10 NIOS FW version: 2.0.13
 Board Management Controller, MAX10 Build version: 2.0.8
 //****** FME ******//
-Object Id                        : 0xF100000
-PCIe s:b:d.f                     : 0000:12:00.0
+Object Id                        : 0xF000000
+PCIe s:b:d.f                     : 0000:3B:00.0
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 0x40100027740A327
+Bitstream Id                     : 0x401000287428628
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : bf531bcf-a896-5171-ab31-601a4ab754b6
+Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
 Boot Page                        : user
 ```
 
 ```bash session
 sudo fpgainfo bmc
-
+#output
 Open FPGA Stack Platform
 Board Management Controller, MAX10 NIOS FW version: 2.0.13
 Board Management Controller, MAX10 Build version: 2.0.8
 //****** BMC SENSORS ******//
-Object Id                        : 0xEE00000
-PCIe s:b:d.f                     : 0000:12:00.0
+Object Id                        : 0xF000000
+PCIe s:b:d.f                     : 0000:3B:00.0
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 0x40100027740A327
+Bitstream Id                     : 0x401000287428628
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : bf531bcf-a896-5171-ab31-601a4ab754b6
+Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
 ( 1) VCCERAM Voltage                                    : 0.90 Volts
 ( 2) VCCT Temperature                                   : 29.00 Celsius
 ( 3) 12v Backplane Voltage                              : 12.17 Volts
@@ -882,7 +793,7 @@ Pr Interface Id                  : bf531bcf-a896-5171-ab31-601a4ab754b6
 ```
 
 <a name="heading-5.2.3"></a>
-	
+
 #### **5.2.3 `rsu`**
 
 The **rsu** performs a **R**emote **S**ystem **U**pdate operation on a device, given its PCIe address. An **rsu** operation sends an instruction to the device to trigger a power cycle of the card only. This will force reconfiguration from flash for either the BMC or FPGA.
@@ -896,14 +807,12 @@ The Intel FPGA PAC contains a region of flash the user may store their FIM image
 **Synopsis**
 
 ```bash session
-rsu [-h] [-d] {bmc,bmcimg,retimer,fpga,sdm,fpgadefault} [PCIE_ADDR]
+rsu [-h] [-d] {bmc,bmcimg,retimer,sdm,fpgadefault} [PCIE_ADDR]
 ```
 
-
 ```bash session
-rsu bmc --page=(user|factory) [PCIE_ADDR]
+rsu bmc --page=(user) [PCIE_ADDR]
 rsu retimer [PCIE_ADDR]
-rsu fpga --page=(user1|user2|factory) [PCIE_ADDR]
 rsu sdm [PCIE_ADDR]
 ```
 
@@ -925,32 +834,32 @@ More information, including charts detailing the different certification types a
 **Synopsis:**
 
 ```bash session
-python PACSign.py [-h] {FIM,SR,SR_TEST,BBS,BMC,BMC_FW,BMC_FACTORY,AFU,PR,PR_TEST,GBS,FACTORY,PXE,THERM_SR,THERM_PR} ...
+PACSign [-h] {FIM,SR,SR_TEST,BBS,BMC,BMC_FW,BMC_FACTORY,AFU,PR,PR_TEST,GBS,FACTORY,PXE,THERM_SR,THERM_PR} ...
 
-python PACSign.py <CMD> [-h] -t {UPDATE,CANCEL,RK_256,RK_384} -H HSM_MANAGER [-C HSM_CONFIG] [-s SLOT_NUM] [-r ROOT_KEY] [-k CODE_SIGNING_KEY] [-d CSK_ID] [-R ROOT_BITSTREAM] [-S] [-i INPUT_FILE] [-o OUTPUT_FILE] [-b BITSTREAM_VERSION] [-y] [-v]
+PACSign <CMD> [-h] -t {UPDATE,CANCEL,RK_256,RK_384} -H HSM_MANAGER [-C HSM_CONFIG] [-s SLOT_NUM] [-r ROOT_KEY] [-k CODE_SIGNING_KEY] [-d CSK_ID] [-R ROOT_BITSTREAM] [-S] [-i INPUT_FILE] [-o OUTPUT_FILE] [-b BITSTREAM_VERSION] [-y] [-v]
 ```
 
 **Description:**
 The PACSign utility inserts authentication markers into bitstreams.
 
-|Command	|args (optional)|	Description|
+|Command |args (optional)| Description|
 | ----- | ----- | ----- |
-|	|(required) -t, --cert_type TYPE	|The following operations are supported: UPDATE, CANCEL, RK_256, RK_348|
-|	|(required) -H, --HSM_manager MODULE	|The module name for a module that interfaces to a HSM. PACSign includes both the openssl_manager and pkcs11_manager to handle keys and signing operations.  |
-||	-C, --HSM_config CONFIG	|The argument to this operation is passed verbatim to the specified HSM. For pkcs11_manager, this option specifies a JSON file describing the PKCS #11 capable HSM’s parameters. |
-||	-r, --root_key KEY_ID	|The key identifier that the HSM uses to identify the root key to be used for the selected operation.|
-||	-k, --code_signing_key KEY_ID	|The key indentifier that the HSM uses to identify the code signing key to be used for the selected operation|
-||	-d, --csk_id CSK_NUM	|Only used for type CANCEL. Specifies the key number of the code signing key to cancel.|
-||	-s, --slot_num {0,1,2} 	|For bitstream types with multiple slots (i.e. multiple ST regions), this option specifies which of the slots to which this bitstream is to be acted upon|
-||	-b, --bitstream_version VERSION	|User-formatted version information. This can be any string up to 32 bytes in length.|
-||	-S, --SHA384	|Used to specify that PACSign is to use 384-bit crypto. Default is 256-bit|
-||	-R, --ROOT_BITSTREAM ROOT_BITSTREAM	|Valid when verifying bitstreams. The verification step will ensure the generated bitstream is able to be loaded on a board with the specified root entry hash programmed.|
-||	-i, --input_file FILE	|Only to be used for UPDATE operations. Specifies the file name containing data to be signed|
-||	-o, --output_file FILE	|Specifies the file name for the signed output bitstream.|
-||	-y, --yes	|Silently answer all queries from PACSign in the affirmative. |
-||	-v, --verbose	|Can be specified multiple times. Increases the verbosity of PACSign. Once enables non-fatal warnings to be displayed. Twice enables progress information. Three or more occurrences enables very verbose debugging information.|
-||	-h	|Prints help information and exits|
-||{FIM, SR, SR_TEST, BBS, BMC, BMC_FW, BMC_FACTORY, AFU, PR, PR_TEST, GBS, FACTORY, PXE, THERM_SR, THERM_PR}	| Bitstream type identifier.|
+| |(required) -t, --cert_type TYPE |The following operations are supported: UPDATE, CANCEL, RK_256, RK_348|
+| |(required) -H, --HSM_manager MODULE |The module name for a module that interfaces to a HSM. PACSign includes both the openssl_manager and pkcs11_manager to handle keys and signing operations.  |
+|| -C, --HSM_config CONFIG |The argument to this operation is passed verbatim to the specified HSM. For pkcs11_manager, this option specifies a JSON file describing the PKCS #11 capable HSM’s parameters. |
+|| -r, --root_key KEY_ID |The key identifier that the HSM uses to identify the root key to be used for the selected operation.|
+|| -k, --code_signing_key KEY_ID |The key indentifier that the HSM uses to identify the code signing key to be used for the selected operation|
+|| -d, --csk_id CSK_NUM |Only used for type CANCEL. Specifies the key number of the code signing key to cancel.|
+|| -s, --slot_num {0,1,2}  |For bitstream types with multiple slots (i.e. multiple ST regions), this option specifies which of the slots to which this bitstream is to be acted upon|
+|| -b, --bitstream_version VERSION |User-formatted version information. This can be any string up to 32 bytes in length.|
+|| -S, --SHA384 |Used to specify that PACSign is to use 384-bit crypto. Default is 256-bit|
+|| -R, --ROOT_BITSTREAM ROOT_BITSTREAM |Valid when verifying bitstreams. The verification step will ensure the generated bitstream is able to be loaded on a board with the specified root entry hash programmed.|
+|| -i, --input_file FILE |Only to be used for UPDATE operations. Specifies the file name containing data to be signed|
+|| -o, --output_file FILE |Specifies the file name for the signed output bitstream.|
+|| -y, --yes |Silently answer all queries from PACSign in the affirmative. |
+|| -v, --verbose |Can be specified multiple times. Increases the verbosity of PACSign. Once enables non-fatal warnings to be displayed. Twice enables progress information. Three or more occurrences enables very verbose debugging information.|
+|| -h |Prints help information and exits|
+||{FIM, SR, SR_TEST, BBS, BMC, BMC_FW, BMC_FACTORY, AFU, PR, PR_TEST, GBS, FACTORY, PXE, THERM_SR, THERM_PR} | Bitstream type identifier.|
 
 **PACSign** can be run on images that have previously been signed. It will overwrite any existing authentication data.
 
@@ -960,6 +869,7 @@ The following example will create an unsigned SR image from an existing signed S
 
 ```bash session
 PACSign SR -t UPDATE -s 0 -H openssl_manager -i d5005_page1_unsigned.bin -o new_image.bin
+#output
 No root key specified.  Generate unsigned bitstream? Y = yes, N = no: y
 No CSK specified.  Generate unsigned bitstream? Y = yes, N = no: y
 No root entry hash bitstream specified.  Verification will not be done.  Continue? Y = yes, N = no: y
@@ -978,7 +888,6 @@ Displays authentication information contained with each provided `file` on the c
 
 The hssi application provides a means of interacting with the 10G and with the 100G HSSI AFUs. In both 10G and 100G operating modes, the application initializes the AFU, completes the desired transfer as described by the mode-specific options. Only the `hssi_10g` MODE is currently supported. An example of this command's output can be found in section [5.2.9 Running the Host Exerciser Modules](#heading-5.2.9). The binary is installed by default at `/usr/bin/hssi`.<br>
 
-
 <a name="heading-5.2.7"></a>
 
 #### **5.2.7 `opae.io`**
@@ -989,13 +898,22 @@ An interactive Python environment packaged on top of libopaevfio.so, which provi
 
 #### **5.2.8 `host_exerciser`**
 
-The host exerciser is used to exercise and characterize the various host-FPGA interactions eg. MMIO, Data transfer from host to FPGA , PR, host to FPGA memory etc. An example of this command's output can be found in section [5.2.9 Running the Host Exerciser Modules](#heading-5.2.9). The binary is installed by default at `/usr/bin/host_exerciser`.<br>
+The host exerciser is used to exercise and characterize the various host-FPGA interactions eg. MMIO, Data transfer from host to FPGA , PR, host to FPGA memory etc. An example of this command's output can be found in section [5.2.9 Running the Host Exerciser Modules](#heading-5.2.9). The binary is installed by default at `/usr/bin/host_exerciser`. For more information refer - [Host Exerciser](https://opae.github.io/latest/docs/fpga_tools/host_exerciser/host_exerciser.html)<br>
 
 <a name="heading-5.2.9"></a>
 
 #### **5.2.9 Running the Host Exerciser Modules**
 
-The reference FIM and unchanged compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. There are three HEMs present in the OFS FIM - HE-LPBK, HE-HSSI, and HE-MEM. These exercisers are tied to three different VFs that must be enabled before they can be used. The user should enable the VF for each HEM using the below steps:
+The reference FIM and unchanged compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. 
+
+---
+
+**Note:** Before continuing, if huge pages are not set refer to [section 4.2](#step-7)
+
+---
+
+
+There are three HEMs present in the OFS FIM - HE-LPBK, HE-HSSI, and HE-MEM. These exercisers are tied to three different VFs that must be enabled before they can be used. The user should enable the VF for each HEM using the below steps:
 
 **1.** Determine the BDF of the Intel FPGA PAC D5005 card.
 
@@ -1003,31 +921,33 @@ The PCIe BDF address is initially determined when the server powers on. The user
 
 ```bash session
 lspci -d :bcce
-12:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+#output
+3b:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
 ```
 
 ---
 
-**Note:** Before continuing, if you updated your IOFS installation, please also [update your PAC FIM](#heading-6.1.1) to run HEM
+**Note:** Before continuing, if you updated your OFS installation, please also [update your PAC FIM](#heading-6.1.1) to run HEM
 
 ---
 
 **2.** Enable three VFs.
 
-In this example, the BDF address is 0000:12:00.0. With this information the user can now enable three VFs with the following:
+In this example, the BDF address is 0000:3b:00.0. With this information the user can now enable three VFs with the following:
 
 ```bash session
-sudo pci_device 0000:12:00.0 vf 3
+sudo pci_device 0000:3b:00.0 vf 3
 ```
 
 **3.** Verify that all three VFs have been created.
 
 ```bash session
-lspci -s 12:00
-12:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
-12:00.1 Processing accelerators: Intel Corporation Device bccf (rev 01)
-12:00.2 Processing accelerators: Intel Corporation Device bccf (rev 01)
-12:00.3 Processing accelerators: Intel Corporation Device bccf (rev 01)
+lspci -s 3b:00
+#output
+3b:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+3b:00.1 Processing accelerators: Intel Corporation Device bccf (rev 01)
+3b:00.2 Processing accelerators: Intel Corporation Device bccf (rev 01)
+3b:00.3 Processing accelerators: Intel Corporation Device bccf (rev 01)
 ```
 
 **4.** Bind the 3 VFs to the vfio-pci driver.
@@ -1035,66 +955,77 @@ lspci -s 12:00
 sudo opae.io init -d PCI_ADDR USER[:GROUP]]
 
 ```bash session
-sudo opae.io init -d 0000:12:00.1 $USER
-Binding (0x8086,0xbccf) at 0000:12:00.1 to vfio-pci
-iommu group for (0x8086,0xbccf) at 0000:12:00.1 is 148
-Assigning /dev/vfio/148 to DCPsupport
-Changing permissions for /dev/vfio/148 to rw-rw----
+sudo opae.io init -d 0000:3b:00.1 $USER
+#output
+opae.io 0.2.5
+Unbinding (0x8086,0xbccf) at 0000:3b:00.1 from dfl-pci
+Binding (0x8086,0xbccf) at 0000:3b:00.1 to vfio-pci
+iommu group for (0x8086,0xbccf) at 0000:3b:00.1 is 142
+Assigning /dev/vfio/142 to $USER:$USER
+Changing permissions for /dev/vfio/142 to rw-rw----
 
-sudo opae.io init -d 0000:12:00.2 $USER 
-Binding (0x8086,0xbccf) at 0000:12:00.2 to vfio-pci
-iommu group for (0x8086,0xbccf) at 0000:12:00.2 is 149
-Assigning /dev/vfio/149 to DCPsupport
-Changing permissions for /dev/vfio/149 to rw-rw----
 
-sudo opae.io init -d 0000:12:00.3 $USER
-Binding (0x8086,0xbccf) at 0000:12:00.3 to vfio-pci
-iommu group for (0x8086,0xbccf) at 0000:12:00.3 is 150
-Assigning /dev/vfio/150 to DCPsupport
-Changing permissions for /dev/vfio/150 to rw-rw----
+sudo opae.io init -d 0000:3b:00.2 $USER
+#output 
+opae.io 0.2.5
+Unbinding (0x8086,0xbccf) at 0000:3b:00.2 from dfl-pci
+Binding (0x8086,0xbccf) at 0000:3b:00.2 to vfio-pci
+iommu group for (0x8086,0xbccf) at 0000:3b:00.2 is 143
+Assigning /dev/vfio/143 to $USER:$USER
+Changing permissions for /dev/vfio/143 to rw-rw----
 
+
+sudo opae.io init -d 0000:3b:00.3 $USER
+#output
+opae.io 0.2.5
+Unbinding (0x8086,0xbccf) at 0000:3b:00.3 from dfl-pci
+Binding (0x8086,0xbccf) at 0000:3b:00.3 to vfio-pci
+iommu group for (0x8086,0xbccf) at 0000:3b:00.3 is 144
+Assigning /dev/vfio/144 to $USER:$USER
+Changing permissions for /dev/vfio/144 to rw-rw----
 ```
 
 **5.** Check that the accelerators are present using fpgainfo. *Note your port configuration may differ from the below.*
+
 ```bash session
 sudo fpgainfo port
+#output
 //****** PORT ******//
-Object Id                        : 0xED00000
-PCIe s:b:d.f                     : 0000:12:00.0
+Object Id                        : 0xF000000
+PCIe s:b:d.f                     : 0000:3B:00.0
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 //****** PORT ******//
-Object Id                        : 0x60AF000000000000
-PCIe s:b:d.f                     : 0000:12:00.3
+Object Id                        : 0x603B000000000000
+PCIe s:b:d.f                     : 0000:3B:00.3
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCF
 SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
-Socket Id                        : 0x01
+Socket Id                        : 0x00
 Accelerator GUID                 : 823c334c-98bf-11ea-bb37-0242ac130002
 //****** PORT ******//
-Object Id                        : 0x40AF000000000000
-PCIe s:b:d.f                     : 0000:12:00.2
+Object Id                        : 0x403B000000000000
+PCIe s:b:d.f                     : 0000:3B:00.2
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCF
 SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
-Socket Id                        : 0x01
+Socket Id                        : 0x00
 Accelerator GUID                 : 8568ab4e-6ba5-4616-bb65-2a578330a8eb
 //****** PORT ******//
-Object Id                        : 0x20AF000000000000
-PCIe s:b:d.f                     : 0000:12:00.1
+Object Id                        : 0x203B000000000000
+PCIe s:b:d.f                     : 0000:3B:00.1
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCF
 SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
-Socket Id                        : 0x01
+Socket Id                        : 0x00
 Accelerator GUID                 : 56e203e9-864f-49a7-b94b-12284c31e02b
 ```
-
 
 <a name="table-5-5"></a>
 
@@ -1113,7 +1044,29 @@ HE-LB is responsible for generating traffic with the intention of exercising the
 Basic operations:
 
 ```bash session
-$ host_exerciser --mode lpbk lpbk
+sudo host_exerciser lpbk
+#output
+    starting test run, count of 1
+API version: 1
+AFU clock: 250 MHz
+Allocate SRC Buffer
+Allocate DST Buffer
+Allocate DSM Buffer
+	Host Exerciser Performance Counter:
+	Host Exerciser numReads: 1024
+	Host Exerciser numWrites: 1025
+	Host Exerciser numPendReads: 0
+	Host Exerciser numPendWrites: 0
+	Host Exerciser numPendEmifReads: 0
+	Host Exerciser numPendEmifWrites: 0
+	Number of clocks: 5342
+	Total number of Reads sent: 1024
+	Total number of Writes sent: 1024
+	Bandwidth: 3.067 GB/s
+	Test lpbk(1): PASS
+
+sudo host_exerciser --mode lpbk lpbk
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1121,39 +1074,20 @@ Allocate SRC Buffer
 Allocate DST Buffer
 Allocate DSM Buffer
     Host Exerciser Performance Counter:
-    Host Exerciser numReads: 1024
-    Host Exerciser numWrites: 1025
-    Host Exerciser numPendReads: 0
-    Host Exerciser numPendWrites: 0
-    Host Exerciser numPendEmifReads: 0
-    Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 4467
-    Total number of Reads sent: 1024
-    Total number of Writes sent: 1024
-    Bandwidth: 3.668 GB/s
+	Host Exerciser numReads: 1024
+	Host Exerciser numWrites: 1025
+	Host Exerciser numPendReads: 0
+	Host Exerciser numPendWrites: 0
+	Host Exerciser numPendEmifReads: 0
+	Host Exerciser numPendEmifWrites: 0
+	Number of clocks: 5358
+	Total number of Reads sent: 1024
+	Total number of Writes sent: 1024
+	Bandwidth: 3.058 GB/s
     Test lpbk(1): PASS
 
-$ host_exerciser --mode lpbk lpbk
-    starting test run, count of 1
-API version: 1
-AFU clock: 250 MHz
-Allocate SRC Buffer
-Allocate DST Buffer
-Allocate DSM Buffer
-    Host Exerciser Performance Counter:
-    Host Exerciser numReads: 1024
-    Host Exerciser numWrites: 1025
-    Host Exerciser numPendReads: 0
-    Host Exerciser numPendWrites: 0
-    Host Exerciser numPendEmifReads: 0
-    Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 4467
-    Total number of Reads sent: 1024
-    Total number of Writes sent: 1024
-    Bandwidth: 3.668 GB/s
-    Test lpbk(1): PASS
-
-$ host_exerciser --mode write lpbk
+sudo host_exerciser --mode write lpbk
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1167,13 +1101,14 @@ Allocate DSM Buffer
     Host Exerciser numPendWrites: 0
     Host Exerciser numPendEmifReads: 0
     Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 2488
+    Number of clocks: 2592
     Total number of Reads sent: 0
     Total number of Writes sent: 1024
-    Bandwidth: 6.585 GB/s
+    Bandwidth: 6.321 GB/s
     Test lpbk(1): PASS
 
-$ host_exerciser --mode trput lpbk
+sudo host_exerciser --mode trput lpbk
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1187,10 +1122,10 @@ Allocate DSM Buffer
     Host Exerciser numPendWrites: 0
     Host Exerciser numPendEmifReads: 0
     Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 6180
+    Number of clocks: 3384
     Total number of Reads sent: 512
     Total number of Writes sent: 512
-    Bandwidth: 2.651 GB/s
+    Bandwidth: 4.842 GB/s
     Test lpbk(1): PASS
 
 
@@ -1199,7 +1134,8 @@ Allocate DSM Buffer
 Number of cachelines per request 1, 2, and 4. The user may replace `--mode lpbk` with `read, write, trput`. The target `lpbk` can be replaced with `mem`:
 
 ```bash session
-host_exerciser --mode lpbk --cls cl_1 lpbk
+sudo host_exerciser --mode lpbk --cls cl_1 lpbk
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1213,14 +1149,15 @@ Allocate DSM Buffer
     Host Exerciser numPendWrites: 0
     Host Exerciser numPendEmifReads: 0
     Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 4531
+    Number of clocks: 5475
     Total number of Reads sent: 1024
     Total number of Writes sent: 1024
-    Bandwidth: 3.616 GB/s
+    Bandwidth: 2.993 GB/s
     Test lpbk(1): PASS
 
 
-host_exerciser --mode lpbk --cls cl_2 lpbk
+sudo host_exerciser --mode lpbk --cls cl_2 lpbk
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1234,14 +1171,15 @@ Allocate DSM Buffer
     Host Exerciser numPendWrites: 0
     Host Exerciser numPendEmifReads: 0
     Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 3216
+    Number of clocks: 5356
     Total number of Reads sent: 1024
     Total number of Writes sent: 1024
-    Bandwidth: 5.095 GB/s
+    Bandwidth: 3.059 GB/s
     Test lpbk(1): PASS
 
 
-host_exerciser --mode lpbk --cls cl_4 lpbk
+sudo host_exerciser --mode lpbk --cls cl_4 lpbk
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1255,10 +1193,10 @@ Allocate DSM Buffer
     Host Exerciser numPendWrites: 0
     Host Exerciser numPendEmifReads: 0
     Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 3061
+    Number of clocks: 4481
     Total number of Reads sent: 1024
     Total number of Writes sent: 1024
-    Bandwidth: 5.352 GB/s
+    Bandwidth: 3.656 GB/s
     Test lpbk(1): PASS
 
 
@@ -1267,7 +1205,8 @@ Allocate DSM Buffer
 Interrupt tests (only valid for mode `mem`):
 
 ```bash session
-host_exerciser --interrupt 0 mem
+sudo host_exerciser --interrupt 0 mem
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1282,13 +1221,14 @@ Using Interrupts
     Host Exerciser numPendWrites: 0
     Host Exerciser numPendEmifReads: 0
     Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 5509
+    Number of clocks: 5140
     Total number of Reads sent: 1024
     Total number of Writes sent: 1024
-    Bandwidth: 2.974 GB/s
+    Bandwidth: 3.188 GB/s
     Test mem(1): PASS
 
-host_exerciser --interrupt 1 mem
+sudo host_exerciser --interrupt 1 mem
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1303,14 +1243,15 @@ Using Interrupts
     Host Exerciser numPendWrites: 0
     Host Exerciser numPendEmifReads: 0
     Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 5528
+    Number of clocks: 5079
     Total number of Reads sent: 1024
     Total number of Writes sent: 1024
-    Bandwidth: 2.964 GB/s
+    Bandwidth: 3.226 GB/s
     Test mem(1): PASS
 
 
-host_exerciser --interrupt 2 mem
+sudo host_exerciser --interrupt 2 mem
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1328,11 +1269,12 @@ Using Interrupts
     Number of clocks: 5525
     Total number of Reads sent: 1024
     Total number of Writes sent: 1024
-    Bandwidth: 2.965 GB/s
+    Bandwidth: 3.439 GB/s
     Test mem(1): PASS
 
 
-host_exerciser --interrupt 3 mem
+sudo host_exerciser --interrupt 3 mem
+#output
     starting test run, count of 1
 API version: 1
 AFU clock: 250 MHz
@@ -1347,10 +1289,10 @@ Using Interrupts
     Host Exerciser numPendWrites: 0
     Host Exerciser numPendEmifReads: 0
     Host Exerciser numPendEmifWrites: 0
-    Number of clocks: 5516
+    Number of clocks: 4735
     Total number of Reads sent: 1024
     Total number of Writes sent: 1024
-    Bandwidth: 2.970 GB/s
+    Bandwidth: 3.460 GB/s
     Test mem(1): PASS
 
 
@@ -1361,7 +1303,8 @@ Using Interrupts
 HE-HSSI is responsible for handling client-side ethernet traffic. It wraps the 10G ethernet AFU and includes a 10G traffic generator and checker. The user-space tool `hssi` exports a control interface to the HE-HSSI's AFU's packet generator logic. Context sensitive information is given by the `hssi --help` command. Help for the 10G specific test is given by `hssi hssi_10g --help` Example useage:
 
 ```bash session
-sudo hssi --pci-address 12:00.3 hssi_10g --eth-ifc s10hssi0 --eth-loopback on --he-loopback=off  --num-packets 100
+sudo hssi --pci-address 3b:00.3 hssi_10g --eth-ifc s10hssi0 --eth-loopback on --he-loopback=off  --num-packets 100
+#output
 10G loopback test
   port: 0
   eth_loopback: on
@@ -1369,7 +1312,7 @@ sudo hssi --pci-address 12:00.3 hssi_10g --eth-ifc s10hssi0 --eth-loopback on --
   num_packets: 100
   packet_length: 64
   src_address: 11:22:33:44:55:66
-    (bits): 0x665544332211
+    (bits):  0x665544332211
   dest_address: 77:88:99:aa:bb:cc
     (bits): 0xccbbaa998877
   random_length: fixed
@@ -1382,40 +1325,52 @@ sudo hssi --pci-address 12:00.3 hssi_10g --eth-ifc s10hssi0 --eth-loopback on --
 
 <a name="heading-6.0"></a>
 
-## **6.0 Programming the OFS FIM and BMC**
+## **6.0 Compiling OFS FIM**
 
-Instructions surrounding the compilation and simulation of the OFS FIM have fully moved into the [FPGA Interface Manager Developer Guide: Open Stack for Intel Stratix 10]([https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md]).
+Pre-Compiled FIM binaries are at [OFS 2022.3 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.0-rc3) and to compile the OFS FIM for Intel FPGA PAC D5005 do follow the below steps :
 
-<a name="heading-6.1"></a>
+1) Compile OFS FIM manually - Steps are provided in the developer guide to compile FIM and generate binaries. Refer to [FPGA Interface Manager Developer Guide](https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md)
 
-## **6.1 Programming the OFS FIM**
-	
-In order to program the OFS FIM, both the OPAE SDK and DFL drivers need to be installed on the host system. Please complete the steps in sections [5.0 OFS DFL Kernel Drivers](#heading-5.0) and [6.0 OPAE Software Development Kit](#heading-6.0). The OFS FIM version can be identified using the OPAE tool `fpgainfo`. A sample output of this command is included below.
+2) Compile OFS FIM using evaluation script - The script guides you to the steps required for compilation via selecting options from the menu. Refer to [Evaluation Script Readme File](https://github.com/OFS/ofs-d5005/blob/release/1.0.x/eval_scripts/README_ofs_d5005_eval.txt)
+
+<a name="heading-7.0"></a>
+
+## **7.0 Programming the OFS FIM and BMC**
+
+Instructions surrounding the compilation and simulation of the OFS FIM have fully moved into the [FPGA Interface Manager Developer Guide: Open Stack for Intel Stratix 10](https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md).
+
+<a name="heading-7.1"></a>
+
+### **7.1 Programming the OFS FIM**
+
+In order to program the OFS FIM, both the OPAE SDK and DFL drivers need to be installed on the host system. Please complete the steps in sections [4.0 OFS DFL Kernel Drivers](#heading-4.0) and [5.0 OPAE Software Development Kit](#heading-5.0). The OFS FIM version can be identified using the OPAE tool `fpgainfo`. A sample output of this command is included below.
 
 ```bash session
-Open FPGA Stack Platform
+sudo fpgainfo fme
+#output
+Intel FPGA Programmable Acceleration Card D5005
 Board Management Controller, MAX10 NIOS FW version: 2.0.13
 Board Management Controller, MAX10 Build version: 2.0.8
 //****** FME ******//
-Object Id                        : 0xEE00000
-PCIe s:b:d.f                     : 0000:12:00.0
+Object Id                        : 0xF000000
+PCIe s:b:d.f                     : 0000:3B:00.0
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 0x40100027740A327
+Bitstream Id                     : 0x401000287428628
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : bf531bcf-a896-5171-ab31-601a4ab754b6
+Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
 Boot Page                        : user
 ```
 
 Use the value under `PR Interface ID` to identify that FIM that has been loaded. Refer to the table below for a list of previous FIM releases.
+ Please 
+<a name="table-7-1"></a>
 
-<a name="table-6-1"></a>
-
-## Table 6-1 Previous FIM Releases
+#### Table 7-1 Previous FIM Releases
 
 | PR Release | PR Interface ID |
 |---------|---------|
@@ -1427,11 +1382,11 @@ Use the value under `PR Interface ID` to identify that FIM that has been loaded.
 
 The Beta release of the OFS software depends on the corresponding Beta release of the FIM. If the user's card does not report a PR Interface ID which matches the above table, then a new FIM will need to be programmed.
 
-<a name="heading-6.1.1"></a>
+<a name="heading-7.1.1"></a>
 
-### **6.1.1 Programming the FIM**
+#### **7.1.1 Programming the FIM**
 
-**1.** Download the file [d5005_page1_unsigned.bin](https://github.com/otcshare/intel-ofs-fim/releases/download/ofs-1.3.0/d5005_page1_unsigned.bin) from the Intel [OFS 2022.2 release page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-1.3.0).
+**1.** Download the file **d5005_page1_unsigned.bin** from [OFS 2022.3 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.0-rc3).
 
 **2.** Run `PACSign` to create an unsigned image with added header for use by fpgasupdate
 
@@ -1442,26 +1397,28 @@ PACSign SR -y -v -t UPDATE -s 0 -H openssl_manager -i d5005_page1_unsigned.bin -
 **3.** Run `fpgasupdate` to load the image into the user location of the Intel FPGA PAC D5005 FPGA flash, NOTE: use "sudo fpgainfo fme" command to find the PCIe address for your card.
 
 ```bash session
-sudo fpgasupdate d5005_PACsigned_unsigned.bin 12:00.0
+sudo fpgasupdate d5005_PACsigned_unsigned.bin 3B:00.0
 ```
 
 **4.** Run `RSU` command, and after powercycle your host.
 
 ```bash session
-sudo rsu bmcimg 0000:12:00.0
+sudo rsu bmcimg 0000:3B:00.0
 ```
 
-<a name="heading-6.2"></a>
-	
-### **6.2 Programming the BMC**
-	
+<a name="heading-7.2"></a>
+
+### **7.2 Programming the BMC**
+
 **1.** Download and unzip this file [OFS Stratix 10 BMC Binaries](https://github.com/otcshare/intel-fpga-bmc/tree/master/release_packages/darby_rot_release_package_max10_v2.0.8_nios_fw_v2.0.13_Y22WW14)
-	
+
 **2.** The file `unsigned_bmc_fw.bin` has the newly binary format. This bitstream is programmed with remote system update (RSU) and The bitstream must be signed with PACSign tool to generated.
-	
+
 **3.** Run `PACSign` to create an unsigned image with added header for use by fpgasupdate
+
 ```bash session
 PACSign BMC -y -v -t UPDATE -s 0 -H openssl_manager -i unsigned_bmc_fw.bin -o PACsigned_unsigned_bmc_fw.bin
+#output
 2022-04-22 03:07:05,626 - PACSign.log - INFO - OpenSSL version "OpenSSL 1.1.1k  FIPS 25 Mar 2021" matches "1.1.1"
 2022-04-22 03:07:05,648 - PACSign.log - INFO - Bitstream not previously signed
 2022-04-22 03:07:05,648 - PACSign.log - INFO - platform value is '688128'
@@ -1481,11 +1438,13 @@ PACSign BMC -y -v -t UPDATE -s 0 -H openssl_manager -i unsigned_bmc_fw.bin -o PA
 2022-04-22 03:07:05,750 - PACSign.log - INFO - Block 1 done
 2022-04-22 03:07:05,757 - PACSign.log - INFO - Writing blocks to file
 2022-04-22 03:07:05,758 - PACSign.log - INFO - Processing of file 'PACsigned_unsigned_bmc_fw.bin' complete
-```	
+```
 
 **4.** Run `fpgasupdate` to perform an upgrade of the BMC.
+
 ```bash session
-sudo fpgasupdate PACsigned_unsigned_bmc_fw.bin 12:00.0
+sudo fpgasupdate PACsigned_unsigned_bmc_fw.bin 3B:00.0
+#output
 [2022-04-22 03:08:34.15] [WARNING ] Update starting. Please do not interrupt.
 [2022-04-22 03:08:34.15] [INFO    ] updating from file pacsign_unsigned_bmc_fw.bin with size 819968
 [2022-04-22 03:08:34.15] [INFO    ] waiting for idle
@@ -1493,8 +1452,20 @@ sudo fpgasupdate PACsigned_unsigned_bmc_fw.bin 12:00.0
 [2022-04-22 03:09:02.18] [INFO    ] writing image file
 (100%) [████████████████████] [819968/819968 bytes][Elapsed Time: 0:00:13.01]
 [2022-04-22 03:09:15.20] [INFO    ] programming image file
-(101%) [████████████████████][Elapsed Time: 0:00:29.03]
-[2022-04-22 03:09:44.24] [INFO    ] update of 0000:12:00.0 complete
+(100%) [████████████████████][Elapsed Time: 0:00:29.03]
+[2022-04-22 03:09:44.24] [INFO    ] update of 0000:3B:00.0 complete
 [2022-04-22 03:09:44.24] [INFO    ] Secure update OK
 [2022-04-22 03:09:44.24] [INFO    ] Total time: 0:01:10.08
 ```
+
+# Notices & Disclaimers
+Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.   
