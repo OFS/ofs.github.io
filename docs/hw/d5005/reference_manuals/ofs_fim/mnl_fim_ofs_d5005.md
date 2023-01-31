@@ -1,5 +1,6 @@
 # **FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel Stratix 10 FPGA**
 
+<!--
 ## **Table of Contents**
 
 [**1 Overview**](#overview)
@@ -65,7 +66,7 @@
         * [**8.3.1.3 Port Interrupts**](#int_msix_port_int)<br>
         * [**8.3.1.4 Clearing Port PBA**](#int_msix_clearport_pba)<br>
     * [**8.3.2 User Interrupts**](#int_msix_clearuser_int)
-        * [**8.3.2.1 Clearing Port PBA for User Interrupts**](#int_msix_clearport_pba_user)<br>-->
+        * [**8.3.2.1 Clearing Port PBA for User Interrupts**](#int_msix_clearport_pba_user)<br>
 
 [**11 External Memory Interface**](#emif)<br>
 * [**11.1 EMIF CSR**](#emif_csr)<br>
@@ -107,6 +108,7 @@
     * [**14.2.6 AFU MMIO Response Timeout**](#afu-response-timeout)<br>`
 
 [**15 OFS Design Guidance**](#design_guidance)<br>
+-->
 
 
 ## **1 Overview**
@@ -153,16 +155,19 @@ The key components of OFS include:
 -   Target development platforms such as Intel-branded Programmable Acceleration Cards (PACs), Acceleration Development Platforms (ADPs) and third-party platforms.
 
 - Board Management Controller RTL and firmware that supports telemetry monitoring, remote configuration updates and most importantly a root of trust for the platform.
-
+<!--
 - Source accessible, modular FPGA Interface  manager (FIM) RTL with a UVM infrastructure and unit tests that can be leveraged for your own custom FIM design
+-->
+
+- Source accessible, modular FPGA Interface  manager (FIM) RTL with unit tests that can be leveraged for your own custom FIM design
 
 - Basic building blocks for interconnect and PF/VF translation and arbitration; Platform Interface Manager (PIM) which provides Avalon<sup>&reg;</sup> bus compliant interfaces.
 
 - AFU examples both in the git repository and workload examples provided by 3rd party vendors
 
-- The OneAPI shim provides a layer that is used by the OpenCL/OneAPI runtime to communicate with the kernel.
+- The OneAPI shim provides a layer that is used by the OneAPI runtime to communicate with the kernel.
 
-- Accelerator simulation through UVM
+<!--- Accelerator simulation through UVM-->
 
 -   OPAE software development kit (APIs, upstreamed Linux drivers and software tools)
 
@@ -178,7 +183,7 @@ The key components of OFS include:
 | Repository| Contains                                                               |
 |:--------------------------:|------------------------------------------------------------------------|
 | ofs-fim-common             | Contains common modules shared by all OFS designs.  This repository is a submodule of each platform repository.  | 
-| ofs-d5005             | Contains FIM or shell RTL design, automated compilation scripts, unit tests and UVM test framework.  |                                       |                       |                    |
+| ofs-d5005             | Contains FIM or shell RTL design, automated compilation scripts, unit tests.  |                                       |                       |                    |
 
 <p> The OPAE software GitHub site is fully opensource and contains resources for both software and workload developers.</p>
 
@@ -234,8 +239,7 @@ Note that as discussed previously, the BMC RTL and firmware, the OFS OPAE softwa
 
 **Figure 1-2 OFS for Intel Stratix 10 Block Diagram**
 
-
-<img src="images/BaseShell.png" alt="drawing" style="width:500px">
+![base-shell](images/BaseShell.png)
 
 The table below details the features of the OFS release targeting the Intel Stratix 10 FPGA .
 
@@ -380,8 +384,8 @@ Figure below gives a simple illustration of the feature discovery by
 traversing the DFH registers.
 
 **Figure 1-3 Device Feature Header Linked List Traversal**
+![DFH-traversal](images/DFH-traversal.png)
 
-<img src="images/DFH-traversal.png" alt="drawing" style="width:350px">
 
 
 #### **1.4.5 OFS Reference Design**
@@ -392,7 +396,7 @@ acceleration card or development kit and exercise key FPGA device
 interfaces. The Intel Stratix<sup>&reg;</sup> 10 code line for OFS targets the Intel FPGA PAC D5005.  FIM designs are released to
 <https://github.com/OFS/ofs-d5005> for evaluation and use.  
 
-#### **1.4.6 FIM Simulation**
+<!--#### **1.4.6 FIM Simulation**
 <a name="fim_sim"></a>
 OFS provides a UVM environment for
 the FIM and a framework for new feature verification. UVM provides a
@@ -410,7 +414,7 @@ include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be in the verification folder here <https://github.com/OFS/ofs-d5005> for evaluation and use. 
+The verification infrastructure can be in the verification folder here <https://github.com/OFS/ofs-d5005> for evaluation and use. -->
 
 
 
@@ -432,7 +436,8 @@ Depending on your design goals, you can present peripherals to software as:
 * Native driver managed peripherals that are exposed through an independent physical function or virtual function.
 
 **Figure 2-1 OFS Datapath Structure**
-<img src="images/OFS-Datapaths.PNG" alt="drawing" style="width:350px">
+
+![OFS-datapaths](images/OFS-Datapaths.PNG)
 
 
 ## **3 PCIe Interface**
@@ -441,7 +446,8 @@ The FIM's H-tile PCIe* hard IP is a Gen3x16 design.  The IP supports SR-IOV and 
 
 **Figure 3-1 OFS FIM RX-TX Datapath**
 
-<img src="images/IOFS_TX-RX-Datpath.png" alt="drawing" style="width:350px">
+
+![OFS-TX-RX](images/IOFS_TX-RX-Datpath.png)
 
 
 Some key features of the PCIe interface are:
@@ -546,7 +552,7 @@ The Arm AMBA 4 AXI4 interfaces to the AFU use the `VALID` and `READY` signal for
 
 **Figure 3-3 AXI4-Stream RX Request Cycle Header Format**
 
-<img src="images/s10_header_rx.png" alt="drawing" style="width:400px">
+![s10-header-rx](images/s10_header_rx.png)
 
 All Host requests sent to the AFU are memory-mapped I/O requests.  Of the fields below, the following are not supported in the design:
 * Prefix
@@ -555,7 +561,7 @@ All Host requests sent to the AFU are memory-mapped I/O requests.  Of the fields
 
 **Figure 3-4 AXI4-Stream RX Completion Header Format**
 
-<img src="images/s10_header_rx_cpl.png" alt="drawing" style="width:400px">
+![s10-header-cpl](images/s10_header_rx_cpl.png)
 
 All completions in the RX direction are data completions.  Of the fields below, the following are not supported in the design:
 * Prefix
@@ -600,8 +606,7 @@ Note that:
 
 **Figure 3-5:  AXI4-Stream TX Request Cycle Header Format**
 
-
-<img src="images/s10_header_rx.png" alt="drawing" style="width:400px">
+![s10-header-cpl](images/s10_header_rx.png)
 
 All requests in the TX direction are Memory Read/Write. The requester ID does not come from the AFU; the AXI-Stream adapter supplies it.  The tag must come from the AFU.  Of the fields below, the following are not used in the H-Tile PCIe subsystem design:
 * Prefix
@@ -613,7 +618,7 @@ Note that VF Active, VF Num and PF Num are obtained from the header packet.
 
 **Figure 3-4 AXI4-Stream TX Completion Header Format**
 
-<img src="images/s10_header_rx_cpl.png" alt="drawing" style="width:400px">
+![s10-header-rx-cpl](images/s10_header_rx_cpl.png)
 
 All completions in the TX direction are for MMIO.  Of the fields below, the following are not supported in the design:
 * Prefix
@@ -708,7 +713,7 @@ There are three types of interconnect fabric in the OFS FIM design:
  
 **Figure 6-1 Interonnect Fabric Diagram**
 
-<img src="images/ofs-interconnect-s10.png" alt="drawing" style="width:400px">
+![s10-interconnect](images/ofs-interconnect-s10.png)
 
 TLP packets sent from upstream PCIe Subsystem on AXI4-Stream channel are demultiplexed in the AXI4-Stream PF/VF mux/demux fabric and routed to the respective PF/VF function based on the PF/VF information in the TLP header, such as vf_active or the PF/VF number. On the opposite direction, TLP packets from downstream PF/VF function are muxed in the fabric and sent to PCIe subsystem over AXI4-Stream channel.
 
@@ -751,7 +756,8 @@ You have two options to generate APF/BPF IPs.
 The below figure illustrates the high level flow:
 
  **Figure 6-2 APF/BPF Generation**
-<img src="images/apf-bpf-generation.png" alt="drawing" style="width:400px">
+
+![apf-bpf-generation](images/apf-bpf-generation.png)
 
 Note that the only input required is the `iofs_dfl.txt` text file which allows you to specify how many ports, which fabric, type of AXI4-Lite port (master, slave, or both), port addresses and sizes. 
 Using `iofs_dfl.txt` and `dfh2tcl.pl` to generate the APF and BPF is the preferred method.
@@ -868,7 +874,7 @@ The default mapping is shown below:
 </tbody>
 </table>
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [OFS FIM Developer Guide](https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md).
+For information on how to modify the PF/VF mapping for your own design, refer to the [OFS FIM Developer Guide](https://github.com/OFS/ofs.github.io/blob/main/hw/docs/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md).
 
 ### **6.6 Unified Tag Remapping**
 <a name="tag_remap"></a>
@@ -899,7 +905,8 @@ ST2MM implements the following key features:
     * Sends interrupt packets to the PCIe subsystem when interrupt requests are received from the peripherals. Interrupts can be requested by a peripheral through a memory write to interrupt CSR registers in the ST2MM.
 
 **Figure 6-2 APF/BPF Generation**
-<img src="images/st2mm.png" alt="drawing" style="width:400px">
+
+![st2mm](images/st2mm.png)
 
 ST2MM implements both AXI4-lite master and slave interfaces that are connected to the designated slave and master port on APF. Host memory requests are sent on the ST2MM master interface to AFP where the requests are routed to the targeted peripherals. 
 
@@ -1356,7 +1363,7 @@ The Ethernet MAC interface typically has a data streaming interface which is map
 
 **Figure 12-1: HSSI Subsystem**
 
-<img src="images/OFS-EA-HSSI-Subsystem.png" alt="drawing" style="width:350px">
+![hssi-ss](images/OFS-EA-HSSI-Subsystem.png)
 
 Additionally, the Ethernet MAC interface has an interface for status and flow control. Status and flow control signals vary across IPs and operating modes so for this design we group the signals into a AXI4-Stream sideband interface which provides a standard interface to the AFU along with platform customizations if needed.
 The Avalon to Arm AMBA 4 AXI4 bridge (av_axi_st_bridge) converts native Avalon interfaces to an AXI4 Stream interface.
@@ -1460,7 +1467,7 @@ The diagram below explains the sequence of operation and handshaking between sof
 
 **Figure 12-2: Sequence of Operation and Handshaking between Software and a Memory-Mapped Dynamic Reconfiguration Interface.**
 
- <img src="images/OFS-EA-HSSI-Reconfig-Sequence.png" alt="drawing" style="width:350px">
+![hssi-reconfig](images/OFS-EA-HSSI-Reconfig-Sequence.png)
 
 (0)  Idle state – command and address buses are cleared (all-zero).  
 1.	Software sets a desired non-zero command and address to initiate reconfiguration.
@@ -1530,13 +1537,11 @@ The HE-HSSI Ethernet block diagram is below.
 
 **Figure 12-6: HE-HSSI Block Diagram Block Diagram**
 
-<img src="images/OFS-EA-HSSI-AFU-datapath.png" alt="drawing" style="width:350px">
+![hssi-afu-datapath](images/OFS-EA-HSSI-AFU-datapath.png)
 
 **Figure 12-7: 10G Ethernet AFU Clock Domains**
 
-
-<img src="images/ofs-he-hssi-clks.png" alt="drawing" style="width:350px">
-
+![hssi-he-hssi-clks](images/ofs-he-hssi-clks.png)
 
 
 ##### **12.2.6.1 HE-HSSI CSR Map**
@@ -1549,7 +1554,7 @@ The reference HSSI AFU contains the following registers and a similar arrangemen
 * Channel Select Register: Channel select register for traffic controller mailbox access. It is used in cases where more than one channel is in the AFU, else it defaults to zero, meaning channel-0 is selected. (TRAFFIC_CTRL_PORT_SEL)
 * Scratchpad Register: Scratchpad register for CSR access checking. (AFU_SCRATCHPAD) 
 
-The CSR excel for the 10G HSSI reference AFU can be found [here](https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/src/he_hssi/HE_HSSI_CSR.xls).
+The CSR excel for the 10G HSSI reference AFU can be found [here](https://github.com/OFS/ofs-d5005/blob/release/1.0.x/ipss/hssi/s10/hssi_ss_csr.xls).
 
 
 
@@ -1596,6 +1601,8 @@ The following figure depicts the high level view of the Port Gasket:
 
 **Figure 13-1 Partial Reconfiguration Gasket**
 <img src="images/ofs-pr-gasket.png" alt="drawing" style="width:350px">
+
+![hssi-he-hssi-clks](images/ofs-he-hssi-clks.png)
 
 The isolation logic is provided on the output signals of the PR region to ensure they don’t glitch and affect the interfacing logic in the Static Region (SR). The isolation logic is controlled by the PR Freeze logic during PR operation.
 
@@ -1804,17 +1811,16 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
             <td>* All of your implemented functions must have the required AXI4-Stream interface for both the data path and the MMIO control path to CSRs.<br> * All CSRs in the user implemented function must have the required DFH layout.<br> * See host exerciser CSRs for reference.
 </td>   
         </tr>
-<tr>
+<!--<tr>
             <td>5</td>
             <td>Update UVM testbench</td>
             <td>* The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory and HSSI.<br>* User must update the UVM testbench to reflect new RTL behavior for any customization changes.<br>See The <i>UVM Simulation User Guide: OFS for Intel Stratix 10 FPGA</i>.
-
 </td>
-        </tr>  
+        </tr> -->
      </tbody>
 </table>
 
-For more information on modifying the FIM, refer to the <i>FPGA Interface Manager Developer's Guide: OFS for Intel Stratix 10 FPGA</i>. https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md
+For more information on modifying the FIM, refer to the <i>FPGA Interface Manager Developer's Guide: OFS for Intel Stratix 10 FPGA</i>. https://github.com/OFS/ofs.github.io/blob/main/hw/docs/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md
 
 
 ## Notices & Disclaimers

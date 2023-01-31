@@ -13,6 +13,8 @@ The collection of OFS repository folders offer:</b>
     c. Discovery of card features and telemetry information
 5. Unit tests available for key interface IP
 
+To take advantage of the OFS infrastructure, you can start by evaluating the default OFS FPGA shell targeting Intel<sup>&reg;</sup> Stratix 10<sup>&reg;</sup> FPGA provided with the GitHub release along with the OFS software stack.  After understanding what OFS has to offer you can leverage the repositories to begin your custom OFS FPGA design, workload or software application.
+
 ![OFS](hw/d5005/reference_manuals/ofs_fim/images/OFS.png)
 
 

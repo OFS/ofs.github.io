@@ -1,21 +1,9 @@
-# Software Reference Manual: Intel<sup>&reg;</sup> Open FPGA Stack
+# Software Reference Manual:  Open FPGA Stack
 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document.
-
-All information provided here is subject to change without notice. Contact an Intel representative to obtain the latest Intel product specifications and roadmaps.
-
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request.
-Intel, the Intel logo, Agilex, Altera, Arria, Cyclone, Enpirion, eASIC, easicopy, MAX, Nios, Quartus, Stratix words and logos are trademarks of Intel Corporation or its subsidiaries in the U.S. and/or other countries. Intel warrants performance of its FPGA and semiconductor products to current specifications in accordance with Intel's standard warranty, but reserves the right to make changes to any products and services at any time without notice. Intel assumes no responsibility or liability arising out of the application or use of any information, product, or service described herein except as expressly agreed to in writing by Intel. Intel customers are advised to obtain the latest version of device specifications before relying on any published information and before placing orders for products or services.
-
-*Other names and brands may be claimed as the property of others.
-Copyright <sup>&copy;</sup> 2022, Intel Corporation. All rights reserved.
-
-## **Table of Contents**
+<!--## **Table of Contents**
 [**1.0 Introduction**](#heading-1.0)\
 | --- [**1.1 Audience**](#heading-1.1)\
 | --- [**1.2 Terminology**](#heading-1.2)\
-| --- [**1.3 Reference Documents**](#heading-1.3)\
 [**2.0 OPAE Software Development Kit**](#heading-2.0)\
 | --- [**2.1 libopae-c**](#heading-2.1)\
 | --- | --- [**2.1.1 Device Abstraction**](#heading-2.1.1)\
@@ -139,9 +127,15 @@ Copyright <sup>&copy;</sup> 2022, Intel Corporation. All rights reserved.
 [**9.0 Debugging OPAE**](#heading-9.0)\
 | --- [**9.1 Enabling Debug Logging**](#heading-9.1)\
 | --- [**9.2 GDB**](#heading-9.2)\
-[**10.0 Adding New Device Support**](#heading-10.0)\
-| --- [**10.1 libopae-c**](#heading-10.1)\
-| --- [**10.2 libxfpga**](#heading-10.2)\
+[**10.0 Adding New Device Configuration**](#heading-10.0)\
+| --- [**10.1 Configuration File Search Order**](#heading-10.1)\
+| --- [**10.2 Configuration File Format**](#heading-10.2)\
+ --- | --- [**10.2.1 "plugin" libopae-cand libopae-v**](#heading-10.2.1)\
+| ---| --- [**10.2.2 "fpgainfo": fpgainfo application**](#heading-10.2.2)\
+| ---| --- [**10.2.3 “fpgad”: fpgad daemon process**](#heading-10.2.3)\
+| ---| --- [**10.2.4 “rsu”: rsu script**](#heading-10.2.4)\
+| ---| --- [**10.2.5 “fpgareg”: fpgareg script**](#heading-10.2.5)\
+| ---| --- [**10.2.6 “opae.io”: opae.io application**](#heading-10.2.6)\
 | --- [**10.3 libopae-v**](#heading-10.3)\
 | --- [**10.4 opae.admin**](#heading-10.4)\
 | --- [**10.5 rsu.py**](#heading-10.5)\
@@ -268,13 +262,18 @@ Copyright <sup>&copy;</sup> 2022, Intel Corporation. All rights reserved.
 [**Figure 101 fpgareg Commands**](#figure-101)\
 [**Figure 102 RPM Creation**](#figure-102)\
 [**Figure 103 Debugging with GDB**](#figure-103)\
-[**Figure 104 Searching for Device IDs**](#figure-104)\
-[**Figure 105 Updating pluginmgr.c**](#figure-105)\
-[**Figure 106 Updating opae_vfio.c**](#figure-106)\
-[**Figure 107 Updating fpga.py**](#figure-107)\
-[**Figure 108 Updating rsu.py**](#figure-108)
-
-
+[**Figure 104 Default Configuration File**](#figure-104)\
+[**Figure 105 HOME Relative Search Paths**](#figure-105)\
+[**Figure 106 Figure 106 System Search Paths**](#figure-106)\
+[**Figure 107 Keyed Configurations**](#figure-107)\
+[**Figure 108 Configurations Format**](#figure-108)\
+[**Figure 109 "opae" / "plugin" key**](#figure-109)\
+[**Figure 110 "opae" / "fpgainfo" key**](#figure-110)\
+[**Figure 111 "opae" / "fpgad" key**](#figure-111)\
+[**Figure 112 "opae" / "rsu" key**](#figure-112)\
+[**Figure 113 "opae" / "fpgareg" key**](#figure-113)\
+[**Figure 114 "opae" / "opae.io" key**](#figure-114)
+-->
 
 
 
@@ -290,7 +289,7 @@ Copyright <sup>&copy;</sup> 2022, Intel Corporation. All rights reserved.
 
 ### **1.1 Audience**
 
-The information presented in this document is intended to be used by software developers looking to increase their knowledge of the OPAE SDK user-space software stack and the kernel-space linux-dfl drivers. This information is intended as a starting point, with links to where users can deep dive on specific topics. For installation of each component of the Agilex OFS stack refer to the [Getting Started Guide: Intel Open FPGA Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs).
+The information presented in this document is intended to be used by software developers looking to increase their knowledge of the OPAE SDK user-space software stack and the kernel-space linux-dfl drivers. This information is intended as a starting point, with links to where users can deep dive on specific topics. 
 
 <a name="heading-1.2"></a>
 
@@ -298,15 +297,15 @@ The information presented in this document is intended to be used by software de
 
 |Term  |Abbreviation|Description |
 |---------|---------|---------|
-| **I**ntel **O**pen **F**PGA **S**tack | Intel OFS | A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
+| **O**pen **F**PGA **S**tack | OFS | A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
 | **A**ccelerator **F**unctional **U**nit | AFU |Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance.  *Note: An AFU region is the part of the design where an AFU may reside.  This AFU may or may not be a partial reconfiguration region.* |
-| **B**oard **M**anagement **C**ontroller | BMC | Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors. |
+| **B**oard **M**anagement **C**ontroller | BMC | Supports features such as power sequence management and board monitoring through on-board sensors. |
 | **F**PGA **I**nterface **M**anager | FIM | Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs.  The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
 | **P**latform **I**nterface **M**anager | PIM | An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
 | Intel **V**irtualization **T**echnology for **D**irected I/O | Intel VT-d |Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
 | **S**ingle-**R**oot **I**nput-**O**utput **V**irtualization | SR-IOV | Allows the isolation of PCI Express resources for manageability and performance. |
 | **H**ost **E**xerciser **M**odule | HEM | Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
-| **D**evice **F**eature **L**ist | DFL | A concept inherited from Intel OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. [(link)](https://docs.kernel.org/fpga/dfl.html?highlight=sriov) |
+| **D**evice **F**eature **L**ist | DFL | A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. [(link)](https://docs.kernel.org/fpga/dfl.html?highlight=sriov) |
 | **B**est **K**nown **C**onfiguration | BKC | The exact hardware configuration Intel has optimized and validated the solution against. |
 | **O**pen **P**rogrammable **A**cceleration **E**ngine | OPAE | The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
 | **M**emory **M**apped **I**nput/**O**utput | MMIO | Users may map and access both control registers and system memory buffers with accelerators. |
@@ -315,35 +314,14 @@ The information presented in this document is intended to be used by software de
 | **V**irtual **F**unction **I**nput/**O**utput | VFIO | An IOMMU/device agnostic framework for exposing direct device access to userspace. [(link)](https://www.kernel.org/doc/html/latest/driver-api/vfio.html)|
 | **C**onfiguration and **S**tatus **R**egister| CSR |Communication with the AFU is achieved by reading/writing CSRs and reading/writing shared memory buffers. |
 | Port | N/A |Represents the interface between the static FPGA fabric and a PR region containing an AFU. |
-| **A**dvanced **E**rror **R**eporting| AER| The PCIE AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
+| **A**dvanced **E**rror **R**eporting| AER| The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
 
 <a name="heading-1.3"></a>
 
-### **1.3 Reference Documents**
 
-Please refer to the README on the OTCshare GitHub for an [updated list of collateral](https://github.com/otcshare/intel-ofs-docs), under *Table 1-1: Intel OFS for Intel Agilex FPGA Documentation List*.
+## **2.0 OPAE Software Development Kit (SDK)**
 
-<a name="table-1"></a>
-
-#### Table 1: Reference Documents
-
-| Document | Purpose |
-| ----- | ----- |
-| [Getting Started Guide: Intel Open FPGA Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs) | Guides you through the setup and build steps to evaluate the OFS solution targeting an Intel N6000-PL FPGA SmartNIC Platform |
-| [FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs)| Describes the OFS FIM architecture and features.|
-| [FPGA Interface Manager Developer Guide: Intel Open Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs)| Provides guidance on developing an FPGA Interface Manager (FIM) for a custom FPGA acceleration board.|
-| [Accelerator Functional Unit Developer Guide: Intel Open FPGA Stack](https://github.com/otcshare/intel-ofs-docs)| Provides guidance on how to build and test an AFU when designing to an OFS-based FPGA Interface Manager|
-| [Simulation User Guide: Intel Open FPGA Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs)|Provides steps for setting up the UVM verification tool suite and running UVM unit tests |
-| [Security User Guide: Intel Open FPGA Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs)| Describes how to create keys and sign bitstreams for your custom design; includes new VAB feature|
-| [Board Management Controller Developer Guide: Intel Open FPGA Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs)| Describes how to modify the BMC RTL and Firmware for your custom board design.|
-| [HLD Shim Getting Started User Guide: Intel Open FPGA Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs)| Describes how to use the OpenCL Accelerator Functional Unit (AFU) shim for Intel OFS and build your first OpenCL AFU.|
-| [High Level Design(HLD) Shim Reference Manual : Intel Open FPGA Stack for Intel Agilex FPGA](https://github.com/otcshare/intel-ofs-docs)| Describes essential hardware and software components of a typical Intel OFS OpenCL AFU.|
-
-<a name="heading-2.0"></a>
-
-## **2.0 OPAE Software Development Kit**
-
-The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE repository](https://github.com/OPAE/opae-sdk), under the opae-sdk tag.
+The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE SDK repository](https://github.com/OFS/opae-sdk), under the opae-sdk tag.
 
 These features include the acceleration logic configured on the device, as well as functions to manage and reconfigure the device. The library enables user applications to transparently and seamlessly leverage FPGA-based acceleration.
 
@@ -364,7 +342,7 @@ The remaining sections on OPAE in this document are unique and build on basic pr
 
 | Document | Link |
 | -------------------- | ------------------------------------------------------ |
-| OPAE SDK on github   | https://github.com/OPAE/opae-sdk                       |
+| OPAE SDK on github   | https://github.com/OFS/opae-sdk                       |
 | OPAE wiki: Documents | https://wiki.ith.intel.com/display/OPAE/OPAE+Documents |
 | pybind11             | https://pybind11.readthedocs.io/en/stable/             |
 | CLI11                | https://github.com/CLIUtils/CLI11                      |
@@ -397,7 +375,7 @@ and shared memory.
 ##### **2.1.1.1 Device types**
 
 The C enum
-[fpga\_objtype](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L100-L115)
+[fpga\_objtype](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L100-L115)
 defines two variants. The FPGA\_DEVICE variant corresponds to the FIM
 portion of the device, and the FPGA\_ACCELERATOR refers to the
 accelerator, also known as the AFU.
@@ -421,19 +399,19 @@ will have multiple dfl-fme.X’s and matching dfl-port.X’s.
 ##### **2.1.1.2 Tokens and Handles**
 
 An
-[fpga\_token](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L94-L107)
+[fpga\_token](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L94-L107)
 is an opaque data structure that uniquely represents an FPGA\_DEVICE or
 an FPGA\_ACCELERATOR. Tokens convey existence, but not ownership. Tokens
 are retrieved via the OPAE enumeration process described below using the
-[fpgaEnumerate()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
+[fpgaEnumerate()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
 call.
 
 An
-[fpga\_handle](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L109-L120)
+[fpga\_handle](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L109-L120)
 is an opaque data structure that corresponds to an opened device
 instance, whether FPGA\_DEVICE or FPGA\_ACCELERATOR. A Handle is
 obtained from a token via the
-[fpgaOpen()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/access.h#L41-L73)
+[fpgaOpen()](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L41-L73)
 call. A handle conveys that the /dev/dfl-fme.X or /dev/dfl-port.X device
 file has been opened and is ready for interaction via its IOCTL
 interface.
@@ -445,7 +423,7 @@ interface.
 Enumeration is the process by which an OPAE application becomes aware of
 the existence of FPGA\_DEVICE’s and FPGA\_ACCELERATOR’s. Refer to the
 signature of the
-[fpgaEnumerate()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
+[fpgaEnumerate()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
 call:
 
 ```C
@@ -458,7 +436,7 @@ uint32_t *num_matches);
 <p align = "center">Figure 1 fpgaEnumerate()</p> <a name="figure1"></a>
 
 The typical enumeration flow involves an initial call to
-[fpgaEnumerate()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
+[fpgaEnumerate()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
 to discover the number of available tokens.
 
 ```C
@@ -481,7 +459,7 @@ fpgaEnumerate(NULL, 0, tokens, num_tokens, &num_matches);
 Note that parameters filters and num\_filters were not used in the
 preceding example, as they were NULL and 0. When no filtering criteria
 are provided,
-[fpgaEnumerate()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
+[fpgaEnumerate()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
 returns all tokens that can be enumerated.
 
 <a name="heading-2.1.2.1"></a>
@@ -489,11 +467,11 @@ returns all tokens that can be enumerated.
 #### **2.1.2.1 fpga\_properties and Filtering**
 
 An
-[fpga\_properties](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L71-L92)
+[fpga\_properties](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L71-L92)
 is an opaque data structure used to retrieve all of the properties
 concerning an FPGA\_DEVICE or FPGA\_ACCELERATOR. These properties can be
 included in the filters parameter to
-[fpgaEnumerate()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
+[fpgaEnumerate()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
 to select tokens by specific criteria.
 
 <a name="heading-2.1.2.1.1"></a>
@@ -501,7 +479,7 @@ to select tokens by specific criteria.
 ##### **2.1.2.1.1 Common Properties**
 
 Table 3 lists the set of
-[properties](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/props.h#L82-L133)
+[properties](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/props.h#L82-L133)
 that are common to FPGA\_DEVICE and FPGA\_ACCELERATOR:
 
 <a name="table-3"></a>
@@ -565,7 +543,7 @@ FPGA_ACCELERATOR: the token of the corresponding FPGA_DEVICE, if any. Otherwise,
 <td>The number of error sysfs nodes available for this token.</td>
 </tr>
 <tr class="odd">
-<td><a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L117-L132">fpga_interface</a> interface;</td>
+<td><a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L117-L132">fpga_interface</a> interface;</td>
 <td>An identifier for the underlying plugin-based access method.</td>
 </tr>
 </tbody>
@@ -586,7 +564,7 @@ token types.
 |Property | Description|
 |---------------------------------------------------------------------------------------------------------- | ------------------------------ |
 | uint64\_t bbs\_id;                                                                                         | FIM-specific Blue Bitstream ID |
-| [fpga\_version](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L135-L146) bbs\_version; | BBS version                    |
+| [fpga\_version](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L135-L146) bbs\_version; | BBS version                    |
 
 <a name="table-4"></a>
 
@@ -603,14 +581,14 @@ FPGA\_ACCELERATOR token types.
 
 |Property | Description|
 |----------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| [fpga\_accelerator\_state](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L92-L98) state; | Whether the Accelerator is currently open |
+| [fpga\_accelerator\_state](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L92-L98) state; | Whether the Accelerator is currently open |
 | uint32\_t num\_mmio;                                                                                              | The number of MMIO regions available      |
 | uint32\_t num\_interrupts;                                                                                        | The number of interrupts available        |
 
 <p align = "center">Table 5 FPGA_ACCELERATOR Properties</p>
 
 Following is an example of using
-[fpga\_properties](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L71-L92)
+[fpga\_properties](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L71-L92)
 to enumerate a specific AFU:
 
 ```C
@@ -624,29 +602,29 @@ fpgaPropertiesSetGuid(filter, afu_id);
 fpgaEnumerate(&filter, 1, tokens, num_tokens, &num_matches);
 ```
 Relevant Links: 
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L122-L133">fpga_guid</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/properties.h#L77-L105">fpgaGetProperties</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/properties.h#L216-L227">fpgaPropertiesSetObjectType</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/properties.h#L591-L605">fpgaPropertiesSetGUID</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L122-L133">fpga_guid</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/properties.h#L77-L105">fpgaGetProperties</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/properties.h#L216-L227">fpgaPropertiesSetObjectType</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/properties.h#L591-L605">fpgaPropertiesSetGUID</a>
 
 <p align = "center">Figure 4 Filtering During Enumeration</p><a name="figure 4"></a>
 
 Note that fpga\_properties and fpga\_token’s are allocated resources
 that must be freed by their respective API calls, ie
-[fpgaDestroyProperties()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/properties.h#L160-L176)
+[fpgaDestroyProperties()](https://github.com/OFS/opae-sdk/blob/master/include/opae/properties.h#L160-L176)
 and
-[fpgaDestroyToken()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L120-L133).
+[fpgaDestroyToken()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L120-L133).
 
 <a name="heading-2.1.3"></a>
 
 ### **2.1.3 Access**
 
 Once a token is discovered and returned to the caller by
-[fpgaEnumerate()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L46-L103),
+[fpgaEnumerate()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103),
 the token can be converted into a handle by
-[fpgaOpen()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/access.h#L41-L73).
+[fpgaOpen()](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L41-L73).
 Upon a successful call to
-[fpgaOpen()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/access.h#L41-L73),
+[fpgaOpen()](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L41-L73),
 the associated /dev/dfl-fme.X (FPGA\_DEVICE) or /dev/dfl-port.X
 (FPGA\_ACCELERATOR) is opened and ready for use. Having acquired an
 fpga\_handle, the application can then use the handle with any of the
@@ -654,7 +632,7 @@ OPAE APIs that require an fpga\_handle as an input parameter.
 
 Like tokens and properties, handles are allocated resources. When a
 handle is no longer needed, it should be closed and released by calling
-[fpgaClose()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/access.h#L75-L88).
+[fpgaClose()](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L75-L88).
 
 <a name="heading-2.1.4"></a>
 
@@ -662,7 +640,7 @@ handle is no longer needed, it should be closed and released by calling
 
 Event registration in OPAE is a two-step process. First, the type of
 event must be identified. The following
-[fpga\_event\_type](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L71-L82)
+[fpga\_event\_type](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L71-L82)
 variants are defined:
 
 <a name="table-6"></a>
@@ -675,16 +653,16 @@ variants are defined:
 Table 6 FPGA Event Types
 
 Once the desired event type is known, an
-[fpga\_event\_handle](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L148-L160)
+[fpga\_event\_handle](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L148-L160)
 is created via
-[fpgaCreateEventHandle()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/event.h#L50-L63).
+[fpgaCreateEventHandle()](https://github.com/OFS/opae-sdk/blob/master/include/opae/event.h#L50-L63).
 Once the event handle is available, the event notification is registered
 using
-[fpgaRegisterEvent()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/event.h#L96-L128).
+[fpgaRegisterEvent()](https://github.com/OFS/opae-sdk/blob/master/include/opae/event.h#L96-L128).
 In the example below, note the use of the flags field for passing the
 desired IRQ vector when the event type is FPGA\_EVENT\_INTERRUPT. With
 the event registered, the application can then use
-[fpgaGetOSObjectFromEventHandle()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/event.h#L82-L94)
+[fpgaGetOSObjectFromEventHandle()](https://github.com/OFS/opae-sdk/blob/master/include/opae/event.h#L82-L94)
 to obtain a file descriptor for use with the poll() system call. When
 the interrupt occurs, the file descriptor will be set to the signaled
 state by the DFL driver.
@@ -703,10 +681,10 @@ fpgaGetOSObjectFromEventHandle(event_handle, &fd);
 
 When an event notification is no longer needed, it should be released by
 calling
-[fpgaUnregisterEvent()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/event.h#L130-L154).
+[fpgaUnregisterEvent()](https://github.com/OFS/opae-sdk/blob/master/include/opae/event.h#L130-L154).
 Like device handles, event handles are allocated resources that must be
 freed when no longer used. To free an event handle, use the
-[fpgaDestroyEventHandle()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/event.h#L65-L79)
+[fpgaDestroyEventHandle()](https://github.com/OFS/opae-sdk/blob/master/include/opae/event.h#L65-L79)
 call.
 
 
@@ -718,7 +696,7 @@ Communication with the AFU is achieved via reading and writing CSRs and
 by reading and writing to AFU/host shared memory buffers. An AFU’s CSRs
 are memory-mapped into the application process address space by way of
 the
-[fpgaMapMMIO()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/mmio.h#L141-L183)
+[fpgaMapMMIO()](https://github.com/OFS/opae-sdk/blob/master/include/opae/mmio.h#L141-L183)
 call.
 
 ```C
@@ -732,22 +710,22 @@ fpgaWriteMMIO64(fpga_handle, mmio_num, MY_CSR, 0xa);
 The second parameter, mmio\_num, is the zero-based index identifying the
 desired MMIO region. The maximum number of MMIO regions for a particular
 handle is found by accessing the num\_mmio property. Refer to the
-[fpgaPropertiesGetNumMMIO()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/properties.h#L607-L618)
+[fpgaPropertiesGetNumMMIO()](https://github.com/OFS/opae-sdk/blob/master/include/opae/properties.h#L607-L618)
 call.
 
 Once the AFU CSRs are mapped into the process address space, the
 application can use the fpgaReadMMIO**XX**() and fpgaWriteMMIO**XX**() family of
 functions, eg
-[fpgaReadMMIO64()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/mmio.h#L67-L83)
+[fpgaReadMMIO64()](https://github.com/OFS/opae-sdk/blob/master/include/opae/mmio.h#L67-L83)
 and
-[fpgaWriteMMIO64()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/mmio.h#L49-L65).
+[fpgaWriteMMIO64()](https://github.com/OFS/opae-sdk/blob/master/include/opae/mmio.h#L49-L65).
 When an MMIO region is no longer needed, it should be unmapped from the
 process address space using the
-[fpgaUnmapMMIO()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/mmio.h#L185-L201)
+[fpgaUnmapMMIO()](https://github.com/OFS/opae-sdk/blob/master/include/opae/mmio.h#L185-L201)
 call.
 
 Shared memory buffers are allocated by way of the
-[fpgaPrepareBuffer()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L55-L99)
+[fpgaPrepareBuffer()](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L55-L99)
 call.
 
 ```C
@@ -780,19 +758,19 @@ echo 2 > /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages
 <p align = "center">Figure 8 Configuring Huge Pages</p><a name="figure-8"></a>
 
 The buf\_addr parameter to
-[fpgaPrepareBuffer()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L55-L99)
+[fpgaPrepareBuffer()](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L55-L99)
 is a pointer to a void \* that accepts the user virtual base address of
 the newly-created buffer. The wsid parameter is a pointer to a uint64\_t
 that receives a unique workspace ID for the buffer allocation. This
 workspace ID is used in subsequent calls to
-[fpgaReleaseBuffer()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L101-L115),
+[fpgaReleaseBuffer()](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L101-L115),
 which should be called when the buffer is no longer needed and in calls
 to
-[fpgaGetIOAddress()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L117-L136)
+[fpgaGetIOAddress()](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L117-L136)
 which is used to query the IO base address of the buffer. The IO base
 address can be programmed into the AFU by means of the AFU CSR space.
 For example, here is a code snippet from the
-[hello\_fpga](https://github.com/OPAE/opae-sdk/blob/master/samples/hello_fpga/hello_fpga.c)
+[hello\_fpga](https://github.com/OFS/opae-sdk/blob/master/samples/hello_fpga/hello_fpga.c)
 sample that demonstrates programming a shared buffer’s IO base address
 into an AFU CSR in MMIO region 0:
 
@@ -808,16 +786,16 @@ CACHELINE_ALIGNED_ADDR(iova));
 
 If applications need to map a shared buffer that has been allocated by
 some other means than
-[fpgaPrepareBuffer()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L55-L99),
+[fpgaPrepareBuffer()](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L55-L99),
 then the flags parameter can be set to
-[FPGA\_BUF\_PREALLOCATED](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L140).
+[FPGA\_BUF\_PREALLOCATED](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L140).
 This causes
-[fpgaPrepareBuffer()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L55-L99)
+[fpgaPrepareBuffer()](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L55-L99)
 to skip the allocation portion of the call and to only memory map the
 given buf\_addr into the application process address space.
 
 Buffers can also be allocated and mapped as read-only by specifying
-[FPGA\_BUF\_READ\_ONLY](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L142).
+[FPGA\_BUF\_READ\_ONLY](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L142).
 
 <a name="heading-2.1.6"></a>
 
@@ -832,11 +810,11 @@ The bitstream parameter is a buffer that contains the entire bitstream
 contents, including the JSON bitstream header information. The
 bitstream\_len field gives the length of bitstream in bytes.
 
-[fpgaReconfigureSlot()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/manage.h#L109-L141)
+[fpgaReconfigureSlot()](https://github.com/OFS/opae-sdk/blob/master/include/opae/manage.h#L109-L141)
 first checks whether the FPGA\_ACCELERATOR corresponding to the
 FPGA\_DEVICE in fme\_handle is open. If it is open, then the programming
 request is aborted with an error code. The application may pass
-[FPGA\_RECONF\_FORCE](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L162)
+[FPGA\_RECONF\_FORCE](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L162)
 in the flags parameter in order to avoid this open check and forcefully
 program the bitstream.
 
@@ -862,9 +840,9 @@ of the current errors, where each bit or some collection of bits
 specifies an error type. An error is signaled if its bit or collection
 of bits is non-zero. Note that the 32-bit error index may vary from one
 process execution to the next. Applications should use
-[fpgaGetErrorInfo](https://github.com/OPAE/opae-sdk/blob/master/include/opae/error.h#L91-L106)()
+[fpgaGetErrorInfo](https://github.com/OFS/opae-sdk/blob/master/include/opae/error.h#L91-L106)()
 and examine the error name returned in the struct
-[fpga\_error\_info](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L162-L172)
+[fpga\_error\_info](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L162-L172)
 to identify the desired 64-bit error mask.
 
 ```C
@@ -878,9 +856,9 @@ bool can_clear;
 
 Each 64-bit mask of errors is assigned a unique 32-bit integer index and
 a unique name. Given an fpga\_token and an error index,
-[fpgaGetErrorInfo](https://github.com/OPAE/opae-sdk/blob/master/include/opae/error.h#L91-L106)()
+[fpgaGetErrorInfo](https://github.com/OFS/opae-sdk/blob/master/include/opae/error.h#L91-L106)()
 retrieves the struct
-[fpga\_error\_info](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L162-L172)
+[fpga\_error\_info](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L162-L172)
 corresponding to the error.
 
 ```C
@@ -891,12 +869,12 @@ struct fpga_error_info *error_info);
 
 <p align = "center">Figure 12 fpgaGetErrorInfo()</p><a name="figure-12"></a>
 
-[fpgaReadError](https://github.com/OPAE/opae-sdk/blob/master/include/opae/error.h#L46-L60)()
+[fpgaReadError](https://github.com/OFS/opae-sdk/blob/master/include/opae/error.h#L46-L60)()
 provides access to the raw 64-bit error mask, given the unique error
 index.
-[fpgaClearError](https://github.com/OPAE/opae-sdk/blob/master/include/opae/error.h#L62-L75)()
+[fpgaClearError](https://github.com/OFS/opae-sdk/blob/master/include/opae/error.h#L62-L75)()
 clears the errors for a particular index.
-[fpgaClearAllErrors](https://github.com/OPAE/opae-sdk/blob/master/include/opae/error.h#L77-L89)()
+[fpgaClearAllErrors](https://github.com/OFS/opae-sdk/blob/master/include/opae/error.h#L77-L89)()
 clears all the errors for the given fpga\_token.
 
 <a name="heading-2.1.8"></a>
@@ -907,7 +885,7 @@ The OPAE metrics API refers to a group of functions and data structures
 that allow querying the various device metrics from the Board Management
 Controller component of the FPGA device. A metric is described by an
 instance of struct
-[fpga\_metric\_info](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L208-L221).
+[fpga\_metric\_info](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L208-L221).
 
 ```C
 typedef struct fpga_metric_info {
@@ -922,8 +900,8 @@ enum fpga_metric_type metric_type;
 } fpga_metric_info;
 ```
 Relevant Links: 
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L200-L210">fpga_metric_datatype</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L188-L198">fpga_metric_type</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L200-L210">fpga_metric_datatype</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L188-L198">fpga_metric_type</a>
 
 <p align = "center">Figure 13 fpga_metric_info</p><a name="figure-13"></a>
 
@@ -977,7 +955,7 @@ FPGA_METRIC_TYPE_UNKNOWN
 
 In order to enumerate the information for each of the metrics available
 from the FPGA device, determine the number of metrics using
-[fpgaGetNumMetrics](https://github.com/OPAE/opae-sdk/blob/master/include/opae/metrics.h#L45-L57)().
+[fpgaGetNumMetrics](https://github.com/OFS/opae-sdk/blob/master/include/opae/metrics.h#L45-L57)().
 
 
 
@@ -995,9 +973,9 @@ that is opened behind the handle parameter to the call. Refer to 2.1.3
 Access for information about the fpgaOpen() call. When the number of
 available metrics is known, allocate a buffer large enough to hold that
 many
-[fpga\_metric\_info](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L208-L221)
+[fpga\_metric\_info](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L208-L221)
 data structures, and call
-[fpgaGetMetricsInfo](https://github.com/OPAE/opae-sdk/blob/master/include/opae/metrics.h#L59-L75)()
+[fpgaGetMetricsInfo](https://github.com/OFS/opae-sdk/blob/master/include/opae/metrics.h#L59-L75)()
 to populate the entries:
 
 
@@ -1014,7 +992,7 @@ fpgaGetMetricsInfo(handle, metric_info, &metric_infos);
 <p align = "center">Figure 17 Querying Metrics Info</p><a name="figure-17"></a>
 
 The
-[fpga\_metric](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L223-L231)
+[fpga\_metric](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L223-L231)
 structure is the representation of a metric’s value:
 
 
@@ -1027,7 +1005,7 @@ bool isvalid;
 } fpga_metric;
 ```
 Relevant Links:
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L196-L205">metric_value</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L196-L205">metric_value</a>
 
 
 
@@ -1035,22 +1013,22 @@ Relevant Links:
 <p align = "center">Figure 18 struct fpga_metric</p><a name="figure-18"></a>
 
 The metric\_num field matches the metric\_num field of the
-[fpga\_metric\_info](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L208-L221)
+[fpga\_metric\_info](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L208-L221)
 structure. value contains the metric value, which is encoded in the C
 data type identified by the metric\_datatype field of
-[fpga\_metric\_info](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L208-L221).
+[fpga\_metric\_info](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L208-L221).
 Finally, the isvalid field denotes whether the metric value is valid.
 
 There are two methods of obtaining a metric’s value, given the
 information in the
-[fpga\_metric\_info](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L208-L221)
+[fpga\_metric\_info](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L208-L221)
 structure:
 
 <a name="heading-2.1.8.1"></a>
 
 #### **2.1.8.1 Querying Metric Values by Index**
 
-[fpgaGetMetricsByIndex](https://github.com/OPAE/opae-sdk/blob/master/include/opae/metrics.h#L77-L94)()
+[fpgaGetMetricsByIndex](https://github.com/OFS/opae-sdk/blob/master/include/opae/metrics.h#L77-L94)()
 retrieves a metric value using the metric\_num field of the metric info:
 
 
@@ -1073,7 +1051,7 @@ passing arrays so that multiple values can be fetched in a single call.
 
 #### **2.1.8.2 Querying Metric Values by Name**
 
-[fpgaGetMetricsByName](https://github.com/OPAE/opae-sdk/blob/master/include/opae/metrics.h#L96-L112)()
+[fpgaGetMetricsByName](https://github.com/OFS/opae-sdk/blob/master/include/opae/metrics.h#L96-L112)()
 retrieves a metric value using the metric\_name field of the metric
 info:
 
@@ -1093,7 +1071,7 @@ parameters allow passing arrays so that multiple values can be fetched
 in a single call.
 
 The
-[fpgaGetMetricsThresholdInfo](https://github.com/OPAE/opae-sdk/blob/master/include/opae/metrics.h#L115-L133)()
+[fpgaGetMetricsThresholdInfo](https://github.com/OFS/opae-sdk/blob/master/include/opae/metrics.h#L115-L133)()
 call is provided for legacy implementations only. It should be
 considered deprecated for current and future FPGA designs.
 
@@ -1124,13 +1102,13 @@ FPGA_OBJECT_ATTRIBUTE = (1u << 1)
 <p align = "center">Figure 20 enum fpga_sysobject_type</p><a name="figure-20"></a>
 
 The SysObject API introduces another opaque structure type,
-[fpga\_object](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L174-L189).
+[fpga\_object](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L174-L189).
 An
-[fpga\_object](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L174-L189)
+[fpga\_object](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L174-L189)
 can be queried from an fpga\_token or an fpga\_handle by way of the
-[fpgaTokenGetObject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L42-L67)()
+[fpgaTokenGetObject](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L42-L67)()
 and
-[fpgaHandleGetObject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L69-L94)()
+[fpgaHandleGetObject](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L69-L94)()
 API’s.
 
 
@@ -1148,7 +1126,7 @@ fpga_object *object, int flags);
 The remainder of the SysObject API is broken into two categories of
 calls, depending on the fpga\_object’s type. The type of an fpga\_object
 is learned via
-[fpgaObjectGetType](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L145-L155)().
+[fpgaObjectGetType](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L145-L155)().
 
 
 
@@ -1162,26 +1140,26 @@ enum fpga_sysobject_type *type);
 <p align = "center">Figure 22 fpgaObjectGetType()</p><a name="figure-22"></a>
 
 When an fpga\_object is no longer needed, it should be freed via
-[fpgaDestroyObject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L157-L170)().
+[fpgaDestroyObject](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L157-L170)().
 
 <a name="heading-2.1.9.1"></a>
 
 #### **2.1.9.1 FPGA\_OBJECT\_CONTAINER API’s**
 
 For directory sysfs entities, passing a value of
-[FPGA\_OBJECT\_RECURSE\_ONE](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L172)
+[FPGA\_OBJECT\_RECURSE\_ONE](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L172)
 or
-[FPGA\_OBJECT\_RECURSE\_ALL](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L175)
+[FPGA\_OBJECT\_RECURSE\_ALL](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L175)
 in the flags parameter to
-[fpgaTokenGetObject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L42-L67)()
+[fpgaTokenGetObject](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L42-L67)()
 or
-[fpgaHandleGetObject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L69-L94)()
+[fpgaHandleGetObject](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L69-L94)()
 causes these two API’s to treat the target object as either a
 single-layer or multi-layer directory structure, making its child
 entities available for query via
-[fpgaObjectGetObject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L96-L124)()
+[fpgaObjectGetObject](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L96-L124)()
 and
-[fpgaObjectGetObjectAt](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L126-L144)().
+[fpgaObjectGetObjectAt](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L126-L144)().
 
 
 
@@ -1197,11 +1175,11 @@ fpga_object *object);
 <p align = "center">Figure 23 fpgaObjectGetObject() / fpgaObjectGetObjectAt()</p><a name="figure-23"></a>
 
 Any child object resulting from
-[fpgaObjectGetObject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L96-L124)()
+[fpgaObjectGetObject](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L96-L124)()
 or
-[fpgaObjectGetObjectAt](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L126-L144)()
+[fpgaObjectGetObjectAt](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L126-L144)()
 must be freed via
-[fpgaDestroyObject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L157-L170)()
+[fpgaDestroyObject](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L157-L170)()
 when it is no longer needed.
 
 <a name="heading-2.1.9.2"></a>
@@ -1210,7 +1188,7 @@ when it is no longer needed.
 
 Attribute sysfs entities may be queried for their size and read from or
 written to. In order to determine the size of an attribute’s data, use
-[fpgaObjectGetSize](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L172-L184)().
+[fpgaObjectGetSize](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L172-L184)().
 
 
 
@@ -1224,7 +1202,7 @@ uint32_t *value, int flags);
 <p align = "center">Figure 24 fpgaObjectGetSize()</p><a name="figure-24"></a>
 
 Attributes containing arbitrary string data can be read with
-[fpgaObjectRead](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L186-L202)().
+[fpgaObjectRead](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L186-L202)().
 
 
 
@@ -1239,9 +1217,9 @@ size_t offset, size_t len, int flags);
 
 If an attribute contains an unsigned integer value, its value can be
 read with
-[fpgaObjectRead64](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L204-L219)()
+[fpgaObjectRead64](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L204-L219)()
 and written with
-[fpgaObjectWrite64](https://github.com/OPAE/opae-sdk/blob/master/include/opae/sysobject.h#L221-L236)().
+[fpgaObjectWrite64](https://github.com/OFS/opae-sdk/blob/master/include/opae/sysobject.h#L221-L236)().
 
 
 
@@ -1261,12 +1239,12 @@ uint64_t value, int flags);
 ### **2.1.10 Utilities**
 
 The
-[fpga\_result](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L38-L69)
+[fpga\_result](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L38-L69)
 enumeration defines a set of error codes used throughout OPAE. In order
 to convert an
-[fpga\_result](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types_enum.h#L38-L69)
+[fpga\_result](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L38-L69)
 error code into a printable string, the application can use the
-[fpgaErrStr()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/utils.h#L42-L51)
+[fpgaErrStr()](https://github.com/OFS/opae-sdk/blob/master/include/opae/utils.h#L42-L51)
 call.
 
 
@@ -1284,11 +1262,11 @@ customer-facing. The description here is provided for completeness only.
 #### **2.2.1 Port Reset**
 
 The
-[DFL\_FPGA\_PORT\_RESET](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L70-L80)
+[DFL\_FPGA\_PORT\_RESET](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L70-L80)
 ioctl is used by the
-[fpgaReset()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/access.h#L90-L102)
+[fpgaReset()](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L90-L102)
 call in order to perform a Port reset. The fpga\_handle passed to
-[fpgaReset()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/access.h#L90-L102)
+[fpgaReset()](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L90-L102)
 must be a valid open handle to an FPGA\_ACCELERATOR. The ioctl requires
 no input/output parameters.
 
@@ -1297,20 +1275,20 @@ no input/output parameters.
 #### **2.2.2 Port Information**
 
 The
-[DFL\_FPGA\_PORT\_GET\_INFO](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L82-L99)
+[DFL\_FPGA\_PORT\_GET\_INFO](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L82-L99)
 ioctl is used to query properties of the Port, notably the number of
 associated MMIO regions. The ioctl requires a pointer to a struct
-[dfl\_fpga\_port\_info](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L90-L97).
+[dfl\_fpga\_port\_info](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L90-L97).
 
 <a name="heading-2.2.3"></a>
 
 #### **2.2.3 MMIO Region Information**
 
 The
-[DFL\_FPGA\_PORT\_GET\_REGION\_INFO](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L101-L128)
+[DFL\_FPGA\_PORT\_GET\_REGION\_INFO](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L101-L128)
 ioctl is used to query the details of an MMIO region. The ioctl requires
 a pointer to a struct
-[dfl\_fpga\_port\_region\_info](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L110-L126).
+[dfl\_fpga\_port\_region\_info](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L110-L126).
 The index field of the struct is populated by the caller, and the
 padding, size, and offset values are populated by the DFL driver.
 
@@ -1320,21 +1298,21 @@ padding, size, and offset values are populated by the DFL driver.
 #### **2.2.4 Shared Memory Mapping and Unmapping**
 
 The
-[DFL\_FPGA\_PORT\_DMA\_MAP](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L130-L149)
+[DFL\_FPGA\_PORT\_DMA\_MAP](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L130-L149)
 ioctl is used to map a memory buffer into the application’s process
 address space. The ioctl requires a pointer to a struct
-[dfl\_fpga\_port\_dma\_map](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L139-L147).
+[dfl\_fpga\_port\_dma\_map](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L139-L147).
 
 The
-[DFL\_FPGA\_PORT\_DMA\_UNMAP](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L151-L165)
+[DFL\_FPGA\_PORT\_DMA\_UNMAP](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L151-L165)
 ioctl is used to unmap a memory buffer from the application’s process
 address space. The ioctl requires a pointer to a struct
-[dfl\_fpga\_port\_dma\_unmap](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L158-L163).
+[dfl\_fpga\_port\_dma\_unmap](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L158-L163).
 
 These ioctls provide the underpinnings of the
-[fpgaPrepareBuffer()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L55-L99)
+[fpgaPrepareBuffer()](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L55-L99)
 and
-[fpgaReleaseBuffer()](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L101-L115)
+[fpgaReleaseBuffer()](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L101-L115)
 calls.
 
 <a name="heading-2.2.5"></a>
@@ -1342,7 +1320,7 @@ calls.
 #### **2.2.5 Number of Port Error IRQs**
 
 The
-[DFL\_FPGA\_PORT\_ERR\_GET\_IRQ\_NUM](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L180-L189)
+[DFL\_FPGA\_PORT\_ERR\_GET\_IRQ\_NUM](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L180-L189)
 ioctl is used to query the number of Port error interrupt vectors
 available. The ioctl requires a pointer to a uint32\_t that receives the
 Port error interrupt count.
@@ -1352,10 +1330,10 @@ Port error interrupt count.
 #### **2.2.6 Port Error Interrupt Configuration**
 
 The
-[DFL\_FPGA\_PORT\_ERR\_SET\_IRQ](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L191-L201)
+[DFL\_FPGA\_PORT\_ERR\_SET\_IRQ](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L191-L201)
 ioctl is used to configure one or more file descriptors for the Port
 Error interrupt. The ioctl requires a pointer to a struct
-[dfl\_fpga\_irq\_set](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L167-L178).
+[dfl\_fpga\_irq\_set](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L167-L178).
 The values stored in the evtfds field of this struct should be populated
 with the event file descriptors for the interrupt, as returned by the
 eventfd() C standard library API.
@@ -1365,7 +1343,7 @@ eventfd() C standard library API.
 #### **2.2.7 Number of AFU Interrupts**
 
 The
-[DFL\_FPGA\_PORT\_UINT\_GET\_IRQ\_NUM](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L203-L212)
+[DFL\_FPGA\_PORT\_UINT\_GET\_IRQ\_NUM](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L203-L212)
 ioctl is used to query the number of AFU interrupt vectors available.
 The ioctl requires a pointer to a uint32\_t that receives the AFU
 interrupt count.
@@ -1375,10 +1353,10 @@ interrupt count.
 #### **2.2.8 User AFU Interrupt Configuration**
 
 The
-[DFL\_FPGA\_PORT\_UINT\_SET\_IRQ](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L214-L224)
+[DFL\_FPGA\_PORT\_UINT\_SET\_IRQ](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L214-L224)
 ioctl is used to configure one or more file descriptors for the AFU
 interrupt. The ioctl requires a pointer to a struct
-[dfl\_fpga\_irq\_set](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L167-L178).
+[dfl\_fpga\_irq\_set](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L167-L178).
 The values stored in the evtfds field of this struct should be populated
 with the event file descriptors for the interrupt, as returned by the
 eventfd() C standard library API.
@@ -1388,12 +1366,12 @@ eventfd() C standard library API.
 #### **2.2.9 Partial Reconfiguration**
 
 The
-[DFL\_FPGA\_FME\_PORT\_PR](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L228-L249)
+[DFL\_FPGA\_FME\_PORT\_PR](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L228-L249)
 ioctl is used to update the logic stored in the Port’s programmable
 region. This ioctl must be issued on the device file descriptor
 corresponding to the FPGA\_DEVICE (/dev/dfl-fme.X). The ioctl requires a
 pointer to a struct
-[dfl\_fpga\_fme\_port\_pr](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L240-L247)
+[dfl\_fpga\_fme\_port\_pr](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L240-L247)
 with each of the fields populated.
 
 <a name="heading-2.2.10"></a>
@@ -1401,7 +1379,7 @@ with each of the fields populated.
 #### **2.2.10 Number of FME Error IRQs**
 
 The
-[DFL\_FPGA\_FME\_ERR\_GET\_IRQ\_NUM](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L269-L278)
+[DFL\_FPGA\_FME\_ERR\_GET\_IRQ\_NUM](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L269-L278)
 ioctl is used to query the number of FME error interrupt vectors
 available. The ioctl requires a pointer to a uint32\_t that receives the
 FME error interrupt count.
@@ -1411,10 +1389,10 @@ FME error interrupt count.
 ##### **2.2.11 FME Error Interrupt Configuration**
 
 The
-[DFL\_FPGA\_FME\_ERR\_SET\_IRQ](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L280-L290)
+[DFL\_FPGA\_FME\_ERR\_SET\_IRQ](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L280-L290)
 ioctl is used to configure one or more file descriptors for the FME
 Error interrupt. The ioctl requires a pointer to a struct
-[dfl\_fpga\_irq\_set](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L167-L178).
+[dfl\_fpga\_irq\_set](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L167-L178).
 The values stored in the evtfds field of this struct should be populated
 with the event file descriptors for the interrupt, as returned by the
 eventfd() C standard library API.
@@ -1469,37 +1447,37 @@ device\_B via VFIO. The application is coded against the OPAE API.
 As part of its initialization process, the application enumerates and
 discovers an fpga\_token corresponding to device\_A. That fpga\_token is
 opened and its MMIO region 0 is mapped via a call to
-[fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L577-L589)().
+[fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L577-L589)().
 
 The API configuration for device\_A is such that the fpga\_handle
 corresponding to device\_A routes its hardware access calls through
 libxfpga.so. The call to
-[fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L577-L589)()
+[fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L577-L589)()
 is redirected to libxfpga.so’s implementation of the MMIO mapping
 function,
-[xfpga\_fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/mmio.c#L374-L401)().
+[xfpga\_fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/mmio.c#L374-L401)().
 As a result, the call to
-[xfpga\_fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/mmio.c#L374-L401)()
+[xfpga\_fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/mmio.c#L374-L401)()
 uses its [AFU file
-descriptor](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/mmio.c#L71)
+descriptor](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/mmio.c#L71)
 to communicate with the DFL driver to map the MMIO region.
 
 Subsequently, the application enumerates and discovers an fpga\_token
 corresponding to device\_B. That fpga\_token is opened and its MMIO
 region 0 is mapped via a call to
-[fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L577-L589)().
+[fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L577-L589)().
 
 The API configuration for device\_B is such that the fpga\_handle
 corresponding to device\_B routes its hardware access calls through
 libopae-v.so. The call to
-[fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L577-L589)()
+[fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L577-L589)()
 is redirected to libopae-v.so’s implementation of the MMIO mapping
 function,
-[vfio\_fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L996-L1014)().
+[vfio\_fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L996-L1014)().
 As a result, the call to
-[vfio\_fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L996-L1014)()
+[vfio\_fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L996-L1014)()
 uses the [MMIO
-mapping](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L843-L850)
+mapping](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L843-L850)
 performed by libopaevfio.so during initialization of the VFIO session.
 
 <a name="heading-2.3.1"></a>
@@ -1508,18 +1486,18 @@ performed by libopaevfio.so during initialization of the VFIO session.
 
 The OPAE SDK plugin model is facilitated by its use of opaque C
 structures for
-[fpga\_token](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L94-L107)
+[fpga\_token](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L94-L107)
 and
-[fpga\_handle](https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L109-L120).
+[fpga\_handle](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L109-L120).
 These types are both declared as void \*; and this allows the parameters
 to the OPAE SDK functions to take different forms, depending on the
 layer of the SDK being used.
 
 At the topmost layer, for example when calling
-[fpgaEnumerate](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L685-L821)(),
+[fpgaEnumerate](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L685-L821)(),
 the output fpga\_token parameter array is actually an array of pointers
 to
-[opae\_wrapped\_token](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109)
+[opae\_wrapped\_token](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109)
 struct’s.
 
 
@@ -1539,13 +1517,13 @@ opae_api_adapter_table *adapter_table;
 <p align = "center">Figure 27 opae_wrapped_token</p><a name="figure-27"></a>
 
 An
-[opae\_wrapped\_token](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109),
+[opae\_wrapped\_token](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109),
 as the name suggests, is a thin wrapper around the lower-layer token
 which is stored in struct member opae\_token. The
-[adapter\_table](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/adapter.h#L38-L220)
+[adapter\_table](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/adapter.h#L38-L220)
 struct member is a pointer to a plugin-specific adapter table. The
 adapter table provides a mapping between the top-layer
-[opae\_wrapped\_token](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109)
+[opae\_wrapped\_token](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109)
 and its underlying plugin-specific API entry points, which are called
 using the opae\_token struct member (the lower-level token).
 
@@ -1579,12 +1557,12 @@ to populate this adapter table struct with each of the plugin-specific
 API entry points.
 
 When the top-level
-[fpgaEnumerate](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L685-L821)()
+[fpgaEnumerate](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L685-L821)()
 is called, each adapter table’s plugin-specific fpgaEnumerate() struct
 member is called; and the output fpga\_token’s are collected. At this
 point, these fpga\_token’s are the lower-level token structure types.
 Before the top-level
-[fpgaEnumerate](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L685-L821)()
+[fpgaEnumerate](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L685-L821)()
 returns, these plugin-specific tokens are wrapped inside
 opae\_wrapped\_token structures, along with a pointer to the respective
 adapter table.
@@ -1593,7 +1571,7 @@ After enumeration is complete, the application goes on to call other
 top-level OPAE SDK functions with the wrapped tokens. Each top-level
 entry point which accepts an fpga\_token knows that it is actually being
 passed an
-[opae\_wrapped\_token](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109).
+[opae\_wrapped\_token](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109).
 With this knowledge, the entry point peeks inside the wrapped token and
 calls through to the plugin-specific API entry point using the adapter
 table, passing the lower-level opae\_token struct member.
@@ -1603,11 +1581,11 @@ table, passing the lower-level opae\_token struct member.
 ### **2.3.2 libxfpga Plugin**
 
 2.3.1 Plugin Model introduced the concept of an
-[opae\_wrapped\_token](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109)
+[opae\_wrapped\_token](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109)
 and a corresponding plugin-specific token structure. libxfpga.so is the
 plugin library that implements the DFL driver hardware access method.
 Its plugin-specific token data structure is struct
-[\_fpga\_token](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/types_int.h#L101-L108).
+[\_fpga\_token](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/types_int.h#L101-L108).
 
 
 
@@ -1622,8 +1600,8 @@ struct error_list *errors;
 };
 ```
 Relevant Links:
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L255-L276">fpga_token_header</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/error_int.h#L38-L43">error_list</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L255-L276">fpga_token_header</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/error_int.h#L38-L43">error_list</a>
 
 
 
@@ -1659,15 +1637,15 @@ devpath: “/dev/dfl-fme.0”
 <p align = "center">Figure 31 libxfpga FME Token</p><a name="figure-31"></a>
 
 When a call to the top-level
-[fpgaOpen](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L272-L307)()
+[fpgaOpen](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L272-L307)()
 is made, the lower-level token is unwrapped and passed to
-[xfpga\_fpgaOpen](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/open.c#L41-L172)().
+[xfpga\_fpgaOpen](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/open.c#L41-L172)().
 In return,
-[xfpga\_fpgaOpen](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/open.c#L41-L172)()
+[xfpga\_fpgaOpen](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/open.c#L41-L172)()
 opens the character device file identified by the devpath member of the
 struct \_fpga\_token. It then allocates and initializes an instance of
 libxfpga.so’s plugin-specific handle data structure, struct
-[\_fpga\_handle](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/types_int.h#L153-L177).
+[\_fpga\_handle](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/types_int.h#L153-L177).
 
 
 
@@ -1694,9 +1672,9 @@ uint32_t flags;
 };
 ```
 Relevant Links:
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/types_int.h#L205-L211">wsid_tracker</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/metrics/vector.h#L45-L49">fpga_metric_vector</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/xfpga/types_int.h#L146-L151">_fpga_bmc_metric</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/types_int.h#L205-L211">wsid_tracker</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/metrics/vector.h#L45-L49">fpga_metric_vector</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/types_int.h#L146-L151">_fpga_bmc_metric</a>
 
 
 
@@ -1708,7 +1686,7 @@ Relevant Links:
 
 libopae-v.so is the plugin library that implements the VFIO hardware
 access method. Its plugin-specific token data structure is
-[vfio\_token](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L98-L115).
+[vfio\_token](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L98-L115).
 
 
 
@@ -1733,26 +1711,26 @@ vfio_ops ops;
 } vfio_token;
 ```
 Relevant Links:
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/include/opae/types.h#L255-L276">fpga_token_header</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L83-L92">pci_device_t</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L94-L96">vfio_ops</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L255-L276">fpga_token_header</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L83-L92">pci_device_t</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L94-L96">vfio_ops</a>
 
 
 
 <p align = "center">Figure 33 vfio_token</p><a name="figure-33"></a>
 
 When a call to the top-level
-[fpgaOpen](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L272-L307)()
+[fpgaOpen](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/api-shell.c#L272-L307)()
 is made, the lower-level token is unwrapped and passed to
-[vfio\_fpgaOpen](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L603-L681)().
+[vfio\_fpgaOpen](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L603-L681)().
 In return,
-[vfio\_fpgaOpen](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L603-L681)()
+[vfio\_fpgaOpen](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L603-L681)()
 [opens the VFIO
-device](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L645)
+device](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.c#L645)
 matching the device address found in the input vfio\_token. It then
 allocates and initializes an instance of libopae-v.so’s plugin-specific
 handle data structure,
-[vfio\_handle](https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L124-L134).
+[vfio\_handle](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L124-L134).
 
 
 
@@ -1769,8 +1747,8 @@ uint32_t flags;
 } vfio_handle;
 ```
 Relevant Links:
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L98-L115">vfio_token</a>
-- <a href="https://github.com/OPAE/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L118-L122">vfio_pair_t</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L98-L115">vfio_token</a>
+- <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/vfio/opae_vfio.h#L118-L122">vfio_pair_t</a>
 
 
 
@@ -1784,7 +1762,7 @@ Relevant Links:
 
 ##### **2.3.3.1.1 libopaevfio**
 
-[libopaevfio.so](https://github.com/OPAE/opae-sdk/blob/master/include/opae/vfio.h)
+[libopaevfio.so](https://github.com/OFS/opae-sdk/blob/master/include/opae/vfio.h)
 is OPAE’s implementation of the Linux kernel’s Virtual Function I/O
 interface. This VFIO interface presents a generic means of configuring
 and accessing PCIe endpoints from a user-space process via a supporting
@@ -1799,12 +1777,12 @@ and for configuring interrupts for the device.
 ##### **2.3.3.1.2 libopaemem**
 
 Each DMA buffer allocation made by libopaevfio.so’s
-[opae\_vfio\_buffer\_allocate](https://github.com/OPAE/opae-sdk/blob/master/include/opae/vfio.h#L333-L336)()
+[opae\_vfio\_buffer\_allocate](https://github.com/OFS/opae-sdk/blob/master/include/opae/vfio.h#L333-L336)()
 and
-[opae\_vfio\_buffer\_allocate\_ex](https://github.com/OPAE/opae-sdk/blob/master/include/opae/vfio.h#L394-L398)()
+[opae\_vfio\_buffer\_allocate\_ex](https://github.com/OFS/opae-sdk/blob/master/include/opae/vfio.h#L394-L398)()
 APIs requires a backing I/O Virtual Address range. These address ranges
 are discovered at VFIO device open time by way of the
-[VFIO\_IOMMU\_GET\_INFO](https://github.com/OPAE/opae-sdk/blob/master/libraries/libopaevfio/opaevfio.c#L543)
+[VFIO\_IOMMU\_GET\_INFO](https://github.com/OFS/opae-sdk/blob/master/libraries/libopaevfio/opaevfio.c#L543)
 ioctl.
 
 Each range specifies a large contiguous block of I/O Virtual Address
@@ -1814,7 +1792,7 @@ segments must be managed so that multiple DMA buffer allocations can be
 made from a single block. In other words, the IOVA blocks must be
 memory-managed in order to make efficient use of them.
 
-[libopaemem.so](https://github.com/OPAE/opae-sdk/blob/master/include/opae/mem_alloc.h)
+[libopaemem.so](https://github.com/OFS/opae-sdk/blob/master/include/opae/mem_alloc.h)
 provides a generic means of managing a large memory space, consisting of
 individual large memory blocks of contiguous address space. When a DMA
 buffer allocation is requested, libopaevfio.so uses this generic memory
@@ -1990,7 +1968,7 @@ section.
 
 Refer to 2.1.2 Enumeration. When enumerating AFU’s, if no filtering
 criteria is specified, then
-[fpgaEnumerate](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L101-L103)()
+[fpgaEnumerate](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L101-L103)()
 returns fpga\_token’s for each AFU that is present in the system. In
 order to limit the enumeration search to a specific AFU, create an
 fpga\_properties object and set its guid to that of the desired AFU:
@@ -2034,9 +2012,9 @@ fpgaEnumerate(&filter, 1, &afu_token, 1, &num_matches);
 #### **2.4.3 Open the AFU**
 
 After finding an fpga\_token for the AFU using
-[fpgaEnumerate](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L101-L103)(),
+[fpgaEnumerate](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L101-L103)(),
 the token must be opened with
-[fpgaOpen](https://github.com/OPAE/opae-sdk/blob/master/include/opae/access.h#L72-L73)()
+[fpgaOpen](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L72-L73)()
 to establish a session with the AFU. The process of opening an
 fpga\_token creates an fpga\_handle:
 
@@ -2058,7 +2036,7 @@ fpgaOpen(afu_token, &afu_handle, 0);
 In order to access the MMIO region of the AFU to program its CSR’s, the
 region must first be mapped into the application’s process address
 space. This is accomplished using
-[fpgaMapMMIO](https://github.com/OPAE/opae-sdk/blob/master/include/opae/mmio.h#L182-L183)():
+[fpgaMapMMIO](https://github.com/OFS/opae-sdk/blob/master/include/opae/mmio.h#L182-L183)():
 
 
 
@@ -2077,7 +2055,7 @@ fpgaMapMMIO(afu_handle, region, NULL);
 
 If the AFU is DMA-capable, shared memory buffers can be allocated and
 mapped into the process address space and the IOMMU with
-[fpgaPrepareBuffer](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L97-L99)().
+[fpgaPrepareBuffer](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L97-L99)().
 Refer to Figure 8 Configuring Huge Pages for instructions on configuring
 2MiB and 1GiB huge pages.
 
@@ -2167,7 +2145,7 @@ to a shared buffer.
 When the acceleration task completes and the AFU is quiesced such that
 there are no outstanding memory transactions targeted for the shared
 memory, the DMA buffers can be unmapped and freed using
-[fpgaReleaseBuffer](https://github.com/OPAE/opae-sdk/blob/master/include/opae/buffer.h#L115)():
+[fpgaReleaseBuffer](https://github.com/OFS/opae-sdk/blob/master/include/opae/buffer.h#L115)():
 
 
 
@@ -2185,7 +2163,7 @@ fpgaReleaseBuffer(afu_handle, dest_wsid);
 #### **2.4.10 Unmap MMIO Region**
 
 The MMIO regions should also be unmapped using
-[fpgaUnmapMMIO](https://github.com/OPAE/opae-sdk/blob/master/include/opae/mmio.h#L200-L201)():
+[fpgaUnmapMMIO](https://github.com/OFS/opae-sdk/blob/master/include/opae/mmio.h#L200-L201)():
 
 ```C
 fpgaUnmapMMIO(afu_handle, region);
@@ -2198,7 +2176,7 @@ fpgaUnmapMMIO(afu_handle, region);
 #### **2.4.11 Close the AFU**
 
 The AFU handle should be closed via
-[fpgaClose](https://github.com/OPAE/opae-sdk/blob/master/include/opae/access.h#L88)()
+[fpgaClose](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L88)()
 to release its resources:
 
 ```C
@@ -2212,11 +2190,11 @@ fpgaClose(afu_handle);
 #### **2.4.12 Release the Tokens and Properties**
 
 The fpga\_token’s returned by
-[fpgaEnumerate](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L101-L103)()
+[fpgaEnumerate](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L101-L103)()
 should be destroyed using the
-[fpgaDestroyToken](https://github.com/OPAE/opae-sdk/blob/master/include/opae/enum.h#L133)()
+[fpgaDestroyToken](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L133)()
 API. The fpga\_properties objects should be destroyed using the
-[fpgaDestroyProperties](https://github.com/OPAE/opae-sdk/blob/master/include/opae/properties.h#L176)()
+[fpgaDestroyProperties](https://github.com/OFS/opae-sdk/blob/master/include/opae/properties.h#L176)()
 API:
 
 
@@ -2238,7 +2216,7 @@ The OPAE C++ API refers to a C++ layer that sits on top of the OPAE C
 API, providing object-oriented implementations of the main OPAE C API
 abstractions: properties, tokens, handles, dma buffers, etc. Like the
 OPAE C API, the [C++ API
-headers](https://github.com/OPAE/opae-sdk/tree/master/include/opae/cxx/core)
+headers](https://github.com/OFS/opae-sdk/tree/master/include/opae/cxx/core)
 contain Doxygen markup for each of the provided classes.
 
 <a name="heading-3.1"></a>
@@ -2247,7 +2225,7 @@ contain Doxygen markup for each of the provided classes.
 
 The implementation files for the C++ API are compiled into
 libopae-cxx-core.so. A convenience header,
-[core.h](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core.h),
+[core.h](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core.h),
 provides a quick means of including each of the C++ API headers. Each of
 the types comprising the C++ API is located within the opae::fpga::types
 C++ namespace.
@@ -2257,7 +2235,7 @@ C++ namespace.
 ##### **3.1.1 Properties**
 
 Class
-[properties](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/properties.h#L41-L137)
+[properties](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/properties.h#L41-L137)
 provides the C++ implementation of the fpga\_properties type and its
 associated APIs.
 
@@ -2268,7 +2246,7 @@ properties::ptr_t filter = properties::get();
 <p align = "center">Figure 52 C++ Create New Empty Properties</p><a name="figure-52"></a>
 
 Class properties provides [member
-variables](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/properties.h#L114-L136)
+variables](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/properties.h#L114-L136)
 for each fpga\_properties item that can be manipulated with
 fpgaPropertiesGet…() and fpgaPropertiesSet…(). For example, to set the
 AFU ID in a properties instance and to set that instance’s type to
@@ -2291,10 +2269,10 @@ filter->type = FPGA_ACCELERATOR;
 ##### **3.1.2 Tokens**
 
 Class
-[token](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/token.h#L39-L77)
+[token](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/token.h#L39-L77)
 provides the C++ implementation of the fpga\_token type and its
 associated APIs. Class token also provides the
-[enumerate](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/token.h#L48-L54)()
+[enumerate](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/token.h#L48-L54)()
 static member function:
 
 
@@ -2316,7 +2294,7 @@ token::ptr_t tok = tokens[0];
 ##### **3.1.3 Handles**
 
 Class
-[handle](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/handle.h#L38-L194)
+[handle](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/handle.h#L38-L194)
 provides the C++ implementation of the fpga\_handle type and its
 associated APIs. The handle class provides member functions for opening
 and closing a token, for reading and writing to MMIO space, and for
@@ -2333,7 +2311,7 @@ handle::ptr_t accel = handle::open(tok, 0);
 ##### **3.1.4 Shared Memory**
 
 The
-[shared\_buffer](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/shared_buffer.h#L42-L173)
+[shared\_buffer](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/shared_buffer.h#L42-L173)
 class provides member functions for allocating and releasing DMA
 buffers, for querying buffer attributes, and for reading and writing
 buffers.
@@ -2379,7 +2357,7 @@ accel->write_csr32(CSR_NUM_LINES, BUF_SIZE / 64);
 ##### **3.1.5 Events**
 
 The
-[event](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/events.h#L37-L108)
+[event](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/events.h#L37-L108)
 class provides member functions for event registration. In order to
 register an event, provide the handle::ptr\_t for the desired device,
 along with the event type and optional flags.
@@ -2404,10 +2382,10 @@ int evt_fd = evt.os_object();
 ##### **3.1.6 Errors**
 
 Class
-[error](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/errors.h#L37-L97)
+[error](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/errors.h#L37-L97)
 provides a means of querying the device errors given a token::ptr\_t.
 The token and integer ID provided to the
-[error::get](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/errors.h#L50-L59)()
+[error::get](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/errors.h#L50-L59)()
 static member function uniquely identify one of the 64-bit error masks
 associated with the token.
 
@@ -2422,20 +2400,20 @@ error::ptr_t err = error::get(tok, 0);
 ##### **3.1.7 SysObject**
 
 Class
-[sysobject](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L38-L196)
+[sysobject](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L38-L196)
 is the C++ implementation of the OPAE SysObject API. sysobject provides
 a means of creating class instances via its two
-[sysobject::get](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L52-L86)()
+[sysobject::get](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L52-L86)()
 static member functions. A third non-static
-[sysobject::get](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L88-L103)()
+[sysobject::get](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L88-L103)()
 enables creating a sysobject instance given a parent sysobject instance.
 The
-[read64](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L124-L137)()
+[read64](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L124-L137)()
 and
-[write64](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L139-L152)()
+[write64](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L139-L152)()
 member functions allow reading and writing the sysobject’s value as a
 64-bit unsigned integer. The
-[bytes](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L154-L177)()
+[bytes](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/sysobject.h#L154-L177)()
 member functions allow reading a sysobject’s value as a raw byte stream.
 
 <a name="heading-4.0"></a>
@@ -2463,7 +2441,7 @@ exists as a Python extension module, compiled into \_opae.so.
 Enumeration is somewhat simplified as compared to the OPAE C/C++ APIs.
 The fpga.enumerate() function accepts keyword arguments for each of the
 [property
-names](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/properties.h#L115-L136)
+names](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/properties.h#L115-L136)
 that are defined in the C++ API. As an example, to enumerate for an
 FPGA\_ACCELERATOR by its GUID:
 
@@ -2491,7 +2469,7 @@ Querying properties for a token or handle is also a bit different in the
 Python API. In order to query properties for one of these objects, pass
 the object to the fpga.properties() constructor. The return value is a
 properties object with each of the [property
-names](https://github.com/OPAE/opae-sdk/blob/master/include/opae/cxx/core/properties.h#L115-L136)
+names](https://github.com/OFS/opae-sdk/blob/master/include/opae/cxx/core/properties.h#L115-L136)
 defined as instance attributes.
 
 
@@ -3192,17 +3170,17 @@ The fallback boot sequence is used to determine which FPGA image to load in the 
 
 afu-test refers to a test-writing framework that exists as a set of C++
 classes written on top of the OPAE C++ bindings. The first class,
-[afu](https://github.com/OPAE/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L151-L341),
+[afu](https://github.com/OFS/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L151-L341),
 serves as the base class for the test application abstraction. Class
-[afu](https://github.com/OPAE/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L151-L341)
+[afu](https://github.com/OFS/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L151-L341)
 provides integration with [CLI11](https://github.com/CLIUtils/CLI11), a
 C++ ’11 command-line parsing framework, and with
 [spdlog](https://github.com/gabime/spdlog), a C++ logging library. The
 second class,
-[command](https://github.com/OPAE/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L113-L132)
+[command](https://github.com/OFS/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L113-L132)
 represents a unique test sequence that is called by the afu object.
 Instances of the
-[command](https://github.com/OPAE/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L113-L132)
+[command](https://github.com/OFS/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L113-L132)
 class implement the test-specific workload.
 
 
@@ -3239,11 +3217,11 @@ general, application-wide parameters.
 <p align = "center">Figure 97 class afu Application Parameters</p><a name="figure-97"></a>
 
 The register\_command() member function adds a test
-[command](https://github.com/OPAE/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L113-L132)
+[command](https://github.com/OFS/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L113-L132)
 instance to the afu object. Each test command that an afu object is
 capable of executing is registered during the test’s startup code. For
 instance, here is the
-[hssi](https://github.com/OPAE/opae-sdk/blob/master/samples/hssi/hssi.cpp#L51-L54)
+[hssi](https://github.com/OFS/opae-sdk/blob/master/samples/hssi/hssi.cpp#L51-L54)
 application’s use of register\_command():
 
 
@@ -3276,7 +3254,7 @@ run() to invoke the test-specific logic.
 
 With all the boiler-plate of application startup, configuration, and
 running handled by the afu class, the test-specific
-[command](https://github.com/OPAE/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L113-L132)
+[command](https://github.com/OFS/opae-sdk/blob/master/libraries/afu-test/afu_test.h#L113-L132)
 class is left to implement only a minimum number of member functions:
 
 
@@ -3319,22 +3297,22 @@ implements three commands: mmio, ddr, and lpbk.
 
 | Target|Description |
 | ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| \# dummy\_afu [mmio](https://github.com/OPAE/opae-sdk/blob/master/samples/dummy_afu/mmio.h#L131-L152) | Targets special scratchpad area implemented by the AFU. |
-| \# dummy\_afu [ddr](https://github.com/OPAE/opae-sdk/blob/master/samples/dummy_afu/ddr.h#L60-L103)    | Execute dummy\_afu-specific DDR test.                   |
-| \# dummy\_afu [lpbk](https://github.com/OPAE/opae-sdk/blob/master/samples/dummy_afu/lpbk.h#L50-L65)   | Execute a simple loopback test.                         |
+| \# dummy\_afu [mmio](https://github.com/OFS/opae-sdk/blob/master/samples/dummy_afu/mmio.h#L131-L152) | Targets special scratchpad area implemented by the AFU. |
+| \# dummy\_afu [ddr](https://github.com/OFS/opae-sdk/blob/master/samples/dummy_afu/ddr.h#L60-L103)    | Execute dummy\_afu-specific DDR test.                   |
+| \# dummy\_afu [lpbk](https://github.com/OFS/opae-sdk/blob/master/samples/dummy_afu/lpbk.h#L50-L65)   | Execute a simple loopback test.                         |
 
 <a name="heading-6.2.2"></a>
 
 ##### **6.2.2 host\_exerciser**
 
-[host\_exerciser](https://github.com/OPAE/opae-sdk/blob/master/doc/src/fpga_tools/host_exerciser/host_exerciser.md)
+[host\_exerciser](https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/host_exerciser/host_exerciser.md)
 markdown document.
 
 <a name="heading-6.2.3"></a>
 
 ##### **6.2.3 hssi**
 
-[hssi](https://github.com/OPAE/opae-sdk/blob/master/doc/src/fpga_tools/hssi/hssi.md)
+[hssi](https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/hssi/hssi.md)
 markdown document.
 
 <a name="heading-7.0"></a>
@@ -3345,7 +3323,7 @@ markdown document.
 
 #### **7.1 opae.io**
 
-[opae.io](https://github.com/OPAE/opae-sdk/blob/master/doc/src/fpga_tools/opae.io/opae.io.md)
+[opae.io](https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/opae.io/opae.io.md)
 markdown document.
 
 <a name="heading-7.2"></a>
@@ -3389,7 +3367,7 @@ It will not work with prior platforms, eg N3000.
 
 #### **7.4 opaevfio**
 
-[opaevfio](https://github.com/OPAE/opae-sdk/blob/master/doc/src/fpga_tools/opaevfio/opaevfio.md)
+[opaevfio](https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/opaevfio/opaevfio.md)
 markdown document.
 
 
@@ -3404,7 +3382,7 @@ The OPAE SDK uses the cmake build and configuration system, version >=
 Install prerequisite packages.
 
 ```bash
-$ git clone <https://github.com/OPAE/opae-sdk.git>
+$ git clone <https://github.com/OFS/opae-sdk.git>
 $ cd opae-sdk
 $ mkdir build
 $ cd build
@@ -3423,9 +3401,9 @@ configuration process.
 
 | Script| Target Operating System|
 | ------------------------------------------------------------------------- | ---------------- |
-| [centos.sh](https://github.com/OPAE/opae-sdk/blob/master/setup/centos.sh) | CentOS 8.x       |
-| [fedora.sh](https://github.com/OPAE/opae-sdk/blob/master/setup/fedora.sh) | Fedora 33/34     |
-| [ubuntu.sh](https://github.com/OPAE/opae-sdk/blob/master/setup/ubuntu.sh) | Ubuntu 20.04 LTS |
+| [centos.sh](https://github.com/OFS/opae-sdk/blob/master/setup/centos.sh) | CentOS 8.x       |
+| [fedora.sh](https://github.com/OFS/opae-sdk/blob/master/setup/fedora.sh) | Fedora 33/34     |
+| [ubuntu.sh](https://github.com/OFS/opae-sdk/blob/master/setup/ubuntu.sh) | Ubuntu 20.04 LTS |
 
 <p align = "center">Table 11 System Configuration Scripts</p><a name="table-11"></a>
 
@@ -3434,7 +3412,7 @@ configuration process.
 #### **8.2 Cloning the SDK repository**
 
 ```bash
-$ git clone https://github.com/OPAE/opae-sdk.git
+$ git clone https://github.com/OFS/opae-sdk.git
 ```
 
 <a name="heading-8.3"></a>
@@ -3652,7 +3630,7 @@ packaging/opae/rpm directory.
 
 The RPMs will be versioned according to the information found in the
 file
-[packaging/opae/version](https://github.com/OPAE/opae-sdk/blob/master/packaging/opae/version#L27-L28).
+[packaging/opae/version](https://github.com/OFS/opae-sdk/blob/master/packaging/opae/version#L27-L28).
 Edit this file to update the version information, then re-run the create
 script to create the RPMs.
 
@@ -3690,90 +3668,421 @@ $ LD_LIBRARY_PATH=$PWD/lib gdb --args <some_opae_executable> <args>
 
 ### **10.0 Adding New Device Support**
 
-The process of adding a new PCIe device to the OPAE SDK currently requires updating and rebuilding the source code.  We are investigating a configuration-file driven approach that will ease the process going forward.
-This section describes the current method for updating the source.  The locations that need updating can be found by grep’ing the source for a known/supported PCIe device ID, eg bcce.
+As of OPAE 2.2.0 the SDK has transitioned to a single configuration file model.  The libraries, plugins, and applications obtain their runtime configuration during startup by examining a single JSON configuration file.  In doing so, the original configuration file formats for libopae-c and fpgad have been deprecated in favor of the respective sections in the new configuration file. 
 
-```bash
-$ cd opae-sdk
-$ grep -r bcce *
-```
-
-<p align = "center">Figure 104 Searching for Device IDs</p><a name="figure-104"></a>
-
-####	**10.1 libopae-c**
-Edit libraries/libopae-c/pluginmgr.c.  Find the definition of the platform_data_table array.  The table is NULL-terminated.  Create some empty space before the NULL termination row (the last row in the table), and insert a row for each new PCIe vendor, device, and plugin combination:
+####	**10.1 Configuration File Search Order**
+By default the OPAE SDK will install its configuration file to /etc/opae/opae.cfg. 
 
 
 ```C
-{ <VID>, <DID>, <plugin>, 0 },
-{     0,     0,     NULL,  0 }
+/etc/opae/opae.cfg 
 ```
 
 
-<p align = "center">Figure 105 Updating pluginmgr.c</p><a name="figure-105"></a>
+<p align = "center">Figure 104 Default Configuration File</p><a name="figure-104"></a>
 
 
-If the device is to be controlled by the DFL drivers, then make a table entry specifying “libxfpga.so” as the plugin field.  If the device is to be controlled by vfio-pci, then make a table entry specifying “libopae-v.so” as the plugin field.  Some devices are supported by both plugins.  This can be achieved by creating two table entries for the same vendor/device ID.
-####	**10.2 libxfpga**
-Edit libraries/plugins/xfpga/sysfs.c.  Find the definition of the opae_id_to_hw_type() function.  Update the function to add the new vendor/device ID to hw_type mapping.
-This mapping is used by the SDK’s metrics API to determine the method of accessing the board sensor information and is very specific to the underlying BMC implementation.  It may be necessary to add a new hw_type value and to update the logic in libraries/plugins/xfpga/metrics.
-####	**10.3 libopae-v**
-If the new device requires libopae-v.so support, then it must also be listed in libraries/plugins/vfio/opae_vfio.c.  Open the file and find the definition of the supported_devices table.  The table is NULL-terminated.  Create some empty space before the NULL termination row (the last row in the table), and insert a row for each new PCIe vendor and device.
+The SDK searches for the configuration file during startup by employing the following search algorithm: 
 
+First, the environment variable LIBOPAE_CFGFILE is examined.  If it is set to a path that represents a valid path to a configuration file, then that configuration file path is used, and the search is complete. 
+
+Next, the HOME environment variable is examined.  If its value is valid, then it is prepended to the following set of relative paths.  If HOME is not set, then the search continues with the value of the current user’s home path as determined by getpwuid().  The home path, if any, determined by getpwuid() is prepended to the following set of relative paths.  Searching completes successfully if any of these home-relative search paths is valid. 
 
 ```C
-{ <VID>, <DID> },
-{ 0, 0},
+/.local/opae.cfg 
+
+/.local/opae/opae.cfg 
+
+/.config/opae/opae.cfg 
 ```
 
-<p align = "center">Figure 106 Updating opae_vfio.c</p><a name="figure-106"></a>
+<p align = "center">Figure 105 HOME Relative Search Paths</p><a name="figure-105"></a>
 
-####	**10.4 opae.admin**
-Edit python/opae.admin/opae/admin/fpga.py.  Find the definition of the BOOT_PAGES data structure.  Add a comma to the last line of the data structure, and then add a new row containing the new vendor and device ID.
-```python
-(0x8086, 0xbcce): None,
-(<VID>, <DID>): None 
-```
-<p align = "center">Figure 107 Updating fpga.py</p><a name="figure-107"></a>
+Finally, the configuration file search continues with the following system-wide paths.  If any of these paths is found to contain a configuration file, then searching completes successfully. 
 
-####	**10.5 rsu.py**
-Edit python/opae.admin/opae/admin/tools/rsu.py.  Find the definition of the sequences data structure.  Add a comma to the last line of the data structure, and then add a new entry for the new vendor and device ID along with the valid fpga boot sequences.
+```C
+usr/local/etc/opae/opae.cfg 
 
-```python
-(0x8086, 0xbcce): [
-						‘fpga_user1’,
-						‘fpga_user2’,
-						‘fpga_factory’,
-						‘fpga_factory fpga_user1’,
-						‘fpga_factory fpga_user2’,
-						‘fpga_factory fpga_user1 fpga_user2’,
-						‘fpga_factory fpga_user2 fpga_user1’
-					],
-(<VID>, <DID>): [
-						<boot sequences>
-				]
+/etc/opae/opae.cfg 
 ```
 
-<p align = "center">Figure 108 Updating rsu.py</p><a name="figure-108"></a>
+<p align = "center">Figure 106 System Search Paths</p><a name="figure-106"></a>
 
-####	**10.6 fpgareg.py**
-Edit python/opae.admin/opae/admin/tools/fpgareg.py.  Find the definition of the fpga_devices data structure.  Add a comma to the last line of the data structure, and then add a new entry for the new vendor and device ID along with its description.
-```python
-fpga_devices = {(0x8086, 0xaf00): "Intel N6000 ADP",
-                (0x8086, 0xaf01): "Intel N6000 ADP VF",
-                (0x8086, 0xbcce): "Intel N6000 ADP",
-                (0x8086, 0xbccf): "Intel N6000 ADP VF",
-				(<VID>, <DID>): “Description” }
+If the search exhausts all of the possible configuration file locations without finding a configuration file, then an internal default configuration is used.  This internal default configuration matches that of the opae.cfg file shipped with the OPAE SDK. 
+
+####	**10.2 Configuration File Format **
+The OPAE SDK configuration file is stored in JSON formatted text.  The file has two main sections: “configs” and “configurations”.  The “configs” section is an array of strings.  Each value in the “configs” array is a key into the data stored in the “configurations” section.  If a key is present in “configs”, then that key is searched for and processed in “configurations”.  If the key is not found in “configs”, then that section of “configurations” will not be processed, irrespective of whether it exists in “configurations”. 
+
+```C
+{ 
+
+  “configurations”: { 
+
+    “c6100”: { 
+
+      ... 
+
+    } 
+
+  }, 
+
+  “configs”: [ 
+
+    “c6100” 
+
+  ] 
+
+} 
 ```
-<p align = "center">Figure 109 Updating fpgareg.py</p><a name="figure-109"></a>
+
+<p align = "center">Figure 107 Keyed Configurations</p><a name="figure-107"></a>
+
+Each keyed section in “configurations” has four top-level entries: “enabled”, “platform”, “devices”, “opae”. 
+
+```C
+{ 
+
+  “configurations”: { 
+
+    “c6100”: { 
+
+      “enabled”: true, 
+
+      “platform”: “Intel Acceleration Development Platform C6100”, 
+
+      “devices”: [ 
+
+        { “name”: “c6100_pf”, “id”: [ ... ] }, 
+
+        { “name”: “c6100_vf”, “id”: [ ... ] } 
+
+      ], 
+
+      “opae”: { 
+
+        ... 
+
+      } 
+
+    } 
+
+  }, 
+
+} 
+```
+<p align = "center">Figure 108 Configurations Format</p><a name="figure-108"></a>
+
+The “enabled” key holds a Boolean value.  If the value is false or if the “enabled” key is omitted, then that configuration is skipped when parsing the file.  The “platform” key holds a string that identifies the current configuration item as a product family.  The “devices” key contains the device descriptions. 
+
+“devices” is an array of objects that contain a “name” and an “id” key.  The “name” is a shorthand descriptor for a device PF or VF.  The value of “name” appears elsewhere in the current “configurations” section in order to uniquely identify the device.  “id” is an array of four strings, corresponding to the PCIe Vendor ID, Device ID, Subsystem Vendor ID, and Subsystem Device ID of the device.  The entries corresponding to Vendor ID and Device ID must contain valid 16-bit hex integers.  The entries corresponding to Subsystem Vendor ID and Subsystem Device ID may be 16-bit hex integers or the special wildcard string “*”, which indicates a don’t care condition. 
+
+The remaining sections in this chapter outline the format of the “opae” configurations key. 
+
+“plugin”: libopae-c and libopae-v 
+
+The “plugin” key in the “opae” section of a configuration is an array of OPAE SDK plugin configuration data.  Each item in the array matches one or more PF or VF devices to a plugin library module. 
+
+ 
+```C
+{ 
+
+  “configurations”: { 
+
+    “c6100”: { 
+
+      ... 
+
+      “opae”: { 
+
+        “plugin”: [ 
+
+          { 
+
+            “enabled”: true, 
+
+            “module”: “libxfpga.so”, 
+
+            “devices”: [ “c6100_pf” ], 
+
+            “configuration”: {} 
+
+          }, 
+
+          { 
+
+            “enabled”: true, 
+
+            “module”: “libopae-v.so”, 
+
+            “devices”: [ “c6100_pf”, “c6100_vf” ], 
+
+            “configuration”: {} 
+
+          } 
+
+        ], 
+
+      } 
+
+    } 
+
+  }, 
+
+} 
+```
+
+<p align = "center">Figure 109 "opae" / "plugin" key/</p><a name="figure-109"></a>
+
+If the “enabled” key is false or if it is omitted, then that “plugin” array entry is skipped, and parsing continues.  The “module” key is a string that identifies the desired plugin module library for the entry.  The “devices” array lists one or more PF/VF identifiers.  Each array value must be a string, and it must match a device that is described in the “configurations” “devices” section.  The “configuration” key of the “plugin” section specifies a unique plugin-specific configuration.  Currently, libopae-c and libopae-v use no plugin-specific config, so these keys are left empty. 
+
+“fpgainfo”: fpgainfo application 
+
+The “fpgainfo” key in the “opae” section of a configuration is an array of fpgainfo plugin configuration data.  Each item in the array matches one or more PF or VF devices to an fpgainfo plugin library module. 
+
+ 
+```C
+{ 
+
+  “configurations”: { 
+
+    “c6100”: { 
+
+      ... 
+
+      “opae”: { 
+
+        “fpgainfo”: [ 
+
+          { 
+
+            “enabled”: true, 
+
+            “module”: “libboard_c6100.so”, 
+
+            “devices”: [ 
+
+              { “device”: “c6100_pf”, “feature_id”: “0x12” }, 
+
+              { “device”: “c6100_vf”, “feature_id”: “0x12” } 
+
+            ] 
+
+          } 
+
+        ], 
+
+      } 
+
+    } 
+
+  }, 
+
+} 
+```
+
+<p align = "center">Figure 110 "opae" / "fpgainfo" key</p><a name="figure-110"></a>
+ 
+
+If the “enabled” key is false or if it is omitted, then that “fpgainfo” array entry is skipped, and parsing continues.  The “module” key is a string that identifies the desired fpgainfo module library for the entry.  Each “devices” array entry gives a PF/VF identifier in its “device” key and a DFL feature ID in its “feature_id” key. 
+
+“fpgad”: fpgad daemon process 
+
+The “fpgad” key in the “opae” section of a configuration is an array of fpgad plugin configuration data.  Each item in the array matches one or more PF or VF devices to an fpgad plugin library module. 
+
+ 
+```C
+{ 
+
+  “configurations”: { 
+
+    “c6100”: { 
+
+      ... 
+
+      “opae”: { 
+
+        “fpgad”: [ 
+
+          { 
+
+            “enabled”: true, 
+
+            “module”: “libfpgad-vc.so”, 
+
+            “devices”: [ “c6100_pf” ], 
+
+            “configuration”: { 
+
+              ... 
+
+            } 
+
+          } 
+
+        ], 
+
+      } 
+
+    } 
+
+  }, 
+
+} 
+```
+
+<p align = "center">Figure 111 "opae" / "fpgad" key </p><a name="figure-111"></a>
+
+
+If the “enabled” key is false or if it is omitted, then that “fpgad” array entry is skipped, and parsing continues.  The “module” key is a string that identifies the desired fpgad plugin module library for the entry.  The “devices” array lists one or more PF/VF identifiers.  Each array value must be a string, and it must match a device that is described in the “configurations” “devices” section.  The “configuration” key of the “fpgad” section specifies a unique plugin-specific configuration. 
+
+“rsu”: rsu script 
+
+The “rsu” key in the “opae” section of a configuration is an array of rsu script configuration data.  Each item in the array matches one or more PF devices to an rsu configuration. 
+
+ 
+```C
+{ 
+
+  “configurations”: { 
+
+    “c6100”: { 
+
+      ... 
+
+      “opae”: { 
+
+        “rsu”: [ 
+
+          { 
+
+            “enabled”: true, 
+
+            “devices”: [ “c6100_pf” ], 
+
+            “fpga_default_sequences”: “common_rsu_sequences” 
+
+          } 
+
+        ], 
+
+      } 
+
+    } 
+
+  }, 
+
+  “common_rsu_sequences”: [ 
+
+    ... 
+
+  ] 
+
+} 
+```
+
+<p align = "center">Figure 112 "opae" / "rsu" key  </p><a name="figure-112"></a>
+
+If the “enabled” key is false or if it is omitted, then that “rsu” array entry is skipped, and parsing continues.  When disabled, the device(s) mentioned in that array entry will not be available for the rsu command. The “devices” array lists one or more PF identifiers.  Each array value must be a string, and it must match a device that is described in the “configurations” “devices” section.  The “fpga_default_sequences” key of the “rsu” section specifies a JSON key.  The configuration searches for that JSON key at the global level of the configuration file, and when found applies its value as the valid set of fpga boot sequences that can be used with the rsu fpgadefault subcommand. 
+
+ ```C
+“fpgareg”: fpgareg script 
+```
+
+The “fpgareg” key in the “opae” section of a configuration is an array of fpgareg script configuration data.  Each item in the array matches one or more PF/VF devices to an fpgareg configuration. 
+
+ ```C
+{ 
+
+  “configurations”: { 
+
+    “c6100”: { 
+
+      ... 
+
+      “opae”: { 
+
+        “fpgareg”: [ 
+
+          { 
+
+            “enabled”: true, 
+
+            “devices”: [ “c6100_pf”, “c6100_vf” ] 
+
+          } 
+
+        ], 
+
+      } 
+
+    } 
+
+  }, 
+
+} 
+```
+
+<p align = "center">Figure 113 "opae" / "fpgareg" key   </p><a name="figure-113"></a>
+
+
+If the “enabled” key is false or if it is omitted, then that “fpgareg” array entry is skipped, and parsing continues.  When disabled, the device(s) mentioned in that array entry will not be available for the fpgareg command. The “devices” array lists one or more PF/VF identifiers.  Each array value must be a string, and it must match a device that is described in the “configurations” “devices” section.   
+
+```C
+“opae.io”: opae.io application 
+```
+
+The “opae.io” key in the “opae” section of a configuration is an array of opae.io configuration data.  Each item in the array matches one or more PF/VF devices to an opae.io platform string. 
+
+ 
+```C
+{ 
+
+  “configurations”: { 
+
+    “c6100”: { 
+
+      ... 
+
+      “opae”: { 
+
+        “opae.io”: [ 
+
+          { 
+
+            “enabled”: true, 
+
+            “devices”: [ “c6100_pf”, “c6100_vf” ] 
+
+          } 
+
+        ], 
+
+      } 
+
+    } 
+
+  }, 
+
+} 
+```
+
+<p align = "center">Figure 114 "opae" / "opae.io" key    </p><a name="figure-114"></a>
+
+If the “enabled” key is false or if it is omitted, then that “opae.io” array entry is skipped, and parsing continues.  When disabled, the device(s) mentioned in that array entry will continue to be available for the opae.io command.  The device(s) platform string will not be shown in the `opae.io ls` command.  The “devices” array lists one or more PF/VF identifiers.  Each array value must be a string, and it must match a device that is described in the “configurations” “devices” section.   
+
+Libxfpga – Updating the Metrics API 
+
+Edit libraries/plugins/xfpga/sysfs.c.  Find the definition of the opae_id_to_hw_type() function.  Update the function to add the new vendor/device ID to hw_type mapping. 
+
+This mapping is used by the SDK’s metrics API to determine the method of accessing the board sensor information and is very specific to the underlying BMC implementation.  It may be necessary to add a new hw_type value and to update the logic in libraries/plugins/xfpga/metrics. 
 
 <a name = "heading-11.0"></a>
 
 ## **11.0 DFL Linux Kernel Drivers**
 
-Intel OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks such as DPDK are consumers of the APIs provided by Intel OFS. Applications may be built on top of these frameworks and libraries. The Intel OFS software does not cover any out-of-band management interfaces. Intel OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality.
+OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks such as DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality.
 
-The Intel OFS driver software can be found in the [OPAE repository](https://github.com/OPAE/linux-dfl), under the linux-dfl specific category. This repository has an associated [wiki page](https://github.com/OPAE/linux-dfl/wiki) that includes the following information:
+The OFS driver software can be found in the [OFS repository](https://github.com/OFS/linux-dfl), under the linux-dfl specific category. This repository has an associated [wiki page](https://github.com/OFS/linux-dfl/wiki) that includes the following information:
 - An description of the three available branch archetypes
 - Configuration tweaks required while building the kernel
 - A functional description of the available DFL framework
@@ -3781,4 +4090,16 @@ The Intel OFS driver software can be found in the [OPAE repository](https://gith
 - Steps to create a new DFL driver
 - Steps to port a DFL driver patch
 
-Additionally the user can reference the included example OPAE N3000 Kernel Driver Software Architecture Specification that is available at [github.com/otcshare](https://github.com/intel-innersource/applications.fpga.ofs.documentation/tree/nathanbo/sw-dev/n6000/user_guides/ofs_sw). This document covers the kernel-space and user-space software that were created to support functionality of the on-board Fortville (XL710 2x40Gb / 4x10 Gb Ethernet Controller) and Max10 BMC. 
+
+
+## Notices & Disclaimers
+Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.  

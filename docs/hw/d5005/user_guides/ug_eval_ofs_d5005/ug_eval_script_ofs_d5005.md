@@ -1,5 +1,6 @@
-<h1>OFS Evaluation Quick Start Guide: Intel® Open FPGA Stack for Intel Stratix 10 FPGA</h1>
+<h1>OFS Evaluation Quick Start Guide: Open FPGA Stack for Intel Stratix 10 FPGA</h1>
 
+<!--
 ## **Table of Contents**
 
 [**1 Overview**](#overview)
@@ -10,21 +11,20 @@
 * [**2.1 Pre-Requisites**](#iofs_adp_pre-requisites)<br>
 * [**2.2 d5005 Evaluation Script modification**](#iofs_adp_d5005_eval_script_mod)<br>
 
-[**3 d5005 Evaluation Script**](#d5005_eval_script)<br>
+[**3 Using the Evaluation Script**](#d5005_eval_script)<br>
 * [**3.1 Overview**](#iofs_adp_overview)<br>
-    * [**3.1.1 ADP TOOLS MENU**](#iofs_adp_tools_menu)<br>
-    * [**3.1.2 ADP HARDWARE MENU**](#iofs_adp_hardware_menu)<br>
-    * [**3.1.3 ADP FIM/PR BUILD MENU**](#iofs_fim_build)<br>
-    * [**3.1.4 ADP HARDWARE PROGRAMMING/DIAGNOSTIC MENU**](#iofs_hw_programming)<br>
-    * [**3.1.5 ADP HARDWARE AFU TESTING MENU**](#iofs_adp_afu_testing)<br>
-    * [**3.1.6 ADP HARDWARE AFU BBB TESTING MENU**](#iofs_bbb_testing)<br>
-    * [**3.1.7 ADP OPENCL PROJECT MENU**](#iofs_hld_menu)<br>
-    * [**3.1.8 ADP UNIT TEST PROJECT MENU**](#iofs_adp_unit_test)<br>
-    * [**3.1.9 ADP UVM PROJECT MENU**](#iofs_adp_uvm)<br>
-    * [**3.1.10 ADP BUILD ALL PROJECT MENU**](#iofs_build_all)<br>
+    * [**3.1.1 TOOLS MENU**](#iofs_adp_tools_menu)<br>
+    * [**3.1.2 HARDWARE MENU**](#iofs_adp_hardware_menu)<br>
+    * [**3.1.3 FIM/PR BUILD MENU**](#iofs_fim_build)<br>
+    * [**3.1.4 HARDWARE PROGRAMMING/DIAGNOSTIC MENU**](#iofs_hw_programming)<br>
+    * [**3.1.5 HARDWARE AFU TESTING MENU**](#iofs_adp_afu_testing)<br>
+    * [**3.1.6 HARDWARE AFU BBB TESTING MENU**](#iofs_bbb_testing)<br>
+    * [**3.1.7 UNIT TEST PROJECT MENU**](#iofs_adp_unit_test)<br>
+    * [**3.1.8 BUILD ALL PROJECT MENU**](#ofs_build_all)<br>
 
-[**4 d5005 Common Test Scenarios**](#d5005_common_tests)<br>
-<br>
+
+[**4 Common Test Scenarios**](#d5005_common_tests)<br>
+<br>-->
 
 ## **1 Overview**
 <a name="overview"></a>
@@ -32,7 +32,7 @@
 ### **1.1 About this Document**
 <a name="about_doc"></a>
 
-This document serves as a set-up and user guide for the checkout and evaluation of an Intel FPGA SmartNIC d5005 Platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
+This document serves as a set-up and user guide for the checkout and evaluation of an Intel FPGA PAC D5005 development atform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
 
 -   Set-up and modify the script to the your environment
 
@@ -45,121 +45,66 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 ### **1.2 Terminology**
 <a name="terminology"></a>
 
-This table defines some of the common terms used when discussing Intel OFS.
+This table defines some of the common terms used when discussing OFS.
 
 #### **Table 1-1: Glossary**
 
 | Acronym    | Expansion                                                      | Description                                                                                                                                                                                                                                                                           |
 |:----------:|:--------------------------------------------------------------:|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|ADP    | Acceleration Development Platform | Intel development platform using Intel OFS framework, such as the Intel FPGA SmartNIC N6001-PL Platform |
 | AFU        | Accelerator Functional Unit                                    | Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance.  <b>Note:</b>  An AFU region is the part of the design where an AFU may reside.  This AFU may or may not be a partial reconfiguration region. |
 | BBB        | Basic Building Block                                           | Features within an AFU or part of an FPGA interface that can be reused across designs.  These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires.  All BBBs must have a (globally unique identifier) GUID.                   |
 | FIM        | FPGA Interface Manager                                         | Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs.  The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.                                       |
 | FME        | FPGA Management Engine                                         | Provides a way to manage the platform and enable acceleration functions on the platform.                                                                                                                                                                                              |
 |OFS    | Open FPGA Stack |A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.         |
-| Intel FPGA SmartNIC D5005-PL Platform        | Intel FPGA SmartNIC d5005-PL Platform                   | A high performance PCI Express* (PCIe*)-based FPGA acceleration card for data centers.  This card is the target platform for the initial Intel OFS release.                              |
+| Intel FPGA PAC D5005       | Intel FPGA Programmable Acceleration Card D5005                  | A high performance PCI Express* (PCIe*)-based FPGA acceleration card for data centers.  This card is the target platform for the initial OFS release.                              |
 | OPAE SDK   | Open Programmable Acceleration Engine Software Development Kit | A collection of APIs, software tools and upstreamed Linux* drivers to facilitate the development of software applications that allow the host to manage the FPGA accelerator card in an abstracted way.                                                                                                                                                     |
 |OPAE        | Open Programmable Acceleration Engine Software Development Kit (OPAE SDK)    | A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.|
 | PIM        | Platform Interface Manager                                     | An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.                              |
-| d5005       | Intel FPGA SmartNIC D5005 Platform                    | A high performance PCI Express* (PCIe*)-based FPGA acceleration card featuring an Intel Stratix FPGA.                              |
-| UVM | Universal Verification Methodology                                 | A modular, reusable, and scalable testbench structure via an API framework.                                                                                                                                                                         |
-| TB | Testbench                                 | Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.                                                                                                                                                                         |
-| AVST | Avalon Streaming                                 | Avalon Streaming.                                                                                                                                                                         |
-| AXI | Advanced eXtenxible Interface                                 | Advanced eXtenxible Interface.                                                                                                                      |
-| CSR | Command/status registers (CSR) and software interface                                 | Intel OFS uses a defined set of CSR's to expose the functionality of the FPGA to the host software.  |
+| UVM | Universal Verification Methodology                                 | A modular, reusable, and scalable testbench structure via an API framework.  |
+| TB | Testbench                                 | Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.                                                                                                                           
+| CSR | Command/status registers (CSR) and software interface                                 | OFS uses a defined set of CSR's to expose the functionality of the FPGA to the host software.  |
 |
 
-### **1.3 Reference Documents**
 
-Please refer to the README on the OTCshare GitHub for an updated list of collateral on the [otcshare GitHub page](https://github.com/otcshare/intel-ofs-docs).
-
-#### **Table 1-2: Reference Documents**
-
-<table>
-<thead>
-	<tr>
-		<th>Intel OFS Collateral</th>
-		<th>Description</th>		
-	</tr>
-	</thead>
-	<tbody>
-	<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md">Getting Started Guide: Intel® Open FPGA Stack for Intel Stratix 10</a></th>
-		<td>Guides you through the setup and build steps to evaluate the OFS solution targeting an Intel FPGA PAC D5005</td>
-	</tr>
-	<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/tree/main/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md">FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Stratix 10 FPGA</a></th>
-		<td>Describes the OFS FIM architecture and features. </td>
-	</tr>
-<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/blob/main/common/reference_manual/ofs_sw/mnl_sw_ofs.md">Software Reference Manual: Intel Open FPGA Stack</a></th>
-		<td>Describes the Open Programmable Acceleration Engine (OPAE) Software Development Kit, the OPAE C++ and Python API and management interfaces. This document also covers building the OPAE SDK, how to add a new PCIe device, and debugging the software stack.</td>
-	</tr>
-	<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/tree/main/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md">FPGA Interface Manager Developer Guide: Intel Open Stack for Intel Stratix 10 FPGA</a></th>
-		<td>Provides guidance on developing an FPGA Interface Manager (FIM) for a custom FPGA acceleration board.</td>
-	</tr>
-	<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/tree/main/d5005/dev_guides/AFU%20User%20Guide/AFU_User_Guide.md">Accelerator Functional Unit Developer Guide: Intel Open FPGA Stack</a></th>
-		<td>Provides guidance on how to build and test an AFU when designing to an OFS-based FPGA Interface Manager </td></tr>
-<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/tree/main/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md">Simulation User Guide: Intel Open FPGA Stack for Intel Stratix 10 FPGA</a></th>
-		<td>Provides steps for setting up the UVM verification tool suite and running UVM unit tests.</td>
-	</tr>
-		<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/tree/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md">Security User Guide: Intel Open FPGA Stack for Intel Stratix 10 FPGA</a></th>
-		<td>Describes how to create keys and sign bitstreams for your custom design.</td>
-	</tr>
-<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/tree/main/d5005/user_guides/ug_bmc_ofs_d5005/IOFS_BMC_User_Guide.md">Board Management Controller User Guide: Intel Open FPGA Stack for Intel Stratix 10 FPGA</a></th>
-		<td>Describes how to modify the BMC RTL and Firmware for your custom board design.</td>
-	</tr>
-<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/blob/main/common/user_guides/ofs_hld/ug_hld_ofs.md">Intel OFS High Level (HLD) Getting Started User Guide</a></th>
-		<td>Describes how to get started using OpenCL with the Intel OFS FIM BSP.</td>
-	</tr>
-<tr>
-		<th><a href="https://github.com/otcshare/intel-ofs-docs/blob/main/common/reference_manual/ofs_hld/mnl_hld_ofs.md">Intel OFS High Level Design(HLD) Shim Reference Manual</a></th>
-		<td>Describes how to use the provided shim for Intel OFS for creating your custom OpenCL board support package.</td>
-	</tr>
-	</tbody>
-</table>
 
 <br>
 
-#### **Table 1-3: Software Version Summary**
+#### **Table 1-2: Software Version Summary**
 
-| Component | Version |
-| --------- | ------- |
-| FPGA Platform | [Intel FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html)|
-| OPAE SDK | [Branch: release/2.1.1](https://github.com/OPAE/opae-sdk/tree/release/2.1.1), [Tag: 2.1.1-1](https://github.com/OPAE/opae-sdk/tree/2.1.1-1)|
-| Kernel Drivers | [Branch: fpga-ofs-dev-5.15-lts](https://github.com/OPAE/linux-dfl/tree/fpga-ofs-dev-5.15-lts), [Tag: ofs-2022.2-1](https://github.com/OPAE/linux-dfl/tree/ofs-2022.2-1) |
-| HLD Shim | [Branch: ofs-2.2.0](https://github.com/otcshare/ofs-hld-shim), [Tag: ofs-2.3.0-d5005](https://github.com/otcshare/ofs-hld-shim/releases/tag/ofs-2.3.0-d5005)  |
-| OFS FIM Source Code| [Branch: release/d5005](https://github.com/otcshare/intel-ofs-fim/tree/release/d5005), [Tag: ofs-1.3.1](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-1.3.0) |
-| Intel Quartus Prime Pro Edition Design Software | [23.1 for Linux, ID 727906](https://www.intel.com/content/www/us/en/collections/products/fpga/software/downloads.html?edition=pro&s=Newest&q=Quartus%20Prime%20Pro%2023.1)  |
-| Operating System | [Red Hat Enterprise Linux 8.2](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |
+| Component | Version |  Description |
+| --------- | ------- | -------|
+| FPGA Platform | [Intel FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html)| Intel platform you can use for your custom board development |
+| OFS FIM Source Code| [Branch: release/1.0.x](https://github.com/OFS/ofs-d5005), [Tag: ofs-d5005-1.0.0-rc3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.0-rc3)| OFS Shell RTL for Intel Stratix 10 FPGA (targeting Intel FPGA PAC D5005)|
+|OFS FIM Common| [Branch: release/1.0.x](https://github.com/OFS/ofs-fim-common), [Tag: ofs-fim-common-1.1.0-rc2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-fim-common-1.1.0-rc2)| Common RTL across all OFS-based platforms |
+| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-afu-1.0.0-rc3](https://github.com/OFS/examples-afu/releases/tag/ofs-examples-afu-1.0.0-rc3)| Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
+|OFS Platform Building Blocks | [Branch: ofs-platform-bbb](https://github.com/OFS/ofs-platform-afu-bbb),[Tag: 1.0.0-rc3](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/1.0.0-rc3) | Provides bridge interfaces for protocol translation |
+| OPAE SDK | [Branch: release/2.3.0-1](https://github.com/OFS/opae-sdk/tree/2.3.0-1), [Tag: 2.3.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.3.0-1)| Open Programmable Acceleration Engine Software Development Kit |
+| Kernel Drivers | [Branch: ofs-2022.3-2](https://github.com/OFS/linux-dfl/tree/ofs-2022.3-2), [Tag: ofs-2022.3-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2022.3-2) | OFS specific kernel drivers|
+|OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.3.0-1](https://github.com/OFS/opae-sim/releases/tag/2.3.0-1)| Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Intel Quartus Prime Pro Edition Design Software | [22.3](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html)  | Software tool for Intel FPGA Development|
+| Operating System | [RedHat Enterprise Linux 8.2](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested. ||
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel FPGA PAC D5005 can be found on the [Intel OFS 2022.2](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-1.3.0) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel FPGA PAC D5005 can be found on the [OFS 2022.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.0-rc3) official release drop on GitHub.
 
 <br>
 
-## **2 Introduction to d5005 Evaluation Script**
+## **2 Introduction to OFS Evaluation Script**
 <a name="intro_to_d5005_eval_script"></a>
 
-By following the setup steps and using the Intel OFS d5005 evaluation script you can quickly evaluate many features that the OFS framework provides and also leverage this script for your own development.  
+By following the setup steps and using the OFS evaluation script you can quickly evaluate many features that the OFS framework provides and also leverage this script for your own development.  
 
 ### **2.1 Pre-Requisites**
 <a name="iofs_adp_pre-requisites"></a>
 
 This script uses on the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
-* Intel Quartus<sup>&reg;</sup> Prime Pro
-* Synopsys<sup>&reg;</sup>
-* Questasim<sup>&reg;</sup>
+* Intel Quartus<sup>&reg;</sup> Prime Pro Software
+* Synopsys<sup>&reg;</sup> VCS Simulator
+* Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator
 
 **Figure 2-1 Folder Hierarchy for Software Tools**
 
-<img src="images/ofs_d5005_tools_menu.png" alt="drawing" style="width:450px">
+![d5005-tools](images/ofs_d5005_tools_menu.png)
 
 1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-1.3.1. 
 
@@ -167,65 +112,18 @@ This script uses on the following set of software tools which should be installe
 
 3. Assign the ofs-X.X.X folder to the $IOFS_BUILD_ROOT environment variable. 
 
-4. Once the repositories are cloned, copy the evaluation script (iofs_d5005_eval.sh) which is located at https://github.com/OFS/ofs-d5005/eval_scripts beneath the $IOFS_BUILD_ROOT directory location as shown in the example below:
+4. Once the repositories are cloned, copy the evaluation script (iofs_d5005_eval.sh) which is located at https://github.com/OFS/ofs-d5005/tree/release/1.0.x/eval_scripts beneath the $IOFS_BUILD_ROOT directory location as shown in the example below:
 
-**Figure 2-2 Directory Structure for Intel OFS Project**
+**Figure 2-2 Directory Structure for OFS Project**
 
-<img src="images/ofs_d5005_repo_menu.png" alt="drawing" style="width:450px">
+![d5005-repo-menu](images/ofs_d5005_repo_menu.png)
 
-<table>
-    <thead>
-        <tr>
-            <th>Repository Name</th>
-            <th>Description</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>examples-afu</td>
-            <td>Basic Building Blocks (BBB) for Intel FPGAs is a suite of application building blocks and shims for transforming the CCI-P interface<br>
-            <br>
-        </tr>
-</td>        
-        <tr>
-            <td>linux-dfl</td>
-            <td>Contains mirror of linux-dfl and specific Intel OFS drivers that are being upstreamed to the Linux kernel<br>
-            <br>
-        </tr>
-</tr>
-        <tr>
-            <td>ofs-d5005</td>
-            <td>Contains FIM or shell RTL, automated compilation scripts, unit tests and UVM test framework<br>
-            <br>
-        </tr>
-</tr>
-        <tr>
-            <td>ofs-hld-shim</td>
-            <td>Contains the hardware and software components you need to develop your own OneAPI or OpenCL board support package for the Intel® Stratix 10® and Intel® Agilex® FPGAs<br>
-            <br>
-        </tr>
-</tr>
-        <tr>
-            <td>opae-sdk</td>
-            <td>Contains the files for building and installing Open Programmable Acceleration Engine Software Development Kit from source<br>
-            <br>
-        </tr>
-</tr>
-        <tr>
-            <td>opae-sim</td>
-            <td>Contains the files for an AFU developer to build the Accelerator Funcitonal Unit Simulation Environment (ASE) for workload development<br>
-            <br>
-        </tr>
-</tr>
-     </tbody>
-</table>
-
-5. Open the README file named (README_ofs_d5005_eval.txt) which is located at https://github.com/OFS/ofs-d5005/eval_scripts which informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests. 
+5. Open the README file named (README_ofs_d5005_eval.txt) which is located at https://github.com/OFS/ofs-d5005/tree/release/1.0.x/eval_scripts which informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests. 
 
 ### **2.2 d5005 Evaluation Script modification**
 <a name="iofs_adp_d5005_eval_script_mod"></a>
 
-To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the iofs_d5005_eval.sh script 
+To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the iofs_d5005_eval.sh script.
 
 ### **User Directory Creation**
 
@@ -284,7 +182,7 @@ The Bus number must be entered by the user after installing the hardware in the 
 
     export ADP_CARD0_BUS_NUMBER=b1
 
- The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerater card plugged into a server. 
+ The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerator card plugged into a server. 
 
     lspci | grep acc
     
@@ -310,7 +208,7 @@ The ofs_d5005_eval.sh script has now been modified to the server set-up and the 
 
 <br>
 
-## **3 d5005 Evaluation Script**
+## **3 Using the Evaluation Script**
 <a name="d5005_eval_script"></a>
 
 ### **3.1 Overview**
@@ -320,17 +218,17 @@ The figure below shows a snapshot of the full evaluation script menu showing all
 
 **Figure 3-1 iofs_d5005_eval.sh Evaluation Menu**
 
-<img src="images/ofs_d5005_adp_eval_menu.png" alt="drawing" style="width:450px">
+![adp-eval-menu](images/ofs_d5005_adp_eval_menu.png)
 
-
-### **3.1.1 ADP TOOLS MENU**
+### **3.1.1 TOOLS MENU**
 <a name="iofs_adp_tools_menu"></a>
 
 By selecting "List of Documentation for ADP d5005 Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
 
 By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.
 
-<img src="images/ofs_d5005_adp_tools_menu.png" alt="drawing" style="width:450px">
+![adp-tools-menu](images/ofs_d5005_adp_tools_menu.png)
+
 
 <table>
     <thead>
@@ -344,43 +242,23 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
             <td>1 - List of Documentation for ADP d5005 Project</td>
             <td>Getting Started Guide: Intel Open FPGA Stack for Intel Stratix 10 FPGA<br>
                 Guides you through the setup and build steps to evaluate the OFS solution targeting an Intel FPGA PAC D5005<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md<br>
             <br>
                 FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Stratix 10 FPGA<br>
                 Describes the OFS FIM architecture and features<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md<br>
             <br>
                 Software Reference Manual: Intel® Open FPGA Stack<br>
                 Describes the Open Programmable Acceleration Engine (OPAE) Software Development Kit, the OPAE C++ and Python API and management interfaces. This document also covers building the OPAE SDK, how to add a new PCIe device, and debugging the software stack<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/common/reference_manual/ofs_sw/mnl_sw_ofs.md<br>
             <br>
                 FPGA Interface Manager Developer Guide: Intel Open Stack for Intel Stratix 10 FPGA<br>
                 Provides guidance on developing an FPGA Interface Manager (FIM) for a custom FPGA acceleration board<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md<br>
             <br>
                 Accelerator Functional Unit Developer Guide: Intel Open FPGA Stack<br>
                 Provides guidance on how to build and test an AFU when designing to an OFS-based FPGA Interface Manager<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/dev_guides/AFU%20User%20Guide/AFU_User_Guide.md<br>
             <br>
-                Simulation User Guide: Intel Open FPGA Stack for Intel Stratix 10 FPGA<br>
-                Provides steps for setting up the UVM verification tool suite and running UVM unit tests<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md<br>
             <br>
                 Security User Guide: Intel Open FPGA Stack for Intel Stratix 10 FPGA<br>
                 Describes how to create keys and sign bitstreams for your custom design<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md<br>
             <br>
-                Board Management Controller User Guide: Intel Open FPGA Stack for Intel Stratix 10 FPGA<br>
-                Describes how to modify the BMC RTL and Firmware for your custom board design<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/ug_bmc_ofs_d5005/IOFS_BMC_User_Guide.md<br>
-            <br>
-                Intel® OFS High Level Design(HLD) Shim: Getting Started User Guide<br>
-                Describes how to get started using OneAPI with the Intel OFS FIM BSP<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/common/user_guides/ofs_hld/ug_hld_ofs.md<br>
-            <br>
-                Intel® OFS High Level Design(HLD) Shim: Reference Manual<br>
-                Describes how to use the provided shim for Intel OFS for creating your custom OneAPI board support package<br>
-                https://github.com/otcshare/intel-ofs-docs/blob/main/common/reference_manual/ofs_hld/mnl_hld_ofs.md<br>
 </td>        
         </tr>
         <tr>
@@ -419,12 +297,12 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
      </tbody>
 </table>
 
-### **3.1.2 ADP HARDWARE MENU**
+### **3.1.2 HARDWARE MENU**
 <a name="iofs_adp_hardware_menu"></a>
 
 Identifies card by PCIe number, checks power, temperature and current firmware configuration. 
 
-<img src="images/ofs_d5005_adp_hardware_menu.png" alt="drawing" style="width:450px">
+![adp-hardware-menu](images/ofs_d5005_adp_hardware_menu.png)
 
 <table>
     <thead>
@@ -579,12 +457,12 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
      </tbody>
 </table>
 
-### **3.1.4 ADP FIM/PR BUILD MENU**
+### **3.1.3 FIM/PR BUILD MENU**
 <a name="iofs_fim_build"></a>
 
 Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
 
-<img src="images/ofs_d5005_adp_fim_pr_build_menu.png" alt="drawing" style="width:450px">
+![adp-fim-pr-build](images/ofs_d5005_adp_fim_pr_build_menu.png)
 
 <table>
     <thead>
@@ -620,35 +498,35 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
         </tr>
         <tr>
             <td>12 - Build Partial Reconfiguration Tree for d5005 Hardware</td>
-            <td>This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the OpenCL build flow <br>
+            <td>This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the OneAPI build flow <br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
             <td>13 - Build Base FIM Identification(ID) into PR Build Tree template</td>
-            <td>This option copies the contents of the fme-ifc-id.txt into the Partial Reconfiguration Tree to allow the FIM amd Partial Reconfiguration Tree to match and hence allow subsequent insertion of AFU and OpenCL workloads<br>
+            <td>This option copies the contents of the fme-ifc-id.txt into the Partial Reconfiguration Tree to allow the FIM amd Partial Reconfiguration Tree to match and hence allow subsequent insertion of AFU and OneAPI workloads<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
             <td>14 - Build Partial Reconfiguration Tree for d5005 Hardware with Remote Signal Tap</td>
-            <td>This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the OpenCL build flow and for the Remote Signal Tap flow<br>
+            <td>This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the OneAPI build flow and for the Remote Signal Tap flow<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
             <td>15 - Build Base FIM Identification(ID) into PR Build Tree template with Remote Signal Tap</td>
-            <td>This option copies the contents of the fme-ifc-id.txt into the Partial Reconfiguration Tree for Remote Signal Tap to allow the FIM amd Partial Reconfiguration Tree to match and hence allow subsequent insertion of AFU and OpenCL workloads<br>
+            <td>This option copies the contents of the fme-ifc-id.txt into the Partial Reconfiguration Tree for Remote Signal Tap to allow the FIM amd Partial Reconfiguration Tree to match and hence allow subsequent insertion of AFU and OneAPI workloads<br>
             <br>
         </tr>
 </tr>
      </tbody>
 </table>
 
-### **3.1.5 ADP HARDWARE PROGRAMMING/DIAGNOSTIC MENU**
+### **3.1.4 HARDWARE PROGRAMMING/DIAGNOSTIC MENU**
 <a name="iofs_hw_programming"></a>
 
 The following submenu allows you to:
@@ -658,7 +536,8 @@ The following submenu allows you to:
 * Run host exerciser (HE) commands such as loopback to test interfaces VFIO PCI driver binding
 * Read the control and status registers (CSRs) for bound modules that are part of the OFS reference design.
 
-<img src="images/ofs_d5005_adp_hardware_programming_diagnostic_menu.png" alt="drawing" style="width:450px">
+![adp-hw-programming](images/ofs_d5005_adp_hardware_programming_diagnostic_menu.png)
+
 
 <table>
     <thead>
@@ -775,12 +654,13 @@ The following submenu allows you to:
      </tbody>
 </table>
 
-### **3.1.6  ADP HARDWARE AFU TESTING MENU**
+### **3.1.5  HARDWARE AFU TESTING MENU**
 <a name="iofs_adp_afu_testing"></a>
 
 This submenu tests partial reconfiguration by building and loading an memory-mapped I/O example AFU/workload, executes software from host, and tests remote signal tap.
 
-<img src="images/ofs_d5005_adp_harwdare_afu_testing_menu.png" alt="drawing" style="width:450px">
+![adp-hw-afu-testing](images/ofs_d5005_adp_harwdare_afu_testing_menu.png)
+
 
 <table>
     <thead>
@@ -805,7 +685,7 @@ This submenu tests partial reconfiguration by building and loading an memory-map
         </tr>
         <tr>
             <td>29 - Modify host_chan_mmio example to insert Remote Signal Tap</td>
-            <td>This option inserts a pre-defined host_chan_mmio.stp Signal Tap file into the Intel OFS code to allow a user to debug the host_chan_mmio AFU example<br>
+            <td>This option inserts a pre-defined host_chan_mmio.stp Signal Tap file into the OFS code to allow a user to debug the host_chan_mmio AFU example<br>
             <br>
         </tr>
 </td>        
@@ -827,12 +707,13 @@ This submenu tests partial reconfiguration by building and loading an memory-map
      </tbody>
 </table>
 
-### **3.1.7 ADP HARDWARE AFU BBB TESTING MENU**
+### **3.1.6 HARDWARE AFU BBB TESTING MENU**
 <a name="iofs_bbb_testing"></a>
 
 This submenu tests partial reconfiguration using a hello_world example AFU/workload, executes sw from the host
 
-<img src="images/ofs_d5005_adp_harwdare_afu_bbb_testing_menu.png" alt="drawing" style="width:450px">
+
+![afu-bbb-testing](images/ofs_d5005_adp_harwdare_afu_bbb_testing_menu.png)
 
 <table>
     <thead>
@@ -857,12 +738,12 @@ This submenu tests partial reconfiguration using a hello_world example AFU/workl
      </tbody>
 </table>
 
-### **3.1.8 ADP OPENCL PROJECT MENU**
+<!--### **3.1.8 ADP OneAPI PROJECT MENU**
 <a name="iofs_hld_menu"></a>
 
-Builds OpenCL kernel, executes software from host and runs diagnostic tests
+Builds OneAPI kernel, executes software from host and runs diagnostic tests
 
-<img src="images/ofs_d5005_adp_opencl_project_menu.png" alt="drawing" style="width:450px">
+<img src="images/ofs_d5005_adp_OneAPI_project_menu.png" alt="drawing" style="width:450px">
 
 <table>
     <thead>
@@ -873,41 +754,41 @@ Builds OpenCL kernel, executes software from host and runs diagnostic tests
     </thead>
     <tbody>
         <tr>
-            <td>34 - Check OpenCL BSP software versions for d5005 Project</td>
-            <td>This option checks the setup of the OpenCL software and adds the relevant OpenCL environment variables to the terminal<br>
+            <td>34 - Check OneAPI BSP software versions for d5005 Project</td>
+            <td>This option checks the setup of the OneAPI software and adds the relevant OneAPI environment variables to the terminal<br>
             <br>
 </td>        
         </tr>
         <tr>
-            <td>35 - Build and clone shim libraries required by OpenCL host</td>
-            <td>This option builds the OpenCL directory structure<br>
-            <br>
-        </tr>
-</td>        
-        </tr>
-        <tr>
-            <td>36 - Install OpenCL Host Driver</td>
-            <td>This option Installs the OpenCL Host driver at the following location /opt/Intel/OpenCL, requires sudo permession<br>
+            <td>35 - Build and clone shim libraries required by OneAPI host</td>
+            <td>This option builds the OneAPI directory structure<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>37 - Uninstall OpenCL Host Driver</td>
-            <td>This option Uninstall's the OpenCL Host driver, requires sudo permessions<br>
+            <td>36 - Install OneAPI Host Driver</td>
+            <td>This option Installs the OneAPI Host driver at the following location /opt/Intel/OneAPI, requires sudo permession<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>38 - Diagnose OpenCL Hardware</td>
-            <td>This option Checks ICD(Intel Client Driver) and FCD(FPGA Client Driver), OpenCL library locations and dtects whether OpencL BSP is loaded into the FPGA<br>
+            <td>37 - Uninstall OneAPI Host Driver</td>
+            <td>This option Uninstall's the OneAPI Host driver, requires sudo permessions<br>
+            <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>39 - Build OpenCL BSP ofs_d5005 Default Kernel (boardtest)</td>
-            <td>This option Builds the OpenCL BSP using boardtest kernel<br>
+            <td>38 - Diagnose OneAPI Hardware</td>
+            <td>This option Checks ICD(Intel Client Driver) and FCD(FPGA Client Driver), OneAPI library locations and dtects whether OneAPI BSP is loaded into the FPGA<br>
+        </tr>
+</td>        
+        </tr>
+        <tr>
+            <td>39 - Build OneAPI BSP ofs_d5005 Default Kernel (boardtest)</td>
+            <td>This option Builds the OneAPI BSP using boardtest kernel<br>
         </tr>
 </td>        
         </tr>
@@ -933,22 +814,23 @@ Builds OpenCL kernel, executes software from host and runs diagnostic tests
 </td>        
         </tr>
         <tr>
-            <td>43 - Program OpenCL BSP ofs_d5005 Default Kernel (boardtest)</td>
+            <td>43 - Program OneAPI BSP ofs_d5005 Default Kernel (boardtest)</td>
             <td>This option programs the FPGA with a aocx file based on the boardtest kernel<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>44 - Run OpenCL Sample Application (boardtest)</td>
+            <td>44 - Run OneAPI Sample Application (boardtest)</td>
             <td>This option builds the host code for boardtest kernel and executes the program running through kernel and host bandwidth tests<br>
             <br>
         </tr>
 </tr>
      </tbody>
 </table>
+-->
 
-### **3.1.10 ADP UNIT TEST PROJECT MENU**
+### **3.1.7 UNIT TEST PROJECT MENU**
 <a name="iofs_adp_unit_test"></a>
 
 Builds, compiles and runs standalone simulation block tests. More unit test examples are found at teh follwimng location ofs-d5005/sim/unit_test 
@@ -979,7 +861,7 @@ Builds, compiles and runs standalone simulation block tests. More unit test exam
 </table>
 
 
-### **3.1.11 ADP UVM PROJECT MENU**
+<!--### **3.1.8 ADP UVM PROJECT MENU**
 <a name="iofs_adp_uvm"></a>
 
 Builds, compiles and runs full chip simulation tests. The user shoudd execute the options sequenstailly ie 47, 48, 49 and 50
@@ -1028,17 +910,19 @@ Builds, compiles and runs full chip simulation tests. The user shoudd execute th
         <tr>
 </tr>
      </tbody>
-</table>
+</table>-->
 
 
-### **3.1.12 ADP BUILD ALL PROJECT MENU**
-<a name="iofs_build_all"></a>
+### **3.1.8 ADP BUILD ALL PROJECT MENU**
+<a name="ofs_build_all"></a>
 
-Builds the complete Intel OFS flow, good for regression testing and overnight builds
+Builds the complete OFS flow, good for regression testing and overnight builds
 
 For this menu a user can run a sequence of tests (compilation, build and simulation) and executes them sequentially. After the script is successfully executed, a set of binary files is produced which a you can use to evaluate your hardware. Log files are also produced which checks whether the tests passed.
 
 A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 52 from the main menu the script will execute 21 tests ie (main menu options 2, 9, 10, 11, 12, 13, 14, 15, 27, 29, 30, 32, 34, 35, 39, 45, 46, 47, 48, 49, and 50. These 21 menu option are chosen to build the complete OFS flow covering build, compile and simulation. 
+
+![adp-build-all](images/ofs_d5005_adp_build_all_project_menu.png)
 
 <img src="images/ofs_d5005_adp_build_all_project_menu.png" alt="drawing" style="width:450px">
 
@@ -1059,7 +943,7 @@ A user can run a sequence of tests and execute them sequentially. In the example
      </tbody>
 </table>
 
-## **Definition of Multi-Test Set-up**
+**Definition of Multi-Test Set-up**
 
 Menu Option 52 above in the evaluation script can be refined to tailor it to the users need and is principally defined by the variable below
 
@@ -1086,21 +970,21 @@ In the example above two tests are run in order ie 0, and 1 and the following me
 
 The user can also modify the build time by de-selecting options they do not wish to use, see below for a couple of use-case scenarios.
 
-## **Default User Case**
+**Default User Case**
 
 A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 52 from the main menu the script will execute 21 tests ie (main menu options 2, 9, 10, 11, 12, 13, 14, 15, 27, 29, 30, 32, 34, 35, 39, 45, 46, 47, 48, 49, and 50. All other tests with an "X" indicates do not run that test.
 
-<img src="images/ofs_d5005_default_build.png" alt="drawing" style="width:450px">
+![adp-build-default](images/ofs_d5005_default_build.png)
 
-## **User Case for ADP FIM/PR BUILD MENU**
+**User Case for ADP FIM/PR BUILD MENU**
 
 In the example below when the user selects option 52 from the main menu the script will only run options from the ADP FIM/PR BUILD MENU (7 options, main menu options 9, 10, 11, 12, 13, 14 and 15). All other tests with an "X" indicates do not run that test.
 
-<img src="images/ofs_d5005_user_case1_build.png" alt="drawing" style="width:450px">
+![user_case1_build](images/ofs_d5005_user_case1_build.png)
 
 <br>
 
-## **4 d5005 Common Test Scenarios**
+## **4 Common Test Scenarios**
 <a name="d5005_common_tests"></a>
 
 This section will describe the most common compile build scenarios if a user wanted to evaluate an acceleration card on their server. The Pre-requisite column indicates the menu comamnds that must be run befere executing the test eg To run Test 5 then a user needs to have run option 10, 12 and 14 before running options 27, 28, 29, 30 and 31.
@@ -1160,7 +1044,7 @@ This section will describe the most common compile build scenarios if a user wan
         <tr>
             <tr>
             <td>Test 7</td>
-            <td>Build, compile and test OpenCL on hardware</td>
+            <td>Build, compile and test OneAPI on hardware</td>
             <td>10, 12, 13<br>
             <td>34, 35, 36, 38, 39, 40, 41, 42, 43, 44 <br>
             <br>
