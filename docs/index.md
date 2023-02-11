@@ -1,4 +1,4 @@
-# **Open FPGA Stack Overview**
+# Open FPGA Stack Overview
 
 <image src="hw/d5005/reference_manuals/ofs_fim/images/OFS.png" align="right" width="200" height="200">
  Open FPGA Stack (OFS): OFS is an open-source solution that provides a hardware and software framework for building your shell design and subsequently your workload.  
@@ -15,13 +15,15 @@ To find out more about Intel FPGAs, visit the [Intel Stratix 10](https://www.int
 
 <image src="hw/d5005/reference_manuals/ofs_fim/images/Base-FIM.png" align="center" width="400" height="400">
 
-<div>
 
-## **Open FPGA Stack Repositories**
+## Open FPGA Stack Repositories
+
 
 Accessing OFS ingredients to use within the development framework is easy.  The github.com/OFS site provides all the hardware and software repositories in one location.
 
-<image src="hw/d5005/reference_manuals/ofs_fim/images/OFS-repo.png" align="right" width="500" height="500">
+<image src="hw/d5005/reference_manuals/ofs_fim/images/OFS-repo.png" align="center" width="500" height="500">
+
+<br>
 
 |Repository Folder |Description | Hardware or Software Repository |
 |:----------------:|------------------|:--------------------|
@@ -36,7 +38,7 @@ Accessing OFS ingredients to use within the development framework is easy.  The 
 | opae-legacy | Supports OFS platforms built on the legacy version of OPAE software.  Not used in current OFS designs | Software |
 | opae-sim | This repository is used to build the AFU Hardware/Software Co-Simulation Environment workload developers can use to ensure their AFU can work with the OFS software stack. | Hardrware/Software ||
 
-
+<br>
 
 ## **RTL Repository**
 
@@ -44,7 +46,9 @@ Every FPGA RTL development repository is named after the platform it targets.  T
 
 The structure of the RTL repository remains the same regardless of which device platform you decide to use.  The advantage of this is you will quickly become familiar with the hierarchy as you consider new FPGA application development.
 
-<image src="hw/d5005/reference_manuals/ofs_fim/images/platform-repo.png" align="right" width="350" height="350">
+<image src="hw/d5005/reference_manuals/ofs_fim/images/platform-repo.png" align="center" width="350" height="350">
+
+<br>
 
 | Directory | Description |
 |:----------:|--------------------|
@@ -56,7 +60,7 @@ The structure of the RTL repository remains the same regardless of which device 
 | src | Contains all structural and behavioral code for FIM including top-level RTL for synthesis and AFU infrastructure code. |
 | syn | Provides scripts, settings and setup files for running FIM synthesis. ||
 
-
+<br>
 
 ## **How Can I Start Using OFS?**
 
@@ -66,7 +70,7 @@ The reference FIM in the platform repository currently targets PCIe attach appli
 
 <image src="hw/d5005/reference_manuals/ofs_fim/images/FIM-s10-OFS block.png" align="center" width="350" height="350">
 
-
+<br>
 
 
 **OFS FIM Targeting Intel Stratix 10 FPGA**
