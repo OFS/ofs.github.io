@@ -1,284 +1,5 @@
 # Software Reference Manual:  Open FPGA Stack
 
-<!--## **Table of Contents**
-[**1.0 Introduction**](#heading-1.0)\
-| --- [**1.1 Audience**](#heading-1.1)\
-| --- [**1.2 Terminology**](#heading-1.2)\
-[**2.0 OPAE Software Development Kit**](#heading-2.0)\
-| --- [**2.1 libopae-c**](#heading-2.1)\
-| --- | --- [**2.1.1 Device Abstraction**](#heading-2.1.1)\
-| --- | --- | --- [**2.1.1.1 Device Types**](#heading-2.1.1.1)\
-| --- | --- | --- [**2.1.1.2 Tokens and Handles**](#heading-2.1.1.2)\
-| --- | --- [**2.1.2 Enumeration**](#heading-2.1.2)\
-| --- | --- | --- [**2.1.2.1 fpga_properties and Filtering**](#heading-2.1.2.1)\
-| --- | --- | --- | --- [**2.1.2.1.1 Common Properties**](#heading-2.1.2.1.1)\
-| --- | --- | --- | --- [**2.1.2.1.2 FPGA_DEVICE Properties**](#heading-2.1.2.1.2)\
-| --- | --- | --- | --- [**2.1.2.1.3 FPGA_ACCELERATOR Properties**](#heading-2.1.2.1.3)\
-| --- | --- [**2.1.3 Access**](#heading-2.1.3)\
-| --- | --- [**2.1.4 Events**](#heading-2.1.4)\
-| --- | --- [**2.1.5 MMIO and Shared Memory**](#heading-2.1.5)\
-| --- | --- [**2.1.6 Management**](#heading-2.1.6)\
-| --- | --- [**2.1.7 Errors**](#heading-2.1.7)\
-| --- | --- [**2.1.8 Metrics**](#heading-2.1.8)\
-| --- | --- | --- [**2.1.8.1 Querying Metric Values by Index**](#heading-2.1.8.1)\
-| --- | --- | --- [**2.1.8.2 Querying Metric Values by Name**](#heading-2.1.8.2)\
-| --- | --- [**2.1.9 SysObject**](#heading-2.1.9)\
-| --- | --- | --- [**2.1.9.1 FPGA_OBJECT_CONTAINER API's**](#heading-2.1.9.1)\
-| --- | --- | --- [**2.1.9.2 FPGA_OBJECT_ATTRIBUTE API's**](#heading-2.1.9.2)\
-| --- | --- [**2.1.10 Utilities**](#heading-2.1.10)\
-| --- [**2.2 DFL Driver IOCTL Interfaces**](#heading-2.2)\
-| --- | --- [**2.2.1 Port Reset**](#heading-2.2.1)\
-| --- | --- [**2.2.2 Port Information**](#heading-2.2.2)\
-| --- | --- [**2.2.3 MMIO Region Information**](#heading-2.2.3)\
-| --- | --- [**2.2.4 Shared Memory Mapping and Unmapping**](#heading-2.2.4)\
-| --- | --- [**2.2.5 Number of Port Error IRQs**](#heading-2.2.5)\
-| --- | --- [**2.2.6 Port Error Interrupt Configuration**](#heading-2.2.6)\
-| --- | --- [**2.2.7 Number of AFU Interrupts**](#heading-2.2.7)\
-| --- | --- [**2.2.8 User AFU Interrupt Configuration**](#heading-2.2.8)\
-| --- | --- [**2.2.9 Partial Reconfiguration**](#heading-2.2.9)\
-| --- | --- [**2.2.10 Number of FME Error IRQs**](#heading-2.2.10)\
-| --- | --- [**2.2.11 FME Error Interrupt Configuration**](#heading-2.2.11)\
-| --- [**2.3 Plugin Manager**](#heading-2.3)\
-| --- | --- [**2.3.1 Plugin Model**](#heading-2.3.1)\
-| --- | --- [**2.3.2 libxfpga Plugin**](#heading-2.3.2)\
-| --- | --- [**2.3.3 libopae-v Plugin**](#heading-2.3.3)\
-| --- | --- | --- [**2.3.3.1 Supporting Libraries**](#heading-2.3.3.1)\
-| --- | --- | --- | --- [**2.3.3.1.1 libopaevfio**](#heading-2.3.3.1.1)\
-| --- | --- | --- | --- [**2.3.3.1.2 libopaemem**](#heading-2.3.3.1.2)\
-| --- | --- | --- [**2.3.3.2 Configuring PCIe Virtual Functions**](#heading-2.3.3.2)\
-| --- [**2.4 Application Flow**](#heading-2.4)\
-| --- | --- [**2.4.1 Create Filter Criteria**](#heading-2.4.1)\
-| --- | --- [**2.4.2 Enumerate the AFU**](#heading-2.4.2)\
-| --- | --- [**2.4.3 Open the AFU**](#heading-2.4.3)\
-| --- | --- [**2.4.4 Map MMIO Region**](#heading-2.4.4)\
-| --- | --- [**2.4.5 Allocate DMA Buffers**](#heading-2.4.5)\
-| --- | --- [**2.4.6 Make AFU Aware of DMA Buffers**](#heading-2.4.6)\
-| --- | --- [**2.4.7 Initiate an Acceleration Task**](#heading-2.4.7)\
-| --- | --- [**2.4.8 Wait for Task Completion**](#heading-2.4.8)\
-| --- | --- [**2.4.9 Free DMA Buffer**](#heading-2.4.9)\
-| --- | --- [**2.4.10 Unmap MMIO Region**](#heading-2.4.10)\
-| --- | --- [**2.4.11 Close the AFU**](#heading-2.4.11)\
-| --- | --- [**2.4.12 Release the Tokens and Properties**](#heading-2.4.12)\
-[**3.0 OPAE C++ API**](#heading-3.0)\
-| --- [**3.1 libopae-cxx-core**](#heading-3.1)\
-| --- | --- [**3.1.1 Properties**](#heading-3.1.1)\
-| --- | --- [**3.1.2 Tokens**](#heading-3.1.2)\
-| --- | --- [**3.1.3 Handles**](#heading-3.1.3)\
-| --- | --- [**3.1.4 Shared Memory**](#heading-3.1.4)\
-| --- | --- [**3.1.5 Events**](#heading-3.1.5)\
-| --- | --- [**3.1.6 Errors**](#heading-3.1.6)\
-| --- | --- [**3.1.7 SysObject**](#heading-3.1.7)\
-[**4.0 OPAE Python API**](#heading-4.0)\
-| --- [**4.1 _opae**](#heading-4.1)\
-| --- | --- [**4.1.1 Enumeration**](#heading-4.1.1)\
-| --- | --- [**4.1.2 Properties**](#heading-4.1.2)\
-| --- | --- [**4.1.3 Tokens**](#heading-4.1.3)\
-| --- | --- [**4.1.4 Handles**](#heading-4.1.4)\
-| --- | --- [**4.1.5 Shared Memory**](#heading-4.1.5)\
-| --- | --- [**4.1.6 Events**](#heading-4.1.6)\
-| --- | --- [**4.1.7 Errors**](#heading-4.1.7)\
-| --- | --- [**4.1.8 SysObject**](#heading-4.1.8)\
-[**5.0 Management Interfaces - opae.admin**](#heading-5.0)\
-| --- [**5.1 sysfs**](#heading-5.1)\
-| --- | --- [**5.1.1 sysfs_node**](#heading-5.1.1)\
-| --- | --- [**5.1.2 pci_node**](#heading-5.1.2)\
-| --- | --- [**5.1.3 sysfs_driver**](#heading-5.1.3)\
-| --- | --- [**5.1.4 sysfs_device**](#heading-5.1.4)\
-| --- | --- [**5.1.5 pcie_device**](#heading-5.1.5)\
-| --- [**5.2 fpga**](#heading-5.2)\
-| --- | --- [**5.2.1 region**](#heading-5.2.1)\
-| --- | --- [**5.2.2 fme**](#heading-5.2.2)\
-| --- | --- [**5.2.3 port**](#heading-5.2.3)\
-| --- | --- [**5.2.4 fpga_base**](#heading-5.2.4)\
-| --- | --- [**5.2.5 fpga**](#heading-5.2.5)\
-| --- [**5.3 opae.admin utilities**](#heading-5.3)\
-| --- | --- [**5.3.1 fpgasupdate**](#heading-5.3.1)\
-| --- | --- [**5.3.2 pci_device**](#heading-5.3.2)\
-| --- | --- | --- [**5.3.2.1 pci_device aer subcommand**](#heading-5.3.2.1)\
-| --- | --- | --- [**5.3.2.2 pci_device unbind subcommand**](#heading-5.3.2.2)\
-| --- | --- | --- [**5.3.2.3 pci_device rescan subcommand**](#heading-5.3.2.3)\
-| --- | --- | --- [**5.3.2.4 pci_device remove subcommand**](#heading-5.3.2.4)\
-| --- | --- | --- [**5.3.2.5 pci_device topology subcommand**](#heading-5.3.2.5)\
-| --- | --- | --- [**5.3.2.6 pci_device vf subcommand**](#heading-5.3.2.6)\
-| --- | --- [**5.3.3 rsu**](#heading-5.3.3)\
-| --- | --- | --- [**5.3.3.1 rsu bmc subcommand**](#heading-5.3.3.1)\
-| --- | --- | --- [**5.3.3.2 rsu retimer subcommand**](#heading-5.3.3.2)\
-| --- | --- | --- [**5.3.3.3 rsu fpga subcommand**](#heading-5.3.3.3)\
-| --- | --- | --- [**5.3.3.4 rsu sdm subcommand**](#heading-5.3.3.4)\
-| --- | --- | --- [**5.3.3.5 rsu fpgadefault subcommand**](#heading-5.3.3.5)\
-[**6.0 Sample Applications**](#heading-6.0)\
-| --- [**6.1 afu-test Framework**](#heading-6.1)\
-| --- [**6.2 afu-test Based Examples**](#heading-6.2)\
-| --- | --- [**6.2.1 dummy_afu**](#heading-6.2.1)\
-| --- | --- [**6.2.2 host_exerciser**](#heading-6.2.2)\
-| --- | --- [**6.2.3 hssi**](#heading-6.2.3)\
-[**7.0 Other Utilities**](#heading-7.0)\
-| --- [**7.1 opae.io**](#heading-7.1)\
-| --- [**7.2 bitstreaminfo**](#heading-7.2)\
-| --- [**7.3 fpgareg**](#heading-7.3)\
-| --- [**7.4 opaevfio**](#heading-7.4)\
-[**8.0 Building OPAE**](#heading-8.0)\
-| --- [**8.1 Installing Prerequisite Packages**](#heading-8.1)\
-| --- [**8.2 Cloning the SDK repository**](#heading-8.2)\
-| --- [**8.3 CMake Options**](#heading-8.3)\
-| --- [**8.4 Building OPAE for Debug**](#heading-8.4)\
-| --- [**8.5 Creating RPMs**](#heading-8.5)\
-| --- | --- [**8.5.1 Updating the RPM Version Information**](#heading-8.5.1)\
-[**9.0 Debugging OPAE**](#heading-9.0)\
-| --- [**9.1 Enabling Debug Logging**](#heading-9.1)\
-| --- [**9.2 GDB**](#heading-9.2)\
-[**10.0 Adding New Device Configuration**](#heading-10.0)\
-| --- [**10.1 Configuration File Search Order**](#heading-10.1)\
-| --- [**10.2 Configuration File Format**](#heading-10.2)\
- --- | --- [**10.2.1 "plugin" libopae-cand libopae-v**](#heading-10.2.1)\
-| ---| --- [**10.2.2 "fpgainfo": fpgainfo application**](#heading-10.2.2)\
-| ---| --- [**10.2.3 “fpgad”: fpgad daemon process**](#heading-10.2.3)\
-| ---| --- [**10.2.4 “rsu”: rsu script**](#heading-10.2.4)\
-| ---| --- [**10.2.5 “fpgareg”: fpgareg script**](#heading-10.2.5)\
-| ---| --- [**10.2.6 “opae.io”: opae.io application**](#heading-10.2.6)\
-| --- [**10.3 libopae-v**](#heading-10.3)\
-| --- [**10.4 opae.admin**](#heading-10.4)\
-| --- [**10.5 rsu.py**](#heading-10.5)\
-| --- [**10.6 fpgareg.py**](#heading-10.6)
-
-
-## **List of Tables**
-[**Table 1: Reference Documents**](#table-1)\
-[**Table 2: Additional Websites and Links**](#table-2)\
-[**Table 3 Common Properties**](#table-3)\
-[**Table 4 FPGA_DEVICE Properties**](#table-4)\
-[**Table 5 FPGA_ACCELERATOR Properties**](#table-5)\
-[**Table 6 FPGA Event Types**](#table-6)\
-[**Table 7 fpgaPrepareBuffer() Lengths**](#table-7)\
-[**Table 8 Plugin Device Access Methods**](#table-8)\
-[**Table 9 fpgasupdate Image Types**](#table-9)\
-[**Table 10 System Configuration Scripts**](#table-10)\
-[**Table 11 CMake Options**](#table-11)\
-[**Table 12 Logging Environment Variables**](#table-12)
-
-
-## **List of Figures**
-
-[**Figure 1 fpgaEnumerate()**](#figure-1)\
-[**Figure 2 Discovering Number of Tokens**](#figure-2)\
-[**Figure 3 Enumerating All Tokens**](#figure-3)\
-[**Figure 4 Filtering During Enumeration**](#figure-4)\
-[**Figure 5 Creating and Registering Events**](#figure-5)\
-[**Figure 6 Mapping and Accessing CSRs**](#figure-6)\
-[**Figure 7 fpgaPrepareBuffer()**](#figure-7)\
-[**Figure 8 Configuring Huge Pages**](#figure-8)\
-[**Figure 9 Programming Shared Memory**](#figure-9)\
-[**Figure 10 fpgaReconfigureSlot()**](#figure-10)\
-[**Figure 11 struct fpga_error_info**](#figure-11)\
-[**Figure 12 fpgaGetErrorInfo()**](#figure-12)\
-[**Figure 13 fpga_metric_info**](#figure-13)\
-[**Figure 14 enum fpga_metric_datatype**](#figure-14)\
-[**Figure 15 enum fpga_metric_type**](#figure-15)\
-[**Figure 16 Determining Number of Metrics**](#figure-16)\
-[**Figure 17 Querying Metrics Info**](#figure-17)\
-[**Figure 18 struct fpga_metric**](#figure-18)\
-[**Figure 19 Retrieve Metric by Index**](#figure-19)\
-[**Figure 20 enum fpga_sysobject_type**](#figure-20)\
-[**Figure 21 fpgaTokenGetObject() / fpgaHandleGetObject()**](#figure-21)\
-[**Figure 22 fpgaObjectGetType()**](#figure-22)\
-[**Figure 23 fpgaObjectGetObject() / fpgaObjectGetObjectAt()**](#figure-23)\
-[**Figure 24 fpgaObjectGetSize()**](#figure-24)\
-[**Figure 25 fpgaObjectRead()**](#figure-25)\
-[**Figure 26 fpgaObjectRead64() / fpgaObjectWrite64()**](#figure-26)\
-[**Figure 27 opae_wrapped_token**](#figure-27)\
-[**Figure 28 opae_api_adapter_table**](#figure-28)\
-[**Figure 29 struct _fpga_token**](#figure-29)\
-[**Figure 30 libxfpga Port Token**](#figure-30)\
-[**Figure 31 libxfpga FME Token**](#figure-31)\
-[**Figure 32 struct _fpga_handle**](#figure-32)\
-[**Figure 33 vfio_token**](#figure-33)\
-[**Figure 34 vfio_handle**](#figure-34)\
-[**Figure 35 lspci Device Topology**](#figure-35)\
-[**Figure 36 Enable Virtual Functions**](#figure-36)\
-[**Figure 37 Bind VF's to vfio-pci**](#figure-37)\
-[**Figure 38 List VF's with fpgainfo**](#figure-38)\
-[**Figure 39 Unbind VF's from vfio-pci**](#figure-39)\
-[**Figure 40 Disable Virtual Functions**](#figure-40)\
-[**Figure 41 Flow: Create Filter Criteria**](#figure-41)\
-[**Figure 42 Flow: Enumerate the AFU**](#figure-42)\
-[**Figure 43 Flow: Open the AFU**](#figure-43)\
-[**Figure 44 Flow: Map MMIO Region**](#figure-44)\
-[**Figure 45 Flow: Allocate DMA Buffers**](#figure-45)\
-[**Figure 46 Flow: Make AFU Aware of DMA Buffers**](#figure-46)\
-[**Figure 47 Initiate an Acceleration Task**](#figure-47)\
-[**Figure 48 Flow: Free DMA Buffers**](#figure-48)\
-[**Figure 49 Flow: Unmap MMIO Region**](#figure-49)\
-[**Figure 50 Flow: Close the AFU**](#figure-50)\
-[**Figure 51 Flow: Release the Tokens and Properties**](#figure-51)\
-[**Figure 52 C++ Create New Empty Properties**](#figure-52)\
-[**Figure 53 C++ Properties Set GUID and Type**](#figure-53)\
-[**Figure 54 C++ Enumeration**](#figure-54)\
-[**Figure 55 C++ Opening a Handle**](#figure-55)\
-[**Figure 56 C++ Allocate and Init Buffers**](#figure-56)\
-[**Figure 57 C++ Make the AFU Aware of DMA Buffers**](#figure-57)\
-[**Figure 58 C++ Event Registration**](#figure-58)\
-[**Figure 59 C++ Query Device Errors**](#figure-59)\
-[**Figure 60 Python Enumeration**](#figure-60)\
-[**Figure 61 Python Get Token Properties**](#figure-61)\
-[**Figure 62 Python Properties Constructor**](#figure-62)\
-[**Figure 63 Python Tokens and SysObject API**](#figure-63)\
-[**Figure 64 Python Token Find**](#figure-64)\
-[**Figure 65 Python Open Handle**](#figure-65)\
-[**Figure 66 Python Handles and SysObject API**](#figure-66)\
-[**Figure 67 Python Partial Reconfiguration**](#figure-67)\
-[**Figure 68 Python Read/Write CSR**](#figure-68)\
-[**Figure 69 Python Allocate Shared Memory**](#figure-69)\
-[**Figure 70 Python Buffer Fill, Copy, Compare**](#figure-70)\
-[**Figure 71 Python Buffer Read and Write**](#figure-71)\
-[**Figure 72 Python Buffer Poll**](#figure-72)\
-[**Figure 73 Python Splitting Buffer**](#figure-73)\
-[**Figure 74 Python memoryview**](#figure-74)\
-[**Figure 75 Python Events**](#figure-75)\
-[**Figure 76 Python Get Errors**](#figure-76)\
-[**Figure 77 Python sysobject as Bytes**](#figure-77)\
-[**Figure 78 Python sysobject Container**](#figure-78)\
-[**Figure 79 fpgasupdate Interface**](#figure-79)\
-[**Figure 80 pci_device aer dump**](#figure-80)\
-[**Figure 81 pci_device aer mask**](#figure-81)\
-[**Figure 82 pci_device aer clear**](#figure-82)\
-[**Figure 83 pci_device unbind**](#figure-83)\
-[**Figure 84 Re-binding a Driver**](#figure-84)\
-[**Figure 85 pci_device rescan**](#figure-85)\
-[**Figure 86 pci_device remove**](#figure-86)\
-[**Figure 87 pci_device topology**](#figure-87)\
-[**Figure 88 pci_device vf**](#figure-88)\
-[**Figure 89 rsu bmc**](#figure-89)\
-[**Figure 90 rsu retimer**](#figure-90)\
-[**Figure 91 rsu fpga**](#figure-91)\
-[**Figure 92 rsu sdm**](#figure-92)\
-[**Figure 93 rsu Displaying FPGA Boot Sequence**](#figure-93)\
-[**Figure 94 rsu Select FPGA Boot Image**](#figure-94)\
-[**Figure 95 rsu Select FPGA Boot Image and Fallback**](#figure-95)\
-[**Figure 96 C++ class afu**](#figure-96)\
-[**Figure 97 class afu Application Parameters**](#figure-97)\
-[**Figure 98 hssi's app.register_command<>()**](#figure-98)\
-[**Figure 99 class command**](#figure-99)\
-[**Figure 100 Running bitstreaminfo**](#figure-100)\
-[**Figure 101 fpgareg Commands**](#figure-101)\
-[**Figure 102 RPM Creation**](#figure-102)\
-[**Figure 103 Debugging with GDB**](#figure-103)\
-[**Figure 104 Default Configuration File**](#figure-104)\
-[**Figure 105 HOME Relative Search Paths**](#figure-105)\
-[**Figure 106 Figure 106 System Search Paths**](#figure-106)\
-[**Figure 107 Keyed Configurations**](#figure-107)\
-[**Figure 108 Configurations Format**](#figure-108)\
-[**Figure 109 "opae" / "plugin" key**](#figure-109)\
-[**Figure 110 "opae" / "fpgainfo" key**](#figure-110)\
-[**Figure 111 "opae" / "fpgad" key**](#figure-111)\
-[**Figure 112 "opae" / "rsu" key**](#figure-112)\
-[**Figure 113 "opae" / "fpgareg" key**](#figure-113)\
-[**Figure 114 "opae" / "opae.io" key**](#figure-114)
--->
-
-
-
-
-
 
 
 <a name="heading-1.0"></a>
@@ -295,37 +16,37 @@ The information presented in this document is intended to be used by software de
 
 ### **1.2 Terminology**
 
-|Term  |Abbreviation|Description |
-|---------|---------|---------|
-| **O**pen **F**PGA **S**tack | OFS | A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
-| **A**ccelerator **F**unctional **U**nit | AFU |Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance.  *Note: An AFU region is the part of the design where an AFU may reside.  This AFU may or may not be a partial reconfiguration region.* |
-| **B**oard **M**anagement **C**ontroller | BMC | Supports features such as power sequence management and board monitoring through on-board sensors. |
-| **F**PGA **I**nterface **M**anager | FIM | Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs.  The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
-| **P**latform **I**nterface **M**anager | PIM | An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
-| Intel **V**irtualization **T**echnology for **D**irected I/O | Intel VT-d |Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
-| **S**ingle-**R**oot **I**nput-**O**utput **V**irtualization | SR-IOV | Allows the isolation of PCI Express resources for manageability and performance. |
-| **H**ost **E**xerciser **M**odule | HEM | Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
-| **D**evice **F**eature **L**ist | DFL | A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. [(link)](https://docs.kernel.org/fpga/dfl.html?highlight=sriov) |
-| **B**est **K**nown **C**onfiguration | BKC | The exact hardware configuration Intel has optimized and validated the solution against. |
-| **O**pen **P**rogrammable **A**cceleration **E**ngine | OPAE | The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
-| **M**emory **M**apped **I**nput/**O**utput | MMIO | Users may map and access both control registers and system memory buffers with accelerators. |
-| **F**PGA **M**anagement **E**ngine | FME | Performs reconfiguration and other infrastructure functions. Each FPGA device only has one FME.|
-| **I**nput/**O**utput Control | IOCTL | System calls used to manipulate underlying device parameters of special files. |
-| **V**irtual **F**unction **I**nput/**O**utput | VFIO | An IOMMU/device agnostic framework for exposing direct device access to userspace. [(link)](https://www.kernel.org/doc/html/latest/driver-api/vfio.html)|
-| **C**onfiguration and **S**tatus **R**egister| CSR |Communication with the AFU is achieved by reading/writing CSRs and reading/writing shared memory buffers. |
-| Port | N/A |Represents the interface between the static FPGA fabric and a PR region containing an AFU. |
-| **A**dvanced **E**rror **R**eporting| AER| The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
+| Term                                                         | Abbreviation | Description                                                  |
+| ------------------------------------------------------------ | ------------ | ------------------------------------------------------------ |
+| **O**pen **F**PGA **S**tack                                  | OFS          | A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
+| **A**ccelerator **F**unctional **U**nit                      | AFU          | Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance.  *Note: An AFU region is the part of the design where an AFU may reside.  This AFU may or may not be a partial reconfiguration region.* |
+| **B**oard **M**anagement **C**ontroller                      | BMC          | Supports features such as power sequence management and board monitoring through on-board sensors. |
+| **F**PGA **I**nterface **M**anager                           | FIM          | Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs.  The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring. |
+| **P**latform **I**nterface **M**anager                       | PIM          | An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
+| Intel **V**irtualization **T**echnology for **D**irected I/O | Intel VT-d   | Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
+| **S**ingle-**R**oot **I**nput-**O**utput **V**irtualization  | SR-IOV       | Allows the isolation of PCI Express resources for manageability and performance. |
+| **H**ost **E**xerciser **M**odule                            | HEM          | Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. |
+| **D**evice **F**eature **L**ist                              | DFL          | A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. [(link)](https://docs.kernel.org/fpga/dfl.html?highlight=sriov) |
+| **B**est **K**nown **C**onfiguration                         | BKC          | The exact hardware configuration Intel has optimized and validated the solution against. |
+| **O**pen **P**rogrammable **A**cceleration **E**ngine        | OPAE         | The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space. |
+| **M**emory **M**apped **I**nput/**O**utput                   | MMIO         | Users may map and access both control registers and system memory buffers with accelerators. |
+| **F**PGA **M**anagement **E**ngine                           | FME          | Performs reconfiguration and other infrastructure functions. Each FPGA device only has one FME. |
+| **I**nput/**O**utput Control                                 | IOCTL        | System calls used to manipulate underlying device parameters of special files. |
+| **V**irtual **F**unction **I**nput/**O**utput                | VFIO         | An IOMMU/device agnostic framework for exposing direct device access to userspace. [(link)](https://www.kernel.org/doc/html/latest/driver-api/vfio.html) |
+| **C**onfiguration and **S**tatus **R**egister                | CSR          | Communication with the AFU is achieved by reading/writing CSRs and reading/writing shared memory buffers. |
+| Port                                                         | N/A          | Represents the interface between the static FPGA fabric and a PR region containing an AFU. |
+| **A**dvanced **E**rror **R**eporting                         | AER          | The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer) | 
 
 <a name="heading-1.3"></a>
 
 
 ## **2.0 OPAE Software Development Kit (SDK)**
 
-The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE SDK repository](https://github.com/OFS/opae-sdk), under the opae-sdk tag.
+The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE SDK repository], under the opae-sdk tag.
 
 These features include the acceleration logic configured on the device, as well as functions to manage and reconfigure the device. The library enables user applications to transparently and seamlessly leverage FPGA-based acceleration.
 
-Most of the information related to OPAE can be found on the official [opae.github.io](opae.github.io) page. The following is a summary of the information present on this web page:
+Most of the information related to OPAE can be found on the official [OFS Site] page. The following is a summary of the information present on this web page:
 
 - Configuration options present in the OPAE SDK build and installation flow
 - The steps required to build a sample OPAE application
@@ -342,8 +63,8 @@ The remaining sections on OPAE in this document are unique and build on basic pr
 
 | Document | Link |
 | -------------------- | ------------------------------------------------------ |
-| OPAE SDK on github   | https://github.com/OFS/opae-sdk                       |
-| OPAE wiki: Documents | https://wiki.ith.intel.com/display/OPAE/OPAE+Documents |
+| OPAE SDK on github   | [OPAE SDK repository] |
+| OPAE Documents | [OFS Site] |
 | pybind11             | https://pybind11.readthedocs.io/en/stable/             |
 | CLI11                | https://github.com/CLIUtils/CLI11                      |
 | spdlog               | https://github.com/gabime/spdlog                       |
@@ -2130,7 +1851,7 @@ fpgaWriteMMIO32(afu_handle, 0, CSR_CTRL, 3);
 
 <a name="heading-2.4.8"></a>
 
-#### **2.4.8 Wait for Task Completion**
+#### 2.4.8 Wait for Task Completion
 
 Once the acceleration task is initiated, the application may poll the
 AFU for a completion status. This process is AFU-specific. The AFU may
@@ -2140,7 +1861,7 @@ to a shared buffer.
 
 <a name="heading-2.4.9"></a>
 
-#### **2.4.9 Free DMA Buffers**
+#### 2.4.9 Free DMA Buffers
 
 When the acceleration task completes and the AFU is quiesced such that
 there are no outstanding memory transactions targeted for the shared
@@ -2160,7 +1881,7 @@ fpgaReleaseBuffer(afu_handle, dest_wsid);
 
 <a name="heading-2.4.10"></a>
 
-#### **2.4.10 Unmap MMIO Region**
+#### 2.4.10 Unmap MMIO Region
 
 The MMIO regions should also be unmapped using
 [fpgaUnmapMMIO](https://github.com/OFS/opae-sdk/blob/master/include/opae/mmio.h#L200-L201)():
@@ -2168,6 +1889,7 @@ The MMIO regions should also be unmapped using
 ```C
 fpgaUnmapMMIO(afu_handle, region);
 ```
+<br>
 
 <p align = "center">Figure 49 Flow: Unmap MMIO Region</p><a name="figure-49"></a>
 
@@ -2179,15 +1901,19 @@ The AFU handle should be closed via
 [fpgaClose](https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L88)()
 to release its resources:
 
+<br>
+
 ```C
 fpgaClose(afu_handle);
 ```
 
-<p align = "center">Figure 50 Flow: Close the AFU<a name="figure-50"></a>
+<br>
 
 <a name="heading-2.4.12"></a>
 
-#### **2.4.12 Release the Tokens and Properties**
+<br>
+
+#### 2.4.12 Release the Tokens and Properties
 
 The fpga\_token’s returned by
 [fpgaEnumerate](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L101-L103)()
@@ -3782,7 +3508,7 @@ The remaining sections in this chapter outline the format of the “opae” conf
 
 The “plugin” key in the “opae” section of a configuration is an array of OPAE SDK plugin configuration data.  Each item in the array matches one or more PF or VF devices to a plugin library module. 
 
- 
+
 ```C
 { 
 
@@ -3839,7 +3565,7 @@ If the “enabled” key is false or if it is omitted, then that “plugin” ar
 
 The “fpgainfo” key in the “opae” section of a configuration is an array of fpgainfo plugin configuration data.  Each item in the array matches one or more PF or VF devices to an fpgainfo plugin library module. 
 
- 
+
 ```C
 { 
 
@@ -3881,7 +3607,7 @@ The “fpgainfo” key in the “opae” section of a configuration is an array 
 ```
 
 <p align = "center">Figure 110 "opae" / "fpgainfo" key</p><a name="figure-110"></a>
- 
+
 
 If the “enabled” key is false or if it is omitted, then that “fpgainfo” array entry is skipped, and parsing continues.  The “module” key is a string that identifies the desired fpgainfo module library for the entry.  Each “devices” array entry gives a PF/VF identifier in its “device” key and a DFL feature ID in its “feature_id” key. 
 
@@ -3889,7 +3615,7 @@ If the “enabled” key is false or if it is omitted, then that “fpgainfo” 
 
 The “fpgad” key in the “opae” section of a configuration is an array of fpgad plugin configuration data.  Each item in the array matches one or more PF or VF devices to an fpgad plugin library module. 
 
- 
+
 ```C
 { 
 
@@ -3939,7 +3665,7 @@ If the “enabled” key is false or if it is omitted, then that “fpgad” arr
 
 The “rsu” key in the “opae” section of a configuration is an array of rsu script configuration data.  Each item in the array matches one or more PF devices to an rsu configuration. 
 
- 
+
 ```C
 { 
 
@@ -3986,7 +3712,7 @@ If the “enabled” key is false or if it is omitted, then that “rsu” array
 
  ```C
 “fpgareg”: fpgareg script 
-```
+ ```
 
 The “fpgareg” key in the “opae” section of a configuration is an array of fpgareg script configuration data.  Each item in the array matches one or more PF/VF devices to an fpgareg configuration. 
 
@@ -4020,7 +3746,7 @@ The “fpgareg” key in the “opae” section of a configuration is an array o
   }, 
 
 } 
-```
+ ```
 
 <p align = "center">Figure 113 "opae" / "fpgareg" key   </p><a name="figure-113"></a>
 
@@ -4033,7 +3759,7 @@ If the “enabled” key is false or if it is omitted, then that “fpgareg” a
 
 The “opae.io” key in the “opae” section of a configuration is an array of opae.io configuration data.  Each item in the array matches one or more PF/VF devices to an opae.io platform string. 
 
- 
+
 ```C
 { 
 
@@ -4082,7 +3808,7 @@ This mapping is used by the SDK’s metrics API to determine the method of acces
 
 OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks such as DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality.
 
-The OFS driver software can be found in the [OFS repository](https://github.com/OFS/linux-dfl), under the linux-dfl specific category. This repository has an associated [wiki page](https://github.com/OFS/linux-dfl/wiki) that includes the following information:
+The OFS driver software can be found in the[OFS repository - linux-dfl], under the linux-dfl specific category. This repository has an associated [OFS repository - linux-dfl - wiki page] that includes the following information:
 - An description of the three available branch archetypes
 - Configuration tweaks required while building the kernel
 - A functional description of the available DFL framework
@@ -4091,8 +3817,10 @@ The OFS driver software can be found in the [OFS repository](https://github.com/
 - Steps to port a DFL driver patch
 
 
+<br>
 
 ## Notices & Disclaimers
+
 Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
 No product or component can be absolutely secure. 
 Performance varies by use, configuration and other factors.
@@ -4102,4 +3830,8 @@ No license (express or implied, by estoppel or otherwise) to any intellectual pr
 The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
 Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.  
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.   
+[OFS repository - linux-dfl]: https://github.com/OFS/linux-dfl
+[OFS repository - linux-dfl - wiki page]: https://github.com/OFS/linux-dfl/wiki
+[OPAE SDK repository]: https://github.com/OFS/opae-sdk
+[OFS Site]: https://ofs.github.io 

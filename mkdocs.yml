@@ -1,29 +1,25 @@
-# Copyright © 2016-2023 Martin Donath
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-# The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-site_name: OFS
-repo_url: https://github.com/OFS/
+site_name: OFS 
+repo_url: https://github.com/ofs
 repo_name: ofs
-
 theme:
   name: material
-#  custom_dir: "overrides"
+  icon:
+    repo: fontawesome/brands/git-alt
   features:
     - navigation.instant
     - navigation.tracking
     - navigation.tabs
-
-    - content.code.copy
-    - content.tooltips
+    - navigation.top
     - search.suggest
     - search.highlight
+    - content.code.copy
 
+plugins:
+  - search:
+      lang: en
 # Page tree
 nav:
-  - Welcome: 'index.md'
+  - Welcome: index.md
   - Stratix 10 OFS Hardware Docs:
       - Quick Start Evaluation Guide: 'hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005.md'
       - Getting Started: 'hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md'
@@ -31,85 +27,78 @@ nav:
       - FPGA Interface Manager Technical Reference Manual: 'hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md'
       - FPGA Interface Manager Developer Guide: 'hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md'
       - AFU Developer Guide: 'hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005.md'
-  - OFS Software:
-    - OPAE USER GUIDES:
-       - Quick Start Guide: sw/fpga_api/quick_start/readme.md
-       - OPAE Installation Guide: sw/install_guide/installation_guide.md
-       - OPAE C API Programming Guide: sw/fpga_api/prog_guide/readme.md
-       - OPAE Python Bindings: https://opae.github.io/latest/docs/pyopae/README.html
-       - OPAE Plugin Developers Guide: sw/fpga_api/plug_guide/readme.md
-    - OPAE LIBRARIES:
-      - OPAE C API Reference: https://opae.github.io/latest/docs/fpga_api/fpga_api.html
-      - OPAE C++ Core API Reference: https://opae.github.io/latest/docs/fpga_api/fpga_cxx_api.html
-      - OPAE Python API Reference: https://opae.github.io/latest/docs/fpga_api/fpga_python_api.html
-      - OPAE Plugin Developers Guide: sw/fpga_api/plug_guide/readme.md
-    - OPAE LINUX KERNEL DRIVERS:
-       - Open Programmable Accelerator Engine (OPAE) Linux Device Driver Architecture: sw/drv_arch/drv_arch.md
-    - OPAE FPGA TOOLS:
-       - fpgaconf: sw/fpga_tools/fpgaconf/fpgaconf.md
-       - fpgainfo: sw/fpga_tools/fpgainfo/fpgainfo.md
-       - fpgasupdate: sw/fpga_tools/fpgasupdate/fpgasupdate.md
-       - mmlink: sw/fpga_tools/mmlink/mmlink.md
-       - packager: sw/fpga_tools/packager/packager.md
-       - userclk: sw/fpga_tools/userclk/userclk.md
-       - hssi: sw/fpga_tools/hssi/hssi.md
-       - pci_device: sw/fpga_tools/pci_device/pci_device.md
-       - opae.io: sw/fpga_tools/opae.io/opae.io.md
-       - rsu: sw/fpga_tools/rsu/rsu.md
-       - host_exerciser: sw/fpga_tools/host_exerciser/host_exerciser.md
-       - HSSI ethernet statistics: sw/fpga_tools/hssi_ethernet/hssistats.md
-       - HSSI ethernet mac: sw/fpga_tools/hssi_ethernet/hssimac.md
-       - HSSI ethernet loopback: sw/fpga_tools/hssi_ethernet/hssiloopback.md
-       - mem_tg: sw/fpga_tools/mem_tg/mem_tg.md
-       - vabtool: sw/fpga_tools/vabtool/vabtool.md
-       - opaevfio: sw/fpga_tools/opaevfio/opaevfio.md
-       - ofs.uio: sw/fpga_tools/ofs.uio/ofs.uio.md
-       - opaeuio: sw/fpga_tools/opaeuio/opaeuio.md
-       - fpgad: sw/fpga_tools/fpgad/fpgad.md
-       - fpgadiag: sw/fpga_tools/fpgadiag/README.md
-
-plugins:
-  - mkdoxy:
-      projects:
-        opae-code:
-          src-dirs: "/home/IOFS_BUILD_ROOT/opae-sdk/"
-          full-doc: True
-          doxy-cfg:
-            FILE_PATTERNS: "*.c *.cc *.cxx *.cpp *.c++ *.java *.h *.hh *.hxx *.hpp *.h++ *.xpm *.md"
-            EXAMPLE_PATH: ""
-            RECURSIVE: True
-            EXCLUDE_SYMLINKS: True
-            EXCLUDE_PATTERNS: "*/archive/* */.git/*"
-
-        opae-doc:
-          src-dirs: "/home/IOFS_BUILD_ROOT/opae-sdk/doc/src"
-          full-doc: True          
-          doxy-cfg:
-            FILE_PATTERNS: "*.c *.cc *.cxx *.cpp *.c++ *.java *.h *.hh *.hxx *.hpp *.h++ *.xpm *.md *.rst"
-            EXTRACT_ALL: True
-            EXAMPLE_PATH: ""
-            INPUT_ENCODING: "UTF-8"
-            RECURSIVE: True
-            EXCLUDE_SYMLINKS: True
-            EXCLUDE_PATTERNS: "*/archive/* */.git/*"
-
-
-
+  - OFS Software Docs:
+    - OPAE Installation Guide: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/install_guide/installation_guide.html
+    - OPAE C API Programming Guide: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_api/prog_guide/readme.html
+    - Building OPAE SDK Artifacts: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/build_chain/fpga_api/api_build.html
+    - OPAE C API Reference: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_api/fpga_api.html
+    - OPAE C++ Core API Reference: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_api/fpga_cxx_api.html
+    - OPAE Python API Reference: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_api/fpga_python_api.html
+    - Plugin Developer's Guide: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_api/plug_guide/readme.html
+    - OPAE Linux Device Driver Architecture: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/drv_arch/drv_arch.html
+  - OPAE tools:
+    - fpgaconf: https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/fpgaconf/fpgaconf.md
+    - fpgad: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/fpgad/fpgad.html
+    - fpgadiag: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/fpgadiag/README.html
+    - fpgainfo: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/fpgainfo/fpgainfo.html
+    - fpgasupdate: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/fpgasupdate/fpgasupdate.html
+    - mmlink: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/mmlink/mmlink.html
+    - packager: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/packager/packager.html
+    - userclk: sw/latest/docs/fpga_tools/userclk/userclk.html
+    - hssi: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/hssi/hssi.html
+    - opaevfio: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/opaevfio/opaevfio.html
+    - pci_device: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/pci_device/pci_device.html
+    - opae.io: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/opae.io/opae.io.html
+    - host_exerciser: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/host_exerciser/host_exerciser.html
+    - hssistats: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/hssi_ethernet/hssistats.html
+    - hssimac: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/hssi_ethernet/hssimac.html
+    - hssiloopback: https://github.com/OFS/ofs.github.io/tree/main/docs/sw/latest/docs/fpga_tools/hssi_ethernet/hssiloopback.html
+    - rsu: https://github.com/OFS/ofs.github.io/tree/main/docs/ sw/latest/docs/fpga_tools/rsu/rsu.html
+    - mem_tg: https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/mem_tg/mem_tg.md
+    - vabtool: https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/vabtool/vabtool.md
 
 markdown_extensions:
-  - attr_list
   - md_in_html
   - abbr
-  - pymdownx.snippets
-  - admonition
-  - def_list
-  - tables 
-
-extra:
-  version:
-    provider: mike
-  social:
-    - icon: fontawesome/solid/paper-plane
-      link: mailto:ofs.github@intel.com
-
+  - attr_list
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+env:          
+  D5005_DEVICE: Intel® Stratix 10® FPGA
+  D5005_BOARD: Intel® FPGA PAC D5005
+  D5005_OFS_VER: 2022.3
+  D5005_OFS_RELEASE: ofs-d5005-1.0.1
+  D5005_OFS_TAG: ofs-d5005-1.0.1
+  D5005_OFS_COMMON_RELEASE: ofs-fim-common-1.1.0-rc2
+  D5005_OFS_AFU_EXAMPLE_TAG: ofs-examples-afu-1.0.0-rc3
+  D5005_OFS_AFU_BBB_TAG: 1.0.0-rc3
+  D5005_FIM_REPO: ofs-d5005
+  D5005_FIM_TAG: release/1.0.x
+  D5005_NIOS_FW_VER: 2.0.13
+  D5005_BMC_RTL_BUILD_VER: 2.0.13
+  D5005_QUARTUS_PRIME_PRO_VER: 22.3
+  D5005_OS_VER: RHEL 8.2
+  D5005_PYTHON_VER: 3.7.7
+  D5005_CMAKE_VER: 3.11.4
+  D5005_GCC_VER: 7.2.0
+  D5005_GIT_VER: 1.8.3.1
+  D5005_PERL_VER: 5.8.8
+  D5005_OPAE_VER: 2.3.0-1
+  D5005_OPAE_RELEASE: release/2.3.0
+  D5005_KERNEL_VER: 5.15-lts
+  D5005_KERNEL_VER_COMPLETE: 5.15.77
+  D5005_KERNEL_BRANCH: ofs-2022.3-2
+  D5005_BITSTREAM_ID: 0x401000287428628
+  D5005_PR_ID: d51533ad-aee6-5dab-80fb-a44bbf579b68
+  OFS_COMMON_BRANCH: ofs-fim-common
+  OFS_COMMON_TAG: release/1.0.x
 

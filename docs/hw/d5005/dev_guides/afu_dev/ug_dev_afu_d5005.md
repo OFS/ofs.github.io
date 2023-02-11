@@ -1,87 +1,7 @@
 Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Stratix 10®
 ====
 
-<!--
-**Table of Contents**
 
-- [1. Introduction](#1-introduction-intel)
-
-  - [1.1 Document Organization](#11-document-organization)
-
-  - [1.2 Prerequisite](#12-prerequisite)
-
-    - [1.2.1 Development Environment](#121-development-environment)
-
-  - [1.3 Acceleration Functional Unit (AFU) Development Flow](#13-acceleration-functional-unit-afu-development-flow)
-
-    - [1.3.1. High Level Data Flow](#131-high-level-data-flow)
-
-    - [1.3.2. Considerations for PIM Usage](#132-considerations-for-pim-usage)
-
-    - [1.3.3 AFU Interfaces Included with Intel FPGA PAC D5005 Platform](#133-afu-interfaces-included-with-intel-fpga-pac-d5005-platform)
-
-    - [1.3.4. Platform Capabilities](#134-platform-capabilities)
-
-    - [1.3.5. Top Level FPGA](#135-top-level-fpga)
-
-- [2. Set Up AFU Development Environment](#2-set-up-afu-development-environment)
-
-  - [2.1. Prepare AFU development environment](#21-prepare-afu-development-environment)
-
-    - [2.1.1. Installation of Quartus and OFS](#211-installation-of-quartus-and-intel-ofs)
-
-      - [2.1.1.1 Installation of Quartus](#2111-installation-of-quartus)
-
-      - [2.1.1.2. Install OFS](#2112-install-intel-ofs)
-
-      - [2.1.1.3. Directory Structure of OFS](#2113-directory-structure-of-intel-ofs)
-
-      - [2.1.1.4 License Installation for OFS](#2114-license-installation-for-intel-ofs)
-
-      - [2.1.1.5. Retrieve PIM Files](#2115-retrieve-pim-files)
-
-    - [2.1.2. Compiling the OFS FIM](#212-compiling-the-ofs-d5005)
-
-      - [2.1.2.1. Setting Up Required Environment Variables](#2121-setting-up-required-environment-variables)
-
-      - [2.1.2.2. Compiling Your Base FIM](#2122-compiling-your-base-fim)
-
-      - [2.1.2.2.1. Relocatable PR Directory Tree.](#21221-relocatable-pr-directory-tree)
-
-    - [2.1.3. Relocatable PR Directory Tree](#213-relocatable-pr-directory-tree)
-
-    - [2.1.4. Programing the FIM](#214-programing-the-fim)
-
-      - [2.1.4.1. Load FIM into the Flash of the Intel FPGA PAC D5005](#2141-load-fim-into-the-flash-of-the-intel-fpga-pac-d5005)
-
- - [3. OPAE Software Development Kit](#30-opae-software-development-kit)
-
-    - [3.1 OPAE SDK Build Environment Setup](#31-opae-sdk-build-environment-setup)
-
-    - [3.2 Install OPAE SDK](#32-install-opae-sdk)
-
-    - [3.3 Building and Installing the OPAE SDK](#33-building-and-installing-the-opae-sdk)
-
-- [4. Compiling An AFU](#4-compiling-an-afu)
-
-  - [4.1. Set AFU Synthesis Environment](#41-set-afu-synthesis-environment)
-
-    - [4.1.1. Loading and Running the host_chan_mmio example AFU](#411-loading-and-running-the-host_chan_mmio-example-afu)
-    - [4.1.2. Loading and Running the hello_world example AFU](#412-loading-and-running-the-hello_world-example-afu)
-    - [4.1.3. Modify the AFU user clocks frequency](#413-modify-the-afu-user-clocks-frequency)
-- [5. Simulating an AFU using ASE](#5-simulating-an-afu-using-ase)
-  - [5.1. Set Up Steps to Run ASE](#51-set-up-steps-to-run-ase)
-    - [5.1.1. Install OPAE SDK](#511-install-opae-sdk)
-    - [5.1.2. Install ASE tools](#512-install-ase-tools)    
-    - [5.1.3. Setup Required ASE Environment Variables](#513-setup-required-ase-environment-variables)
-  - [5.2. Simulating the host_chan_mmio AFU](#52-simulating-the-hostchanmmio-AFU)
-    - [5.2.1 Set Up and Run the HW Simulation Process](#521-set-up-and-run-the-hw-simulation-process)
-    - [5.2.2 Set Up and Run the SW Process](#522-set-up-and-run-the-sw-process)
-  - [5.3. Simulating the hello_world AFU](#53-simulating-the-helloworld-afu)    
-- [6. Adding Remote Signal Tap Logic Analyzer to debug the AFU](#6-adding-remote-signal-tap-logic-analyzer-to-debug-the-afu)
-
-  - [6.1. Adding RSTP to the host_chan_mmio AFU](#61-adding-rstp-to-the-host_chan_mmio-afu)
--->
 
 
 
@@ -89,17 +9,19 @@ Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Stratix
 
 <a name="introduction"></a>
 
-This document is a design guide for creating an Accelerator Functional Unit (<span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>) using Open FPGA Stack (<span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>) for Stratix 10®. The <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> concept consists of separating the FPGA design development process into two parts, the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> and <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>, as shown in the diagram below:
+This document is a design guide for creating an Accelerator Functional Unit (AFU) using Open FPGA Stack (OFS) for Intel® Stratix 10® FPGA. The AFU concept consists of separating the FPGA design development process into two parts, the FIM and AFU, as shown in the diagram below:
 
 ![](./images/FIM_top_intro.png)
 </br></br>
 
-This diagram shows the FPGA board interface development separation from the internal FPGA workload creation. This separation starts with the FPGA Interface Manager (<span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span>), which consists of the external interfaces and board management functions. The <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> is the base system layer typically provided by board vendors. The <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> interface is specific to a particular physical platform. The <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> uses the external interfaces with user-defined logic to perform a specific application. Separating the lengthy and complicated process of developing and integrating external interfaces for an FPGA into a board allows the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> developer to focus on their workload needs.  Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> for Stratix 10® provides the following tools for rapid <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> development:
+This diagram shows the FPGA board interface development separation from the internal FPGA workload creation. This separation starts with the FPGA Interface Manager (FIM), which consists of the external interfaces and board management functions. The FIM is the base system layer typically provided by board vendors. The FIM interface is specific to a particular physical platform. The AFU uses the external interfaces with user-defined logic to perform a specific application. Separating the lengthy and complicated process of developing and integrating external interfaces for an FPGA into a board allows the AFU developer to focus on their workload needs.  Intel® OFS for Intel® Stratix 10® FPGA provides the following tools for rapid AFU development:
 
 - Scripts for both compilation setup
-- Integration with Open Programmable Acceleration Engine (<span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span>) SDK for rapid software development for your <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> application
+- Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
 
-Please notice that the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> region consists of both static and <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span>-able logic in the above block diagram. Creating <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> logic for the static region is described in [***Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®***](https://github.com/OFS/ofs.github.io/blob/main/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md). This guide covers logic in the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> Main (PR) region.
+Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®] . This guide covers logic in the AFU Main (PR) region.
+
+
 
 
 ## 1.1 Document Organization
@@ -107,37 +29,53 @@ Please notice that the <span title=' Accelerator Functional Unit, Hardware Accel
 This document is organized as follows:
 
 - Description of design flow
-- Interfaces and functionality provided in the Intel FPGA PAC D5005 Platform <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span>
-- Downloading and installing Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>and <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK
+- Interfaces and functionality provided in the Intel® FPGA PAC D5005 FIM
+- Downloading and installing Intel® OFSand OPAE SDK
 - Hardware/Software co-simulation using ASE
-- Testing the AFU example in Intel FPGA PAC D5005 Platform
-- Debugging an <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> with Remote Signal Tap
+- Testing the AFU example in Intel® FPGA PAC D5005
+- Debugging an AFU with Remote Signal Tap
 
-This guide provides theory followed by tutorial steps to solidify your <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> development knowledge.
+This guide provides theory followed by tutorial steps to solidify your AFU development knowledge.
 
-This guide uses the Intel FPGA PAC D5005 as the platform for all tutorial steps. Additionally, this guide and the tutorial steps can be used with other platforms; However, please consult the **board** and <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> supplier of other platforms for specific instructions on the use of custom FIM to develop  <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> design.
+This guide uses the Intel® FPGA PAC D5005 as the platform for all tutorial steps. Additionally, this guide and the tutorial steps can be used with other platforms; However, please consult the **board** and FIM supplier of other platforms for specific instructions on the use of custom FIM to develop  AFU design.
 
-If you have worked with previous Intel® Programmable Acceleration products, you will find <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> for Stratix 10® is similar; however, there are differences, and you are advised to carefully read and follow the tutorial steps to understand the design tools and flow fully.
+If you have worked with previous Intel® Programmable Acceleration products, you will find OFS for Intel® Stratix 10® FPGA is similar; however, there are differences, and you are advised to carefully read and follow the tutorial steps to understand the design tools and flow fully.
 
 
 
 Glossary 
 == 
-|Term  | Description | 
-|---------|---------|
-|AFU| Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region|
-|BKC|Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.|
-|BMC|Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.|
-|DFL|Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.|
-|FIM|FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
-|FME|FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.|
-|HEM|Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
-|JTAG|Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
-|OFS|Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.|
-|OPAE|Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.|
-|PIM|Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
-|PR|Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. |
-|RSU|Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.|
+| Term     | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
+| AFU      | Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region |
+| BBB | Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID. |
+| BKC      | Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against. |
+| BMC      | Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors. |
+| CSR | Command/status registers (CSR) and software interface, OFS uses a defined set of CSR's to expose the functionality of the FPGA to the host software. |
+| DFL      | Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. |
+| FIM      | FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring. |
+| FME      | FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform. |
+| HEM      | Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. |
+| Intel FPGA PAC D5005 | Intel FPGA Programmable Acceleration Card D5005, A high performance PCI Express (PCIe)-based FPGA acceleration card for data centers. This card is the target platform for the initial OFS release. |
+| Intel VT-d | Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
+| IOCTL | Input/Output Control, System calls used to manipulate underlying device parameters of special files. |
+| JTAG     | Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology. |
+| MMIO | Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators. |
+| OFS      | Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
+| OPAE SDK | Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. |
+| PAC | Programmable Acceleration Card: FPGA based Accelerator card |
+| PIM      | Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
+| PR       | Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. |
+| RSU      | Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration. |
+| SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
+| TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
+| UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
+
+
+
+
 
 
 ## 1.2 Prerequisite
@@ -157,37 +95,39 @@ To run the tutorial steps in this guide requires this **development** environmen
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
-|  Operating System   |   RHEL 8.2     <mark>(Windows is not supported)</mark>  |
-| Python    | 3.7.7 or newer  |
-| cmake     | 3.11.4  or newer |
-| GCC       | 7.2.0  or newer  |
-| git       | 1.8.3.1  or newer    |
-| perl      | 5.8.8  or newer  |
+|  Operating System   | RHEL 8.2 |
+| Python    | 3.7.7 |
+| cmake     | 3.11.4 |
+| GCC       | 7.2.0 |
+| git       | 1.8.3.1 |
+| perl      | 5.8.8 |
 
 Verify your development has the above tools installed.
 
 
 The following server and Intel® PAC card are required to run the examples in this guide:
 
-1. Intel FPGA PAC D5005 with root entry hash erased (Please contact Intel® for root entry hash erase instructions). The standard Intel FPGA PAC D5005 card is programmed only to allow the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> binary files signed by Intel® to be loaded. The root entry hash erases process will allow unsigned <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> binary files to be loaded.
-2. Qualified Server Models see [Qualified Servers](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html)
-3. Intel FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md)
+1. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Intel® for root entry hash erase instructions). The standard Intel® FPGA PAC D5005 card is programmed only to allow the FIM binary files signed by Intel® to be loaded. The root entry hash erases process will allow unsigned FIM binary files to be loaded.
+2. Qualified Server Models see [Qualified Servers].
+3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide]
 
 ## 1.3 Acceleration Functional Unit (AFU) Development Flow
 <a name="afu_development_flow"></a>
 
-<span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> Stack provides a rapid design methodology for creating complex FPGA applications. In addition, you are provided the following:
+OFS Stack provides a rapid design methodology for creating complex FPGA applications. In addition, you are provided with the following:
 
-- Hardware shell layer, known as <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> 
+- Hardware shell layer, known as FIM 
 - Software stack including tools for debug/diagnostics
 - FPGA design flow  with full-stack simulation support
-- <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> code samples demonstrating all interfaces
+- AFU code samples demonstrating all interfaces
 
 For any non-Intel® platform, contact your board vendor for the above components specific to the platform.
-To start with <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> development, the first step should be to understand your platform capabilities. For example, what interface is the FPGA connected to the Host machine over PCI-E, if it is AXI like the Intel® Stratix 10® Platform, or CCIP or CXL. Does the platform provide an External Memory Interface or the HSSI interface? Once you know what the platform offers, you can develop your <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> requirements and architecture as the next step. 
-This document will cover example <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> architecture and things that will help build <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> for Intel® Stratix 10® reference platform and others coming in the future. In addition, this knowledge can be relatively applied for <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> development on other vendor-provided platforms.
+To start with AFU development, the first step should be to understand your platform capabilities. For example, what interface is the FPGA connected to the Host machine over PCI-E, if it is AXI like the Intel® Stratix 10® FPGA Platform, or CCIP or CXL. Does the platform provide an External Memory Interface or the HSSI interface? Once you know what the platform offers, you can develop your AFU requirements and architecture as the next step. 
+This document will cover example AFU architecture and things that will help build AFU for Intel® Stratix 10® FPGA reference platform and others coming in the future. In addition, this knowledge can be relatively applied for AFU development on other vendor-provided platforms.
 
-The figure below shows a typical <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> development process independent of the platform used. 
+The figure below shows a typical AFU development process independent of the platform used. 
+
+<br>
 
 ```mermaid
 flowchart  TB;
@@ -218,7 +158,7 @@ flowchart  TB;
 ### 1.3.1. High Level Data Flow
 <a name="HighLevelDataFlow"></a>
 
-The <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>high-level data flow is shown below:
+The OFShigh-level data flow is shown below:
 ![](./images/IOFS_DataFlow.png)
 The control and data are composed of the following:
 
@@ -235,37 +175,37 @@ The control and data are composed of the following:
 * Fabrics
    * Peripheral Fabric (multi-drop)
    * AFU Streaming fabric (point to point)
-  
+
 Peripherals are connected using AXI or Avalon:
 
 * Via the peripheral fabric (AXI4-Lite, multi-drop)
-* Via the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> streaming fabric (AXI-S, point to point)
+* Via the AFU streaming fabric (AXI-S, point to point)
 
 Peripherals are presented to software as:
 
-* <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> managed peripherals that implement DFH CSR structure.  
+* OFS managed peripherals that implement DFH CSR structure.  
 * Native driver managed peripherals (i.e., Exposed via an independent PF, VF)
 
-The peripherals connected to the peripheral fabric are primarily <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> managed resources, whereas the peripherals connected to the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> are "primarily" driven by native OS drivers. The word "primarily" is used since the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> is not mandated to expose all its peripherals to Intel® <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span>. Instead, it can be connected to the peripheral fabric but can choose to expose only a subset of its capability to <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span>.
+The peripherals connected to the peripheral fabric are primarily OPAE managed resources, whereas the peripherals connected to the AFU are "primarily" driven by native OS drivers. The word "primarily" is used since the AFU is not mandated to expose all its peripherals to Intel® OPAE. Instead, it can be connected to the peripheral fabric but can choose to expose only a subset of its capability to OPAE.
 
-<span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> uses a defined set of CSRs to expose the functionality of the FPGA to the host software. These registers are described in [*Open FPGA Stack Reference Manual - MMIO Regions section](https://github.com/intel-innersource/applications.fpga.ofs.opensource-documentation/blob/main/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md#7-mmio-regions).
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software. These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section].
 
-If you make changes to the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> that affect the software operation, Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>provides a mechanism to communicate that information to the proper software driver. The [Device Feature Header (DFH) structure](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> software. Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/OPAE/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, Intel® OFS provides a mechanism to communicate that information to the proper software driver. The [Device Feature Header (DFH) structure] provides a mechanism to maintain compatibility with OPAE software. Please see [FPGA Device Feature List (DFL) Framework Overview] for an excellent description of DFL operation from the driver perspective.
 
-When planning your address space for your <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> updates, please be aware <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> targeting Intel FPGA PAC D5005, 256KB of MMIO region is allocated for external <span title='FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.'>**FME** </span> features, and 128kB of MMIO region is given for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at the 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of the external feature list. Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
+When planning your address space for your FIM updates, please be aware OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features, and 128kB of MMIO region is given for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at the 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of the external feature list. Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
 
 ### 1.3.2. Considerations for PIM Usage
 <a name="PIMUsage"></a>
 
-An early decision for your <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> development is determining if the <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span> will be included in your design flow. The <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span> is an abstraction layer, enabling partial <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> portability across hardware despite variations in hardware topology and native interfaces. Use of the <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span> is optional for <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> development. The use of the <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span> adds a level of logic between an accelerator (an <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>) and the platform (the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span>). It is a collection of SystemVerilog interfaces and shims. Please see [Connecting an <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> to a Platform using PIM](https://github.com/OPAE/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md) for details on using the <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span> and its capabilities. Please see [PIM Tutorial](https://github.com/OFS/examples-afu/tree/main/tutorial) for a detailed tutorial on using the <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span>. The learning steps [PIM Tutorial](https://github.com/OFS/examples-afu/tree/main/tutorial) can be run with Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>for Intel® Stratix 10® <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> package after you have installed this package as described later in this guide.  
+An early decision for your AFU development is determining if the PIM will be included in your design flow. The PIM is an abstraction layer, enabling partial AFU portability across hardware despite variations in hardware topology and native interfaces. Use of the PIM is optional for AFU development. The use of the PIM adds a level of logic between an accelerator (an AFU) and the platform (the FIM). It is a collection of System Verilog interfaces and shims. Please see [Connecting an AFU to a Platform using PIM] for details on using the PIM and its capabilities. Please see [PIM Tutorial] for a detailed tutorial on using PIM. The learning steps [PIM Tutorial] can be run with Intel® OFS for Intel® Stratix 10® FPGA FIM package after you have installed this package as described later in this guide.  
 
-If you choose not to use the <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span>, please see [Non-PIM <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> Development](https://github.com/OFS/examples-afu/tree/main/tutorial) for instruction on using a traditional RTL design flow. Note, the example <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> provided in Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>does not include <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span>.
+If you choose not to use the PIM, please see [Non-PIM AFU Development] for instructions on using a traditional RTL design flow. Note, the example AFU provided in Intel® OFS does not include PIM.
 
-### 1.3.3 AFU Interfaces Included with Intel FPGA PAC D5005 Platform
+### 1.3.3 AFU Interfaces Included with Intel® FPGA PAC D5005
 <a name="AFUInterfacesIncluded"></a>
 
-The figure below shows the interfaces available to the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> in this architecture. It also shows the design hierarchy with module names from the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> (top.sv) to the <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> region <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> (afu_main.sv). One of the main differences from the previous Stratix 10® PAC <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> architecture is a static port gasket region (port_gasket.sv) that has components to facilitate the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> and also consists of the GBS region (afu_main.sv) via the <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> slot. The Port Gasket contains all the <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span>-specific modules and logic, e.g., <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> slot reset/freeze control, user clock, remote STP etc. Architecturally, a Port Gasket can have multiple <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> slots to which user workload can be programmed. However, only one <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> slot is supported for Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> Release for Intel® Stratix 10®. Therefore, everything in the Port Gasket until the <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> slot should be provided by the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> developer. The task of the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> developer is to add their desired application in the afu_main.sv module by stripping out unwanted logic and instantiating the target accelerator. As shown in the figure below, here are the interfaces connected to the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> (highlighted in green) via d5005 <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span>:
+The figure below shows the interfaces available to the AFU in this architecture. It also shows the design hierarchy with module names from the FIM (top.sv) to the PR  region AFU (afu_main.sv). One of the main differences from the previous Intel® Stratix 10® FPGA OFS architecture is a static port gasket region (port_gasket.sv) that has components to facilitate the AFU and also consists of the GBS region (afu_main.sv) via the PR  slot. The Port Gasket contains all the PR -specific modules and logic, e.g., PR  slot reset/freeze control, user clock, remote STP etc. Architecturally, a Port Gasket can have multiple PR  slots to which user workload can be programmed. However, only one PR  slot is supported for Intel® OFS Release for Intel® Stratix 10® FPGA. Therefore, everything in the Port Gasket until the PR  slot should be provided by the FIM developer. The task of the AFU developer is to add their desired application in the afu_main.sv module by stripping out unwanted logic and instantiating the target accelerator. As shown in the figure below, here are the interfaces connected to the AFU (highlighted in green) via Intel® FPGA PAC D5005 FIM:
 
 * AXI Streaming (AXI-S) interface to the Host via PCIe Gen3x16
 * Avalon Memory-Mapped Channels (4) to the DDR4 EMIF interface
@@ -275,16 +215,16 @@ The figure below shows the interfaces available to the <span title=' Accelerator
 
 ### 1.3.4. Platform Capabilities
 <a name="PlatformCapabilities"></a>
-The <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> targets operation in the Intel FPGA PAC D5005 card.  The block diagram of the Intel FPGA PAC D5005 is shown below:
+The FIM targets operation in the Intel® FPGA PAC D5005 card.  The block diagram of the Intel® FPGA PAC D5005 is shown below:
 ![](./images//d5005_Top.png)
 
-The key Intel FPGA PAC D5005 FPGA interfaces are:
+The key Intel® FPGA PAC D5005 FPGA interfaces are:
 
 - Host interface 
     - PCIe Gen3 x 16
 - Network interface
   - 2 - QSFP28 cages
-  - Current <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> supports 1 x 10 GbE, other interfaces can be created  
+  - Current FIM supports 1 x 10 GbE, other interfaces can be created  
 - External Memory
   - 2 or 4 channels of DDR4-2400 to RDIMM modules
   - RDIMM modules =  8GB organized as 1 Gb X 72
@@ -305,11 +245,11 @@ This section covers:
 
 * Development environment set up
 * Retrieving and installing OFS, OPAE SDK
-*  Building the D5005 FIM
-* Building a relocatable <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> tree
-* Compiling the host_chan_mmio example <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>
+*  Building theIntel® FPGA PAC D5005 FIM
+* Building a relocatable AFU tree
+* Compiling the host_chan_mmio example AFU
 
-Additionally, this section includes steps to demonstrate loading and running the host_chan_mmio example <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> in an Intel FPGA PAC D5005 equipped Linux server.
+Additionally, this section includes steps to demonstrate loading and running the host_chan_mmio example AFU in an Intel® FPGA PAC D5005 equipped Linux server.
 
 
 
@@ -317,59 +257,60 @@ Additionally, this section includes steps to demonstrate loading and running the
 
 <a name="compile_fim"></a>
 
-Typical development and hardware test environments consist of a development server or workstation with installed FPGA development tools and a separate server installed with the target <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>compatible FPGA PCIe card. The typical usage and flow of data between these two servers are shown below:
+Typical development and hardware test environments consist of a development server or workstation with installed FPGA development tools and a separate server installed with the target OFS-compatible FPGA PCIe card. The typical usage and flow of data between these two servers are shown below:
 
 
 ![](./images/AFU_Dev_Deploy.png)
 
-Please refer to Unit Level Simulation if you would like to make any simulation [Unit Level Simulation](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md#412-unit-level-simulation).
+Please refer to Unit Level Simulation if you would like to make any simulation [Unit Level Simulation].
 
 Note that both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel FPGA PAC D5005 Platform as the target <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>compatible FPGA PCIe card platform for demonstration steps. The Intel FPGA PAC D5005 must be fully installed following [Getting Started Guide: Open FPGA Stack for Intel Stratix 10](https://github.com/otcshare/intel-ofs-docs/tree/master/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user-developed <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>.
+This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [OFS Getting Started User Guide] If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
 
 
 > **_NOTE:_**  
 >
->The following chapters assume you use the same server for development and Deployment (Run the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span>/<span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>/SW over the Intel FPGA PAC D5005):
+>The following chapters assume you use the same server for development and Deployment (Run the FIM/AFU/SW over the Intel® FPGA PAC D5005):
 >
->Development: Modify the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span>/<span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>/SW run simulation and compile the design (Generate the binaries). 
->Deployment: Program the binaries under the Intel FPGA PAC D5005 and exercise the Hardware and Sw with real hardware
+>Development: Modify the FIM/AFU/SW run simulation and compile the design (Generate the binaries). 
+>Deployment: Program the binaries under the Intel® FPGA PAC D5005 and exercise the Hardware and Sw with real hardware
 >
 >
 
 ### 2.1.1. Installation of Quartus and OFS
 <a name="InstallationQuartus"></a>
-Building <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> with <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> for Stratix 10® requires the build machine to have at least 64 GB of RAM.  
+Building AFU with OFS forIntel® Stratix 10® FPGA requires the build machine to have at least 64 GB of RAM.  
 
-The following is a summary of the steps to set up for <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> development:
+The following is a summary of the steps to set up for AFU development:
 
-1. Install  Intel® Quartus® Prime Pro Edition  22.3 Linux with Stratix 10® device support.
+1. Install  Intel® Quartus® Prime Pro Edition  22.3 Linux with Intel® Stratix 10® FPGA device support.
 2. Make sure support tools are installed and meet version requirements.
-3. Clone the `ofs-d5005` repository.
+3. Clone the repository.
 4. Review the files provided in the repository.
-5. Build a relocatable <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> tree - this will be the base <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> for your <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>.
+5. Build a relocatable PR  tree - this will be the base FIM for your AFU.
 
- Intel® Quartus® Prime Pro Edition version  22.3 is the currently verified version of  Intel® Quartus® Prime Pro Edition used for building the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> images. The recommended Best Known Configuration (<span title='Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.'>**BKC** </span>) [ OFS 2022.3 (Intel® Stratix® 10) ](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.0-rc3):
+ Intel® Quartus® Prime Pro Edition version  22.3 is the currently verified version of  Intel® Quartus® Prime Pro Edition 22.3 used for building the AFU images. The recommended Best Known Configuration (BKC) OFS Version 2022.3:
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
 |  Intel® Quartus® Prime Pro Edition   |  22.3  |
-| Operating System   |   RHEL 8.2  <mark>(Windows is not supported)</mark>  |
-| <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK   |  [2.3.0-1](https://github.com/OPAE/opae-sdk/tree/2.0.11-1 )  |
-| Python    | 3.7.7 or newer  |
-| cmake     | 3.11.4  or newer |
-| GCC       | 7.2.0  or newer  |
-| git       | 1.8.3.1  or newer    |
-| perl      | 5.8.8  or newer  |
+| Operating System   | RHEL 8.2 |
+| OPAE SDK   |  [2.3.0-1](https://github.com/OPAE/opae-sdk/tree/2.3.0-1 )  |
+| OFS Release | [ofs-d5005-1.0.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.1) |
+| Python    | 3.7.7 |
+| cmake     | 3.11.4 |
+| GCC       | 7.2.0 |
+| git       | 1.8.3.1 |
+| perl      | 5.8.8 |
 
 
 #### 2.1.1.1 Installation of Quartus
 <a name="InstallationQuartusIntro"></a>
 
-1. Download [ Intel® Quartus® Prime Pro Edition  22.3 Linux ](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html).
+1. Download [Intel® Quartus® Prime Pro Edition Linux].
 
-2. After running the  Intel® Quartus® Prime Pro Edition version  22.3 installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
+2. After running the  Intel® Quartus® Prime Pro Edition version  22.3 installer, set the PATH environment variable to make utility `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
 
 ```Bash
@@ -443,11 +384,11 @@ Cloning the repo using the HTTPS method requires a personal access token. Please
 
 #### 2.1.1.2. Install OFS
 <a name="InstallationOFSIntro"></a>
-1. Retrieve <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> repositories:
+1. Retrieve OFS repositories:
 
-    The Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> source code is included in the OTCShare GitHub repository. First, create a new directory to store the retrieved files as a clean starting point. The following is a short description of each repository, followed by the git commands for cloning. The instructions section uses the HTTPS git method for cloning repositories.  
+    The Intel® OFS FIM source code is included in the OFS GitHub repository. First, create a new directory to store the retrieved files as a clean starting point. The following is a short description of each repository, followed by the git commands for cloning. The instructions section uses the HTTPS git method for cloning repositories.  
 
-2. Navigate to the location for storage of <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> source, create the top-level source directory, and clone <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> repositories.
+2. Navigate to the location for storage of OFS source, create the top-level source directory, and clone OFS repositories.
 
 ```sh
 mkdir ofs_fim_build_root
@@ -482,9 +423,9 @@ export VERDIR=$OFS_ROOTDIR/verification
 cd ofs-d5005
 ```
 
-Select the latest [Release avaliable](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.0-rc3)
+Select the latest [OFS Release]
 ```sh
-git checkout tags/ofs-d5005-1.0.0-rc3
+git checkout tags/ofs-d5005-1.0.1
 ```
 
 > **_Console Output:_**  
@@ -494,7 +435,7 @@ git checkout tags/ofs-d5005-1.0.0-rc3
 >If you want to create a new branch to retain commits you create, you may do so (now or later) by using -b with the checkout command again. Example:
 >
 > git checkout -b <new-branch-name>
->HEAD is now at 7e4dc70 OFS d5005 1.0.0 RC3 release
+>HEAD is now at 7e4dc70 ofs-d5005-1.0.1
 
 #### 2.1.1.3. Directory Structure of OFS
 <a name="DirectoryStructureOFS"></a>
@@ -533,7 +474,7 @@ The directories are arranged as shown below:
 │   └── README.md
 ├── license
 │   └── quartus-0.0-0.01iofs-linux.run    ** Quartus Patch with IP licenses.  
-│                                         ** Note, these licenses are not used for Intel FPGA PAC D5005** 
+│                                         ** Note, these licenses are not used for Intel® FPGA PAC D5005** 
 ├── sim             **Unit level simulation files**
 │   ├── unit_test
 │   ├── scripts
@@ -561,7 +502,7 @@ The directories are arranged as shown below:
 │   └── README
 ```
 
-<!-->
+
 ```sh
 ├── eval_scripts
 │   ├── ofs_d5005_eval.sh
@@ -582,7 +523,7 @@ The directories are arranged as shown below:
 │   └── README.md
 ├── license
 │   └── quartus-0.0-0.01iofs-linux.run    ** Quartus Patch with IP licenses.  
-│                                         ** Note, these licenses are not used for Intel FPGA PAC D5005** 
+│                                         ** Note, these licenses are not used for Intel® FPGA PAC D5005** 
 ├── sim             **Unit level simulation files**
 │   ├── unit_test
 │   ├── scripts
@@ -617,7 +558,7 @@ The directories are arranged as shown below:
 
 #### 2.1.1.4 License Installation for OFS
 <a name="LicenseInstallationOFS"></a>
-The required setup Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> [license](https://github.com/otcshare/intel-ofs-fim/blob/release/d5005/license/quartus-0.0-0.01iofs-linux.run), follow the following steps :
+The required setup Intel® OFS [License quartus-0.0-0.01iofs-linux.run], follow the following steps :
 
 ```sh
 cd $OFS_ROOTDIR/license
@@ -629,13 +570,13 @@ quartus_syn --version
 
 #### 2.1.1.5. Retrieve PIM Files
 <a name="RetrievePIMFilesOFS"></a>
-The ofs-platform-afu-bbb repository contains the <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span> files and example <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> that can be used for testing and demonstration purposes. This guide will use the host_chan_mmio example in the remaining sections to demonstrate <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span>capabilities.
+The ofs-platform-afu-bbb repository contains the PIM files and example AFU that can be used for testing and demonstration purposes. This guide will use the host_chan_mmio example in the remaining sections to demonstrate OFS capabilities.
 
 ```sh
 cd $OFS_BUILD_ROOT
 ```
 ```sh
-git clone https://github.com/OPAE/ofs-platform-afu-bbb.git
+git clone https://github.com/OFS/ofs-platform-afu-bbb.git
 ```
 Edit your bashrc file ~/.bashrc to add the following lines:
 ```sh
@@ -659,14 +600,14 @@ ls
 ### 2.1.2. Compiling the OFS FIM 
 <a name="CompilingOFSFIM"></a>
 
-Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> provides a build script with the following FPGA image creation options:
+Intel® OFS provides a build script with the following FPGA image creation options:
 
-- Flat compile, which combines the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> and <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> into one FPGA image loaded into the entire FPGA device as a static image.
-- A <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> compile that creates an FPGA image consisting of the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> that is loaded into the static region of the FPGA and a default <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> that is loaded into dynamic region. Additional <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> may be loaded into the dynamic region using partial reconfiguration.  
+- Flat compile, which combines the FIM and AFU into one FPGA image loaded into the entire FPGA device as a static image.
+- A PR  compile that creates an FPGA image consisting of the FIM that is loaded into the static region of the FPGA and a default AFU that is loaded into dynamic region. Additional AFU may be loaded into the dynamic region using partial reconfiguration.  
 
-The build scripts included with <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> are verified to run in a bash shell. Other shells have not been tested. Each build script step will take several hours to complete. Building in Quartus GUI is not supported - you must build with the provided scripts.
+The build scripts included with OFS are verified to run in a bash shell. Other shells have not been tested. Each build script step will take several hours to complete. Building in Quartus GUI is not supported - you must build with the provided scripts.
 
-The following sections describe how to set up the environment and build the provided <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> with a relocatable tree supporting <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span>. You will use this relocatable <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> tree for all example <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> simulation and compilation steps in this guide.
+The following sections describe how to set up the environment and build the provided FIM with a relocatable tree supporting PR . You will use this relocatable PR  tree for all example AFU simulation and compilation steps in this guide.
 
 #### 2.1.2.1. Setting Up Required Environment Variables
 <a name="SettingUpRequiredEnvironment"></a>
@@ -721,10 +662,10 @@ ofs-common/scripts/common/syn/build_top.sh [-p] target_configuration work_dir
         - compile reports and artifacts (.rpt, .sof, etc) are stored in <work_dir>/syn/<OFS_PROJECT>/<OFS_FIM>/<OFS_BOARD>/syn_top/output_files
   
         - There is a log file created in ofs-d5005 directory.  
-        - [-p]  Optional switch for creating a relocatable <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> build tree supporting the creation of a <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span>-able AFU workload.   
-        The "-p" switch invokes generate_pr_release.sh at the end of the FIM build and writes the <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> build tree to the top of the working directory. More information on this option is provided below. 
+        - [-p]  Optional switch for creating a relocatable PR  build tree supporting the creation of a PR -able AFU workload.   
+        The "-p" switch invokes generate_pr_release.sh at the end of the FIM build and writes the PR  build tree to the top of the working directory. More information on this option is provided below. 
 ```
-In the following example, you will build the provided example design using a flat, non-<span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> build flow. If you use the -p, you could avoid the section.
+In the following example, you will build the provided example design using a flat, non-PR  build flow. If you use the -p, you could avoid the section.
 
 #### 2.1.2.2.1. Relocatable PR Directory Tree.
 
@@ -774,7 +715,7 @@ Some of the critical output files are described below:
 $OFS_ROOTDIR/<work_dir "work_d5005">/syn/syn_top
 
 ```
-├── syn_top                    // D5005 Quartus build area with Quartus files used this build
+├── syn_top                    //Intel® FPGA PAC D5005 Quartus build area with Quartus files used this build
 │  ├── d5005.ipregen.rpt       // IP regeneration report states the output of IP upgrade
 │  ├── d5005.qpf               // Quartus Project File (qpf) mentions about Quartus version and project revision
 │  ├── d5005.qsf               // Quartus Settings File (qsf) lists current project settings and entity level assignments
@@ -788,9 +729,9 @@ $OFS_ROOTDIR/<work_dir "work_d5005">/syn/syn_top
 
 $OFS_ROOTDIR/<work_dir>/syn/syn_top/output_files == Directory with build reports and FPGA programming files.
 
-The programming files consist of the Quartus generated d5005.sof and d5005.pof. The D5005 board hardware provides a 2 Gb flash device to store the FPGA programming files and a MAX10 <span title='Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.'>**BMC** </span> that reads this flash and programs the Intel FPGA PAC D5005 Stratix 10® FPGA. The ./ofs-common/scripts/common/syn/build_top.sh   script runs script file ./ofs-common/scripts/common/syn/build_top.sh which takes the Quartus generated d5005.sof and creates binary files in the proper format to be loaded into the 2 Gb flash device.  You can also run build_flash.sh by itself if needed. 
+The programming files consist of the Quartus generated d5005.sof and d5005.pof. The Intel® FPGA PAC D5005 board hardware provides a 2 Gb flash device to store the FPGA programming files and a BMC CARD that reads this flash and programs the Intel® FPGA PAC D5005 Intel® Stratix 10® FPGA. The ./ofs-common/scripts/common/syn/build_top.sh script runs script file ./ofs-common/scripts/common/syn/build_top.sh which takes the Quartus generated d5005.sof and creates binary files in the proper format to be loaded into the 2 Gb flash device.  You can also run build_flash.sh by itself if needed. 
 
-The build script will run PACSign and create an unsigned FPGA programming files for both user1 and user2 locations of the D5005 FPGA flash. Please note, if the d5005 has the root entry hash key loaded, then PACsign must be run to add the proper key to the FPGA binary file. Please see [Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® FPGA](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md) for details on the security aspects of Intel® Open FPGA Stack and refer to [BMC User Guide](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md) for Flash partition..
+The build script will run PACSign and create an unsigned FPGA programming file for both user1 and user2 locations of the Intel® FPGA PAC D5005 flash. Please note, if the Intel® FPGA PAC D5005 has the root entry hash key loaded, then PACsign must be run to add the proper key to the FPGA binary file. Please see [Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® FPGA] for details on the security aspects of Intel® Open FPGA Stack and refer to [BMC User Guide] for Flash partition.
 
 The following table provides further detail on the generated bin files.
 
@@ -799,7 +740,7 @@ The following table provides further detail on the generated bin files.
 | d5005.sof | This is the Quartus generated programming file created by Quartus synthesis and place and route. This file can be used to program the FPGA using a <span title='Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.'>**JTAG** </span> programmer. This file is the source file for the binary files used to program the FPGA flash. |
 | d5005.bin |  This is an intermediate raw binary image of the FPGA  |
 | d5005_page1.bin | This is the binary file created from the input file, d5005.sof. This file is used as the input file to the PACSign utility to generate **d5005_page1_unsigned.bin** binary image file. |
-| d5005_page1_unsigned.bin | This is the unsigned PACSign output which can be programmed into the FPGA flash of an unsigned D5005 using the <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK utility **fpgasupdate**  |
+| d5005_page1_unsigned.bin | This is the unsigned PACSign output which can be programmed into the FPGA flash of an unsigned Intel® FPGA PAC D5005 using the OPAE SDK utility **fpgasupdate** |
 | mfg_d5005_reversed.bin | A particular programming file for a third-party device used in board manufacturing. This file is typically not used.|
 
 
@@ -808,31 +749,31 @@ build/output_files/timing_report == Directory containing clocks report, failing 
 
 ### 2.1.3. Relocatable PR Directory Tree
 <a name="RelocatablePRDirectoryTree"></a>
-If you are developing <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> to be used by another team developing the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> workload, scripts are provided that create a relocatable <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> directory tree. ODM and board developers will use this capability to enable a broad set of <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> to be loaded on a board using <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span>. The relocatable <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> directory contains the Quartus *.qdb file that goes the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span>.
+If you are developing FIM to be used by another team developing the AFU workload, scripts are provided that create a relocatable PR  directory tree. ODM and board developers will use this capability to enable a broad set of AFU to be loaded on a board using PR . The relocatable PR  directory contains the Quartus *.qdb file that goes the FIM.
 
-Creating the relocatable <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> directory tree requires a clone of the Intel® Basic Building Blocks (BBB) repository. The OFS_PLATFORM_AFU_BBB environment variable must point to the repository, for example.
+Creating the relocatable PR  directory tree requires a clone of the Intel® Basic Building Blocks (BBB) repository. The OFS_PLATFORM_AFU_BBB environment variable must point to the repository, for example.
 
 ```sh
 cd $OFS_BUILD_ROOT
 ```
 ```sh
-git clone https://github.com/OPAE/ofs-platform-afu-bbb.git
+git clone https://github.com/OFS/ofs-platform-afu-bbb.git
 ```
 ```sh
 cd $OFS_ROOTDIR
 ```
 
-You can create this relocatable <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> directory tree by either:
+You can create this relocatable PR  directory tree by either:
 
-* Build <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> and AFU using ofs-common/scripts/common/syn/build_top.sh followed by running /syn/common/scripts/generate_pr_release.sh (section 2.1.3. Relocatable PR Directory Tree)
-* Build <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> and AFU using ofs-common/scripts/common/syn/build_top.sh with optional -p switch included
+* Build FIM and AFU using ofs-common/scripts/common/syn/build_top.sh followed by running /syn/common/scripts/generate_pr_release.sh (section 2.1.3. Relocatable PR Directory Tree)
+* Build FIM and AFU using ofs-common/scripts/common/syn/build_top.sh with optional -p switch included
 
 The generate_pr_release.sh has the following command structure:
 
 ```
 ofs-common/scripts/common/syn/generate_pr_release.sh -t <path to generated release tree> *Board Build Target* <work dir from build_top.sh>
 Where:
--t <path to generated release tree> = location for your relocatable <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> directory tree
+-t <path to generated release tree> = location for your relocatable PR  directory tree
 *Board Build Target* is the name of the board target/FIM e.g. d5005
 <work dir from build_top.sh> 
 ```
@@ -898,34 +839,34 @@ sudo fpgainfo fme
 > **_Console Output:_**  
 >```sh
 >
->Board Management Controller, MAX10 NIOS FW version: 2.0.13 
->Board Management Controller, MAX10 Build version: 2.0.8 
+>Board Management Controller, MAX10 NIOS FW version: 2.0.13
+>Board Management Controller, MAX10 Build version: 2.0.13
 >//****** FME ******//
 >Object Id                        : 0xF000000
 >PCIe s:b:d.f                     : 0000:3B:00.0
 >Device Id                        : 0xBCCE
 >Socket Id                        : 0x00
 >Ports Num                        : 01
->Bitstream Id                     : 0x40100027E4DC70B
+>Bitstream Id                     : 288511861987640872
 >Bitstream Version                : 4.0.1
->Pr Interface Id                  : 5395a7b9-52b3-5ba4-9cd5-f51b0c10bfa0
+>Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
 >Boot Page                        : user
 >```
 > 
 
 
-#### 2.1.4.1. Load FIM into the Flash of the Intel FPGA PAC D5005
+#### 2.1.4.1. Load FIM into the Flash of the Intel® FPGA PAC D5005
 <a name="LoadtheFIM"></a>
-The base <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> used in <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> compilation must be loaded on the board. In this step, you will load the generated <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> binary into the D5005 FPGA flash. By performing this step, subsequent <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> developed in this guide will use this base <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> and allow your newly created <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> to match the base <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> loaded on the board.
+The base FIM used in AFU compilation must be loaded on the board. In this step, you will load the generated FIM binary into the Intel® FPGA PAC D5005 FPGA flash. By performing this step, subsequent AFU developed in this guide will use this base FIM and allow your newly created AFU to match the base FIM loaded on the board.
 
-More information related to fpgaupdate is located [here](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md#531-fpgasupdate).
+More information related to fpgaupdate is located [OFS Getting Started User Guide].
 
-Run fpgasupdate to load the image into the user location of the Intel® FPGA PAC D5005 FPGA flash and the <span title='Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC Card D5005 device that triggers a power cycle of the card only, forcing reconfiguration.'>**RSU** </span> command to reboot the PCIE Card:
+Run fpgasupdate to load the image into the user location of the Intel® FPGA PAC D5005 FPGA flash and the <span title='Remote System Update, A Remote System Update operation sends an instruction to the Intel® FPGA PAC D5005 that triggers a power cycle of the card only, forcing reconfiguration.'>**RSU** </span> command to reboot the PCIE Card:
 
 ```sh
 sudo fpgasupdate $OFS_ROOTDIR/work_d5005/syn/syn_top/output_files/d5005_page1_unsigned.bin 3b:00.0
 ```
-Run rsu command to re-configure FPGA on D5005.
+Run rsu command to re-configure FPGA on Intel® FPGA PAC D5005.
 ```sh
 sudo rsu bmcimg 3b:00.0
 ```
@@ -938,14 +879,14 @@ sudo fpgainfo fme
 >```sh
 >
 >Board Management Controller, MAX10 NIOS FW version: 2.0.13
->Board Management Controller, MAX10 Build version: 2.0.8
+>Board Management Controller, MAX10 Build version: 2.0.13
 >//****** FME ******//
 >Object Id                        : 0xF000000
 >PCIe s:b:d.f                     : 0000:3b:00.0
 >Device Id                        : 0xBCCE
 >Socket Id                        : 0x00
 >Ports Num                        : 01
->Bitstream Id                     : 0x401000287428628
+>Bitstream Id                     : 288511861987640872
 >Bitstream Version                : 4.0.1
 >Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
 >Boot Page                        : user
@@ -954,10 +895,10 @@ sudo fpgainfo fme
 
 # 3.0 OPAE Software Development Kit
 <a name="OPAESWDevKit"></a>
-The <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK software stack sits in user space on top of the Intel® <span title='Open FPGA Stack,A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.'>**OFS** </span> kernel drivers. It is a common software infrastructure layer that simplifies and streamlines the integration of programmable accelerators such as FPGAs into software applications and environments. <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and re-configure programmable accelerators. <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> is designed to support a layered, common programming model across different platforms and devices. To learn more about <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span>, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [OPAE.io](https://opae.github.io/2.1.0/docs/fpga_tools/opae.io/opae.io.html) page.
+The OPAE SDK software stack sits in user space on top of the Intel® OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines the integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and re-configure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [OPAE.io] page.
 
-The <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK source code is contained within a single GitHub repository
-hosted at the [OPAE Github](https://github.com/OPAE/opae-sdk/tree/release/2.0.11). This repository is open source and should not require any permissions to access.
+The OPAE SDK source code is contained within a single GitHub repository
+hosted at the [OPAE GitHub]. This repository is open source and should not require any permissions to access.
 
 
 
@@ -966,7 +907,7 @@ hosted at the [OPAE Github](https://github.com/OPAE/opae-sdk/tree/release/2.0.11
 
 This installation process assumes the user has access to an internet connection to pull specific GitHub repositories and satisfy package dependencies. If an offline install process is required, please reach out to your Intel® representative.
 
-**1.** Before <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK installation, the user must remove any prior <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> frameworks. To remove these packages:
+**1.** Before OPAE SDK installation, the user must remove any prior OPAE frameworks. To remove these packages:
 
 ```sh
 sudo dnf remove opae*
@@ -996,7 +937,7 @@ All steps in this installation will use a generic top-level directory at `$OFS_B
 
 ### 3.2 Install OPAE SDK
 <a name="OPAESWDevKitInstall"></a>
-Perform the following steps to install <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK:
+Perform the following steps to install OPAE SDK:
 
 ```sh
 cd $OFS_BUILD_ROOT
@@ -1021,7 +962,7 @@ git branch
 
 ### 3.3 Building and Installing the OPAE SDK
 <a name="OPAESWDevKitBuilding"></a>
-**1.** Build the <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal. This build script can use multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the -j option. Note that the number of threads can exceed the number of processors. In this case, the number of threads is set to the number of processors in the system.
+**1.** Build the OPAE SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal. This build script can use multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the -j option. Note that the number of threads can exceed the number of processors. In this case, the number of threads is set to the number of processors in the system.
 
 ```sh
 cd $OFS_BUILD_ROOT/opae-sdk
@@ -1032,7 +973,7 @@ make -j `nproc`
 make -j `nproc` package_rpm
 ```
 
-The `install-opae-sdk` directory location was selected for ease of use. If the user wishes to build the <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK in a different location, they will need to replace the '..' in the above command with the direct or relative path to the opae-sdk repository.
+The `install-opae-sdk` directory location was selected for ease of use. If the user wishes to build the OPAE SDK in a different location, they will need to replace the '..' in the above command with the direct or relative path to the opae-sdk repository.
 
 **2.** After a successful compile, there should be eight packages present:
 
@@ -1050,7 +991,7 @@ opae-tools-2.3.0-1.x86_64.rpm
 opae-tools-extra-2.3.0-1.x86_64.rpm
 ```
 
-**3.** Install the <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK packages:
+**3.** Install the OPAE SDK packages:
 
 ```sh
 cd $OFS_BUILD_ROOT/opae-sdk/install-opae-sdk
@@ -1087,10 +1028,10 @@ export PYTHONPATH=$PWD
 # 4. Compiling An AFU
 <a name="CompilingAnAFU"></a>
 
-This section will use the <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> build tree created in the previous steps to compile an example <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>. This section will continue the work with the `host_chan_mmio` <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>.. You can perform the build steps listed below to demonstrate the ease in building and running a real example on the Intel® D5005.
+This section will use the FIM build tree created in the previous steps to compile an example AFU. This section will continue the work with the `host_chan_mmio` AFU.. You can perform the build steps listed below to demonstrate the ease in building and running a real example on the Intel® FPGA PAC D5005.
 
-To run the steps in this section, you must complete all steps in section [2. Set Up AFU Development Environment](#2-set-up-afu-development-environment), and ensure the `OPAE_PLATFORM_ROOT` "environment variable that points to the directory of the <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> build tree generated previusly. .
- 
+To run the steps in this section, you must complete all steps in section [2. Set Up AFU Development Environment](#2-set-up-afu-development-environment), and ensure the `OPAE_PLATFORM_ROOT` "environment variable that points to the directory of the PR  build tree generated previously. 
+
 Ensure your bashrc file ~/.bashrc have the following line:
 ```sh
 export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_d5005/build_tree
@@ -1099,7 +1040,7 @@ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_d5005/build_tree
 ## 4.1. Set AFU Synthesis Environment
 <a name="SetAFUSynthesisEnvironment"></a>
 
-Here, you will create the synthesis environment to build the `host_chan_mmio` example. The <span title='Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.'>**PIM** </span> flow includes the synthesis environment creation script `afu_synth_setup` for this task. The usage of afu_synth_setup is shown below:
+Here, you will create the synthesis environment to build the `host_chan_mmio` example. The PIM flow includes the synthesis environment creation script `afu_synth_setup` for this task. The usage of afu_synth_setup is shown below:
 
 ```
 usage: afu_synth_setup [-h] -s SOURCES [-p PLATFORM] [-l LIB] [-f] dst
@@ -1122,9 +1063,9 @@ optional arguments:
                         specified, the environment variables OPAE_FPGA_HW_LIB
                         and then BBS_LIB_PATH are checked.
   -f, --force           Overwrite target directory if it exists.
-  ```
+```
 
-Execute `afu_synth_setup` "as follows to create the synthesis environment for a `host_chan_mmio` "<span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> that fits the d5005 <span title='FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.'>**FIM** </span> previously constructed.
+Execute `afu_synth_setup` "as follows to create the synthesis environment for a `host_chan_mmio` "AFU that fits the Intel® FPGA PAC D5005 FIM previously constructed.
 
 ```sh
 cd $OFS_ROOTDIR/work_d5005/
@@ -1132,7 +1073,7 @@ afu_synth_setup -s $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/hw/rtl/tes
 ```
 
 
-Now, execute the `afu_synth` command that resides inside the `$OFS_ROOTDIR/work_d5005/build_tree/bin` directory, to actually build the `host_chan_mmio` <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>.
+Now, execute the `afu_synth` command that resides inside the `$OFS_ROOTDIR/work_d5005/build_tree/bin` directory, to actually build the `host_chan_mmio` AFU.
 
 ```sh
 cd $OFS_ROOTDIR/work_d5005/build_d5005_x16
@@ -1149,7 +1090,7 @@ Wrote host_chan_mmio.gbs
 
 ### 4.1.1. Loading and Running the **host_chan_mmio** example AFU
 <a name="LoadingandRunningthehost_chan_mmioexampleAFU"></a>
-Once the compilation completes successfully, load the new bitstream file, `host_chan_mmio.gbs`, into the partial reconfiguration region of the target Intel® D5005 board. Keep in mind, that the loaded image is dynamic - this image is not stored in flash, and if the card is power cycled, then the <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span> region is re-loaded with the default <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>.
+Once the compilation completes successfully, load the new bitstream file, `host_chan_mmio.gbs`, into the partial reconfiguration region of the target Intel® FPGA PAC D5005. Keep in mind, that the loaded image is dynamic - this image is not stored in flash, and if the card is power cycled, then the PR  region is re-loaded with the default AFU.
 
 To load the image, perform the following steps:
 
@@ -1163,9 +1104,9 @@ Partial Reconfiguration OK
 [INFO    ] Total time: 0:00:01.88
 ```
 
-Determine the BDF of the Intel FPGA PAC D5005.
+Determine the BDF of the Intel® FPGA PAC D5005.
 
-The PCIe BDF address is initially determined when the server powers on. The user can determine the addresses of all Intel FPGA PAC D5005 using lspci:
+The PCIe BDF address is initially determined when the server powers on. The user can determine the addresses of all Intel® FPGA PAC D5005 using lspci:
 
 ```sh
 lspci -d :bcce
@@ -1215,7 +1156,7 @@ Assigning /dev/vfio/144 to <local user>
 Changing permissions for /dev/vfio/144 to rw-rw----
 ```
 
-4. Verify the new <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> is loaded.  The host_chan_mmio <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> GUID is 76d7ae9c-f66b-461f-816a-5428bcebdbc5.
+4. Verify the new AFU is loaded.  The host_chan_mmio AFU GUID is 76d7ae9c-f66b-461f-816a-5428bcebdbc5.
 
 ```sh
 $ fpgainfo port
@@ -1257,9 +1198,9 @@ Accelerator GUID                 : 56e203e9-864f-49a7-b94b-12284c31e02b
 
 ```
 
-Run the host_chan_mmio software application to demonstrate the newly loaded <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> image. You navigate to $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/sw and compile the software application and then run.
+Run the host_chan_mmio software application to demonstrate the newly loaded AFU image. You navigate to $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/sw and compile the software application and then run.
 
-If <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK libraries were not installed in the default systems directory `/usr/lib64/` ", define the OPAE_LOC environment variable to point to the directory where the <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK libraries were installed.
+If OPAE SDK libraries were not installed in the default systems directory `/usr/lib64/` ", define the OPAE_LOC environment variable to point to the directory where the OPAE SDK libraries were installed.
 
 ```sh
 $ export OPAE_LOC=/usr
@@ -1298,7 +1239,7 @@ make
 ### 4.1.2. Loading and running the **hello_world** example AFU
 <a name="loadingandrunningthehello_worldexampleAFU"></a>
 
-The platform-independent BBB repository, [intel-fpga-bbb](https://github.com/OPAE/intel-fpga-bbb.git), also provides some interesting [example AFUs](https://github.com/OFS/examples-afu.git). In this section, you will compile and execute the PIM based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
+The platform-independent BBB repository, [intel-fpga-bbb](https://github.com/OFS/intel-fpga-bbb.git), also provides some interesting [example AFUs](https://github.com/OFS/examples-afu.git). In this section, you will compile and execute the PIM-based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory-mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
 
 The ```hello_world``` example AFU consists of the following files. 
 
@@ -1332,7 +1273,7 @@ The following instructions can be used to compile other AFU samples accompanying
 
 ```bash
    cd $OFS_BUILD_ROOT 
-   git clone https://github.com/OPAE/intel-fpga-bbb.git
+   git clone https://github.com/OFS/intel-fpga-bbb.git
    git clone https://github.com/OFS/examples-afu.git
 ```
 
@@ -1395,7 +1336,7 @@ Wrote hello_world.gbs
 
 ```
 
-5. To test the AFU in actual hardware, load the ```hello_world.gbs``` to the D5005 card. For this step to be successful, the D5005 FIM must have already been loaded to the D5005 card following the steps described in Section 2 of this document.
+5. To test the AFU in actual hardware, load the ```hello_world.gbs``` to the Intel® FPGA PAC D5005 card. For this step to be successful, the Intel® FPGA PAC D5005 FIM must have already been loaded to the Intel® FPGA PAC D5005 card following the steps described in Section 2 of this document.
 
 ```bash
   $ cd $OFS_ROOTDIR/work_d5005/hello_world_synth
@@ -1407,7 +1348,7 @@ Partial Reconfiguration OK
 [2022-12-06 13:25:12.06] [INFO    ] Total time: 0:00:01.83
 ```
 
-Set up your D5005 board to work with the newly loaded ```hello_world.gbs``` file.
+Set up your Intel® FPGA PAC D5005 board to work with the newly loaded ```hello_world.gbs``` file.
 
 ```bash
 #  Create the Virtual Functions (VFs):
@@ -1562,7 +1503,7 @@ During the compilation phase, you will observe the Timing Analyzer uses the spec
 
 
 ![Figure Timing Analyzer](images/usrclk_timing.PNG)
- 
+
 
 AFU developers must ensure the AFU hardware design meets timing. The compilation of an AFU that fails timing shows a message similar to the following.
 
@@ -1635,9 +1576,9 @@ In this section you will set up your server to support ASE by independently down
 ### 5.1.1. Install OPAE SDK
 <a name="511-install-opae-sdk"></a>
 
-Follow the instructions documented in the Getting Started Guide: Intel® Open FPGA Stack for Intel FPGA PAC D5005, section [5.0 OPAE Software Development Kit](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md#50-opae-software-development-kit) to build and install the required OPAE SDK for the D5005 PAC card.
+Follow the instructions documented in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005, section [5.0 OPAE Software Development Kit] to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card.
 
-The D5005 PAC card requires **opae-2.3.0-1**. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel FPGA PAC D5005 section [5.0 OPAE Software Development Kit](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md#50-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.3.0-1** and branch **release/2.3.0**.
+The Intel® FPGA PAC D5005 PAC card requires **opae-2.3.0-1**. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005 section [5.0 OPAE Software Development Kit]. However, just make sure to check out the cloned repository to tag **2.3.0-1** and branch **release/2.3.0**.
 
 ```bash
 git checkout tags/2.3.0-1 -b release/2.3.0
@@ -1658,13 +1599,13 @@ ASE must be installed separatedly from the OPAE-SDK. However, the recommendation
 ```bash
 
   $ cd $OFS_BUILD_ROOT
-  $ git clone https://github.com/OPAE/opae-sim.git
+  $ git clone https://github.com/OFS/opae-sim.git
   $ cd opae-sim  
 ```
 2. Building ASE requires the include file ```mock/opae_std.h```. If the OPAE-SDK was installed under the default system directories, the **C_INCLUDE_PATH** variable must be set as follows. 
 
 ```bash
-export C_INCLUDE_PATH="/usr/src/debug/opae-2.3.0-1.el8.x86_64/tests/framework"
+export C_INCLUDE_PATH="/usr/src/debug/opae-${{ env.D5005_OPAE_VER }.el8.x86_64/tests/framework"
 ```
 
 3. Create a build directory and build ASE to be installed under the default system directories along with OPAE SDK.
@@ -1899,13 +1840,13 @@ Right click on the ```afu (afu)``` entry to display the drop-down menu. Then, cl
 ### 5.3 Simulating the **hello_world** AFU
 <a name = "53-simulating-the-helloworld-afu"></a> 
 
-In this section you will quickly simulate the PIM-based ```hello_world``` sample AFU accompanying the example_afu repository.
-  
+In this section, you will quickly simulate the PIM-based ```hello_world``` sample AFU accompanying the example_afu repository.
+
 1. Set the environment variables as described in section [5.1. Set Up Steps to Run ASE](#51-set-up-steps-to-run-ase).
 
 2. Prepare an RTL simulation environment for the AXI version of the ```hello_world``` AFU.
   
-    Simulation with ASE requires two software processes, one to simulate the AFU RTL and the other to run the host software that excercises the AFU. To construct an RTL simulation environment under the directory ```$OFS_ROOTDIR/work_d5005```, execute the following.
+    Simulation with ASE requires two software processes, one to simulate the AFU RTL and the other to run the host software that exercises the AFU. To construct an RTL simulation environment under the directory ```$OFS_ROOTDIR/work_d5005```, execute the following.
 
     ```bash
       $ cd $OFS_ROOTDIR/work_d5005
@@ -1918,7 +1859,7 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
     #               AFU Simulation Environment (ASE)                #
     #                                                               #
     #################################################################
-
+    
     Tool Brand: VCS
     Loading platform database: /home/<Your username>/<Your localpath>/ofs-d5005/work_d5005/build_tree/hw/lib/platform/platform_db/ofs_d5005.json
     Loading platform-params database: /usr/share/opae/platform/platform_db/platform_defaults.json
@@ -1929,7 +1870,7 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
     Writing rtl/ase_platform_name.txt
     Writing rtl/ase_platform_config.mk and rtl/ase_platform_config.cmake
     ASE Platform: discrete (FPGA_PLATFORM_DISCRETE)
-
+    
     ```
 
     The ```afu_sim_setup``` script constructs an ASE environment in the ```hello_world_sim``` subdirectory. If the command fails, confirm that the path to the afu_sim_setup is on your PATH environment variable (in the OPAE SDK bin directory) and that your Python version is at least 3.7.
@@ -1950,7 +1891,7 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
 
   ```bash
   export ASE_WORKDIR=$OFS_ROOTDIR/work_d5005/hello_world_sim/work
-  ```     
+  ```
   6. Then, move to the **sw** directory of the ```hello_world``` AFU sample to build the host software.
 
   ```bash      
@@ -1971,7 +1912,7 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
   ```
 
    The image below shows the simulation of the AFU hardware and the execution of the host application side-by-side.
-  
+
   </br>
 
    ![](./images/ASE_Run_hello_world.png)
@@ -1984,7 +1925,7 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
      make wave
   ```
 
-  This brings up the DVE GUI and loads the simulation waveform files. Use the Hierarchy window to navigate to the **afu** instance located under, ```ase_top | ase_top_plat | ofs_plat_afu```, as shown below.
+  This brings up the DVE GUI and loads the simulation waveform files. Use the Hierarchy window to navigate to the AFU instance located under, ```ase_top | ase_top_plat | ofs_plat_afu```, as shown below.
 
   ![](./images/ASE_VCS_hier_hello_world.png)
 
@@ -1998,18 +1939,18 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
 
 <a name="afu_signaltap"></a>
 
-The <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK provides a remote Signal Tap facility. It also supports the following in system debug tools included with the Intel®  Intel® Quartus® Prime Pro Edition:
+The OPAE SDK provides a remote Signal Tap facility. It also supports the following in system debug tools included with the Intel®  Intel® Quartus® Prime Pro Edition:
 
 - In-system Sources and Probes
 - In-system Memory Content Editor
 - Signal Probe
 - System Console
 
-This section is a short guide on adding remote Signal Tap instances to an <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> for in-system debugging. In order of execution, you can follow the steps in the following sections to create an instrumented <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>. The host_chan_mmio <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> is used in this guide as the target <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> to be instrumented.
+This section is a short guide on adding remote Signal Tap instances to an AFU for in-system debugging. In order of execution, you can follow the steps in the following sections to create an instrumented AFU. The host_chan_mmio AFU is used in this guide as the target AFU to be instrumented.
 
 You need a basic understanding of Signal Tap. Please see the [Signal Tap Logic Analyzer: Introduction & Getting Started](https://www.intel.com/content/www/us/en/programmable/support/training/course/odsw1164.html) Web-Based Training for more information.
 
-You will run with a Signal Tap GUI running locally on the server with the Intel FPGA PAC D5005 as shown below:
+You will run with a Signal Tap GUI running locally on the server with the Intel® FPGA PAC D5005 as shown below:
 
 ![](./images/RSTP_local.png)
 
@@ -2017,25 +1958,25 @@ You will run with a Signal Tap GUI running locally on the server with the Intel 
 
 ## 6.1. Adding RSTP to the host_chan_mmio AFU
 <a name="afu_signaltaphost_chan_mmio"></a>
-RSTP is added to an <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> by:
+RSTP is added to an AFU by:
 
 1. Defining signals to be instrumented in Signal Tap. Create a new *.stp file.
 2. Modify ofs_top.qpf to include the new *.stp file
 3. Modify ofs_top.qsf
 4. Modify ofs_pr_afu.qsf 
 5. Re-run afu_synth_setup to update project settings
-6. Re-run $OPAE_PLATFORM_ROOT/bin/afu_synth to build the <span title='Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. '>**PR** </span>-able image containing the RSTP instance
+6. Re-run $OPAE_PLATFORM_ROOT/bin/afu_synth to build the PR -able image containing the RSTP instance
 
-The following steps use the previously built host_chan_mmio <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> example. You can use these detailed steps to instrument your <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span>.
+The following steps use the previously built host_chan_mmio AFU example. You can use these detailed steps to instrument your AFU.
 
-1. Navigate to host_chan_mmio <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> Quartus project and open the project using Quartus GUI.
+1. Navigate to host_chan_mmio AFU Quartus project and open the project using Quartus GUI.
 
    ```
     cd $OFS_ROOTDIR/work_d5005/build_d5005_x16/build/syn/syn_top
     $ quartus d5005.qpf &
    ```
 
-2. Once the project is loaded in Quartus, review the project hierarchy as shown in the Project Navigator. This example will add Signal Tap probe points to the <span title=' Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region'>**AFU** </span> region. Reviewing the code will give insight into the function of this block. You can up the code in the Project Navigator by expanding afu_top - port_gasket - pr_slot - afu_main - ofs_plat_afu, then select instance afu, right-click, select Locate Node - Locate in Design File as shown below.
+2. Once the project is loaded in Quartus, review the project hierarchy as shown in the Project Navigator. This example will add Signal Tap probe points to the AFU region. Reviewing the code will give insight into the function of this block. You can up the code in the Project Navigator by expanding afu_top - port_gasket - pr_slot - afu_main - ofs_plat_afu, then select instance afu, right-click, select Locate Node - Locate in Design File as shown below.
 
    ![](./images/stp_proj_nav.PNG)
 
@@ -2063,7 +2004,7 @@ iofs_top|afu_top|port_gasket|pr_slot|afu_main|ofs_plat_afu|afu
     Then click `Insert` and `Close`.
 
 10. Save the newly created STP by clicking `File - Save As` in the save as navigate to $OFS_ROOTDIR/work_d5005/build_d5005_x16/build/syn/syn_top and save the STP file as `host_chan_mmio.stp` as shown below:
-   ![](./images/stp_save_stp.PNG)
+      ![](./images/stp_save_stp.PNG)
 11. Edit `ofs_top.qsf` to add host_chan_mmio.stp file and enable STP.  Open $OFS_ROOTDIR/work_d5005/build_d5005_x16/build/syn/syn_top/d5005.qpf in an editor and modify lines as shown below:
 
 ```sh
@@ -2119,7 +2060,7 @@ Partial Reconfiguration OK
 [INFO    ] Total time: 0:00:01.87
 ```
 
-15. Use the <span title='Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.'>**OPAE** </span> SDK mmlink tool to create a TCP/IP connection to your Intel® Stratix 10® card under test. The mmlink command has the following format:
+15. Use the OPAE SDK mmlink tool to create a TCP/IP connection to your Intel® Stratix 10® FPGA card under test. The mmlink command has the following format:
 
 ```
 
@@ -2160,7 +2101,7 @@ Server socket is listening on port: 3333
 
 Leave this shell open with the mmlink connection.
 
-16. In this step, you will open a new shell and enable <span title='Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.'>**JTAG** </span> over protocol. You must have Quartus  22.3 Programmer loaded on the Intel FPGA PAC D5005 server for local debugging.
+16. In this step, you will open a new shell and enable JTAG over protocol. You must have Quartus Prime Pro ®  22.3 Programmer loaded on the Intel® FPGA PAC D5005 server for local debugging.
 
 ```sh
 $ jtagconfig --add JTAG-over-protocol sti://localhost:0/intel/remote-debug/127.0.0.1:3333/0
@@ -2181,7 +2122,7 @@ $ jtagconfig --debug
 ```
 
 17. Start Quartus Signal Tap GUI, connect to target, load stp file by navigating to 
-$OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/ . The Quartus Signal Tap must be the same version of Quartus used to compile the host_chan_mmio.gbs. Quartus  22.3 Pro is used in the steps below:
+$OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/ . The Quartus Signal Tap must be the same version of Quartus used to compile the host_chan_mmio.gbs. Quartus Prime Pro ®  22.3 Pro is used in the steps below:
 
 ```sh
 cd $OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/
@@ -2190,7 +2131,7 @@ quartus_stpw host_chan_mmio.stp
 
 This command brings up Signal Tap GUI. Connect to the Signal Tap over protocol by selecting the `Hardware` button on the right side of the GUI and clicking the "Please Select" pull-down as shown below:
 
-  ![](./images/ST_HW_Select.png)
+  ![](images/ST_HW_Select.png)
 
 <span title='Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.'>**JTAG** </span> over protocol selected:
 
@@ -2207,8 +2148,8 @@ See captured image below:
 
 To end your Signal Tap session, close the Signal Tap GUI, then in the mmlink shell, enter `ctrl c` to kill the mmlink process.
 
-
 ## Notices & Disclaimers
+
 Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
 No product or component can be absolutely secure. 
 Performance varies by use, configuration and other factors.
@@ -2218,5 +2159,45 @@ No license (express or implied, by estoppel or otherwise) to any intellectual pr
 The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
 Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.  
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.   
+[License quartus-0.0-0.01iofs-linux.run]: https://github.com/OFS/ofs-d5005/blob/release/1.0.x/license/quartus-0.0-0.01iofs-linux.run
+[OFS D5005 FIM Github Branch]: https://github.com/OFS/ofs-d5005
+[OFS FIM_COMMON Github Branch]: https://github.com/OFS/ofs-fim-common
+[OPAE SDK Branch]: https://github.com/OFS/opae-sdk/tree/2.3.0-1
+[OPAE SDK Tag]: https://github.com/OFS/opae-sdk/releases/tag/2.3.0-1
+[OPAE SDK SIM Branch]: https://github.com/OFS/opae-sim/tree/2.3.0-1
+[OPAE SDK SIM Tag]: https://github.com/OFS/opae-sim/releases/tag/2.3.0-1
+[Linux DFL]: https://github.com/OFS/linux-dfl
+[Kernel Driver Branch]: https://github.com/OFS/linux-dfl/tree/ofs-2022.3-2
+[Kernel Driver Tag]: https://github.com/OFS/linux-dfl/releases/tag/ofs-2022.3-2
+[OFS Release]: https://github.com/OFS/ofs-d5005/releases/
+[Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html
+
+[Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®]: https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/
+[Qualified Servers]: https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html
+[OFS Getting Started User Guide]: https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/
+[Open FPGA Stack Reference Manual - MMIO Regions section]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions
+[Device Feature Header (DFH) structure]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure
+[FPGA Device Feature List (DFL) Framework Overview]: https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview
+[ofs-platform-afu-bbb]: https://github.com/OPAE/ofs-platform-afu-bbb
+[Connecting an AFU to a Platform using PIM]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
+[OFS AFU Development Guide]: https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
+[PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial
+[Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial
+[Unit Level Simulation]: https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation
+[Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® FPGA]: https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md
+[BMC User Guide]: https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md
+[OPAE.io]: https://opae.github.io/latest/docs/fpga_tools/opae.io/opae.io.html
+[OPAE GitHub]: https://github.com/OFS/opae-sdk
+[5.0 OPAE Software Development Kit]: https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit
+[Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA]: https://github.com/OFS/otcshare/blob/main/hw/docs/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md
+[README_ofs_d5005_eval.txt]: https://github.com/OFS/ofs-d5005/blob/release/1.0.x/eval_scripts/README_ofs_d5005_eval.txt)
+[FIM MMIO Regions]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions
+
+[Open FPGA Stack Technical Reference Manual]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/
+
+[evaluation script]: https://github.com/OFS/ofs-d5005/tree/release/1.0.x/eval_scripts
+[OFS]: https://github.com/OFS
+[OFS GitHub page]: https://ofs.github.io
+[DFL Wiki]: https://github.com/OPAE/linux-dfl/wiki 
 
