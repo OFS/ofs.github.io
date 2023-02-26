@@ -1,0 +1,1476 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../pci_device/pci_device/">
+      
+      
+        <link rel="next" href="../../rsu/rsu/">
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.13">
+    
+    
+      
+        <title>opae.io - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.ffa9267a.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../../assets/stylesheets/palette.a0c5b2b5.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#opaeio" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              opae.io
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-tabs__link">
+        Stratix 10 OFS Hardware Docs
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../fpga_api/quick_start/readme/" class="md-tabs__link md-tabs__link--active">
+        OFS Software
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Stratix 10 OFS Hardware Docs
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix 10 OFS Hardware Docs
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Quick Start Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        FPGA Interface Manager Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_1" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1" id="__nav_3_1_label" tabindex="0">
+          OPAE USER GUIDES
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE USER GUIDES
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_api/quick_start/readme/" class="md-nav__link">
+        Quick Start Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../install_guide/installation_guide/" class="md-nav__link">
+        OPAE Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_api/prog_guide/readme/" class="md-nav__link">
+        OPAE C API Programming Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://opae.github.io/latest/docs/pyopae/README.html" class="md-nav__link">
+        OPAE Python Bindings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_api/plug_guide/readme/" class="md-nav__link">
+        OPAE Plugin Developers Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+          OPAE LIBRARIES
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_2">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE LIBRARIES
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://opae.github.io/latest/docs/fpga_api/fpga_api.html" class="md-nav__link">
+        OPAE C API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://opae.github.io/latest/docs/fpga_api/fpga_cxx_api.html" class="md-nav__link">
+        OPAE C++ Core API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://opae.github.io/latest/docs/fpga_api/fpga_python_api.html" class="md-nav__link">
+        OPAE Python API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_api/plug_guide/readme/" class="md-nav__link">
+        OPAE Plugin Developers Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_3" id="__nav_3_3_label" tabindex="0">
+          OPAE LINUX KERNEL DRIVERS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_3">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE LINUX KERNEL DRIVERS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../drv_arch/drv_arch/" class="md-nav__link">
+        Open Programmable Accelerator Engine (OPAE) Linux Device Driver Architecture
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          OPAE FPGA TOOLS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3_4">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA TOOLS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpgaconf/fpgaconf/" class="md-nav__link">
+        fpgaconf
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          opae.io
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        opae.io
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#synopsis" class="md-nav__link">
+    SYNOPSIS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    DESCRIPTION
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-mode" class="md-nav__link">
+    COMMAND LINE MODE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-mode" class="md-nav__link">
+    INTERACTIVE MODE
+  </a>
+  
+    <nav class="md-nav" aria-label="INTERACTIVE MODE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-functions" class="md-nav__link">
+    BUILT-IN FUNCTIONS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#built-in-objects" class="md-nav__link">
+    BUILT-IN OBJECTS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revision-history" class="md-nav__link">
+    Revision History
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hssi_ethernet/hssiloopback/" class="md-nav__link">
+        HSSI ethernet loopback
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpgadiag/" class="md-nav__link">
+        fpgadiag
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#synopsis" class="md-nav__link">
+    SYNOPSIS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#description" class="md-nav__link">
+    DESCRIPTION
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#command-line-mode" class="md-nav__link">
+    COMMAND LINE MODE
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-mode" class="md-nav__link">
+    INTERACTIVE MODE
+  </a>
+  
+    <nav class="md-nav" aria-label="INTERACTIVE MODE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#built-in-functions" class="md-nav__link">
+    BUILT-IN FUNCTIONS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#built-in-objects" class="md-nav__link">
+    BUILT-IN OBJECTS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#revision-history" class="md-nav__link">
+    Revision History
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="opaeio">opae.io</h1>
+<h2 id="synopsis">SYNOPSIS</h2>
+<p><code>opae.io ls [-v,--viddid VID:DID]</code><br>
+<code>opae.io init [-d PCI_ADDR USER[:GROUP]]</code><br>
+<code>opae.io release [-d PCI_ADDR]</code><br>
+<code>opae.io [-d PCI_ADDR] [-r REGION] walk OFFSET [-u,--show-uuid]</code><br>
+<code>opae.io [-d PCI_ADDR] [-r REGION] peek OFFSET</code><br>
+<code>opae.io [-d PCI_ADDR] [-r REGION] poke OFFSET VALUE</code><br>
+<code>opae.io [-d PCI_ADDR] [-r REGION] SCRIPT ARG1 ARG2 ... ARGN</code><br>
+<code>opae.io [-d PCI_ADDR] [-r REGION]</code></p>
+<h2 id="description">DESCRIPTION</h2>
+<p><code>opae.io</code> is an interactive Python environment packaged on top of
+<code>libopaevfio.so</code>, which provides user space access to PCIe devices
+via the vfio-pci driver. The main feature of opae.io is its built-in
+Python command interpreter, along with some Python bindings that provide
+a means to access Configuration and Status Registers (CSRs) that reside
+on the PCIe device.</p>
+<p><code>opae.io</code> has two operating modes: command line mode and interactive
+mode.</p>
+<h2 id="command-line-mode">COMMAND LINE MODE</h2>
+<p>To view the accelerator devices that are present on the system, <code>opae.io</code>
+provides the <code>ls</code> command option.</p>
+<p><code>opae.io ls [-v,--viddid VID:DID]</code></p>
+<p>Each accelerator device is listed along with the PCIe address, the
+PCIe vendor/device ID, a brief description of the device, and the
+driver to which the device is currently bound.</p>
+<p><code>opae.io</code> provide an option to initialize a PCIe device for use with
+the vfio-pci driver. In order for the device CSRs to be accessed from
+user space, the device must first be bound to the vfio-pci driver. This
+is the job of the <code>init</code> command option.</p>
+<p><code>opae.io init [-d PCI_ADDR USER:[GROUP]]</code></p>
+<p>The <code>init</code> command unbinds the specified device from its current
+driver and binds it to vfio-pci. This creates a new vfio group under
+/dev/vfio. This group path is then used by the <code>libopaevfio.so</code>
+library to interact with the device.</p>
+<p>To release the PCIe device from vfio-pci and return it to use with its
+previous driver, the <code>release</code> command option is used.</p>
+<p><code>opae.io release [-d PCI_ADDR]</code></p>
+<p>The <code>release</code> command option reverses the actions of the last
+<code>init</code> command, releasing the device from vfio-pci and binding
+it to the driver which was bound at the time the <code>init</code> command
+was issued.</p>
+<p>The <code>walk</code> command option traverses and displays the Device
+Feature List of the given region.</p>
+<p><code>opae.io walk [-d PCI_ADDR] [-r REGION] [OFFSET] [-u,--show-uuid]</code></p>
+<p>The various fields of each Device Feature Header are displayed. The
+<code>--show-uuid</code> option additionally displays the GUID for each feature.
+OFFSET can be used to specify the beginning of the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> in the <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>
+region.</p>
+<p>The <code>peek</code> command option reads and displays a CSR value.</p>
+<p><code>opae.io peek [-d PCI_ADDR] [-r REGION] OFFSET</code></p>
+<p>The <code>poke</code> command option writes a given value to a CSR.</p>
+<p><code>opae.io poke [-d PCI_ADDR] [-r REGION] OFFSET VALUE</code></p>
+<p><code>opae.io</code> can also execute Python scripts from the command line.
+These Python scripts may contain calls to the device built-in
+functions that are available during an interactive session. Refer
+to the description of interactive mode for details.</p>
+<p><code>opae.io [-d PCI_ADDR] [-r REGION] myscript.py a b c</code></p>
+<p>In order to enter the interactive mode of <code>opae.io</code>, simply
+invoke it and optionally pass the desired device address and
+<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region options.</p>
+<p><code>opae.io [-d PCI_ADDR] [-r REGION]</code></p>
+<h2 id="interactive-mode">INTERACTIVE MODE</h2>
+<p>Upon entering interactive mode, <code>opae.io</code> begins a Python
+interpreter session and displays the command prompt shown below:</p>
+<p>0000:3f:00.0[0]&gt;&gt;</p>
+<p>The first portion of the prompt shows the address of the active
+PCIe device, here 0000:3f:00.0. The part in square brackets shows
+the active <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region, here [0].</p>
+<p>The interpreter waits for a valid Python command, then attempts
+to execute the given command in the usual way. The only
+differences between the traditional Python command intepreter and
+<code>opae.io</code> are that opae.io provides 1) the notion of an active
+PCIe device and <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region and 2) several built-in functions and
+objects that allow manipulating the active device and <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region.</p>
+<h3 id="built-in-functions">BUILT-IN FUNCTIONS</h3>
+<p>The <code>opae.io</code> built-in functions assume an active device and
+<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region. Attempting to use the built-in functions without first
+opening a device and region will result in errors.</p>
+<p><code>peek(OFFSET)</code></p>
+<p>The <code>peek</code> built-in function reads and displays a CSR value from
+the active device and region, at the offset supplied by its argument.</p>
+<p>0000:3f:00.0[0]&gt;&gt; peek(0x28)<br>
+0xdeadbeef</p>
+<p><code>poke(OFFSET, VALUE)</code></p>
+<p>The <code>poke</code> built-in function writes the given VALUE to the current
+<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region at the given OFFSET.</p>
+<p>0000:3f:00.0[0]&gt;&gt; poke(0x28, 0xdeadbeef)</p>
+<p><code>read_csr(OFFSET)</code></p>
+<p>The <code>read_csr</code> built-in function returns the value of the CSR at
+the active <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region and the given OFFSET.</p>
+<p>0000:3f:00.0[0]&gt;&gt; print('0x{:0x}'.format(read_csr(0x28)))<br>
+0xdeadbeef</p>
+<p><code>write_csr(OFFSET, VALUE)</code></p>
+<p>The <code>write_csr</code> built-in function writes the given VALUE to
+the current <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region at the given OFFSET.</p>
+<p>0000:3f:00.0[0]&gt;&gt; write_csr(0x28, 0xdeadbeef)</p>
+<p><code>device(PCI_ADDR)</code></p>
+<p>The <code>device</code> built-in function allows changing the active
+PCIe device.</p>
+<p>0000:3f:00.0[0]&gt;&gt; device('0000:2b:00.0')<br>
+0000:2b:00.0&gt;&gt;</p>
+<p><code>region(REGION)</code></p>
+<p>The <code>region</code> built-in function allows changing the active
+<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region.</p>
+<p>0000:2b:00.0&gt;&gt; region(0)<br>
+0000:2b:00.0[0]&gt;&gt;</p>
+<p><code>allocate_buffer(SIZE)</code></p>
+<p>The <code>allocate_buffer</code> built-in function creates and returns
+a DMA buffer object. The underlying buffer will be SIZE bytes
+in length.</p>
+<p>0000:2b:00.0[0]&gt;&gt; b1 = allocate_buffer(4096)<br>
+0000:2b:00.0[0]&gt;&gt; print(b1.size, '0x{:0x}'.format(b1.address), b1.io_address)<br>
+4096 0x7f9361c66000 0</p>
+<p><code>version()</code></p>
+<p>The <code>version</code> built-in function returns a tuple containing
+the four components used to identify the opae.io version:</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(version())<br>
+('opae.io', 0, 2, 0)</p>
+<h3 id="built-in-objects">BUILT-IN OBJECTS</h3>
+<p><code>opae.io</code> interactive mode provides two global objects
+corresponding to the current device and that device's current
+<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region. These objects are referred to by global variables
+<code>the_device</code> and <code>the_region</code>, respectively.</p>
+<p>The <code>device</code> class:</p>
+<p>the_device.descriptor() : method that returns the integer file
+descriptor of the <code>VFIO container</code>.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(the_device.descriptor())<br>
+5</p>
+<p>the_device.<strong>repr</strong>() : method that is invoked when a <code>device</code>
+object is printed.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(the_device)<br>
+0000:2b:00.0</p>
+<p>the_device.allocate(SIZE) : method that allocates and returns a
+<code>system_buffer</code> object. The buffer will be mapped into the
+DMA space of <code>the_device</code>.</p>
+<p>0000:2b:00.0[0]&gt;&gt; b1 = the_device.allocate(4096)</p>
+<p>the_device.pci_address() : read-only property that returns the
+PCIe address of <code>the_device</code>.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(the_device.pci_address)<br>
+0000:2b:00.0</p>
+<p>the_device.num_regions : read-only property that returns the
+number of <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> regions in <code>the_device</code>.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(the_device.num_regions)<br>
+2</p>
+<p>the_device.regions : read-only property that returns a list
+of the active <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> regions of <code>the_device</code>:</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(the_device.regions)<br>
+[0, 2]</p>
+<p>The <code>region</code> class:</p>
+<p>the_region.write32(OFFSET, VALUE) : method that writes a
+32-bit VALUE to the CSR at OFFSET.</p>
+<p>the_region.read32(OFFSET) : method that returns a 32-bit
+CSR at the given OFFSET.</p>
+<p>0000:2b:00.0[0]&gt;&gt; the_region.write32(0x28, 0xdeadbeef)<br>
+0000:2b:00.0[0]&gt;&gt; print('0x{:0x}'.format(the_region.read32(0x28)))<br>
+0xdeadbeef</p>
+<p>the_region.write64(OFFSET, VALUE): method that writes a
+64-bit VALUE to the CSR at OFFSET.</p>
+<p>the_region.read64(OFFSET): method that returns a 64-bit
+CSR at the given OFFSET.</p>
+<p>0000:2b:00.0[0]&gt;&gt; the_region.write64(0x28, 0xbaddecaf)<br>
+0000:2b:00.0[0]&gt;&gt; print('0x{:0x}'.format(the_region.read64(0x28)))<br>
+0xbaddecaf</p>
+<p>the_region.index(): method that returns the <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> index
+of <code>the_region</code>.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(the_region.index())<br>
+0</p>
+<p>the_region.<strong>repr</strong>(): method that is invoked when a <code>region</code>
+object is printed.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(the_region)<br>
+0</p>
+<p>the_region.<strong>len</strong>(): method that is invoked to determine the
+<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region size.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(len(the_region))<br>
+524288</p>
+<p>The <code>allocate_buffer()</code> built-in function and the
+<code>device.allocate()</code> method return objects of type <code>system_buffer</code>.</p>
+<p>The <code>system_buffer</code> class is as follows:</p>
+<p><code>buf.size</code>: read-only property that gives the buffer size.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print(b1.size)<br>
+4096</p>
+<p><code>buf.address</code>: read-only property that gives the buffer's
+user mode virtual address.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print('0x{:0x}'.format(b1.address))<br>
+0x7f2c15d8200</p>
+<p><code>buf.io_address</code>: read-only property that gives the buffer's
+IO address.</p>
+<p>0000:2b:00.0[0]&gt;&gt; print('0x{:0x}'.format(b1.io_address))<br>
+0x0</p>
+<p><code>buf.__getitem__</code> and <code>buf.__setitem__</code>: indexing get/set
+of 64-bit data item.</p>
+<p>0000:2b:00.0[0]&gt;&gt; b1[0] = 0xdecafbad<br>
+0000:2b:00.0[0]&gt;&gt; print('0x{:0x}'.format(b1[0]))<br>
+0xdecafbad</p>
+<p><code>buf.read8(OFFSET)</code><br>
+<code>buf.read16(OFFSET)</code><br>
+<code>buf.read32(OFFSET)</code><br>
+<code>buf.read64(OFFSET)</code> : methods that read the given size
+data item from the given buffer OFFSET.</p>
+<p><code>buf.fill8(VALUE)</code><br>
+<code>buf.fill16(VALUE)</code><br>
+<code>buf.fill32(VALUE)</code><br>
+<code>buf.fill64(VALUE)</code> : methods that fill the buffer with
+the given VALUE, using the given size.</p>
+<p><code>b1.compare(b2)</code>: method that compares buffers.
+The method returns the index of the first byte that miscompares,
+or the length of b1.</p>
+<h2 id="revision-history">Revision History</h2>
+<table>
+<thead>
+<tr>
+<th>Document Version</th>
+<th>Intel Acceleration Stack Version</th>
+<th>Changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2021.01.25</td>
+<td>IOFS EA</td>
+<td>Initial release.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.2a6f1dda.min.js"></script>
+      
+    
+  </body>
+</html>
