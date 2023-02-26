@@ -108,7 +108,7 @@ This script uses on the following set of software tools which should be installe
 ## ofs-ofs-d5005-1.0.1
 ##  -> examples-afu
 ##  -> linux-dfl
-##  -> ofs-d5005
+##  -> fim-d5005
 ##  -> opae-sdk
 ##  -> opae-sim
 ##  -> ofs_d5005_eval.sh
@@ -134,7 +134,7 @@ The user must create the top-level source directory and then clone the OFS repos
 In the example above we have used ofs as the directory name
 
 
-### **Set-Up Proxy Server (lines 63-65)**
+### **Set-Up Proxy Server (lines 61-63)**
 
 Please enter the location of your proxy server to allow access to external internet to build software packages.
 
@@ -144,7 +144,7 @@ Note: Failing to add proxy server will prevent cloning of repositories and the u
     export https_proxy=<user_proxy>
     export no_proxy=<user_proxy>
 
-### **License Files (lines 68-70)**
+### **License Files (lines 66-68)**
 
 Please enter the the license file locations for the following tool variables
 
@@ -152,7 +152,7 @@ Please enter the the license file locations for the following tool variables
     export DW_LICENSE_FILE=<user_license>
     export SNPSLMD_LICENSE_FILE=<user_license>
 
-### **Tools Location (line 85)**
+### **Tools Location (line 82)**
 
 Set Location of Quartus, Synopsys and Questasim Tools
 
@@ -160,7 +160,7 @@ Set Location of Quartus, Synopsys and Questasim Tools
 
 In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools
 
-### **Quartus Tools Version (line 90)**
+### **Quartus Tools Version (line 87)**
 
 Set version of Quartus
 
@@ -168,7 +168,7 @@ Set version of Quartus
 
 In the example above "${{ env.5005_QUARTUS_PRIME_PRO_VER }}" is used as the Quartus tools version
 
-### **OPAE Tools (line 103)**
+### **OPAE Tools (line 100)**
 
 change OPAE SDK VERSION<br>
 
@@ -176,7 +176,7 @@ change OPAE SDK VERSION<br>
 
 In the example above "${{ env.5005_D5005_OPAE_VER }}" is used as the OPAE SDK tools version
 
-### **PCIe (Bus Number) (lines 228 and 235)**
+### **PCIe (Bus Number) (lines 223 and 230)**
 
 The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
 
@@ -216,7 +216,7 @@ The ofs_d5005_eval.sh script has now been modified to the server set-up and the 
 
 The evaluation script focuses on different evaluation areas.  Each of these menu options are described in the next section.  Note that some option selection numbers are not available currently.  As new features are added additional selections will be added.
 
-<!--The figure below shows a snapshot of the full evaluation script menu showing all 52 options and each one of 10 sub-menus which focus on different areas of evaluation. Each of these menu options are described in the next section.
+<!--The figure below shows a snapshot of the full evaluation script menu showing all 36 options and each one of 8 sub-menus which focus on different areas of evaluation. Each of these menu options are described in the next section.
 
 **Figure 3-1 ofs_d5005_eval.sh Evaluation Menu**
 
@@ -922,7 +922,7 @@ Builds the complete OFS flow, good for regression testing and overnight builds
 
 For this menu a user can run a sequence of tests (compilation, build and simulation) and executes them sequentially. After the script is successfully executed, a set of binary files is produced which a you can use to evaluate your hardware. Log files are also produced which checks whether the tests passed.
 
-<!--A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 36 from the main menu the script will execute 21 tests ie (main menu options 2, 9, 10, 11, 12, 13, 14, 15, 27, 29, 30, 32, 34, 35, 39, 45, 46, 47, 48, 49, and 50. These 21 menu option are chosen to build the complete OFS flow covering build, compile and simulation. -->
+<!--A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 36 from the main menu the script will execute 13 tests ie (main menu options 2, 9, 10, 11, 12, 13, 14, 15, 27, 29, 30, 32 and 35. These 13 menu options are chosen to build the complete OFS flow covering build, compile and simulation. -->
 
 You can run a sequence of tests and execute them sequentially.  In the example below when the user selects option 36 from the main menu script, the complete OFS flow covering build, compile and simulation will execute.
 
@@ -962,9 +962,9 @@ C= Menu Option in Script<br>
 Example 1<br>
 MULTI_TEST[36,0]=2
 
-A= 36 is the total number of options in the script
-B= 0 indicates that this is the first test to be run in the script
-C= Menu option in Script ie 2- List of Documentation for ADP d5005 Project
+A= 36 is the total number of options in the script<br>
+B= 0 indicates that this is the first test to be run in the script<br>
+C= Menu option in Script ie 2- List of Documentation for ADP d5005 Project<br>
 
 Example 2<br>
 MULTI_TEST[36,0]=2<br>
@@ -976,7 +976,7 @@ The user can also modify the build time by de-selecting options they do not wish
 
 <!--**Default User Case**
 
-A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 52 from the main menu the script will execute 21 tests ie (main menu options 2, 9, 10, 11, 12, 13, 14, 15, 27, 29, 30, 32, 34, 35, 39, 45, 46, 47, 48, 49, and 50. All other tests with an "X" indicates do not run that test.
+A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 36 from the main menu the script will execute 13 tests ie (main menu options 2, 9, 10, 11, 12, 13, 14, 15, 27, 29, 30, 32 and 35. All other tests with an "X" indicates do not run that test.
 
 ![adp-build-default](images/ofs_d5005_default_build.png)-->
 
@@ -991,7 +991,7 @@ In the example below when the user selects option 36 from the main menu the scri
 ## **4 Common Test Scenarios**
 <a name="d5005_common_tests"></a>
 
-This section will describe the most common compile build scenarios if a user wanted to evaluate an acceleration card on their server. The Pre-requisite column indicates the menu comamnds that must be run befere executing the test eg To run Test 5 then a user needs to have run option 10, 12 and 14 before running options 27, 28, 29, 30 and 31.
+This section will describe the most common compile build scenarios if a user wanted to evaluate an acceleration card on their server. The Pre-requisite column indicates the menu commands that must be run befere executing the test eg To run Test 5 then a user needs to have run option 10, 12 and 14 before running options 27, 28, 29, 30 and 31.
 
 <table>
     <thead>
