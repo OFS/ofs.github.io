@@ -1106,6 +1106,7 @@ You are responsible for safety of the overall system, including compliance with 
 [ofs-platform-afu-bbb]: https://github.com/OPAE/ofs-platform-afu-bbb
 [Connecting an AFU to a Platform using PIM]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
 [OFS AFU Development Guide]: https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
+[example AFUs](https://github.com/OFS/examples-afu.git)
 [PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial
 [Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial
 [Unit Level Simulation]: https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation
