@@ -296,7 +296,7 @@ The following is a summary of the steps to set up for AFU development:
 | ------------------------- | ---------- |
 |  Intel® Quartus® Prime Pro Edition   |  22.3  |
 | Operating System   | RHEL 8.2 |
-| OPAE SDK   |  [2.3.0-1](https://github.com/OPAE/opae-sdk/tree/2.3.0-1 )  |
+| OPAE SDK   |  [2.3.0-1](https://github.com/OFS/opae-sdk/tree/2.3.0-1 )  |
 | OFS Release | [ofs-d5005-1.0.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.1) |
 | Python    | 3.7.7 |
 | cmake     | 3.11.4 |
@@ -1239,7 +1239,7 @@ make
 ### 4.1.2. Loading and running the **hello_world** example AFU
 <a name="loadingandrunningthehello_worldexampleAFU"></a>
 
-The platform-independent BBB repository, [intel-fpga-bbb](https://github.com/OFS/intel-fpga-bbb.git), also provides some interesting [example AFUs](https://github.com/OFS/examples-afu.git). In this section, you will compile and execute the PIM-based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory-mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
+The platform-independent BBB repository, [ofs-platform-afu-bbb], also provides some interesting [example AFUs]. In this section, you will compile and execute the PIM-based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory-mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
 
 The ```hello_world``` example AFU consists of the following files. 
 
@@ -1273,7 +1273,7 @@ The following instructions can be used to compile other AFU samples accompanying
 
 ```bash
    cd $OFS_BUILD_ROOT 
-   git clone https://github.com/OFS/intel-fpga-bbb.git
+   git clone https://github.com/OPAE/intel-fpga-bbb.git
    git clone https://github.com/OFS/examples-afu.git
 ```
 
@@ -1599,7 +1599,7 @@ ASE must be installed separatedly from the OPAE-SDK. However, the recommendation
 ```bash
 
   $ cd $OFS_BUILD_ROOT
-  $ git clone https://github.com/OFS/opae-sim.git
+  $ git clone ${{ env.D5005_url_opae-sim }
   $ cd opae-sim  
 ```
 2. Building ASE requires the include file ```mock/opae_std.h```. If the OPAE-SDK was installed under the default system directories, the **C_INCLUDE_PATH** variable must be set as follows. 
@@ -2182,6 +2182,7 @@ You are responsible for safety of the overall system, including compliance with 
 [ofs-platform-afu-bbb]: https://github.com/OPAE/ofs-platform-afu-bbb
 [Connecting an AFU to a Platform using PIM]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
 [OFS AFU Development Guide]: https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
+[example AFUs](https://github.com/OFS/examples-afu.git)
 [PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial
 [Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial
 [Unit Level Simulation]: https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation
