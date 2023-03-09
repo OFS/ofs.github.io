@@ -136,10 +136,3 @@ This command will perform a read/write test with 1 MB strided access to channel 
 ```console
 mem_tg -loops 10000 --stride 0x100000 tg_test
 ```
-
-
-## Revision History ##
-
- | Document Version |  Intel Acceleration Stack Version  | Changes  |
- | ---------------- |------------------------------------|----------|
- | 2022.07.21 | 2.0.11  <br>(Supported with Intel Quartus Prime Pro Edition 22.1.) | Added description of the `mem_tg` command |

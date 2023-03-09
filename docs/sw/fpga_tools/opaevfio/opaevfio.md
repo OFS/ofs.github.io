@@ -62,9 +62,3 @@ for a description of vfio-pci.
 `opaevfio -v`<br>
 `sudo opaevfio -i -u lab -g labusers 0000:7f:00.0`<br>
 `sudo opaevfio -r 0000:7f:00.0`
-
-## Revision History ##
-
-Document Version | Intel Acceleration Stack Version | Changes
------------------|----------------------------------|--------
-2021.01.07 | IOFS EA | Initial release.

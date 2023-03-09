@@ -125,9 +125,3 @@ drivers.
     pci_device :0b30 aer mask all
     pci_device :0b30 aer mask -o mask.dat
     pci_device :0b30 aer mask -i mask.dat
-
-
-## Revision History ##
-    Document Version | Intel Acceleration Stack Version | Changes
-    -----------------|----------------------------------|--------
-    2021.01.13 | IOFS EA | Initial release.

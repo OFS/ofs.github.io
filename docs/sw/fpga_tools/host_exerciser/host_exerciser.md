@@ -193,9 +193,3 @@ This command exerciser Loopback afu on pcie 000:3b:00.0 and run continuous mode 
 ```console
 host_exerciser --pci-address 000:3b:00.0   -cls cl_1   -m 0 --continuousmode true --contmodetime 10 lpbk
 ```
-
-## Revision History ##
-
- | Document Version |  Intel Acceleration Stack Version  | Changes  |
- | ---------------- |------------------------------------|----------|
- | 2018.05.21 | 1.1 Beta. <br>(Supported with Intel Quartus Prime Pro Edition 17.1.) | Updated description of the `fme` command | 

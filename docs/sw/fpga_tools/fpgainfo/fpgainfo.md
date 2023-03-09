@@ -184,9 +184,3 @@ This command shows all events and sensors information including sensor bits:
 ```console
 ./fpgainfo events -asi
 ```
-
-## Revision History ##
-
- | Document Version |  Intel Acceleration Stack Version  | Changes  |
- | ---------------- |------------------------------------|----------|
- | 2018.05.21 | 1.1 Beta. <br>(Supported with Intel Quartus Prime Pro Edition 17.1.) | Updated description of the `fme` command | 

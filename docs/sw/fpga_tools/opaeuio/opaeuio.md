@@ -55,9 +55,3 @@ description of uio.
 `opaeuio -v`<br>
 `sudo opaeuio -i -u lab -g labusers dfl_dev.10`<br>
 `sudo opaeuio -r dfl_dev.10`
-
-## Revision History ##
-
-Document Version | Intel Acceleration Stack Version | Changes
------------------|----------------------------------|--------
-2021.01.07 | IOFS EA | Initial release.

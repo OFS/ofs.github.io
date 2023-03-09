@@ -119,8 +119,3 @@ Run an internal loopback until a timeout of 5 seconds is reached. The AFU is on 
 >sudo hssi_loopback -B 0x5e send 0 -t 5
 
 ```
-## Revision History ##
-
- | Document Version |  Intel Acceleration Stack Version  | Changes  |
- | ---------------- |------------------------------------|----------|
- | 2018.05.21 | 1.1 Beta. <br>(Supported with Intel Quartus Prime Pro Edition 17.1.) | Corrected typos.  | 
