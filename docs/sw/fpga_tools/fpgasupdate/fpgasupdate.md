@@ -42,10 +42,3 @@ To gather more debug output, decrease the `--log-level` parameter.
 `fpgasupdate firmware.bin`<br>
 `fpgasupdate firmware.bin 05:00.0`<br>
 `fpgasupdate firmware.bin 0001:04:02.0 --log-level=ioctl`
-
-## Revision History ##
-
- | Document Version |  Intel Acceleration Stack Version  | Changes  |
- | ---------------- |------------------------------------|----------|
- |2019.07.26 | 1.2.1 Beta | Initial release. |
- |2019.10.04 | 2.0.1 Beta <br> (Supported with Intel Quartus Prime Pro Edition 19.2.) | Editorial changes only. |

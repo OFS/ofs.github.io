@@ -61,11 +61,3 @@ You can use the single letter or the full parameter name for the command line ar
  `fpgabist -i 09c4 -b 5 <path to gbs>/dma_afu.gbs`
  
  Runs `fpgabist` the DMA test on the PCIe&reg;  Endpoint with `device_id` 09c4 on bus 5. 
-
-## Revision History ##
-
-| Date | Intel Acceleration Stack Version | Changes Made |
-|:------|----------------------------|:--------------|
-|2018.05.21| DCP 1.1 Beta (works with Quartus Prime Pro 17.1.1) | Made the following changes: <br>Expanded descriptions of `nlb_mode_3` and`dma_afu` tests. <br> Added a second example command. |
-
-

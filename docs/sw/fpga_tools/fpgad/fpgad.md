@@ -67,10 +67,3 @@ This command starts fpgad as a system daemon process:
 ```console
 sudo systemctl start fpgad
 ```
-
- ## Revision History ##
-    
- | Document Version |  Intel Acceleration Stack Version  | Changes  |
- | ---------------- |------------------------------------|----------|
- |2018.05.21 | 1.1 Beta. <br>(Supported with Intel Quartus Prime Pro Edition 17.1.1.) | No changes from previous release. |
- |2020.09.02 | 2.0                                                                                                        |

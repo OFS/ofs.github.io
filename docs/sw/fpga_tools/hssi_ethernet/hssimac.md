@@ -29,11 +29,3 @@ The ```hssimac```  tool provides Maximum TX and RX frame size.
 `hssimac --pcie-address  0000:04:00.0 --port 1`
 
   prints Maximum TX and RX frame size for port 1.
-
-
-
-## Revision History ##
-
-| Date | Intel Acceleration Stack Version | Changes Made |
-|:------|----------------------------|:--------------|
-|2018.05.21| DCP 1.1 Beta (works with Quartus Prime Pro 17.1.1) | Made the following changes: <br>Expanded descriptions of `nlb_mode_3` and`dma_afu` tests. <br> Added a second example command. |

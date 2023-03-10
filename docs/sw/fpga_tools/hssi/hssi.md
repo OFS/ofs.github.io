@@ -146,9 +146,3 @@ MODE_OPTIONS [pkt_filt_100g] - application options specific to the Packet Filter
 `hssi hssi_10g -h`<br>
 `sudo hssi --pci-address=0000:3b:00.0 hssi_10g --eth-loopback=on --num-packets=500`<br>
 `sudo hssi --pci-address=0000:3b:00.0 hssi_100g --pattern=increment`
-
-## Revision History ##
-
-Document Version | Intel Acceleration Stack Version | Changes
------------------|----------------------------------|--------
-2021.01.08 | IOFS EA | Initial release.

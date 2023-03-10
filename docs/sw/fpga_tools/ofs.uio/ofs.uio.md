@@ -168,10 +168,3 @@ MailboxDump(0x3c): 0x0
 
 
 ```
-
-
-## Revision History ##
-
-Document Version | Intel Acceleration Stack Version | Changes
------------------|----------------------------------|--------
-2021.01.25 | IOFS EA | Initial release.

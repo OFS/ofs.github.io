@@ -234,9 +234,3 @@ Specifies the path to a file containing the set of registers to test.
 
 Specifies the time spent in the `ack` routine. When measured, a summary of ack times prints 
 to stdout. This argument is optional.
-
-## Revision History ##
-
- | Document Version |  Intel Acceleration Stack Version  | Changes  |
- | ---------------- |------------------------------------|----------|
- | 2018.05.21 | 1.1 Beta. <br>(Supported with Intel Quartus Prime Pro Edition 17.1.) | Corrected typos.  | 

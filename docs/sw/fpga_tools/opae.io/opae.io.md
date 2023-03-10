@@ -304,9 +304,3 @@ the given VALUE, using the given size.
 `b1.compare(b2)`: method that compares buffers.
 The method returns the index of the first byte that miscompares,
 or the length of b1.
-
-## Revision History ##
-
-Document Version | Intel Acceleration Stack Version | Changes
------------------|----------------------------------|--------
-2021.01.25 | IOFS EA | Initial release.

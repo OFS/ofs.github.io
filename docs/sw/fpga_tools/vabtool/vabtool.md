@@ -52,9 +52,3 @@ hashes and helps perform SR and PR hash cancellation and status reporting.
 `sudo vabtool sr_cancel_status 0000:bc:00.0`<br>
 `sudo vabtool pr_key_cancel 0000:bc:00.0 my_pr_rhk_cancel.bin`<br>
 `sudo vabtool pr_cancel_status 0000:bc:00.0`
-
-## Revision History ##
-
-Document Version | Intel Acceleration Stack Version | Changes
------------------|----------------------------------|--------
-2022.10.31 | IOFS 2022.4 | Initial release.

@@ -68,15 +68,3 @@ Use the following form for the `eqread`command:
 For more information about reconfiguring transceiver analog parameter settings In Arria&reg; 10 devices, refer to "Changing PMA Analog
 Parameters" in the 
 [Intel&reg; Arria&reg; 10 Transceiver PHY User Guide](https://www.altera.com/content/dam/altera-www/global/en_US/pdfs/literature/hb/arria-10/ug_arria10_xcvr_phy.pdf). 
-
-
-## Revision History ##
-
-| Date | Intel Acceleration Stack Version | Changes Made |
-|:------|----------------------------|:--------------|
-|2018.05.21| DCP 1.1 Beta (works with Quartus Prime Pro 17.1.1) | Added the following subcommands to the `pac_hssi_config.py` tool: <br> `eeprom` <br> `eqwrite` <br> `eqread` <br> Added links to related information. <br> Fixed typos. |
-|2018.04.13| DCP 1.1 Alpha (works with Quartus Prime Pro 17.1.1) |   Initial release. |
-
-
-   
- 
