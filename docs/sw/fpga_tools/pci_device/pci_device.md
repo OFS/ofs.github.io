@@ -106,7 +106,7 @@ drivers.
 
     `unplug`
 
-    Prepare a host-side device for an imminent RSU event by configuring its root port and associated endpoints.
+    Remove device from PCI bus in anticipation of a RSU event by configuring its root port and associated endpoints.
 
     `vf`
 
