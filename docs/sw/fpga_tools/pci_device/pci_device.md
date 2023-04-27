@@ -47,7 +47,7 @@ drivers.
 
     `bind`
 
-    Re-associate a device with its driver.
+    Associate a device with its driver.
 
     `plug`
 
