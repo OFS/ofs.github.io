@@ -2,7 +2,7 @@
 
 ## SYNOPSIS ##
 
-`pci_device [-h] [-E] device-filter [{aer,remove,rescan,topology,unbind,vf}]`
+`pci_device [-h] [-E] device-filter [{aer,bind,plug,remove,rescan,topology,unbind,unplug,vf}]`
 
 ## DESCRIPTION ##
 
@@ -19,7 +19,7 @@ drivers.
     while the vendor/device ID pair follows the format [vendor ID]:[device ID]
     where at least one of these must be present.
 
-    `{aer,remove,rescan,topology,unbind,vf}`
+    `{aer,bind,plug,remove,rescan,topology,unbind,unplug,vf}`
 
     action to perform on device
 
@@ -45,6 +45,13 @@ drivers.
 
     _NOTE_: mask related operations require root privileges
 
+    `bind`
+
+    Associate a device with its driver.
+
+    `plug`
+
+    Restore a device that was previously given to `pci_device <device> unplug`
 
     `remove`
 
@@ -96,6 +103,10 @@ drivers.
     `unbind`
 
     Unbind the driver bound to the device.
+
+    `unplug`
+
+    Remove device from PCI bus in anticipation of a RSU event by configuring its root port and associated endpoints.
 
     `vf`
 
