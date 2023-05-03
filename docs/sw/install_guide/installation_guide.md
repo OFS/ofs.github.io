@@ -151,6 +151,13 @@ $ cd opae-sdk/packaging/opae/rpm
 $ ./create fedora
 ```
 
+Note that if you find that your distribution has changed package names such that there is a conflict
+when building RPMs, you can install all of the build dependencies so that the SDK compiles and then
+build the RPMs in unrestricted mode:
+```console
+$ cd opae-sdk/packaging/opae/rpm
+$ ./create unrestricted
+```
 
 
 After a successful compile, there are 3 rpm packages generated (Fedora, Rocky, RHEL8.2). For example:
