@@ -1,9 +1,5 @@
 # Plugin Developer's Guide #
 
-```eval_rst
-.. toctree::
-```
-
 ## Overview ##
 
 Beginning with OPAE C library version 1.2.0, OPAE implements a plugin-centric

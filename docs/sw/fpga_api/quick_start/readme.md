@@ -1,8 +1,5 @@
 # Quick Start Guide
 
-```{toctree}
-```
-
 ## Overview
 
 The OPAE C library is a lightweight user-space library that provides

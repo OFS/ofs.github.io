@@ -16,37 +16,50 @@ The information presented in this document is intended to be used by software de
 
 ### **1.2 Terminology**
 
-| Term                                                         | Abbreviation | Description                                                  |
-| ------------------------------------------------------------ | ------------ | ------------------------------------------------------------ |
-| **O**pen **F**PGA **S**tack                                  | OFS          | A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
-| **A**ccelerator **F**unctional **U**nit                      | AFU          | Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance.  *Note: An AFU region is the part of the design where an AFU may reside.  This AFU may or may not be a partial reconfiguration region.* |
-| **B**oard **M**anagement **C**ontroller                      | BMC          | Supports features such as power sequence management and board monitoring through on-board sensors. |
-| **F**PGA **I**nterface **M**anager                           | FIM          | Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs.  The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring. |
-| **P**latform **I**nterface **M**anager                       | PIM          | An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
-| Intel **V**irtualization **T**echnology for **D**irected I/O | Intel VT-d   | Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
-| **S**ingle-**R**oot **I**nput-**O**utput **V**irtualization  | SR-IOV       | Allows the isolation of PCI Express resources for manageability and performance. |
-| **H**ost **E**xerciser **M**odule                            | HEM          | Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. |
-| **D**evice **F**eature **L**ist                              | DFL          | A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. [(link)](https://docs.kernel.org/fpga/dfl.html?highlight=sriov) |
-| **B**est **K**nown **C**onfiguration                         | BKC          | The exact hardware configuration Intel has optimized and validated the solution against. |
-| **O**pen **P**rogrammable **A**cceleration **E**ngine        | OPAE         | The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space. |
-| **M**emory **M**apped **I**nput/**O**utput                   | MMIO         | Users may map and access both control registers and system memory buffers with accelerators. |
-| **F**PGA **M**anagement **E**ngine                           | FME          | Performs reconfiguration and other infrastructure functions. Each FPGA device only has one FME. |
-| **I**nput/**O**utput Control                                 | IOCTL        | System calls used to manipulate underlying device parameters of special files. |
-| **V**irtual **F**unction **I**nput/**O**utput                | VFIO         | An IOMMU/device agnostic framework for exposing direct device access to userspace. [(link)](https://www.kernel.org/doc/html/latest/driver-api/vfio.html) |
-| **C**onfiguration and **S**tatus **R**egister                | CSR          | Communication with the AFU is achieved by reading/writing CSRs and reading/writing shared memory buffers. |
-| Port                                                         | N/A          | Represents the interface between the static FPGA fabric and a PR region containing an AFU. |
-| **A**dvanced **E**rror **R**eporting                         | AER          | The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer) | 
+| Term                      | Abbreviation | Description                                                  |
+| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
+|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
+|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
+|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
+|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
+|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
+|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
+|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
+|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
+|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
+|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
+|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
+|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
+|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
+|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
+|Open Programmable Acceleration Engine Software Development Kit|	OPAE SDK|	The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
+|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
+|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
+|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
+|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
+|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
+|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
+|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
+|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
+|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
+|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
+|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
+ 
 
 <a name="heading-1.3"></a>
 
 
 ## **2.0 OPAE Software Development Kit (SDK)**
 
-The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE SDK repository], under the opae-sdk tag.
+The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE SDK repository](https://github.com/OFS/opae-sdk), under the opae-sdk tag.
 
 These features include the acceleration logic configured on the device, as well as functions to manage and reconfigure the device. The library enables user applications to transparently and seamlessly leverage FPGA-based acceleration.
 
-Most of the information related to OPAE can be found on the official [OFS Site] page. The following is a summary of the information present on this web page:
+Most of the information related to OPAE can be found on the official [OFS Site](https://ofs.github.io) page. The following is a summary of the information present on this web page:
 
 - Configuration options present in the OPAE SDK build and installation flow
 - The steps required to build a sample OPAE application
@@ -63,8 +76,8 @@ The remaining sections on OPAE in this document are unique and build on basic pr
 
 | Document | Link |
 | -------------------- | ------------------------------------------------------ |
-| OPAE SDK on github   | [OPAE SDK repository] |
-| OPAE Documents | [OFS Site] |
+| OPAE SDK on github   | [OPAE SDK repository](https://github.com/OFS/opae-sdk) |
+| OPAE Documents | [OFS Site](https://ofs.github.io) |
 | pybind11             | https://pybind11.readthedocs.io/en/stable/             |
 | CLI11                | https://github.com/CLIUtils/CLI11                      |
 | spdlog               | https://github.com/gabime/spdlog                       |
@@ -3808,7 +3821,7 @@ This mapping is used by the SDK’s metrics API to determine the method of acces
 
 OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks such as DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality.
 
-The OFS driver software can be found in the[OFS repository - linux-dfl], under the linux-dfl specific category. This repository has an associated [OFS repository - linux-dfl - wiki page] that includes the following information:
+The OFS driver software can be found in the[OFS repository - linux-dfl](https://github.com/OFS/linux-dfl), under the linux-dfl specific category. This repository has an associated [OFS repository - linux-dfl - wiki page](https://github.com/OFS/linux-dfl/wiki) that includes the following information:
 - An description of the three available branch archetypes
 - Configuration tweaks required while building the kernel
 - A functional description of the available DFL framework
@@ -3830,8 +3843,7 @@ No license (express or implied, by estoppel or otherwise) to any intellectual pr
 The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
 Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.   
-[OFS repository - linux-dfl]: https://github.com/OFS/linux-dfl
-[OFS repository - linux-dfl - wiki page]: https://github.com/OFS/linux-dfl/wiki
-[OPAE SDK repository]: https://github.com/OFS/opae-sdk
-[OFS Site]: https://ofs.github.io 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+ 

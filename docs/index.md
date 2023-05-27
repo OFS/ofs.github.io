@@ -1,19 +1,108 @@
-# Open FPGA Stack Overview
+# Open FPGA Stack Overview 
 
-<image src="hw/d5005/reference_manuals/ofs_fim/images/OFS.png" align="right" width="200" height="200">
- Open FPGA Stack (OFS): OFS is an open-source solution that provides a hardware and software framework for building your shell design and subsequently your workload.  
-OFS provides reference shell designs targeting different Intel<sup>&reg;</sup> FPGA devices with upstreamed drivers and management software tools.  
+<image src="hw/d5005/reference_manuals/ofs_fim/images/OFS.png" align="right" width="100" height="100">
 
 
+ Open FPGA Stack (OFS): OFS is an open-source hardware and software framework that reduces the development time for creating your custom platform.   Provided within this framework are reference shell designs targeting different Intel<sup>&reg;</sup> FPGA devices with upstreamed drivers and management software tools.  
 
+<image src="hw/d5005/reference_manuals/ofs_fim/images/Base-FIM.png" align="left" padding="10px,3px,10px,10px" width="200" height="200">
 
-The reference shells, called FPGA Interface Manager, provide an integrated, timing closed I/O ring with the most common interfaces for applications. You can add or subtract interfaces to the I/O ring depending on your application requirements.
-You can leverage the build scripts, RTL, unit tests software and drivers targeting this reference shell as a starting point for your own FPGA platform solution.
+The reference shells, called FPGA Interface Manager (FIMs), provide an integrated, timing closed design with the most common interfaces for applications. You can add or subtract interfaces depending on your application requirements.
+You can leverage the build scripts, RTL, unit tests, Universal Verification Methodology (UVM) environment, software and drivers targeting this reference shell as a starting point for your own FPGA platform solution.
 
 OFS targets Intel Stratix<sup>&reg;</sup> 10 and Intel Agilex<sup>&trade;</sup> FPGA Device Families.  
 To find out more about Intel FPGAs, visit the [Intel Stratix 10](https://www.intel.com/content/www/us/en/products/details/fpga/stratix/10.html) and [Intel Agilex](https://www.intel.com/content/www/us/en/products/details/fpga/agilex.html) pages at Intel.com
 
-<image src="hw/d5005/reference_manuals/ofs_fim/images/Base-FIM.png" align="center" width="400" height="400">
+
+<br>
+<br>
+<br>
+
+## **How Can I Start Using OFS?**
+
+If you are board developer you can get started in four basic steps.
+<image src="hw/n6001/reference_manuals/ofs_fim/images/OFS-Platform-Steps.svg" align="right" width="200" height="200">
+
+
+Start by selecting the reference FIM that closest matches your requirements and leveraging our evaluation scripts to give OFS a test drive.
+
+The reference FIMs can be used as-is or as a starting point for modification, greatly reducing development time. Below gives a summary of our current offerings.
+
+If you are a workload developer, you can choose between an RTL or OneAPI based design flow.  
+
+For all of our designs, we have up-streamed software drivers and user space tools that you can use to get your application up and running quickly.  Please refer to our [Software Documentation](https://ofs.github.io/sw/fpga_api/quick_start/readme/) for more details.
+
+<br>
+<br>
+<br>
+
+Below shows the current shells (aka FIMs) you can choose from:
+
+<image src="hw/d5005/reference_manuals/ofs_fim/images/FIM-s10-OFS block.png" align="left" width="350" height="350">
+
+**Table 1: OFS FIM Targeting Intel<sup>&reg;</sup> Stratix<sup>&reg;</sup> 10 FPGA PCIe Attach**
+
+| Key Feature | Intel Stratix 10 Reference FIM | 
+|:-----------:|:-------------------------------|
+|FPGA  | Intel Stratix 10 SX FPGA |
+|Ethernet Configuration | 1x10GbE example with 2x100GbE capability |
+| PCIe | Gen3x16 |
+|EMIF | Up to four DDR channels |
+| PF/VF | 1 PF/3 VFs |
+|Management | FPGA Management Engine (FME) with FIM management registers|
+|Interface | Arm<sup>&reg;</sup> AMBA<sup>&reg;</sup>4 AXI Interface |
+| HLD support | oneAPI |
+| Software | Kernel code upstreamed to Linux.org |
+
+Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Stratix<sup>&reg;</sup> 10 FPGA PCIe Attach Reference FIM](https://ofs.github.io/hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/) documentation.
+
+<br>
+<br>
+<br>
+
+<image src="hw/n6001/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.svg" align="left" width="350" height="350">
+
+**Table 2: OFS FIM Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach  Features**
+
+| Key Feature                           | Description                                                  |
+| ------------------------------------- | ------------------------------------------------------------ |
+| PCIe                                  | P-tile PCIe* Gen4x16                                         |
+| Virtualization                        | 5 physical functions/4 virtual functions with ability to expand |
+| Memory                                | 5 DDR Channels:* One HPS DDR4 bank, x40 (x32 Data and x8 ECC), 1200 MHz, 1GB each* Four Fabric DDR4 banks, x32 (no ECC), 1200 MHz, 4GB |
+| Ethernet                              | 2x4x25GbE |
+| Hard Processor System                 | 64-bit quad core Arm® Cortex®-A53 MPCore with integrated peripherals. |
+| Configuration and Board Manageability | * FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration)* Platform Controller Management Interface (PMCI) Module for Board Management Controller |
+| Partial Reconfiguration               | Supported |
+| OneAPI                                | OneAPI Acceleration Support Package (ASP) provided with compiled FIM to support OneAPI Runtime |
+| Software Support                      | * Linux DFL drivers targeting OFS FIMs<br>* OPAE Software Development Kit* OPAE Tools |
+
+Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach Reference FIM](https://ofs.github.io/hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/) documentation.
+
+<br>
+<br>
+<br>
+
+<image src="hw/f2000x/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.svg" align="left" width="350" height="350">
+
+
+**Table 3: OFS FIM Features Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> SoC Attach**
+
+| Key Feature                           | Description                                                  |
+| ------------------------------------- | ------------------------------------------------------------ |
+| PCIe                                  | P-tile PCIe* Gen4x16 to the Host<br />P-tile PCIe* Gen4x16 to the SoC (IceLake-D) |
+| Virtualization                        | Host: 2 physical functions <br />SoC:   1 physical function and 3 Virtual functions |
+| Memory                                | Four Fabric DDR4 banks, x40 (optional ECC, be configured as x32 and ECC x8 ), 1200 MHz, 4GB |
+| Ethernet                              | 2x4x25GbE |
+| Configuration and Board Manageability | * FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration) * Platform Controller Management Interface (PMCI) Module for Board Management Controller |
+| Partial Reconfiguration               | Supported |
+| Software Support                      | * Linux DFL drivers targeting OFS FIMs * OPAE Software Development Kit * OPAE Tools |
+
+Note: Source code for BMC RTL/Firmware that works with this reference FIM can be obtained by contacting your Intel Sales Representative.
+
+Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> SoC Attach Reference FIM](https://ofs.github.io/hw/f2000x/user_guides/ug_eval_ofs_f2000x/ug_eval_script_ofs_f2000x/) documentation.
+
+To find information on the latest releases, go to the [Discussions Tab](https://github.com/orgs/OFS/discussions) in the OFS GitHub repository.
+
 
 
 ## Open FPGA Stack Repositories
@@ -62,36 +151,6 @@ The structure of the RTL repository remains the same regardless of which device 
 
 <br>
 
-## **How Can I Start Using OFS?**
-
-The best way to start using OFS is to evaluate the reference FIM that can be built in the platform repository by leveraging our eval_scripts to run through the hardware and software build flow and test the design in simulation and optionally hardware as well.
-
-The reference FIM in the platform repository currently targets PCIe attach applications and can be used as-is or can be used as a starting point for modification, greatly reducing development time. The ofs-d5005 repository provides capability to build an Intel Stratix 10 OFS reference FIM.  Additional repositories that support Intel Agilex FPGA will be added in a future OFS GitHub release.  For more information about the upcoming Intel Agilex offering, visit the OFS webpage on [intel.com](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/open-fpga-stack.html) and submit the available questionnaire.
-
-<image src="hw/d5005/reference_manuals/ofs_fim/images/FIM-s10-OFS block.png" align="center" width="350" height="350">
-
-<br>
-
-
-**OFS FIM Targeting Intel Stratix 10 FPGA**
-
-| Key Feature | Intel Stratix 10 Reference FIM | 
-|:-----------:|:-------------------------------|
-|FPGA  | Intel Stratix 10 SX FPGA |
-|Ethernet Configuration | 1x10GbE example with 2x100GbE capability |
-| PCIe | Gen3x16 |
-|EMIF | Up to four DDR channels |
-| PF/VF | 1 PF/3 VFs |
-|Management | FPGA Management Engine (FME) with FIM management registers|
-|Interface | Arm<sup>&reg;</sup> AMBA<sup>&reg;</sup>4 AXI Interface |
-| HLD support | oneAPI |
-| Software | Kernel code upstreamed to Linux.org |
-
-Note: Source code for BMC RTL/Firmware that works with this reference FIM can be obtained by contacting your Intel Sales Representative.
-
-Click here for the [Intel Stratix 10 OFS Collateral](https://ofs.github.io/hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/).
-
-To find information on the latest releases, go to the [Discussions Tab](https://github.com/orgs/OFS/discussions) in the OFS GitHub repository.
 
 
 
