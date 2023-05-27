@@ -4,7 +4,7 @@
 
 ## **1.0 Introduction**
 
-<a name="heading-1.1"></a>
+
 
 ### **1.1 About This Document**
 
@@ -31,13 +31,13 @@ The following flow charts show a high level overview of the initial bringup proc
 
 ![UG_3](images/UG_DIAGRAM_3_D5005.png)
 
-<a name="heading-1.2"></a>
 
-<a name="heading-1.2"></a>
+
+
 
 ### 1.2 Terminology
 
-<a name="table-1-1"></a>
+
 <br>
 
 Glossary 
@@ -72,13 +72,13 @@ Glossary
 
  
 
-<a name="heading-1.3"></a>
+
 
 ### **1.3 Introduction to OFS**
 
 Each OFS reference FIM targets a specific platform, but the modular hardware, software, simulation and test infrastructure allows you to modify each part of the design and test environment for your own custom acceleration platform card. The current OFS reference FIM for Stratix 10 FPGA targets the Intel® FPGA PAC D5005 board. This document focuses exclusively on the OFS release targeting the Intel® FPGA PAC D5005 board.
 
-The OFS repositories (in [OFS] ) on GitHub provide the following components targeting an Intel® FPGA PAC D5005:
+The OFS repositories (in [OFS](https://github.com/OFS) ) on GitHub provide the following components targeting an Intel® FPGA PAC D5005:
 
 - **opae-sdk**: Contains the Open Programmable Acceleration Software Development Kit source code and build scripts.
 The following submodule repositories are contained within `opae-sdk`
@@ -86,27 +86,27 @@ The following submodule repositories are contained within `opae-sdk`
 - **intel-ofs-fim**: Contains the source code, build scripts and verification suite for FPGA RTL source code
 - **ofs-hld-shim**: Contains the necessary files to generate Shim/BSP for OFS Cards, using OPAE SDK Interfaces.
 
-<a name="heading-1.4"></a>
+
 
 ### **1.4 Intended Audience**
 
 The information in this document is intended for customers evaluating the Open FPGA Stack for Intel® Stratix 10® FPGA on the Intel PAC D5005. This document will cover key topics related to initial setup and development, with links for deeper dives on the topics discussed therein.
 
-<a name="heading-1.5"></a>
+
 
 ### **1.5 Reference Documents**
 
-Please refer to the README on the OFS GitHub for an updated list of collateral on the [OFS GitHub page].
+Please refer to the README on the OFS GitHub for an updated list of collateral on the [OFS GitHub page](https://ofs.github.io).
 
-<a name="heading-1.6"></a>
+
 
 ### **1.6 Component Version Summary**
 
-The OFS 2022.3 Release targeting the Intel® Stratix 10® FPGA is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which comprise this release.
+The OFS 2023.1 Release targeting the Intel® Stratix 10® FPGA is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which comprise this release.
 
-The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2022.3 release.
+The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2023.1 release.
 
-<a name="table-1-2"></a>
+
 
 #### Table 1-2: Hardware BKC
 
@@ -118,36 +118,36 @@ The following table highlights the hardware which makes up the Best Known Config
 
 The following table highlights the versions of the software which comprise the OFS stack. The installation of the user-space OPAE SDK on top of the kernel-space linux-dfl drivers is discussed in subsequent sections of this document.
 
-<a name="table-1-3"></a>
+
 
 #### Table 1-3: Software Version Summary
 
 | Component | Version |
 | --------- | ------- |
 | FPGA Platform | [Intel® FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html) |
-| OPAE SDK | [Tag: 2.3.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.3.0-1) |
-| Kernel Drivers | [Tag: ofs-2022.3-2](https://github.com/OPAE/linux-dfl/releases/tag/ofs-2022.3-2) |
-| OFS FIM Source Code| [Branch: release/1.0.x](https://github.com/OFS/ofs-fim-common/tree/release/1.0.x) |
-| Intel Quartus Prime Pro Edition Design Software | 22.3 [Intel® Quartus® Prime Pro Edition Linux] |
+| OPAE SDK | [Tag: 2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) |
+| Kernel Drivers | [Tag: ofs-2023.1-6.1-1](https://github.com/OPAE/linux-dfl/releases/tag/ofs-2023.1-6.1-1) |
+| OFS FIM Source Code| [Branch: release/ofs-2023.1](https://github.com/OFS/ofs-fim-common/tree/release/ofs-2023.1) |
+| Intel Quartus Prime Pro Edition Design Software | ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html) |
 | Operating System | [RHEL 8.2](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2022.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2023.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1-1) official release drop on GitHub.
 
 **Note:** If you wish to freeze your Red Hat operating system version on the RHEL 8.2, refer to the following [solution](https://access.redhat.com/solutions/238533) provided in the Red Hat customer portal.
 
-<a name="heading-2.0"></a>
+
 
 ## **2.0 OFS Stack Architecture Overview for Reference Platform**
 
-<a name="heading-2.1"></a>
+
 
 ### **2.1 Hardware Components**
 
-The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Open FPGA Stack Technical Reference Manual].
+The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Open FPGA Stack Technical Reference Manual](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
 
 OFS is a blanket term which can be used to collectively refer to all ingredients of the OFS reference design, which includes the core hardware components discussed below and software.
 
-<a name="heading-2.1.1"></a>
+
 
 #### **2.1.1 FPGA Interface Manager**
 
@@ -165,9 +165,9 @@ The primary components of the FIM reference design are:
 
 The FPGA Management Engine (FME) provides management features for the platform and the loading/unloading of accelerators through partial reconfiguration.
 
-For more information on the FIM and its external connections, please refer to the [Open FPGA Stack Technical Reference Manual], and the [Intel FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/programmable/documentation/cvl1520030638800.html). Below is a high-level block diagram of the FIM.
+For more information on the FIM and its external connections, please refer to the [Open FPGA Stack Technical Reference Manual](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/), and the [Intel FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/programmable/documentation/cvl1520030638800.html). Below is a high-level block diagram of the FIM.
 
-<a name="figure-2-1"></a>
+
 
 **Figure 2-1 FIM Overview**
 
@@ -175,7 +175,7 @@ For more information on the FIM and its external connections, please refer to th
 ![fim-overview](images/Fabric_Features.png){ align=left }
 
 
-<a name="heading-2.1.2"></a>
+
 
 #### **2.1.2 AFU**
 
@@ -197,19 +197,19 @@ The AFU provided in this release is comprised of the following functions:
 - Host exercisers to test PCIe, memory and HSSI interfaces (these can be removed from the AFU region after your FIM design is complete to provide more resource area for workloads).
 - Port gasket and partial reconfiguration support.
 
-For more information on the Platform Interface Manager (PIM) and AFU development and testing, please refer to the [OFS AFU Development Guide].
+For more information on the Platform Interface Manager (PIM) and AFU development and testing, please refer to the [OFS AFU Development Guide](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/).
 
-<a name="heading-2.2"></a>
+
 
 ### **2.2 OFS Software Overview**
 
-<a name="heading-2.2.1"></a>
+
 
 #### **2.2.1 Kernel Drivers for OFS**
 
 OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on the [DFL Wiki] page.
 
-<a name="heading-3.0"></a>
+
 
 ## **3.0 Intel FPGA PAC D5005 Card and Server Requirements**
 
@@ -225,19 +225,19 @@ In addition, refer to sections 2.1-2.3 of the [Intel Acceleration Stack Quick St
 
 ---
 
-<a name="table-3-1"></a>
+
 
 **Table 3-1 Server Requirements for Intel D5005**
 
 |Component  |Description  |
 |---------|---------|
-|Server     |[Qualified Servers]         |
+|Server     |[Qualified Servers](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html)         |
 |Main Board     |PCI Express 3.0 compliant motherboard with at least one dual-width x16 PCIe slot available for card installation         |
 |Board Power Supply*     |Auxiliary Power (12V)         |
 
 \* For more information on the required auxiliary power supply, refer to section 2.2.2 of the [Intel FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/programmable/documentation/cvl1520030638800.html).
 
-<a name="heading-3.1"></a>
+
 
 ### **3.1 Supported Processors for Intel D5005**
 
@@ -247,23 +247,23 @@ OFS requires that the deployment machine's Xeon processor must support the follo
 - Intel VT-x (Intel Virtualization Technology for Directed I/O)
 - Intel IOMMU
 
-<a name="heading-3.2"></a>
+
 
 ### **3.2 Cooling Requirements for the Intel FPGA PAC D5005**
 
 Please refer to sections 8.1 and 8.2 of the [Intel FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/docs/programmable/683568/current/thermal-and-airflow-requirements.html) for guidance on cooling specifications that must be met when using the D5005 card. Failure to adhere to these guidelines may result in thermal runaway and/or performance degradation.
 
-<a name="heading-4.0"></a>
+
 
 ## **4.0 OFS DFL Kernel Drivers**
 
-<a name="heading-4.1"></a>
+
 
 ### **4.1 OFS DFL Kernel Driver Environment Setup**
 
-All OFS DFL kernel driver code resides in the [Linux DFL] GitHub repository. This repository is open source and does not require any permissions to access. It includes a snapshot of the latest best-known configuration (BKC) Linux kernel with the OFS driver included in the drivers/fpga/* directory. Downloading, configuration, and compilation will be discussed in this section. Please refer to [Table 1-3](#table-1-3) for the latest supported OS.
+All OFS DFL kernel driver code resides in the [Linux DFL](https://github.com/OFS/linux-dfl) GitHub repository. This repository is open source and does not require any permissions to access. It includes a snapshot of the latest best-known configuration (BKC) Linux kernel with the OFS driver included in the drivers/fpga/* directory. Downloading, configuration, and compilation will be discussed in this section. Please refer to [Table 1-3](#table-1-3) for the latest supported OS.
 
-It is recommended you boot into your operating system's native 4.18.x kernel  before attempting to upgrade to the dfl enabled 5.15-lts You may experience issues when moving between two dfl enabled 5.15-lts  kernels.
+It is recommended you boot into your operating system's native 4.18.x kernel  before attempting to upgrade to the dfl enabled 6.1.22 You may experience issues when moving between two dfl enabled 6.1.22  kernels.
 
 This installation process assumes the user has access to an internet connection in order to pull specific GitHub repositories, and to satisfy package dependencies.
 
@@ -313,7 +313,7 @@ cd /home/user/OFS/
 git init
 git clone https://github.com/OPAE/linux-dfl
 cd /home/user/OFS/linux-dfl
-git checkout tags/ofs-2022.3-2 -b fpga-ofs-dev-5.15-lts
+git checkout tags/ofs-2023.1-6.1-1 -b fpga-ofs-dev-6.1.22
  
 ```
 
@@ -321,10 +321,10 @@ git checkout tags/ofs-2022.3-2 -b fpga-ofs-dev-5.15-lts
 
 ```bash session
 git describe 
-ofs-2022.3-2
+ofs-2023.1-6.1-1
 ```
 
-<a name="heading-4.2"></a>
+
 
 ### **4.2 Building and Installing the OFS DFL Kernel Drivers from Source**
 
@@ -387,7 +387,7 @@ make INSTALL_MOD_STRIP=1 binrpm-pkg
 ```bash session
 cd ~/rpmbuild/RPMS/x86_64
 ls
-kernel-5.15.77_dfl-1.x86_64.rpm  kernel-headers-5.15.77_dfl-1.x86_64.rpm
+kernel-6.1.22_dfl-1.x86_64.rpm  kernel-headers-6.1.22_dfl-1.x86_64.rpm
 sudo dnf localinstall kernel*.rpm
 ```
 
@@ -395,7 +395,7 @@ sudo dnf localinstall kernel*.rpm
 
 ```bash session
 uname -r
-5.15.77-dfl
+6.1.22-dfl
 ```
 
 **5.** Verify the DFL drivers have been successfully installed. If an Intel® FPGA PAC D5005 card with the appropriate FIM is on the local system, the kernel driver modules will have been loaded. In the `lsmod` output the second column corresponds to the size of the kernel module in bytes, the third column displays the number of devices registered to that driver, and the fourth column displays the names of the devices using it. Verify their versions against the below.
@@ -447,8 +447,8 @@ name:           fpga_regions
 sudo vim /etc/default/grub
 ```
 
-<a name="redirect-step12"></a>
-<a name="step-7"></a>
+
+
 
 **7.** In the variable GRUB_CMDLINE_LINUX add the parameters shown after `quiet`:
 
@@ -477,19 +477,19 @@ sudo grub2-mkconfig  -o /boot/efi/EFI/redhat/grub.cfg
 
 ```bash session
 cat /proc/cmdline
-BOOT_IMAGE=(hd0,gpt2)/vmlinuz-5.15.77-dfl root=/dev/mapper/rhel_bapvedell028-root ro crashkernel=auto resume=/dev/mapper/rhel_bapvedell028-swap rd.lvm.lv=rhel_bapvedell028/root rd.lvm.lv=rhel_bapvedell028/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200
+BOOT_IMAGE=(hd0,gpt2)/vmlinuz-6.1.22-dfl root=/dev/mapper/rhel_bapvedell028-root ro crashkernel=auto resume=/dev/mapper/rhel_bapvedell028-swap rd.lvm.lv=rhel_bapvedell028/root rd.lvm.lv=rhel_bapvedell028/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200
 ```
 
 
-<a name="heading-5.0"></a>
+
 
 ## **5.0 OPAE Software Development Kit**
 
-The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [OPAE GitHub] page.
+The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [OPAE GitHub](https://github.com/OFS/opae-sdk) page.
 
-The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE GitHub]. This repository is open source.
+The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE GitHub](https://github.com/OFS/opae-sdk). This repository is open source.
 
-<a name="heading-5.1"></a>
+
 
 ### **5.1 OPAE SDK Build Environment Setup**
 
@@ -497,7 +497,7 @@ Ensure the local environment matches the supported Operating System discussed in
 
 
 
-<a name="heading-5-1-1"></a>
+
 
 #### **5.1.1 Building and Installing the OPAE SDK from Source**
 
@@ -548,14 +548,14 @@ cd /home/user/OFS/
 git init
 git clone https://github.com/OPAE/opae-sdk.git
 cd opae-sdk
-git checkout tags/2.3.0-1 -b release/2.3.0
+git checkout tags/2.5.0-3 -b release/2.5.0
 ```
 
 **5.** Verify that the correct tag has been checkout out:
 <br>
 ```bash session
 git describe --tags
-2.3.0-1
+2.5.0-3
 
 ```
 
@@ -572,23 +572,23 @@ cd packaging/opae/rpm
 
 ls | grep rpm
 #output
-opae-2.3.0-1.el8.src.rpm
-opae-2.3.0-1.el8.x86_64.rpm
-opae-debuginfo-2.3.0-1.el8.x86_64.rpm
-opae-debugsource-2.3.0-1.el8.x86_64.rpm
-opae-devel-2.3.0-1.el8.x86_64.rpm
-opae-devel-debuginfo-2.3.0-1.el8.x86_64.rpm
-opae-extra-tools-2.3.0-1.el8.x86_64.rpm
-opae-extra-tools-debuginfo-2.3.0-1.el8.x86_64.rpm
+opae-2.5.0-3.el8.src.rpm
+opae-2.5.0-3.el8.x86_64.rpm
+opae-debuginfo-2.5.0-3.el8.x86_64.rpm
+opae-debugsource-2.5.0-3.el8.x86_64.rpm
+opae-devel-2.5.0-3.el8.x86_64.rpm
+opae-devel-debuginfo-2.5.0-3.el8.x86_64.rpm
+opae-extra-tools-2.5.0-3.el8.x86_64.rpm
+opae-extra-tools-debuginfo-2.5.0-3.el8.x86_64.rpm
 ```
-Remove the opae-2.3.0-1.el8.src.rpm file as it is not used.
+Remove the opae-2.5.0-3.el8.src.rpm file as it is not used.
 ```bash session
-rm opae-2.3.0-1.el8.src.rpm
+rm opae-2.5.0-3.el8.src.rpm
 ```
 
 
 
-<a name="#prebuilt-skip-step3-opae"></a>
+
 
 **7.a** Install the user-built OPAE SDK packages:
 
@@ -603,27 +603,27 @@ sudo dnf localinstall -y opae*.rpm
 ```bash session
 rpm -qa | grep opae
 #output
-opae-extra-tools-2.3.0-1.el8.x86_64
-opae-debugsource-2.3.0-1.el8.x86_64
-opae-2.3.0-1.el8.x86_64
-opae-extra-tools-debuginfo-2.3.0-1.el8.x86_64
-opae-debuginfo-2.3.0-1.el8.x86_64
-opae-devel-2.3.0-1.el8.x86_64
-opae-devel-debuginfo-2.3.0-1.el8.x86_64
+opae-extra-tools-2.5.0-3.el8.x86_64
+opae-debugsource-2.5.0-3.el8.x86_64
+opae-2.5.0-3.el8.x86_64
+opae-extra-tools-debuginfo-2.5.0-3.el8.x86_64
+opae-debuginfo-2.5.0-3.el8.x86_64
+opae-devel-2.5.0-3.el8.x86_64
+opae-devel-debuginfo-2.5.0-3.el8.x86_64
 ```
 
 You can query information about each installed package using `rpm -qi <package__name>`.
 
 
-<a name="heading-5.2"></a>
+
 
 ### **5.2 OPAE Tools Overview**
 
 The OPAE SDK user-space tools sit upon the kernel-space DFL drivers. In order to use OPAE SDK functionality the user needs to complete the steps outlined in the previous section [4.1 OFS DFL Kernel Driver Environment Setup](#heading-4.1) before attempting to run any OPAE commands or flows. You must have at least one D5005 card with the appropriate FIM present in your system. The steps to read and load a new FIM version are discussed in section [6.1 Programming the OFS FIM](#heading-6.1). After both the DFL kernel-space drivers have been installed and the FIM has been upgraded, you may proceed to test the OPAE commands discussed below.
 
-This section covers basic functionality of the commonly used OPAE tools and their expected results. These steps may also be used to verify that all OFS software installation has been completed successfully. A complete overview of the OPAE tools can be found on the [OPAE GitHub] and in your cloned GitHub repo at `<your path>/opae-sdk/doc/src/fpga_tools`. More commands are listed than are defined in the list below - most of these are called by other tools and do not need to be called directly themselves.
+This section covers basic functionality of the commonly used OPAE tools and their expected results. These steps may also be used to verify that all OFS software installation has been completed successfully. A complete overview of the OPAE tools can be found on the [OPAE GitHub](https://github.com/OFS/opae-sdk) and in your cloned GitHub repo at `<your path>/opae-sdk/doc/src/fpga_tools`. More commands are listed than are defined in the list below - most of these are called by other tools and do not need to be called directly themselves.
 
-<a name="heading-5.2.1"></a>
+
 
 #### **5.2.1 `fpgasupdate`**
 
@@ -631,7 +631,7 @@ The fpgasupdate tool updates the Intel Max10 BMC image and firmware, root entry 
 
 The Intel FPGA PAC ships with a factory and user programmed image for both the FIM and BMC FW and RTL on all cards.
 
-<a name="table-5-1"></a>
+
 
 #### Table 5-1: `fpgasupdate` Overview
 
@@ -649,17 +649,17 @@ fpgasupdate [--log-level=<level>] file [bdf]
 | | file |  Specifies the secure update firmware file to be programmed. This file may be to program a static region (SR), programmable region (PR), root entry hash, key cancellation, or other device-specific firmware. |
 | | bdf | The PCIe address of the PAC to program. `bdf` is of the form `[ssss:]bb:dd:f`, corresponding to PCIe segment, bus, device, function. The segment is optional. If you do not specify a segment, the segment defaults to `0000`. If the system has only one PAC you can omit the `bdf` and let `fpgasupdate`  determine the address automatically. |
 
-<a name="table-5-2"></a>
 
-#### **Table 5-2: FIM Version Summary for OFS 2022.3 Release**
+
+#### **Table 5-2: FIM Version Summary for OFS 2023.1 Release**
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| 1 | 288511861987640872 | d51533ad-aee6-5dab-80fb-a44bbf579b68 | d5005_page1_unsigned.bin | [OFS 2022.3 Release Page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.1) |
+| 1 | 288511862659474365 | 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461 | d5005_page1_unsigned.bin | [OFS 2023.1 Release Page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1-1) |
 
-<a name="table-5-3"></a>
 
-#### **Table 5-3: BMC Version Summary for OFS 2022.3 Release**
+
+#### **Table 5-3: BMC Version Summary for OFS 2023.1 Release**
 
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
@@ -667,7 +667,7 @@ fpgasupdate [--log-level=<level>] file [bdf]
 
 
 
-<a name="heading-5.2.2"></a>
+
 
 #### **5.2.2 `fpgainfo`**
 
@@ -719,9 +719,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 288511861987640872
+Bitstream Id                     : 288511862659474365
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
+Pr Interface Id                  : 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461
 Boot Page                        : user
 ```
 
@@ -740,9 +740,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 288511861987640872
+Bitstream Id                     : 288511862659474365
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
+Pr Interface Id                  : 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461
 ( 1) VCCERAM Voltage                                    : 0.90 Volts
 ( 2) VCCT Temperature                                   : 29.00 Celsius
 ( 3) 12v Backplane Voltage                              : 12.17 Volts
@@ -780,7 +780,7 @@ Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
 (35) RDIMM2 Temperature                                 : 26.00 Celsius
 ```
 
-<a name="heading-5.2.3"></a>
+
 
 #### **5.2.3 `rsu`**
 
@@ -808,14 +808,14 @@ Perform RSU (remote system update) operation on PAC device given its PCIe addres
 
 *Note: As a result of using the **rsu** command, the host rescans the PCI bus and may assign a different Bus/Device/Function (B/D/F) value than the originally assigned value.*
 
-<a name="heading-5.2.4"></a>
+
 
 #### **5.2.4 `PACsign`**
 
 PACSign is an OPAE utility which allows users to insert authentication markers into bitstreams targeted for the platform. All binary images must be signed using PACSign before fpgasupdate can use them for an update. Assuming no Root Entry Hash (REH) has been programmed on the device, the following examples demonstrate how to prepend the required secure authentication data, and specify which region of flash to update.
-More information, including charts detailing the different certification types and their required options, are fully described in the PACsign python/pacsign/PACSign.md [OPAE GitHub] on GitHub.
+More information, including charts detailing the different certification types and their required options, are fully described in the PACsign python/pacsign/PACSign.md [OPAE GitHub](https://github.com/OFS/opae-sdk) on GitHub.
 
-<a name="table-5-4"></a>
+
 
 #### Table 5-4: `PACSign` Overview
 
@@ -864,31 +864,31 @@ No root entry hash bitstream specified.  Verification will not be done.  Continu
 2022-07-20 10:13:54,954 - PACSign.log - WARNING - Bitstream is already signed - removing signature blocks
 ```
 
-<a name="heading-5.2.5"></a>
+
 
 #### **5.2.5 `bitstreaminfo`**
 
 Displays authentication information contained with each provided `file` on the command line. This includes any JSON header strings, authentication header block information, and a small portion  of the payload. The binary is installed by default at `/usr/bin/bitstreaminfo`.<br>
 
-<a name="heading-5.2.6"></a>
+
 
 #### **5.2.6 `hssi`**
 
 The hssi application provides a means of interacting with the 10G and with the 100G HSSI AFUs. In both 10G and 100G operating modes, the application initializes the AFU, completes the desired transfer as described by the mode-specific options. Only the `hssi_10g` MODE is currently supported. An example of this command's output can be found in section [5.2.9 Running the Host Exerciser Modules](#heading-5.2.9). The binary is installed by default at `/usr/bin/hssi`.<br>
 
-<a name="heading-5.2.7"></a>
+
 
 #### **5.2.7 `opae.io`**
 
 Opae.io is a interactive Python environment packaged on top of libopaevfio.so, which provides user space access to PCIe devices via the vfio-pci driver. The main feature of opae.io is its built-in Python command interpreter, along with some Python bindings that provide a means to access Configuration and Status Registers (CSRs) that reside on the PCIe device. opae.io has two operating modes: command line mode and interactive mode. An example of this command's output can be found in section [5.2.9 Running the Host Exerciser Modules](#heading-5.2.9). The binary is installed by default at `/usr/bin/opae.io`.<br>
 
-<a name="heading-5.2.8"></a>
+
 
 #### **5.2.8 `host_exerciser`**
 
 The host exerciser is used to exercise and characterize the various host-FPGA interactions eg. MMIO, Data transfer from host to FPGA , PR, host to FPGA memory etc. An example of this command's output can be found in section [5.2.9 Running the Host Exerciser Modules](#heading-5.2.9). The binary is installed by default at `/usr/bin/host_exerciser`. For more information refer to - [Host Exerciser](https://opae.github.io/latest/docs/fpga_tools/host_exerciser/host_exerciser.html)<br>
 
-<a name="heading-5.2.9"></a>
+
 
 #### **5.2.9 Running the Host Exerciser Modules**
 
@@ -1015,7 +1015,7 @@ Socket Id                        : 0x00
 Accelerator GUID                 : 56e203e9-864f-49a7-b94b-12284c31e02b
 ```
 
-<a name="table-5-5"></a>
+
 
 #### Table 5-5 VF to HEM Mappings
 
@@ -1311,27 +1311,27 @@ sudo hssi --pci-address 3b:00.3 hssi_10g --eth-ifc s10hssi0 --eth-loopback on --
   eth: s10hssi0
 ```
 
-<a name="heading-6.0"></a>
+
 
 ## **6.0 Compiling OFS FIM**
 
-Pre-Compiled FIM binaries are at [OFS 2022.3 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.1) and to compile the OFS FIM for Intel® FPGA PAC D5005 follow the below steps :
+Pre-Compiled FIM binaries are at [OFS 2023.1 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1-1) and to compile the OFS FIM for Intel® FPGA PAC D5005 follow the below steps :
 
-1) Compile OFS FIM manually - Steps are provided in the developer guide to compile FIM and generate binaries. Refer to [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®].
+1) Compile OFS FIM manually - Steps are provided in the developer guide to compile FIM and generate binaries. Refer to [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
-2) Compile OFS FIM using evaluation script - The script guides you to the steps required for compilation via selecting options from the menu. Refer to [evaluation script]
+2) Compile OFS FIM using evaluation script - The script guides you to the steps required for compilation via selecting options from the menu. Refer to [evaluation script](https://github.com/OFS/ofs-d5005/tree/release/1.0.x/eval_scripts)
 
-<a name="heading-7.0"></a>
+
 
 ## **7.0 Programming the OFS FIM and BMC**
 
-Instructions surrounding the compilation and simulation of the OFS FIM have fully moved into the [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®].
+Instructions surrounding the compilation and simulation of the OFS FIM have fully moved into the [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
-<a name="heading-7.1"></a>
+
 
 ### **7.1 Programming the OFS FIM**
 
-In order to program the OFS FIM, both the OPAE SDK and DFL drivers need to be installed on the host system. Please complete the steps in sections [4.0 OFS DFL Kernel Drivers](#heading-4.0) and [5.0 OPAE Software Development Kit](#heading-5.0). The OFS FIM version can be identified using the OPAE tool `fpgainfo`. A sample output of this command is included below.
+In order to program the OFS FIM, both the OPAE SDK and DFL drivers need to be installed on the host system. Please complete the steps in sections [4.0 OFS DFL Kernel Drivers](#heading-4.0) and [5.0 OPAE Software Development Kit](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit)(#heading-5.0). The OFS FIM version can be identified using the OPAE tool `fpgainfo`. A sample output of this command is included below.
 
 ```bash session
 sudo fpgainfo fme
@@ -1348,15 +1348,15 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 288511861987640872
+Bitstream Id                     : 288511862659474365
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
+Pr Interface Id                  : 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461
 Boot Page                        : user
 ```
 
 Use the value under `PR Interface ID` to identify that FIM that has been loaded. Refer to the table below for a list of previous FIM releases.
  Please 
-<a name="table-7-1"></a>
+
 
 #### Table 7-1 Previous FIM Releases
 
@@ -1370,11 +1370,11 @@ Use the value under `PR Interface ID` to identify that FIM that has been loaded.
 
 The Beta release of the OFS software depends on the corresponding Beta release of the FIM. If the user's card does not report a PR Interface ID which matches the above table, then a new FIM will need to be programmed.
 
-<a name="heading-7.1.1"></a>
+
 
 #### **7.1.1 Programming the FIM**
 
-**1.** Download the file **d5005_page1_unsigned.bin** from [OFS 2022.3 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-d5005-1.0.1).
+**1.** Download the file **d5005_page1_unsigned.bin** from [OFS 2023.1 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1-1).
 
 **2.** Run `PACSign` to create an unsigned image with added header for use by fpgasupdate
 
@@ -1394,7 +1394,7 @@ sudo fpgasupdate d5005_PACsigned_unsigned.bin 3B:00.0
 sudo rsu bmcimg 0000:3B:00.0
 ```
 
-<a name="heading-7.2"></a>
+
 
 ### **7.2 Programming the BMC**
 
@@ -1459,45 +1459,7 @@ No license (express or implied, by estoppel or otherwise) to any intellectual pr
 The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
 Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.   
-[License quartus-0.0-0.01iofs-linux.run]: https://github.com/OFS/ofs-d5005/blob/release/1.0.x/license/quartus-0.0-0.01iofs-linux.run
-[OFS D5005 FIM Github Branch]: https://github.com/OFS/ofs-d5005
-[OFS FIM_COMMON Github Branch]: https://github.com/OFS/ofs-fim-common
-[OPAE SDK Branch]: https://github.com/OFS/opae-sdk/tree/2.3.0-1
-[OPAE SDK Tag]: https://github.com/OFS/opae-sdk/releases/tag/2.3.0-1
-[OPAE SDK SIM Branch]: https://github.com/OFS/opae-sim/tree/2.3.0-1
-[OPAE SDK SIM Tag]: https://github.com/OFS/opae-sim/releases/tag/2.3.0-1
-[Linux DFL]: https://github.com/OFS/linux-dfl
-[Kernel Driver Branch]: https://github.com/OFS/linux-dfl/tree/ofs-2022.3-2
-[Kernel Driver Tag]: https://github.com/OFS/linux-dfl/releases/tag/ofs-2022.3-2
-[OFS Release]: https://github.com/OFS/ofs-d5005/releases/
-[Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-[Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®]: https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/
-[Qualified Servers]: https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html
-[OFS Getting Started User Guide]: https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/
-[Open FPGA Stack Reference Manual - MMIO Regions section]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions
-[Device Feature Header (DFH) structure]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure
-[FPGA Device Feature List (DFL) Framework Overview]: https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview
-[ofs-platform-afu-bbb]: https://github.com/OPAE/ofs-platform-afu-bbb
-[Connecting an AFU to a Platform using PIM]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
-[OFS AFU Development Guide]: https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
-[example AFUs](https://github.com/OFS/examples-afu.git)
-[PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial
-[Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial
-[Unit Level Simulation]: https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation
-[Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® FPGA]: https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md
-[BMC User Guide]: https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md
-[OPAE.io]: https://opae.github.io/latest/docs/fpga_tools/opae.io/opae.io.html
-[OPAE GitHub]: https://github.com/OFS/opae-sdk
-[5.0 OPAE Software Development Kit]: https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit
-[Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA]: https://github.com/OFS/otcshare/blob/main/hw/docs/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md
-[README_ofs_d5005_eval.txt]: https://github.com/OFS/ofs-d5005/blob/release/1.0.x/eval_scripts/README_ofs_d5005_eval.txt)
-[FIM MMIO Regions]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions
-
-[Open FPGA Stack Technical Reference Manual]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/
-
-[evaluation script]: https://github.com/OFS/ofs-d5005/tree/release/1.0.x/eval_scripts
-[OFS]: https://github.com/OFS
-[OFS GitHub page]: https://ofs.github.io
-[DFL Wiki]: https://github.com/OPAE/linux-dfl/wiki 
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+ 

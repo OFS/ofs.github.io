@@ -26,9 +26,9 @@ This development guide is organized as follows:
 
 This document uses the Intel® FPGA PAC D5005 as an example platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS (Open FPGA Stack) to custom platforms. The demonstration steps serves as a tutorial for the development of your OFS knowledge.
 
-This document covers OFS architecture lightly.  For more details on the OFS architecture, please see [Open FPGA Stack Technical Reference Manual].
+This document covers OFS architecture lightly.  For more details on the OFS architecture, please see [Open FPGA Stack Technical Reference Manual](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
 
-You are encouraged to read [OFS AFU Development Guide] to fully understand how AFU Developers will use your newly developed FIM.
+You are encouraged to read [OFS AFU Development Guide](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) to fully understand how AFU Developers will use your newly developed FIM.
 
 
 
@@ -142,10 +142,10 @@ To run the tutorial steps in this guide requires this development environment:
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 22.3 (with license patch) |
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} (with license patch) |
 | Target D5005 Sever Operating System   | RHEL 8.2 |
-| OPAE SDK   | [2.3.0-1 ](https://github.com/OFS/opae-sdk/releases/tag/2.3.0-1 ) |
-| Linux DFL    | [ofs-2022.3-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2022.3-2) |
+| OPAE SDK   | [2.5.0-3 ](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3 ) |
+| Linux DFL    | [ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) |
 | Python    | 3.7.7 |
 | cmake     | 3.11.4 |
 | GCC       | 7.2.0 |
@@ -153,9 +153,9 @@ To run the tutorial steps in this guide requires this development environment:
 
 The following server and Intel PAC card are required to run the examples in this guide:
 
-1. Qualified Intel Xeon <sup>&reg;</sup> server see [Qualified Servers].
+1. Qualified Intel Xeon <sup>&reg;</sup> server see [Qualified Servers](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html).
 2. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Intel for root entry hash erase instructions).  The standard Intel® FPGA PAC D5005 card is programmed to only allow the FIM binary files signed by Intel to be loaded.  The root entry hash erase process will allow newly created, unsigned FIM binary files to be loaded.
-3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide].
+3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 The steps included in this guide have been verified in the Dell R740 and HPE ProLiant DL380 Gen10 servers.
 # 2. High Level Description
@@ -354,9 +354,9 @@ Peripherals are presented to software as:
 
 The peripherals connected to the peripheral fabric are primarily Intel OPAE managed resources, whereas the peripherals connected to the AFU are “primarily” managed by native OS drivers. The word “primarily” is used since the AFU is not mandated to expose all its peripherals to Intel OPAE. It can be connected to the peripheral fabric, but can choose to expose only a subset of its capability to Intel OPAE.
 
-OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section].
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
 
-If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver.  The [Device Feature Header (DFH) structure] provides a mechanism to maintain compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview] for an excellent description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver.  The [Device Feature Header (DFH) structure](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
 
 When you are planning your address space for your FIM updates, please be aware that the OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features and 128kB of MMIO region is allocated for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of external feature list.  Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
@@ -402,21 +402,21 @@ FIM development for a new acceleration card consists of the following steps:
 
 The FIM developer works closely with the hardware design of the target board, software development and system validation.
 
-Understanding how the AFU developer utilizes the FIM is important for FIM development success.  Please read [OFS AFU Development Guide] for a detailed description of AFU development.
+Understanding how the AFU developer utilizes the FIM is important for FIM development success.  Please read [OFS AFU Development Guide](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) for a detailed description of AFU development.
 
 ## 4.1. Installation of OFS
 
-In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see [OFS Getting Started User Guide] for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
+In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
 
 Building the OFS FIM requires the development machine to have at least 64 GB of RAM.
 
 The following is a summary of the steps to set up for FIM development:
 
-1. Install Quartus Prime Pro 22.3 Linux and setup environment
+1. Install Quartus Prime Pro ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} Linux and setup environment
 2. Clone the github `ofs-d5005` repository
 3. Test installation by building the provided FIM
 
-Intel Quartus Prime Pro version 22.3 is the currently verified version of Quartus used for building the FIM and AFU images for this release.  Porting to newer versions of Quartus may be performed by developers.  Download Quartus Prime Pro Linux version 22.3 from [Intel® Quartus® Prime Pro Edition Linux].
+Intel Quartus Prime Pro version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} is the currently verified version of Quartus used for building the FIM and AFU images for this release.  Porting to newer versions of Quartus may be performed by developers.  Download Quartus Prime Pro Linux version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} from [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html).
 
 After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -424,10 +424,10 @@ After running the Quartus Prime Pro installer, set the PATH environment variable
 export PATH=$PATH:<Quartus install directory>/quartus/bin
 ```
 
-For example, if the Quartus install directory is /home/intelFPGA_pro/22.3 then the new line is:
+For example, if the Quartus install directory is /home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }} then the new line is:
 
 ```bash session
-export PATH=$PATH:/home/intelFPGA_pro/22.3/quartus/bin
+export PATH=$PATH:/home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/quartus/bin
 ```
 
 Verify, Quartus is discoverable by opening a new shell:
@@ -435,7 +435,7 @@ Verify, Quartus is discoverable by opening a new shell:
 ```bash session
 which quartus
 ## Output
-/home/intelFPGA_pro/22.3/quartus/bin/quartus
+/home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/quartus/bin/quartus
 ```
 Note, for some Linux distributions such as RHEL 8.2, Quartus requires installation of the following libraries:
 ```bash session
@@ -444,7 +444,7 @@ sudo dnf install ncurses-compat-libs
 sudo ln -s /usr/bin/python3 /usr/bin/python
 ```
 
-You will need to obtain a license for Intel Quartus Prime Pro version 22.3 to compile the design.  This license is obtained from Intel.  Additionally, OFS for Intel® Stratix 10® FPGA requires a license for the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core.  This license is required to generate a programming file using the provided OFS source code.  The Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core license patch installer is provided in the ofs-d5005 git repository in the /license directory.  After cloning the OFS release in step 4 below, you can install this IP license.  
+You will need to obtain a license for Intel Quartus Prime Pro version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} to compile the design.  This license is obtained from Intel.  Additionally, OFS for Intel® Stratix 10® FPGA requires a license for the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core.  This license is required to generate a programming file using the provided OFS source code.  The Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core license patch installer is provided in the ofs-d5005 git repository in the /license directory.  After cloning the OFS release in step 4 below, you can install this IP license.  
 
 
 
@@ -472,13 +472,13 @@ cd OFS_fim_build_root
 export OFS_BUILD_ROOT=$PWD
 git clone --recurse-submodules  https://github.com/OFS/ofs-d5005.git
 cd ofs-d5005
-git checkout tags/ofs-d5005-1.0.1
+git checkout tags/ofs-2023.1
 ```
 Verify proper tag is selected:
 
 ```bash session   
 git describe --tags
-ofs-d5005-1.0.1
+ofs-2023.1
 ```
 2. Install the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP license by running provided license installer.
 
@@ -493,7 +493,7 @@ sudo ./quartus-0.0-0.01Intel OFS-linux.run
 quartus_sh --version
 ##Output
 Quartus Prime Shell
-Version 22.3 Pro Edition
+Version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} Pro Edition
 ```
 
 ## 4.2. Compiling OFS FIM
@@ -526,7 +526,7 @@ export QUARTUS_HOME=$QUARTUS_ROOTDIR
 export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
 export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
-export OPAE_SDK_REPO_BRANCH=release/2.3.0
+export OPAE_SDK_REPO_BRANCH=release/2.5.0
 ```
 
 ### 4.2.2. Compiling
@@ -614,7 +614,7 @@ Some of the key files are described below:
 ```
 <work_dir>/syn/syn_top/output_files == Directory with build reports and FPGA programming files. 
 
-The programming files consist of the Quartus generated d5005.sof and d5005.pof.  The D5005 board hardware provides a 2 Gb flash device to store the FPGA programming files and a MAX10 BMC that reads this flash and programs the D5005 Intel® Stratix 10® FPGA FPGA. The syn/build_top.sh script runs script file syn/syn_top/build_flash/build_flash.s which takes the Quartus generated d5005.sof and creates binary files in the proper format to be loaded into the 2 Gb flash device.  You can also run build_flash.sh by yourself if needed.  The build_flash  script runs PACSign (if installed) to create an unsigned FPGA programming file that can be stored in the D5005 FPGA flash. Please note, if the D5005 has the root entry hash key loaded, then PACsign must be run with d5005_page1.bin as the input with the proper key to create an authenticated FPGA binary file.  Please see [Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® FPGA] for details on the security aspects of Intel® Open FPGA Stack.
+The programming files consist of the Quartus generated d5005.sof and d5005.pof.  The D5005 board hardware provides a 2 Gb flash device to store the FPGA programming files and a MAX10 BMC that reads this flash and programs the D5005 Intel® Stratix 10® FPGA FPGA. The syn/build_top.sh script runs script file syn/syn_top/build_flash/build_flash.s which takes the Quartus generated d5005.sof and creates binary files in the proper format to be loaded into the 2 Gb flash device.  You can also run build_flash.sh by yourself if needed.  The build_flash  script runs PACSign (if installed) to create an unsigned FPGA programming file that can be stored in the D5005 FPGA flash. Please note, if the D5005 has the root entry hash key loaded, then PACsign must be run with d5005_page1.bin as the input with the proper key to create an authenticated FPGA binary file.  Please see [Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® FPGA](https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md) for details on the security aspects of Intel® Open FPGA Stack.
 
 The following table provides further detail on the generated bin files.
 
@@ -713,7 +713,7 @@ Unit level simulation of key components is provided. These simulations provide v
 * FIM management
   
 
-These simulations use the Synopsys VCS simulator. Each simulation contains a readme file explaining how to run the simulation. Refer to [Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA]  for details of simulation examples. Your simulation shell requires Python, Quartus, and VCS to run.  To run a simulation of the dfh_walker that simulates host access to the internal DFH registers, perform the following steps:
+These simulations use the Synopsys VCS simulator. Each simulation contains a readme file explaining how to run the simulation. Refer to [Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA](https://github.com/OFS/otcshare/blob/main/hw/docs/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md)  for details of simulation examples. Your simulation shell requires Python, Quartus, and VCS to run.  To run a simulation of the dfh_walker that simulates host access to the internal DFH registers, perform the following steps:
 
 ```bash session
 Before running unit simulation, you must set environment variables as described below:
@@ -731,7 +731,7 @@ export QUARTUS_HOME=$QUARTUS_ROOTDIR
 export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
 export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
-export OPAE_SDK_REPO_BRANCH=release/2.3.0
+export OPAE_SDK_REPO_BRANCH=release/2.5.0
 ```
 
 To compile all IPs:
@@ -880,7 +880,7 @@ The simulation transcript is displayed while the simulation runs.  The transcrip
 
 ## 4.3. Compiling the OFS FIM using Eval Script
 
-The Evaluation Script provides resources to setup and report D5005 development environment. You can use the evaluation script to compile and simulate the FIM. Refer to [README_ofs_d5005_eval.txt] for details of using the evaluation script.
+The Evaluation Script provides resources to setup and report D5005 development environment. You can use the evaluation script to compile and simulate the FIM. Refer to [README_ofs_d5005_eval.txt](https://github.com/OFS/ofs-d5005/blob/release/1.0.x/eval_scripts/README_ofs_d5005_eval.txt)) for details of using the evaluation script.
 ## 4.4. Debugging
 
 For debugging issues within the FIM, Signal Tap can be used to gain internal visibility into your design.  This section describes the process of adding a Signal Tap instance to your FIM design
@@ -1041,9 +1041,9 @@ An example of FIM modification is provided in this section.  This example can be
 
 ## 5.1. Hello FIM example
 
-If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions].
+If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions).
 
-See [FPGA Device Feature List (DFL) Framework Overview] for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
+See [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
 
 This example adds a simple DFH register set to the FIM. You can use this example as the basis for adding a new feature to your FIM.  
 
@@ -1938,9 +1938,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 288511861987640872
+Bitstream Id                     : 288511862659474365
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : d51533ad-aee6-5dab-80fb-a44bbf579b68
+Pr Interface Id                  : 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461
 Boot Page                        : user
 
 ```
@@ -2007,45 +2007,7 @@ No license (express or implied, by estoppel or otherwise) to any intellectual pr
 The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
 Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others.   
-[License quartus-0.0-0.01iofs-linux.run]: https://github.com/OFS/ofs-d5005/blob/release/1.0.x/license/quartus-0.0-0.01iofs-linux.run
-[OFS D5005 FIM Github Branch]: https://github.com/OFS/ofs-d5005
-[OFS FIM_COMMON Github Branch]: https://github.com/OFS/ofs-fim-common
-[OPAE SDK Branch]: https://github.com/OFS/opae-sdk/tree/2.3.0-1
-[OPAE SDK Tag]: https://github.com/OFS/opae-sdk/releases/tag/2.3.0-1
-[OPAE SDK SIM Branch]: https://github.com/OFS/opae-sim/tree/2.3.0-1
-[OPAE SDK SIM Tag]: https://github.com/OFS/opae-sim/releases/tag/2.3.0-1
-[Linux DFL]: https://github.com/OFS/linux-dfl
-[Kernel Driver Branch]: https://github.com/OFS/linux-dfl/tree/ofs-2022.3-2
-[Kernel Driver Tag]: https://github.com/OFS/linux-dfl/releases/tag/ofs-2022.3-2
-[OFS Release]: https://github.com/OFS/ofs-d5005/releases/
-[Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-[Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®]: https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/
-[Qualified Servers]: https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html
-[OFS Getting Started User Guide]: https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/
-[Open FPGA Stack Reference Manual - MMIO Regions section]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions
-[Device Feature Header (DFH) structure]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure
-[FPGA Device Feature List (DFL) Framework Overview]: https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview
-[ofs-platform-afu-bbb]: https://github.com/OPAE/ofs-platform-afu-bbb
-[Connecting an AFU to a Platform using PIM]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
-[OFS AFU Development Guide]: https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
-[example AFUs](https://github.com/OFS/examples-afu.git)
-[PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial
-[Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial
-[Unit Level Simulation]: https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation
-[Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® FPGA]: https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md
-[BMC User Guide]: https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md
-[OPAE.io]: https://opae.github.io/latest/docs/fpga_tools/opae.io/opae.io.html
-[OPAE GitHub]: https://github.com/OFS/opae-sdk
-[5.0 OPAE Software Development Kit]: https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit
-[Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA]: https://github.com/OFS/otcshare/blob/main/hw/docs/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md
-[README_ofs_d5005_eval.txt]: https://github.com/OFS/ofs-d5005/blob/release/1.0.x/eval_scripts/README_ofs_d5005_eval.txt)
-[FIM MMIO Regions]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions
-
-[Open FPGA Stack Technical Reference Manual]: https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/
-
-[evaluation script]: https://github.com/OFS/ofs-d5005/tree/release/1.0.x/eval_scripts
-[OFS]: https://github.com/OFS
-[OFS GitHub page]: https://ofs.github.io
-[DFL Wiki]: https://github.com/OPAE/linux-dfl/wiki 
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+ 
