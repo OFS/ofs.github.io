@@ -69,8 +69,6 @@ nav:
       - FPGA Interface Manager Developer Guide: 'hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md'
       - AFU Developer Guide: 'hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x.md'
       - Simulation User Guide: 'hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md'
-  - oneAPI: 
-      - oneAPI Accelerator Support Package(ASP) Reference Manual: 'hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md'  
   - OFS Software:
     - OPAE USER GUIDES:
        - Quick Start Guide: sw/fpga_api/quick_start/readme.md
