@@ -1,3 +1,4 @@
+
 site_name: OFS 
 repo_url: https://github.com/ofs
 repo_name: ofs
@@ -9,50 +10,78 @@ theme:
     - navigation.instant
     - navigation.tracking
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.top
+    - navigation.indexes
     - search.suggest
     - search.highlight
     - content.code.copy
+    - navigation.indexes
+    - toc.follow
 
 plugins:
+  - glightbox
   - search:
       lang: en
-  # - mkdoxy:
-  #     projects:
-  #       opae-code:
-  #         src-dirs: "docs/sw"
-  #         full-doc: True
-  #         doxy-cfg:
-  #           FILE_PATTERNS: "*.c *.cc *.cxx *.cpp *.c++ *.java *.h *.hh *.hxx *.hpp *.h++ *.xpm"
-  #           RECURSIVE: True
-  #           DOXYFILE_ENCODING: "UTF-8"
-  #           PROJECT_NAME: "OPAE C API"
-  #           OPTIMIZE_OUTPUT_FOR_C: True
-  #           EXTRACT_ALL: True
-  #           EXCLUDE_SYMLINKS: True
-  #           EXCLUDE_PATTERNS: "*/archive/* */.git/*"
+  - mkdoxy:
+      projects:
+        opae-code:
+          src-dirs: "docs/sw"
+          full-doc: True
+          debug: True
+          hints: True
+          doxy-cfg:
+            FILE_PATTERNS: "*.c *.cc *.cxx *.cpp *.c++ *.java *.h *.hh *.hxx *.hpp *.h++ *.xpm"
+            RECURSIVE: True
+            DOXYFILE_ENCODING: "UTF-8"
+            PROJECT_NAME: "OPAE C API"
+            OPTIMIZE_OUTPUT_FOR_C: True
+            OPTIMIZE_OUTPUT_JAVA: True
+            JAVADOC_AUTOBRIEF: True
+            EXTRACT_ALL: True
+            EXCLUDE_SYMLINKS: True
+            EXCLUDE_PATTERNS: "*/archive/* */.git/*"
 
 # Page tree
 nav:
   - Welcome: index.md
-  - Stratix 10 OFS Hardware Docs:
+  - Stratix 10 PCIe Attach OFS Hardware Docs:
       - Quick Start Evaluation Guide: 'hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005.md'
       - Getting Started: 'hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md'
       - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
       - FPGA Interface Manager Technical Reference Manual: 'hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md'
       - FPGA Interface Manager Developer Guide: 'hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md'
       - AFU Developer Guide: 'hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005.md'
+      - Simulation User Guide: 'hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md'   
+  - Agilex PCIe Attach OFS Hardware Docs:
+      - Quick Start Evaluation Guide: 'hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001.md'
+      - Getting Started: 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
+      - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
+      - FPGA Interface Manager Technical Reference Manual: 'hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001.md'
+      - FPGA Interface Manager Developer Guide: 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
+      - AFU Developer Guide: 'hw/n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001.md'
+      - Simulation User Guide: 'hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001.md'  
+  - Agilex SoC Attach OFS Hardware Docs:
+      - Quick Start Evaluation Guide: 'hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x.md'
+      - Getting Started: 'hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x.md'
+      - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
+      - FPGA Interface Manager Technical Reference Manual: 'hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs.md'
+      - FPGA Interface Manager Developer Guide: 'hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md'
+      - AFU Developer Guide: 'hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x.md'
+      - Simulation User Guide: 'hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md'
+  - oneAPI: 
+      - oneAPI Accelerator Support Package(ASP) Reference Manual: 'hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md'  
   - OFS Software:
     - OPAE USER GUIDES:
        - Quick Start Guide: sw/fpga_api/quick_start/readme.md
        - OPAE Installation Guide: sw/install_guide/installation_guide.md
        - OPAE C API Programming Guide: sw/fpga_api/prog_guide/readme.md
-       - OPAE Python Bindings: https://opae.github.io/latest/docs/pyopae/README.html
+       - OPAE Python Bindings: sw/pyopae/python_bindings.md
        - OPAE Plugin Developers Guide: sw/fpga_api/plug_guide/readme.md
     - OPAE LIBRARIES:
-      - OPAE C API Reference: https://opae.github.io/latest/docs/fpga_api/fpga_api.html
-      - OPAE C++ Core API Reference: https://opae.github.io/latest/docs/fpga_api/fpga_cxx_api.html
-      - OPAE Python API Reference: https://opae.github.io/latest/docs/fpga_api/fpga_python_api.html
+      - OPAE C API Reference: sw/fpga_api/fpga_api.md
+      - OPAE C++ Core API Reference: sw/fpga_api/fpga_cxx_api.md
+      - OPAE Python API Reference: sw/fpga_api/fpga_python_api.md
       - OPAE Plugin Developers Guide: sw/fpga_api/plug_guide/readme.md
     - OPAE LINUX KERNEL DRIVERS:
        - Open Programmable Accelerator Engine (OPAE) Linux Device Driver Architecture: sw/drv_arch/drv_arch.md
@@ -78,53 +107,283 @@ nav:
        - opaeuio: sw/fpga_tools/opaeuio/opaeuio.md
        - fpgad: sw/fpga_tools/fpgad/fpgad.md
        - fpgadiag: sw/fpga_tools/fpgadiag/README.md
+  - oneAPI: 
+    - oneAPI ASP Getting Started User Guide: hw/common/user_guides/oneapi_asp/ug_oneapi_asp.md
+    - oneAPI ASP Reference Manual: /hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md
+
 
 markdown_extensions:
-  - md_in_html
+  - pymdownx.snippets
+
+  # Python Markdown
   - abbr
+  - admonition
   - attr_list
   - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+#  - toc:
+#      permalink: true
   - tables
-  - pymdownx.tasklist:
-      custom_checkbox: true
+
+  # Python Markdown Extensions
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.mark
+  - pymdownx.tilde
+  - pymdownx.details
   - pymdownx.highlight:
       anchor_linenums: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets:
-      auto_append:
-        - includes/abbreviations.md
+  - pymdownx.keys
+  - pymdownx.smartsymbols
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
-env:          
+  - pymdownx.tabbed:
+      alternate_style: true          
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.snippets:
+      auto_append:
+        - includes/abbreviations.md
+
+env: 
+# Devices         
+  AGILEX: Intel® Agilex® FPGA
   D5005_DEVICE: Intel® Stratix 10® FPGA
+# D5005
   D5005_BOARD: Intel® FPGA PAC D5005
-  D5005_OFS_VER: 2022.3
-  D5005_OFS_RELEASE: ofs-d5005-1.0.1
-  D5005_OFS_TAG: ofs-d5005-1.0.1
-  D5005_OFS_COMMON_RELEASE: ofs-fim-common-1.1.0-rc2
-  D5005_OFS_AFU_EXAMPLE_TAG: ofs-examples-afu-1.0.0-rc3
-  D5005_OFS_AFU_BBB_TAG: 1.0.0-rc3
+  D5005_BOARD_S: d5005
+  D5005_OFS_VER: 2023.1
+  D5005_OFS_RELEASE: ofs-2023.1
+  D5005_OFS_TAG: ofs-2023.1-1
+  D5005_OFS_COMMON_RELEASE: ofs-2023.1
+  D5005_OFS_AFU_EXAMPLE_TAG: ofs-examples-afu-1.0.0
+  D5005_OFS_AFU_BBB_TAG: 1.0.0
   D5005_FIM_REPO: ofs-d5005
-  D5005_FIM_TAG: release/1.0.x
+  D5005_FIM_TAG: release/ofs-2023.1
   D5005_NIOS_FW_VER: 2.0.13
   D5005_BMC_RTL_BUILD_VER: 2.0.13
-  D5005_QUARTUS_PRIME_PRO_VER: 22.3
+  D5005_QUARTUS_PRIME_PRO_VER_S: 23.1
+  D5005_QUARTUS_PRIME_PRO_VER_L: Quartus Prime Pro Version 23.1
   D5005_OS_VER: RHEL 8.2
   D5005_PYTHON_VER: 3.7.7
   D5005_CMAKE_VER: 3.11.4
   D5005_GCC_VER: 7.2.0
+  D5005_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
   D5005_GIT_VER: 1.8.3.1
   D5005_PERL_VER: 5.8.8
-  D5005_OPAE_VER: 2.3.0-1
-  D5005_OPAE_RELEASE: release/2.3.0
-  D5005_KERNEL_VER: 5.15-lts
-  D5005_KERNEL_VER_COMPLETE: 5.15.77
-  D5005_KERNEL_BRANCH: ofs-2022.3-2
-  D5005_BITSTREAM_ID: 0x401000287428628
-  D5005_PR_ID: d51533ad-aee6-5dab-80fb-a44bbf579b68
-  OFS_COMMON_BRANCH: ofs-fim-common
-  OFS_COMMON_TAG: release/1.0.x
-
+  D5005_OPAE_VER: 2.5.0-3
+  D5005_OPAE_RELEASE: release/2.5.0
+  D5005_KERNEL_VER: 6.1.22
+  D5005_KERNEL_VER_COMPLETE: 6.1.22
+  D5005_KERNEL_BRANCH: ofs-2023.1-6.1-1
+  D5005_BITSTREAM_ID: 0x4010002AF4DE3BD
+  D5005_BITSTREAM_VERSION: 4.0.1
+  D5005_PR_ID: 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461
+  D5005_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  D5005_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
+  D5005_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
+  D5005_SIM_UVM_VCS: S-2021.09-SP1
+  D5005_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
+  D5005_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
+  D5005_SIM_UVM_QS: 2021.4
+  D5005_url_intel-fpga-bbb: https://github.com/OPAE/intel-fpga-bbb.git
+  D5005_url_examples-afu: https://github.com/OFS/examples-afu.git
+  D5005_url_ofs-platform-afu-bbb: https://github.com/OFS/ofs-platform-afu-bbb.git
+  D5005_url_opae-sim: https://github.com/OFS/opae-sim.git
+  D5005_url_FIM: https://github.com/OFS/ofs-d5005.git
+  D5005_url_opae-sdk: https://github.com/OFS/opae-sdk.git
+  #D5005_ONEAPI
+  D5005_ONEAPI_ASP_TAG: ofs-2023.1-1
+  D5005_ONEAPI_ASP_PATCHES: none
+  #N6001_REPO
+  N6001: Intel® FPGA SmartNIC N6001-PL
+  N6001_BRANCH: release/ofs2023.1-1
+  N6001_RELEASE: ofs-2023.1-1
+  N6001_TAG: ofs-2023.1-1
+  N6001_RELEASE_PATH: https://github.com/OFS/ofs-n6001/ofs-2023.1
+  N6001_REPO: https://github.com/OFS/ofs-n6001
+  N6001_FIM_REPO: ofs-n6001
+  N6001_RELEASE_NUMBER: 2023.1
+  N6001_DOC_REPO: https://github.com/intel-innersource/applications.fpga.ofs.opensource-documentation/tree/main/docs/hw/n6001
+  N6001_OPAE_REPO_GENERIC: https://github.com/OPAE/opae-sdk
+  N6001_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.5.0-2
+  N6001_LINUX_DFL_REPO_GENERIC: https://github.com/OPAE/linux-dfl
+  N6001_LINUX_DFL_TAG_DIRECT: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1
+  N6001_LINUX_DFL_TAG: ofs-2023.1-6.1-1
+  N6001_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1
+  N6001_OFS_TAG_DIRECT: https://github.com/intel-innersource/applications.fpga.ofs.fim-n6001/releases/tag/ofs-2023.1-1
+  N6001_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb.git
+  N6001_RELEASE_PAGE: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1 
+  N6001_DRIVER_KERNEL_BASE: 6.1.22
+  N6001_REDHAT_MAJOR_VERSION: 8
+  N6001_REDHAT_MINOR_VERSION: 6
+  #N6001_FIM
+  N6001_BITSTREAM_ID: 0x5010202DC8FCCE3
+  N6001_PR_INTERFACE_ID: 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
+  N6001_OFS_FIM_TAG: ofs-2023.1-1
+  N6001_FIM_REPO: applications.fpga.ofs.fim-n6001
+  #N6001_Server_Platform
+  N6001_BIOS_VERSION: American Megatrends International, LLC(1.4)
+  #N6001_BMC
+  N6001_BMC_REPO: https://github.com/otcshare/ofs-bmc
+  N6001_BMC_FW_VER: 3.11.0
+  N6001_BMC_RTL_VER: 3.11.0
+  N6001_BMC_DL_LINK: TBD
+  #N6001_Quartus
+  N6001_BMC_QUARTUS_VER: Quartus Standard Version 23.1
+  N6001_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.1
+  N6001_QUARTUS_PP_VER_S: 23.1
+  N6001_QUARTUS_LINK: https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html
+  #N6001_ONEAPI
+  N6001_ONEAPI_ASP_PATCHES: 0.10 and 0.02iofs
+  N6001_ONEAPI_ASP_TAG: ofs-2023.1-1
+  N6001_ONEAPI_ASP_REL_PATH: https://github.com/OFS/oneapi-asp/ofs-2023.1
+  QUARTUS_PRO: Intel® Quartus® Prime Pro Edition Software
+  QUARTUS_SW: Intel® Quartus® Prime Design Software
+  QUARTUS_SIMPLE: Intel® Quartus® software
+  ONEAPI_BASE_TOOLKIT: Intel® oneAPI Base Toolkit (Base Kit)
+  AVALON: Avalon®
+  INTEL_FPGA: Intel® FPGA
+  ONEAPI_ASP_REPO_NAME: oneapi-asp
+  ONEAPI_ASP_NAME: oneAPI ASP
+  OPENCL: OpenCL™
+  #N6001_OS
+  N6001_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.6
+  N6001_HOST_OS_DL_LINK: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software
+  N6001_HOST_OS_S: RHEL 8.6
+  N6001_KERNEL_BRANCH: release/fpga-ofs-dev-6.1-lts
+  N6001_KERNEL_TAG: ofs-2023.1-6.1-1
+  N6001_KERNEL_VER_S: 6.1
+  N6001_KERNEL_VER_L: 6.1-lts
+  #N6001_OPAE
+  N6001_OPAE_TAG: 2.5.0-1
+  N6001_OPAE_BRANCH: release/2.5.0
+  N6001_BITSTREAM_ID: 0x5010202BE8C93B9
+  N6001_PR_ID: 5bcd682f-5093-5fc7-8cd2-ae8073e19452
+  N6001_PYTHON_VER: 3.7.7
+  N6001_CMAKE_VER: 3.11.4
+  N6001_GIT_VER: 1.8.3.1
+  N6001_GCC_VER: 7.2.0
+  N6001_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
+  N6001_PERL_VER: 5.8.8
+  N6001_DESIGNWARE_VER: vip_Q-2020.03A
+  N6001_VCS_VER: S-2021.09-SP1
+  #N6001_Other Release Paths
+  N6001_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/2023.1
+  N6001_AFU_EX_REL_PATH: https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1
+  N6001_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  N6001_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
+  N6001_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
+  N6001_SIM_UVM_LIC_VCSMX: VCS R-2020.12-SP2 License
+  N6001_SIM_UVM_VCS: S-2021.09-SP1
+  N6001_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
+  N6001_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
+  N6001_SIM_UVM_QS: 2021.4
+  #F2000X
+  F2000X_HOST_OD: Ubuntu 22.04 LTS
+  F2000X_OS_DOWNLOAD_LINK: https://ubuntu.com/download/desktop
+  F2000X_L: Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL 
+  F2000X_S: Intel IPU Platform F2000X-PL
+  #do not change to uppercase, this is used for console commands too
+  F2000X_MODEL: f2000x
+  F2000X_MPN: AGFC023R25A2E2VR0 
+  F2000X_RELEASE: release/ofs-2023.1
+  F2000X_TAG: ofs-2023.1-1
+  F2000X_REPO: https://github.com/OFS/ofs-f2000x-pl 
+  F2000X_FIM_REPO: ofs-f2000x-pl 
+  F2000X_BMC_FW_VER: 1.1.9
+  F2000X_BMC_RTL_VER: 1.1.9
+  F2000X_BMC_QUARTUS_VER: Quartus Standard Version v20.1
+  F2000X_QUARTUS_PP_VER_L: Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1
+  F2000X_QUARTUS_PP_VER_S: 23.1
+  F2000X_HOST_OS_L: Ubuntu 22.04
+  F2000X_HOST_OS_S: Ubuntu 22.04
+  F2000X_KERNEL_BRANCH: release/fpga-ofs-dev-5.15.77-lts
+  F2000X_KERNEL_TAG: ofs-2023.1-5.15-1
+  F2000X_KERNEL_VER_S: 5.15-lts
+  F2000X_KERNEL_VER_L: 5.15.77-dfl
+  F2000X_OPAE_TAG: 2.5.0-3
+  F2000X_OPAE_RELEASE: release/2.5.0
+  F2000X_OPAE_BRANCH: release/2.5.0
+  F2000X_SIMULATOR: Synopsys VCS P-2019.06-SP2-5
+  F2000X_SIMULATOR_VER: S-2021.09-SP1
+  F2000X_DESIGNWARE: vip_Q-2020.03A
+  F2000X_BITSTREAM_ID: 0x5010302EB2F77CE
+  F2000X_PR_ID: bf2a9e1a-b05d-5130-b47c-776055c0d67e
+  F2000X_PYTHON_VER: 3.7.7
+  F2000X_CMAKE_VER: 3.11.4
+  F2000X_GCC_VER: 7.2.0
+  F2000X_GIT_VER: 1.8.3.1
+  F2000X_PERL_VER: 5.8.8
+  F2000X_DESIGNWARE_VER: vip_Q-2020.03A
+  F2000X_VCS_VER: S-2021.09-SP1  
+  F2000X_RELEASE_NAME: 2023.1 OFS SoC Attach Release for Intel IPU Platform F2000X-PL
+  F2000X_RELEASE_NAME_SHORTENED: 2023.1
+  F2000X_YOCTO_WIC_LINK_DIRECT: https://github.com/OFS/meta-ofs/releases/download/ofs-2023.1-2/core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz
+  F2000X_YOCTO_WIC_NAME: core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz
+  F2000X_YOCTO_WIC_NAME_UNCOMPRESSED: core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic
+  F2000X_GBS_PR_INTERFACE_ID: bf2a9e1a-b05d-5130-b47c-776055c0d67e
+  F2000X_BIOS_FILE_NAME: 0ACRH608_REL.bin 
+  F2000X_GBS_DOWNLOAD_LINK: TBD
+  F2000X_DOWNLOAD_RELEASE_PAGE: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1
+  F2000X_GITHUB_RELEASE_PAGE_NAME: TBD
+  F2000X_MET_OFS_TAG_LINK: https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2
+  F2000X_HOST_KERNEL: 5.15-lts
+  F2000X_LINUX_DFL_TAG_LINK: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1
+  F2000X_OPAE_SDK_TAG_LINK: https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3
+  F2000X_SOC_OS: meta-intel-ese Reference Distro 1.0-ESE (kirkstone)
+  F2000X_BASE_BIOS_FILE_NAME: 0ACRH007.bin
+  F2000X_BASE_BIOS_VERSION: 0ACRH0007
+  F2000X_UPDATE_BIOS_VERSION: 0ACRH608_REL
+  F2000X_UPDATE_BIOS_FILE_NAME: 0ACRH608_REL.BIN
+  F2000X_OPAE-SIM_TAG: 2.5.0-2
+  F2000X_META_OFS_TAG: ofs-2023.1-4
+  F2000X_ONEAPI-ASP_TAG: ofs-2023.1-1
+  F2000X_AFU_EXAMPLES_TAG: ofs-2023.1-1
+  F2000X_OFS_PLATFORM_BBB_TAG: ofs-2023.1-1
+  F2000X_OFS_F2000X_TAG: ofs-2023.1-1
+  F2000X_FIM_COMMON_TAG: ofs-2023.1-1
+  F2000X_LINUX_DFL_TAG: ofs-2023.1-6.1-1
+  F2000X_OPAE_SDK_TAG: 2.5.0-3
+  F2000X_META_OFS_REPO: https://github.com/OFS/meta-ofs
+  F2000X_KERNEL_VER_COMPLETE: 5.15.92-dfl-66b0076c2c-lts
+  F2000X_KERNEL_VER: 5.15
+  F2000X_META_OFS_DROP: https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2
+  F2000X_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  F2000XX_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
+  F2000X_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
+  F2000X_SIM_UVM_LIC_VCSMX: VCS R-2020.12-SP2 License
+  F2000X_SIM_UVM_VCS: S-2021.09-SP1
+  F2000X_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
+  F2000X_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
+  F2000X_SIM_UVM_QS: 2021.4
+  OFS_COMMON_RELEASE: 2023.1
+  COMMON_REPO_TAG: ofs-2023.1-1
+  COMMON_REPO_BRANCH: release/1.0.x
+  EXAMPLES-AFU: ofs-2023.1-1
+  BRANCH_EXAMPLES-AFU: examples-afu
+  OFS_PLAT_AFU_BBB_TAG: 2023.1-1
+  OFS_PLAT_AFU_BBB_BRANCH: ofs-platform-bbb
+  OPAE_SIM_TAG: 2.5.0-2
+  OPAE_SIM_BRANCH: opae-sim
+  ONEAPI_ASP_REPO: https://github.com/OFS/oneapi-asp
+  OPAE_SDK_REPO: https://github.com/OFS/opae-sdk
+  LINUX_DFL_REPO: https://github.com/OFS/linux-dfl
+  url_ofs_common: https://github.com/OFS/ofs-fim-common 
+  url_oneapi_asp: https://github.com/OFS/oneapi-asp.git
+  url_ofs-platform-afu-bbb: https://github.com/OFS/ofs-platform-afu-bbb.git
+  url_opae-sim: https://github.com/OFS/opae-sim.git
+  url_opae-sdk: https://github.com/OFS/opae-sdk.git
+  url_linux-dfl: https://github.com/OFS/linux-dfl.git
+  url_intel-fpga-bbb: https://github.com/OPAE/intel-fpga-bbb.git
+  url_examples-afu: https://github.com/OFS/examples-afu.git
+  ARM_AXI: Arm® AMBA® 4 AXI4
+ 
