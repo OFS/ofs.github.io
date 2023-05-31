@@ -1,6 +1,6 @@
 # Intel<sup>&reg;</sup> FPGA Interface Manager Developer Guide: Intel Agilex SoC Attach: Open FPGA Stack
 
-Last updated: **May 27, 2023** 
+Last updated: **May 31, 2023** 
 
 
 # 1. Introduction
