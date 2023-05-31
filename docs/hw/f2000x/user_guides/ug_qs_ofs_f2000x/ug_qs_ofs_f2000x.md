@@ -309,7 +309,7 @@ You will load the latest pre-compiled Yocto `core-image-minimal` WIC image into 
 
 2. In a terminal window, find the device name of the USB flash drive and unmount the device:
 
-```bash session
+```bash
 $ lsblk
 
 NAME MAJ:MIN RM SIZE RO TYPE MOUNTPOINT
@@ -337,14 +337,14 @@ your USB Flash. You can also check the output of `dmesg` after manually plugging
 
 3. Unmount the USB flash (if not already unmounted).
 
-```bash session
+```bash
 $ sudo umount /dev/sdd1
 umount: /dev/sdd1: not mounted.
 ```
 
 4. Download the Yocto WIC image to the Linux computer.
 
-```bash session
+```bash
 $ wget https://github.com/OFS/meta-ofs/archive/refs/tags/ofs-2023.1-4.tar.gz
 $ tar xf meta-ofs-${{ env.F2000X_META_OFS_TAG_WITHOUT_OFS }}.tar.gz
 # Verify the checksum of the downloaded image
@@ -355,14 +355,14 @@ $ gzip -d core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz
 
 5. Copy core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic to the USB flash. This process may take several minutes.
 
-```bash session
+```bash
 $ sudo dd if=core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic of=/dev/sdd1 bs=512k status=progress conv=sync
 $ sgdisk -e /dev/sdd
 ```
 
 6. Create a partition to store the Yocto image, which will be used to overwrite on-board NVMe as the default boot target.
 
-```bash session
+```bash
 	$ sudo fdisk /dev/sdd
 	Command (m for help): p
 	Command (m for help): n
@@ -377,7 +377,7 @@ Command (m for help): w
 
 7. Verify USB flash is partitioned.
 
-```bash session
+```bash
 $ lsblk
 	NAME        MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
 	sdd           8:0    1 114.6G  0 disk
@@ -389,14 +389,14 @@ $ lsblk
 
 8. Format the new partition.
 
-```bash session
+```bash
 $ mkfs -t ext4 /dev/sdd4
 $ mount /dev/sda4 /mnt
 ```
 
 9. Copy compressed `core-image-minimal` WIC into /mnt.
 
-```bash session
+```bash
 $ cp core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz /mnt
 ```
 
@@ -422,7 +422,7 @@ If a component does not have a required update, it will not have an entry on [TB
 <sup>1</sup>To check the PR Interface ID of the currently programmed FIM and the BMC RTL and FW version, use `fpgainfo fme` from the SoC.
 <sup>2</sup>Must be programmed if using AFU-enabled exercisers, not required otherwise.
 
-```bash session
+```bash
 $ fpgainfo fme
 Intel IPU Platform F2000X-PL
 **Board Management Controller NIOS FW version: 1.1.9**
@@ -488,7 +488,7 @@ Record the IP address of the SoC at this time `ip -4 addr`. This will be used to
 
 5. Check that 4 partitions created in section 1.5.5 are visible to the SoC in /dev/sd*:
 
-```bash session
+```bash
 $ lsblk -l
 root@intel-corei7-64:/mnt# lsblk -l
 NAME      MAJ:MIN RM   SIZE RO TYPE MOUNTPOINTS
@@ -505,14 +505,14 @@ nvme0n1p3 259:3    0    44M  0 part
 
 Mount partition 4, and `cd` into it.
 
-```bash session
+```bash
 $ mount /dev/sda4 /mnt`
 $ cd /mnt
 ```
 
 6. Uncomporess and install the Yocto release image in the SoC NVMe.
 
-```bash session
+```bash
 $ zcat core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic
 $ dd if=core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic of=/dev/nvme0n1 bs=1M status=progress conv=sync
 $ sync
@@ -529,19 +529,19 @@ You can use `wget` to retrieve a new version of the Yocto release image from [me
 
 1. Use Linux command to set system time using format: `date --set="STRING"`.
 
-```bash session
+```bash
 date -s "26 APRIL 2023 18:00:00"
 ```
 
 2. Set HWCLOCK to current system time:
 
-```bash session
+```bash
 hwclock --systohc
 ```
 
 Verify time is set properly
 
-```bash session
+```bash
 date
 ...
 hwclock --show
@@ -570,7 +570,7 @@ There are two regions of flash the user may store FIM images for general usage, 
 
 Updating the FIM from the SoC requires the SoC be running a Yocto image that includes the OPAE SDK and Linux DFL drivers. You need to transfer any update files to the SoC over SSH. The OPAE SDK utility `fpgasupdate` will be used to update the board's firmware. This utility will accept files of the form \*.rsu, \*.bin, and \*.gbs, provided the proper security data blocks have been prepended by PACSign. The default configuration the IPU platform ships with will match the below:
 
-```bash session
+```bash
 $ fpgainfo fme
 Intel IPU Platform F2000X-PL
 **Board Management Controller NIOS FW version: 1.1.9**
@@ -595,7 +595,7 @@ Factory Image Info               : None
 
 To load a new update image, you need to pass the IPU's PCIe BDF and the file name to `fpgasupdate` on the SoC. The below example will update the user1 image in flash:
 
-```bash session
+```bash
 $ fpgasupdate ofs_top_page1_unsigned_user1.bin 15:00.0
 ```
 
@@ -613,13 +613,13 @@ The user can determine which region of flash was used to configure their FPGA de
 
 When loading a new FPGA SR image, use the command `rsu fpga`. When loading a new BMC image, use the command `rsu bmc`. RSU can also swap between the **user1**, **user2**, and **factory** partitions in flash. An RSU operation sends an instruction to the device to trigger a power cycle of the card only. This will force reconfiguration from flash for either BMC, SDM, (on devices that support these) or the FPGA.
 
-```bash session
+```bash
 $ rsu fpga --page=user1 15:00.0
 ```
 
 Synopsis:
 
-```bash session
+```bash
 rsu bmc --page=(user|factory) [PCIE_ADDR]
 rsu fpga --page=(user1|user2|factory) [PCIE_ADDR]
 rsu sdm [PCIE_ADDR]
@@ -629,7 +629,7 @@ You can use RSU to change which page in memory the FPGA will boot from by defaul
 
 Synopsis:
 
-```bash session
+```bash
 rsu fpgadefault --page=(user1|user2|factory) --fallback=<csv> 15:00.0
 ```
 
@@ -649,7 +649,7 @@ The ICX-D SoC NVMe comes pre-programmed with BIOS v7 (0ACRH007). This version wi
 
 3. Copy both files over to the SoC into /boot/EFI using the SoC's IP.
 
-```bash session
+```bash
 $ scp 0ACRH608_REL.BIN root@XX.XX.XX.XX:/boot/EFI
 $ scp AfuEfix64.efi root@XX.XX.XX.XX:/boot/EFI
 ```
@@ -660,7 +660,7 @@ $ scp AfuEfix64.efi root@XX.XX.XX.XX:/boot/EFI
 
 5. At EFI prompt enter the following:
 
-```bash session
+```bash
 Shell> FS0:
 FS0:> cd EFI
 FS0:\EFI\> AfuEfix64.efi 0ACRH608_REL.BIN /p /n /b
@@ -693,20 +693,20 @@ To compile the image as-is, use the following steps (as provided in meta-ofs):
 
 1. Create and initialize the source directory.
 
-```bash session
+```bash
 mkdir ofs-yocto && cd ofs-yocto
 repo init -m examples/iotg-yocto-ese/manifest.xml https://github.com/OFS/meta-ofs
 ```
 
 2. Fetch repositories and update the working tree.
 
-```bash session
+```bash
 repo sync -j 16
 ```
 
 3. Build packages and create an image.
 
-```bash session
+```bash
 cd build
 . ../intel-embedded-system-enabling/oe-init-build-env .
 bitbake mc:x86-2021-minimal:core-image-full-cmdline
@@ -734,7 +734,7 @@ For systems with multiple FPGA devices, you can specify the BDF to limit the out
 
 An example output for `fpgainfo fme` is shown below. Your IDs may not match what is shown here:
 
-```bash session
+```bash
 $ fpgainfo fme
 Intel IPU Platform F2000X-PL
 Board Management Controller NIOS FW version: 1.1.9
@@ -765,7 +765,7 @@ Of these six test listed below, the first three do not require an AFU be loaded 
 
 **Note**: If you see the error message `Allocate SRC Buffer, Test mem(1): FAIL`, then you may need to manually allocate 2MiB Hugepages using the following: echo 20 > `/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages`
 
-```bash session
+```bash
 # Create VF device
 $ pci_device <PCIe Bus>00.0 vf 3
 # Bind VF0 to vfio-pci
@@ -796,7 +796,7 @@ Allocate DSM Buffer
 
 2. Generate traffic with HE-HSSI. No AFU required.
 
-```bash session
+```bash
 # Create VF device
 $ pci_device <PCIe Bus>00.0 vf 3
 # Bind VF2 to vfio-pci
@@ -828,7 +828,7 @@ This command will generate a log file in the directory is was run from. Check Tx
 
 3. Test memory traffic generation using MEM-TG. This will exercise and test available memory channels with a configurable memory pattern. Does not require an AFU image.
 
-```bash session
+```bash
 # Create VF device
 $ pci_device <PCIe Bus>00.0 vf 3
 # Bind VF2 to vfio-pci
@@ -841,7 +841,7 @@ $  mem_tg --loops 500 -w 1000 -r 0 -b 0x1 --stride 0x1 -m 0 tg_test
 
 4. HE-LPBK is designed to demo how AFUs move data between host memory and the FPGA. Will check latency, MMIO latency, MMIO bandwidth, and PCIe bandwidth.  LPBK workload requires the SoC Attach AFU be loaded into the board's PR slot.
 
-```bash session
+```bash
 # Create VF device
 $ pci_device <PCIe Bus>00.0 vf 3
 # Bind VF1 to vfio-pci
@@ -854,7 +854,7 @@ $  host_exerciser --mode lpbk lpbk
 
 5. Exercise He-HSSI subsystem from the AFU. This test will generate and receieve packets from any of the 8 available ports. This HSSI workload requires the SoC Attach AFU be loaded into the board's PR slot.
 
-```bash session
+```bash
 # Create VF device
 $ pci_device <PCIe Bus>00.0 vf 3
 # Bind VF6 to vfio-pci
@@ -898,7 +898,7 @@ Review *Section 1.2 Server Requirements* for a list of changes required on the h
 
 The following software checks may be run on the host to verify the FPGA has been detected and has auto-negotatiated the correct PCIe link width/speed. These commands do not require any packages to be installed. We are using PCIe BDF `b1:00.0` as an example address.
 
-```bash session
+```bash
 # Check that the board has enumerated successfully.
 # Your PCIe BDF may differ from what is shown below.
 $ lspci | grep accel
@@ -922,7 +922,7 @@ All Intel OFS DFL kernel driver code resides in the [Linux DFL](https://github.c
 
 1. The following system and Python3 package dependencies must be installed before OPAE may be built.
 
-```bash session
+```bash
 $ sudo apt-get install bison flex git ssh pandoc devscripts debhelper cmake python3-dev libjson-c-dev uuid-dev libhwloc-dev doxygen libtbb-dev libncurses-dev libspdlog-dev libspdlog1 python3-pip libedit-dev pkg-config libcli11-dev libssl-dev dkms libelf-dev gawk openssl libudev-dev libpci-dev  libiberty-dev autoconf llvm
 
 $ python3 -m pip install setuptools pybind11 jsonschema
@@ -930,7 +930,7 @@ $ python3 -m pip install setuptools pybind11 jsonschema
 
 2. Clone the Linux DFL repo. In this example we will use the top level directory `OFS` for our package installs.
 
-```bash session
+```bash
 $ mkdir OFS && cd OFS
 $ git init
 $ git clone https://github.com/OFS/linux-dfl.git
@@ -944,7 +944,7 @@ ofs-2023.1-5.15-1
 
 3. Copy an existing kernel configuration file on your system and change parameter configuration.
 
-```bash session
+```bash
 $ cp /boot/config-5.19.0-41-generic .config
 $ cat configs/dfl-config >> .config
 $ echo 'CONFIG_LOCALVERSION="-dfl"' >> .config
@@ -959,7 +959,7 @@ $ make olddefconfig
 
 4. Kernel builds take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the `-j` option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
 
-```bash session
+```bash
 $ make -j `nproc`
 $ make -j `nproc` modules
 ```
@@ -968,7 +968,7 @@ $ make -j `nproc` modules
 
 3.a. This first flow will directly install the kernel and kernel module files without the need to create a package first.
 
-```bash session
+```bash
 $ cd OFS/linux-dfl
 $ sudo make -j `nproc` modules_install
 $ sudo make -j `nproc` install
@@ -981,13 +981,13 @@ $ sudo make -j `nproc` install
 
 To show all package installation options, run `make help`. If you are concerned about the size of the resulting package and binaries, you can significantly reduce the size of the package and object files by invoking the make variable `INSTALL_MOD_STRIP`.
 
-```bash session
+```bash
 $ make INSTALL_MOD_STRIP=1 bindeb-pkg -j `nproc`
 ```
 
 Thee files will placed in the `OFS` directory.
 
-```bash session
+```bash
 $ cd OFS
 # Verify all files are present.
 $ ls | grep linux.*.deb
@@ -1001,21 +1001,21 @@ $ sudo dpkg -i linux*.deb
 
 3.c. A set of pre-compiled Linux DFL artifacts are included in this release. These can be downloaded from [TBD](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) and installed without building/configuring.
 
-```bash session
+```bash
 $ tar xf kernel-*.tar.gz 
 $ sudo dpkg -i kernel*.deb
 ```
 
 4. Use `grub-reboot` to change the kernel boot target for only the next reboot on Ubuntu. Read the contents of `/boot/grub/grub.cfg` to find the full name of the DFL kernel submenu option.
 
-```bash session
+```bash
 # "Advanced options for Ubuntu" is the top level menu entry for which all submenus fall under in this example.
 sudo grub-reboot "Advanced options for Ubuntu>Ubuntu, with Linux 5.15.92-dfl"
 ```
 
 The same string can be used to permanently change your default boot target on Ubuntu.
 
-```bash session
+```bash
 $ sudo vim /etc/default/grub
 # Find line GRUB_DEFAULT and set the value to the same string used for grub-reboot with double quotes.
 # ex. GRUB_DEFAULT="Advanced options for Ubuntu>Ubuntu, with Linux 5.15.92-dfl"
@@ -1024,7 +1024,7 @@ $ sudo update-grub
 
 5. Reboot the system for changes to take affect. Verify you have booted into the correct kernel.
 
-```bash session
+```bash
 $ sudo reboot now
 # After boot
 $ uname -r
@@ -1033,7 +1033,7 @@ $ uname -r
 
 6. Update your kernel parameters with the following values.
 
-```bash session
+```bash
 $ sudo vim /etc/default/grub
 # Edit the line GRUB_CMDLINE_LINUX_DEFAULT to include "intel_iommu=on pcie=realloc hugepages=20" within double quotes.
 $ sudo update-grub
@@ -1048,13 +1048,13 @@ The OPAE SDK source code is contained within a single [GitHub repository](https:
 
 1. Before Installing the newest version of OPAE you must remove any prior OPAE framework installations.
 
-```bash session
+```bash
 $ sudo apt-get remove opae*
 ```
 
 2. The following system and Python3 package dependencies must be installed before OPAE may be built.
 
-```bash session
+```bash
 $ sudo apt-get install bison flex git ssh pandoc devscripts debhelper cmake python3-dev libjson-c-dev uuid-dev libhwloc-dev doxygen libtbb-dev libncurses-dev libspdlog-dev libspdlog1 python3-pip libedit-dev pkg-config libcli11-dev libssl-dev dkms libelf-dev gawk openssl libudev-dev libpci-dev  libiberty-dev autoconf llvm
 
 $ python3 -m pip install setuptools pybind11 jsonschema
@@ -1062,7 +1062,7 @@ $ python3 -m pip install setuptools pybind11 jsonschema
 
 3. Clone the OPAE SDK repo. In this example we will use the top level directory `OFS` for our package installs.
 
-```bash session
+```bash
 $ mkdir OFS && cd OFS
 $ git init
 $ git clone https://github.com/OFS/opae-sdk.git
@@ -1076,7 +1076,7 @@ $ git describe --tags
 
 4. Navigate to the automatic DEB package build script location and execute.
 
-```bash session
+```bash
 $ cd OFS/opae-sdk/packaging/opae/deb 
 $ ./create
 
@@ -1092,14 +1092,14 @@ opae-extra-tools-dbgsym_2.5.0-1_amd64.ddeb
 
 5. Install your newly built OPAE SDK packages.
 
-```bash session
+```bash
 $ cd OFS/opae-sdk/packaging/opae/deb
 $ sudo dpkg -i opae*.deb
 ```
 
 The OPAE tools installed on the host are identical to those installed on the SoC as shown in sections 5.0 through 5.3. A set of pre-compiled OPAE SDK artifacts are included in this release. These can be downloaded from [TBD](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) and installed without building/configuring.
 
-```bash session
+```bash
 $ tar xf opae-*.tar.gz
 $ sudo dpkg -i opae*.deb
 ```
@@ -1110,14 +1110,14 @@ The SoC Attach workload supports testing MMIO HW and Latency and PCIe BW and lat
 
 1. Initialize PF attached to HSSI LPBK GUID with *vfio-pci* driver.
 
-```bash session
+```bash
 $ sudo opae.io init -d 0000:b1:00.0 <username>:<username>
 $ sudo opae.io init -d 0000:b1:00.1 <username>:<username>
 ```
 
 2. Run `host_exerciser` loopback tests (only *lpbk* is supported). There are more methods of operation than are shown below - read the HE help message for more information.
 
-```bash session
+```bash
 # Example lpbk tests.
 sudo host_exerciser lpbk
 sudo host_exerciser --mode lpbk lpbk

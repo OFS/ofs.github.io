@@ -251,7 +251,7 @@ The OFS Git OFS repository ofs-d5005 directory structure is shown below:
 
 <br>
 
-```bash session
+```bash
 ├── eval_script
 |   ├── ofs_d5005_eval.sh
 |   └── README_ofs_d5005_eval.txt
@@ -420,25 +420,25 @@ Intel Quartus Prime Pro version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} is the cu
 
 After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
-```bash session
+```bash
 export PATH=$PATH:<Quartus install directory>/quartus/bin
 ```
 
 For example, if the Quartus install directory is /home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }} then the new line is:
 
-```bash session
+```bash
 export PATH=$PATH:/home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/quartus/bin
 ```
 
 Verify, Quartus is discoverable by opening a new shell:
 
-```bash session
+```bash
 which quartus
 ## Output
 /home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/quartus/bin/quartus
 ```
 Note, for some Linux distributions such as RHEL 8.2, Quartus requires installation of the following libraries:
-```bash session
+```bash
 sudo dnf install libnsl
 sudo dnf install ncurses-compat-libs
 sudo ln -s /usr/bin/python3 /usr/bin/python
@@ -450,11 +450,11 @@ You will need to obtain a license for Intel Quartus Prime Pro version ${{ env.D5
 
 3. Install git and install git lfs to extract large files within the repository that are compressed with git lfs.  Please note, for proper operation of files retrieved from OFS repository, you will require git lfs. 
 
-```bash session
+```bash
 sudo dnf install git
 ```
    ## Install git lfs:
-```bash session
+```bash
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
 sudo dnf install git-lfs
 git lfs install
@@ -466,7 +466,7 @@ The OFS FIM source code is included in the GitHub repository. Create a new direc
 
 1. Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-```bash session
+```bash
 mkdir OFS_fim_build_root
 cd OFS_fim_build_root
 export OFS_BUILD_ROOT=$PWD
@@ -476,20 +476,20 @@ git checkout tags/ofs-2023.1
 ```
 Verify proper tag is selected:
 
-```bash session   
+```bash   
 git describe --tags
 ofs-2023.1
 ```
 2. Install the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP license by running provided license installer.
 
-```bash session
+```bash
 cd license
 chmod +x quartus-0.0-0.01Intel OFS-linux.run
 sudo ./quartus-0.0-0.01Intel OFS-linux.run
 ```
 
 3. Verify patch installed
-```bash session
+```bash
 quartus_sh --version
 ##Output
 Quartus Prime Shell
@@ -511,7 +511,7 @@ The following sections describe how to set up the environment and build the prov
 ### 4.2.1. Setting Up Required Environment Variables
 Set required environment variables as shown below. These environment variables must be set prior to simulation or compilation tasks so creating a simple script to set these variables saves time.
 
-```bash session
+```bash
 cd $OFS_BUILD_ROOT/ofs-d5005
 export OFS_ROOTDIR=$PWD
 
@@ -532,7 +532,7 @@ export OPAE_SDK_REPO_BRANCH=release/2.5.0
 ### 4.2.2. Compiling
 
 The usage of the compile build script is shown below:
-```bash session
+```bash
 ofs-common/scripts/common/syn/build_top.sh [-p] target_configuration work_dir 
 Usage: ofs-common/scripts/common/syn/build_top.sh [-k] [-p] <build target> [<work dir name>]
 
@@ -571,13 +571,13 @@ In the next example, you will build the provided example design using a flat, no
 
  Build the provided base example design:
 
- ```bash session
+ ```bash
 cd $OFS_BUILD_ROOT/ofs-d5005
     
 ofs-common/scripts/common/syn/build_top.sh d5005 work_d5005
  ```
 
-```bash session
+```bash
     ... build takes ~5 hours to complete
 
 Compile work directory:     <$OFS_BUILD_ROOT>/work_d5005/syn/syn_top
@@ -600,7 +600,7 @@ The build script copies the ipss, sim, src and syn directories to the specified 
 Some of the key files are described below:
 
 <work_dir>/syn/syn_top == 
-```bash session
+```bash
 ├── syn_top                    // D5005 Quartus build area with Quartus files used this build
 │  ├── d5005.ipregen.rpt       // IP regeneration report states the output of IP upgrade
 │  ├── d5005.qpf               // Quartus Project File (qpf) mentions about Quartus version and project revision
@@ -635,7 +635,7 @@ If you are developing a FIM to be used by another team developing the AFU worklo
 
 The creation of the relocatable PR directory tree requires a clone of the Intel Basic Building Blocks (BBB) repository. The OFS_PLATFORM_AFU_BBB environment variable must point to the repository, for example.
 
-```bash session
+```bash
 cd $OFS_BUILD_ROOT
 git clone https://github.com/OPAE/ofs-platform-afu-bbb
 cd ofs-platform-afu-bbb
@@ -650,7 +650,7 @@ You can create this relocatable PR directory tree by either:
 
 The generate_pr_release.sh has the following command structure:
 
-```bash session
+```bash
 ./syn/common/scripts/generate_pr_release.sh -t <path to generated release tree> *Board Build Target* <work dir from build_top.sh>
 
 Where:
@@ -661,10 +661,10 @@ Where:
 ```
 Here is an example of running the generate_pr_release.sh script:
 
-```bash session
+```bash
 syn/common/scripts/generate_pr_release.sh -t work_d5005/build_tree d5005  work_d5005
 ```
-```bash session
+```bash
 
 **********************************
 ********* ENV SETUP **************
@@ -684,7 +684,7 @@ FME id
 ...
 ```
 The resulting relocatable build tree has the following structure:
-```bash session
+```bash
 .
 ├── bin
 │   ├── afu_synth
@@ -715,7 +715,7 @@ Unit level simulation of key components is provided. These simulations provide v
 
 These simulations use the Synopsys VCS simulator. Each simulation contains a readme file explaining how to run the simulation. Refer to [Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA](https://github.com/OFS/otcshare/blob/main/hw/docs/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md)  for details of simulation examples. Your simulation shell requires Python, Quartus, and VCS to run.  To run a simulation of the dfh_walker that simulates host access to the internal DFH registers, perform the following steps:
 
-```bash session
+```bash
 Before running unit simulation, you must set environment variables as described below:
 cd $OFS_BUILD_ROOT/ofs-d5005
 export OFS_ROOTDIR=$PWD
@@ -737,25 +737,25 @@ export OPAE_SDK_REPO_BRANCH=release/2.5.0
 To compile all IPs:
 
 To Generate Simulation Files & compile all IPs, run the following command:
-```bash session     
+```bash     
 cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
 sh gen_sim_files.sh d5005
 ```
 The RTL file list for unit_test is located here: $OFS_ROOTDIR/sim/scripts/rtl_comb.f
 
 The IPs are generated here: 
-```bash session
+```bash
 $OFS_ROOTDIR/sim/scripts/qip_gen
 ```
 The IP simulation filelist is generated here: 
-```bash session
+```bash
 $OFS_ROOTDIR/sim/scripts/ip_flist.f
 ```
 Once the IPs are generated, they can be used for any unit test.
 
 To run the simulation, run the following command:
 
-```bash session
+```bash
 cd $OFS_ROOTDIR/sim/unit_test/<Unit Test Name>/scripts
 sh run_sim.sh VCS=1
 ```
@@ -763,14 +763,14 @@ Simulation files are located in the sim/unit_test/<test_name>/sim directory.
 
 ```
 To view simulation waveform:
-```bash session
+```bash
 cd $OFS_ROOTDIR/sim/unit_test/<test_name>/script/sim/unit_test/<test_name>/scripts/sim_vcs
 dve -full64 -vpd vcdplus.vpd &
 ```
 
 #### 4.2.4.1. DFH Walking Unit Simulation Output
 
-```bash session
+```bash
 ********************************************
  Running TEST(0) : test_fme_dfh_walking
 ********************************************
@@ -957,11 +957,11 @@ Avoid system hang during programming the sof file, mask AER regsiter using below
 
 Find Root complex - End Point mapping using the below command
 
-```bash session
+```bash
 lspci -vt
 ```
 
-```bash session
+```bash
 +-[0000:3a]-+-00.0-[3b-3c]----00.0  Intel Corporation Device bcce
  |           +-05.0  Intel Corporation Sky Lake-E VT-d
  |           +-05.2  Intel Corporation Sky Lake-E RAS Configuration Registers
@@ -978,7 +978,7 @@ lspci -vt
 
 Use the bus information from the lspci logs to mask the AER (Advanced Error Reporting) register
 
-```bash session
+```bash
 sudo su
 
 setpci -s 0000:3b:00.0 ECAP_AER+0x08.L=0xFFFFFFFF 
@@ -992,14 +992,14 @@ exit
 
 1. The SOF file is located in the work directory work_d5005/syn/syn_top/output_files/d5005.sof.  If the target FPGA is on a different server, then transfer d5005.sof and STP files to the server with the target FPGA. Load the SOF using the Intel® FPGA PAC D5005 built-in Intel FPGA Download Cable II. 
 
-```bash session
+```bash
 sudo su
 echo "1" > /sys/bus/pci/rescan
 ```
 
 2. Make sure D5005 is present by checking expected bitstream ID using command:
 
-```bash session
+```bash
 sudo fpgainfo fme
 Intel FPGA Programmable Acceleration Card D5005
 Board Management Controller, MAX10 NIOS FW version: 2.0.13 
@@ -1021,7 +1021,7 @@ Boot Page                        : user
 
 3. Once the SOF file is loaded, start the Quartus Signal Tap GUI.
    
-```bash session
+```bash
 quartus_stpw
 ```
 The Signal Tap GUI comes up.
@@ -1531,12 +1531,12 @@ function automatic dfh_name[MAX_FME_DFH_IDX-1:0] get_fme_dfh_names();
 ```
 
 1. Update verification/scripts/Makefile_VCS.mk to set macro for INCLUDE_HELLO_FIM starting at line 56 to add +define+INCLUDE_HELLO_FIM
-```bash session
+```bash
 VLOG_OPT += +define+SIM_MODE +define+VCS_S10 +define+RP_MAX_TAGS=64 +define+INCLUDE_DDR4 +define+INCLUDE_SPI_BRIDGE +define+INCLUDE_USER_CLOCK +define+INCLUDE_HSSI +define+SIM_USE_PCIE_DUMMY_CSR +define+INCLUDE_HELLO_FIM
 ```
 1. Update sim/scripts/rtl_comb.f to add the path to your new hello_fim_top and hello_top_com SystemVerilog files.  The update is shown below as the new line - 329 below:
 
-```bash session
+```bash
 $WORKDIR/src/hello_fim/hello_fim_com.sv
 $WORKDIR/src/hello_fim/hello_fim_top.sv
 
@@ -1545,14 +1545,14 @@ $WORKDIR/src/hello_fim/hello_fim_top.sv
 After making these changes, run the unit level simulation using sim/unit_test/dfh_walker test.  Before running, ensure your shell has the environment variables set properly as defined in [Setting Up Required Environment Variables](#setting-up-required-environment-variables).
 
 
-```bash session
+```bash
 cd verification/scripts
 gmake -f Makefile_VCS.mk cmplib
 gmake -f Makefile_VCS.mk build run [DUMP=1]
 ```
 
 Expected output:
-```bash session
+```bash
  ********************************************
  Running TEST(0) : test_fme_dfh_walking
 ********************************************
@@ -1671,12 +1671,12 @@ Assertion count: 0
 
 1. Edit syn/syn_top/d5005.qsf      
    1.  Add new macro "INCLUDE_HELLO_FIM" line 107
-```bash session
+```bash
 		set_global_assignment -name VERILOG_MACRO "INCLUDE_HELLO_FIM"
 ```
 
   2. Add new line 211 to source TCL script with new hello_fim files
-```bash session
+```bash
 		set_global_assignment -name SOURCE_TCL_SCRIPT_FILE ../../../syn/setup/hello_fim_design_files.tcl
 ```
 ### 5.1.7. syn/setup/hello_fim_design_files.tcl 
@@ -1708,7 +1708,7 @@ set_global_assignment -name SYSTEMVERILOG_FILE src/hello_fim/hello_fim_top.sv
 
 With the preceding changes complete, build the new hello_fim example using the following steps:
 
-```bash session
+```bash
 cd $OFS_ROOTDIR
 ofs-common/scripts/common/syn/build_top.sh d5005 work_d5005_hello_fim
 
@@ -1722,12 +1722,12 @@ Load the built FPGA binary file using an unsigned image.  The FPGA image will be
 
 Provide the file d5005_page1_unsigned.bin on the server with the Intel® FPGA PAC D5005.
 
-```bash session
+```bash
 sudo fpgasupdate d5005_page1_unsigned.bin <D5005 PCIe B:D.F>
 sudo rsu bmcimg <D5005 PCIe B:D.F>
 ```
 Verify FPGA image is loaded.
-```bash session
+```bash
 sudo fpgainfo fme
 ## Output
 Intel FPGA Programmable Acceleration Card D5005
@@ -1751,14 +1751,14 @@ Boot Page                        : user
 
 Use the OPAE SDK tool opae.io to check default driver binding using your card under test PCIe B:D.F.  The steps below will use 0000:12:00.0 as the card under test PCIe B:D.F.
 
-```bash session
+```bash
  sudo opae.io init -d 0000:12:00.0 $USER
  ##Output
  [0000:12:00.0] (0x8086, 0xbcce) Intel D5005 ADP (Driver: dfl-pci)
 ```
 The dfl-pci driver is used by OPAE SDK fpgainfo commands.  The next steps will bind the card under test to the vfio driver to enable access to the registers.
 
-```bash session
+```bash
  sudo opae.io init -d 0000:12:00.0 $USER
  ##Output
  opae.io 0.2.3
@@ -1769,7 +1769,7 @@ Assigning /dev/vfio/35 to $USER
 ```
 Confirm the vfio driver is bound to the card under test.
 
-```bash session
+```bash
 opae.io ls
 ## Output
 opae.io 0.2.3
@@ -1777,7 +1777,7 @@ opae.io 0.2.3
 ```
 Run the following command to walk DFH link list.  The new hello_fim register is located at offset 0x50000.
 
-```bash session
+```bash
 opae.io walk -d 0000:12:00.0
 ## Output
 opae.io 0.2.3
@@ -1813,7 +1813,7 @@ offset: 0xa0000, value: 0x3000010000002010
 ```
 Read the default values from the hello_fim registers:
 
-```bash session
+```bash
 $ opae.io -d 0000:12:00.0 -r 0 peek 0x50000
 opae.io 0.2.3
 0x3000000400000fff
@@ -1826,7 +1826,7 @@ opae.io 0.2.3
 ```
 Write the scratchpad register at 0x50030
 
-```bash session
+```bash
 $ opae.io -d 0000:12:00.0 -r 0 poke 0x50038 0x123456789abcdef
 opae.io 0.2.3
 $ opae.io -d 0000:12:00.0 -r 0 peek 0x50038
@@ -1851,7 +1851,7 @@ opae.io 0.2.3
 
 Release the card under test from the vfio driver to re-bind to the dfl-pci driver:
 
-```bash session
+```bash
 sudo opae.io release -d 0000:12:00.0
 ## Output
 opae.io 0.2.3
@@ -1893,7 +1893,7 @@ Change NUM_MEM_CH from 4 to 2 as shown in below code
 
 Compile a new FIM that incorporates the newly configured Memory Subsystem. 
 
-```bash session
+```bash
 cd $OFS_BUILD_ROOT/ofs-d5005
 ofs-common/scripts/common/syn/build_top.sh d5005 work_d5005_mem_2channel
 ```
@@ -1913,17 +1913,17 @@ ofs-common/scripts/common/syn/build_top.sh d5005 work_d5005_mem_2channel
 
 Program d5005_page1_unsigned.bin file using below command
 
-```bash session
+```bash
 sudo fpgasupdate d5005_page1_unsigned.bin 3b:00.0
 ```
 
 Run rsu command
-```bash session
+```bash
 sudo rsu bmcimg 3b:00.0
 ```
 
 Check if binary was loaded correctly
-```bash session
+```bash
 fpgainfo fme
 ## Output
 Intel FPGA Programmable Acceleration Card D5005
@@ -1947,7 +1947,7 @@ Boot Page                        : user
 
 Run Host Excersiser to check Memory Subsystem performance
 
-```bash session
+```bash
 sudo host_exerciser mem
 ## Output
     starting test run, count of 1
