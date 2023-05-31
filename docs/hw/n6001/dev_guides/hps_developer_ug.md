@@ -1167,7 +1167,7 @@ The device file that corresponds with serial UART port 2 is `/dev/ttyS2` (format
 
 5. Load the SSBL onto the HPS using a second terminal. This requires a built ITB image.
 
-```bash session
+```bash
 [user@localhost ]: hps cpeng -f u-boot.itb
 ```
 

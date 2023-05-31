@@ -308,7 +308,7 @@ It is recommended you create an empty top-level directory for their OFS related 
 **3.** Initialize an empty git repository and clone the LTS tagged DFL driver source code:
 <br>
 
-```bash session
+```bash
 cd /home/user/OFS/
 git init
 git clone https://github.com/OPAE/linux-dfl
@@ -319,7 +319,7 @@ git checkout tags/ofs-2023.1-6.1-1 -b fpga-ofs-dev-6.1.22
 
 **4.** Verify that the correct tag has been checkout out.
 
-```bash session
+```bash
 git describe 
 ofs-2023.1-6.1-1
 ```
@@ -330,7 +330,7 @@ ofs-2023.1-6.1-1
 
 **1.** The following set of instructions walk you through copying an existing kernel configuration file on your machine and changing the minimal required configuration settings:
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 cp /boot/config-`uname -r` .config
 cat configs/dfl-config >> .config
@@ -349,7 +349,7 @@ make olddefconfig
 
 <br>
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 make -j `nproc`
 make -j `nproc` modules
@@ -362,7 +362,7 @@ make -j `nproc` modules
 
 **3.a** This first flow will directly install the kernel and kernel module files without the need to create a package first:
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 sudo make -j `nproc` modules_install
 sudo make -j `nproc` install
@@ -377,14 +377,14 @@ sudo make -j `nproc` install
 
 If you are concerned about the size of the resulting package and binaries, you can significantly reduce the size of the package and object files by using the make variable INSTALL_MOD_STRIP. If this is not a concern, feel free to skip this step. The below instructions will build a set of binary RPM packages:
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 make INSTALL_MOD_STRIP=1 binrpm-pkg
 ```
 
 **3.b.1** By default a directory is created in your `home` directory called `rpmbuild`. This directory will house all of the kernel packages which have been built. You need to navigate to the newly built kernel packages and install them. The following files were generated using the build command executed in the previous step:
 
-```bash session
+```bash
 cd ~/rpmbuild/RPMS/x86_64
 ls
 kernel-6.1.22_dfl-1.x86_64.rpm  kernel-headers-6.1.22_dfl-1.x86_64.rpm
@@ -393,14 +393,14 @@ sudo dnf localinstall kernel*.rpm
 
 **4.** The system will need to be rebooted for changes to take effect. After a reboot, select the newly built kernel as the boot target. This can be done pre-boot using the command `grub2-reboot`, which removes the requirement for user intervention. After boot, verify that the currently running kernel matches expectation.
 
-```bash session
+```bash
 uname -r
 6.1.22-dfl
 ```
 
 **5.** Verify the DFL drivers have been successfully installed. If an Intel® FPGA PAC D5005 card with the appropriate FIM is on the local system, the kernel driver modules will have been loaded. In the `lsmod` output the second column corresponds to the size of the kernel module in bytes, the third column displays the number of devices registered to that driver, and the fourth column displays the names of the devices using it. Verify their versions against the below.
 
-```bash session
+```bash
 lsmod | grep -e fpga -e dfl
 #output
 uio_dfl                20480  0
@@ -423,7 +423,7 @@ fpga_mgr               24576  4 dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme
 
 If an Intel® FPGA PAC D5005 card is not installed in the system and/or does not have the appropriate FIM configured, the user may read version information of the DFL drivers directly from `/lib/modules`:
 
-```bash session
+```bash
 cd /usr/lib/modules/`uname -r`/kernel/drivers/fpga
 modinfo dfl* fpga* | grep ^name
 #output
@@ -443,7 +443,7 @@ name:           fpga_regions
 
 **6.** Four kernel parameters must be added to the boot command-line for the newly installed kernel. First, open the file `grub`:
 
-```bash session
+```bash
 sudo vim /etc/default/grub
 ```
 
@@ -460,7 +460,7 @@ GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/roo
 *Note: If you wish to instead set hugepages on a per session basis, you can perform the following step. These settings will be lost on reboot.*
 
 
-```bash session
+```bash
 mkdir -p /mnt/huge 
 mount -t hugetlbfs nodev /mnt/huge 
 echo 2048 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages 
@@ -469,13 +469,13 @@ echo 2048 > /sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepag
 
 **8.** Save your edits, then apply them to the GRUB2 configuration file.
 
-```bash session
+```bash
 sudo grub2-mkconfig  -o /boot/efi/EFI/redhat/grub.cfg
 ```
 
 **9.** Warm reboot. Your kernel parameter changes should have taken affect.
 
-```bash session
+```bash
 cat /proc/cmdline
 BOOT_IMAGE=(hd0,gpt2)/vmlinuz-6.1.22-dfl root=/dev/mapper/rhel_bapvedell028-root ro crashkernel=auto resume=/dev/mapper/rhel_bapvedell028-swap rd.lvm.lv=rhel_bapvedell028/root rd.lvm.lv=rhel_bapvedell028/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200
 ```
@@ -503,13 +503,13 @@ Ensure the local environment matches the supported Operating System discussed in
 
 **1.** Before OPAE SDK installation the user must remove any prior OPAE frameworks.  To remove these packages:
 <br>
-```bash session
+```bash
 sudo dnf remove opae*
 ```
 
 **2.** You must make the following changes to install all dependencies on RHEL 8.2:
 <br>
-```bash session
+```bash
 subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
@@ -518,7 +518,7 @@ sudo dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.
 
 <br>
 
-```bash session
+```bash
 sudo dnf install -y python3 python3-pip python3-devel \
 gdb vim git gcc gcc-c++ make cmake libarchive libuuid-devel rpm-build systemd-devel sudo nmap \
 python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel \
@@ -543,7 +543,7 @@ It is recommended you create an empty top-level directory for their OFS related 
 
 **4.** Initialize an empty git repository and clone the tagged OPAE SDK source code:
 <br>
-```bash session
+```bash
 cd /home/user/OFS/
 git init
 git clone https://github.com/OPAE/opae-sdk.git
@@ -553,7 +553,7 @@ git checkout tags/2.5.0-3 -b release/2.5.0
 
 **5.** Verify that the correct tag has been checkout out:
 <br>
-```bash session
+```bash
 git describe --tags
 2.5.0-3
 
@@ -561,14 +561,14 @@ git describe --tags
 
 **6.** Build the OPAE SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal.
 <br>
-```bash session
+```bash
 cd packaging/opae/rpm
 ./create fedora
 ```
 
 **7.** After a successful compile there should be 8 packages present:
 <br>
-```bash session
+```bash
 
 ls | grep rpm
 #output
@@ -582,7 +582,7 @@ opae-extra-tools-2.5.0-3.el8.x86_64.rpm
 opae-extra-tools-debuginfo-2.5.0-3.el8.x86_64.rpm
 ```
 Remove the opae-2.5.0-3.el8.src.rpm file as it is not used.
-```bash session
+```bash
 rm opae-2.5.0-3.el8.src.rpm
 ```
 
@@ -592,7 +592,7 @@ rm opae-2.5.0-3.el8.src.rpm
 
 **7.a** Install the user-built OPAE SDK packages:
 
-```bash session
+```bash
 sudo dnf clean all
 
 sudo dnf localinstall -y opae*.rpm
@@ -600,7 +600,7 @@ sudo dnf localinstall -y opae*.rpm
 
 **8.** Check that all packages have been installed:
 
-```bash session
+```bash
 rpm -qa | grep opae
 #output
 opae-extra-tools-2.5.0-3.el8.x86_64
@@ -637,7 +637,7 @@ The Intel FPGA PAC ships with a factory and user programmed image for both the F
 
 **Synopsis:**
 
-```bash session
+```bash
 fpgasupdate [--log-level=<level>] file [bdf]
 ```
 
@@ -673,7 +673,7 @@ fpgasupdate [--log-level=<level>] file [bdf]
 
 **Synopsis:**
 
-```bash session
+```bash
    fpgainfo [-h] [-S <segment>] [-B <bus>] [-D <device>] [-F <function>] [PCI_ADDR]
             {errors,power,temp,fme,port,bmc,mac,phy,security}
 ```
@@ -704,7 +704,7 @@ For systems with multiple FPGA devices, you can specify the BDF to limit the out
 
 The following examples walk through sample outputs generated by `fpgainfo`.
 
-```bash session
+```bash
 sudo fpgainfo fme
 #output
 Open FPGA Stack Platform
@@ -725,7 +725,7 @@ Pr Interface Id                  : 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461
 Boot Page                        : user
 ```
 
-```bash session
+```bash
 sudo fpgainfo bmc
 #output
 Open FPGA Stack Platform
@@ -794,11 +794,11 @@ The Intel FPGA PAC contains a region of flash the user may store their FIM image
 
 **Synopsis**
 
-```bash session
+```bash
 rsu [-h] [-d] {bmc,bmcimg,retimer,sdm,fpgadefault} [PCIE_ADDR]
 ```
 
-```bash session
+```bash
 rsu bmc --page=(user) [PCIE_ADDR]
 rsu retimer [PCIE_ADDR]
 rsu sdm [PCIE_ADDR]
@@ -821,7 +821,7 @@ More information, including charts detailing the different certification types a
 
 **Synopsis:**
 
-```bash session
+```bash
 PACSign [-h] {FIM,SR,SR_TEST,BBS,BMC,BMC_FW,BMC_FACTORY,AFU,PR,PR_TEST,GBS,FACTORY,PXE,THERM_SR,THERM_PR} ...
 
 PACSign <CMD> [-h] -t {UPDATE,CANCEL,RK_256,RK_384} -H HSM_MANAGER [-C HSM_CONFIG] [-s SLOT_NUM] [-r ROOT_KEY] [-k CODE_SIGNING_KEY] [-d CSK_ID] [-R ROOT_BITSTREAM] [-S] [-i INPUT_FILE] [-o OUTPUT_FILE] [-b BITSTREAM_VERSION] [-y] [-v]
@@ -855,7 +855,7 @@ The PACSign utility inserts authentication markers into bitstreams.
 
 The following example will create an unsigned SR image from an existing signed SR binary update image.
 
-```bash session
+```bash
 PACSign SR -t UPDATE -s 0 -H openssl_manager -i d5005_page1_unsigned.bin -o new_image.bin
 #output
 No root key specified.  Generate unsigned bitstream? Y = yes, N = no: y
@@ -907,7 +907,7 @@ There are three HEMs present in the OFS FIM - HE-LPBK, HE-HSSI, and HE-MEM. Thes
 
 The PCIe BDF address is initially determined when the server powers on. The user can determine the addresses of all Intel® FPGA PAC D5005 boards using `lspci`:
 
-```bash session
+```bash
 lspci -d :bcce
 #output
 3b:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
@@ -923,13 +923,13 @@ lspci -d :bcce
 
 In this example, the BDF address is 0000:3b:00.0. With this information the user can now enable three VFs with the following:
 
-```bash session
+```bash
 sudo pci_device 0000:3b:00.0 vf 3
 ```
 
 **3.** Verify that all three VFs have been created.
 
-```bash session
+```bash
 lspci -s 3b:00
 #output
 3b:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
@@ -942,7 +942,7 @@ lspci -s 3b:00
 
 sudo opae.io init -d PCI_ADDR USER[:GROUP]]
 
-```bash session
+```bash
 sudo opae.io init -d 0000:3b:00.1 $USER
 #output
 opae.io 0.2.5
@@ -975,7 +975,7 @@ Changing permissions for /dev/vfio/144 to rw-rw----
 
 **5.** Check that the accelerators are present using fpgainfo. *Note your port configuration may differ from the below.*
 
-```bash session
+```bash
 sudo fpgainfo port
 #output
 //****** PORT ******//
@@ -1031,7 +1031,7 @@ HE-LB is responsible for generating traffic with the intention of exercising the
 
 Basic operations:
 
-```bash session
+```bash
 sudo host_exerciser lpbk
 #output
     starting test run, count of 1
@@ -1121,7 +1121,7 @@ Allocate DSM Buffer
 
 Number of cachelines per request 1, 2, and 4. The user may replace `--mode lpbk` with `read, write, trput`. The target `lpbk` can be replaced with `mem`:
 
-```bash session
+```bash
 sudo host_exerciser --mode lpbk --cls cl_1 lpbk
 #output
     starting test run, count of 1
@@ -1192,7 +1192,7 @@ Allocate DSM Buffer
 
 Interrupt tests (only valid for mode `mem`):
 
-```bash session
+```bash
 sudo host_exerciser --interrupt 0 mem
 #output
     starting test run, count of 1
@@ -1290,7 +1290,7 @@ Using Interrupts
 
 HE-HSSI is responsible for handling client-side ethernet traffic. It wraps the 10G ethernet AFU and includes a 10G traffic generator and checker. The user-space tool `hssi` exports a control interface to the HE-HSSI's AFU's packet generator logic. Context sensitive information is given by the `hssi --help` command. Help for the 10G specific test is given by `hssi hssi_10g --help` Example useage:
 
-```bash session
+```bash
 sudo hssi --pci-address 3b:00.3 hssi_10g --eth-ifc s10hssi0 --eth-loopback on --he-loopback=off  --num-packets 100
 #output
 10G loopback test
@@ -1333,7 +1333,7 @@ Instructions surrounding the compilation and simulation of the OFS FIM have full
 
 In order to program the OFS FIM, both the OPAE SDK and DFL drivers need to be installed on the host system. Please complete the steps in sections [4.0 OFS DFL Kernel Drivers](#heading-4.0) and [5.0 OPAE Software Development Kit](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit)(#heading-5.0). The OFS FIM version can be identified using the OPAE tool `fpgainfo`. A sample output of this command is included below.
 
-```bash session
+```bash
 sudo fpgainfo fme
 #output
 Intel FPGA Programmable Acceleration Card D5005
@@ -1378,19 +1378,19 @@ The Beta release of the OFS software depends on the corresponding Beta release o
 
 **2.** Run `PACSign` to create an unsigned image with added header for use by fpgasupdate
 
-```bash session
+```bash
 PACSign SR -y -v -t UPDATE -s 0 -H openssl_manager -i d5005_page1_unsigned.bin -o d5005_PACsigned_unsigned.bin
 ```
 
 **3.** Run `fpgasupdate` to load the image into the user location of the Intel® FPGA PAC D5005 FPGA flash, NOTE: use "sudo fpgainfo fme" command to find the PCIe address for your card.
 
-```bash session
+```bash
 sudo fpgasupdate d5005_PACsigned_unsigned.bin 3B:00.0
 ```
 
 **4.** Run `RSU` command, and after powercycle your host.
 
-```bash session
+```bash
 sudo rsu bmcimg 0000:3B:00.0
 ```
 
@@ -1404,7 +1404,7 @@ sudo rsu bmcimg 0000:3B:00.0
 
 **3.** Run `PACSign` to create an unsigned image with added header for use by fpgasupdate
 
-```bash session
+```bash
 PACSign BMC -y -v -t UPDATE -s 0 -H openssl_manager -i unsigned_bmc_fw.bin -o PACsigned_unsigned_bmc_fw.bin
 #output
 2022-04-22 03:07:05,626 - PACSign.log - INFO - OpenSSL version "OpenSSL 1.1.1k  FIPS 25 Mar 2021" matches "1.1.1"
@@ -1430,7 +1430,7 @@ PACSign BMC -y -v -t UPDATE -s 0 -H openssl_manager -i unsigned_bmc_fw.bin -o PA
 
 **4.** Run `fpgasupdate` to perform an upgrade of the BMC.
 
-```bash session
+```bash
 sudo fpgasupdate PACsigned_unsigned_bmc_fw.bin 3B:00.0
 #output
 [2022-04-22 03:08:34.15] [WARNING ] Update starting. Please do not interrupt.
