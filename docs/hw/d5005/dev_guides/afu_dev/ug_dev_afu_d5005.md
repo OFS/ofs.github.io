@@ -840,7 +840,7 @@ sudo fpgainfo fme
 >```sh
 >
 >Board Management Controller, MAX10 NIOS FW version: 2.0.13
->Board Management Controller, MAX10 Build version: 2.0.13
+>Board Management Controller, MAX10 Build version: 2.0.8
 >//****** FME ******//
 >Object Id                        : 0xF000000
 >PCIe s:b:d.f                     : 0000:3B:00.0
@@ -879,7 +879,7 @@ sudo fpgainfo fme
 >```sh
 >
 >Board Management Controller, MAX10 NIOS FW version: 2.0.13
->Board Management Controller, MAX10 Build version: 2.0.13
+>Board Management Controller, MAX10 Build version: 2.0.8
 >//****** FME ******//
 >Object Id                        : 0xF000000
 >PCIe s:b:d.f                     : 0000:3b:00.0
