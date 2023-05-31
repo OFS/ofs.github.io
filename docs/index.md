@@ -19,7 +19,7 @@ To find out more about Intel FPGAs, visit the [Intel Stratix 10](https://www.int
 ## **How Can I Start Using OFS?**
 
 If you are board developer you can get started in four basic steps.
-<image src="hw/n6001/reference_manuals/ofs_fim/images/OFS-Platform-Steps.svg" align="right" width="200" height="200">
+<image src="hw/n6001/reference_manuals/ofs_fim/images/OFS-Platform-Steps.png" align="right">
 
 Start by selecting the reference FIM that closest matches your requirements and leveraging our evaluation scripts to give OFS a test drive.
 The reference FIMs can be used as-is or as a starting point for modification, greatly reducing development time. 
@@ -32,7 +32,7 @@ Below details the three current reference designs (aka FIMs) you can choose from
 
 **OFS FIM Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach  Features**
 
-<image src="hw/n6001/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.svg" align="center" width="450" height="400">
+<image src="hw/n6001/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.svg" align="center">
 
 | Key Feature                           | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
@@ -52,7 +52,7 @@ Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</s
 
 **OFS FIM Features Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> SoC Attach**
 
-<image src="hw/f2000x/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.svg" align="center" width="500" height="300">
+<image src="hw/f2000x/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.svg" align="center" height="400">
 
 | Key Feature                           | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
