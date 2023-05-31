@@ -69,7 +69,7 @@ nav:
       - FPGA Interface Manager Developer Guide: 'hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md'
       - AFU Developer Guide: 'hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x.md'
       - Simulation User Guide: 'hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md'
-      
+
   - oneAPI: 
       - oneAPI ASP Getting Started User Guide: hw/common/user_guides/oneapi_asp/ug_oneapi_asp.md
       - oneAPI Accelerator Support Package(ASP) Reference Manual: hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md
@@ -169,7 +169,7 @@ env:
   D5005_FIM_REPO: ofs-d5005
   D5005_FIM_TAG: release/ofs-2023.1
   D5005_NIOS_FW_VER: 2.0.13
-  D5005_BMC_RTL_BUILD_VER: 2.0.13
+  D5005_BMC_RTL_BUILD_VER: 2.0.8
   D5005_QUARTUS_PRIME_PRO_VER_S: 23.1
   D5005_QUARTUS_PRIME_PRO_VER_L: Quartus Prime Pro Version 23.1
   D5005_OS_VER: RHEL 8.2
