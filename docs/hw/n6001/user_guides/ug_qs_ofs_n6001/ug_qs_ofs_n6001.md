@@ -438,7 +438,7 @@ This installation process assumes the user has access to an internet connection 
 
 **1.** Make the following changes on your installation machine to satisfy all dependencies:
 
-```bash session
+```bash
 # If on an older minor version of RHEL
 subscription-manager release --set=8.6
 sudo dnf update
@@ -451,7 +451,7 @@ If you wish to install the pre-built linux-dfl package available on the [OFS 202
 
 **2.** You must satisfy the following package dependencies if building and installing the drivers from source. Double check that all packages have been found and installed:
 
-```bash session
+```bash
 
 sudo dnf install -y python3 python3-pip python3-devel \
 gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel nmap \
@@ -471,7 +471,7 @@ It is recommended you create an empty top level directory for their OFS related 
 
 **3.** Initialize an empty git repository and clone the LTS tagged DFL driver source code:
 
-```bash session
+```bash
 cd /home/user/OFS/
 git init
 git clone https://github.com/OPAE/linux-dfl.git
@@ -481,7 +481,7 @@ git checkout tags/ofs-2023.1-6.1-1
 
 **4.** Verify that the correct tag/branch have been checkout out.
 
-```bash session
+```bash
 git describe --tags
 ofs-2023.1-6.1-1
 ```
@@ -496,7 +496,7 @@ ofs-2023.1-6.1-1
 
 **1.** The following set of instructions walk you through copying an existing kernel configuration file on your machine and changing the minimal required configuration settings.:
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 cp /boot/config-`uname -r` .config
 cat configs/dfl-config >> .config
@@ -511,7 +511,7 @@ make olddefconfig
 
 **1.1.** The above command may report errors resembling `symbol value 'm' invalid for CHELSIO_IPSEC_INLINE`. These errors indicate that the nature of the config has changed between the currently executing kernel and the kernel being built. The option "m" for a particular kernel module is no longer a valid option, and the default behavior is to simply turn the option off. However the option can likely be turned back on by setting it to 'y'. If the user wants to turn the option back on, change it to 'y' and re-run "make olddefconfig":
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 echo 'CONFIG_CHELSIO_IPSEC_INLINE=y' >> .config
 make olddefconfig
@@ -521,7 +521,7 @@ make olddefconfig
 
 **2.** Linux kernel builds take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 make -j `nproc`
 make -j `nproc` modules
@@ -534,7 +534,7 @@ make -j `nproc` modules
 
 **3.a** This first flow will directly install the kernel and kernel module files without the need to create a package first:
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 sudo make -j `nproc` modules_install
 sudo make -j `nproc` install
@@ -549,14 +549,14 @@ sudo make -j `nproc` install
 
 If you are concerned about the size of the resulting package and binaries, they can significantly reduce the size of the package and object files by using the make variable INSTALL_MOD_STRIP. If this is not a concern, feel free to skip this step. The below instructions will build a set of binary RPM packages:
 
-```bash session
+```bash
 cd /home/user/OFS/linux-dfl
 make INSTALL_MOD_STRIP=1 binrpm-pkg
 ```
 
 **3.b.1** By default a directory is created in your `home` directory called `rpmbuild`. This directory will house all of the kernel packages which have been built. You need to navigate to the newly built kernel packages and install them. The following files were generated using the build command executed in the previous step:
 
-```bash session
+```bash
 cd ~/rpmbuild/RPMS/x86_64
 ls
 kernel-${{ env.N6001_KERNEL_RELEASE_BASE }}_dfl.x86_64.rpm  kernel-headers-${{ env.N6001_KERNEL_RELEASE_BASE }}_dfl.x86_64.rpm
@@ -565,14 +565,14 @@ sudo dnf localinstall kernel*.rpm
 
 **4.** The system will need to be rebooted in order for changes to take affect. After a reboot, select the newly built kernel as the boot target. This can be done pre-boot using the command `grub2-reboot`, which removes the requirement for user intervention. After boot, verify that the currently running kernel matches expectation.
 
-```bash session
+```bash
 uname -r
 ${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl
 ```
 
 **5.** Verify the DFL drivers have been successfully installed by reading version information directly from `/lib/modules`. Recall that the name of the kernel built as apart of this section is `${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl`. If the user set a different name for their kernel, change this path as needed:
 
-```bash session
+```bash
 cd /usr/lib/modules/${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl/kernel/drivers/fpga
 ls
 dfl-afu.ko     dfl-fme.ko      dfl-fme-region.ko  dfl.ko             dfl-pci.ko      fpga-mgr.ko     intel-m10-bmc-sec-update.ko
@@ -581,7 +581,7 @@ dfl-fme-br.ko  dfl-fme-mgr.ko  dfl-hssi.ko        dfl-n3000-nios.ko  fpga-bridge
 
 If an N6000/1-PL FPGA SmartNIC Platform is present on the server, you can also double check driver versions using the `lsmod` command:
 
-```bash session
+```bash
 lsmod | grep dfl
 uio_dfl                20480  0
 dfl_emif               16384  0
@@ -628,7 +628,7 @@ Refer to the following table for a brief description of each driver:
 
 **6.** Two kernel parameters must be added to the boot commandline for the newly installed kernel. First, open the file `grub`:
 
-```bash session
+```bash
 sudo vim /etc/default/grub
 ```
 
@@ -637,7 +637,7 @@ GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/roo
 
 *Note: If you wish to instead set hugepages on a per session bassis, you can perform the following steps. These settings will be lost on reboot.*
 
-```bash session
+```bash
 mkdir -p /mnt/huge 
 mount -t hugetlbfs nodev /mnt/huge 
 echo 2048 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages 
@@ -646,13 +646,13 @@ echo 2048 > /sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepag
 
 **8.** Save your edits, then apply them to the GRUB2 configuration file.
 
-```bash session
+```bash
 sudo grub2-mkconfig
 ```
 
 **9.** Warm reboot. Your kernel parameter changes should have taken affect.
 
-```bash session
+```bash
 cat /proc/cmdline
 BOOT_IMAGE=(hd1,gpt2)/vmlinuz-${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl root=/dev/mapper/cl-root ro crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200 rhgb quiet
 ```
@@ -663,7 +663,7 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl root=/dev
 
 **1.** Make the following changes on your installation machine to satisfy all dependencies:
 
-```bash session
+```bash
 # If on an older minor version of RHEL
 subscription-manager release --set=8.6
 sudo dnf update
@@ -702,13 +702,13 @@ This installation process assumes the you have access to an internet connection 
 
 **1.** Before OPAE SDK installation you must remove any prior OPAE frameworks.  To remove these packages:
 
-```bash session
+```bash
 sudo dnf remove opae*
 ```
 
 **2.** The following repository changes must be enabled in order to install all dependencies:
 
-```bash session
+```bash
 # If on an older minor version of RHEL
 subscription-manager release --set=8.6
 sudo dnf update
@@ -719,7 +719,7 @@ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noa
 
 **3.** The following package dependencies must be satisfied by the user. Double check that all packages have been found and installed:
 
-```bash session
+```bash
 sudo dnf install -y python3 python3-pip python3-devel \
 gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel nmap \
 python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel \
@@ -739,7 +739,7 @@ It is recommended you create an empty top level directory for their OFS related 
 
 **4.** Initialize an empty git repository and clone the tagged OPAE SDK source code:
 
-```bash session
+```bash
 cd /home/user/OFS/
 git init
 git clone https://github.com/OPAE/opae-sdk.git
@@ -749,7 +749,7 @@ git checkout tags/2.5.0-1
 
 **5.** Verify that the correct tag/branch have been checkout out.
 
-```bash session
+```bash
 git describe --tags
 2.5.0-1
 ```
@@ -760,7 +760,7 @@ git describe --tags
 
 **1.** Build the OPAE SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal. This build script can take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `$(nproc)` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
 
-```bash session
+```bash
 cd /home/user/OFS/opae-sdk/packaging/opae/rpm
 ./create fedora
 ```
@@ -786,14 +786,14 @@ The below table lists a short description for each package:
 
 **3.** Install the OPAE SDK packages:
 
-```bash session
+```bash
 cd /home/user/OFS/opae-sdk/build
 sudo dnf localinstall -y opae*.rpm
 ```
 
 **4.** Check that all packages have been installed:
 
-```bash session
+```bash
 [user@localhost opae-sdk]# rpm -qa | grep opae
 opae-packager-2.5.0-1.x86_64
 opae-devel-2.5.0-1.x86_64
@@ -812,7 +812,7 @@ opae-tests-2.5.0-1.x86_64
 
 1. Build the OPAE SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal. This build script can take advantage of multiple processors to parallelize the build process. Display how many processors are available with the nproc command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
 
-```bash session
+```bash
 cd /home/user/OFS/opae-sdk
 mkdir build
 cd /home/user/OFS/opae-sdk/build
@@ -825,7 +825,7 @@ The build directory location was selected for ease of use. If the user wishes to
 
 2. After a successful compile there should be 9 packages present:
 
-```bash session
+```bash
 cd /home/user/OFS/opae-sdk/build
 ls | grep rpm
 opae-2.5.0-1.x86_64.rpm             
@@ -842,7 +842,7 @@ opae-packager-2.5.0-1.x86_64.rpm
 
 3. Install the OPAE SDK packages:
 
-```bash session
+```bash
 cd /home/user/OFS/opae-sdk/build
 sudo dnf localinstall -y opae*.rpm
 ```
@@ -867,7 +867,7 @@ For systems with multiple FPGA devices, you can specify the BDF to limit the out
 
 The following examples walk through sample outputs generated by `fpgainfo`.
 
-```bash session
+```bash
 sudo fpgainfo fme
 
 Intel Acceleration Development Platform N6001
@@ -892,7 +892,7 @@ User2 Image Info                 : 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
 
 ```
 
-```bash session
+```bash
 sudo fpgainfo bmc
 
 Intel Acceleration Development Platform N6001
@@ -938,7 +938,7 @@ Use the following command to start the **fpgad** service:
 
 Use the following command to start the fpgad service:
 
-```bash session
+```bash
 sudo systemctl start fpgad
 ```
 The configuration file only includes the threshold setting for critical sensor 12V Aux Rail Voltage (sensor 29). This sensor does not have a hardware defined warning threshold and hence **fpgad** relies on the configuration file. The **fpgad** uses information contained within this file to mask the PCIe AER register when the sensor reaches the warning threshold.
@@ -1007,7 +1007,7 @@ You may create another entry below the 12V Aux Voltage entry for any other senso
 
 You can monitor the log file to see if upper or lower warning threshold levels are hit. For example:
 
-```bash session
+```bash
 tail -f /var/lib/opae/fpgad.log | grep “sensor.*warning”
 fpgad-vc: sensor ' Columbiaville Die Temperature ' warning
 ```
@@ -1016,7 +1016,7 @@ You must take appropriate action to recover from this warning **before** the sen
 Sample output: Warning message when the 'CVL Core0 Voltage VR Temperature' exceeds the upper warning threshold limit
 
 
-```bash session
+```bash
 tail -f /var/lib/opae/fpgad.log 
 fpgad-vc: sensor 'CVL Core Voltage VR Temperature' warning.
 fpgad-vc: saving previous ECAP_AER+0x08 value 0x057ff030 for 0000:b0:02.0
@@ -1028,25 +1028,25 @@ If the upper or lower fatal threshold limit is reached, then a power cycle of se
 
 To stop **fpgad**:
 
-```bash session
+```bash
 sudo systemctl stop fpgad.service
 ```
 
 To check status of fpgad:
 
-```bash session
+```bash
 sudo systemctl status fpgad.service
 ```
 
 Optional: To enable fpgad to re-start on boot, execute
 
-```bash session
+```bash
 sudo systemctl enable fpgad.service
 ```
 
 For a full list of systemctl commands, run the following command:
 
-```bash session
+```bash
 systemctl -h
 ```
 
@@ -1080,7 +1080,7 @@ Use the following chart for information on the Bitstream ID and Pr Interface ID,
 
 1. Example loading a new version of the BMC RTL and FW.
 
-```bash session
+```bash
 sudo fpgasupdate AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu <PCI ADDRESS>
 [2022-04-14 16:32:47.93] [WARNING ] Update starting. Please do not interrupt.                                           
 [2022-04-14 16:32:47.93] [INFO    ] updating from file /home/user/AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu with size 904064                                   
@@ -1098,7 +1098,7 @@ sudo rsu bmcimg
 
 2. Example for loading a Static Region (SR) update image. This process will take up to 20 minutes.
 
-```bash session
+```bash
 sudo fpgasupdate ofs_top_page1_unsigned_user1.bin <PCI ADDRESS>
 [2022-04-14 16:42:31.58] [WARNING ] Update starting. Please do not interrupt.                                           
 [2022-04-14 16:42:31.58] [INFO    ] updating from file ofs_top_page1_pacsign_user1.bin with size 19928064               
@@ -1126,7 +1126,7 @@ For more information on PACSign and on general security practices surrounding th
 
 The following example creates an unsigned SR image from an existing signed SR binary update image, targeting the user1 partition in flash.
 
-```bash session
+```bash
 PACSign SR -t UPDATE -s 0 -H openssl_manager -i ofs_top_page1_pacsign_user1.bin -o new_image.bin
 No root key specified.  Generate unsigned bitstream? Y = yes, N = no: y
 No CSK specified.  Generate unsigned bitstream? Y = yes, N = no: y
@@ -1146,7 +1146,7 @@ If the **factory** image has been updated, Intel strongly recommends the user to
 
 The user can determine which region of flash was used to configure their FPGA device using the command `fpgainfo fme` and referring to the row labelled **Boot Page**.
 
-```bash session
+```bash
 sudo fpgainfo fme | grep Boot
 Boot Page                        : user1
 ```
@@ -1165,7 +1165,7 @@ Set the default FPGA boot sequence. The --page option determines the primary FPG
 
 The following example will load an image stored in **user2**.
 
-```bash session
+```bash
 sudo rsu fpga --page=user2 0000:b1:00.0
 2022-04-15 09:25:22,951 - [[pci_address(0000:b1:00.0), pci_id(0x8086, 0xbcce)]] performing RSU operation
 2022-04-15 09:25:22,955 - [[pci_address(0000:b0:02.0), pci_id(0x8086, 0x347a)]] removing device from PCIe bus
@@ -1184,7 +1184,7 @@ The **hello_events** utility is used to verify FME interrupts. This tool injects
 
 Sample output from `sudo hello_events`.
 
-```bash session
+```bash
 sudo hello_events
 Waiting for interrupts now...
 injecting error
@@ -1236,7 +1236,7 @@ Execution of these exercisers requires you to bind specific VF endpoint to **vfi
 
 **Note:** While running the `opae.io init` command listed below, if no output is present after completion then the command has failed. Double check that Intel VT-D and IOMMU have been enabled in the kernel as discussed in step 12 in section [3.1 Intel OFS DFL Kernel Driver Environment Setup](#heading-3.1).
 	
-```bash session
+```bash
 sudo pci_device  0000:b1:00.0 vf 3
 sudo opae.io init -d 0000:b1:00.2 user:user
 Unbinding (0x8086,0xbcce) at 0000:b1:00.2 from dfl-pci                                                                  
@@ -1266,7 +1266,7 @@ Allocate DSM Buffer
 
 The following example will run a loopback throughput test using one cacheline per request.
 
-```bash session
+```bash
 sudo pci_device  0000:b1:00.0 vf 3
 sudo opae.io init -d 0000:b1:00.2 user:user
 sudo host_exerciser --clock-mhz 400 --mode trput --cls cl_1 lpbk
@@ -1302,23 +1302,23 @@ Beginning in OPAE version 2.0.11-1+ the TG AFU has an OPAE application to access
 Below are some example commands for how to execute the test application.
 To run the preconfigured write/read traffic test on channel 0:
 
-```bash session
+```bash
 mem_tg tg_test
 ```
 
 Target channel 1 with a 1MB single-word write only test for 1000 iterations
 
-```bash session
+```bash
 mem_tg --loops 1000 -r 0 -w 2000 -m 1 tg_test
 ```
 
 Target channel 2 with 4MB write/read test of max burst length for 10 iterations
 
-```bash session
+```bash
 mem_tg --loops 10 -r 8 -w 8 --bls 255 -m 2 tg_test
 ```
 
-```bash session
+```bash
 sudo mem_tg --loops 1000 -r 2000 -w 2000 --stride 2 --bls 2  -m 1 tg_test
 [2022-07-15 00:13:16.349] [tg_test] [info] starting test run, count of 1
 Memory channel clock frequency unknown. Assuming 300 MHz.
@@ -1339,13 +1339,13 @@ The following example walks through the process of binding the VF corresponding 
 
 **1.** **Create** 3 VFs in the PR region.
 
-```bash session
+```bash
 sudo pci_device b1:00.0 vf 3 
 ```
 
 **1.1** Verify all 3 VFs were created.
 
-```bash session
+```bash
 lspci -s b1:00 
 b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01) 
 b1:00.1 Processing accelerators: Intel Corporation Device bcce 
@@ -1359,7 +1359,7 @@ b1:00.7 Processing accelerators: Intel Corporation Device bccf
 
 **2.** **Bind** all of the PF/VF endpoints to the `vfio-pci` driver.
 
-```bash session
+```bash
 sudo opae.io init -d 0000:b1:00.1 user:user
 Unbinding (0x8086,0xbcce) at 0000:b1:00.1 from dfl-pci
 Binding (0x8086,0xbcce) at 0000:b1:00.1 to vfio-pci
@@ -1385,7 +1385,7 @@ Changing permissions for /dev/vfio/319 to rw-rw----
 
 **3.** Check that the accelerators are present using `fpgainfo`. *Note your port configuration may differ from the below.*
 
-```bash session
+```bash
 sudo fpgainfo port 
 //****** PORT ******//
 Object Id                        : 0xEC00000
@@ -1469,7 +1469,7 @@ The following table contains a mapping between each VF, Accelerator GUID, and co
 
 **4.** Check Ethernet PHY settings with `fpgainfo`.
 
-```bash session
+```bash
 sudo fpgainfo phy -B 0xb1 
 IIntel Acceleration Development Platform N6001
 Board Management Controller NIOS FW version: 3.11.0
@@ -1502,7 +1502,7 @@ Port7                            :25GbE        DOWN
 
 **5.** Set loopback mode.
 
-```bash session
+```bash
 sudo hssiloopback --loopback enable  --pcie-address 0000:b1:00.0 
 args Namespace(loopback='enable', pcie_address='0000:b1:00.0', port=0)
 sbdf: 0000:b1:00.0
@@ -1535,7 +1535,7 @@ hssi loopback enabled to port0
 
 **6.** Send traffic through the 10G AFU.
 
-```bash session
+```bash
 sudo hssi --pci-address b1:00.6 hssi_10g --num-packets 100       
 10G loopback test
   port: 0
@@ -1625,7 +1625,7 @@ If your Intel® FPGA SmartNIC N6001-PL does not have the 2022.3.1 version of the
 
 Sample output of `fpgainfo` with matching values:
 
-```bash session
+```bash
 Intel Acceleration Development Platform N6001
 Board Management Controller NIOS FW version: 3.11.0
 Board Management Controller Build version: 3.11.0
@@ -1649,7 +1649,7 @@ User2 Image Info                 : 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
 
 1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2023.1 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
 
-```bash session
+```bash
 sudo fpgasupdate AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu
 [2022-04-14 16:32:47.93] [WARNING ] Update starting. Please do not interrupt.                                           
 [2022-04-14 16:32:47.93] [INFO    ] updating from file /home/user/AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu with size 904064                                   
@@ -1666,7 +1666,7 @@ sudo rsu bmcimg
 ```
 2. Load the new FIM image.
 
-```bash session
+```bash
 sudo fpgasupdate ofs_top_page1_unsigned_user1.bin <PCI ADDRESS>
 [2022-04-14 16:42:31.58] [WARNING ] Update starting. Please do not interrupt.                                           
 [2022-04-14 16:42:31.58] [INFO    ] updating from file ofs_top_page1_pacsign_user1.bin with size 19928064               
