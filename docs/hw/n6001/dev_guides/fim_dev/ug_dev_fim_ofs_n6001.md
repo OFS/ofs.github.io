@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Intel Agilex PCIe Attach: Open FPGA Stack
 
-Last updated: **May 27, 2023** 
+Last updated: **May 31, 2023** 
 
 # 1. Introduction
 ## 1.1. About This Document

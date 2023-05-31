@@ -45,7 +45,7 @@ plugins:
 # Page tree
 nav:
   - Welcome: index.md
-  - Stratix 10 PCIe Attach OFS Hardware Docs:
+  - Stratix 10 PCIe Attach OFS:
       - Quick Start Evaluation Guide: 'hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005.md'
       - Getting Started: 'hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md'
       - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
@@ -53,7 +53,7 @@ nav:
       - FPGA Interface Manager Developer Guide: 'hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md'
       - AFU Developer Guide: 'hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005.md'
       - Simulation User Guide: 'hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md'   
-  - Agilex PCIe Attach OFS Hardware Docs:
+  - Agilex PCIe Attach OFS:
       - Quick Start Evaluation Guide: 'hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001.md'
       - Getting Started: 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
       - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
@@ -61,7 +61,7 @@ nav:
       - FPGA Interface Manager Developer Guide: 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
       - AFU Developer Guide: 'hw/n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001.md'
       - Simulation User Guide: 'hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001.md'  
-  - Agilex SoC Attach OFS Hardware Docs:
+  - Agilex SoC Attach OFS:
       - Quick Start Evaluation Guide: 'hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x.md'
       - Getting Started: 'hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x.md'
       - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
@@ -69,6 +69,11 @@ nav:
       - FPGA Interface Manager Developer Guide: 'hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md'
       - AFU Developer Guide: 'hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x.md'
       - Simulation User Guide: 'hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md'
+      
+  - oneAPI: 
+      - oneAPI ASP Getting Started User Guide: hw/common/user_guides/oneapi_asp/ug_oneapi_asp.md
+      - oneAPI Accelerator Support Package(ASP) Reference Manual: hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md
+
   - OFS Software:
     - OPAE USER GUIDES:
        - Quick Start Guide: sw/fpga_api/quick_start/readme.md
@@ -105,9 +110,6 @@ nav:
        - opaeuio: sw/fpga_tools/opaeuio/opaeuio.md
        - fpgad: sw/fpga_tools/fpgad/fpgad.md
        - fpgadiag: sw/fpga_tools/fpgadiag/README.md
-  - oneAPI: 
-    - oneAPI ASP Getting Started User Guide: hw/common/user_guides/oneapi_asp/ug_oneapi_asp.md
-    - oneAPI ASP Reference Manual: /hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md
 
 
 markdown_extensions:
@@ -385,3 +387,4 @@ env:
   url_examples-afu: https://github.com/OFS/examples-afu.git
   ARM_AXI: Arm® AMBA® 4 AXI4
  
+

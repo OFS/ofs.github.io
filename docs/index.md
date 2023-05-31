@@ -21,10 +21,8 @@ To find out more about Intel FPGAs, visit the [Intel Stratix 10](https://www.int
 If you are board developer you can get started in four basic steps.
 <image src="hw/n6001/reference_manuals/ofs_fim/images/OFS-Platform-Steps.svg" align="right" width="200" height="200">
 
-
 Start by selecting the reference FIM that closest matches your requirements and leveraging our evaluation scripts to give OFS a test drive.
-
-The reference FIMs can be used as-is or as a starting point for modification, greatly reducing development time. Below gives a summary of our current offerings.
+The reference FIMs can be used as-is or as a starting point for modification, greatly reducing development time. 
 
 If you are a workload developer, you can choose between an RTL or OneAPI based design flow.  
 
@@ -106,7 +104,7 @@ Accessing OFS ingredients to use within the development framework is easy.  The 
 |Development Focus|Repository Folder | Description |
 |:----------------:|:------------------:|:--------------------|
 |Hardware | [ofs-n6001](https://github.com/OFS/ofs-n6001) | Provides RTL, unit tests, and build scripts to create Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> FIM and is leveraged as a starting point for a custom PCIe Attach design.  The reference FIM targets an [Intel® FPGA SmartNIC N6001-PL Platform](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html). |
-|Hardware | [ofs-f2000x-pl](https://github.com/OFS/ofs-f2000x-pl) | Provides RTL, unit tests, and build scripts to create Intel<sup>&reg;</sup> Stratix 10<sup>&reg;</sup> FIM and is leveraged as a starting point for a custom SoC Attach design.  The reference FIM targets an [Intel® FPGA IPU F2000X-PL Platform](https://www.intel.com/content/www/us/en/products/details/network-io/ipu/f2000x-pl-platform.html). |
+|Hardware | [ofs-f2000x-pl](https://github.com/OFS/ofs-f2000x-pl) | Provides RTL, unit tests, and build scripts to create Intel<sup>&reg;</sup>Agilex<sup>&reg;</sup> FIM and is leveraged as a starting point for a custom SoC Attach design.  The reference FIM targets an [Intel® FPGA IPU F2000X-PL Platform](https://www.intel.com/content/www/us/en/products/details/network-io/ipu/f2000x-pl-platform.html). |
 |Hardware | [ofs-d5005](https://github.com/OFS/ofs-d5005) | Provides RTL, unit tests, and build scripts to create Intel<sup>&reg;</sup> Stratix 10<sup>&reg;</sup> FIM and is leveraged as a starting point for a custom PCIe Attach design.  The reference FIM targets an Intel® FPGA PAC D5005 development board. |
 | Hardware| [oneapi-asp](https://github.com/OFS/oneapi-asp) | Contains the files to generate the support package that works with the reference shells and allows you to use OneAPI. This is an optional repository for developers interested in OneAPI|
 |Hardware| [ofs-fim-common](https://github.com/OFS/ofs-fim-common) | Provides RTL components that are shared among all new platforms that are introduced in OFS.  This folder is a subumodule in each platform repository folder. |
