@@ -1,6 +1,6 @@
 # **FPGA Interface Manager Technical Reference Manual for Intel Agilex SoC Attach: Open FPGA Stack**
 
-Last updated: **May 31, 2023** 
+Last updated: **June 01, 2023** 
 
 # 1 Overview
 

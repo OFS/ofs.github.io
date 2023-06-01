@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Intel Agilex PCIe Attach: Open FPGA Stack
 
-Last updated: **May 31, 2023** 
+Last updated: **June 01, 2023** 
 
 # 1. Introduction
 ## 1.1. About This Document
@@ -161,7 +161,7 @@ To run the tutorial steps in this guide requires this development environment:
 | Component                                        | Version                                                      |
 | ------------------------------------------------ | ------------------------------------------------------------ |
 | FPGA Platform                                    | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), [release notes] |
-| OPAE SDK                                         | [2.5.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-2) |
+| OPAE SDK                                         | [2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) |
 | Kernel Drivers                                   | [ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) |
 | OneAPI-ASP                                       | [ofs-2023.1-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1) |
 | OFS FIM Source Code for Intel® FPGA SmartNIC N6001-PL          | [ofs-2023.1-1](https://github.com/intel-innersource/applications.fpga.ofs.fim-n6001/releases/tag/ofs-2023.1-1)      |

@@ -57,9 +57,9 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-n6001](https://github.com/OFS/https://github.com/OFS/ofs-n6001), [Tag: ofs-2023.1-1](https://github.com/OFS/https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
 | OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.1](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.1](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.1) | Common RTL across all OFS-based platforms |
 | AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.5.0-1](https://github.com/OFS/opae-sdk/tree/2.5.0-1), [Tag: 2.5.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-1) | Open Programmable Acceleration Engine Software Development Kit |
+| OPAE SDK | [Branch: 2.5.0-3](https://github.com/OFS/opae-sdk/tree/2.5.0-3), [Tag: 2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) | Open Programmable Acceleration Engine Software Development Kit |
 | Kernel Drivers | [Branch: ${{ env.N6001_KERNEL_TAGN6001_KERNEL_TAGN6001_KERNEL_TAG }}](https://github.com/OFS/linux-dfl/tree/${{ env.N6001_KERNEL_TAGN6001_KERNEL_TAG }}), [Tag: ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.5.0-1](https://github.com/OFS/opae-sim/releases/tag/2.5.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.5.0-3](https://github.com/OFS/opae-sim/releases/tag/2.5.0-3) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
 | Intel Quartus Prime Pro Edition Design Software | 23.1 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
@@ -158,9 +158,9 @@ In the example above "23.1" is used as the Quartus tools version
 
 change OPAE SDK VERSION<br>
 
-    export OPAE_SDK_VERSION=2.5.0-1
+    export OPAE_SDK_VERSION=2.5.0-3
 
-In the example above "2.5.0-1" is used as the OPAE SDK tools version
+In the example above "2.5.0-3" is used as the OPAE SDK tools version
 
 ### **PCIe (Bus Number) (lines 231 and 238)**
 

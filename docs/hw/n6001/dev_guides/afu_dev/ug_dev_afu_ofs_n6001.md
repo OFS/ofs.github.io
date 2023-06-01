@@ -370,10 +370,10 @@ The directories are arranged as shown below:
 
 Follow the instructions in the Getting Started Guide: Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit] to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL.
 
-Working with the Intel® Intel® FPGA SmartNIC N6001-PL card requires **opae-2.5.0-1**. Follow the instructions in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL section [4.0 OPAE Software Development Kit]. However, just make sure to check out the cloned repository to tag **2.5.0-1** and branch **release/2.5.0**.
+Working with the Intel® Intel® FPGA SmartNIC N6001-PL card requires **opae-2.5.0-3**. Follow the instructions in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL section [4.0 OPAE Software Development Kit]. However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```sh
-$ git checkout tags/2.5.0-1 -b release/2.5.0
+$ git checkout tags/2.5.0-3 -b release/2.5.0
 ```
 
 > Note: The tutorial steps provided in the next sections assume the OPAE SDK is installed in default system locations, under the directory, ```/usr```. In most system configurations, this will allow the OS and tools to automatically locate the OPAE binaries, scripts, libraries and include files required for the compilation and simulation of the FIM and AFUs.
@@ -481,7 +481,7 @@ $ export LIBRARY_PATH=$OPAE_LOC/lib:$LIBRARY_PATH
 $ export LD_LIBRARY_PATH=$OPAE_LOC/lib64:$LD_LIBRARY_PATH
 
 # Header files from OPAE and MPF must either be on the default compiler search paths or on both C_INCLUDE_PATH and CPLUS_INCLUDE_PATH.
-$ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-1.el8.x86_64/tests/framework
+$ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-3.el8.x86_64/tests/framework
 
 ```
 
@@ -996,7 +996,7 @@ If OPAE and the Basic Building Blocks are installed to standard system directori
 $ export FPGA_BBB_CCI_SRC=$OFS_BUILD_ROOT/intel-fpga-bbb  
 
 # Header files from OPAE and MPF must either be on the default compiler search paths or on both C_INCLUDE_PATH and CPLUS_INCLUDE_PATH.
-$ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-1.el8.x86_64/tests/framework
+$ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-3.el8.x86_64/tests/framework
 
 # OPAE and MPF libraries must either be on the default linker search paths or on both LIBRARY_PATH and LD_LIBRARY_PATH.  
 $ export OPAE_LOC=/usr
@@ -1363,10 +1363,10 @@ In this section you will set up your server to support ASE by independently down
 
 Follow the instructions documented in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit] to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL card.
 
-The N6001 SKU2 card requires **2.5.0-1**. Follow the instructions provided in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit]. However, just make sure to check out the cloned repository to tag **2.5.0-1** and branch **release/2.5.0**.
+The N6001 SKU2 card requires **2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit]. However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```sh
-$ git checkout tags/2.5.0-1 -b release/2.5.0
+$ git checkout tags/2.5.0-3 -b release/2.5.0
 ```
 
 ### 4.1.2 Install ASE Tools
@@ -1385,12 +1385,12 @@ ASE must be installed separatedly from the OPAE SDK. However, the recommendation
 $ cd $OFS_BUILD_ROOT
 $ git clone https://github.com/OFS/opae-sim.git
 $ cd opae-sim  
-$ git checkout tags/2.5.0-1 -b release/2.5.0
+$ git checkout tags/2.5.0-3 -b release/2.5.0
 ```
 2. Building ASE requires the include file ```mock/opae_std.h```. If the OPAE SDK was installed under the default system directories, the **C_INCLUDE_PATH** variable must be set as follows. 
 
 ```sh
-$ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-1.el8.x86_64/tests/framework/
+$ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-3.el8.x86_64/tests/framework/
 ```
 
 3. Create a build directory and build ASE to be installed under the default system directories along with OPAE SDK.
