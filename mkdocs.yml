@@ -213,11 +213,12 @@ env:
   N6001_FIM_REPO: ofs-n6001
   N6001_RELEASE_NUMBER: 2023.1
   N6001_DOC_REPO: https://github.com/intel-innersource/applications.fpga.ofs.opensource-documentation/tree/main/docs/hw/n6001
-  N6001_OPAE_REPO_GENERIC: https://github.com/OPAE/opae-sdk
-  N6001_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.5.0-2
-  N6001_LINUX_DFL_REPO_GENERIC: https://github.com/OPAE/linux-dfl
+  N6001_OPAE_REPO_GENERIC: https://github.com/OFS/opae-sdk
+  N6001_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3
+  N6001_LINUX_DFL_REPO_GENERIC: https://github.com/OFS/linux-dfl
   N6001_LINUX_DFL_TAG_DIRECT: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1
   N6001_LINUX_DFL_TAG: ofs-2023.1-6.1-1
+  N6001_KERNEL_RELEASE_BASE: 6.1.22
   N6001_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1
   N6001_OFS_TAG_DIRECT: https://github.com/intel-innersource/applications.fpga.ofs.fim-n6001/releases/tag/ofs-2023.1-1
   N6001_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb.git
@@ -264,7 +265,7 @@ env:
   N6001_KERNEL_VER_S: 6.1
   N6001_KERNEL_VER_L: 6.1-lts
   #N6001_OPAE
-  N6001_OPAE_TAG: 2.5.0-1
+  N6001_OPAE_TAG: 2.5.0-3
   N6001_OPAE_BRANCH: release/2.5.0
   N6001_BITSTREAM_ID: 0x5010202BE8C93B9
   N6001_PR_ID: 5bcd682f-5093-5fc7-8cd2-ae8073e19452

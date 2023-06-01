@@ -147,7 +147,7 @@ The following table highlights the versions of the software which compose the OF
 | Component | Version |
 | --------- | ------- |
 | FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), ([release notes](../../../n6001/))|
-| OPAE SDK | [2.5.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-2)|
+| OPAE SDK | [2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3)|
 | Kernel Drivers |[ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1)|
 | OneAPI-ASP | [ofs-2023.1-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1)  |
 | OFS FIM Source Code for N6001| [ofs-2023.1-1](https://github.com/intel-innersource/applications.fpga.ofs.fim-n6001/releases/tag/ofs-2023.1-1) |
@@ -439,12 +439,8 @@ This installation process assumes the user has access to an internet connection 
 **1.** Make the following changes on your installation machine to satisfy all dependencies:
 
 ```bash
-# If on an older minor version of RHEL
 subscription-manager release --set=8.6
 sudo dnf update
-# Required repo updates
-subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 
 If you wish to install the pre-built linux-dfl package available on the [OFS 2023.1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#heading-3.3).
@@ -452,30 +448,45 @@ If you wish to install the pre-built linux-dfl package available on the [OFS 202
 **2.** You must satisfy the following package dependencies if building and installing the drivers from source. Double check that all packages have been found and installed:
 
 ```bash
+#Ensure the Proxy are setup if your case 
+sudo nano /etc/dnf/dnf.conf
+#include your proxy
+# proxy=http://proxy.server.com:port
+sudo dnf update
+subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 
 sudo dnf install -y python3 python3-pip python3-devel \
 gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel nmap \
 python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel \
-spdlog-devel cli11-devel python3-pyyaml hwloc-devel libedit-devel sphinx
+python3-pyyaml hwloc-devel libedit-devel git kernel-headers kernel-devel elfutils-libelf-devel ncurses-devel openssl-devel bison flex cli11-devel spdlog-devel
 
 python3 -m pip install --user jsonschema virtualenv pudb pyyaml
 
 sudo pip3 uninstall setuptools
 
-sudo pip3 install Pybind11==2.10.0
+sudo pip3 install Pybind11==2.10.0 --proxy http://yourproxy:xxx
 
-sudo pip3 install setuptools==59.6.0 --prefix=/usr
+sudo pip3 install setuptools==59.6.0 --prefix=/usr --proxy http://yourproxy:xxx
+
+wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/pybind11-devel-2.4.3-2.el8.x86_64.rpm
+
+wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/python3-pybind11-2.4.3-2.el8.x86_64.rpm
+
+sudo dnf localinstall ./python3-pybind11-2.4.3-2.el8.x86_64.rpm ./pybind11-devel-2.4.3-2.el8.x86_64.rpm -y
+
 ```
 
-It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/user/OFS/`. If you have created a different top-level directory, replace this path with your custom path.
+It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/OFS/`. If you have created a different top-level directory, replace this path with your custom path.
 
 **3.** Initialize an empty git repository and clone the LTS tagged DFL driver source code:
 
 ```bash
-cd /home/user/OFS/
+mkdir /home/OFS/
+cd /home/OFS/
 git init
-git clone https://github.com/OPAE/linux-dfl.git
-cd /home/user/OFS/linux-dfl
+git clone https://github.com/OFS/linux-dfl
+cd /home/OFS/linux-dfl
 git checkout tags/ofs-2023.1-6.1-1
 ```
 
@@ -497,7 +508,7 @@ ofs-2023.1-6.1-1
 **1.** The following set of instructions walk you through copying an existing kernel configuration file on your machine and changing the minimal required configuration settings.:
 
 ```bash
-cd /home/user/OFS/linux-dfl
+cd /home/OFS/linux-dfl
 cp /boot/config-`uname -r` .config
 cat configs/dfl-config >> .config
 echo 'CONFIG_LOCALVERSION="-dfl"' >> .config
@@ -512,7 +523,7 @@ make olddefconfig
 **1.1.** The above command may report errors resembling `symbol value 'm' invalid for CHELSIO_IPSEC_INLINE`. These errors indicate that the nature of the config has changed between the currently executing kernel and the kernel being built. The option "m" for a particular kernel module is no longer a valid option, and the default behavior is to simply turn the option off. However the option can likely be turned back on by setting it to 'y'. If the user wants to turn the option back on, change it to 'y' and re-run "make olddefconfig":
 
 ```bash
-cd /home/user/OFS/linux-dfl
+cd /home/OFS/linux-dfl
 echo 'CONFIG_CHELSIO_IPSEC_INLINE=y' >> .config
 make olddefconfig
 ```
@@ -522,9 +533,8 @@ make olddefconfig
 **2.** Linux kernel builds take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
 
 ```bash
-cd /home/user/OFS/linux-dfl
-make -j `nproc`
-make -j `nproc` modules
+cd /home/OFS/linux-dfl
+make -j $(nproc)
 ```
 
 **3.** The user has two options for installation from source:
@@ -535,9 +545,9 @@ make -j `nproc` modules
 **3.a** This first flow will directly install the kernel and kernel module files without the need to create a package first:
 
 ```bash
-cd /home/user/OFS/linux-dfl
-sudo make -j `nproc` modules_install
-sudo make -j `nproc` install
+cd /home/OFS/linux-dfl
+sudo make modules_install -j $(nproc)
+sudo make install
 ```
 
 **3.b** This second flow will locally build a set of packages. The package options for this flow as as follows:
@@ -550,7 +560,7 @@ sudo make -j `nproc` install
 If you are concerned about the size of the resulting package and binaries, they can significantly reduce the size of the package and object files by using the make variable INSTALL_MOD_STRIP. If this is not a concern, feel free to skip this step. The below instructions will build a set of binary RPM packages:
 
 ```bash
-cd /home/user/OFS/linux-dfl
+cd /home/OFS/linux-dfl
 make INSTALL_MOD_STRIP=1 binrpm-pkg
 ```
 
@@ -559,7 +569,7 @@ make INSTALL_MOD_STRIP=1 binrpm-pkg
 ```bash
 cd ~/rpmbuild/RPMS/x86_64
 ls
-kernel-${{ env.N6001_KERNEL_RELEASE_BASE }}_dfl.x86_64.rpm  kernel-headers-${{ env.N6001_KERNEL_RELEASE_BASE }}_dfl.x86_64.rpm
+kernel-6.1.22_dfl.x86_64.rpm  kernel-headers-6.1.22_dfl.x86_64.rpm
 sudo dnf localinstall kernel*.rpm
 ```
 
@@ -567,13 +577,13 @@ sudo dnf localinstall kernel*.rpm
 
 ```bash
 uname -r
-${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl
+6.1.22-dfl
 ```
 
-**5.** Verify the DFL drivers have been successfully installed by reading version information directly from `/lib/modules`. Recall that the name of the kernel built as apart of this section is `${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl`. If the user set a different name for their kernel, change this path as needed:
+**5.** Verify the DFL drivers have been successfully installed by reading version information directly from `/lib/modules`. Recall that the name of the kernel built as apart of this section is `6.1.22-dfl`. If the user set a different name for their kernel, change this path as needed:
 
 ```bash
-cd /usr/lib/modules/${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl/kernel/drivers/fpga
+cd /usr/lib/modules/6.1.22-dfl/kernel/drivers/fpga
 ls
 dfl-afu.ko     dfl-fme.ko      dfl-fme-region.ko  dfl.ko             dfl-pci.ko      fpga-mgr.ko     intel-m10-bmc-sec-update.ko
 dfl-fme-br.ko  dfl-fme-mgr.ko  dfl-hssi.ko        dfl-n3000-nios.ko  fpga-bridge.ko  fpga-region.ko
@@ -654,7 +664,7 @@ sudo grub2-mkconfig
 
 ```bash
 cat /proc/cmdline
-BOOT_IMAGE=(hd1,gpt2)/vmlinuz-${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl root=/dev/mapper/cl-root ro crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200 rhgb quiet
+BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.22-dfl root=/dev/mapper/cl-root ro crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200 rhgb quiet
 ```
 
 
@@ -664,12 +674,8 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-${{ env.N6001_KERNEL_RELEASE_BASE }}-dfl root=/dev
 **1.** Make the following changes on your installation machine to satisfy all dependencies:
 
 ```bash
-# If on an older minor version of RHEL
 subscription-manager release --set=8.6
 sudo dnf update
-# Required repo updates
-subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 
 2. To use the pre-built Linux DFL packages, the user will need to download the files from the [OFS 2023.1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
@@ -692,7 +698,7 @@ sudo dnf localinstall kernel-6.1.22_dfl_<<version>>.src.rpm
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit the [OPAE.io](https://opae.github.io/latest/docs/fpga_tools/opae.io/opae.io.html)(https://opae.github.io/2.3.0/index.html) page.
 
 The OPAE SDK source code is contained within a single GitHub repository
-hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-1). This repository is open source and does not require any permissions to access.
+hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3). This repository is open source and does not require any permissions to access.
 
 
 
@@ -709,49 +715,58 @@ sudo dnf remove opae*
 **2.** The following repository changes must be enabled in order to install all dependencies:
 
 ```bash
-# If on an older minor version of RHEL
 subscription-manager release --set=8.6
 sudo dnf update
-# Required repo updates
-subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 ```
 
 **3.** The following package dependencies must be satisfied by the user. Double check that all packages have been found and installed:
 
 ```bash
+#Ensure the Proxy are setup if your case 
+sudo nano /etc/dnf/dnf.conf
+#include your proxy
+# proxy=http://proxy.server.com:port
+sudo dnf update
+subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+
 sudo dnf install -y python3 python3-pip python3-devel \
 gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel nmap \
 python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel \
-spdlog-devel cli11-devel python3-pyyaml hwloc-devel libedit-devel sphinx
+python3-pyyaml hwloc-devel libedit-devel git kernel-headers kernel-devel elfutils-libelf-devel ncurses-devel openssl-devel bison flex cli11-devel spdlog-devel
 
 python3 -m pip install --user jsonschema virtualenv pudb pyyaml
 
 sudo pip3 uninstall setuptools
 
-sudo pip3 install Pybind11==2.10.0
+sudo pip3 install Pybind11==2.10.0 --proxy http://yourproxy:xxx
 
-sudo pip3 install setuptools==59.6.0 --prefix=/usr
+sudo pip3 install setuptools==59.6.0 --prefix=/usr --proxy http://yourproxy:xxx
 
+wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/pybind11-devel-2.4.3-2.el8.x86_64.rpm
+
+wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/python3-pybind11-2.4.3-2.el8.x86_64.rpm
+
+sudo dnf localinstall ./python3-pybind11-2.4.3-2.el8.x86_64.rpm ./pybind11-devel-2.4.3-2.el8.x86_64.rpm -y
 ```
 
-It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/user/OFS/`. If the you have created a different top-level directory, replace this path with your custom path.
+It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/OFS/`. If the you have created a different top-level directory, replace this path with your custom path.
 
 **4.** Initialize an empty git repository and clone the tagged OPAE SDK source code:
 
 ```bash
-cd /home/user/OFS/
+cd /home/OFS/
 git init
-git clone https://github.com/OPAE/opae-sdk.git
-cd /home/user/OFS/opae-sdk
-git checkout tags/2.5.0-1
+git clone https://github.com/OFS/opae-sdk
+cd /home/OFS/opae-sdk
+git checkout tags/2.5.0-3
 ```
 
 **5.** Verify that the correct tag/branch have been checkout out.
 
 ```bash
 git describe --tags
-2.5.0-1
+2.5.0-3
 ```
 
 
@@ -761,7 +776,7 @@ git describe --tags
 **1.** Build the OPAE SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal. This build script can take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `$(nproc)` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
 
 ```bash
-cd /home/user/OFS/opae-sdk/packaging/opae/rpm
+cd /home/OFS/opae-sdk/packaging/opae/rpm
 ./create fedora
 ```
 
@@ -787,23 +802,24 @@ The below table lists a short description for each package:
 **3.** Install the OPAE SDK packages:
 
 ```bash
-cd /home/user/OFS/opae-sdk/build
+cd /home/OFS/opae-sdk/packaging/opae/rpm
 sudo dnf localinstall -y opae*.rpm
+rm -rf opae-2.5.0-3.el8.src.rpm 
 ```
 
 **4.** Check that all packages have been installed:
 
 ```bash
 [user@localhost opae-sdk]# rpm -qa | grep opae
-opae-packager-2.5.0-1.x86_64
-opae-devel-2.5.0-1.x86_64
-opae-PACSign-2.5.0-1.x86_64
-opae-tools-extra-2.5.0-1.x86_64
-opae-2.5.0-1.x86_64
-opae-tools-2.5.0-1.x86_64
-opae-libs-2.5.0-1.x86_64
-opae-opae.admin-2.5.0-1.x86_64
-opae-tests-2.5.0-1.x86_64
+opae-packager-2.5.0-3.x86_64
+opae-devel-2.5.0-3.x86_64
+opae-PACSign-2.5.0-3.x86_64
+opae-tools-extra-2.5.0-3.x86_64
+opae-2.5.0-3.x86_64
+opae-tools-2.5.0-3.x86_64
+opae-libs-2.5.0-3.x86_64
+opae-opae.admin-2.5.0-3.x86_64
+opae-tests-2.5.0-3.x86_64
 ```
 
 
@@ -813,9 +829,9 @@ opae-tests-2.5.0-1.x86_64
 1. Build the OPAE SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal. This build script can take advantage of multiple processors to parallelize the build process. Display how many processors are available with the nproc command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
 
 ```bash
-cd /home/user/OFS/opae-sdk
+cd /home/OFS/opae-sdk
 mkdir build
-cd /home/user/OFS/opae-sdk/build
+cd /home/OFS/opae-sdk/build
 cmake .. -DCPACK_GENERATOR=RPM -DOPAE_BUILD_FPGABIST=ON -DOPAE_BUILD_PYTHON_DIST=ON -DCMAKE_BUILD_PREFIX=/usr
 make -j `nproc`
 make -j `nproc` package_rpm
@@ -826,24 +842,24 @@ The build directory location was selected for ease of use. If the user wishes to
 2. After a successful compile there should be 9 packages present:
 
 ```bash
-cd /home/user/OFS/opae-sdk/build
+cd /home/OFS/opae-sdk/build
 ls | grep rpm
-opae-2.5.0-1.x86_64.rpm             
-opae-PACSign-2.5.0-1.x86_64.rpm
-opae-devel-2.5.0-1.x86_64.rpm       
-opae-tests-2.5.0-1.x86_64.rpm
-opae-libs-2.5.0-1.x86_64.rpm        
-opae-tools-2.5.0-1.x86_64.rpm
-opae-opae.admin-2.5.0-1.x86_64.rpm  
-opae-tools-extra-2.5.0-1.x86_64.rpm
-opae-packager-2.5.0-1.x86_64.rpm    
-opae-packager-2.5.0-1.x86_64.rpm
+opae-2.5.0-3.x86_64.rpm             
+opae-PACSign-2.5.0-3.x86_64.rpm
+opae-devel-2.5.0-3.x86_64.rpm       
+opae-tests-2.5.0-3.x86_64.rpm
+opae-libs-2.5.0-3.x86_64.rpm        
+opae-tools-2.5.0-3.x86_64.rpm
+opae-opae.admin-2.5.0-3.x86_64.rpm  
+opae-tools-extra-2.5.0-3.x86_64.rpm
+opae-packager-2.5.0-3.x86_64.rpm    
+opae-packager-2.5.0-3.x86_64.rpm
 ```
 
 3. Install the OPAE SDK packages:
 
 ```bash
-cd /home/user/OFS/opae-sdk/build
+cd /home/OFS/opae-sdk/build
 sudo dnf localinstall -y opae*.rpm
 ```
 
@@ -851,7 +867,7 @@ sudo dnf localinstall -y opae*.rpm
 
 ### **4.4 OPAE Tools Overview**
 
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHUb repo](https://github.com/OPAE/opae-sdk/blob/2.5.0-1/doc/src/fpga_tools/readme.md).
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHUb repo](https://github.com/OPAE/opae-sdk/blob/2.5.0-3/doc/src/fpga_tools/readme.md).
 
 
 
@@ -932,7 +948,7 @@ The **fpgad** is a service that can help you protect the server from crashing wh
 .
 *Note: Qualified OEM server systems should provide the required cooling for your workloads. Therefore, using **fpgad** may be optional.*
 
-When the opae-tools-extra-2.5.0-1.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
+When the opae-tools-extra-2.5.0-3.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
 The **fpgad** periodically reads the sensor values and if the values exceed the warning threshold stated in the fpgad.conf or the hardware defined warning threshold, it masks the PCIe Advanced Error Reporting (AER) registers for the Intel N6000/1-PL FPGA SmartNIC Platform to avoid system reset.
 Use the following command to start the **fpgad** service:
 
