@@ -1,6 +1,6 @@
 # OFS Getting Started Guide for Intel Agilex SoC Attach FPGAs 
 
-Last updated: Last updated: **June 01, 2023** 
+Last updated: Last updated: **June 02, 2023** 
 
 ## Notices & Disclaimers
 

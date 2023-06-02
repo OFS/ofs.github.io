@@ -52,7 +52,9 @@ nav:
       - FPGA Interface Manager Technical Reference Manual: 'hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005.md'
       - FPGA Interface Manager Developer Guide: 'hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005.md'
       - AFU Developer Guide: 'hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005.md'
-      - Simulation User Guide: 'hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md'   
+      - Simulation User Guide: 'hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md'  
+      - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
+      - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
   - Agilex PCIe Attach OFS:
       - Quick Start Evaluation Guide: 'hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001.md'
       - Getting Started: 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
@@ -61,6 +63,8 @@ nav:
       - FPGA Interface Manager Developer Guide: 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
       - AFU Developer Guide: 'hw/n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001.md'
       - Simulation User Guide: 'hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001.md'  
+      - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
+      - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
   - Agilex SoC Attach OFS:
       - Quick Start Evaluation Guide: 'hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x.md'
       - Getting Started: 'hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x.md'
@@ -69,6 +73,8 @@ nav:
       - FPGA Interface Manager Developer Guide: 'hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md'
       - AFU Developer Guide: 'hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x.md'
       - Simulation User Guide: 'hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md'
+      - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
+      - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md' 
 
   - oneAPI: 
       - oneAPI ASP Getting Started User Guide: hw/common/user_guides/oneapi_asp/ug_oneapi_asp.md
@@ -367,6 +373,7 @@ env:
   F2000X_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
   F2000X_SIM_UVM_QS: 2021.4
   OFS_COMMON_RELEASE: 2023.1
+  COMMON_QUARTUS_VER: Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1
   COMMON_REPO_TAG: ofs-2023.1-1
   COMMON_REPO_BRANCH: release/1.0.x
   EXAMPLES-AFU: ofs-2023.1-1

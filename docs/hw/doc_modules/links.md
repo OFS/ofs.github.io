@@ -26,3 +26,6 @@
 [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® FPGAs SoC Attach]: https://github.com/intel-innersource/applications.fpga.ofs.opensource-documentation/blob/main/docs/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md
 [Signal Tap Logic Analyzer: Introduction & Getting Started]: https://www.intel.com/content/www/us/en/programmable/support/training/course/odsw1164.html
 [Quartus Pro Prime Download]: https://www.intel.com/content/www/us/en/software-kit/727906/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html
+
+[Red Hat Linux ]: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software
+[OFS GitHub Docker]: https://github.com/OFS/ofs.github.io/tree/main/docs/hw/common/user_guides/ug_docker

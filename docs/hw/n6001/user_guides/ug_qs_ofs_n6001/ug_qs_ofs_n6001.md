@@ -803,8 +803,8 @@ The below table lists a short description for each package:
 
 ```bash
 cd /home/OFS/opae-sdk/packaging/opae/rpm
-sudo dnf localinstall -y opae*.rpm
 rm -rf opae-2.5.0-3.el8.src.rpm 
+sudo dnf localinstall -y opae*.rpm
 ```
 
 **4.** Check that all packages have been installed:
