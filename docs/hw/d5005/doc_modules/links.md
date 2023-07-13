@@ -39,3 +39,4 @@
 [OFS]: https://github.com/OFS
 [OFS GitHub page]: https://ofs.github.io
 [DFL Wiki]: https://github.com/OPAE/linux-dfl/wiki
+[Security User Guide: Intel Open FPGA Stack]: https://github.com/otcshare/ofs-bmc/

@@ -1,6 +1,6 @@
 # Docker User Guide: Intel® Open FPGA Stack
 
-Last updated: **June 02, 2023** 
+Last updated: **July 13, 2023** 
 
 ## Terms and Acronyms
 
@@ -77,7 +77,7 @@ The OFS provides the flexibility to support various orchestration or management 
 * [Docker security](https://docs.docker.com/engine/security/)
 * [Docker subscription](https://docs.docker.com/subscription/)
 
-# 2.0 Prerequisites and Scope
+## 2.0 Prerequisites and Scope
 
 The OFS release targeting the compatible OFS Platform's is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions in this release.
 
@@ -85,13 +85,13 @@ The following table highlights the hardware that comprises the Best-Known Config
 
 
 
-# 3.0 Development Installation
+## 3.0 Development Installation
 
 Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1 requires a specific version. For this guide, [Red Hat Linux ](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) is used for general instructions. 
 
 The OFS Docker image includes all the libraries and tools required by the OFS and OPAE SDK (Python, Perl, CMake, and so on).
 
-## 3.1 Intel Quartus Prime Software Installation
+### 3.1 Intel Quartus Prime Software Installation
 
 <a name="3.1"></a>
 
@@ -99,7 +99,7 @@ Building AFUs with OFS for Intel Agilex FPGA requires the build machine to have 
 
 Go to [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide for a list of detailed steps for the Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1 installation.  
 
-## 3.2 Docker Engine installation
+### 3.2 Docker Engine installation
 ## Redhat 8.2
 
 The Docker installation steps for Redhat 8.2 are the following:
@@ -382,7 +382,7 @@ Now you are ready to start the container, and you should be prepared to run it:
    bdc1289fb081   ofs:latest                    "/bin/bash"   46 seconds ago   Up 45 seconds      myOFS
    ```
 
-​		Your Container ID is bdc1289fb081. 
+Your Container ID is bdc1289fb081. 
 
 ### 3.5 Evaluate OFS container
 
@@ -424,7 +424,7 @@ The OFS container has two possible ways to interact with the container:
   2. Let's use option 2   - Check versions of Operating System and Quartus Premier Design Suite (QPDS); remember multiple options could not be available if the DFL drivers and the FPGA Platform is **not installed**, This example uses the Intel® FPGA SmartNIC N6001-PL . 
   
      ```sh
-     $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/applications.fpga.ofs.fim-n6001_eval.sh 2
+     $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs-n6001_eval.sh 2
      
      Go to selection: 2
      ###########################################################################################
@@ -443,7 +443,7 @@ The OFS container has two possible ways to interact with the container:
      ```sh
      sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs_extratool.sh -s 5
      ```
-   Now you can control and compile the design. You can use the interactive or de-attach mode.
+      Now you can control and compile the design. You can use the interactive or de-attach mode.
   
   4. If you need to save the log file and output files use the following command 
   
@@ -554,7 +554,7 @@ The OFS container has two possible ways to interact with the container:
   
   
   ```sh
-  $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/applications.fpga.ofs.fim-n6001_eval.sh 3
+  $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs-n6001_eval.sh 3
   
   Go to selection: 3
   
@@ -573,7 +573,7 @@ The OFS container has two possible ways to interact with the container:
   ```
   
   3. The Intel Docker image includes the script ofs_extratool.sh to allow you to change the seed value.
-     
+    
         ```sh
         sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs_extratool.sh -s 5
         ```

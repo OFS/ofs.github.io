@@ -62,6 +62,7 @@ nav:
       - FPGA Interface Manager Technical Reference Manual: 'hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001.md'
       - FPGA Interface Manager Developer Guide: 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
       - AFU Developer Guide: 'hw/n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001.md'
+      - HPS Developer Guide: 'hw/n6001/dev_guides/hps_dev/hps_developer_ug.md'
       - Simulation User Guide: 'hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001.md'  
       - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
       - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
@@ -120,8 +121,6 @@ nav:
 
 markdown_extensions:
   - pymdownx.snippets
-
-  # Python Markdown
   - abbr
   - admonition
   - attr_list
@@ -130,9 +129,8 @@ markdown_extensions:
   - md_in_html
   - toc:
       permalink: true
-#  - toc:
-#      permalink: true
   - tables
+  - mdx_truly_sane_lists
 
   # Python Markdown Extensions
   - pymdownx.betterem:
@@ -208,9 +206,11 @@ env:
   D5005_url_opae-sdk: https://github.com/OFS/opae-sdk.git
   #D5005_ONEAPI
   D5005_ONEAPI_ASP_TAG: ofs-2023.1-1
-  D5005_ONEAPI_ASP_PATCHES: none
+  D5005_ONEAPI_ASP_PATCHES: 0.01iofs
   #N6001_REPO
   N6001: Intel® FPGA SmartNIC N6001-PL
+  N6001_MPN: AGFB014R24A2E2V
+  N6001_MODEL: n6001
   N6001_BRANCH: release/ofs2023.1-1
   N6001_RELEASE: ofs-2023.1-1
   N6001_TAG: ofs-2023.1-1
@@ -218,7 +218,7 @@ env:
   N6001_REPO: https://github.com/OFS/ofs-n6001
   N6001_FIM_REPO: ofs-n6001
   N6001_RELEASE_NUMBER: 2023.1
-  N6001_DOC_REPO: https://github.com/intel-innersource/applications.fpga.ofs.opensource-documentation/tree/main/docs/hw/n6001
+  N6001_DOC_REPO: https://ofs.github.io/hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/
   N6001_OPAE_REPO_GENERIC: https://github.com/OFS/opae-sdk
   N6001_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3
   N6001_LINUX_DFL_REPO_GENERIC: https://github.com/OFS/linux-dfl
@@ -226,7 +226,7 @@ env:
   N6001_LINUX_DFL_TAG: ofs-2023.1-6.1-1
   N6001_KERNEL_RELEASE_BASE: 6.1.22
   N6001_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1
-  N6001_OFS_TAG_DIRECT: https://github.com/intel-innersource/applications.fpga.ofs.fim-n6001/releases/tag/ofs-2023.1-1
+  N6001_OFS_TAG_DIRECT: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1
   N6001_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb.git
   N6001_RELEASE_PAGE: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1 
   N6001_DRIVER_KERNEL_BASE: 6.1.22
@@ -236,7 +236,6 @@ env:
   N6001_BITSTREAM_ID: 0x5010202DC8FCCE3
   N6001_PR_INTERFACE_ID: 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
   N6001_OFS_FIM_TAG: ofs-2023.1-1
-  N6001_FIM_REPO: applications.fpga.ofs.fim-n6001
   #N6001_Server_Platform
   N6001_BIOS_VERSION: American Megatrends International, LLC(1.4)
   #N6001_BMC
@@ -273,6 +272,8 @@ env:
   #N6001_OPAE
   N6001_OPAE_TAG: 2.5.0-3
   N6001_OPAE_BRANCH: release/2.5.0
+  N6001_OPAE_SIM_TAG: 2.5.0-2
+  N6001_OPAE_SIM_BRANCH: release/2.5.0
   N6001_BITSTREAM_ID: 0x5010202BE8C93B9
   N6001_PR_ID: 5bcd682f-5093-5fc7-8cd2-ae8073e19452
   N6001_PYTHON_VER: 3.7.7
@@ -320,6 +321,8 @@ env:
   F2000X_OPAE_TAG: 2.5.0-3
   F2000X_OPAE_RELEASE: release/2.5.0
   F2000X_OPAE_BRANCH: release/2.5.0
+  F2000X_OPAE_SIM_TAG: 2.5.0-2
+  F2000X_OPAE_SIM_BRANCH: release/2.5.0
   F2000X_SIMULATOR: Synopsys VCS P-2019.06-SP2-5
   F2000X_SIMULATOR_VER: S-2021.09-SP1
   F2000X_DESIGNWARE: vip_Q-2020.03A
@@ -355,6 +358,7 @@ env:
   F2000X_META_OFS_TAG: ofs-2023.1-4
   F2000X_ONEAPI-ASP_TAG: ofs-2023.1-1
   F2000X_AFU_EXAMPLES_TAG: ofs-2023.1-1
+  F2000X_AFU_EX_REL_PATH: https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1
   F2000X_OFS_PLATFORM_BBB_TAG: ofs-2023.1-1
   F2000X_OFS_F2000X_TAG: ofs-2023.1-1
   F2000X_FIM_COMMON_TAG: ofs-2023.1-1
@@ -372,6 +376,7 @@ env:
   F2000X_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
   F2000X_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
   F2000X_SIM_UVM_QS: 2021.4
+  F2000X_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/2023.1
   OFS_COMMON_RELEASE: 2023.1
   COMMON_QUARTUS_VER: Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1
   COMMON_REPO_TAG: ofs-2023.1-1

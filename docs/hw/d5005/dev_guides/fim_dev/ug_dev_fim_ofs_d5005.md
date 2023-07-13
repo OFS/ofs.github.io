@@ -2,8 +2,8 @@
 
 
 
-# 1. Introduction
-## 1.1. About This Document
+## 1. Introduction
+### 1.1. About This Document
 
 This document serves as a design guide for FPGA developers, system architects and hardware developers using OFS as a starting point for the creating the FPGA Interface Manager (FIM) for a custom FPGA acceleration board or Platform with Intel FPGAs.
 
@@ -32,8 +32,6 @@ You are encouraged to read [OFS AFU Development Guide](https://ofs.github.io/hw/
 
 
 
-Glossary 
-== 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
 | AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
@@ -60,27 +58,28 @@ Glossary
 | SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
 | TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
-| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
-
- 
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. | 
 
 
 
-## 1.2. Introduction
+### 1.2. Introduction
 
 Open FPGA Stack (OFS) addresses the scalability for FPGA acceleration boards and workloads by providing a powerful and systematic methodology for the rapid development of FPGA-based Acceleration systems.  This methodology addresses the key challenges of hardware, software and workload developers by providing a complete FPGA project consisting of RTL and simulation code, build scripts and software. The FPGA project released in OFS can be rapidly customized to meet new market requirements by adding new features, custom IPs and Intel interface subsystems IPs. 
 
 A high-level overview of the OFS Intel® Stratix 10® FPGA hardware architecture on the Intel® Stratix 10® FPGA reference platform, Intel® FPGA PAC D5005 is shown in the below figure. The provided FPGA architecture is divided into two main components 
+
    - The outer area in white, the FPGA Interface manager (or FIM)
    - The inner area in green, the Acceleration Function Unit or AFU Region. 
 
 The outer area, the FIM, provides the core infrastructure and interfaces within the FPGA. The AFU region is where a user’s custom logic would reside for their specific workload. 
+
   * FPGA external interfaces and IP cores (e.g. Ethernet, DDR-4, PCIe, etc)
   * PLLs/resets
   * FPGA - Board management infrastructure
   * Interface to Acceleration Function Unit (AFU)
 
 The AFU region has both static and dynamic partial reconfiguration regions enabling a lot of customization. 
+
   * Uses the FIM interfaces to perform useful work inside the FPGA
   * Contains logic supporting partial reconfiguration
   * Remote Signal Tap core for remote debugging of workload
@@ -92,7 +91,7 @@ The overall architecture is built to be very composable and modular in blocks th
 ![s10-arch](images/s10_arch.png)
 
 
-## 1.2. Release Capabilities
+### 1.2. Release Capabilities
 
 This release of OFS FIM supports the following key features:
 
@@ -107,26 +106,26 @@ This release of OFS FIM supports the following key features:
 
 OFS is extensible to meet the needs of a broad set of customer applications, however not all use cases are easily served.  The general uses cases listed below are examples where the OFS base design can be easily re-used to build a custom FIM:
 1. Use OFS reference design as-is
-    - Porting the code to another platform that is identical to the OFS reference platform only changing target FPGA device and pinout
-    - Change I/O assignments without changing design
+  - Porting the code to another platform that is identical to the OFS reference platform only changing target FPGA device and pinout
+  - Change I/O assignments without changing design
 2. Update the configuration of peripheral IP in OFS reference design, not affecting FIM architecture
-    - External memory settings
-    - HSSI analog settings
+  - External memory settings
+  - HSSI analog settings
 3. Remove/update peripheral feature in OFS reference design, not affecting FIM architecture
-    - External memory speed/width change
-    - Change 10G Ethernet to 25 or 100G Ethernet IP
-    - Change number of VFs supported
+  - External memory speed/width change
+  - Change 10G Ethernet to 25 or 100G Ethernet IP
+   - Change number of VFs supported
 4. Add new features as an extension to OFS reference design, not affecting FIM architecture
-    - Add/remove external memory interface to the design
-    - Add/remove user clocks for AFU
-    - Add/remove IP to the design with connection to AFU
+  - Add/remove external memory interface to the design
+  - Add/remove user clocks for AFU
+  - Add/remove IP to the design with connection to AFU
 
 More advanced use cases requiring changes or additions to the host PCIe channel are not easily supported with this release of the OFS FIM.
 
 Reuse of the provided host management FPGA logic and software is the fastest and most simple approach to FIM customization.
-## 1.3. Prerequisites
+### 1.3. Prerequisites
 
-### 1.3.1. Base Knowledge and Skills Prerequisites
+#### 1.3.1. Base Knowledge and Skills Prerequisites
 
 OFS is an advanced application of FPGA technology. This guide assumes you have the following FPGA logic design-related knowledge and skills:
 
@@ -136,13 +135,13 @@ OFS is an advanced application of FPGA technology. This guide assumes you have t
 - RTL simulation tools.
 -  Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Signal Tap Logic Analyzer tool software.
 
-### 1.3.2. Development Environment
+#### 1.3.2. Development Environment
 
 To run the tutorial steps in this guide requires this development environment:
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} (with license patch) |
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.1 (with license patch) |
 | Target D5005 Sever Operating System   | RHEL 8.2 |
 | OPAE SDK   | [2.5.0-3 ](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3 ) |
 | Linux DFL    | [ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) |
@@ -158,7 +157,7 @@ The following server and Intel PAC card are required to run the examples in this
 3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 The steps included in this guide have been verified in the Dell R740 and HPE ProLiant DL380 Gen10 servers.
-# 2. High Level Description
+## 2. High Level Description
 
 The FIM targets operation in the Intel® FPGA PAC D5005 card.  The block diagram of the D5005 is shown below:
 
@@ -179,7 +178,7 @@ The key D5005 FPGA interfaces are:
   - SPI interface
   - FPGA configuration
   
-## 2.1. FPGA Interface Manager Overview
+### 2.1. FPGA Interface Manager Overview
 
 The FPGA Interface Manager architecture is shown in the below diagram:
 
@@ -199,7 +198,7 @@ The FIM consists of the following components
    - FPGA Management Engine (FME)
 
 
-## 2.2. FIM FPGA Resource Usage
+### 2.2. FIM FPGA Resource Usage
 
 The FIM uses a small portion of the available FPGA resources.  The table below shows resource usage for a base FIM built with 2 channels of external memory, a small AFU instantiated that has host CSR read/write, external memory test and Ethernet test functionality.
 
@@ -245,7 +244,7 @@ The FIM uses a small portion of the available FPGA resources.  The table below s
 
 
 
-##  2.3. OFS Directory Structure
+###  2.3. OFS Directory Structure
 
 The OFS Git OFS repository ofs-d5005 directory structure is shown below:
 
@@ -318,9 +317,9 @@ The contents of each directory are described below:
 
 
 
-# 3. Description of Sub-Systems
+## 3. Description of Sub-Systems
 
-## 3.1. Host Control and Data Flow
+### 3.1. Host Control and Data Flow
 The host control and data flow are shown in the diagram below:
 
 ![OFS FIM Top Level Block Diagram](images/FIM_data_flow.png)
@@ -360,7 +359,7 @@ If you make changes to the FIM that affect the software operation, then OFS prov
 
 When you are planning your address space for your FIM updates, please be aware that the OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features and 128kB of MMIO region is allocated for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of external feature list.  Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
-# 4. FIM Development Flow
+## 4. FIM Development Flow
 
 OFS provides a framework of FPGA synthesizable code, simulation environment, and synthesis/simulation scripts.  FIM designers can take the provided code and scripts and modify existing code or add new code to meet their specific product requirements.
 
@@ -368,33 +367,33 @@ FIM development for a new acceleration card consists of the following steps:
 
 1. Installation of OFS and familiarization with scripts and source code
 1. Development of high-level block diagram with your specific functionality
-    1. Determination of requirements and key performance metrics
-    1. Selection of IP cores
-    1. Selection of FPGA device
-    2. Software memory map
+  1. Determination of requirements and key performance metrics
+  1. Selection of IP cores
+  1. Selection of FPGA device
+  2. Software memory map
 2. Selection and implementation of FIM Physical interfaces including:
-    1. External clock sources and creation of internal PLL clocks
-    2. General I/O
-    3. Transceivers
-    4. External memories
-    5. FPGA programming methodology
+  1. External clock sources and creation of internal PLL clocks
+  2. General I/O
+  3. Transceivers
+  4. External memories
+  5. FPGA programming methodology
 3. Device physical implementation
-    1. FPGA device pin assignment
-    2. Inclusion of logic lock regions
-    3. Creation of timing constraints
-    4. Create Quartus FIM test project and validate:
-        1. Placement
-        2. Timing constraints
-        3. Build script process
-        4. Review test FIM FPGA resource usage
+  1. FPGA device pin assignment
+  2. Inclusion of logic lock regions
+  3. Creation of timing constraints
+  4. Create Quartus FIM test project and validate:
+    1. Placement
+    2. Timing constraints
+    3. Build script process
+    4. Review test FIM FPGA resource usage
 4. Select FIM to AFU interfaces and development of PIM
 5. FIM design implementation
-    1. RTL coding
-    2. IP instantiation
-    3. Development of test AFU to validate FIM
-    4. Unit and device level simulation
-    5. Timing constraints and build scripts
-    6. Timing closure and build validation
+  1. RTL coding
+  2. IP instantiation
+  3. Development of test AFU to validate FIM
+  4. Unit and device level simulation
+  5. Timing constraints and build scripts
+  6. Timing closure and build validation
 6. Creation of FIM documentation to support AFU development and synthesis
 7. Software Device Feature discovery
 8. Hardware/software integration, validation and debugging
@@ -404,7 +403,7 @@ The FIM developer works closely with the hardware design of the target board, so
 
 Understanding how the AFU developer utilizes the FIM is important for FIM development success.  Please read [OFS AFU Development Guide](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) for a detailed description of AFU development.
 
-## 4.1. Installation of OFS
+### 4.1. Installation of OFS
 
 In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
 
@@ -412,11 +411,11 @@ Building the OFS FIM requires the development machine to have at least 64 GB of 
 
 The following is a summary of the steps to set up for FIM development:
 
-1. Install Quartus Prime Pro ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} Linux and setup environment
+1. Install Quartus Prime Pro 23.1 Linux and setup environment
 2. Clone the github `ofs-d5005` repository
 3. Test installation by building the provided FIM
 
-Intel Quartus Prime Pro version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} is the currently verified version of Quartus used for building the FIM and AFU images for this release.  Porting to newer versions of Quartus may be performed by developers.  Download Quartus Prime Pro Linux version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} from [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html).
+Intel Quartus Prime Pro version 23.1 is the currently verified version of Quartus used for building the FIM and AFU images for this release.  Porting to newer versions of Quartus may be performed by developers.  Download Quartus Prime Pro Linux version 23.1 from [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html).
 
 After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -424,10 +423,10 @@ After running the Quartus Prime Pro installer, set the PATH environment variable
 export PATH=$PATH:<Quartus install directory>/quartus/bin
 ```
 
-For example, if the Quartus install directory is /home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }} then the new line is:
+For example, if the Quartus install directory is /home/intelFPGA_pro/23.1 then the new line is:
 
 ```bash
-export PATH=$PATH:/home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/quartus/bin
+export PATH=$PATH:/home/intelFPGA_pro/23.1/quartus/bin
 ```
 
 Verify, Quartus is discoverable by opening a new shell:
@@ -435,7 +434,7 @@ Verify, Quartus is discoverable by opening a new shell:
 ```bash
 which quartus
 ## Output
-/home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/quartus/bin/quartus
+/home/intelFPGA_pro/23.1/quartus/bin/quartus
 ```
 Note, for some Linux distributions such as RHEL 8.2, Quartus requires installation of the following libraries:
 ```bash
@@ -444,7 +443,7 @@ sudo dnf install ncurses-compat-libs
 sudo ln -s /usr/bin/python3 /usr/bin/python
 ```
 
-You will need to obtain a license for Intel Quartus Prime Pro version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} to compile the design.  This license is obtained from Intel.  Additionally, OFS for Intel® Stratix 10® FPGA requires a license for the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core.  This license is required to generate a programming file using the provided OFS source code.  The Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core license patch installer is provided in the ofs-d5005 git repository in the /license directory.  After cloning the OFS release in step 4 below, you can install this IP license.  
+You will need to obtain a license for Intel Quartus Prime Pro version 23.1 to compile the design.  This license is obtained from Intel.  Additionally, OFS for Intel® Stratix 10® FPGA requires a license for the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core.  This license is required to generate a programming file using the provided OFS source code.  The Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core license patch installer is provided in the ofs-d5005 git repository in the /license directory.  After cloning the OFS release in step 4 below, you can install this IP license.  
 
 
 
@@ -453,7 +452,7 @@ You will need to obtain a license for Intel Quartus Prime Pro version ${{ env.D5
 ```bash
 sudo dnf install git
 ```
-   ## Install git lfs:
+#### Install git lfs:
 ```bash
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
 sudo dnf install git-lfs
@@ -472,13 +471,13 @@ cd OFS_fim_build_root
 export OFS_BUILD_ROOT=$PWD
 git clone --recurse-submodules  https://github.com/OFS/ofs-d5005.git
 cd ofs-d5005
-git checkout tags/ofs-2023.1
+git checkout tags/ofs-2023.1-1
 ```
 Verify proper tag is selected:
 
 ```bash   
 git describe --tags
-ofs-2023.1
+ofs-2023.1-1
 ```
 2. Install the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP license by running provided license installer.
 
@@ -493,10 +492,10 @@ sudo ./quartus-0.0-0.01Intel OFS-linux.run
 quartus_sh --version
 ##Output
 Quartus Prime Shell
-Version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} Pro Edition
+Version 23.1 Pro Edition
 ```
 
-## 4.2. Compiling OFS FIM
+### 4.2. Compiling OFS FIM
 
 OFS provides a build script with the following FPGA image creation options:
 
@@ -508,7 +507,7 @@ The build scripts included with OFS are verified to run in a bash shell. Other s
 
 The following sections describe how to set up the environment and build the provided FIM and AFU. Follow these steps as a tutorial to learn the build flow. You will use this environment and build scripts for the creation of your specialized FIM.
 
-### 4.2.1. Setting Up Required Environment Variables
+#### 4.2.1. Setting Up Required Environment Variables
 Set required environment variables as shown below. These environment variables must be set prior to simulation or compilation tasks so creating a simple script to set these variables saves time.
 
 ```bash
@@ -529,7 +528,7 @@ export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 export OPAE_SDK_REPO_BRANCH=release/2.5.0
 ```
 
-### 4.2.2. Compiling
+#### 4.2.2. Compiling
 
 The usage of the compile build script is shown below:
 ```bash
@@ -543,7 +542,7 @@ Usage: ofs-common/scripts/common/syn/build_top.sh [-k] [-p] <build target> [<wor
   The -k option preserves and rebuilds within an existing work tree instead of overwriting it.
 
   When -p is set, if the FIM is able then a partial reconfiguration template tree is generated at the end of the FIM build. The PR template tree is located in the top of the work directory but is relocatable
-  and uses only relative paths. See syn/common/scripts/generate_pr_release.sh for details.
+  and uses only relative paths. See ofs-common/scripts/common/syn/generate_pr_release.sh for details.
 
   The -e option runs only Quartus analysis and elaboration.
 
@@ -629,7 +628,7 @@ The following table provides further detail on the generated bin files.
 
 build/output_files/timing_report == Directory containing clocks report, failing paths and passing margin reports
 
-### 4.2.3. Relocatable PR Directory Tree
+#### 4.2.3. Relocatable PR Directory Tree
 
 If you are developing a FIM to be used by another team developing the AFU workload, scripts are provided that create a relocatable PR directory tree. ODM and board developers will make use of this capability to enable a broad set of AFUs to be loaded on a board using PR.  The relocatable PR directory contains the Quartus *.qdb file that goes the FIM.
 
@@ -645,13 +644,13 @@ cd $OFS_ROOTDIR
 
 You can create this relocatable PR directory tree by either:
 
-* Build FIM and AFU using /syn/build_top.sh followed by running /syn/common/scripts/generate_pr_release.sh
+* Build FIM and AFU using /syn/build_top.sh followed by running./ofs-common/scripts/common/syn/generate_pr_release.sh
 * Build FIM and AFU using /syn/build_top.sh with optional -p switch included
 
 The generate_pr_release.sh has the following command structure:
 
 ```bash
-./syn/common/scripts/generate_pr_release.sh -t <path to generated release tree> *Board Build Target* <work dir from build_top.sh>
+./ofs-common/scripts/common/syn/generate_pr_release.sh -t <path to generated release tree> *Board Build Target* <work dir from build_top.sh>
 
 Where:
 
@@ -662,7 +661,7 @@ Where:
 Here is an example of running the generate_pr_release.sh script:
 
 ```bash
-syn/common/scripts/generate_pr_release.sh -t work_d5005/build_tree d5005  work_d5005
+ofs-common/scripts/common/syn/generate_pr_release.sh -t work_d5005/build_tree d5005  work_d5005
 ```
 ```bash
 
@@ -703,7 +702,8 @@ The resulting relocatable build tree has the following structure:
 ```
 
 This build tree can be moved to a different location and used for AFU development of a PR capable AFU to be used with this board.
-### 4.2.4. Unit Level Simulation
+
+#### 4.2.4. Unit Level Simulation
 
 Unit level simulation of key components is provided. These simulations provide verification of the following areas:
 
@@ -737,6 +737,7 @@ export OPAE_SDK_REPO_BRANCH=release/2.5.0
 To compile all IPs:
 
 To Generate Simulation Files & compile all IPs, run the following command:
+
 ```bash     
 cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
 sh gen_sim_files.sh d5005
@@ -744,10 +745,12 @@ sh gen_sim_files.sh d5005
 The RTL file list for unit_test is located here: $OFS_ROOTDIR/sim/scripts/rtl_comb.f
 
 The IPs are generated here: 
+
 ```bash
 $OFS_ROOTDIR/sim/scripts/qip_gen
 ```
 The IP simulation filelist is generated here: 
+
 ```bash
 $OFS_ROOTDIR/sim/scripts/ip_flist.f
 ```
@@ -761,14 +764,14 @@ sh run_sim.sh VCS=1
 ```
 Simulation files are located in the sim/unit_test/<test_name>/sim directory.
 
-```
 To view simulation waveform:
+
 ```bash
 cd $OFS_ROOTDIR/sim/unit_test/<test_name>/script/sim/unit_test/<test_name>/scripts/sim_vcs
 dve -full64 -vpd vcdplus.vpd &
 ```
 
-#### 4.2.4.1. DFH Walking Unit Simulation Output
+##### 4.2.4.1. DFH Walking Unit Simulation Output
 
 ```bash
 ********************************************
@@ -876,16 +879,17 @@ Test status: OK
 Test passed!
 Assertion count: 0
 ```
+
 The simulation transcript is displayed while the simulation runs.  The transcript is saved to the file transcript.out for review after the simulation completes.  The simulation waveform database is saved as vcdplus.vpd for post simulation review. You are encouraged to run the additional simulation examples to learn about each key area of the OFS shell.
 
-## 4.3. Compiling the OFS FIM using Eval Script
+### 4.3. Compiling the OFS FIM using Eval Script
 
 The Evaluation Script provides resources to setup and report D5005 development environment. You can use the evaluation script to compile and simulate the FIM. Refer to [README_ofs_d5005_eval.txt](https://github.com/OFS/ofs-d5005/blob/release/1.0.x/eval_scripts/README_ofs_d5005_eval.txt)) for details of using the evaluation script.
-## 4.4. Debugging
+### 4.4. Debugging
 
 For debugging issues within the FIM, Signal Tap can be used to gain internal visibility into your design.  This section describes the process of adding a Signal Tap instance to your FIM design
 
-### 4.4.1. Signal Tap Prerequisites
+#### 4.4.1. Signal Tap Prerequisites
 
 To use Signal Tap with OFS, you will need the following:
 
@@ -898,7 +902,7 @@ section 2. Design Debugging with the Signal Tap Logic Analyzer.
 
 *  If you are using a custom board without a built-in Intel FPGA Download Cable then an external Intel FPGA Download Cable II (see [Download Cables](https://www.intel.com/content/www/us/en/programmable/products/boards_and_kits/download-cables.html) for more information) can be used for Signal Tap access.  The custom board must have JTAG access to the target FPGA for the Intel FPGA Download Cable II.
 
-### 4.4.2. Adding Signal Tap
+#### 4.4.2. Adding Signal Tap
 
 The following steps guide you through the process of adding a Signal Tap instance to your design.  The added Signal Tap instance provides hardware to capture the desired internal signals and connect the stored trace information via JTAG.  Please be aware, the added Signal Tap hardware will consume FPGA resources and may require additional floorplanning steps to accommodate these resources.  Some areas of the FIM use logic lock regions and these regions may need to be re-sized. These steps assume the use of the Intel® FPGA PAC D5005.
 
@@ -909,7 +913,7 @@ The following steps guide you through the process of adding a Signal Tap instanc
 ![Quartus Signal Tap](images/QuartusSignalTap.png)
 
 3. Accept the "Default" selection and click "Create".
-   
+  
 
 ![Default Signal Tap](images/Default_SignalTap.png)
 
@@ -948,8 +952,8 @@ The following steps guide you through the process of adding a Signal Tap instanc
 3.  Save the newly created Signal Tap file and click "Yes" to add the new Signal Tap file to the project.
 4.  Compile the project with the Signal Tap file added to the project.
 5.  Once the compile successfully completes with proper timing, you can load the generated d5005.sof using the Intel FPGA Downloader cable.
-    
-### 4.4.3. Signal Tap trace acquisition
+  
+#### 4.4.3. Signal Tap trace acquisition
 
 To acquire signals using SignalTap, first load the Signal Tap instrumented SOF file into your target board, open the STP file in the Signal Tap GUI and start the signal acquisition. 
 
@@ -1020,7 +1024,7 @@ Boot Page                        : user
 ```
 
 3. Once the SOF file is loaded, start the Quartus Signal Tap GUI.
-   
+  
 ```bash
 quartus_stpw
 ```
@@ -1035,11 +1039,11 @@ The Signal Tap GUI comes up.
 
 ![STP-cap](images/stp_capture.png)
 
-# 5. FIM Modification Example
+## 5. FIM Modification Example
 
 An example of FIM modification is provided in this section.  This example can be used in your specific application as a starting point.  This example shows the basic flow and listing of files that are to be changed.
 
-## 5.1. Hello FIM example
+### 5.1. Hello FIM example
 
 If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions).
 
@@ -1063,7 +1067,7 @@ The steps to add this simple DFH register are described below.
 
 The following sections describe changes to add the hello_fim DFH example to the Intel provided FPGA design.
 
-## 5.1.1. src/top/iofs_top.sv
+### 5.1.1. src/top/iofs_top.sv
 
 1. Edit top level design module: src/top/iofs_top.sv
   1. Instantiate new hello_fim module in OFS_top.sv at line 294
@@ -1130,7 +1134,7 @@ The BPF reserved link 5 is connected to a dummy connection to prevent this link 
     );
     `endif
 ```
-## 5.1.2. ipss/mem/emif_csr.sv
+### 5.1.2. ipss/mem/emif_csr.sv
 
 The Hello_FIM DFH is inserted in the DFH link list after the EMIF CSR DFH and before the FME_PR DFH.  The file ipss/d5005/emif/emif_csr.sv contains a parameter defining the next address for the next DFH in in the link list chain.  You will change the next address offset to be 0x10000 so the reveserved BPF AXI lite link connected to the Hello_FIM DFH register is next in the DFH link list.
 
@@ -1145,7 +1149,7 @@ module emif_csr #(
   `endif
 )
 ```
-### 5.1.3. src/hello_fim/hello_fim_top.sv
+#### 5.1.3. src/hello_fim/hello_fim_top.sv
 
 Create hello_fim_top.sv, and store it in src/hello_fim directory. The main purpose of this RTL is to convert AXI4-Lite interface to a simple interface to interface with the registers in hello_fim_com.sv.  This register sets the DFH feature ID to 0xfff which is undefined.  Since this for test purposes, using an undefined feature ID will result in no driver being used.  Normally, a defined feature ID will be used to associate a specific driver with the FPGA module.
 
@@ -1333,7 +1337,7 @@ endmodule
 
 ```
 
-### 5.1.4. src/hello_fim/hello_fim_com.sv
+#### 5.1.4. src/hello_fim/hello_fim_com.sv
 
 Create hello_fim_com.sv, and store it in src/hello_fim directory. This is the simple RTL to implement the Hello FIM registers. You may use this set of registers as the basis for your custom implementation.
 
@@ -1452,7 +1456,7 @@ endmodule
 
 ```
 
-### 5.1.5. Unit Level Simulations
+#### 5.1.5. Unit Level Simulations
 To run a unit level simulation test for the updated RTL files, make modifications to your cloned /my_ofs_project/ofs-d5005/sim/d5005/unit_test/dfh_walker files.  The following simulation files are updated to test the new hello_fim.
 				
 1. Edit sim/unit_test/dfh_walker/testbench/test_csr_defs.sv
@@ -1667,7 +1671,7 @@ Assertion count: 0
 
 ```
 
-### 5.1.6. syn/syn_top/d5005.qsf
+#### 5.1.6. syn/syn_top/d5005.qsf
 
 1. Edit syn/syn_top/d5005.qsf      
    1.  Add new macro "INCLUDE_HELLO_FIM" line 107
@@ -1679,7 +1683,7 @@ Assertion count: 0
 ```bash
 		set_global_assignment -name SOURCE_TCL_SCRIPT_FILE ../../../syn/setup/hello_fim_design_files.tcl
 ```
-### 5.1.7. syn/setup/hello_fim_design_files.tcl 
+#### 5.1.7. syn/setup/hello_fim_design_files.tcl 
 
 Create "hello_fim_design_files.tcl" file and store in the syn/setup directory. This tcl file is called from d5005.qsf.
 
@@ -1716,7 +1720,7 @@ ofs-common/scripts/common/syn/build_top.sh d5005 work_d5005_hello_fim
 
 Verify the design successfully compiled and timing closure is achieved by checking work_d5005_hello_fim/syn/syn_top/output_files/timing_report/clocks.sta.fail.summary - this file should be empty.  If there are timing failures, then this file will list the failing clock domain(s).
 
-### 5.1.9. Test the hello_fim on a D5005
+#### 5.1.9. Test the hello_fim on a D5005
 
 Load the built FPGA binary file using an unsigned image.  The FPGA image will be in work_d5005_hello_fim/syn/syn_top/output_files/d5005_page1_unsigned.bin
 
@@ -1863,7 +1867,7 @@ opae.io 0.2.3
 
 ```
 
-## 5.2. Memory Subsystem Modification 
+### 5.2. Memory Subsystem Modification 
 OFS enables modifications on the different subsystems that encompass the FIM. To customize the Memory Subsystem follow these instructions.
 
 1. Set up the environment variables as described in section [4.2.1. Setting Up Required Environment Variables](#421-setting-up-required-environment-variables)
@@ -1990,7 +1994,7 @@ Verify Memory controller placement in syn/syn_top/output_files/d5005.fit.place.r
 
 ```
 
-# 6. Conclusion
+## 6. Conclusion
 
 Using the OFS reference design and OPAE SDK enables the rapid creation of market leading FPGA based Acceleration systems. OFS facilitates customization of the FIM area for your custom board or platforms. 
 
