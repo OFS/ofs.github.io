@@ -40,8 +40,6 @@ The following flow charts show a high level overview of the initial bringup proc
 
 <br>
 
-Glossary 
-== 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
 | AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
@@ -68,9 +66,7 @@ Glossary
 | SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
 | TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
-| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
-
- 
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. | 
 
 
 
@@ -128,7 +124,7 @@ The following table highlights the versions of the software which comprise the O
 | OPAE SDK | [Tag: 2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) |
 | Kernel Drivers | [Tag: ofs-2023.1-6.1-1](https://github.com/OPAE/linux-dfl/releases/tag/ofs-2023.1-6.1-1) |
 | OFS FIM Source Code| [Branch: release/ofs-2023.1](https://github.com/OFS/ofs-fim-common/tree/release/ofs-2023.1) |
-| Intel Quartus Prime Pro Edition Design Software | ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html) |
+| Intel Quartus Prime Pro Edition Design Software | 23.1 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html) |
 | Operating System | [RHEL 8.2](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |
 
 A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2023.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1-1) official release drop on GitHub.
@@ -207,7 +203,7 @@ For more information on the Platform Interface Manager (PIM) and AFU development
 
 #### **2.2.1 Kernel Drivers for OFS**
 
-OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on the [DFL Wiki] page.
+OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on the [DFL Wiki](https://github.com/OPAE/linux-dfl/wiki) page.
 
 
 
@@ -627,7 +623,7 @@ This section covers basic functionality of the commonly used OPAE tools and thei
 
 #### **5.2.1 `fpgasupdate`**
 
-The fpgasupdate tool updates the Intel Max10 BMC image and firmware, root entry hash, and FPGA Static Region (SR) and user image (PR). The fpgasupdate will only accept images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then the image will also need to be signed using the correct keys. Please refer to the OFS Security User Guide for information on created signed images and on programming and managing the root entry hash.
+The fpgasupdate tool updates the Intel Max10 BMC image and firmware, root entry hash, and FPGA Static Region (SR) and user image (PR). The fpgasupdate will only accept images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then the image will also need to be signed using the correct keys. Please refer to the [Security User Guide: Intel Open FPGA Stack] for information on created signed images and on programming and managing the root entry hash.
 
 The Intel FPGA PAC ships with a factory and user programmed image for both the FIM and BMC FW and RTL on all cards.
 
@@ -648,24 +644,6 @@ fpgasupdate [--log-level=<level>] file [bdf]
 | | --log-level <level> | Specifies the `log-level` which is the level of information output to your command tool. The following seven levels  are available: `state`, `ioctl`, `debug`, `info`, `warning`, `error`, `critical`. Setting `--log-level=state` provides the most verbose output. Setting `--log-level=ioctl` provides the second most information, and so on. The default level is `info`.  |
 | | file |  Specifies the secure update firmware file to be programmed. This file may be to program a static region (SR), programmable region (PR), root entry hash, key cancellation, or other device-specific firmware. |
 | | bdf | The PCIe address of the PAC to program. `bdf` is of the form `[ssss:]bb:dd:f`, corresponding to PCIe segment, bus, device, function. The segment is optional. If you do not specify a segment, the segment defaults to `0000`. If the system has only one PAC you can omit the `bdf` and let `fpgasupdate`  determine the address automatically. |
-
-
-
-#### **Table 5-2: FIM Version Summary for OFS 2023.1 Release**
-
-| FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
-| ----- | ----- | ----- | ----- | ----- |
-| 1 | 288511862659474365 | 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461 | d5005_page1_unsigned.bin | [OFS 2023.1 Release Page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1-1) |
-
-
-
-#### **Table 5-3: BMC Version Summary for OFS 2023.1 Release**
-
-| BMC FW and RTL Version | File Name | Download Location|
-| ----- | ----- | ----- |
-| 2.0.13 | unsigned_bmc_fw.bin | Contact your field representative for access |
-
-
 
 
 
@@ -807,62 +785,6 @@ rsu sdm [PCIE_ADDR]
 Perform RSU (remote system update) operation on PAC device given its PCIe address. An RSU operation sends an instruction to the device to trigger a power cycle of the card only. This will force reconfiguration from flash for either BMC, Retimer, SDM, (on devices that support these) or the FPGA.
 
 *Note: As a result of using the **rsu** command, the host rescans the PCI bus and may assign a different Bus/Device/Function (B/D/F) value than the originally assigned value.*
-
-
-
-#### **5.2.4 `PACsign`**
-
-PACSign is an OPAE utility which allows users to insert authentication markers into bitstreams targeted for the platform. All binary images must be signed using PACSign before fpgasupdate can use them for an update. Assuming no Root Entry Hash (REH) has been programmed on the device, the following examples demonstrate how to prepend the required secure authentication data, and specify which region of flash to update.
-More information, including charts detailing the different certification types and their required options, are fully described in the PACsign python/pacsign/PACSign.md [OPAE GitHub](https://github.com/OFS/opae-sdk) on GitHub.
-
-
-
-#### Table 5-4: `PACSign` Overview
-
-**Synopsis:**
-
-```bash
-PACSign [-h] {FIM,SR,SR_TEST,BBS,BMC,BMC_FW,BMC_FACTORY,AFU,PR,PR_TEST,GBS,FACTORY,PXE,THERM_SR,THERM_PR} ...
-
-PACSign <CMD> [-h] -t {UPDATE,CANCEL,RK_256,RK_384} -H HSM_MANAGER [-C HSM_CONFIG] [-s SLOT_NUM] [-r ROOT_KEY] [-k CODE_SIGNING_KEY] [-d CSK_ID] [-R ROOT_BITSTREAM] [-S] [-i INPUT_FILE] [-o OUTPUT_FILE] [-b BITSTREAM_VERSION] [-y] [-v]
-```
-
-**Description:**
-The PACSign utility inserts authentication markers into bitstreams.
-
-|Command |args (optional)| Description|
-| ----- | ----- | ----- |
-| |(required) -t, --cert_type TYPE |The following operations are supported: UPDATE, CANCEL, RK_256, RK_348|
-| |(required) -H, --HSM_manager MODULE |The module name for a module that interfaces to a HSM. PACSign includes both the openssl_manager and pkcs11_manager to handle keys and signing operations.  |
-|| -C, --HSM_config CONFIG |The argument to this operation is passed verbatim to the specified HSM. For pkcs11_manager, this option specifies a JSON file describing the PKCS #11 capable HSM’s parameters. |
-|| -r, --root_key KEY_ID |The key identifier that the HSM uses to identify the root key to be used for the selected operation.|
-|| -k, --code_signing_key KEY_ID |The key indentifier that the HSM uses to identify the code signing key to be used for the selected operation|
-|| -d, --csk_id CSK_NUM |Only used for type CANCEL. Specifies the key number of the code signing key to cancel.|
-|| -s, --slot_num {0,1,2}  |For bitstream types with multiple slots (i.e. multiple ST regions), this option specifies which of the slots to which this bitstream is to be acted upon|
-|| -b, --bitstream_version VERSION |User-formatted version information. This can be any string up to 32 bytes in length.|
-|| -S, --SHA384 |Used to specify that PACSign is to use 384-bit crypto. Default is 256-bit|
-|| -R, --ROOT_BITSTREAM ROOT_BITSTREAM |Valid when verifying bitstreams. The verification step will ensure the generated bitstream is able to be loaded on a board with the specified root entry hash programmed.|
-|| -i, --input_file FILE |Only to be used for UPDATE operations. Specifies the file name containing data to be signed|
-|| -o, --output_file FILE |Specifies the file name for the signed output bitstream.|
-|| -y, --yes |Silently answer all queries from PACSign in the affirmative. |
-|| -v, --verbose |Can be specified multiple times. Increases the verbosity of PACSign. Once enables non-fatal warnings to be displayed. Twice enables progress information. Three or more occurrences enables very verbose debugging information.|
-|| -h |Prints help information and exits|
-||{FIM, SR, SR_TEST, BBS, BMC, BMC_FW, BMC_FACTORY, AFU, PR, PR_TEST, GBS, FACTORY, PXE, THERM_SR, THERM_PR} | Bitstream type identifier.|
-
-**PACSign** can be run on images that have previously been signed. It will overwrite any existing authentication data.
-
-*Note: For more information on PACSign and on general security practices, please contact your field representative to get access to the OFS Security User Guide.*
-
-The following example will create an unsigned SR image from an existing signed SR binary update image.
-
-```bash
-PACSign SR -t UPDATE -s 0 -H openssl_manager -i d5005_page1_unsigned.bin -o new_image.bin
-#output
-No root key specified.  Generate unsigned bitstream? Y = yes, N = no: y
-No CSK specified.  Generate unsigned bitstream? Y = yes, N = no: y
-No root entry hash bitstream specified.  Verification will not be done.  Continue? Y = yes, N = no: y
-2022-07-20 10:13:54,954 - PACSign.log - WARNING - Bitstream is already signed - removing signature blocks
-```
 
 
 
@@ -1320,131 +1242,6 @@ Pre-Compiled FIM binaries are at [OFS 2023.1 release page](https://github.com/OF
 1) Compile OFS FIM manually - Steps are provided in the developer guide to compile FIM and generate binaries. Refer to [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
 2) Compile OFS FIM using evaluation script - The script guides you to the steps required for compilation via selecting options from the menu. Refer to [evaluation script](https://github.com/OFS/ofs-d5005/tree/release/1.0.x/eval_scripts)
-
-
-
-## **7.0 Programming the OFS FIM and BMC**
-
-Instructions surrounding the compilation and simulation of the OFS FIM have fully moved into the [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
-
-
-
-### **7.1 Programming the OFS FIM**
-
-In order to program the OFS FIM, both the OPAE SDK and DFL drivers need to be installed on the host system. Please complete the steps in sections [4.0 OFS DFL Kernel Drivers](#heading-4.0) and [5.0 OPAE Software Development Kit](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit)(#heading-5.0). The OFS FIM version can be identified using the OPAE tool `fpgainfo`. A sample output of this command is included below.
-
-```bash
-sudo fpgainfo fme
-#output
-Intel FPGA Programmable Acceleration Card D5005
-Board Management Controller, MAX10 NIOS FW version: 2.0.13
-Board Management Controller, MAX10 Build version: 2.0.8
-//****** FME ******//
-Object Id                        : 0xF000000
-PCIe s:b:d.f                     : 0000:3B:00.0
-Vendor Id                        : 0x8086
-Device Id                        : 0xBCCE
-SubVendor Id                     : 0x8086
-SubDevice Id                     : 0x138D
-Socket Id                        : 0x00
-Ports Num                        : 01
-Bitstream Id                     : 288511862659474365
-Bitstream Version                : 4.0.1
-Pr Interface Id                  : 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461
-Boot Page                        : user
-```
-
-Use the value under `PR Interface ID` to identify that FIM that has been loaded. Refer to the table below for a list of previous FIM releases.
- Please 
-
-
-#### Table 7-1 Previous FIM Releases
-
-| PR Release | PR Interface ID |
-|---------|---------|
-| 2022.2 (tag 1.3.0)                         | bf531bcf-a896-5171-ab31-601a4ab754b6                    |
-| 2022.1 Beta (tag: 1.2.0-beta)              | 2fae83fc-8568-53aa-9157-8f75e9c0ba92                   |
-| OFS 2.1 Beta (tag: 1.1.0-beta)             | 99160d37e42a 3f8b586f-c275-594c-92e2-d9f2c23e94d1                    |
-| OFS 1.0 (tag: ofs-1.0.0)                   | b5f6a71e-daec-59c3-a43a-85567b51fd3f |
-| Intel Acceleration Stack for Intel® FPGA PAC D5005 2.0.1 | 9346116d-a52d-5ca8-b06a-a9a389ef7c8d |
-
-The Beta release of the OFS software depends on the corresponding Beta release of the FIM. If the user's card does not report a PR Interface ID which matches the above table, then a new FIM will need to be programmed.
-
-
-
-#### **7.1.1 Programming the FIM**
-
-**1.** Download the file **d5005_page1_unsigned.bin** from [OFS 2023.1 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1-1).
-
-**2.** Run `PACSign` to create an unsigned image with added header for use by fpgasupdate
-
-```bash
-PACSign SR -y -v -t UPDATE -s 0 -H openssl_manager -i d5005_page1_unsigned.bin -o d5005_PACsigned_unsigned.bin
-```
-
-**3.** Run `fpgasupdate` to load the image into the user location of the Intel® FPGA PAC D5005 FPGA flash, NOTE: use "sudo fpgainfo fme" command to find the PCIe address for your card.
-
-```bash
-sudo fpgasupdate d5005_PACsigned_unsigned.bin 3B:00.0
-```
-
-**4.** Run `RSU` command, and after powercycle your host.
-
-```bash
-sudo rsu bmcimg 0000:3B:00.0
-```
-
-
-
-### **7.2 Programming the BMC**
-
-**1.** Download intel-fpga-bmc images(To download OFS Stratix 10 BMC binaries contact Intel Technical Sales Representative)
-
-**2.** The file `unsigned_bmc_fw.bin` has the newly binary format. This bitstream is programmed with remote system update (RSU) and the bitstream must be signed with PACSign tool to generate.
-
-**3.** Run `PACSign` to create an unsigned image with added header for use by fpgasupdate
-
-```bash
-PACSign BMC -y -v -t UPDATE -s 0 -H openssl_manager -i unsigned_bmc_fw.bin -o PACsigned_unsigned_bmc_fw.bin
-#output
-2022-04-22 03:07:05,626 - PACSign.log - INFO - OpenSSL version "OpenSSL 1.1.1k  FIPS 25 Mar 2021" matches "1.1.1"
-2022-04-22 03:07:05,648 - PACSign.log - INFO - Bitstream not previously signed
-2022-04-22 03:07:05,648 - PACSign.log - INFO - platform value is '688128'
-2022-04-22 03:07:05,745 - PACSign.log - INFO - Starting Block 0 creation
-2022-04-22 03:07:05,745 - PACSign.log - INFO - Calculating SHA256
-2022-04-22 03:07:05,747 - PACSign.log - INFO - Calculating SHA384
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Done with Block 0
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Starting Root Entry creation
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Calculating Root Entry SHA
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Starting Code Signing Key Entry creation
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Calculating Code Signing Key Entry SHA
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Code Signing Key Entry done
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Starting Block 0 Entry creation
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Calculating Block 0 Entry SHA
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Block 0 Entry done
-2022-04-22 03:07:05,749 - PACSign.log - INFO - Starting Block 1 creation
-2022-04-22 03:07:05,750 - PACSign.log - INFO - Block 1 done
-2022-04-22 03:07:05,757 - PACSign.log - INFO - Writing blocks to file
-2022-04-22 03:07:05,758 - PACSign.log - INFO - Processing of file 'PACsigned_unsigned_bmc_fw.bin' complete
-```
-
-**4.** Run `fpgasupdate` to perform an upgrade of the BMC.
-
-```bash
-sudo fpgasupdate PACsigned_unsigned_bmc_fw.bin 3B:00.0
-#output
-[2022-04-22 03:08:34.15] [WARNING ] Update starting. Please do not interrupt.
-[2022-04-22 03:08:34.15] [INFO    ] updating from file pacsign_unsigned_bmc_fw.bin with size 819968
-[2022-04-22 03:08:34.15] [INFO    ] waiting for idle
-[2022-04-22 03:08:34.15] [INFO    ] preparing image file
-[2022-04-22 03:09:02.18] [INFO    ] writing image file
-(100%) [████████████████████] [819968/819968 bytes][Elapsed Time: 0:00:13.01]
-[2022-04-22 03:09:15.20] [INFO    ] programming image file
-(100%) [████████████████████][Elapsed Time: 0:00:29.03]
-[2022-04-22 03:09:44.24] [INFO    ] update of 0000:3B:00.0 complete
-[2022-04-22 03:09:44.24] [INFO    ] Secure update OK
-[2022-04-22 03:09:44.24] [INFO    ] Total time: 0:01:10.08
-```
 
 
 

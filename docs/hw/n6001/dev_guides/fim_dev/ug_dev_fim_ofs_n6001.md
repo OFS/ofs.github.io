@@ -1,9 +1,10 @@
 # FPGA Interface Manager Developer Guide for Intel Agilex PCIe Attach: Open FPGA Stack
 
-Last updated: **June 02, 2023** 
+Last updated: **July 13, 2023** 
 
-# 1. Introduction
-## 1.1. About This Document
+## **1. Introduction**
+### **1.1. About This Document**
+
 
 Open FPGA Stack (OFS) addresses the demand for FPGA acceleration boards and workloads by providing a powerful methodology for the rapid development of FPGA Acceleration systems.  This methodology addresses the challenges and responsibilities of the board, platform, and workload developers by providing a complete FPGA project consisting of RTL and simulation code, build scripts, and software.  This provided FPGA project can be rapidly customized to meet new market requirements.
 
@@ -12,6 +13,7 @@ OFS separates the FPGA design into two areas: FPGA Interface Manager (FIM) and w
 ![](images/FIM_top_intro.png)
 
 As can be seen in this diagram, the OFS FPGA structure has a natural separation into two distinct areas: 
+
 * FPGA Interface Manager (FIM or sometimes called the "the shell") containing:
   * FPGA external interfaces and IP cores (e.g. Ethernet, DDR-4, PCIe, etc)
   * PLLs/resets
@@ -46,7 +48,7 @@ This document uses the Intel® FPGA SmartNIC N6001-PL as the main example platfo
 
 This document covers OFS architecture lightly. For more details on the OFS architecture, please see [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/)
 
-### 1.1.1. Glossary
+### **1.1.1. Glossary**
 
 | Term                      | Abbreviation | Description                                                  |
 | :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
@@ -82,13 +84,13 @@ This document covers OFS architecture lightly. For more details on the OFS archi
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
 
-## 1.2. Release Capabilities
+## **1.2. Release Capabilities**
 
 The OFS FIM BASE  Agilex supports the following features.
 
 |                                     | FIM                          |
 | ----------------------------------- | ---------------------------- |
-| Intel Platform                      | ${{ env.N6001_PT_OFS_NAME }} |
+| Intel Platform                      | Intel® FPGA PAC D5005 |
 | PCIe Configuration                  | Gen4 x16                     |
 | SR-IOV support                      | Yes - (5-PF, 4-VF)           |
 | AXI ST datapath                     | 512b @ 400MHz                |
@@ -111,8 +113,10 @@ The Host exercisers are provided for the quick evaluation of the FIM and can be 
 
 
 
-
 OFS is extensible to meet the needs of a broad set of customer applications.  The general use cases listed below are examples where the OFS base design is easily extended to build a custom FIM:
+
+
+
 1. Use OFSdesign example as-is
     - Porting the code to another platform that is identical to OFSreference platform changing targeted FPGA device and pinout
     - Change I/O assignments without changing design
@@ -130,21 +134,23 @@ OFS is extensible to meet the needs of a broad set of customer applications.  Th
 
 
 
-## 1.3. Prerequisites
+## **1.3. Prerequisites**
 
-### 1.3.1. Tutorial Prerequisites
+### **1.3.1. Tutorial Prerequisites**
 
 To run the FPGA compilation steps covered in this guide, requires the following:
+
+
 
 1. Workstation or server with a Quartus Prime Pro Version 23.1  installed on a Quartus supported Linux distribution.  See [Operating System Support].  The Linux distribution known to work with this version of OFS is {{ env.N6001_HOST_OS_L }}. Note, Windows is not supported.
 2. Compilation targeting Intel® Agilex® FPGA devices requires a minimum of 64 GB of RAM.
 3. Simulation of lower level functionality (not chip level) is supported by Synopsys<sup>&reg;</sup> VCS and Mentor Graphics<sup>&reg;</sup> QuestaSim SystemVerilog simulators.
 4. Simulation of chip level requires Synopsys<sup>&reg;</sup> VCS and VIP
-   
+  
 
 To test FPGA image files on hardware, this version of OFS only targets Intel® FPGA SmartNIC N6001-PL. You may modify the build scripts and pin files to target different boards with Intel® Agilex® FPGA devices.
 
-### 1.3.2. Base Knowledge and Skills Prerequisites
+### **1.3.2. Base Knowledge and Skills Prerequisites**
 
 The OFS is an advanced application of FPGA technology. This guide assumes you have the following FPGA logic design-related knowledge and skills:
 
@@ -154,28 +160,28 @@ The OFS is an advanced application of FPGA technology. This guide assumes you ha
 - RTL simulation tools.
 -  Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Signal Tap Logic Analyzer tool software.
 
-### 1.3.3. Development Environment
+### **1.3.3. Development Environment**
 
 To run the tutorial steps in this guide requires this development environment:
 
 | Component                                        | Version                                                      |
 | ------------------------------------------------ | ------------------------------------------------------------ |
-| FPGA Platform                                    | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), [release notes] |
+| FPGA Platform                                    | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), [release notes](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1)(https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) |
 | OPAE SDK                                         | [2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) |
 | Kernel Drivers                                   | [ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) |
 | OneAPI-ASP                                       | [ofs-2023.1-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1) |
-| OFS FIM Source Code for Intel® FPGA SmartNIC N6001-PL          | [ofs-2023.1-1](https://github.com/intel-innersource/applications.fpga.ofs.fim-n6001/releases/tag/ofs-2023.1-1)      |
+| OFS FIM Source Code for Intel® FPGA SmartNIC N6001-PL          | [ofs-2023.1-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1)      |
 | OFS Platform AFU BBB                             | [ofs-2023.1-1](https://github.com/OFS/ofs-platform-afu-bbb.git) |
 | Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.1 for Linux](https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html) |
 | Operating System                                 | [RedHat® Enterprise Linux® (RHEL) 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software) |
 
 
 
-# 2. Top Level Description
+## 2. Top Level Description
 
 The FIM targets operation in the Intel® FPGA SmartNIC N6001-PL, the block diagram is shown below.  
 
-![Agilex OFS Block Diagram](images/N6000_Base_x16_BlockDia.svg) </br>
+![Agilex OFS Block Diagram](images/N6000_Base_x16_BlockDia.png) </br>
 
 The Intel® FPGA SmartNIC N6001-PL FPGA I/O banking is shown below: </br>
 
@@ -196,26 +202,28 @@ The key Intel® FPGA SmartNIC N6001-PL FPGA interfaces are:
   - SPI interface
   - FPGA configuration
   
-## 2.1. Top Level FPGA
+### **2.1. Top Level FPGA**
 
 The internal FPGA architecture is shown below:
 
-![](images/N6000_Base_x16_BlockDia.svg)
+![](images/N6000_Base_x16_BlockDia.png)
 
 The following Platform Designer IP subsystems are used to implement the following:
 
-- E-Tile Ethernet Subsystem
-- Memory Subsystem
-- P-tile PCIe Subsystem
+- 690604: PCIe Subsystem IP User Guide (Note: you must login to myIntel and request entitled access)
+- 686148: Memory Subsystem IP User Guide (Note: you must login to myIntel and request entitled access)
+- 773413: [Ethernet Subsystem Intel FPGA IP](https://www.intel.com/content/www/us/en/docs/programmable/773413/23-1-22-5-0/ethernet-subsystem-intel-fpga-ip-overview.html)
 
 Documentation on the above Platform Designer IP subsystems is available by request to your Intel support team.
 
-## 2.2. FIM FPGA Resource Usage
+To access these Intel FPGA IP Subsystem documents. Please go [here](https://rdc.intel.com) and search for the previous ID numbers.
+
+### **2.2. FIM FPGA Resource Usage**
 
 The provided design includes both required board management and control functions as well as optional interface exerciser logic that both creates transactions and validates operation.  These exceriser modules include:
 
 * HE_MEM - this module creates external memory transactions to the DDR4 memmory and then verifies the responses.
-* HE_MEM-TG -The Memory **T**raffic **G**enerator (**TG**) AFU provides a way for users to characterize local memory channel bandwidth with a variety of traffic configuration features including request burst size, read/write interleave count, address offset, address strobe, and data pattern.
+* HE_MEM-TG -The Memory Traffic Generator (**TG**) AFU provides a way for users to characterize local memory channel bandwidth with a variety of traffic configuration features including request burst size, read/write interleave count, address offset, address strobe, and data pattern.
 * HE_HSSI - this module creates ethernet transactions to the E-Tile Ethernet Subsystem and then verifies the responses.
 The FIM uses a small portion of the available FPGA resources.  The table below shows resource usage for a base FIM built with 2 channels of external memory, a small AFU instantiated that has host CSR read/write, external memory test and Ethernet test functionality.
 
@@ -259,9 +267,9 @@ The resource usage for a Minimal FIM :
 | sys_pll       | 0.50        | 0.00              | 0     | 0.00               |
 | hps_ss        | 0.00        | 0.00              | 0     | 0.00               |
 
-# 3. Description of Sub-Systems
+## **3. Description of Sub-Systems**
 
-## 3.1. Host Control and Data Flow
+### **3.1. Host Control and Data Flow**
 The host control and data flow is shown in the diagram below:
 
 ![](images/data_flow.png)
@@ -294,54 +302,54 @@ Peripherals are presented to software as:
 
 The peripherals connected to the peripheral fabric are primarily Intel OPAE managed resources, whereas the peripherals connected to the AFU are “primarily” managed by native OS drivers. The word “primarily” is used since the AFU is not mandated to expose all its peripherals to Intel OPAE. 
 
-OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [FIM MMIO Regions](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/#mmio_regions).
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [FIM MMIO Regions](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/#6-mmio-regions)
 
 
-If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver that works with your new hardware.  The [Device Feature Header (DFH) structure] is followed to provide compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for a description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver that works with your new hardware.  The [FPGA Device Feature List (DFL) Framework Overview](https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) is followed to provide compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for a description of DFL operation from the driver perspective.
 
-# 4. High Level Development Flow
+## **4. High Level Development Flow**
 
 The OFS provides a framework of FPGA synthesizable code, simulation environment, and synthesis/simulation scripts.  FIM designers can take the provided code and scripts and modify existing code or add new code to meet your specific product requirements.
 
 FIM development for a new acceleration card consists of the following steps:
 
-1. Installation of OFS and familiarization with scripts and source code
-2. Development of high level block diagram with your specific functionality
-    1. Determination of requirements and key performance metrics
-    2. Selection of IP cores
-    3. Selection of FPGA device
-    4. Software memory map
-3. Selection and implementation of FIM Physical interfaces including:
-    1. External clock sources and creation of internal PLL clocks
-    2. General I/O
-    3. Transceivers
-    4. External memories
-    5. FPGA programming methodology
-4. Device physical implementation
-    1. FPGA device pin assignment
-    2. Inclusion of logic lock regions
-    3. Creation of timing constraints
-    4. Create Quartus FIM test project and validate:
-        1. Placement
-        2. Timing constraints
-        3. Build script process
-        4. Review test FIM FPGA resource usage
-5. Select FIM to AFU interfaces and development of PIM
-6. FIM design implementation
-    1. RTL coding
-    2. IP instantiation
-    3. Development of test AFU to validate FIM
-    4. Unit and device level simulation
-    5. Timing constraints and build scripts
-    6. Timing closure and build validation
-7. Creation of FIM documentation to support AFU development and synthesis
-8. Software Device Feature discovery
-9. Hardware/software integration, validation and debugging
-10.  High volume production preparation
+1. Installation of OFS and familiarization with scripts and source code 
+2. Development of high level block diagram with your specific functionality 
+  1. Determination of requirements and key performance metrics
+  2. Selection of IP cores
+  3. Selection of FPGA device
+  4. Software memory map
+3. Selection and implementation of FIM Physical interfaces including: 
+  1. External clock sources and creation of internal PLL clocks
+  2. General I/O
+  3. Transceivers
+  4. External memories
+  5. FPGA programming methodology
+4. Device physical implementation 
+  1. FPGA device pin assignment
+  2. Inclusion of logic lock regions
+  3. Creation of timing constraints
+  4. Create Quartus FIM test project and validate: 
+    1. Placement
+    2. Timing constraints
+    3. Build script process
+    4. Review test FIM FPGA resource usage
+5. Select FIM to AFU interfaces and development of PIM 
+6. FIM design implementation 
+  1. RTL coding
+  2. IP instantiation
+  3. Development of test AFU to validate FIM
+  4. Unit and device level simulation
+  5. Timing constraints and build scripts
+  6. Timing closure and build validation
+7. Creation of FIM documentation to support AFU development and synthesis 
+8. Software Device Feature discovery 
+9. Hardware/software integration, validation and debugging 
+10. High volume production preparation 
 
 The FIM developer works closely with the hardware design of the target board, software development and system validation.
 
-## 4.1. Installation of OFS
+### **4.1. Installation of OFS**
 
 In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see the [Getting Started Guide: Open FPGA Stack] for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
 
@@ -351,8 +359,8 @@ The following is a summary of the steps to set up for FIM development:
 
 1. Install Quartus Prime Pro Version 23.1 Linux with Intel® Agilex® FPGA device support
 2. Make sure support tools are installed and meet version requirements
-3. Clone the `${{ env.N6001_REPO_S }}` repository
-4. Install required Quartus patches which are included in the cloned `${{ env.N6001_REPO_S }}` repository
+3. Clone the `ofs-n6001` repository
+4. Install required Quartus patches which are included in the cloned `ofs-n6001` repository
 5. Review the files provided in the repo
 6. Test installation by building the FIM
 
@@ -377,24 +385,24 @@ Prior to installing Quartus, perform the following steps to satisfy the required
 
 2. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
-```bash
-export PATH=<Quartus install directory>/quartus/bin:$PATH
-export PATH=<Quartus install directory>/qsys/bin:$PATH
-```
+    ```bash
+    export PATH=<Quartus install directory>/quartus/bin:$PATH
+    export PATH=<Quartus install directory>/qsys/bin:$PATH
+    ```
 
-For example, if the Quartus install directory is /home/intelFPGA_pro/23.1 then the new line is:
+    For example, if the Quartus install directory is /home/intelFPGA_pro/23.1 then the new line is:
 
-```
-export PATH=/home/intelFPGA_pro/23.1/quartus/bin:$PATH
-export PATH=/home/intelFPGA_pro/23.1/qsys/bin:$PATH
-```
+    ```
+    export PATH=/home/intelFPGA_pro/23.1/quartus/bin:$PATH
+    export PATH=/home/intelFPGA_pro/23.1/qsys/bin:$PATH
+    ```
 
 3. Verify, Quartus is discoverable by opening a new shell:
 
-```
-$ which quartus
-/home/intelFPGA_pro/23.1/quartus/bin/quartus
-```
+    ```
+    $ which quartus
+    /home/intelFPGA_pro/23.1/quartus/bin/quartus
+    ```
 
 The OFS provided Quartus build scripts require the following tools:
 
@@ -413,7 +421,7 @@ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.s
 sudo dnf install git-lfs
 git lfs install
 ```
-### 4.1.1. Clone the OFS Git Repo
+#### **4.1.1. Clone the OFS Git Repo**
 
 Retrieve the OFS FIM source code from the [GitHub repository](https://github.com/OFS/ofs-n6001). Create a new directory to use as a clean starting point to store the retrieved files.  The following is a short description of each repository, followed by the git commands for cloning.  The instructions section uses the HTTPS git method for cloning repositories.  Cloning the repo using the HTTPS method requires a personal access token.  Please see this blog post for background information the need for personal access token [Token authentication requirements for Git operations]. Please see [Creating a personal access token].  The classic personal access token has been verified to work properly. 
 
@@ -425,24 +433,22 @@ cd IOFS_BUILD_ROOT
 export IOFS_BUILD_ROOT=$PWD
 git clone --recurse-submodules https://github.com/OFS/ofs-n6001
     ... 
-    Cloning into '${{ env.N6001_REPO_S }}' ...
-    Username for 'https://github.com': <<Enter your git hub username>>
-    Password for 'https://<<Your username>>': <<Enter your personal access token>>
+    Cloning into 'ofs-n6001' ...
     remote: Enumerating objects:  ....
     ...
     ...
     Resolving deltas  ..., done.
 
-cd ${{ env.N6001_REPO_S }}
+cd ofs-n6001
 git checkout --recurse-submodules tags/ofs-2023.1-1
 
 #check if you have ofs-common
 git submodule status
 ```
 
-## 4.2. Directory Structure of OFS
+### **4.2. Directory Structure of OFS**
 
-First verify the following directories and files are present in $IOFS_BUILD_ROOT/${{ env.N6001_REPO_S }} directory.  
+First verify the following directories and files are present in $IOFS_BUILD_ROOT/ofs-n6001 directory.  
 
 ```bash
 ls -1
@@ -501,12 +507,12 @@ find . -mindepth 1 -maxdepth 2 -type d -not -path '*/\.*' -print | sed -e 's/[^-
 |  |  unit_tb
 |  |  verifplan
 ```
-### 4.2.1. Install Quartus Patches
+#### **4.2.1. Install Quartus Patches**
 
-The FIM uses a UART IP core that requires a license in order to create programming files.  The patch for installing the license is located in $IOFS_BUILD_ROOT/${{ env.N6001_REPO_S }}/license.  Please follow the steps below to install this license patch.
+The FIM uses a UART IP core that requires a license in order to create programming files.  The patch for installing the license is located in $IOFS_BUILD_ROOT/ofs-n6001/license.  Please follow the steps below to install this license patch.
 
 ```bash
-cd $IOFS_BUILD_ROOT/${{ env.N6001_REPO_S }}/license
+cd $IOFS_BUILD_ROOT/ofs-n6001/license
 sudo ./quartus-0.0-0.02iofs-linux.run
 ```
 
@@ -520,11 +526,11 @@ Version 23.1
 
 ```
 
-## 4.3. Compiling the OFS FIM
+### **4.3. Compiling the OFS FIM**
 
 The following sections describe how to set up the environment and build the provided FIM and AFU. Follow these steps as a tutorial to learn the build flow.  You will use this environment and build scripts for the creation of your specialized FIM.
 
-### 4.3.1. Setting Up Required Environment Variables
+#### **4.3.1. Setting Up Required Environment Variables**
 
 Set required environment variables as shown below.  These environment variables must be set prior to simulation or compilation tasks so creating a simple script to set these variables saves time. 
 
@@ -541,9 +547,9 @@ export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip 
 export INTELFPGAOCLSDKROOT=$QUARTUS_MAINPATH/hld 
 export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys/bin 
-export OFS_ROOTDIR=$IOFS_BUILD_ROOT/${{ env.N6001_REPO_S }}
+export OFS_ROOTDIR=$IOFS_BUILD_ROOT/ofs-n6001
 export WORKDIR=$OFS_ROOTDIR 
-export VERDIR=$OFS_ROOTDIR/verification/${{ env.N6001_REPO_S  }}/common:$OFS_ROOTDIR/verification 
+export VERDIR=$OFS_ROOTDIR/verification/ofs-n6001/common:$OFS_ROOTDIR/verification 
 export OFS_PLATFORM_AFU_BBB=$IOFS_BUILD_ROOT/ofs-platform-afu-bbb 
 export OPAE_SDK_REPO_BRANCH=release/$OPAE_SDK_VERSION
 export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_dir/build_tree    
@@ -553,9 +559,9 @@ export OPAE_LOC=/install-opae-sdk
 export PYTHONPATH=/root/.local/lib/python3.7.7/site-packages/ 
 export QUARTUS_NUM_PARALLEL_PROCESSORS=8 
 export TOOLS_LOCATION=/home/guest 
-export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/${{ env.N6001_DESIGNWARE }}
-export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.N6001_SIMULATOR_VER }}/linux64/rhel/etc/uvm 
-export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.N6001_SIMULATOR_VER }}/linux64/rhel 
+export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/vip_Q-2020.03A
+export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm 
+export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel 
 export MTI_HOME=$TOOLS_LOCATION/intelFPGA_pro/questa_fse 
 export PATH=$PATH:$QUARTUS_HOME/bin:$QUARTUS_HOME/qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin
 
@@ -569,7 +575,7 @@ export http_proxy="your_path"
 export https_proxy="your_path"
 ```
 
-### 4.3.2. Compiling the Intel® FPGA SmartNIC N6001-PL FIM
+#### **4.3.2. Compiling the Intel® FPGA SmartNIC N6001-PL FIM**
 
 The Intel® FPGA SmartNIC N6001-PL FIM is built with bash script `$OFS_ROOTDIR/ofs-common/scripts/common/syn/build_top.sh`.  There are several setup files that must be put in place before and during the compile - as a result, building the Intel® FPGA SmartNIC N6001-PL FIM from the Quartus GUI is not supported - you must use the the `build_top.sh` script for Intel® FPGA SmartNIC N6001-PL FIM compilation.
 
@@ -577,12 +583,12 @@ The usage of the compile build script is shown below:
 ```bash
 cd $OFS_ROOTDIR
 
-./ofs-common/scripts/common/syn/build_top.sh [-p] ${{ env.N6001_MODEL }} work_dir 
+./ofs-common/scripts/common/syn/build_top.sh [-p] n6001 work_dir 
 
 # --Please see  $OFS_ROOTDIR/ofs-common/scripts/common/syn/README for detailed information on this script
 ```
 
-The `build_top.sh` script copies files from the files in ${{ env.N6001_REPO_S }} to your specified work_dir, then the files in work_dir are used for the Quartus compile process.  In most cases, you will perform design work the `ipss`, `src`, `sim`, `syn` and `verification` directories and run the build_top.sh script to copy the source design files into work_dir for the Quartus build process.  
+The `build_top.sh` script copies files from the files in ofs-n6001 to your specified work_dir, then the files in work_dir are used for the Quartus compile process.  In most cases, you will perform design work the `ipss`, `src`, `sim`, `syn` and `verification` directories and run the build_top.sh script to copy the source design files into work_dir for the Quartus build process.  
 
 The build_top.sh script has the -k option which will do the build process on an existing work_dir without copying source files.  The -k option is useful when you want to add Signal Tap to a build.
 
@@ -605,17 +611,17 @@ In the next example, you will build the provided example design using the defaul
 #Build the provided base example design:
 cd $OFS_ROOTDIR
     
-./ofs-common/scripts/common/syn/build_top.sh ${{ env.N6001_MODEL }} work_${{ env.N6001_MODEL }}
+./ofs-common/scripts/common/syn/build_top.sh n6001 work_n6001
 
 
 #    ... build takes ~3 hours to complete
 
-Compile work directory:     <$IOFS_BUILD_ROOT>/${{ env.N6001_REPO_S }}/work_${{ env.N6001_MODEL }}/syn/syn_top
-Compile artifact directory: <$IOFS_BUILD_ROOT>/${{ env.N6001_REPO_S }}/work_${{ env.N6001_MODEL }}/syn/syn_top/output_files
+Compile work directory:     <$IOFS_BUILD_ROOT>/ofs-n6001/work_n6001/syn/syn_top
+Compile artifact directory: <$IOFS_BUILD_ROOT>/ofs-n6001/work_n6001/syn/syn_top/output_files
 
 ***********************************
 ***
-***        OFS_PROJECT: ${{ env.N6001_MODEL }}
+***        OFS_PROJECT: n6001
 ***        Q_PROJECT:  ofs_top
 ***        Q_REVISION: ofs_top
 ***        SEED: 1
@@ -646,11 +652,11 @@ The following table provides a detailed description of the generated *.bin files
 | ofs_top_page1_unsigned_user1.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User1 Image. This file is used to load the FPGA flash User1 Image using the fpgasupdate tool. |
 | ofs_top_page2_user2.bin |  This is an input file to PACSign to generate **ofs_top_page2_unsigned_user2.bin**. This file is created by taking the ofs_top_[hps].bin file and assigning the User2 or appending factory block information. |
 | ofs_top_page2_unsigned_user2.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User2 Image. This file is used to load the FPGA flash User2 Image using the fpgasupdate tool.|
-|If your design contains an Intel® Agilex® FPGA Hard Processor System, then the build assembly process combines the FPGA ofs_top.sof programming file with /syn/${{ env.N6001_MODEL}}/common/setup/u-boot-spl-dtb.hex to produce:|ofs_top_hps.sof.|
+|If your design contains an Intel® Agilex® FPGA Hard Processor System, then the build assembly process combines the FPGA ofs_top.sof programming file with /syn/n6001/common/setup/u-boot-spl-dtb.hex to produce:|ofs_top_hps.sof.|
 
 >The **build/output_files/timing_report** Directory contains clocks report, failing paths and passing margin reports. 
 
-### 4.3.3. Create a Relocatable PR Directory Tree
+#### **4.3.3. Create a Relocatable PR Directory Tree**
 
 If you are developing a FIM to be used by another team developing AFU workload(s), scripts are provided that create a relocatable PR directory tree. ODM and board developers will make use of this capability to enable a broad set of AFUs to be loaded on a board using PR.
 
@@ -670,7 +676,7 @@ cd $OFS_ROOTDIR
 #Where:
 
 # -t <path to generated release tree> = location for your relocatable PR directory tree
-# *Board Build Target* is the name of the board target/FIM e.g. ${{ env.N6001_MODEL }}
+# *Board Build Target* is the name of the board target/FIM e.g. n6001
 # <work dir from build_top.sh> 
 
 
@@ -679,14 +685,14 @@ Here is an example of running the generate_pr_release.sh script:
 
 ```bash
 cd $OFS_ROOTDIR
-./ofs-common/scripts/common/syn/generate_pr_release.sh -t work_${{ env.N6001_MODEL }}/build_tree ${{ env.N6001_MODEL }}  work_${{ env.N6001_MODEL }}
+./ofs-common/scripts/common/syn/generate_pr_release.sh -t work_n6001/build_tree n6001  work_n6001
 ```
 
 
 The resulting relocatable build tree has the following structure:
 
 ```bash
-cd $OFS_ROOTDIR/work_${{ env.N6001_MODEL }}/build_tree
+cd $OFS_ROOTDIR/work_n6001/build_tree
 
 find . -mindepth 1 -maxdepth 3 -not -path '*/\.*' -print | sed -e 's/[^-][^\/]*\//--/g' -e 's/--/├── /g' -e 's/|-/│   ├── /g' -e '$s/├──/└──/' -e 's/│   ├── \([^ ]\)/│   ├── \1/' -e 's/│   ├── │   ├──/│   │   ├──/'
 
@@ -713,17 +719,17 @@ find . -mindepth 1 -maxdepth 3 -not -path '*/\.*' -print | sed -e 's/[^-][^\/]*\
 ```
 This build tree can be moved to a different location and used for AFU development of PR-able AFU to be used with this board.
 
-### 4.3.4. Flat Build
+#### **4.3.4. Flat Build**
 
-To run the `build_top.sh` script for a flat compile, add the build setting `${{ env.N6001_MODEL }}:flat` as shown below:
+To run the `build_top.sh` script for a flat compile, add the build setting `n6001:flat` as shown below:
 
 ```bash
 cd $OFS_ROOTDIR
-./ofs-common/scripts/common/syn/build_top.sh ${{ env.N6001_MODEL }}:flat work_${{ env.N6001_MODEL }}_flat
+./ofs-common/scripts/common/syn/build_top.sh n6001:flat work_n6001_flat
 ```
-**Note:** The flat compile removes the PR region and PR IP.  You cannot use the -P `build_top.sh` option when using the `${{ env.N6001_MODEL }}:flat` compile setting.
+**Note:** The flat compile removes the PR region and PR IP.  You cannot use the -P `build_top.sh` option when using the `n6001:flat` compile setting.
 
-## 4.4. Unit Level Simulation
+### **4.4. Unit Level Simulation**
 
 Unit level simulation of key components is provided. These simulations provide verification of the following areas:
 
@@ -735,18 +741,19 @@ Unit level simulation of key components is provided. These simulations provide v
 
 The Unit Level simulations work with Synopsys VCS and Mentor Graphics Questa sim simulators. Readme files are provided explaining how to run the simulation of each component.  To run a simulation of ```dfh_walker``` that simulates host access to the internal DFH registers, perform the following steps.
 
-1. Set the environment variables listed in section, [Setting Up Required Environment Variables].
+1. Set the environment variables listed in section, [Setting Up Required Environment Variables](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-setting-up-required-environment-variables).
 
 2. Generate the IP simulation files for all Unit level simulations.  Once the IP simulation files are generated, you can run all of the Unit Simulation tests.
-   
+  
 ```bash
 cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
 
 # Run the script "sh gen_sim_files.sh <target>"
-sh gen_sim_files.sh ${{ env.N6001_MODEL }}
+sh gen_sim_files.sh n6001
 ```
 
 3. Launch the actual DFH Walker unite test.
+
 ```bash 
 cd $OFS_ROOTDIR/sim/unit_test/dfh_walker/
 # If simulator is not specified, then VCS simulator is used
@@ -942,14 +949,14 @@ Assertion count: 0
 ```
 The simulation transcript is displayed while the simulation runs.  The transcript is saved in $OFS_ROOTDIR/sim/unit_test/dfh_walker/sim_vcs/transcript for review after the simulation completes.  The simulation waveform database is saved as vcdplus.vpd for post simulation review. You are encouraged to run the additional simulation examples to learn about each key area of the OFS shell.
 
-# 5. Creating a Custom FIM
+## **5. Creating a Custom FIM**
 
 The remaining sections of this guide describe how to perform customizations of areas of the FIM.  In each section, it is assumed that:
 
 1. You have a clean, unmodified clone of the OFS repo.  See [Clone the OFS Git Repo].
-2. After cloning, you set environment variables.  See [Setting Up Required Environment Variables].
+2. After cloning, you set environment variables.  See [Setting Up Required Environment Variables](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-setting-up-required-environment-variables).
 
-## 5.1. Creating the Hello FIM example
+### **5.1. Creating the Hello FIM example**
 
 If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module. The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO). This set of CSR registers and their operation is described in FIM MMIO Regions.
 See [FPGA Device Feature List (DFL) Framework Overview](https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
@@ -960,7 +967,7 @@ Hello FIM register can be verified by Unit Level simulation, Universal Verificat
 
 
 
-### 5.1.1. Board Peripheral Fabric (BPF)
+#### **5.1.1. Board Peripheral Fabric (BPF)**
 
 Hello FIM is connected to Board Peripheral Fabric (BPF). BPF is an interconnect generated by Platform Designer.
 
@@ -972,7 +979,7 @@ You can create/Modify/generate the BPF manually in Platform Designer or more con
 
 
 
-### 5.1.2. MMIO Region
+#### **5.1.2. MMIO Region**
 
 This section shows the base addresses of all modules. 
 
@@ -994,7 +1001,7 @@ This section shows the base addresses of all modules.
 |0x74000|Remote SignalTap (Port Gasket)|
 |0x80000|AFU Errors (AFU Interface Handler)|
 
-### 5.1.3. Hello FIM CSR
+#### **5.1.3. Hello FIM CSR**
 
 Hello FIM CSR consists of three registers below. The DFH and Hello FIM ID registers are read-only. The Scratchpad register supports read and write accesses.
 
@@ -1006,7 +1013,7 @@ Hello FIM CSR consists of three registers below. The DFH and Hello FIM ID regist
 
 
 
-### 5.1.4. List of all files to edit
+#### **5.1.4. List of all files to edit**
 
 A list below shows all files in $OFS_ROOTDIR that will be modified or created. The build_top.sh script copies files from $OFS_ROOTDIR into the target work directory and then the copied files are used in the Quartus build process.
 
@@ -1023,10 +1030,10 @@ A list below shows all files in $OFS_ROOTDIR that will be modified or created. T
 
 
 
-### 5.1.5. Setup Enviroment Variables
+#### **5.1.5. Setup Enviroment Variables**
 
 To compile and simulate this design, tools and environment must be set up as previously described for the compilation of the Intel® FPGA SmartNIC N6001-PL FIM.
-### 5.1.6. File Modification
+#### **5.1.6. File Modification**
 
 This section describes the steps to add the Hello FIM module to the FIM. The steps in this simple example are the basis for modifying the FIM for more complex functions.
 
@@ -1045,10 +1052,8 @@ This section describes the steps to add the Hello FIM module to the FIM. The ste
    
 
 2. syn/syn_top/ofs_top_sources.tcl
-
-   a. Modify the path to fabric_design_files.tcl to be `../setup/fabric_design_files.tcl`
-   b. Add `hello_fim_design_files.tcl` to the list of subsystems in the Design Files section.
-
+   a. Add `hello_fim_design_files.tcl` to the list of subsystems in the Design Files section.
+   
    ```tcl
    ############################################
    # Design Files
@@ -1056,13 +1061,11 @@ This section describes the steps to add the Hello FIM module to the FIM. The ste
    ...
    # Subsystems
    ...
-   set_global_assignment -name SOURCE_TCL_SCRIPT_FILE ../setup/fabric_design_files.tcl
-   ...
    set_global_assignment -name SOURCE_TCL_SCRIPT_FILE ../setup/hello_fim_design_files.tcl
    ```
-
    
-
+   
+   
 3. syn/setup/hello_fim_design_files.tcl
 
    a. Create `hello_fim_design_files.tcl` with the following contents:
@@ -1184,15 +1187,12 @@ This section describes the steps to add the Hello FIM module to the FIM. The ste
 
    
 
-6. /src/pd_qsys/bpf_top.sv
+6. /src/top/top.sv
 
    a. Add `bpf_hello_fim_slv_if to the interface descriptions
 
    ```verilog
    ...
-   module bpf_top (
-   ...
-   //BPF funtions
    ...
    ofs_fim_axi_lite_if.master bpf_hello_fim_slv_if
    ```
@@ -1202,31 +1202,40 @@ This section describes the steps to add the Hello FIM module to the FIM. The ste
    b. Add `bpf_hello_fim_slv_if` to the module
 
    ```verilog
-   module bpf_top (
+   module top (
    ...
    );
-   ...
-   .bpf_hello_fim_slv_awaddr    (bpf_hello_fim_slv_if.awaddr     ),
-   .bpf_hello_fim_slv_awprot    (bpf_hello_fim_slv_if.awprot     ),
-   .bpf_hello_fim_slv_awvalid   (bpf_hello_fim_slv_if.awvalid    ),
-   .bpf_hello_fim_slv_awready   (bpf_hello_fim_slv_if.awready    ),
-   .bpf_hello_fim_slv_wdata     (bpf_hello_fim_slv_if.wdata      ),
-   .bpf_hello_fim_slv_wstrb     (bpf_hello_fim_slv_if.wstrb      ),
-   .bpf_hello_fim_slv_wvalid    (bpf_hello_fim_slv_if.wvalid     ),
-   .bpf_hello_fim_slv_wready    (bpf_hello_fim_slv_if.wready     ),
-   .bpf_hello_fim_slv_bresp     (bpf_hello_fim_slv_if.bresp      ),
-   .bpf_hello_fim_slv_bvalid    (bpf_hello_fim_slv_if.bvalid     ),
-   .bpf_hello_fim_slv_bready    (bpf_hello_fim_slv_if.bready     ),
-   .bpf_hello_fim_slv_araddr    (bpf_hello_fim_slv_if.araddr     ),
-   .bpf_hello_fim_slv_arprot    (bpf_hello_fim_slv_if.arprot     ),
-   .bpf_hello_fim_slv_arvalid   (bpf_hello_fim_slv_if.arvalid    ),
-   .bpf_hello_fim_slv_arready   (bpf_hello_fim_slv_if.arready    ),
-   .bpf_hello_fim_slv_rdata     (bpf_hello_fim_slv_if.rdata      ),
-   .bpf_hello_fim_slv_rresp     (bpf_hello_fim_slv_if.rresp      ),
-   .bpf_hello_fim_slv_rvalid    (bpf_hello_fim_slv_if.rvalid     ),
-   .bpf_hello_fim_slv_rready    (bpf_hello_fim_slv_if.rready     ),
-   ...
-   endmodule
+   
+   //*******************************
+   // BPF
+   //*******************************
+      bpf 
+      bpf (
+               .clk_clk              (clk_csr                   ),
+               .rst_n_reset_n        (rst_n_csr                 ),
+    .....
+    .....
+          
+               .bpf_hello_fim_slv_awaddr    (bpf_hello_fim_slv_if.awaddr     ),
+               .bpf_hello_fim_slv_awprot    (bpf_hello_fim_slv_if.awprot     ),
+               .bpf_hello_fim_slv_awvalid   (bpf_hello_fim_slv_if.awvalid    ),
+               .bpf_hello_fim_slv_awready   (bpf_hello_fim_slv_if.awready    ),
+               .bpf_hello_fim_slv_wdata     (bpf_hello_fim_slv_if.wdata      ),
+               .bpf_hello_fim_slv_wstrb     (bpf_hello_fim_slv_if.wstrb      ),
+               .bpf_hello_fim_slv_wvalid    (bpf_hello_fim_slv_if.wvalid     ),
+               .bpf_hello_fim_slv_wready    (bpf_hello_fim_slv_if.wready     ),
+               .bpf_hello_fim_slv_bresp     (bpf_hello_fim_slv_if.bresp      ),
+               .bpf_hello_fim_slv_bvalid    (bpf_hello_fim_slv_if.bvalid     ),
+               .bpf_hello_fim_slv_bready    (bpf_hello_fim_slv_if.bready     ),
+               .bpf_hello_fim_slv_araddr    (bpf_hello_fim_slv_if.araddr     ),
+               .bpf_hello_fim_slv_arprot    (bpf_hello_fim_slv_if.arprot     ),
+               .bpf_hello_fim_slv_arvalid   (bpf_hello_fim_slv_if.arvalid    ),
+               .bpf_hello_fim_slv_arready   (bpf_hello_fim_slv_if.arready    ),
+               .bpf_hello_fim_slv_rdata     (bpf_hello_fim_slv_if.rdata      ),
+               .bpf_hello_fim_slv_rresp     (bpf_hello_fim_slv_if.rresp      ),
+               .bpf_hello_fim_slv_rvalid    (bpf_hello_fim_slv_if.rvalid     ),
+               .bpf_hello_fim_slv_rready    (bpf_hello_fim_slv_if.rready     ),
+   
    ```
 
    
@@ -1544,40 +1553,44 @@ qsys-edit bpf.qsys --quartus-project=$OFS_ROOTDIR/syn/syn_top/ofs_top.qpf
 
 The image below shows the BPF that integrates the **bpf_hello_fim_slv** axi4lite shim, generated through the helper script gen_fabrics.sh.
 
-### 5.1.7. Platform Designer for BPF
+#### **5.1.7. Platform Designer for BPF**
 
-#### 5.1.7.1. Modify BPF automatically through helper script
+##### **5.1.7.1. Modify BPF automatically through helper script**
 
-1. Define into the DFL region define file, **src/pd_qsys/fabric/dfl.txt** the hello_fim Device Feature Header at base addres **0x14000**. Follow the example below.
+1. Define into the DFL region define file, **src/pd_qsys/fabric/bpf.txt** the hello_fim Device Feature Header at base addres **0x16000**. Follow the example below.
+
 
 | REGISTER NAME | FABRIC      | BASE ADDRESS | ADDRESS WIDTH |
 | :------------ | :---------- | :----------- | :------------ |
 | ...           | ...         | ...          | ...           |
 | qsfp0         | bpf-slv     | 0x12000      | 12            |
 | qsfp1         | bpf-slv     | 0x13000      | 12            |
+| hssi          | bpf-slv     | 0x14000      | 12            |
 | **hello_fim** | **bpf-slv** | **0x16000**  | **12**        |
 | pmci          | bpf-slv     | 0x20000      | 17            |
-| st2mm         | apf-slv     | 0x40000      | 16            |
 | ...           | ...         | ...          | ...           |
 
 This DFL definition file will be later used by the helper script for the automatic generation of the Board Peripheral Fabric.
 
-2. Modify the DFL unused range definition file,	**src/pd_qsys/fabric/fabric_pkg.sv** as follows. Change the unused range ```{32'h1ffff, 32'h16000}```, to ```{32'h1ffff, 32'h17000}```.
+2. Modify the DFL unused range definition file  **src/pd_qsys/fabric/bpf.txt**.
+
 
 ```Verilog
-.
-.
-.
-package fabric_pkg;
-   localparam NUM_UNUSED_RANGE   = 3;
-   localparam bit [NUM_UNUSED_RANGE-1:0][63:0] unused_ranges = {
-                                                {32'h11fff, 32'h11000},   // 0x11000 - 0x11fff 
-                                                {32'h1ffff, 32'h16000},   // 0x16000 - 0x1ffff 
-                                                {32'hfffff, 32'h90000}};  // 0x90000 - 0xfffff
-endpackage : fabric_pkg
-.
-.
-.
+# NAME   FABRIC      BASEADDRESS    ADDRESS_WIDTH SLAVES
+apf         mst     n/a             18            fme,pcie,pmci,qsfp0,qsfp1,emif,hssi
+fme         mst     n/a             20            apf          
+pmci        mst     n/a             21            fme,pcie,pmci,qsfp0,qsfp1,pmci_lpbk,emif,hssi
+pmci_lpbk   mst     n/a             20            apf
+fme         slv     0x00000         16 		  n/a
+apf         slv     0x00000         20 		  n/a
+pcie        slv     0x10000         12		  n/a
+qsfp0       slv     0x12000         12		  n/a
+qsfp1       slv     0x13000         12		  n/a
+hssi        slv     0x14000         12		  n/a
+emif        slv     0x15000         12		  n/a
+hello_fim   slv     0x16000         12		  n/a
+pmci        slv     0x20000         17		  n/a
+pmci_lpbk   slv     0x100000        20 		  n/a
 ```
 This update is very important since the ST2MM bridge filters out any communication that fall within the unused ranges.
 
@@ -1596,7 +1609,7 @@ qsys-edit bpf.qsys --quartus-project=$OFS_ROOTDIR/syn/syn_top/ofs_top.qpf
 
 The image below shows the BPF that integrates the **bpf_hello_fim_slv** axi4lite shim, generated through the helper script gen_fabrics.sh.
 
-#### 5.1.7.2. Modify BPF manually in Platform Designer
+##### **5.1.7.2. Modify BPF manually in Platform Designer**
 
 The following steps show how to manually add in Platform Designer the new axi4lite port for the HelloFIM module.
 
@@ -1630,11 +1643,11 @@ After generation, close Platform Designer.
 
 
 
-### 5.1.8. Unit Level Simulation of Hello FIM Design
+#### **5.1.8. Unit Level Simulation of Hello FIM Design**
 
 The following section describes the file modifications that need to be made to perform unit level simulations of the Hello FIM design, followed by instructions for running the unit level simulations simulations.
 
-#### 5.1.8.1. Unit Level Simulation File Modification
+##### **5.1.8.1. Unit Level Simulation File Modification**
 
 Perform the following steps to modify the Unit Level simulation files to support the Hello FIM design.
 
@@ -1728,13 +1741,13 @@ Perform the following steps to modify the Unit Level simulation files to support
 
 ```bash
 cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
-sh gen_sim_files.sh ${{ env.N6001_MODEL }}
+sh gen_sim_files.sh n6001
 ```
 
 
 
 
-### 5.1.9. Unit Level test of the HelloFIM  
+#### **5.1.9. Unit Level test of the HelloFIM**  
 
 To quickly check whether the BPF can successfully communicate with the HelloFIM, execute the **test_dfh_walking** Unit Level Simulation. Go to **sim/unit_test/dfh_walker** and execute the **run_sim.sh** script as follows.
 
@@ -1798,7 +1811,7 @@ Assertion count: 0
 
 
 
-### 5.1.10. UVM Verfication of the HelloFIM
+#### **5.1.10. UVM Verfication of the HelloFIM**
 
 
 
@@ -1902,7 +1915,7 @@ else
 
    
 
-#### 5.1.9.2. Run UVM DFH Walker Simulation
+##### **5.1.9.2. Run UVM DFH Walker Simulation**
 
 Perform the following steps to run the UVM DFH Walker Simulation.
 
@@ -1937,27 +1950,27 @@ Perform the following steps to run the UVM DFH Walker Simulation.
    Expected output:
 
    ```bash
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 111950000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp = 80000000 Act = 80000000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 112586000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80001000 Act = 80001000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 113222000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80003000 Act = 80003000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 113858000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80004000 Act = 80004000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 114494000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80012000 Act = 80012000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 115147000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80013000 Act = 80013000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 115801000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80014000 Act = 80014000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 116628000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80015000 Act = 80015000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 117283000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80016000 Act = 80016000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 117928000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80080000 Act = 80080000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 118594000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80100000 Act = 80100000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 119248000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80130000 Act = 80130000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 119854000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80131000 Act = 80131000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 120460000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80132000 Act = 80132000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 121065000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80133000 Act = 80133000
-   UVM_INFO /home/${{ env.N6001_REPO_S}}/verification/tests/sequences/dfh_walking_seq.svh(73) @ 121672000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80140000 Act = 80140000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 111950000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp = 80000000 Act = 80000000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 112586000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80001000 Act = 80001000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 113222000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80003000 Act = 80003000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 113858000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80004000 Act = 80004000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 114494000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80012000 Act = 80012000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 115147000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80013000 Act = 80013000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 115801000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80014000 Act = 80014000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 116628000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80015000 Act = 80015000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 117283000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80016000 Act = 80016000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 117928000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80080000 Act = 80080000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 118594000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80100000 Act = 80100000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 119248000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80130000 Act = 80130000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 119854000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80131000 Act = 80131000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 120460000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80132000 Act = 80132000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 121065000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80133000 Act = 80133000
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/dfh_walking_seq.svh(73) @ 121672000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80140000 Act = 80140000
    ```
 
    
 
-#### 5.1.9.3. Run UVM MMIO Simulation
+##### **5.1.9.3. Run UVM MMIO Simulation**
 
 Perform the following steps to run the UVM MMIO Simulation.
 
@@ -1982,13 +1995,13 @@ Perform the following steps to run the UVM MMIO Simulation.
    Expected output:
 
    ```bash
-   UVM_INFO /home/${{ env.N6001_REPO_S }}/verification/tests/sequences/mmio_seq.svh(68) @ 115466000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] Data match 64! addr = 80016030, data = 880312f9558c00e1
-   UVM_INFO /home/${{ env.N6001_REPO_S }}/verification/tests/sequences/mmio_seq.svh(76) @ 116112000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] Data match 64! addr = 80016038, data = 6626070150000034
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/mmio_seq.svh(68) @ 115466000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] Data match 64! addr = 80016030, data = 880312f9558c00e1
+   UVM_INFO /home/ofs-n6001/verification/tests/sequences/mmio_seq.svh(76) @ 116112000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] Data match 64! addr = 80016038, data = 6626070150000034
    ```
 
    
 
-### 5.1.10. Compile the Intel® FPGA SmartNIC N6001-PL Design with Hello FIM
+#### **5.1.10 Compile the Intel® FPGA SmartNIC N6001-PL Design with Hello FIM**
 
 Perform the following to compile the Hello FIM design.
 
@@ -1999,12 +2012,12 @@ Perform the following to compile the Hello FIM design.
 3. Compile the design
 
    ```bash
-   $OFS_ROOTDIR/ofs-common/scripts/common/syn/build_top.sh ${{ env.N6001_MODEL }} work_hello_fim
+   $OFS_ROOTDIR/ofs-common/scripts/common/syn/build_top.sh n6001 work_hello_fim
    ```
 
 4. Once compilation is complete, the output files can be found in the `$OFS_ROOTDIR/work_hello_fim/syn/syn_top/output_files` directory.
 
-### 5.1.11. Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim
+#### **5.1.11 Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim**
 
 
 
@@ -2014,7 +2027,7 @@ Run ```fpgainfo``` command to confirm current design. The PCIe ```s:b:d.f``` and
 
 ```bash
 $ sudo fpgainfo fme
-Intel Acceleration Development Platform ${{ env.N6001_MODEL}}
+Intel Acceleration Development Platform n6001
 Board Management Controller NIOS FW version: 3.11.0
 Board Management Controller Build version: 3.11.0
 //****** FME ******//
@@ -2027,12 +2040,12 @@ SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
 Bitstream Id                     : 360571655976424377
-Bitstream Version                : ${{ env.N6001_BITSTREAM_VERSION }}
+Bitstream Version                : 
 Pr Interface Id                  : 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
 Boot Page                        : user1
-Factory Image Info               : ${{ env.N6001_IMAGE_INFO_FACTORY }}
-User1 Image Info                 : ${{ env.N6001_IMAGE_INFO_USER1 }}
-User2 Image Info                 : ${{ env.N6001_IMAGE_INFO_USER2 }}
+Factory Image Info               : 
+User1 Image Info                 : 
+User2 Image Info                 : 
 ```
 
 Move to ```$OFS_ROOTDIR/work_hello_fim/syn/syn_top/output_files```. You can see ```ofs_top_page1_unsigned_user1.bin``` file to run 'ls'.
@@ -2088,15 +2101,15 @@ SubDevice Id                     : 0x0000
 Socket Id                        : 0x00
 Ports Num                        : 01
 Bitstream Id                     : 360571655976424377
-Bitstream Version                : ${{ env.N6001_BITSTREAM_VERSION }}
+Bitstream Version                : 
 Pr Interface Id                  : 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
 Boot Page                        : user1
-Factory Image Info               : ${{ env.N6001_IMAGE_INFO_FACTORY }}
-User1 Image Info                 : ${{ env.N6001_IMAGE_INFO_USER1 }}
-User2 Image Info                 : ${{ env.N6001_IMAGE_INFO_USER2 }}
+Factory Image Info               : 
+User1 Image Info                 : 
+User2 Image Info                 : 
 ```
 
-### 5.1.12. Verify the Hello FIM on the Intel® FPGA SmartNIC N6001-PL Using opae.io Tool
+#### **5.1.12 Verify the Hello FIM on the Intel® FPGA SmartNIC N6001-PL Using opae.io Tool**
 
 This section will describe how to access Hello FIM register via opae.io tool.
 
@@ -2105,10 +2118,10 @@ Run the following command to confirm driver software on 0000:b1:00.0.
 ```bash
 $ opae.io ls
 opae.io 0.2.3
-[0000:b1:00.0] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
-[0000:b1:00.1] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
-[0000:b1:00.4] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
-[0000:b1:00.2] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
+[0000:b1:00.0] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
+[0000:b1:00.1] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
+[0000:b1:00.4] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
+[0000:b1:00.2] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
 ```
 
 Run the following command to initialize opae.io tool.
@@ -2127,10 +2140,10 @@ Run the following command again to confirm driver software on 0000:b1:00.0.
 ```bash
 $ opae.io ls
 opae.io 0.2.3
-[0000:b1:00.0] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: vfio-pci)
-[0000:b1:00.1] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
-[0000:b1:00.4] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
-[0000:b1:00.2] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
+[0000:b1:00.0] (0x8086, 0xbcce) Intel n6001 ADP (Driver: vfio-pci)
+[0000:b1:00.1] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
+[0000:b1:00.4] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
+[0000:b1:00.2] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
 ```
 
 Run the following command to walk through DFH register. You can see "offset: 0x16000" message.
@@ -2215,13 +2228,13 @@ Run the following command again to confirm driver software on 0000:b1:00.0.
 
 ```bash
 $ opae.io ls
-[0000:b1:00.0] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
-[0000:b1:00.1] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
-[0000:b1:00.4] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
-[0000:b1:00.2] (0x8086, 0xbcce) Intel ${{ env.N6001_MODEL}} ADP (Driver: dfl-pci)
+[0000:b1:00.0] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
+[0000:b1:00.1] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
+[0000:b1:00.4] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
+[0000:b1:00.2] (0x8086, 0xbcce) Intel n6001 ADP (Driver: dfl-pci)
 ```
 
-## 5.2. Debugging the FIM with Signal Tap
+### **5.2. Debugging the FIM with Signal Tap**
 
 For debugging issues within the FIM, Signal Tap can be used to gain internal visibility into your design. This section describes the process of adding a Signal Tap instance to your Hello FIM design example described previously.
 
@@ -2231,9 +2244,9 @@ For more detailed information on Signal Tap please see:
 
 Signal Tap uses the Intel FPGA Download Cable II USB device to provide access. Please see [Intel FPGA Download Cable II] for more information and this device is widely available via distributors for purchase.
 
-### 5.2.1. Adding Signal Tap to the Hello FIM example
+#### **5.2.1. Adding Signal Tap to the Hello FIM example**
 
-2. The following steps guide you through the process of adding a Signal Tap instance to your design. The added Signal Tap instance provides hardware to capture the desired internal signals and connect the stored trace information via JTAG. Please be aware that the added Signal Tap hardware will consume FPGA resources and may require additional floorplanning steps to accommodate these resources. Some areas of the FIM use logic lock regions and these regions may need to be re-sized. These steps assume the use of the ${{ env.${{ env.N6001_MODEL}}_s }}.
+2. The following steps guide you through the process of adding a Signal Tap instance to your design. The added Signal Tap instance provides hardware to capture the desired internal signals and connect the stored trace information via JTAG. Please be aware that the added Signal Tap hardware will consume FPGA resources and may require additional floorplanning steps to accommodate these resources. Some areas of the FIM use logic lock regions and these regions may need to be re-sized. These steps assume the use of the n6001.
 
    The steps below use the hello_fim example to add Signal Tap, however the general process can be used for any design.
 
@@ -2249,15 +2262,11 @@ Signal Tap uses the Intel FPGA Download Cable II USB device to provide access. P
 
    3. Once the project is loaded, select **Tools** > **Signal Tap Logic Analyzer** to open the Signal Tap GUI.
 
-   <p align="center">
-      <img src="images/signal_tap_log_analyizer_menu.png" alt="Signal Tap Logic Analyzer menu" width="600">
-   </p>
+![](images/signal_tap_log_analyizer_menu.png)
 
    4. Accept the "Default" selection and click "Create".
 
-<p align="center">
-   <img src="images/new_stp_file_from_template.png" alt="New file from template dialog" width="600">
-</p>
+![](images/new_stp_file_from_template.png)
 
 
 5. This brings up the Signal Tap Logic Analyzer window as shown below
@@ -2269,50 +2278,50 @@ Signal Tap uses the Intel FPGA Download Cable II USB device to provide access. P
 
 6. Set up the clock for the STP instance. This example instruments the **hello_fim_top** module previously intetegrated into the FIM. If unfamiliar with code, it is helpful to use the Quartus Project Navigator to find the block of interest and open the design instance for review. For example, see the image below using Project Navigator to open the **top** module where **hello_fim_top_inst** is instantiated.
 
-<p align="center">
-   <img src="images/hello_fim_top.png" alt="hello_fim_top signals" width="600">
+![](images/hello_fim_top.png)
+
 </p>
 7. Assign the clock for sampling the Signal Tap instrumented signals of interest. Note, that the clock selected should correspond to the signals you want to view for best trace fidelity. Different clocks can be used, however, there maybe issues with trace inaccuracy due to sampling time differences. In the middle right of the Signal Tap window, under **Signal Configuration, Clock:**, select **"…"** as shown below:
 
-<p align="center">
-   <img src="images/stp_hello_fim_clk_search.png" alt="Search Hello FIM clock signal" width="800">
+![](images/stp_hello_fim_clk_search.png)
+
 </p>
 8. In the Node Finder tool that popped up, input **"hello_fim_top_inst|clk"** into the "Named:" textbox and click "Search". Select "clk" in the Matching Nodes list and click the ">" button to select this clock as shown below. Click "OK" to close the Node Finder dialog.
 
-<p align="center">
-   <img src="images/stp_node_finder_hello_fim.png" alt="Signal Tap Node Finder" width="400">
+![](images/stp_node_finder_hello_fim.png)
+
 </p>
 9. Update the sample depth and other Signal Tap settings as needed for your debugging criteria.
 
-<p align="center">
-   <img src="images/STP_Configs_hello_fim.png" alt="Signal Configuration" width="280">
+![](images/STP_Configs_hello_fim.png)
+
 </p>
 
 
 10. In the Signal Tap GUI add the nodes to be instrumented by double-clicking on the "Double-click to add nodes" legend.
 
-<p align="center">
-   <img src="images/STP_Add_Nodes_hello_fim.png" alt="Add nodes" width="600">
+![](images/STP_Add_Nodes_hello_fim.png)
+
 </p>
 11. This brings up the Node Finder to add the signals to be traced. Select the signals that appear from the  search patterns **hello_fim_top_inst|reset** and **hello_fim_top_inst|csr_lite_if\***. Click Insert and close the Node Finder dialog.
 
-<p align="center">
-<img src="images/stp_traced_signals_hello_fim.png" alt="Add nodes to be traced" width="600">
+![](images/stp_traced_signals_hello_fim.png)
+
 </p> 
 12. To provide a unique name for your Signal Tap instance, select "auto signaltap_0", right-click, and select **Rename Instance (F2)**. Provide a descriptive name for your instance, for example, "STP_For_Hello_FIM".
 
-   <p align="center">
-   <img src="images/stp_rename_instance_hello_fim.png" alt="Rename the STP instance" width="500">
+![](images/stp_rename_instance_hello_fim.png)
+
    </p>
 13. Save the newly created Signal Tap file, and give it the same name as the instance.
 
-   <p align="center">
-   <img src="images/save_STP_hello_fim.png" alt="Save the STP file" width="450">
+![](images/save_STP_hello_fim.png)
+
    </p>
 14. In the dialog that pops up, click "Yes" to add the newly created Signal Tap file to the project settings files.
 
-   <p align="center">
-   <img src="images/add_STP_Project_hello_fim.png" alt="Add STP file to project" width="400">
+![](images/add_STP_Project_hello_fim.png)
+
    </p> 
 
    ```tcl
@@ -2328,7 +2337,7 @@ Close all Quartus GUIs.
 15. Compile the project with the Signal Tap file added to the project. Use the **-k** switch to perform the compilation using the files under the working directory you just edited and not the original ones from the cloned repository. 
 
    ```bash
-      $ ofs-common/scripts/common/syn/build_top.sh -k ${{ env.N6001_MODEL }} work_hello_fim_with_stp
+      $ ofs-common/scripts/common/syn/build_top.sh -k n6001 work_hello_fim_with_stp
    ```
 
 
@@ -2337,7 +2346,7 @@ Close all Quartus GUIs.
    ```bash
       ***********************************
       ***
-      ***        OFS_PROJECT: ${{ env.N6001_MODEL }}
+      ***        OFS_PROJECT: n6001
       ***        Q_PROJECT:  ofs_top
       ***        Q_REVISION: ofs_top
       ***        SEED: 106
@@ -2363,12 +2372,12 @@ Compile the FIM using the files from the OFS repository to create a new work dir
 
 ```bash
 cd $OFS_ROOTDIR
-ofs-common/scripts/common/syn/build_top.sh ${{ env.N6001_MODEL }} work_hello_fim_with_stp_from_src_repo
+ofs-common/scripts/common/syn/build_top.sh n6001 work_hello_fim_with_stp_from_src_repo
 ```
 
 
 
-### 5.2.2. Downloading ofs_top_hps.sof into the FPGA using JTAG
+#### **5.2.2 Downloading ofs_top_hps.sof into the FPGA using JTAG**
 
 Every successful run of ```build_top.sh``` script creates the file **$OFS_ROOTDIR/syn/syn_top/output_files/ofs_top_hps.sof** which can be used with the Intel Download Cable II to load the image into the FPGA using the Intel® FPGA SmartNIC N6001-PL JTAG access connector. 
 
@@ -2376,23 +2385,20 @@ Every successful run of ```build_top.sh``` script creates the file **$OFS_ROOTDI
 
 The following steps load the **ofs_fim_hps.sof** created in the previous section into the Intel® Agilex® FPGA using the Intel FPGA Download Cable.  Use these FPGA loading steps for initial testing of newly created FIMs. You will also use the Intel Download II Cable to access the Signal Tap instance via JTAG.
 
-#### 5.2.2.1. Connecting to Intel Download Cable II
+##### **5.2.2.1 Connecting to Intel Download Cable II**
 
 The Intel® FPGA SmartNIC N6001-PL has a 10 pin JTAG header on the top side of the board.  This JTAG header provides access to either the Intel® Agilex® FPGA or MAX® 10 BMC device.  The steps below instruct you in how to set DIP switches on the back side of the board to dynamically select either the Intel® Agilex® FPGA or MAX® 10 device on the JTAG chain.
 
    1. Set SW1.1=ON as shown in the next image. The switches are located at the back of the Intel® FPGA SmartNIC N6001-PL.
 
-      <p align="center">
-      <img src="images/n6000_sw2_position_0_for_agilex_jtag.png" alt="N6001 SW2 to Position 0 for JTAG access to  Agilex" width="400">
-      </p>
+   ![](images/n6000_sw2_position_0_for_agilex_jtag.png)
 
 Connect an Intel® FPGA Download II Cable to the JTAG header of the Intel® FPGA SmartNIC N6001-PL as shown in picture below.   This picture shows the Intel® FPGA SmartNIC N6001-PL card installed in the middle bay, top slot of a SuperMicro® SYS-220HE-FTNR server where the lower slot does not have card installed allowing the Intel® Download II cables to pass through removed the slot access. 
 
-<p align="center">
-   <img src="images/n6000_jtag_connection.png" alt="Intel Download Cable JTAG Connection" width="600">
-</p>
+![](images/n6000_jtag_connection.png)
 
-#### 5.2.2.2. Programming the FPGA Image using JTAG
+
+##### **5.2.2.2 Programming the FPGA Image using JTAG**
 
 Access the Intel® Agilex® FPGA through the JTAG interface by writing the FIM's PMCI PMCI registers at address 0x2040c and 0x20400.
 
@@ -2492,33 +2498,27 @@ Disable AER on the Intel® FPGA SmartNIC N6001-PL PCIe root port and remove the 
 
    Click on **Hardware Setup**, select **USB-Blaster II** in the **Current Selected Hardware** list, and ensure the JTAG **Hardware Frequency** is set to 16Mhz (The default is 24MHz).
 
-   <p align="center">
-   <img src="images/stp_hardware_setup.png" alt="Hello FIM STP Hardware setup" width="550">
-   </p>
-
-   > The following command can be used alternatively, `jtagconfig –setparam “USB-BlasterII” JtagClock 16M`.
+   ![](images/stp_hardware_setup.png)
+   
+   
+> The following command can be used alternatively, `jtagconfig –setparam “USB-BlasterII” JtagClock 16M`.
 
 
 7. Click the **Auto Detect** and make sure the Intel® Agilex® FPGA Device is shown in the JTAG chain.
 
-   <p align="center">
-   <img src="images/stp_autodetect_agilex.png" alt="Hello FIM STP Hardware setup" width="600">
-   </p>
+   ![](images/stp_autodetect_agilex.png)
+   
    
    
 8. Intel® Agilex® FPGA .sof Programming.
       Right-click on the first cell below the **'File'** column and click on **'Change file'**
 
-      <p align="center">
-      <img src="images/stp_change_file_hello_fim.png" alt="Hello FIM STP change file for Agilex FPGA" width="600">
-      </p>   
-      
+   ![](images/stp_change_file_hello_fim.png) 
+   
 9. Select the generated **ofs_top_hps.sof** file for the Intel® Agilex® FPGA with the Signal Tap instrumented Hello FIM example. Remember that the output files are located under **work_x16_adp_hello_fim_with_stp/syn/syn_top/output_files/**.
 
-      <p align="center">
-      <img src="images/agilex_path_sof.png" alt="Hello FIM Select Agilex Flash sof file" width="700">
-      </p> 
-
+   ![](images/agilex_path_sof.png)
+   
 10. Check the checkbox below "Program/Configure" column and click on **'Start'** to program this .sof file. After successful programming, you can close the "Quartus Prime Programmer" software. You can answer 'No' if a dialog pops up asking to save the **'Chain.cdf'** file. This completes the Intel® Agilex® FPGA .sof programming.
 
 11. Rescan PCIe Bus as root user. **Important**, enter the command as root:
@@ -2535,7 +2535,7 @@ Disable AER on the Intel® FPGA SmartNIC N6001-PL PCIe root port and remove the 
 12. Verify the Intel® FPGA SmartNIC N6001-PL is present by comparing the **$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/fme_id.txt** value to the PR Interface Id value read from `fpgainfo fme` - the two values should be identical:
 
    ```bash
-sudo fpgainfo fme   
+   sudo fpgainfo fme   
       Intel Acceleration Development Platform
       Board Management Controller NIOS FW version: 3.11.0 
       Board Management Controller Build version: 3.11.0 
@@ -2546,18 +2546,16 @@ sudo fpgainfo fme
       Socket Id                        : 0x00
       Ports Num                        : 01
       Bitstream Id                     : 360571655976424377 
-      Bitstream Version                : ${{ env.N6001_BITSTREAM_VERSION }} 
+      Bitstream Version                : 
       Pr Interface Id                  : 4514ee67-ca01-5def-9fa5-a1ef30d0c76c 
       Boot Page                        : user1
 
 cat $OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/fme_id.txt
     4514ee67-ca01-5def-9fa5-a1ef30d0c76c 
    ```
+ >**Note:** To later re-direct the JTAG back to the MAX 10 device, execute the following commands.
 
-
-   >**Note:** To later re-direct the JTAG back to the MAX 10 device, execute the following commands.
-
-      ```
+   ```
          # opae.io init -d 0000:b1:00.0 $USER
          # opae.io -d 0000:b1:00.0 -r 0 poke 0x2040c 0x000000000
          # opae.io -d 0000:b1:00.0 -r 0 poke 0x20400 0x37800000002
@@ -2573,7 +2571,7 @@ cat $OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/fme_id.txt
 | ON    | X    | Intel® Agilex® FPGA if PMCI register `0x2040c=0x1`, `0x20404=0x378`, and `0x20400=0x2` |
 | ON    | X    | Intel® Agilex® FPGA if PMCI register `0x2040c=0x1`, `0x20404=0x378`, and `0x20400=0x2` |
 
-### 5.2.3. Signal Tap trace acquisition of Hello FIM signals
+#### **5.2.3. Signal Tap trace acquisition of Hello FIM signals**
 
 1. Once the instrumented HelloFIM SOF file is downloaded into the Intel® Agilex® FPGA, start the Quartus Signal Tap GUI.
 
@@ -2582,31 +2580,23 @@ cat $OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/fme_id.txt
    #The Signal Tap GUI comes up.
    ```
 2. In the Signal Tap GUI, open your STP file. Your STP file settings will load.
-   <p align="center">
-   <img src="images/stp_open_STP_For_Hello_FIM.stp.png" alt="Open the file stp_open_STP_For_Hello_FIM.stp" width="600">
-   </p>
+  
+   ![](images/stp_open_STP_For_Hello_FIM.stp.png)
 3. In the right pane of the Signal Tap GUI, in Hardware: selection box, select the cable "USB-BlasterII".
 
-   <p align="center">
-   <img src="images/stp_select_usbBlasterII_hardware.png" alt="STP select USB-BlasterII hardware" width="600">
-   </p>
-
+   ![](images/stp_select_usbBlasterII_hardware.png)
+   
 4.   Make sure the Intel® Agilex® FPGA Device is displayed in the Device: list as shown below. If not, click the **'Scan Chain'** button to re-scan the JTAG device chain.
 
-   <p align="center">
-   <img src="images/stp_agilex_device_is_present.png" alt="STP make sure Agilex device is present" width="300">
-   </p>
-
+   ![](images/stp_agilex_device_is_present.png)
+   
 5. If not already set, you can create the trigger conditions, for example.
-   <p align="center">
-   <img src="images/stp_set_trigger_conditions.png" alt="STP set trigger conditions" width="500">
-   </p>
-
+  
+   ![](images/stp_set_trigger_conditions.png)
+   
 6. Start analysis by selecting the **'STP_For_Hello_FIM'** instance and pressing **'F5'**. You should see a green message indicating the Acquisition is in progress. Then, move to the **'Data** Tab to observe the signals captured.
 
-   <p align="center">
-   <img src="images/stp_start_signal_capture.png" alt="STP start signal capture with F5" width="700">
-   </p>
+   ![](images/stp_start_signal_capture.png)
 
 
 7. To generate traffic in the **'csr_lite_if'** signals of the Hello FIM module, go back to the terminal and walk the DFH list or peek/poke the Hello FIM registers as was done during the creation of the Hello FIM design example. For instance, the next image shows the activity of the instrumented signals when walking the DFH list with the commands below.
@@ -2617,15 +2607,13 @@ cat $OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/fme_id.txt
       $ opae.io release -d 0000:b1:00.0
    ```
 
-   <p align="center">
-   <img src="images/stp_captured_csr_lite_if_traces.png" alt="STP Observ captured traces" width="700">
-   </p>
-
+   ![](images/stp_captured_csr_lite_if_traces.png)
+   
 8. The PCIe AER feature is automatically re-enabled by rebooting the server. 
 
 This concludes the example on how to instrument an OFS FIM with the Quartus Prime Signal Tap Logic Analyzer.
 
-# 6. Compiling the FIM in preparation for designing your AFU
+## **6. Compiling the FIM in preparation for designing your AFU**
 
 The default Host Exercisers in the FIM can be replaced by a "he_null" block during compile-time. There are a few things to note:
 
@@ -2643,11 +2631,11 @@ To compile a FIM for where the exercisers are removed and replaced with a he_nul
 
 ```bash
 cd $OFS_ROOTDIR
-ofs-common/scripts/common/syn/build_top.sh -p ${{ env.N6001_MODEL }}:null_he, null_he_lp          ,null_he_hssi,null_he_mem,null_he_mem_tg work_null_he
+ofs-common/scripts/common/syn/build_top.sh -p n6001:null_he_lp          ,null_he_hssi,null_he_mem,null_he_mem_tg work_null_he
 ```
 
 
-# 7. How to resize the Partial Reconfiguration region
+## **7. How to resize the Partial Reconfiguration region**
 
 
 The OFS for Intel® Agilex® FPGA flow provides the FIM code to the user to enable full customization for your application needs.
@@ -2662,9 +2650,8 @@ $OFS_ROOTDIR/syn/syn_top/output_files/ofs_top.fit.rpt
 
 The next is a report of the resources usage by partitions defined for the FIM. 
 
-<p align="center">
-   <img src="images/IOFS_FLOW_Logic_lock_region_usage_summary.PNG" alt="Logic Lock Region Usage Summary" width="800">
-</p>
+![](images/IOFS_FLOW_Logic_lock_region_usage_summary.PNG)
+
 
 In this case, the default size for the afu_top|port_gasket|pr_slot|afu_main PR partition is large enough to hold the logic of the default AFU, which is mainly occupied by the Host Exercisers. However, larger designs might require additional resources.
 
@@ -2672,17 +2659,15 @@ To customize the resources allocated to the AFU in the PR regions follow the nex
 
 1. The OFS flow provides the TCL file ```$OFS_ROOTDIR/syn/setup/pr_assignments.tcl``` which defines the PR partition where the AFU is allocated.
 
+![](images/IOFS_PR_flow_pr_assignments.png)
 
-<p align="center">
-   <img src="images/IOFS_PR_flow_pr_assignments.png" alt="PR Assignments TCL file" width="800">
-</p>
 
 2. Use Quartus Chip Planner to identify the locations of the resources available within the Intel® Agilex® FPGA chip for placement and routing your AFU. You need to identify a pair of coordinates, the origin (X0, Y0) and top right corner (X1, Y1) of the new or existing rectangles to modify as shown in the following image. 
 
    The image below shows the coodinates for Region1.<br />
-<p align="center">
-   <img src="images/chip_planner_coordinates.png" alt="Chip Planner Coordinates" width="500">
-</p>
+
+![](images/chip_planner_coordinates.png)
+
 
 The coordinates of the top right corner of the lock regions are computed indirectly based on the Width and Height, as follows.
 
@@ -2697,7 +2682,7 @@ Y1 = Y0 + Height
 
 ```bash
 cd $OFS_ROOTDIR    
-ofs-common/scripts/common/syn/build_top.sh -p ${{ env.N6001_MODEL }} work_<your directory>
+ofs-common/scripts/common/syn/build_top.sh -p n6001 work_<your directory>
 ```
 6. Analyze the resource utilization report per partition produced after recompiling the FIM.
 
@@ -2713,7 +2698,7 @@ For more information on how to optimize the floor plan of your Partial Reconfigu
 
 
 
-# 8. How to modify the Memory Subsystem
+## **8. How to modify the Memory Subsystem**
 
 
 OFS allows performing modifications on the subsystems in the FIM. To customize the Memory Subsystem follow these instructions.
@@ -2743,16 +2728,14 @@ qsys-edit mem_ss_fm.ip
 
 As an example, the figure below highlights the drop-down list option to change the width of the data bus (Memory DQ width) to the HPS subsystem, from a 40-bits wide (with ECC) configuration to a 32-bits wide (no ECC) configuration. Similarly, Platform Designer allows performing configuration edits to any of the available memory interfaces.
 
-<p align="center">
-   <img src="images/mem_ss_from_40b_ecc_to_32b_no_ecc.png" alt="Memory Subsystem From 40bits with ECC to 32bits No Ecc" width="800">
-</p>
+![](images/mem_ss_from_40b_ecc_to_32b_no_ecc.png)
+
 
 
 The next step is to generate the HDL code that reflects the configuration edits performed. For this, click the Generate HDL... button at the bottom right corner of the Platform Designer window. In the dialog that appears next, review and modify the HDL generation options and click the Generate button at the bottom right corner of the dialog.
 
-<p align="center">
-   <img src="images/mem_ss_generate_hdl.png" alt="Memory Subsystem Generate the HDL Code" width="1000">
-</p>
+![](images/mem_ss_generate_hdl.png)
+
 
 
 Once the generation process is finished, close the Platform designer dialogs. 
@@ -2786,22 +2769,22 @@ The configuration edits were performed to affect the original set of files of th
 # Return to the root directory of the OFS repository
    
 cd $OFS_ROOTDIR
-ofs-common/scripts/common/syn/build_top.sh ${{ env.N6001_MODEL }} work_x16_adp_MemSS_HPS_32b_NoECC
+ofs-common/scripts/common/syn/build_top.sh n6001 work_x16_adp_MemSS_HPS_32b_NoECC
 ```
 
-# 9. How to compile the FIM with no hssi for the Intel® FPGA SmartNIC N6001-PL
+## **9. How to compile the FIM with no hssi for the Intel® FPGA SmartNIC N6001-PL**
 
 
-The FIM ${{ env.N6001_MODEL }}:no_hssi is derived from the base Intel® FPGA SmartNIC N6001-PL FIM, with the transceiver subsystem removed. To perform the flat compile of the ${{ env.N6001_MODEL }}:no_hssi, pass the ```no_hssi``` option to the `build_top.sh` script, as follows. 
+The FIM n6001:no_hssi is derived from the base Intel® FPGA SmartNIC N6001-PL FIM, with the transceiver subsystem removed. To perform the flat compile of the n6001:no_hssi, pass the ```no_hssi``` option to the `build_top.sh` script, as follows. 
 
 ```bash
 cd $OFS_ROOTDIR
-ofs-common/scripts/common/syn/build_top.sh ${{ env.N6001_MODEL }}:no_hssi,flat work_N6001_base_x16_adp_no_hssi
+ofs-common/scripts/common/syn/build_top.sh n6001:no_hssi,flat work_N6001_base_x16_adp_no_hssi
 ```
 
 
 
-# 10. How to change the PCIe device ID and Vendor ID
+## **10. How to change the PCIe device ID and Vendor ID**
 
 
 The PCIe configuration registers contains the Vendor, Device and Subsystem Vendor ID registers which are used in PCIe add-in cards to uniquely identify the card for assignment to software drivers.  OFS has these registers set with Intel values for out of the box usage.  If you are using OFS for a PCIe add in card that your company manufactures, then update the PCIe Subsytem Subsystem ID and Vendor ID registers as described below and change OPAE provided software code to properly operate with your company's register values.
@@ -2862,7 +2845,7 @@ NUMANode:       1
 
 ```
 
-## 10.1. Changing the PCIe Subsystem Device ID and Vendor ID
+### **10.1. Changing the PCIe Subsystem Device ID and Vendor ID**
 
 You will use IP Parameter Editor to modify the PCIe configuration registers.
 
@@ -2886,11 +2869,11 @@ Select the PCIe0 Device Identification Registers tab. You can edit the values of
 
 3. Once you have made changes, click Generate HDL and save. 
 4. Build your new FPGA image with build_top.sh script
-   
+  
 ```bash
 cd $OFS_ROOTDIR
 #Set required OFS environment variables
-./ofs-common/scripts/common/syn/build_top.sh -p ${{ env.N6001_MODEL }} work_pcie_vid
+./ofs-common/scripts/common/syn/build_top.sh -p n6001 work_pcie_vid
 ```
 
 Once your image is built and passes timing, be aware that OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to use the [JTAG FPGA Download method]  to load the test FPGA image.  If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command ```fpgasupdate```.
@@ -2898,7 +2881,7 @@ Once your image is built and passes timing, be aware that OPAE FPGA management c
 The changes to software required to work with new PCIe settings are described in [Software Reference Manual: Open FPGA Stack]
 
 
-# 11. Migrating Intel® FPGA SmartNIC N6001-PL to a different device part number
+## **11. Migrating Intel® FPGA SmartNIC N6001-PL to a different device part number**
 
 
 
@@ -2910,7 +2893,7 @@ A user my want to change the device part number for the following reasons
 2) Migrate to a different package and with a larger or same density
 
 
-The default device for the Intel® FPGA SmartNIC N6001-PL is ${{ env.N6001_MPN }}
+The default device for the Intel® FPGA SmartNIC N6001-PL is AGFB014R24A2E2V
 
 The instructions below will describe how to change the device to a different package and with a larger density
 
@@ -2932,13 +2915,13 @@ default_OPN
 new_OPN
 ```
 
-So in this case below the user changes the default device part number from ${{ env.N6001_MPN }} to **AGFB022R25A2E2V**
+So in this case below the user changes the default device part number from AGFB014R24A2E2V to **AGFB022R25A2E2V**
 
 ```bash
-grep -rli '${{ env.N6001_MPN }}' * | xargs -i@ sed -i 's/${{ env.N6001_MPN }}/AGFB022R25A2E2V/g' @
+grep -rli 'AGFB014R24A2E2V' * | xargs -i@ sed -i 's/AGFB014R24A2E2V/AGFB022R25A2E2V/g' @
 ```
 
-This  changes all occurrences of the default device (${{ env.N6001_MPN }}) in the $OFS_ROOTDIR directory to the new device number (AGFB022R25A2E2V)
+This  changes all occurrences of the default device (AGFB014R24A2E2V) in the $OFS_ROOTDIR directory to the new device number (AGFB022R25A2E2V)
 
 
 Since the new device is targeting a different package the current pin location constraints will not work and the user will have to comment out all pin location constraints in the following files located at $OFS_ROOTDIR/syn/setup
@@ -2968,12 +2951,12 @@ Quartus compilation will then be successful. To preserve the pin assignments the
     top_loc.tcl
 
 
-# 12. How to change E-Tile Ethernet Subsystem from 8 X 25 GbE to 8 X 10 GbE
+## **12. How to change E-Tile Ethernet Subsystem from 8 X 25 GbE to 8 X 10 GbE**
 
 This section describes steps to change the E-Tile Ethernet Subsystem from 8 X 25 GbE to 8 X 10 GbE. 
 
 1. Edit E-Tile Ethernet  IP Subsystem **$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/hssi_ss_8x25g.ip** to be 8 X 10 GbE using IP Platform Editor.
-   
+  
 ```bash
 cd $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss
 qsys-edit hssi_ss_8x25g.ip
@@ -2983,12 +2966,12 @@ qsys-edit hssi_ss_8x25g.ip
     ![](images\ip_param_editor_10g_1.png)
 
 3. Click the IP Configuration tab and note the default settings of OFF for AN/LT and SYNCE.  You may optionally change these settings based on your application needs. The settings for P0 IP cover ports 0 to 3.  The settings for P4 cover ports 4 to 7.
-   
+  
    ![](images\ip_param_editor_10g_2.png)
 
 4.  Click "P0 Configuration" tab and note the default settings for maximum frame size.  You may optionally change these settings based on your application needs.  Set "P4 Configuration" as needed. 
 
-​      ![](images\ip_param_editor_10g_3.PNG)
+   ![](images\ip_param_editor_10g_3.PNG)
 
 5. Leave other settings at default values.
 6. Click `File` and `Save As` hssi_ss_8x10g.  Click `Generate HDL` in the bottom right hand corner of IP Editor and enable simulation support.
@@ -3016,14 +2999,14 @@ set_global_assignment -name VERILOG_MACRO "ETH_10G"                  # Change Et
 
 ```bash
 cd $OFS_ROOTDIR
-ofs-common/scripts/common/syn/build_top.sh -p ${{ env.N6001_MODEL }} work_8x10gbe
+ofs-common/scripts/common/syn/build_top.sh -p n6001 work_8x10gbe
 ```
-# 13. How to change E-Tile Ethernet Subsystem from 8 X 25 GbE to 2 X 100 GbE
+## **13. How to change E-Tile Ethernet Subsystem from 8 X 25 GbE to 2 X 100 GbE**
 
 This section describes steps to change the E-Tile Ethernet Subsystem from 8 X 25 GbE to 2 x 100 GbE. 
 
 1. Edit E-Tile Ethernet  IP Subsystem **$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/hssi_ss_8x25g.ip** to be 2 X 100 GbE using IP Platform Editor.
-   
+  
 ```bash
 cd $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss
 qsys-edit hssi_ss_8x25g.ip
@@ -3034,7 +3017,7 @@ qsys-edit hssi_ss_8x25g.ip
 ​	![](images\ip_param_editor_100g_1.png)
 
 3. Click the IP Configuration tab and note the default settings of OFF for AN/LT.  You may optionally change these settings based on your application needs.
-   
+  
    
 
    ![](images\ip_param_editor_100g_2.png)
@@ -3047,7 +3030,7 @@ qsys-edit hssi_ss_8x25g.ip
 6. Click `File` and `Save As` hssi_ss_2x100g.  Click `Generate HDL` in the bottom right hand corner of IP Editor and enable simulation support.
 
 7. Edit $OFS_ROOTDIR/ipss/hssi/eth_design_files.tcl to comment out 8x25g and add in 2x100g.ip
-   
+  
 ```tcl
 #-----------------
 # E-Tile Ethernet  SS IP
@@ -3077,9 +3060,9 @@ set_false_path -from [get_clocks {hssi_wrapper|hssi_ss|hssi_ss_0|U_hssi_ss_ip_wr
 
 ```bash
 cd $OFS_ROOTDIR
-./ofs-common/scripts/common/syn/build_top.sh -p ${{ env.N6001_MODEL }} work_2x100gbe
+./ofs-common/scripts/common/syn/build_top.sh -p n6001 work_2x100gbe
 ```
-# 14. How to add more Transceiver channels to an existing FIM design 
+## **14. How to add more Transceiver channels to an existing FIM design** 
 
 
 The next section will describe how to add 4 extra ethernet channels to the existing Intel® FPGA SmartNIC N6001-PL FIM base_x16 design which uses the 8x25G (2x4x25G) as the default ethernet configuration.
@@ -3107,7 +3090,7 @@ The following table describes the files that need to be changed next and the mod
 | ipss/hssi/rtl/inc/ofs_fim_eth_plat_defines.svh | Add the following code (after line 130)  <br />`define INCLUDE_HSSI_PORT_8 `define INCLUDE_HSSI_PORT_9 `define INCLUDE_HSSI_PORT_10 `define INCLUDE_HSSI_PORT_11 |
 | ipss/hssi/rtl/inc/ofs_fim_eth_plat_if_pkg.sv   | Change parameters to reflect the addition of 4 Ethernet channels ie from 8 to 12 and the addition of one extra QSFP cage ie from 2 to 3<br />  localparam MAX_NUM_ETH_CHANNELS = 12; // Ethernet Ports (line 32) localparam NUM_QSFP_PORTS = 3; // QSFP cage on board (line 34) localparam NUM_ETH_CHANNELS = 12; // Ethernet Ports (line 63) |
 
-Since the new device is targeting a different package the current pin location constraints will not work and the user will have to comment out all pin location constraints in the following files located at $IOFS_BUILD_ROOT/${{ env.N6001_REPO_S }}/syn/setup
+Since the new device is targeting a different package the current pin location constraints will not work and the user will have to comment out all pin location constraints in the following files located at $IOFS_BUILD_ROOT/ofs-n6001/syn/setup
 
     emif_loc.tcl
     hps_loc.tcl
@@ -3133,7 +3116,7 @@ Quartus compilation will then be successful. To preserve the pin assignments the
 
 
 
-# 15. How to modify the PF/VF MUX configuration
+## **15. How to modify the PF/VF MUX configuration**
 
 
 The **PF/VF Configuration Tool** allows you to easily reconfigure the default number of PFs and VFs on your design. To modify the PF/VF configuration, you must: 
@@ -3144,10 +3127,10 @@ The **PF/VF Configuration Tool** allows you to easily reconfigure the default nu
 
    ```bash
    [ProjectSettings]
-   platform = ${{ env.N6001_MODEL}} 
+   platform = n6001 
    family = Agilex
    fim = base_x16
-   Part = ${{ env.N6001_MPN }}
+   Part = AGFB014R24A2E2V
    IpDeployFile = pcie_ss.sh
    IpFile = pcie_ss.ip
    OutputName = pcie_ss
@@ -3167,10 +3150,10 @@ The **PF/VF Configuration Tool** allows you to easily reconfigure the default nu
 
    ```bash   
    [ProjectSettings]
-   platform = ${{ env.N6001_MODEL}} 
+   platform = n6001 
    family = Agilex
    fim = base_x16
-   Part = ${{ env.N6001_MPN }}
+   Part = AGFB014R24A2E2V
    IpDeployFile = pcie_ss.sh
    IpFile = pcie_ss.ip
    OutputName = pcie_ss
@@ -3199,10 +3182,10 @@ The **PF/VF Configuration Tool** allows you to easily reconfigure the default nu
    ./gen_ofs_settings.py  --ini $OFS_ROOTDIR/tools/pfvf_config_tool/<PCIE_SOURCE>.ofss --platform $ADP_PLATFORM
    ```
 
-   For example, execute the following command to generate Host settings in an ${{ env.N6001_MODEL}} design:
+   For example, execute the following command to generate Host settings in an n6001 design:
 
    ```bash
-   ./gen_ofs_settings.py  --ini $OFS_ROOTDIR/tools/pfvf_config_tool/pcie_host.ofss --platform ${{ env.N6001_MODEL}}
+   ./gen_ofs_settings.py  --ini $OFS_ROOTDIR/tools/pfvf_config_tool/pcie_host.ofss --platform n6001
    ```
 
    This script reconfigures the FIM by:
@@ -3228,10 +3211,10 @@ The **PF/VF Configuration Tool** allows you to easily reconfigure the default nu
 
    ```bash
    [ProjectSettings]
-   platform = ${{ env.N6001_MODEL}} 
+   platform = n6001 
    family = Agilex
    fim = base_x16
-   Part = ${{ env.N6001_MPN }}
+   Part = AGFB014R24A2E2V
    IpDeployFile = pcie_ss.sh
    IpFile = pcie_ss.ip
    OutputName = pcie_ss
@@ -3250,7 +3233,7 @@ The **PF/VF Configuration Tool** allows you to easily reconfigure the default nu
    ```bash
    Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
    Info: Finished: Create simulation script
-   sh: /home/applications.fpga.ofs.rtl/env_not_shipped/${{ env.N6001_MODEL}}/update_sim.sh: No such file or directory
+   sh: /home/applications.fpga.ofs.rtl/env_not_shipped/n6001/update_sim.sh: No such file or directory
    Success!  Thank you for using the IP-Deploy Tool
    ```
 
@@ -3284,7 +3267,7 @@ The **PF/VF Configuration Tool** allows you to easily reconfigure the default nu
 
 
 
-# 16. How to Create a Minimal FIM
+## **16. How to Create a Minimal FIM**
 
 In this example, the exercisers and E-Tile Ethernet  subsection are removed and a new AFU PR area is used to make use of the added area from the removed components.  This minimal FIM is useful for HDL applications.
 
@@ -3305,10 +3288,10 @@ cp syn/setup/pr_assignments_slim.tcl syn/setup/pr_assignments.tcl
 nano $OFS_ROOTDIR/tools/pfvf_config_tool/pcie_host.ofss
 
 [ProjectSettings]
-platform = ${{ env.N6001_MODEL}} 
+platform = n6001 
 family = Agilex
 fim = base_x16
-Part = ${{ env.N6001_MPN }}
+Part = AGFB014R24A2E2V
 IpDeployFile = pcie_ss.sh
 IpFile = pcie_ss.ip
 OutputName = pcie_ss
@@ -3322,21 +3305,21 @@ pg_enable = True
 cd $OFS_ROOTDIR/ofs-common/tools/pfvf_config_tool/
 ```
 3. Save the modified ofs_dev.ofss file and build a new configuration.
-   
+  
 ```bash
-python3 gen_ofs_settings.py --ini $OFS_ROOTDIR/tools/pfvf_config_tool/pcie_host.ofss --platform ${{ env.N6001_MODEL }}
+python3 gen_ofs_settings.py --ini $OFS_ROOTDIR/tools/pfvf_config_tool/pcie_host.ofss --platform n6001
 ```
 
 4. Compile the new FIM with exercisers removed.
 
 ```bash
 cd $OFS_ROOTDIR
-./ofs-common/scripts/common/syn/build_top.sh -p ${{ env.N6001_MODEL }}:null_he,null_he_lp,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_null_he_no_hssi
+./ofs-common/scripts/common/syn/build_top.sh -p n6001:null_he_lp,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_null_he_no_hssi
 ```
 
 The build will complete with reduced resources as compared to the base version.
 
-# 17. Single Event Upset Reporting
+## **17. Single Event Upset Reporting**
 
 
 A Single Event Upset (SEU) is the change in state of a storage element inside a device or system. They are caused by ionizing radiation strikes that discharge the charge in storage elements, such as configuration memory cells, user memory and registers.
@@ -3350,7 +3333,7 @@ SEU errors can be read from either the MAX® 10 SEU Status Register or the PMCI 
 
 Additionally, refer to the [Intel Agilex SEU Mitigation User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683128/21-3/seu-mitigation-overview.html) for more information on SEU detection and mitigation.
 
-# 18. Adding FIM Image Info
+## **18. Adding FIM Image Info**
 
 When using your newly created FPGA images, there are fields in the OPAE fpgainfo fme tool providing information on the FPGA image that is loaded in the FPGA flash.  This information is added with the `PACSign` tool.  When loading the FPGA binary file with OPAE tool fpgasupdate, the FPGA flash is written with the binary to load the FPGA, additionally, the FPGA flash has areas to store user entered information.  The OPAE tool fpgainfo fme reads this area and presents the information read back.
 

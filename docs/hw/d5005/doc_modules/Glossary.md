@@ -1,5 +1,3 @@
-Glossary 
-== 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
 | AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
@@ -27,4 +25,3 @@ Glossary
 | TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
 | VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
-

@@ -1,7 +1,5 @@
 # Platform Evaluation Script: Open FPGA Stack for Intel Stratix 10 FPGA
 
-Glossary 
-== 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
 | AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
@@ -28,9 +26,7 @@ Glossary
 | SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
 | TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
-| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
-
- 
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. | 
 
 ## **1 Overview**
 
@@ -64,8 +60,6 @@ A download page containing the release and already-compiled FIM binary artifacts
 
 <br>
 
-Glossary 
-== 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
 | AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
@@ -92,9 +86,7 @@ Glossary
 | SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
 | TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
-| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
-
- 
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. | 
 
 ## **2 Introduction to OFS Evaluation Script**
 
@@ -104,7 +96,7 @@ By following the setup steps and using the OFS evaluation script you can quickly
 ### **2.1 Pre-Requisites**
 
 
-This script uses on the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
+This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
 * Intel Quartus<sup>&reg;</sup> Prime Pro Software
 * Synopsys<sup>&reg;</sup> VCS Simulator
@@ -285,7 +277,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
 | Menu Option                                                  | Example Output                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 1 - List of Documentation for ADP d5005 Project | Open FPGA Stack Overview Guides you through the setup and build steps to evaluate the OFS solution [https://ofs.github.io](https://ofs.github.io/) |
-| 2 - Check versions of Operating System and Quartus Premier Design Suite (QPDS) | Checking Linux release <br />Linux version 6.1.22-dfl <br /><br />Checking RedHat release <br />Red Hat Enterprise Linux release RHEL 8.2  <br /><br />Checking Ubuntu release cat: /etc/lsb-release: No such file or directory  <br /><br />Checking Kernel parameters <br />BOOT_IMAGE=(hd0,msdos1)/vmlinuz-6.1.22-dfl-2023.1-1 root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200  <br /><br />Checking Licenses LM_LICENSE_FILE is set to port@socket number:port@socket number DW_LICENSE_FILE is set to port@socket number:port@socket number SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number  <br /><br />Checking Tool versions QUARTUS_HOME is set to /home/intelFPGA_pro/23.1/quartus QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus/../ip QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus/../qsys/bin  <br />Checking QPDS Patches Quartus Prime Shell Version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} |
+| 2 - Check versions of Operating System and Quartus Premier Design Suite (QPDS) | Checking Linux release <br />Linux version 6.1.22-dfl <br /><br />Checking RedHat release <br />Red Hat Enterprise Linux release RHEL 8.2  <br /><br />Checking Ubuntu release cat: /etc/lsb-release: No such file or directory  <br /><br />Checking Kernel parameters <br />BOOT_IMAGE=(hd0,msdos1)/vmlinuz-6.1.22-dfl-2023.1-1 root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200  <br /><br />Checking Licenses LM_LICENSE_FILE is set to port@socket number:port@socket number DW_LICENSE_FILE is set to port@socket number:port@socket number SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number  <br /><br />Checking Tool versions QUARTUS_HOME is set to /home/intelFPGA_pro/23.1/quartus QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus/../ip QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus/../qsys/bin  <br />Checking QPDS Patches Quartus Prime Shell Version 23.1 |
 
 
 ### **3.1.2 HARDWARE MENU**
@@ -451,7 +443,7 @@ Builds, compiles and runs full chip simulation tests. The user should execute th
 | 52 - Check UVM software versions for Intel® FPGA PAC D5005 Project | DESIGNWARE_HOME is set to /home/synopsys/vip_common/vip_Q-2020.03A UVM_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm VCS_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel VERDIR is set to /home/user_area/ofs-2023.1/ofs-d5005/verification VIPDIR is set to /home/user_area/ofs-2023.1/ofs-d5005/verification |
 | 53 - Compile UVM IP                                          | This option compiles the UVM IP                              |
 | 54 - Compile UVM RTL and Testbench                           | This option compiles the UVM RTL and Testbench               |
-| 55 - Simulate UVM ofs_mmio_test and log waveform             | This option runs the ofs_mmio_test test based on the environment variable "UVM_TEST_NAME=ofs_mmio_test" in the evaluation script. A user can change the test being run by modifying this variable |
+| 55 - Simulate UVM ofs_mmio_test and log waveform             | This option runs the dfh_walking test based on the environment variable "UVM_TEST_NAME=dfh_walking_test" in the evaluation script. A user can change the test being run by modifying this variable |
 | 56 - Simulate all UVM test cases (Regression Mode)           | This option runs the Intel® FPGA PAC D5005 regression mode, cycling through all UVM tests defined in /ofs-d5005/verification/tests/test_pkg.svh file |
 
 

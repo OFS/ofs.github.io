@@ -1,6 +1,6 @@
 # OFS Getting Started Guide for Intel Agilex SoC Attach FPGAs 
 
-Last updated: Last updated: **June 02, 2023** 
+Last updated: Last updated: **July 13, 2023** 
 
 ## Notices & Disclaimers
 
@@ -33,9 +33,6 @@ The information in this document is intended for customers evaluating the Intel 
 
 #### Table 1: Terminology
 
-Glossary 
-== 
-
 | Term       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
 | AER        | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
@@ -63,8 +60,6 @@ Glossary
 | UVM        | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
 | VFIO       | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space. |
 
-
-
 #### Table 2: Related Documentation
 | Name| Location|
 | -----| -----|
@@ -74,7 +69,7 @@ Glossary
 | Software Reference Manual| [link](../../f2000x/)|
 | FIM Developer Guide| [link](../../f2000x/)|
 | AFU Developer Guide| [link](../../f2000x/)|
-| Security User Guide| [link](../../f2000x/)|
+| Security User Guide| [Security User Guide: Intel Open FPGA Stack] |
 | BMC User Guide| [link](../../f2000x/)|
 | Virtual Machine User Guide| [link](../../f2000x/)|
 | Docker User Guide| [link](../../f2000x/)|
@@ -346,7 +341,7 @@ umount: /dev/sdd1: not mounted.
 
 ```bash
 $ wget https://github.com/OFS/meta-ofs/archive/refs/tags/ofs-2023.1-4.tar.gz
-$ tar xf meta-ofs-${{ env.F2000X_META_OFS_TAG_WITHOUT_OFS }}.tar.gz
+$ tar xf ofs-2023.1-4.tar.gz
 # Verify the checksum of the downloaded image
 sha256sum -c core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz.sha256
 # Uncompress the package
@@ -564,7 +559,7 @@ Updating the Intel IPU Platform F2000X-PL firmware often requires reboots of the
 
 ### 3.2 Updating FIM, BMC, AFU, and Option ROM with `fpgasupdate`
 
-The `fpgasupdate` tool updates the Intel<sup>&reg;</sup> Max 10 BMC image and firmware, root entry hash, FPGA Static Region (SR), user image (PR) and option ROM. The `fpgasupdate` will only accept images that have been formatted using PACSign. If a root entry hash has been programmed onto the board, then the image will also need to be signed using the correct keys. Please refer to the [Security User Guide](../../f2000x/) for information on creating signed images and on programming and managing the root entry hash. The `fpgasupdate` tool updates loads images into flash memory, to program FPGA/BMC or switch between user1 vs user2 images use the `RSU` tool. All images received from an official Intel release will be "unsigned", as described in the [Security User Guide](../../f2000x/).
+The `fpgasupdate` tool updates the Intel<sup>&reg;</sup> Max 10 BMC image and firmware, root entry hash, FPGA Static Region (SR), user image (PR) and option ROM. The `fpgasupdate` will only accept images that have been formatted using PACSign. If a root entry hash has been programmed onto the board, then the image will also need to be signed using the correct keys. Please refer to the [Security User Guide: Intel Open FPGA Stack] for information on creating signed images and on programming and managing the root entry hash. The `fpgasupdate` tool updates loads images into flash memory, to program FPGA/BMC or switch between user1 vs user2 images use the `RSU` tool. All images received from an official Intel release will be "unsigned", as described in the [Security User Guide: Intel Open FPGA Stack].
 
 There are two regions of flash the user may store FIM images for general usage, and one backup region. These locations are referred to as **user1**, **user2**, and **factory**. The factory, user1, and user2 regions are not programmed by default. The BMC FW and RTL will come pre-programmed with version 1.1.9.
 

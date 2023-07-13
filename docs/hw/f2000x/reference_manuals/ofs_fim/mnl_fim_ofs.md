@@ -1,18 +1,18 @@
 # **FPGA Interface Manager Technical Reference Manual for Intel Agilex SoC Attach: Open FPGA Stack**
 
-Last updated: **June 02, 2023** 
+Last updated: **July 13, 2023** 
 
-# 1 Overview
+## 1 Overview
 
 
 
-## 1.1 About this Document
+### 1.1 About this Document
 
 
 This document describes the hardware architecture for the SoC Attach reference FIM of the Open FPGA Stack (OFS) targeting the Intel<sup>&reg;</sup> Agilex FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
 
 
-## 1.2 Glossary
+### 1.2 Glossary
 
 
 | Term                      | Abbreviation | Description                                                  |
@@ -49,7 +49,7 @@ This document describes the hardware architecture for the SoC Attach reference F
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
 
-## 1.3 Introduction to Open FPGA Stack
+### 1.3 Introduction to Open FPGA Stack
 
 
 The Open FPGA Stack (OFS) is a modular infrastructure of hardware platform components, open source unstreamed software, and broad ecosystem support that enables an efficient path to develop a custom FPGA platform.  OFS Provides a framework of FPGA synthesizable code, simulation environment and synthesis/simulation scripts. 
@@ -89,10 +89,9 @@ The OFS hardware repository supports hardware development and simulation.  Repos
 
 **Table 1-2 OFS Hardware Repositories**
 
-| Repository                                | Contains                                                     |
-| ----------------------------------------- | ------------------------------------------------------------ |
-| [OFS f2000x FIM Github Branch](https://github.com/OFS/ofs-f2000x-pl)            | Contains FIM or shell RTL, automated compilation scripts, and unit tests and UVM framework. |
-| [ofs-bmc](${{ env.F2000X_BMC_RTL_REPO }}) | Provides the OFS Board Management Controller RTL, firmware, scripts and collateral targeting the Intel IPU Platform F2000X-PL which can be leveraged for your own OFS design. |
+| Repository                     | Contains                                                     |
+| ------------------------------ | ------------------------------------------------------------ |
+| [OFS f2000x FIM Github Branch](https://github.com/OFS/ofs-f2000x-pl) | Contains FIM or shell RTL, automated compilation scripts, and unit tests and UVM framework. |
 
 The OPAE software GitHub site is fully opensource and contains resources for both software and workload developers.
 
@@ -107,7 +106,7 @@ The OPAE software GitHub site is fully opensource and contains resources for bot
 
 Providing the hardware and software source code and supporting test frameworks in a GitHub repository allows you to customize your designs with the latest versions easily.
 
-## 1.4 OFS Features
+### 1.4 OFS Features
 
 
 The OFS architecture within the FPGA comprises two partitions:
@@ -127,7 +126,7 @@ The FIM provides a standard Arm® AMBA® 4 AXI4 datapath interface. The FIM resi
 
 The AFU partition is provided for custom acceleration workloads and may contain both static and partial reconfiguration regions.
 
-### 1.4.1 FPGA Interface Manager (FIM)
+#### 1.4.1 FPGA Interface Manager (FIM)
 
 The updated OFS architecture for Intel® Agilex® FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of this reference design are: 
 
@@ -185,7 +184,7 @@ This design supports virtualization by making use of the virtualization function
 
 This reference FIM example supports 2 PFs for the host and 1PF, 3VFs for the SoC; however, you may extend your configuration to whatever the PCIe Hard IP can support or your application requires.
 
-### 1.4.2 AFU
+#### 1.4.2 AFU
 
 
 An AFU is an acceleration workload that interfaces with the FIM. The AFU boundary in this design comprises both static and partial reconfiguration (PR) regions.  You can decide how you want to partition these two areas or if you want your AFU region to only be a partial reconfiguration region.  A port gasket within the design provides all the PR-specific modules and logic required for partial reconfiguration. Only one partial reconfiguration region is supported in this design for SoC AFU.
@@ -243,7 +242,7 @@ For this design the PF/VF Mux provides the following mappings (found in /src/afu
 
 ![](images\AFU_Agilex_Focus.svg)
 
-### 1.4.3 Platform Interface Manager
+#### 1.4.3 Platform Interface Manager
 
 
 The PIM provides a way to abstract the Arm® AMBA® 4 AXI4-Stream interface to the AFU by providing a library of shims that convert the host channel native packet into other protocols such as Arm® AMBA® 4 AXI4 memory-mapped, Avalon<sup>&reg;</sup> streaming (Avalon-ST) or Avalon<sup>&reg;</sup> memory-mapped (Avalon-MM). 
@@ -252,7 +251,7 @@ The FPGA or AFU developer implements these interface abstractions in the AFU reg
 
 For more information, refer to the AFU Developer's Guide.
 
-### 1.4.4 Platform Feature Discovery
+#### 1.4.4 Platform Feature Discovery
 
 This reference design comes with specific Intel FPGA drivers that are upstreamed to linux-dfl.  These drivers abstract the hardware and operating system specific details of the platform to the host. 
 
@@ -270,13 +269,13 @@ The software must continue traversing the linked list until it sees the EOL (End
 ![DFH Linked List](images/DFH-traversal.png)
 
 
-### 1.4.5 OFS Reference Design
+#### 1.4.5 OFS Reference Design
 
 OFS provides FIM designs you can use as a starting point for your own custom design. These designs target a specific programmable acceleration card or development kit and exercise key FPGA device interfaces. 
 
 The Intel Agilex<sup>&reg;</sup> code line for OFS targets the Intel IPU Platform F2000X-PL.  [FIM designs](https://github.com/OFS/ofs-f2000x-pl) are released to for evaluation and use. 
 
-### 1.4.6 FIM Simulation
+#### 1.4.6 FIM Simulation
 
 OFS provides unit tests and a UVM environment for the FIM and a framework for new feature verification. UVM provides a modular, reusable, and scalable testbench structure by providing an API framework that can be deployed across multiple projects. 
 
@@ -295,7 +294,7 @@ Verification components include:
 The verification infrastructure can be found [here](https://github.com/OFS/ofs-f2000x-pl/verification) for evaluation and use. Please refer to the [Simulation User Guide]( https://ofs.github.io/hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md) for more information.
 
 
-# 2 OFS High Level Architecture
+## 2 OFS High Level Architecture
 
 
 OFS provides distinct data paths that simplify the design and integration process for adding or removing interface modules:
@@ -316,7 +315,7 @@ Depending on your design goals, you can present peripherals to software as:
 ![OFS_datapaths](images/OFS-Datapaths.PNG)
 
 
-# 3 PCIe Subsystem
+## 3 PCIe Subsystem
 
 The FIM's PCIe Subsystem is a hierarchical design that targets the P-tile PCIe* hard IP and is configured to support Gen4 speeds and Arm® AMBA® 4 AXI4-Stream Data Mover functional mode.  The IP supports SR-IOV and is configured to provide  2 PFs for the host and 1PF, 3VFs for the SoC.  Native PCIe TLP packets are sent through the PCIe usingArm® AMBA® 4 AXI4 Stream Protocol.  Before they reach the AFU, the packets go through an adapter in the subsystem that converts any headers to a data mover format.  Tag allocation and management for packets sent from the application to the host are done by the PF/VF Mux which is part of the AFU region.
 
@@ -372,7 +371,7 @@ The PCIe PF, VF and Base Address Register (BAR) configuration can be modified in
 
 
 
-## 3.1 PCIe Subsystem Header Format
+### 3.1 PCIe Subsystem Header Format
 
 
 The first 32 bytes of the TLP from the PCIe subsystem denotes the PCIe header. There are two types of header format supported – Power User Mode header and Data Mover mode header. The tuser_vendor[0] bit on the Arm® AMBA® 4 AXI4-Stream channel indicates the header format of the TLP; tuser_vendor[0] =0 indicates Power User Mode header and tuser_vendor[0] =1 indicates Data Mover Mode header.
@@ -424,7 +423,7 @@ The OFS FIM for Intel Agilex FPGA implements the Data Mover Functional Mode.  Wi
 </tbody>
 </table>
 
-### 3.1.1 Power User Header Format
+#### 3.1.1 Power User Header Format
 
 
 The Power User Format provides user complete control over PCIe Hard IP. The user can implement functionality of interest with finer control over PCIe Transaction Layer Packet (TLP), credit handling and various mode provided by HIP. 
@@ -441,7 +440,7 @@ The mapping of the PCIe defined header to the lower 16 bytes of the Arm® AMBA®
 
 ![pci_tlp_mapping](images/pcie_tlp_mapping.PNG)
 
-### 3.1.2 Data Mover Header Format
+#### 3.1.2 Data Mover Header Format
 
 
 The data mover mode allows high bandwidth data transfers to and from Host memory. It hides the complexity of handling PCIe TLPs. This format provides a simple interface for reading and writing to Host Memory. The data mover checks link partner credits before transmitting packets. It also provides MSI-X interrupt generation capability. 
@@ -461,7 +460,7 @@ The mapping of the data mover header to the lower 16 bytes of the Arm® AMBA® 4
 ![pci_tlp_mapping_dm](images/pcie_tlp_mapping_dm.PNG)
 
 
-## 3.2 PCIe Subsystem Interface Module
+### 3.2 PCIe Subsystem Interface Module
 
 The PCIe Subsystem Interface module (/ipss/pcie/rtl/pcie_ss_if.sv), provides the supporting interface between software and the PCIe subsystem.  
 
@@ -471,7 +470,7 @@ The interface module provides the following:
 * Control and Status Registers
 * Indirect access to PCIe subsystem CSR registers through a CSR mailbox in the PCIe Subsystem Interface.
 
-## 3.3 Data Mover Request Cycles
+### 3.3 Data Mover Request Cycles
 
 
 For Host read request cycles using the OFS FIM for Intel Agilex FPGA:
@@ -496,7 +495,7 @@ For AFU/application request cycles using the OFS FIM for Intel Agilex FPGA:
 ![pci_tlp_mapping_dm](images/dm_request_cycles.png)
 
 
-## 3.4 Data Mover Completion Cycles
+### 3.4 Data Mover Completion Cycles
 
 
 For Host completion cycles using the OFS FIM for Intel Agilex FPGA:
@@ -522,7 +521,7 @@ For AFU/application completion cycles using the OFS FIM for Intel Agilex FPGA:
 
 
 
-# 4 Platform Interface Manager
+## 4 Platform Interface Manager
 
 The FIM interfaces to an application in the AFU region through Arm® AMBA® 4 AXI4-Stream channels.  This format allows the AFU to access the host channel's raw interface without any translation. 
 
@@ -533,7 +532,7 @@ If you expose the raw Arm® AMBA® 4 AXI4-Stream interface of the FIM, workload 
 Refer to the AFU Developer Guide and the FPGA Interface Manager Developer Guide for more information on using the PIM in your design.
 
 
-# 5 Interconnect Fabric
+## 5 Interconnect Fabric
 
 
 There are three types of interconnect fabric in the OFS FIM design:
@@ -559,7 +558,7 @@ Then make the corresponding update to AFU top level instantiation and connection
 
 For details on these modifications, please refer to the FIM Interface Manager Developer Guide.  
 
-## 5.1 AFU Peripheral Fabric (APF)
+### 5.1 AFU Peripheral Fabric (APF)
 
 
 The AFU Peripheral Fabric (APF) is a 64-bit Arm® AMBA® 4 AXI4-lite compliant interconnect fabric that connects AFU peripheral modules to board peripheral modules through the Board Peripheral Fabric (BPF). 
@@ -591,7 +590,7 @@ The address mapping for components interconnected by the APF is listed below. Al
 
 
 
-## 5.2 Board Peripheral Fabric (BPF)
+### 5.2 Board Peripheral Fabric (BPF)
 
 
 
@@ -673,14 +672,14 @@ The default mapping is shown below:
 
 For information on how to modify the PF/VF mapping for your own design, refer to the OFS FIM Developer User Guide.
 
-## 5.4 AFU Interface Handler
+### 5.4 AFU Interface Handler
 
 
 The AFU Interface Handler resides inline between the PCIe Arm® AMBA® 4 AXI4-Stream Adapter and the Arm® AMBA® 4 AXI4-Stream PF/VF Demux/Mux logic. Its main function is to provide:
 * Unique PCIe tags – Each PCIe transaction shares the 512 tags across all VFs in the AFU region
 * AFU error logging for all VFs in the AFU region
 
-### 5.4.1 Unified Tag Remapping
+#### 5.4.1 Unified Tag Remapping
 
 
 When a FPGA function sends out a read cycle, it allocates a unique tag which is subsequently used to identify the read completion.  The tag is considered busy; it cannot be assigned to another read cycle until read completion.  While a tag may be unique within a unit, two different units could unknowingly send out two read cycles of the same tag.  The PCIe subsystem requires unique tags for all read cycles irrespective of their origins.  Therefore, a mechanism is needed to uniquify tag globally across different units.
@@ -697,7 +696,7 @@ The logic is described as follows:
 6.	Tags are released in the pool only when all requested data are transferred.
 7.	When the completion returns, the original tag is restored from `tag_reg`.
 
-### 5.4.2 AFU Error Handling
+#### 5.4.2 AFU Error Handling
 
 
 In this OFS design, the AFU Interface Handler handles error logging for all VFs in the AFU. Errors handled are as follows
@@ -740,7 +739,7 @@ In this OFS design, the AFU Interface Handler handles error logging for all VFs 
 </table>
 
 
-## 5.5 TLP to Arm® AMBA® 4 AXI4-Lite Memory Mapped Bridge (ST2MM)
+### 5.5 TLP to Arm® AMBA® 4 AXI4-Lite Memory Mapped Bridge (ST2MM)
 
 
 ST2MM implements the following key features:
@@ -758,14 +757,14 @@ ST2MM implements the following key features:
 ST2MM implements both Arm® AMBA® 4 AXI4-lite master and slave interfaces that are connected to the designated slave and master port on APF. Host memory requests are sent on the ST2MM master interface to AFP where the requests are routed to the targeted peripherals. 
 
 
-# 6 MMIO Regions
+## 6 MMIO Regions
 
 The FIM and AFU expose their functionalities to the host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO). An MMIO region is an address space within a base address register (BAR) region to which features are memory mapped.  
 
 For example, when a feature is mapped to an MMIO region, the CSR registers of that feature are located within the address range of that region. There can be multiple MMIO regions within a BAR region. 
 
 
-## 6.1 Feature Region
+### 6.1 Feature Region
 
 A group of related CSRs can be categorized as a feature region. For example, a DMA engine has queue management function and quality of service (QoS) function; these are two different features of the DMA engine. A feature region is contained within a single PCIe BAR and cannot span across two BAR region boundaries. 
 
@@ -773,7 +772,7 @@ A Device Feature Header (DFH) register marks the start of the feature region and
 
 The `EOL` field in a DFH marks the end of a DFH list and is only set in the DFH of the last feature in the feature list. The feature type field in the DFH is used to differentiate between the different types of feature region. Basic building blocks (BBB) and private features are always a child of an AFU or FPGA Interface Unit (FIU) and must be contained within an AFU or FIU, respectively.  
 
-### 6.1.1 Device Feature Header (DFH) Structure
+#### 6.1.1 Device Feature Header (DFH) Structure
 
 All DFHs must follow the following structure to be compatible with OPAE software.  Note that only features you want to be exposed to the OPAE software must have a DFH.
 
@@ -833,7 +832,7 @@ All the Control and Status Registers (CSRs) in the FIM are 64-bit registers with
 
 The FIM does not reorder the MMIO requests or responses. For MMIO writes, there is no reordering of requests in FIM, and UC ordering rules are followed. Similarly, for MMIO reads, there is no re-ordering of requests or responses in the FIM. An AFU may opt to re-order the MMIO read responses but the FIM does not enforce read response ordering. 
 
-### 6.2.1 Software Access to Registers
+#### 6.2.1 Software Access to Registers
 
 
 
@@ -847,7 +846,7 @@ In the following two cases, the FIM terminates MMIO Read requests by sending a c
 
 * Illegal MMIO Accesses: This occurs when the read is accessing undefined registers in the FIM or if an AFU access violation.  An example of an access violation is when a PF attempts to access the AFU when it is set to VF mode, or when a VF attempts to access the AFU when it is set to PF mode. In this case, the FME will returns all 0s.
 
-## 6.2 Register Attribute Definition
+### 6.2 Register Attribute Definition
 
 
 **Table 6-5: OFS Register Attribute Definitions**
@@ -866,7 +865,7 @@ In the following two cases, the FIM terminates MMIO Read requests by sending a c
 |   RsvdP   |       Reserved and Protected        | Reserved for future RW implementations. The software must preserve the value of this bit by read modify write. |
 |   RsvdZ   |          Reserved and Zero          | Reserved for future RW1C implementations. The software must write zero to this bit. |
 
-### 6.2.3 CSR Offset in BARs
+#### 6.2.3 CSR Offset in BARs
 
 
 
@@ -897,7 +896,7 @@ Table 6-7: PF0 BAR0 Features Host AFU
 | ---------- | -------------------- |
 | **0x0000** | PCIe Interface       |
 
-# 7 Clocks
+## 7 Clocks
 
 
 The following table provides external clock sources which correspond to pins on the FPGA that drive blocks of internal logic or are used as a reference clock for internal PLLs.  The names in the table are used in the top.sv or are the logical clock names used by their respective functional blocks.  
@@ -934,10 +933,10 @@ The following table provides external clock sources which correspond to pins on 
 
 
 
-# 8 Reset
+## 8 Reset
 
 
-## 8.1 Reset Signals
+### 8.1 Reset Signals
 
 
 The FIM system reset signals are driven according to a their respective requirements derived from their use cases.  The behavioral code defining the reset operation is located in the file `rst_ctrl.sv`. The FIM System Reset Drivers table below provides a list of the input and feedback signals that compose the various resets.
@@ -980,13 +979,13 @@ The following table lists the reset outputs from the `rst_ctrl.sv` block.
 | `pcie_warm_rst_ack_n`        | Soft reset conditioned by `nPERST` when the pcie_reset_status is not asserted, meaning a warm reset is desired.  Cold reset sticky bits in the PCIe subsystem will not be reset by this signal.|
 
 
-# 9 Interrupts
+## 9 Interrupts
 
 
 The OFS platform supports interrupts through MSI-X feature implemented in the PCIe SS. The MSI-X Interrupt feature handles FME and AFU interrupts. 
 
 
-## 9.1 MSI-X
+### 9.1 MSI-X
 
 
 FME interrupts are primarily used to notify the host of error events happened in the FIM. When any of the bits in the FME error status registers is set, an interrupt request is sent to the MSI-X module. There are FME error status registers for various FPGA features such as RAS Error, Temperature monitoring etc. If any of those error registers log an error, we trigger an FME interrupt.
@@ -995,11 +994,11 @@ An AFU sends an interrupt to the MSI-X module in the PCIE SS on the AXI interrup
 
 The MSI-X table entries and PBA vectors are implemented in the PCIE SS. The PCIE SS supports upto 4096 vectors in Static MSI-X mode
 
-## 9.2 MSI-X Entry Table
+### 9.2 MSI-X Entry Table
 
 Each entry in the MSI-X table stores the message address, message data, and vector control for one interrupt vector. The address, data, and vector control information are populated by software (usually done by the PCIe SRIOV driver) after reading the PCIe endpoint configuration space.
 
-## 9.3 MSI-X PBA Table
+### 9.3 MSI-X PBA Table
 
 The PBA table contains a corresponding bit for each MSI-X interrupt vector. This PBA bit is set if that interrupt is triggered but is masked. When the interrupt is unmasked, the PBA bit is unset, and an interrupt is sent to the Host. When the Application generates an interrupt from an IRQ source, it sets the corresponding PBA bit. 
 
@@ -1008,7 +1007,7 @@ When the interrupt is triggered by an IRQ Source, the IRQ Processor checks the m
 The FIM implements the pending bit array as per the MSI-X specification.  When interrupts are enabled the FIM immediately generates an interrupt in response to a suitable event.  When interrupt vectors are masked, the pending bit array entry for the corresponding interrupt vector is set without issuing an interrupt.  When interrupt vectors are re-enabled, any pending interrupt entries are issued to the PCIe EP
 
 
-## 9.4 Interrupts Supported
+### 9.4 Interrupts Supported
 
 
 **Table 9-1: OFS for Agilex FPGA Interrupts Supported**
@@ -1030,7 +1029,7 @@ The FIM implements the pending bit array as per the MSI-X specification.  When i
 </tbody>
 </table>
 
-## 9.5 MSI-X Table Locations
+### 9.5 MSI-X Table Locations
 
 The MSI-X vector tables are at BAR4, address 0x2000. The MSI-X PBA tables are at BAR4, address 0x3000.
 
@@ -1045,7 +1044,7 @@ The MSI-X vector tables are at BAR4, address 0x2000. The MSI-X PBA tables are at
 
 
 
-# 10 External Memory Interface (EMIF)
+## 10 External Memory Interface (EMIF)
 
 
 
@@ -1064,7 +1063,7 @@ There are 4 EMIF channels (4 DDR4 banks) on the f2000x platform which is targete
 
 ![](images/ofs-ea-emif-interfaces.png)
 
-## 10.1 EMIF CSR
+### 10.1 EMIF CSR
 
 
 
@@ -1098,11 +1097,11 @@ TheMIF is implemented as an external FME feature in OFS EA and the CSR for the E
 | Reserved             | [63:4]    | RsvdZ      | 0x0                    | Reserved                                           |
 | EMIFCap              | [3:0]     | RO         | 0xF                    | Attached Memory  Capability (1 bit per  interface) |
 
-# 11 Ethernet Interface Subsystem
+## 11 Ethernet Interface Subsystem
 
 
 
-## 11.1 Ethernet Interface Overview
+### 11.1 Ethernet Interface Overview
 
 
 
@@ -1176,7 +1175,7 @@ A host exerciser, named he-hssi, is provided in the pr_slot of the AFU partition
 
 
 
-## 11.2 OFS  Ethernet Subsystem Interface Module
+### 11.2 OFS  Ethernet Subsystem Interface Module
 
 
 
@@ -1187,7 +1186,7 @@ A wrapper around the  Ethernet Subsystem integrates the following features:
 * Indirect access to Transceiver SS CSR registers via CSR mailbox in the Ethernet Subsystem interface 
 
 
-### 11.2.1 Ethernet Subsystem Control and Status Register (CSR) Map
+#### 11.2.1 Ethernet Subsystem Control and Status Register (CSR) Map
 
 
 
@@ -1200,11 +1199,11 @@ The PCIe subsystem uses Arm® AMBA® 4 AXI4 Memory Mapped accesses to read and w
 
 The Ethernet Subsystem CSR Map can be found `ipss/hssi/HSSI_SS_CSR.xls`.
 
-## 11.4 Ethernet Subsytem Software
+### 11.4 Ethernet Subsytem Software
 
 There are two pieces of software related to running the Ethernet Subsystem: The Linux* dfl network driver and the user space OPAE Tools.
 
-### 11.4.1 Ethernet Subsystem Linux Driver
+#### 11.4.1 Ethernet Subsystem Linux Driver
 
 The Ethernet subystem is exposed as a feature in the PCIe PF BAR0 region. It has a Device Feature Header (DFH) specifying the interface.
 
@@ -1212,7 +1211,7 @@ The primary functionality of the driver is to interact with the ethernet MAC and
 
 To read a register offset in the MAC/PHY write the offset to the regaddr file as a C hex string (e.g. 0x04) and then read the value as string out of regval file. To write a register offset in the MAC/PHY write the offset to the regaddr file as a C hex string (e.g. 0x04) and then write the value as a C hex string to regval file.
 
-### 11.4.2 Ethernet Subsystem OPAE User Space Tool
+#### 11.4.2 Ethernet Subsystem OPAE User Space Tool
 
 User space OPAE Tools that are part of OPAE SDK provide support for the Ethernet Subsystem. You can use the --help option to print more information about each of these commands:
 
@@ -1222,7 +1221,7 @@ User space OPAE Tools that are part of OPAE SDK provide support for the Ethernet
 
 
 
-# 12 Partial Reconfiguration
+## 12 Partial Reconfiguration
 
 Partial Reconfiguration (PR) is an Intel FPGA technology that allows users to reconfigure parts of the FPGA device dynamically, while the remainder of the device continues to operate. In a non-partial reconfiguration flow, any change to the design requires full reprogramming of the entire configuration RAM (CRAM) arrays in the device. With partial reconfiguration, you can dynamically reprogram one or more CRAM frames. A partial reconfiguration design has a static region, and a PR regions, which can be modified to implement new logic. The portion of the CRAM on the chip to be reconfigured is contained within a PR region. For the PR flow, your design must be partitioned into static region and reconfigurable region. The static region is the area of your FPGA that is not reconfigured without reprogramming the entire FPGA. An area of the chip that you plan to partially reconfigure is a PR region.
 
@@ -1240,7 +1239,7 @@ The isolation logic is provided on the output signals of the PR region to ensure
 
 
 
-## 12.1 User Clock Support
+### 12.1 User Clock Support
 
 The reference platform provides two user configurable clock (uclk_usr, uclk_usr_div2) for use by the AFU. These clocks are generated by a reconfigurable IOPLL. The control and status of these clocks is expose through two pairs of command and status registers (USR_CLK_FREQ_CMD0 / USR_CLK_FREQ_STS0 & USR_CLK_FREQ_CMD1 / USR_CLK_FREQ_STS1). The first pair controls the fPLL reconfiguration functionality. The second pair controls a clock frequency measurement block.
 
@@ -1269,11 +1268,11 @@ The user clocks, generated by the reconfigurable IOPLL, are connected to a frequ
 
 To program the user clock to the desired frequency, user will set the clock-frequency-low and clock-frequency-high fields in the PR AFU GBS .json file to the desired frequency value. During PR, SW will try to provide the closest possible frequency to the value specified in the .json file.
 
-## 13 Host Exercisers
+### 13 Host Exercisers
 
 The Host Exerciser (HE) modules are responsible for generating traffic with the intent of exercising the specific interface they are designed to connect to. They are intended to test the interface in simulation and hardware, enable measurement of bandwidth and other performance KPIs and, in some cases, provide an example of data movement between interfaces (PCIe to DDR for e.g.) for adoption into a customer application.
 
-## 13.1 HE-LB and HE-MEM Host Exerciser
+### 13.1 HE-LB and HE-MEM Host Exerciser
 
 
 
@@ -1306,7 +1305,7 @@ flowchart TB
 
 For more details of HE-LB and HE-MEM IP, please refer to ofs-fim-common/src/common/he_lb/README.md
 
-## 13.2 Memory Traffic Generator  (HE-MEM-TG)
+### 13.2 Memory Traffic Generator  (HE-MEM-TG)
 
 The memory traffic generator (TG) AFU provides a way for users to characterize local memory channel bandwidth with a variety of traffic configuration features including request burst size, read/write interleave count, address offset, address strobe, and data pattern.
 
@@ -1316,7 +1315,7 @@ Each traffic generator is configured through a separate Avalon-MM interface at i
 
 ![](images\mem-tg.png)
 
-## 13.2 HSSI Host Exerciser (HE-HSSI)
+### 13.2 HSSI Host Exerciser (HE-HSSI)
 
 HE-HSSI is an Ethernet AFU that handles client side ethernet traffic. The reference HE-HSSI has following features:
 
@@ -1346,7 +1345,7 @@ The diagram below shows the path followed depending on if you enable loopback mo
 
 **Figure 13-4: HE-HSSI Operation Mode Traffic Patterns** ![drawing](images/HE-HSSI-modes.png)
 
-### 13.2.2 HE-HSSI CSR Map
+#### 13.2.2 HE-HSSI CSR Map
 
 The reference HSSI AFU contains the following registers and a similar arrangement of register space can be implemented for other use case-specific HSSI AFUs.
 
@@ -1377,7 +1376,7 @@ This module is a simple stub that is used to replace various HE and other blocks
 
 
 
-# 14 Reliability, Accessibility, Serviceability (RAS) and Error Handling
+## 14 Reliability, Accessibility, Serviceability (RAS) and Error Handling
 
 
 1. Downstream AFU checker: Identifies AFU violations.  For example, these checker flags violations of the interface specification. 
@@ -1407,10 +1406,10 @@ Errors reported by the checker are logged in either the FME error registers port
 |PORT| CoreFIM  | PORT_MALFORMED_REQ1 |	Port Malformed Request Register 1.  Provides malformed request header MSBs. |
 
 
-## 14.1 FME Errors
+### 14.1 FME Errors
 
 
-### 14.1.1 FME_ERROR0
+#### 14.1.1 FME_ERROR0
 
 The FME_ERROR0 register flags CoreFIM FME errors in the Global Error (GLBL_ERROR) private feature. The error bits in this register are sticky bits. You can only clear these bits through software or through a system reset. Writing a 1 to the error field in the register clears the corresponding error bit. Writing a 1 to the corresponding bit in FME_ERROR0_MASK register masks the error.
 
@@ -1422,7 +1421,7 @@ The FME_ERROR0 register flags CoreFIM FME errors in the Global Error (GLBL_ERROR
 |Invalid port access |	A port can either be mapped to a PF or a VF, and not both. The checker reads the `AfuAccessCtrl` field in the FME CSR PORT0_OFFSET register to determine the access type of the Port. If it finds a PF is trying to access a port that is mapped to a VF or vice-versa, an error will be reported.|
 |Invalid AFU access |	An AFU can either be mapped to a PF or a VF, and not both. The checker reads the `AfuAccessCtrl` field in the FME CSR PORT0_OFFSET register to determine the access type of the AFU associated with the Port. If it finds a PF is trying to access an AFU that is mapped to a VF or vice-versa, an error is reported and a fake response is sent back to the requester to avoid a completion timeout on the host.|
 
-### 14.1.2 PCIE0_ERROR
+#### 14.1.2 PCIE0_ERROR
 
 The PCIe Avalon-ST to Arm® AMBA® 4 AXI4-Stream bridge monitors the PCIe link for errors and logs any such errors in the PCIE0_ERROR register (in PCIE0 feature region) and PCIE0_ERROR register in the GLBL_ERR private feature.    The error bits in the PCIE0_ERROR register are sticky bits that you can only clear through software or through a system reset. Writing a 1 to the error field in the register clears the corresponding error bit. Writing a 1 to the corresponding bit in PCIE0_ERROR0_MASK masks the error.  
 
@@ -1435,7 +1434,7 @@ The PCIE0_ERROR register is located in both the Global Error external feature me
 
 ---
 
-### 14.1.3 FME_FIRST_ERROR, FME_NEXT_ERROR
+#### 14.1.3 FME_FIRST_ERROR, FME_NEXT_ERROR
 
 The FME_FIRST_ERROR register flags which of the FME error reporting registers, such as FME_ERROR0, PCIE0_ERROR0, has reported the first error occurrence. The error fields of the first error register are then continuously logged into the FME_FIRST_ERROR register until a system reset or software clears all the errors in that first error register.
 Likewise, the FME_NEXT_ERROR indicates which of the FME error reporting registers (except the first error register) has reported the next occurrence of error after the first error register. The error fields of the next error register are continuously logged into the FME_NEXT_ERROR register until a system reset or software clears all the errors in the second error register.
@@ -1443,48 +1442,48 @@ Likewise, the FME_NEXT_ERROR indicates which of the FME error reporting register
 Please refer to [fme_csr.sv](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/fme_csr.sv) for individual register field descriptions or the SystemVerilog file: [fme_csr.sv](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/fme_csr.sv)
 
 
-### 14.1.4 Reliability, Accessibility, Serviceability (RAS) Error Status
+#### 14.1.4 Reliability, Accessibility, Serviceability (RAS) Error Status
 
 The RAS feature in CoreFIM labels errors as non-fatal, fatal or catastrophic based on their impact to the system. 
 * A non-fatal error usually originates from software or an AFU.  With a non-fatal error, the user application may still be able to recover from the error by performing a soft reset on the AFU, fixing the user application software if necessary, and clearing the error. On the other hand, a fatal or catastrophic error is non-recoverable and requires the platform to be reset.
 * Non-fatal errors are logged in the RAS_NOFAT_ERR_STAT register and fatal or catastrophic errors are logged in the RAS_CATFAT_ERR_STAT register.
 
-#### 14.1.4.1 Non-Fatal Errors
+##### 14.1.4.1 Non-Fatal Errors
 
 The RAS_NOFAT_ERR_STAT is a read-only status register that is specifically added for the RAS feature. It logs the high-level status of non-fatal errors in the hardware.  Unlike the error bits in the PCIE0_ERROR and FME_ERROR0 registers which are RW1C (software can write a 1 to clear the error), the error bits in this register are read-only and can only be cleared by system reset. Software has an option to mask the error using RAS_NOFAT_ERR_MASK.
 
 Please refer to [FME_CSR.xls](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/xls/osc/FME_CSR.xls) for individual register field descriptions or the SystemVerilog file: [fme_csr.sv](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/fme_csr.sv)
 
-#### 14.1.4.2 Catastrophic & Fatal Errors
+##### 14.1.4.2 Catastrophic & Fatal Errors
 
 The RAS_CATFAT_ERR_STAT is a read-only status register that is specifically added for the RAS feature. It captures the high-level status of errors that can only be recovered with a system reset. Therefore, the error bits in the RAS_CATFAT_ERR_STAT register are read-only and can only be cleared by system reset or masked through RAS_CATFAT_ERR_MASK.
 Please refer to [FME_CSR.xls](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/xls/osc/FME_CSR.xls) for individual register field descriptions or the SystemVerilog file: [fme_csr.sv](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/fme_csr.sv)
 
-### 14.1.5 RAS Error Injection
+#### 14.1.5 RAS Error Injection
 
 For software testing purposes, you can inject non-fatal, fatal, and catastrophic errors into the platform through the RAS_ERROR_INJ register.  These errors are reported in the RAS_CATFAT_ERR_STAT and RAS_NOFAT_ERR_STAT registers.
 Please refer to [FME_CSR.xls](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/xls/osc/FME_CSR.xls) for individual register field descriptions or the SystemVerilog file: [fme_csr.sv](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/fme_csr.sv)
 
-### 14.1.6 FME Error Interrupts
+#### 14.1.6 FME Error Interrupts
 
 In an event of an FME error, the MSI-X module in the FIM generates an interrupt so the host can decide on the next course of action. The FIM does not stall upstream and downstream traffic after the FME error. However, a port error triggered by invalid request from a user AFU stalls all the traffic going from AFU to PCIe.
 The interrupt capability is discoverable by querying the `NumbSuppInterrupt` field of the PORT_CAPABILITY register in the Port private feature.  The MSI-X vector number is recorded in the `InterruptVectorNumber` field of the GLBL_ERROR_CAPABILITY register of the Global Error external feature.
 
 An FME error interrupt is generated in response to the FME_ERROR0, PCIE0_ERROR0, RAS_NOFAT_ERR_STAT, or RAS_CATFAT_ERR_STAT registers recording a new, unmasked, error per the rules defined by CoreFIM interrupt feature.
 
-#### 14.1.6.1 MSI-X Masking & Pending Bit Array (PBA) Clearing
+##### 14.1.6.1 MSI-X Masking & Pending Bit Array (PBA) Clearing
 
 If the MSI-X vector corresponding to the FME error interrupt is masked, events are recorded in the PBA array.  Clearing the FME error status registers clears the corresponding MSI-X PBA entries.  If only some events are cleared, the normal interrupt triggering rules apply and a new pending interrupt is registered.
 
-### 14.1.7 FME Error Handling
+#### 14.1.7 FME Error Handling
 
 When the host receives an FME error interrupt, it must take the recommended actions described below to bring the system back to its normal operation.
 
-#### 14.1.7.1 Catastrophic/Fatal Error 
+##### 14.1.7.1 Catastrophic/Fatal Error 
 
 A system reset is mandatory for any catastrophic or fatal error.
 
-#### 14.1.7.2 Non-Fatal Error
+##### 14.1.7.2 Non-Fatal Error
 
 When software receives a non-fatal error interrupt which does not require a system reset, it can take the following steps to clear the error after software handles the error:
 1.  Set the *_ERROR_MASK register to all 1’s to mask all errors
@@ -1501,44 +1500,44 @@ A system reset can only clear RAS Error status registers.
 
 ---
 
-## 14.3 MMIO Requests
+### 14.3 MMIO Requests
 
 The FIM is designed to gracefully handle MMIO request scenarios.  
 
-###  14.3.1 Unsupported Functions and BAR
+####  14.3.1 Unsupported Functions and BAR
 
 The PCIe hard IP in the FIM guarantees that only TLP packets for the functions and BARs supported by the FIM (as configured in PCIe HIP IP instantiation) are sent to the FIM.
 
-### 14.3.2 MMIO Request Decoding
+#### 14.3.2 MMIO Request Decoding
 
 The packet router and memory decoder in the FIM ensure that only legal MMIO requests are forwarded to the targeted MMIO region. Full address and BAR decoding is done both in the packet router and the memory decoder to ensure the requests are forwarded to the designated CSR region as defined in the [MMIO Regions](#mmio_regions) chapter.  Any unsolicited/illegal MMIO request is dropped, and an error is reported back to host through the FME error register.
 
-### 14.3.3 Unused FME/Port CSR Regions
+#### 14.3.3 Unused FME/Port CSR Regions
 
 All the CSR slaves in FIM which are mapped to the FME or Port CSR regions must always respond to MMIO read requests targeting its associated CSR region. A CSR slave must return all 0s for MMIO reads to its unused CSR region such as a reserved space or a region where no CSR register is implemented for the address.
 
 The FIM ensures MMIO reads to FME or Port CSR regions that are not mapped to any CSR slave always gets a response of all 0s. The memory decoder module and fake responder module in the FIM provide this guaranteed response.
 
-### 14.3.4 Unsupported MMIO Request
+#### 14.3.4 Unsupported MMIO Request
 
 Any MMIO request targeting FME or Port CSR regions with a length or address alignment that are not  supported by the FIM is dropped, and an error is logged in PCIE0_ERROR register. The MMIO checker module in the FIM guarantees this response. When an unsupported MMIO read request to the FIM CSR region is detected, the FIM sends back a CPL (completion without data) with error status (UR) back to host.
 
-### 14.3.5 AFU Access Violation
+#### 14.3.5 AFU Access Violation
 
 AFU access violations refer to the scenarios where a PF is attempting to access the MMIO region of an AFU bound to a VF (virtualization enabled), or when a VF is trying to access the MMIO region of an AFU bound to a PF (virtualization disabled). When such a violation is detected, the FIM drops the request and logs the error in the FME_ERROR0 register. If the request is an MMIO read request, the FIM returns a fake response to the host.
 
-### 14.3.6 AFU MMIO Response Timeout
+#### 14.3.6 AFU MMIO Response Timeout
 
 An AFU MMIO Response timeout functions in the same manner described in the [MMIO Response Timeout](#mmio-resp-timeout) section.
 
-# 15 OFS Design Hierarchy
+## 15 OFS Design Hierarchy
 
 
 Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-f2000x-pl, release branch release/ofs-2023.1.  
 
 
-## 15.1 Design Guidance
- 
+### 15.1 Design Guidance
+
 
 The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
 

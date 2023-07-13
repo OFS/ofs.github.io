@@ -43,8 +43,6 @@ If you have worked with previous Intel® Programmable Acceleration products, you
 
 
 
-Glossary 
-== 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
 | AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
@@ -72,8 +70,6 @@ Glossary
 | TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
 | VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
-
-
 
 
 
@@ -284,17 +280,17 @@ Building AFU with OFS forIntel® Stratix 10® FPGA requires the build machine to
 
 The following is a summary of the steps to set up for AFU development:
 
-1. Install  Intel® Quartus® Prime Pro Edition  ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} Linux with Intel® Stratix 10® FPGA device support.
+1. Install  Intel® Quartus® Prime Pro Edition  23.1 Linux with Intel® Stratix 10® FPGA device support.
 2. Make sure support tools are installed and meet version requirements.
 3. Clone the repository.
 4. Review the files provided in the repository.
 5. Build a relocatable PR  tree - this will be the base FIM for your AFU.
 
- Intel® Quartus® Prime Pro Edition version  ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} is the currently verified version of  Intel® Quartus® Prime Pro Edition ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} used for building the AFU images. The recommended Best Known Configuration (BKC) OFS Version 2023.1:
+ Intel® Quartus® Prime Pro Edition version  23.1 is the currently verified version of  Intel® Quartus® Prime Pro Edition 23.1 used for building the AFU images. The recommended Best Known Configuration (BKC) OFS Version 2023.1:
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
-|  Intel® Quartus® Prime Pro Edition   |  ${{ env.D5005_QUARTUS_PRIME_PRO_VER }}  |
+|  Intel® Quartus® Prime Pro Edition   |  23.1  |
 | Operating System   | RHEL 8.2 |
 | OPAE SDK   |  [2.5.0-3](https://github.com/OFS/opae-sdk/tree/2.5.0-3 )  |
 | OFS Release | [ofs-2023.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1) |
@@ -310,7 +306,7 @@ The following is a summary of the steps to set up for AFU development:
 
 1. Download [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-22-3-for-linux.html).
 
-2. After running the  Intel® Quartus® Prime Pro Edition version  ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} installer, set the PATH environment variable to make utility `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
+2. After running the  Intel® Quartus® Prime Pro Edition version  23.1 installer, set the PATH environment variable to make utility `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
 
 ```Bash
@@ -328,7 +324,7 @@ export PATH=$PATH:$QUARTUS_ROOTDIR/bin
 For example:
 
 ```Bash
-export QUARTUS_MAINPATH=/home/<mylocaluser>/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}
+export QUARTUS_MAINPATH=/home/<mylocaluser>/intelFPGA_pro/23.1
 export QUARTUS_ROOTDIR=$QUARTUS_MAINPATH/quartus
 export QUARTUS_HOME=$QUARTUS_ROOTDIR
 export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
@@ -336,7 +332,7 @@ export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ipexport
 export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 export INTELFPGAOCLSDKROOT=$QUARTUS_MAINPATH/hld
 export QSYS_ROOTDIR=$QUARTUS_MAINPATH/qsys/bin
-export PATH=$PATH:/home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/quartus/bin
+export PATH=$PATH:/home/intelFPGA_pro/23.1/quartus/bin
 ```
 
 
@@ -344,7 +340,7 @@ export PATH=$PATH:/home/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/qua
 
 ```Bash
 $ which quartus
-/home/<mylocaluser>/intelFPGA_pro/${{ env.D5005_QUARTUS_PRIME_PRO_VER }}/quartus/bin/quartus
+/home/<mylocaluser>/intelFPGA_pro/23.1/quartus/bin/quartus
 ```
 
 
@@ -377,7 +373,7 @@ Cloning the repo using the HTTPS method requires a personal access token. Please
 >```sh
 >quartus_syn --version
 >Quartus Prime Synthesis
->Version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }}.0 Build 104 09/14/2022 SC Pro Edition
+>Version 23.1.0 Build 104 09/14/2022 SC Pro Edition
 >Copyright (C) 2022  Intel Corporation. All rights reserved.
 >```
 >   
@@ -2101,7 +2097,7 @@ Server socket is listening on port: 3333
 
 Leave this shell open with the mmlink connection.
 
-16. In this step, you will open a new shell and enable JTAG over protocol. You must have Quartus Prime Pro ®  ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} Programmer loaded on the Intel® FPGA PAC D5005 server for local debugging.
+16. In this step, you will open a new shell and enable JTAG over protocol. You must have Quartus Prime Pro ®  23.1 Programmer loaded on the Intel® FPGA PAC D5005 server for local debugging.
 
 ```sh
 $ jtagconfig --add JTAG-over-protocol sti://localhost:0/intel/remote-debug/127.0.0.1:3333/0
@@ -2110,7 +2106,7 @@ Verify connectivity with jtagconfig --debug
 
 $ jtagconfig --debug
 1) JTAG-over-protocol [sti://localhost:0/intel/remote-debug/127.0.0.1:3333/0]
-   (JTAG Server Version ${{ env.D5005_QUARTUS_PRIME_PRO_VER }}.0 Build 104 09/14/2022 SC Pro Edition)
+   (JTAG Server Version 23.1.0 Build 104 09/14/2022 SC Pro Edition)
   020D10DD   VTAP10 (IR=10)
     Design hash    D41D8CD98F00B204E980
     + Node 00406E00  Virtual JTAG #0
@@ -2122,7 +2118,7 @@ $ jtagconfig --debug
 ```
 
 17. Start Quartus Signal Tap GUI, connect to target, load stp file by navigating to 
-$OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/ . The Quartus Signal Tap must be the same version of Quartus used to compile the host_chan_mmio.gbs. Quartus Prime Pro ®  ${{ env.D5005_QUARTUS_PRIME_PRO_VER }} Pro is used in the steps below:
+$OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/ . The Quartus Signal Tap must be the same version of Quartus used to compile the host_chan_mmio.gbs. Quartus Prime Pro ®  23.1 Pro is used in the steps below:
 
 ```sh
 cd $OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/

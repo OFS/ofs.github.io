@@ -1,4 +1,4 @@
-<h1>Platform Evaluation Script: Open FPGA Stack for Intel Agilex FPGA</h1>
+# Platform Evaluation Script: Open FPGA Stack for Intel Agilex FPGA
 
 | Term                      | Abbreviation | Description                                                  |
 | :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
@@ -40,11 +40,11 @@
 ### **1.1 About this Document**
 
 
-This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL development platform using Open FPGA Stack (Intel OFS). After reviewing the document, you will be able to:
+This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL development platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
 
 -   Set-up and modify the script to the your environment
 
--   Compile and simulate an Intel OFS reference design
+-   Compile and simulate an OFS reference design
 
 -   Run hardware and software tests to evaluate the complete OFS flow
 
@@ -58,12 +58,12 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.1](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.1](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.1) | Common RTL across all OFS-based platforms |
 | AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
 | OPAE SDK | [Branch: 2.5.0-3](https://github.com/OFS/opae-sdk/tree/2.5.0-3), [Tag: 2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) | Open Programmable Acceleration Engine Software Development Kit |
-| Kernel Drivers | [Branch: ${{ env.N6001_KERNEL_TAGN6001_KERNEL_TAGN6001_KERNEL_TAG }}](https://github.com/OFS/linux-dfl/tree/${{ env.N6001_KERNEL_TAGN6001_KERNEL_TAG }}), [Tag: ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) | OFS specific kernel drivers|
+| Kernel Drivers | [Branch: ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/tree/ofs-2023.1-6.1-1), [Tag: ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) | OFS specific kernel drivers|
 | OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.5.0-3](https://github.com/OFS/opae-sim/releases/tag/2.5.0-3) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
 | Intel Quartus Prime Pro Edition Design Software | 23.1 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ${{ env.N6001_OFS_TAG }}](https://github.com/OFS/ofs-n6001/releases/tag/${{ env.N6001_OFS_TAG }}) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.1-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) official release drop on GitHub.
 
 <br>
 
@@ -74,7 +74,7 @@ By following the setup steps and using the OFS evaluation script you can quickly
 
 ### **2.1 Pre-Requisites**
 
-This script uses on the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
+This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
 * Intel Quartus<sup>&reg;</sup> Prime Pro Software
 * Synopsys<sup>&reg;</sup> VCS Simulator
@@ -82,7 +82,7 @@ This script uses on the following set of software tools which should be installe
 
 **Figure 2-1 Folder Hierarchy for Software Tools**
 
-<img src="images/ofs_n6001_tools_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_tools_menu.png)
 
 1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.1-1. 
 
@@ -212,17 +212,16 @@ The figure below shows a snapshot of the full evaluation script menu showing all
 
 **Figure 3-1 ofs_n6001_eval.sh Evaluation Menu**
 
-<img src="images/ofs_n6001_adp_eval_menu.png" alt="drawing" style="width:450px">
-
+![](images/ofs_n6001_adp_eval_menu.png)
 
 ### **3.1.1 ADP TOOLS MENU**
 
 
-By selecting "List of Documentation for ADP n6001 Project," a list of links to the latest Intel OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
+By selecting "List of Documentation for ADP n6001 Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
 
 By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.
 
-<img src="images/ofs_n6001_adp_tools_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_tools_menu.png)
 
 <table>
     <thead>
@@ -280,7 +279,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
 
 Identifies card by PCIe number, checks power, temperature and current firmware configuration. 
 
-<img src="images/ofs_n6001_adp_hardware_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_hardware_menu.png)
 
 <table>
     <thead>
@@ -462,7 +461,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
 
 This menu reports the number of PF/VF functions in the reference example and also allows you to reduce the number to 1PF and 1VF to reduce resource utilisation and create a larger area for your workload development. This selection is optional and if the user wants to implement the default number of PF's and VF's then option 9, 10 and 11 should not be used.  Additionally the code used to make the PF/VF modification can be leveraged to increase or modify the number of PF/VFs in the existing design within the limits that the PCIe Subsystem supports (8PF/2K VFs)
 
-<img src="images/ofs_n6001_adp_pf_vf_mux_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_pf_vf_mux_menu.png)
 
 <table>
     <thead>
@@ -524,7 +523,7 @@ This menu reports the number of PF/VF functions in the reference example and als
 
 Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
 
-<img src="images/ofs_n6001_adp_fim_pr_build_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_fim_pr_build_menu.png)
 
 <table>
     <thead>
@@ -596,9 +595,9 @@ The following submenu allows you to:
 * Perform a remote system update (RSU) of the FPGA image into the FPGA
 * Bind virtual functions to VFIO PCIe driver 
 * Run host exerciser (HE) commands such as loopback to test interfaces VFIO PCI driver binding
-* Read the control and status registers (CSRs) for bound modules that are part of the Intel OFS reference design.
+* Read the control and status registers (CSRs) for bound modules that are part of the OFS reference design.
 
-<img src="images/ofs_n6001_adp_hardware_programming_diagnostic_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_hardware_programming_diagnostic_menu.png)
 
 <table>
     <thead>
@@ -735,7 +734,7 @@ The following submenu allows you to:
 
 This submenu tests partial reconfiguration by building and loading an memory-mapped I/O example AFU/workload, executes software from host, and tests remote signal tap.
 
-<img src="images/ofs_n6001_adp_harwdare_afu_testing_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_harwdare_afu_testing_menu.png)
 
 <table>
     <thead>
@@ -760,7 +759,7 @@ This submenu tests partial reconfiguration by building and loading an memory-map
         </tr>
         <tr>
             <td>34 - Modify host_chan_mmio example to insert Remote Signal Tap</td>
-            <td>This option inserts a pre-defined host_chan_mmio.stp Signal Tap file into the Intel OFS code to allow a user to debug the host_chan_mmio AFU example<br>
+            <td>This option inserts a pre-defined host_chan_mmio.stp Signal Tap file into the OFS code to allow a user to debug the host_chan_mmio AFU example<br>
             <br>
         </tr>
 </td>        
@@ -787,7 +786,7 @@ This submenu tests partial reconfiguration by building and loading an memory-map
 
 This submenu tests partial reconfiguration using a hello_world example AFU/workload, executes sw from host
 
-<img src="images/ofs_n6001_adp_harwdare_afu_bbb_testing_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_harwdare_afu_bbb_testing_menu.png)
 
 <table>
     <thead>
@@ -817,7 +816,7 @@ This submenu tests partial reconfiguration using a hello_world example AFU/workl
 
 Builds oneAPI kernel, executes sw from host and runs diagnostic tests
 
-<img src="images/ofs_n6001_adp_oneapi_project_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_oneapi_project_menu.png)
 
 <table>
     <thead>
@@ -930,9 +929,9 @@ Builds oneAPI kernel, executes sw from host and runs diagnostic tests
 ### **3.1.9 ADP UNIT TEST PROJECT MENU**
 
 
-Builds, compiles  and runs standalone simulation block test, dfl_walk, developed by Intel.  For more unit test examples, refer to the UVM Simulation User Guide. 
+Builds, compiles and runs standalone simulation block tests.  More unit test examples are found at the following location ofs_n6001/sim/unit_test 
 
-<img src="images/ofs_n6001_adp_unit_test_project_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_unit_test_project_menu.png)
 
 <table>
     <thead>
@@ -961,9 +960,9 @@ Builds, compiles  and runs standalone simulation block test, dfl_walk, developed
 ### **3.1.10 ADP UVM PROJECT MENU**
 
 
-Builds, compiles and runs full chip simulation tests developed by Intel, Te usershoud execuste teh options sequenstailly ie 68,69, 70 and 71
+Builds, compiles and runs full chip simulation tests.  The user should execute the options sequentially ie 68,69, 70 and 71
 
-<img src="images/ofs_n6001_adp_uvm_project_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_uvm_project_menu.png)
 
 <table>
     <thead>
@@ -1010,13 +1009,13 @@ Builds, compiles and runs full chip simulation tests developed by Intel, Te user
 ### **3.1.11 ADP BUILD ALL PROJECT MENU**
 
 
-Builds the complete Intel OFS flow, good for regression testing and overnight builds
+Builds the complete OFS flow, good for regression testing and overnight builds
 
 For this menu a user can run a sequence of tests (compilation, build and simulation) and executes them sequentially. After the script is successfully executed, a set of binary files is produced which a you can use to evaluate your hardware. Log files are also produced which checks whether the tests passed.
 
 A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 62 from the main menu the script will execute 24 tests ie (main menu options 2, 9, 12, 13, 14, 15, 16, 17, 18, 32, 34, 35, 37, 39, 40, 44, 45, 53, 55, 56, 57, 58, 59 and 60. These 24 menu options are chosen to build the complete OFS flow covering build, compile and simulation.
 
-<img src="images/ofs_n6001_adp_build_all_project_menu.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_adp_build_all_project_menu.png)
 
 <table>
     <thead>
@@ -1066,13 +1065,13 @@ The user can also modify the build time by de-selecting options they do not wish
 
 A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 62 from the main menu the script will execute 24 tests ie (main menu options 2, 9, 12, 13, 14, 15, 16, 17, 18, 32, 34, 35, 37, 39, 40, 44, 45, 53, 55, 56, 57, 58, 59 and 60. All other tests with an "X" indicates do not run that test.
 
-<img src="images/ofs_n6001_default_build.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_default_build.png)
 
 ## **User Case for ADP FIM/PR BUILD MENU**
 
 In the example below when the user selects option 62 from the main menu the script will only run options from the ADP FIM/PR BUILD MENU (7 options, main menu options 12, 13, 14, 15, 16, 17 and 18). All other tests with an "X" indicates do not run that test.
 
-<img src="images/ofs_n6001_user_case1_build.png" alt="drawing" style="width:450px">
+![](images/ofs_n6001_user_case1_build.png)
 
 <br>
 

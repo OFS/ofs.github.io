@@ -84,7 +84,7 @@ The following is the list of verification components that will be used to design
 
 Figure 1 provides the general UVM Testbench and the verification components involved in the top-level architecture.
 
-<img src="images/ofs-uvm_fundmental_concept.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_fundmental_concept.png)
 
 **Figure 1 Typical UVM Testbench**
 
@@ -123,7 +123,7 @@ The hardware architecture of an Agilex FIM is based on the OFS hardware architec
     •	QSFP Controllers
     •	PMCI Controller, MCTP
 
-<img src="images/ofs-uvm_DUT_Base_Shell_architecture.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_DUT_Base_Shell_architecture.png)
 
 **Figure 2 DUT Base Shell Diagram**
 
@@ -136,7 +136,7 @@ base_x16<br>
 
 Figure 3 shows a graphical representation a full chip testbench that includes major RTL blocks depicted in a OFS Agilex based UVM environment 
 
-<img src="images/ofs-uvm_testbench_architecture.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_testbench_architecture.png)
 
 **Figure 3 OFS FIM Testbench**
 
@@ -333,7 +333,7 @@ The default simulator used in the simulation script is Synopsys VCS-MX. Users ca
 
 After cloning the repo, the verification and ofs-common directories contain all UVM verification related files. The directory structure is shown in Figure 4 below.
 
-<img src="images/ofs-uvm_directory_structure.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_directory_structure.png)
 
 **Figure 4 UVM Verification Directory File Structure**
 
@@ -1142,7 +1142,7 @@ Tests are located at ofs-n6001/ofs-common/verification/fpga_family/agilex/tests
 
 <br><br>
 
-The next sections describes how to compile and build the UVM environment prior to running each UVM test and analyinsg the results in the log files 
+The next section describes how to compile and build the UVM environment prior to running each UVM test and analyinsg the results in the log files 
 
 ## **6.4 IP Compile**
 
@@ -1295,13 +1295,13 @@ There are two tracker or log files that are available: runsim.log and trans.log.
 
 runsim.log is the simulation log file generated from Synopsys VCS. The test sequence prints useful information for debugging purpose, such as the base address for each function or block. For HE-LB and HE-MEM, key information such as SRC_ADDR, DST_ADDR, NUM_LINES, mode, req_len etc is printed out as shown in Figure 5
 
-<img src="images/ofs-uvm_runsim_log.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_runsim_log.png)
 
 **Figure 5 runsim.log**
 
 trans.log is generated from PCIe host VIP. trans.log records all transaction information coming in or going out of the VIP. Users can find traffic direction(DIR), TLP type, Tag, Address or BDF, 3 or 4 dword header of the TLP as shown in Figure 6
 
-<img src="images/ofs-uvm_trans_log.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_trans_log.png)
 
 **Figure 6 trans.log**
 
@@ -1320,13 +1320,13 @@ There are two tracker or log files that are available: runsim.log and trans.log.
 
 runsim.log is the simulation log file generated from Questasim. The test sequence prints useful information for debugging purpose, such as the base address for each function or block. For HE-LB and HE-MEM, key information such as SRC_ADDR, DST_ADDR, NUM_LINES, mode, req_len etc is printed out as shown in Figure 7
 
-<img src="images/ofs-uvm_runsim_log.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_runsim_log.png)
 
 **Figure 7 runsim.log**
 
 trans.log is generated from PCIe host VIP. trans.log records all transaction information coming in or going out of the VIP. Users can find traffic direction(DIR), TLP type, Tag, Address or BDF, 3 or 4 dword header of the TLP as shown in Figure 8
 
-<img src="images/ofs-uvm_trans_log.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_trans_log.png)
 
 **Figure 8 trans.log**
 
@@ -1368,7 +1368,7 @@ The following commands shows how to launch DVE and check the coverage reports
 
 The UVM Register Layer provides a standard base class library that enable users to implement the object-oriented model to access the DUT registers and memories. The UVM Register Layer is also referred to as UVM Register Abstraction Layer (UVM RAL). Design registers can be accessed independently of the physical bus interface. i.e. by calling read/write methods. This is shown in Figure 9 below.
 
-<img src="images/ofs-uvm_ral_structure.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_ral_structure.png)
 
 **Figure 9 RAL UVM Testbench**
 
@@ -1391,7 +1391,7 @@ Excel(xls) file containing the registers is required. Make sure there are separa
 
 Excel sheet snapshot example below for EMIF_CSR.xls located at /ipss/mem/rtl/adp
 
-<img src="images/ofs-uvm_ral_spreadsheet.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_ral_spreadsheet.png)
 
     • Navigate to ofs-n6001/ofs-common/verification/common/scripts/ral
     • Copy the excel file (xls) to the above area
@@ -1399,7 +1399,7 @@ Excel sheet snapshot example below for EMIF_CSR.xls located at /ipss/mem/rtl/adp
     • The above steps generate two ral *.sv files. File with _cov suffix is a coverage enabled ral model. 
     • Copy *.sv files to ofs-n6001/verification/testbench/ral
 
-<img src="images/ofs-uvm_ral_flow.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_ral_flow.png)
 
     • As an example to generate ral_ac_ce.sv from AC_CE_CSR.xls file the command is 
     
@@ -1446,13 +1446,13 @@ Integration of components in testbench
 
 Sample Environment Integration snippets 
 
-<img src="images/ofs-uvm_ral_snippet1.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_ral_snippet1.png)
 
-<img src="images/ofs-uvm_ral_snippet2.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_ral_snippet2.png)
 
-<img src="images/ofs-uvm_ral_snippet3.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_ral_snippet3.png)
 
-<img src="images/ofs-uvm_ral_snippet4.png" alt="drawing" style="width:450px">
+![](images/ofs-uvm_ral_snippet1.png)
 
 <br><br>
 
@@ -1460,12 +1460,12 @@ Sample Environment Integration snippets
 ## **8 Modifying UVM Testbench**
 
 
-The next sections describe what needs to be considered when modifying the UVM, adding a new interfcce to the testbench and creating a new UVM test for a customised Intel OFS Accelerator platform.
+The next sections describe what needs to be considered when modifying the UVM, adding a new interface to the testbench and creating a new UVM test for a customised OFS Accelerator platform.
 
 ## **8.1 Modifying UVM environment for new Shell Variant**
 
 
-Intel OFS n6001 comprises a shell based on PCIe Gen4x16 and is named base_x16
+OFS n6001 comprises a shell based on PCIe Gen4x16 and is named base_x16
 
 This base_x16 shell is described by an RTL file list, IP File lists and setup scripts to complete the build flow
 

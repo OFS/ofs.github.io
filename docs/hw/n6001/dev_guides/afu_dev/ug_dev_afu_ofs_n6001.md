@@ -1,11 +1,11 @@
-# Intel<sup>&reg;</sup> Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Agilex® FPGAs PCIe Attach
+# **AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs**
+
+Last updated: **July 13, 2023** 
+
+## **1. Introduction**
 
 
-
-# 1. Introduction
-
-
-This document is a design guide for the creation of an Accelerator Functional Unit (AFU) using Open FPGA Stack (OFS) for Intel® Agilex® FPGAs PCIe Attach. The AFU concept consists of separating the FPGA design development process into two parts, the construction of the foundational FPGA Interface Manager (FIM), and the development of the Acceleration Function Unit (AFU), as shown in the diagram below.
+This document is a design guide for the creation of an Accelerator Functional Unit (AFU) using Open FPGA Stack (OFS) for Intel® Agilex® FPGAs PCIe Attach. The AFU concept consists of separating out the FPGA design development process into two parts, the construction of the foundational FPGA Interface Manager (FIM), and the development of the Acceleration Function Unit (AFU), as shown in the diagram below.
 
 ![](./images/FIM_top_intro.png)
 
@@ -17,9 +17,9 @@ This diagram shows the separation of FPGA board interface development from the i
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
   
 
-Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® FPGAs PCIe Attach].  This guide covers logic in the AFU Main region.
+Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).  This guide covers logic in the AFU Main region.
 
-## 1.1. Document Organization
+### **1.1. Document Organization**
 
 
 This document is organized as follows:
@@ -38,6 +38,8 @@ This guide provides theory followed by tutorial steps to solidify your AFU devel
 This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all tutorial steps. Additionally, this guide and the tutorial steps can be used with other platforms.
 
 If you have worked with previous Intel Programmable Acceleration products, you will find out that OFS for Intel® Agilex® FPGAs PCIe Attach is similar. However, there are differences and you are advised to carefully read and follow the tutorial steps to fully understand the design tools and flow.
+
+#### **1.1.1. Glossary**
 
 | Term                      | Abbreviation | Description                                                  |
 | :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
@@ -73,7 +75,7 @@ If you have worked with previous Intel Programmable Acceleration products, you w
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
 
-## 1.2. Prerequisite
+### **1.2. Prerequisite**
 
 
 This guide assumes you have the following FPGA logic design-related knowledge and skills:
@@ -85,15 +87,15 @@ This guide assumes you have the following FPGA logic design-related knowledge an
 * Simulation of complex RTL using industry standard simulators (Synopsys® VCS® or Siemens® QuestaSim®).
 * Signal Tap Logic Analyzer tool in the Intel® Quartus® Prime Pro Edition software.
 
-You are strongly encouraged to review the [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® FPGAs PCIe Attach]
+You are strongly encouraged to review the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
 
-## 1.3. Acceleration Functional Unit (AFU) Development Flow
+### **1.3. Acceleration Functional Unit (AFU) Development Flow**
 
 
 The AFU development flow is shown below:
 ![](./images/AFU_Dev_Flow.png)
 
-### 1.3.1. Understanding Platform Capabilities
+#### **1.3.1. Understanding Platform Capabilities**
 
 
 The block diagram of the N6001 Board is shown below:
@@ -128,26 +130,26 @@ This release FIM provides the following features:
 - ARM HPS subsystem with embedded Linux
   - HPS Copy engine
 
-### 1.3.2. High Level Data Flow
+#### **1.3.2. High Level Data Flow**
 
 
 The OFS high level data flow is shown below:
 
 ![](./images/OFS_DataFlow.png)
 
-### 1.3.3. Considerations for PIM Usage
+#### **1.3.3. Considerations for PIM Usage**
 
 
-An early decision for your AFU development is determining if the PIM will be included in your design flow. The PIM is an abstraction layer encompassed of a collection of SystemVerilog interfaces and shims to enable partial AFU portability across hardware despite variations in hardware topology and native interfaces. The PIM adds a level of logic between an accelerator (an AFU) and the platform (the FIM). The use of the PIM is optional for AFU development.  Please see [Connecting an AFU to a Platform using PIM](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md) for details on using the PIM and its capabilities. Please see [PIM Tutorial](https://github.com/OFS/examples-afu/tree/main/tutorial) for a detailed tutorial on using the PIM. The learning steps in the tutorial can be run with the OFS for Agilex FIM package. The installation of the FIM package is described later in this guide.  
+An early decision for your AFU development is determining if the PIM will be included in your design flow. The PIM is an abstraction layer consisting of a collection of SystemVerilog interfaces and shims to enable partial AFU portability across hardware despite variations in hardware topology and native interfaces. The PIM adds a level of logic between an accelerator (an AFU) and the platform (the FIM). The use of the PIM is optional for AFU development.  Please see [Connecting an AFU to a Platform using PIM](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md) for details on using the PIM and its capabilities. Please see [PIM Tutorial](https://github.com/OFS/examples-afu/tree/main/tutorial) for a detailed tutorial on using the PIM. The learning steps in the tutorial can be run with the OFS for Agilex FIM package. The installation of the FIM package is described later in this guide.  
 
 If you choose not to use the PIM, please see [Non-PIM AFU Development](https://github.com/OFS/examples-afu/tree/main/tutorial) for instruction on using a traditional RTL design flow. Note, the example AFU provided in OFS does not include PIM.
 
-### 1.3.4. AFU Interfaces Included with Intel® FPGA SmartNIC N6001-PL
+#### **1.3.4. AFU Interfaces Included with Intel® FPGA SmartNIC N6001-PL**
 
 
 The figure below shows the interfaces available to the AFU in this architecture. It also shows the design hierarchy with module names from the fim (top.sv) to the PR region AFU (afu_main.sv).
 One of the main differences from the Stratix 10 PAC OFS architecture to this one is the presence of the static port gasket region (port_gasket.sv) that has components to facilitate the AFU and also consists of the PR region (afu_main.sv) via the PR slot. The Port Gasket contains all the PR specific modules and logic, e.g., PR slot reset/freeze control, user clock, remote STP etc. Architecturally, a Port Gasket can have multiple PR slots where user workload can be programmed into. However, only one PR slot is supported for OFS Release for Intel Agilex. Everything in the Port Gasket until the PR slot should be provided by the FIM developer. The task of the AFU developer is to add their desired application in the afu_main.sv module by stripping out unwanted logic and instantiating the target accelerator.
-As shown in the figure below, here are the interfaces connected to the AFU (highlighted in green) via ac_adp fim:
+As shown in the figure below, here are the interfaces connected to the AFU (highlighted in green) via the PCIe Attach FIM:
 
 1. AXI Streaming (AXI-S) interface to the Host via PCIe Gen4x16
 2. AXI Memory Mapped Channels (4) to the DDR4 EMIF interface
@@ -155,20 +157,20 @@ As shown in the figure below, here are the interfaces connected to the AFU (high
 
 ![](./images/N6000_AFU_IF.png)
 
-# 2. Set Up AFU Development Environment
+## **2. Set Up AFU Development Environment**
 
 
 This section covers:
 
 - Setup of the development environment.
 - Retrieving and installing OFS, OPAE SDK.
-- Building the base_x16 FIM
-- Generating a relocatable AFU build-tree or build-template from the base_x16 FIM.
-- Compiling the host_chan_mmio example AFU for the base_x16 FIM.
+- Building the PCIe Attach FIM
+- Generating a relocatable AFU build-tree or build-template from the PCIe Attach FIM.
+- Compiling the host_chan_mmio example AFU for the PCIe Attach FIM.
 
-Additionally, this section includes steps to demonstrate loading and running the host_chan_mmio example AFU in an N6001 equipped Linux server.
+Additionally, this section includes steps to demonstrate loading and running the host_chan_mmio example AFU in an Intel® FPGA SmartNIC N6001-PL equipped Linux server.
 
-## 2.1. Prepare AFU development environment
+### **2.1. Prepare AFU development environment**
 
 
 A typical development and hardware test environment consists of a development server or workstation with FPGA development tools installed and a separate server with the target OFS compatible FPGA PCIe card installed.  The typical usage and flow of data between these two servers is shown below:
@@ -177,9 +179,9 @@ A typical development and hardware test environment consists of a development se
 
 Note: both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel® FPGA SmartNIC N6001-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The Intel® FPGA SmartNIC N6001-PL must be fully installed following the [Getting Started Guide: Open FPGA Stack for Intel Agilex FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL]. If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
+This guide uses Intel® FPGA SmartNIC N6001-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The Intel® FPGA SmartNIC N6001-PL must be fully installed following the [Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
 
-## 2.2. Installation of Quartus and OFS
+### **2.2. Installation of Quartus and OFS**
 
 
 Building AFUs with OFS for Agilex requires the build machine to have at least 64 GB of RAM.  
@@ -188,13 +190,13 @@ The following is a summary of the steps to set up for AFU development:
 
 1. Install Quartus Prime Pro Version 23.1  for Linux with Agilex device support.
 2. Make sure support tools are installed and meet version requirements.
-3. Clone and install the `applications.fpga.ofs.fim-n6001` repository.
+3. Clone and install the `ofs-n6001` repository.
 4. Review the files provided in the repository.
 5. Install the required Quartus patches.
 6. Build a relocatable AFU PR-able build-tree. This will be the base FIM for your AFUs.
 
 
-> Note: For the Intel® FPGA SmartNIC N6001-PL platforms a relocatable AFU build-tree is not provided, so you will build it from the base_x16 FIM. The base_x16 FIM will then be loaded in your Intel® FPGA SmartNIC N6001-PL card to support your AFUs. If you are using different OFS compatible PCIe card, skip step 6 and follow the instructions provided by your supplier.
+> Note: For the Intel® FPGA SmartNIC N6001-PL platforms a relocatable AFU build-tree is not provided, so you will build it from the PCIe Attach FIM. The PCIe Attach FIM will then be loaded in your Intel® FPGA SmartNIC N6001-PL card to support your AFUs. If you are using different OFS compatible PCIe card, skip step 6 and follow the instructions provided by your supplier.
 
 1. Install Quartus Prime Pro Version 23.1 for Linux with Agilex device support. 
 
@@ -213,7 +215,7 @@ $ sudo ln -s /usr/lib64/libncurses.so.6 /usr/lib64/libncurses.so.5
 $ sudo ln -s /usr/bin/python3 /usr/bin/python
 ```
 
-- Download Quartus Prime Pro Version 23.1 from [Quartus Pro Prime Download].
+- Download Quartus Prime Pro Version 23.1 from [Quartus Pro Prime Download](https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html).
 
 - After running the Quartus Prime Pro installer, set the PATH environment variable to make the utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -256,9 +258,9 @@ $ sudo dnf install git-lfs
 $ git lfs install
 ```
 
-3. Clone the `applications.fpga.ofs.fim-n6001` repository.
+3. Clone the `ofs-n6001` repository.
 
-The OFS FIM source code is included in the public GitHub OFS repository. Create a new directory to use as a clean starting point to store the retrieved files.  The following is a short description of each repository, followed by the git commands for cloning.  The instructions section uses the HTTPS git method for cloning repositories.  Cloning the repo using the HTTPS method requires a personal access token.  Please see this blog post for information about obtaining a personal access token [Token authentication requirements for Git operations].
+The OFS FIM source code is included in the public GitHub OFS repository. Create a new directory to use as a clean starting point to store the retrieved files.  The following is a short description of each repository, followed by the git commands for cloning.  The instructions section uses the HTTPS git method for cloning repositories.
 
 - Navigate to the location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
@@ -268,15 +270,12 @@ $ cd ofs_fim_build_root
 $ export OFS_BUILD_ROOT=$PWD
 $ git clone --branch ofs-2023.1-1 --recurse-submodules https://github.com/OFS/ofs-n6001.git
     
-    Cloning into 'applications.fpga.ofs.fim-n6001' ...
-    Username for 'https://github.com': <<Enter your git hub username>>
-    Password for 'https://<<Your username>>': <<Enter your personal access token>>
-    remote: Enumerating objects:  ....
+    Cloning into 'ofs-n6001' ...
     ...
     ...
     Resolving deltas  ..., done.
 
-$ cd $OFS_BUILD_ROOT/applications.fpga.ofs.fim-n6001
+$ cd $OFS_BUILD_ROOT/ofs-n6001
 
 ```
 
@@ -331,8 +330,7 @@ The directories are arranged as shown below:
 │   │   │   ├── remote_stp
 │   │   │   └── st2mm
 │   │   └── fpga_family
-│   
-├── README.md
+│   ├── README.md
 ├── sim                    **Unit level simulation files**
 │   ├── bfm
 │   ├── common
@@ -365,12 +363,12 @@ The directories are arranged as shown below:
 ```
 
 
-## 2.3. Installation of OPAE SDK
+### **2.3. Installation of OPAE SDK**
 
 
-Follow the instructions in the Getting Started Guide: Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit] to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL.
+Follow the instructions in the Getting Started Guide: Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL.
 
-Working with the Intel® Intel® FPGA SmartNIC N6001-PL card requires **opae-2.5.0-3**. Follow the instructions in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL section [4.0 OPAE Software Development Kit]. However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
+Working with the Intel® Intel® FPGA SmartNIC N6001-PL card requires **opae-2.5.0-3**. Follow the instructions in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL section [4.0 OPAE Software Development Kit](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```sh
 $ git checkout tags/2.5.0-3 -b release/2.5.0
@@ -379,10 +377,10 @@ $ git checkout tags/2.5.0-3 -b release/2.5.0
 > Note: The tutorial steps provided in the next sections assume the OPAE SDK is installed in default system locations, under the directory, ```/usr```. In most system configurations, this will allow the OS and tools to automatically locate the OPAE binaries, scripts, libraries and include files required for the compilation and simulation of the FIM and AFUs.
 
 
-## 2.4. Download the Basic Building Blocks repositories
+### **2.4. Download the Basic Building Blocks repositories**
 
 
-The ```ofs-platform-afu-bbb``` repository contains the PIM files as well as example PIM-based AFUs that can be used for testing and demonstration purposes. Similarly, the platform-independent BBB repository, ```intel-fpga-bbb```, contains infrastructure shims, PIM-based AFU sample designs, and tutorials for further testing OFS. This guide will use the ```host_chan_mmio``` AFU example in the ofs-platform-afu-bbb repository and the ```hello_world``` sample accompanying the intel-fpga-bbb repository to demonstrate how to synthesize, load, simulate, and test a PIM-based PIM-based AFU using the Intel® FPGA SmartNIC N6001-PL card with the base_x16 FIM.
+The ```ofs-platform-afu-bbb``` repository contains the PIM files as well as example PIM-based AFUs that can be used for testing and demonstration purposes. Similarly, the platform-independent BBB repository, ```intel-fpga-bbb```, contains infrastructure shims, PIM-based AFU sample designs, and tutorials for further testing OFS. This guide will use the ```host_chan_mmio``` AFU example in the ofs-platform-afu-bbb repository and the ```hello_world``` sample accompanying the intel-fpga-bbb repository to demonstrate how to synthesize, load, simulate, and test a PIM-based AFU using the Intel® FPGA SmartNIC N6001-PL card with the PCIe Attach FIM.
 
 Execute the next commands to clone the BBB repositories.
 
@@ -407,14 +405,14 @@ $ ls
 AUTHORS  BBB_cci_gemm  BBB_cci_mpf  BBB_ccip_async  BBB_ccip_mux  BBB_mpf_vtp  cmake  CMakeLists.txt  CONTRIBUTING.md  COPYING  drivers  platform-ifc-mgr-compat  README.md  samples
 ```
 
-The documentation in the [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb)(https://github.com/OFS/ofs-platform-afu-bbb.git) and [intel-fpga-bbb](https://github.com/OPAE/intel-fpga-bbb.git) repositories further address
+The documentation in the [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb) and [intel-fpga-bbb](https://github.com/OPAE/intel-fpga-bbb.git) repositories further address
   - The PIM concept.
   - The structure of the PIM-based AFU examples.
   - How to generate a release and configure the PIM.
   - How to connect an AFU to an FIM.
 
 
-## 2.5. Compiling the OFS FIM for the Intel® FPGA SmartNIC N6001-PL
+### **2.5. Compiling the OFS FIM for the Intel® FPGA SmartNIC N6001-PL**
 
 
 Before synthesizing an AFU, one must build the FIM that will support the AFU by facilitating the infrastructure to access the FPGA, board resources, and enabling communication with the host server. To synthesize an AFUs for this FIM a relocatable PR build-tree or build-template should be generated out of the FIM.
@@ -428,18 +426,18 @@ The build scripts included with OFS are verified to run in a bash shell. Other s
 
 The following sections describe how to set up the environment and build the provided FIM with a relocatable build-tree supporting PR. You will use this relocatable PR build-tree for all example AFU simulation and compilation steps in this guide.
 
-> Note: For instructions to compile FIMs available for the Intel® FPGA SmartNIC N6001-PL FPGA SmartNIC Platform SKU1, refer to [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® FPGAs PCIe Attach]. 
+> Note: For instructions to compile FIMs available for the Intel® FPGA SmartNIC N6001-PL, refer to [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/). 
 
-### 2.5.1. Setting Up the Required Environment Variables to build the FIM
+#### **2.5.1. Setting Up the Required Environment Variables to build the FIM**
 
 
 Set the required environment variables as shown below. These environment variables must be set prior to simulation or compilation tasks. Please, create a simple script to set these variables and save time going forward.
 
 ```sh
-$ cd $OFS_BUILD_ROOT/applications.fpga.ofs.fim-n6001
+$ cd $OFS_BUILD_ROOT/ofs-n6001
 $ export OFS_ROOTDIR=$PWD
 
-# Note, OFS_ROOTDIR is the directory where you cloned the repo, e.g. /home/MyProject/applications.fpga.ofs.fim-n6001 *
+# Note, OFS_ROOTDIR is the directory where you cloned the repo, e.g. /home/MyProject/ofs-n6001 *
 
 # Quartus Tools
 # Note, QUARTUS_HOME is your Quartus installation directory, e.g. $QUARTUS_HOME/bin contains Quartus executable.
@@ -473,7 +471,7 @@ $ export OFS_PLATFORM_AFU_BBB=$OFS_BUILD_ROOT/ofs-platform-afu-bbb
 $ export FPGA_BBB_CCI_SRC=$OFS_BUILD_ROOT/intel-fpga-bbb  
 
 # OPAE_PLATFORM_ROOT points to a release tree configured with the Platform Interface Manager (PIM).  
-$ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_adp_base_x16_pr/pr_build_template
+$ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_pr/pr_build_template
 
 # OPAE and MPF libraries must either be on the default linker search paths or on both LIBRARY_PATH and LD_LIBRARY_PATH.  
 $ export OPAE_LOC=/usr
@@ -485,63 +483,55 @@ $ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-3.el8.x86_64/tests/framework
 
 ```
 
-### 2.5.2 Compiling the Base_x16 FIM
+#### **2.5.2 Compiling the PCIe Attach FIM**
 
 
 The usage of the compile build script is shown below:
 
 ```sh
-syn/build_top.sh [-p] target_configuration work_dir 
+Usage: ./build_top.sh [-k] [-p] [--stage=<action>] <build target> [<work dir name>]
 
-    * target_configuration - Specifies the project, FIM and board for this script run.  
-              Target Configuration is in the format of <OFS_PROJECT>/<OFS_FIM>/<OFS_BOARD>.  
-              
-              For example: n6001/base_x16/adp:A1
-              
-        * <OFS_PROJECT> is the high level project.  For this release, n6001 is supported by the provided files.
-        * <OFS_FIM> the name of the FIM to built.  This name corresponds to FIM directory name containing source 
-              files.  For this release, base_x16 is supported by the provided files.
-        * <OFS_BOARD> is the target board for the build.  For this release, adp:A1 is supported by the provided
-              files.
-  
-    * work_dir - Work Directory for this build in the form a directory name. 
-                   It is created in the <local repo directory>/applications.fpga.ofs.fim-n6001/<work_dir> 
-          - NOTE: The directory name must start with "work".  If the work directory exists,
-                  then the script stops and asks if you want to overwrite the directory.
-                  
-                  - e.g. 
-                  
-                    syn/build_top.sh n6001/base_x16/adp:A1 work_adp_base_x16
-                
-                A work directory as a name will be created in <local repo directory>/applications.fpga.ofs.fim-n6001/work_adp_base_x16
-                
-                The omission of <work_dir> results in a default work directory 
-                    (<local repo directory>/applications.fpga.ofs.fim-n6001/work)
+  Build a FIM instance specified by <build target>. The target names
+  an FPGA architecture, board and configuration.
 
-        - compile reports and artifacts (.rpt, .sof, etc) are stored in 
-            <work_dir>/syn/<OFS_PROJECT>/<OFS_FIM>/<OFS_BOARD>/syn_top/output_files
-  
-        - log file created in applications.fpga.ofs.fim-n6001 directory
-          
-    * [-p]  Optional switch for creation of a relocatable PR build tree supporting the creation of a PR-able 
-            AFU workload.  The "-p" switch invokes generate_pr_release.sh at the end of the FIM build and 
-            writes the PR build tree to the top of the work directory.  More information on this option is
-            provided below. 
+  The FIM is built in <work dir name>. If not specified, the target is
+  ${OFS_ROOTDIR}/work.
+
+  The -k option preserves and rebuilds within an existing work tree
+  instead of overwriting it.
+
+  When -p is set and the FIM supports partial reconfiguration, a PR
+  template tree is generated at the end of the FIM build. The PR template
+  tree is located in the top of the work directory but is relocatable
+  and uses only relative paths. See syn/common/scripts/generate_pr_release.sh
+  for details.
+
+  The --stage option controls which portion of the OFS build is run:
+    all     - Run all build stages (default).
+    setup   - Initialize a project in the work directory.
+    compile - Run the Quartus compilation flow on a project that was already
+              initialized with "setup".
+    finish  - Complete OFS post-compilation tasks, such as generating flash
+              images and, if -p is set, generating a release.
+
+  The -e option runs only Quartus analysis and elaboration. It completes the
+  "setup" stage, passes "-end synthesis" to the Quartus compilation flow
+  and exits without running the "finish" stage.
 ```
 
-The next example command, builds the FIM base_x16 for the Intel® FPGA SmartNIC N6001-PL and generates the relocatable PR build-tree in ```$OFS_ROOTDIR/work_adp_base_x16_pr/pr_build_template```.
+The next example command, builds the PCIe Attach FIM for the Intel® FPGA SmartNIC N6001-PL and generates the relocatable PR build-tree in ```$OFS_ROOTDIR/work_pr/pr_build_template```.
 
 ```sh
 # Build the provided base example design:
 $ cd $OFS_ROOTDIR
     
-$ ofs-common/scripts/common/syn/build_top.sh -p n6001/base_x16/adp work_adp_base_x16_pr
+$ ofs-common/scripts/common/syn/build_top.sh -p n6001 work_pr
 
 
   ... build takes ~5 hours to complete
 
-Compile work directory:     <$OFS_ROOTDIR>/work_adp_base_x16_pr/syn/syn_top
-Compile artifact directory: <$OFS_ROOTDIR>/work_adp_base_x16_pr/syn/syn_top/output_files
+Compile work directory:     <$OFS_ROOTDIR>/work_pr/syn/syn_top
+Compile artifact directory: <$OFS_ROOTDIR>/work_pr/syn/syn_top/output_files
 
 ***********************************
 ***
@@ -571,7 +561,7 @@ The following table provides a detailed description of the generated *.bin outpu
 | ofs_top_page2_unsigned_user2.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User2 Image. This file is used to load the FPGA flash User2 Image using the fpgasupdate tool.|
 | ofs_top_page2_user2.bin |  This is an input file to PACSign to generate **ofs_top_page2_unsigned_user2.bin**. This file is created by taking the ofs_top_[hps].bin file and assigning the User2 or appending factory block information. |
 
-### 2.5.3. Compiling the FIM in preparation for designing your AFU
+#### **2.5.3. Compiling the FIM in preparation for designing your AFU**
 
 
   To test the functionality and capabilities of OFS, the default FIMs integrate the following traffic generators: hssi, memory, memory-traffic-generator, and loopback.
@@ -582,7 +572,7 @@ The following table provides a detailed description of the generated *.bin outpu
 
 ```sh
 $ cd $OFS_ROOTDIR
-$ ofs-common/scripts/common/syn/build_top.sh -p n6001/base_x16/adp:null_he,null_he_hssi,null_he_mem,null_he_mem_tg work_x16_adp_null_he
+$ ofs-common/scripts/common/syn/build_top.sh -p n6001:null_he,null_he_hssi,null_he_mem,null_he_mem_tg work_null_he
 ```
 
   A few important points to keep in mind.
@@ -594,18 +584,18 @@ $ ofs-common/scripts/common/syn/build_top.sh -p n6001/base_x16/adp:null_he,null_
   * Finer grain control is provided since the user may just turn off the exercisers in Static region to save area. 
 
 
-### 2.5.4. Load the FIM into the Flash of the Intel® FPGA SmartNIC N6001-PL
+#### **2.5.4. Load the FIM into the Flash of the Intel® FPGA SmartNIC N6001-PL**
 
 
-In this step, you will load the previously compiled base_x16 FIM binary into the flash of the Intel® FPGA SmartNIC N6001-PL board. AFUs developed in this guide using the base_x16 FIM and the generated build-tree will be compatible with the image loaded on the Intel® FPGA SmartNIC N6001-PL board.
+In this step, you will load the previously compiled PCIe Attach FIM binary into the flash of the Intel® FPGA SmartNIC N6001-PL board. AFUs developed in this guide using the PCIe Attach FIM and the generated build-tree will be compatible with the image loaded on the Intel® FPGA SmartNIC N6001-PL board.
 
 ```sh
-$ cd $OFS_ROOTDIR/work_adp_base_x16_pr/syn/syn_top/output_files
+$ cd $OFS_ROOTDIR/work_pr/syn/syn_top/output_files
 $ sudo fpgasupdate ofs_top_page1_unsigned_user1.bin <N6001 SKU2 PCIe b:d.f>
 $ sudo fpgasupdate ofs_top_page2_unsigned_user2.bin <N6001 SKU2 PCIe b:d.f>
 $ sudo rsu fpga --page=user1 <N6001 SKU2 PCIe b:d.f>
 ```
-# 3. Compiling an AFU
+## **3. Compiling an AFU**
 
 In this section, you will use the relocatable PR build-tree created in the previous steps from the FIM to compile an example PIM-based AFU. This section will be developed around the ```host_chan_mmio``` AFU example to showcase the synthesis of a PIM-based AFU.
 
@@ -641,15 +631,15 @@ host_chan_mmio
 
 This example AFU contains examples using both Avalon and AXI interfaces. The hw directory contains the RTL to implement the hardware functionality using Avalon and AXI interfaces. However, this guide will use the AXI version of the ```host_chan_mmio``` AFU to go through the compilation steps. The sw directory of the AFU contains the source code of the host application that communicates with the actual AFU hardware.
 
-The build steps presented below demonstrate the ease in building and running an actual AFU on the Intel® FPGA SmartNIC N6001-PL board. To successfully execute the instructions in this section, you must have set up your development environment and compiled the intel OFS FIM base_x16 as instructed in section 2 of this document.
+The build steps presented below demonstrate the ease in building and running an actual AFU on the Intel® FPGA SmartNIC N6001-PL board. To successfully execute the instructions in this section, you must have set up your development environment and compiled the PCIe Attach FIM as instructed in section 2 of this document.
 
-Additionally, you need to set the ```OPAE_PLATFORM_ROOT``` environment variable to the path where the PR build-tree was generated during the base_x16 FIM compilation through the [-p] switch.
+Additionally, you need to set the ```OPAE_PLATFORM_ROOT``` environment variable to the path where the PR build-tree was generated during the PCIe Attach FIM compilation through the [-p] switch.
 
 ```sh
-$ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_adp_base_x16_pr/pr_build_template
+$ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_pr/pr_build_template
 ```
 
-## 3.1. Create the AFU Synthesis Environment
+### **3.1. Create the AFU Synthesis Environment**
 
 
 Here, you will create the synthesis environment to build the ```host_chan_mmio``` example. For this task, the PIM flow provides the script ```afu_synth_setup```. See how to use it below.
@@ -680,39 +670,27 @@ optional arguments:
   -f, --force           Overwrite target directory if it exists.
 ```
 
-Execute ```afu_synth_setup``` as follows to create the synthesis environment for a ```host_chan_mmio``` AFU that fits the base_x16 FIM previously constructed.
+Execute ```afu_synth_setup``` as follows to create the synthesis environment for a ```host_chan_mmio``` AFU that fits the PCIe Attach FIM previously constructed.
 
 ```sh
 $ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio
 
-$ mkdir -p $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16
-$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16
+$ mkdir -p $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001
+$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001
 $ afu_synth_setup -s $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/hw/rtl/test_mmio_axi1.txt hardware
 
 
-Now, move into the synthesis environment ```hardware``` directory just created. From there, execute the ```afu_synth``` command. The successful completion of the command will produce the ```host_chan_mmio.gbs``` file under the synthesis environment directory, ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware```.
+Now, move into the synthesis environment ```hardware``` directory just created. From there, execute the ```afu_synth``` command. The successful completion of the command will produce the ```host_chan_mmio.gbs``` file under the synthesis environment directory, ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware```.
 
 
 
 $ cd hardware
 $ $OPAE_PLATFORM_ROOT/bin/afu_synth
-
-
-Loading platform database: /home/<user_area>/ofs-X.X.X/applications.fpga.ofs.fim-n6001/work_adp_base_x16_pr/pr_build_template/hw/lib/platform/platform_db/ofs_agilex_adp.json
-Loading platform-params database: /usr/share/opae/platform/platform_db/platform_defaults.json
-Loading AFU database: /usr/share/opae/platform/afu_top_ifc_db/ofs_plat_afu.json
-Writing platform/platform_afu_top_config.vh
-Writing platform/platform_if_addenda.qsf
-Writing ../hw/afu_json_info.vh
-Copying build from /home/<user_area>/ofs-X.X.X/applications.fpga.ofs.fim-n6001/work_adp_base_x16_pr/pr_build_template/hw/lib/build...
-Configuring Quartus build directory: hardware/build
-Restoring blue bitstream lib files
-
-
+Compiling ofs_top ofs_pr_afu
+Generating host_chan_mmio.gbs
+==================================
 ...
 ...
-Wrote host_chan_mmio.gbs
-
 ===========================================================================
  PR AFU compilation complete
  AFU gbs file is 'host_chan_mmio.gbs'
@@ -720,9 +698,9 @@ Wrote host_chan_mmio.gbs
 ===========================================================================
 ```
 
-The previous output indicates the successful compilation of the AFU and the compliance with the timing requirements. Analyze the reports generated in case the design does not meet timing. The timing reports are stored in the directory, ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware/build/syn/syn_top/output_files/timing_report```.
+The previous output indicates the successful compilation of the AFU and the compliance with the timing requirements. Analyze the reports generated in case the design does not meet timing. The timing reports are stored in the directory, ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware/build/syn/syn_top/output_files/timing_report```.
 
-## 3.2. Loading and Running **host_chan_mmio** example AFU
+### **3.2. Loading and Running host_chan_mmio example AFU**
 
 
 Once the compilation finishes successfully, load the new ```host_chan_mmio.gbs``` bitstream file into the partial reconfiguration region of the target Intel® FPGA SmartNIC N6001-PL board. Keep in mind, that the loaded image is dynamic - this image is not stored in flash and if the card is power cycled, then the PR region is re-loaded with the default AFU.
@@ -730,7 +708,7 @@ Once the compilation finishes successfully, load the new ```host_chan_mmio.gbs``
 To load the image, perform the following steps:
 
 ```sh
- $ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware
+ $ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware
  $ sudo fpgasupdate host_chan_mmio.gbs <N6001 SKU2 PCIe b:d.f>
 [sudo] password for <<Your username>>: 
 [2022-04-15 20:22:18.85] [WARNING ] Update starting. Please do not interrupt.
@@ -742,7 +720,7 @@ Partial Reconfiguration OK
 Set up your board to work with the newly loaded AFU.
 
 ```sh
-# For the following example, the N6001 SKU2 PCIe b:d.f is assumed to be b1:00.0,
+# For the following example, the N6001 SKU2 PCIe b:d.f is assumed to be B1:00.0,
 # however this may be different in your system
 
 # Create the Virtual Functions (VFs):
@@ -753,7 +731,7 @@ $ sudo pci_device b1:00.0 vf 3
  b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
  b1:00.1 Processing accelerators: Intel Corporation Device bcce
  b1:00.2 Processing accelerators: Intel Corporation Device bcce
- b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device
+ b1:00.3 Processing accelerators: Intel Corporation Device bcce
  b1:00.4 Processing accelerators: Intel Corporation Device bcce
  b1:00.5 Processing accelerators: Intel Corporation Device bccf
  b1:00.6 Processing accelerators: Intel Corporation Device bccf
@@ -911,7 +889,7 @@ AFU ID:  76d7ae9cf66b461f 816a5428bcebdbc5
 AFU MMIO interface: AXI Lite
 AFU MMIO read bus width: 64 bits
 512 bit MMIO write supported: yes
-AFU pClk frequency: 400 MHz
+AFU pClk frequency: 470 MHz
 
 Testing 32 bit MMIO reads:
   PASS - 4 tests
@@ -926,10 +904,10 @@ Testing 512 bit MMIO writes:
   PASS
 ```
 
-## 3.3. Loading and running the **hello_world** example AFU
+### **3.3. Loading and running the hello_world example AFU**
 
 
-The platform-independent Examples AFU repository, https://github.com/OFS/examples-afu.git, also provides some interesting example AFUs. In this section, you will compile and execute the PIM based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
+The platform-independent [examples AFU](https://github.com/OFS/examples-afu.git) repository also provides some interesting example AFUs. In this section, you will compile and execute the PIM based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
 
 The ```hello_world``` example AFU consists of the following files. 
 
@@ -1004,7 +982,7 @@ $ export LIBRARY_PATH=$OPAE_LOC/lib:$LIBRARY_PATH
 $ export LD_LIBRARY_PATH=$OPAE_LOC/lib64:$LD_LIBRARY_PATH
 
 # OPAE_PLATFORM_ROOT points to a release tree that has been configured with the Platform Interface Manager (PIM).  
-$ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_adp_base_x16_pr/pr_build_template
+$ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_pr/pr_build_template
 ```
 
 4. Compile the ```hello_word``` sample AFU. 
@@ -1013,13 +991,12 @@ $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world
 $ afu_synth_setup --source hw/rtl/axi/sources.txt build
 $ cd build
 $ ${OPAE_PLATFORM_ROOT}/bin/afu_synth
-
+Compiling ofs_top ofs_pr_afu
+Generating hello_world.gbs
+==================================
 .
 .
 .
-Info (19538): Reading SDC files took 00:00:06 cumulatively in this process.
-Wrote hello_world.gbs
-
 ===========================================================================
  PR AFU compilation complete
  AFU gbs file is 'hello_world.gbs'
@@ -1028,7 +1005,7 @@ Wrote hello_world.gbs
 
 ```
 
-5. To test the AFU in actual hardware, load the ```hello_world.gbs``` to the Intel® FPGA SmartNIC N6001-PL card. For this step to be successful, the base_x16 FIM must have already been loaded to the Intel® FPGA SmartNIC N6001-PL card following the steps described in Section 2 of this document.
+5. To test the AFU in actual hardware, load the ```hello_world.gbs``` to the Intel® FPGA SmartNIC N6001-PL card. For this step to be successful, the PCIe Attach FIM must have already been loaded to the Intel® FPGA SmartNIC N6001-PL card following the steps described in Section 2 of this document.
 
 ```sh
 $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/build
@@ -1043,7 +1020,7 @@ Partial Reconfiguration OK
 Set up your Intel® FPGA SmartNIC N6001-PL board to work with the newly loaded ```hello_world.gbs``` file.
 
 ```sh
- # For the following example, the N6001 SKU2 PCIe b:d.f is assumed to be b1:00.0,
+ # For the following example, the Intel® FPGA SmartNIC N6001-PL PCIe b:d.f is assumed to be B1:00.0,
  # however this may be different in your system
 
  # Create the Virtual Functions (VFs):
@@ -1120,7 +1097,7 @@ Set up your Intel® FPGA SmartNIC N6001-PL board to work with the newly loaded `
 $ fpgainfo port
 
 //****** PORT ******//
-Object Id                        : 0xEC00001
+Object Id                        : 0xEE00000
 PCIe s:b:d.f                     : 0000:B1:00.0
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
@@ -1128,16 +1105,8 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 //****** PORT ******//
-Object Id                        : 0xEC00000
-PCIe s:b:d.f                     : 0000:b1:00.0
-Vendor Id                        : 0x8086
-Device Id                        : 0xBCCE
-SubVendor Id                     : 0x8086
-SubDevice Id                     : 0x1771
-Socket Id                        : 0x00
-//****** PORT ******//
 Object Id                        : 0xE098000000000000
-PCIe s:b:d.f                     : 0000:b1:00.7
+PCIe s:b:d.f                     : 0000:B1:00.7
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCF
 SubVendor Id                     : 0x8086
@@ -1146,7 +1115,7 @@ Socket Id                        : 0x01
 Accelerator GUID                 : d15ab1ed-0000-0000-0210-000000000000
 //****** PORT ******//
 Object Id                        : 0xC098000000000000
-PCIe s:b:d.f                     : 0000:b1:00.6
+PCIe s:b:d.f                     : 0000:B1:00.6
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCF
 SubVendor Id                     : 0x8086
@@ -1155,7 +1124,7 @@ Socket Id                        : 0x01
 Accelerator GUID                 : d15ab1ed-0000-0000-0110-000000000000
 //****** PORT ******//
 Object Id                        : 0xA098000000000000
-PCIe s:b:d.f                     : 0000:b1:00.5
+PCIe s:b:d.f                     : 0000:B1:00.5
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCF
 SubVendor Id                     : 0x8086
@@ -1164,7 +1133,7 @@ Socket Id                        : 0x01
 Accelerator GUID                 : c6aa954a-9b91-4a37-abc1-1d9f0709dcc3
 //****** PORT ******//
 Object Id                        : 0x8098000000000000
-PCIe s:b:d.f                     : 0000:b1:00.4
+PCIe s:b:d.f                     : 0000:B1:00.4
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
@@ -1173,7 +1142,7 @@ Socket Id                        : 0x01
 Accelerator GUID                 : 44bfc10d-b42a-44e5-bd42-57dc93ea7f91
 //****** PORT ******//
 Object Id                        : 0x6098000000000000
-PCIe s:b:d.f                     : 0000:b1:00.3
+PCIe s:b:d.f                     : 0000:B1:00.3
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
@@ -1182,7 +1151,7 @@ Socket Id                        : 0x01
 Accelerator GUID                 : 1aae155c-acc5-4210-b9ab-efbd90b970c4
 //****** PORT ******//
 Object Id                        : 0x4098000000000000
-PCIe s:b:d.f                     : 0000:b1:00.2
+PCIe s:b:d.f                     : 0000:B1:00.2
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
@@ -1191,7 +1160,7 @@ Socket Id                        : 0x01
 Accelerator GUID                 : 56e203e9-864f-49a7-b94b-12284c31e02b
 //****** PORT ******//
 Object Id                        : 0x2098000000000000
-PCIe s:b:d.f                     : 0000:b1:00.1
+PCIe s:b:d.f                     : 0000:B1:00.1
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
@@ -1214,7 +1183,7 @@ $ ./hello_world
   Hello world!
 ```
 
-## 3.4. Modify the AFU user clocks frequency
+### **3.4. Modify the AFU user clocks frequency**
 
 
 An OPAE compliant AFU specifies the frequency of the ```uclk_usr``` and ``` uclk_usr_div2 ``` clocks through the JSON file for AFU configuration located under the ```<afu_example>/hw/rtl``` directory of an AFU design. For instance, the AFU configuration file of the ```host_chan_mmio``` example is ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/hw/rtl/host_chan_mmio.json```.
@@ -1228,15 +1197,15 @@ These ```key:value``` tuples are used to configure the PLL of the target platfor
 
 Setting the value field to a float number (e.g., 315.0 to specify 315 MHz) drives the AFU generation process to close timing within the bounds set by the low and high values and sets the AFU's JSON metadata to specify the user clock PLL  frequency values.
 
-The following example shows the JSON file of the ```host_chan_mmio``` to set the AFU uClk to 300 MHz and uClk_div2 to 150 MHz.
+The following example shows the JSON file of the ```host_chan_mmio``` to set the AFU uClk to 500 MHz and uClk_div2 to 250 MHz.
 
 ```
 {
    "version": 1,
    "afu-image": {
       "power": 0,
-      "clock-frequency-high": 300,
-      "clock-frequency-low": 150,
+      "clock-frequency-high": 500,
+      "clock-frequency-low": 250,
       "afu-top-interface":
          {
             "class": "ofs_plat_afu"
@@ -1257,13 +1226,13 @@ The following example shows the JSON file of the ```host_chan_mmio``` to set the
 Save the changes to ```host_chan_mmio.json``` file, then execute the ```afu_synth_setup``` script to create a new copy of the AFU files with the modified user clock settigns.
 
 ```sh
-$ mkdir -p $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16
-$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16
+$ mkdir -p $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001
+$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001
 $ afu_synth_setup -s $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/hw/rtl/test_mmio_axi1.txt build_n6001_afu_clks
 
-Copying build from /home/<user_area>/ofs-X.X.X/applications.fpga.ofs.fim-n6001/work_adp_base_x16_pr/pr_build_template/hw/lib/build...
+Copying build from /home/<user_area>/ofs-n6001/work_pr/pr_build_template/hw/lib/build...
 Configuring Quartus build directory: build_n6001_afu_clks/build
-Loading platform database: /home/<user_area>/ofs-X.X.X/applications.fpga.ofs.fim-n6001/work_adp_base_x16_pr/pr_build_template/hw/lib/platform/platform_db/ofs_agilex_adp.json
+Loading platform database: /home/<user_area>/ofs-n6001/work_pr/pr_build_template/hw/lib/platform/platform_db/ofs_agilex_adp.json
 Loading platform-params database: /usr/share/opae/platform/platform_db/platform_defaults.json
 Loading AFU database: /usr/share/opae/platform/afu_top_ifc_db/ofs_plat_afu.json
 Writing platform/platform_afu_top_config.vh
@@ -1274,7 +1243,7 @@ Writing ../hw/afu_json_info.vh
 Compile the ```host_chan_mmio``` AFU with the new frequency values.
 
 ```sh
-$ cd hardware
+$ cd build_n6001_afu_clks
 $ $OPAE_PLATFORM_ROOT/bin/afu_synth
 ```
 
@@ -1309,7 +1278,7 @@ Wrote host_chan_mmio.gbs
 The previous output indicates the location of the timing reports for the AFU designer to identify the failing paths and perform the necessary design changes. Next, is a listing of the timing report files from a ```host_chan_mmio``` AFU that fails to meet timing after modifying the user clock frequency values.
 
 ```sh
-$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware
+$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/build_n6001_afu_clks
 $ ls build/syn/syn_top/output_files/timing_report
 
 clocks.rpt  clocks.sta.fail.summary  clocks.sta.pass.summary
@@ -1325,7 +1294,7 @@ clocks.rpt  clocks.sta.fail.summary  clocks.sta.pass.summary
 
 
 
-# 4. Simulating an AFU using ASE
+## **4. Simulating an AFU using ASE**
 
 
 The Application Simulation Environment (ASE) is a hardware/software co-simulation environment for your AFU. See diagram below illustrating ASE operation:
@@ -1349,7 +1318,7 @@ The remainder of this section is a tutorial providing the steps on how to run AS
 
 
 
-## 4.1. Set Up Steps to Run ASE
+### **4.1. Set Up Steps to Run ASE**
 
 
 In this section you will set up your server to support ASE by independently downloading and installing OPAE SDK and ASE. Then, set up the required environment variables.
@@ -1358,18 +1327,18 @@ In this section you will set up your server to support ASE by independently down
 
 
 
-### 4.1.1. Install OPAE SDK
+#### **4.1.1. Install OPAE SDK**
 
 
-Follow the instructions documented in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit] to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL card.
+Follow the instructions documented in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL card.
 
-The N6001 SKU2 card requires **2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit]. However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
+The N6001 SKU2 card requires **2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```sh
 $ git checkout tags/2.5.0-3 -b release/2.5.0
 ```
 
-### 4.1.2 Install ASE Tools
+#### **4.1.2 Install ASE Tools**
 
 
 ASE is an RTL simulator for OPAE-based AFUs. The simulator emulates both the OPAE SDK software user space API and the AFU RTL interface. The majority of the FIM as well as devices such as PCIe and local memory are emulated with simple functional models.
@@ -1385,12 +1354,12 @@ ASE must be installed separatedly from the OPAE SDK. However, the recommendation
 $ cd $OFS_BUILD_ROOT
 $ git clone https://github.com/OFS/opae-sim.git
 $ cd opae-sim  
-$ git checkout tags/2.5.0-3 -b release/2.5.0
+$ git checkout tags/2.5.0-2 -b release/2.5.0
 ```
 2. Building ASE requires the include file ```mock/opae_std.h```. If the OPAE SDK was installed under the default system directories, the **C_INCLUDE_PATH** variable must be set as follows. 
 
 ```sh
-$ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-3.el8.x86_64/tests/framework/
+$ export C_INCLUDE_PATH=/usr/src/debug/opae-2.5.0-3.el8.x86_64/tests/framework
 ```
 
 3. Create a build directory and build ASE to be installed under the default system directories along with OPAE SDK.
@@ -1418,7 +1387,7 @@ $ sudo make install
 
 
 
-### 4.1.3. Setup Required ASE Environment Variables
+#### **4.1.3. Setup Required ASE Environment Variables**
 
 
 
@@ -1435,7 +1404,7 @@ $ cd /usr/lib64
 $ export LD_LIBRARY_PATH=$PWD
 $ cd $OFS_BUILD_ROOT/ofs-platform-afu-bbb
 $ export OFS_PLATFORM_AFU_BBB=$PWD
-$ cd $OFS_ROOTDIR/work_adp_base_x16_pr/pr_build_template
+$ cd $OFS_ROOTDIR/work_pr/pr_build_template
 $ export OPAE_PLATFORM_ROOT=$PWD
 
   ## For VCS, set the following:
@@ -1452,7 +1421,7 @@ $ export PATH=$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$PATH
 
 
 
-## 4.2. Simulating the **host_chan_mmio** AFU
+### **4.2. Simulating the host_chan_mmio AFU**
 
 
 The ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio``` is a simple example demonstrating both hardware and software access to an AFU. The ```host_chan_mmio``` example AFU consists of the following files:
@@ -1493,7 +1462,7 @@ ASE uses client-server application architecture to deliver hardware/software co-
 
 
 
-### 4.2.1 Set Up and Run the HW Simulation Process
+#### **4.2.1 Set Up and Run the HW Simulation Process**
 
 
 You will run the ```afu_sim_setup``` script to create the scripts for running the ASE environment.  The ```afu_sim_setup``` script has the following usage:
@@ -1531,11 +1500,11 @@ optional arguments:
                         switch sets ENABLE_CL_VIEW in ase.cfg.
 ```
 
-Run ```afu_sim_setup``` to create the ASE simulation environment for the ```host_chan_mmio``` example AFU. The ```'-t VCS'``` option indicates to prepare the ASE simulation environment for VCS®.
+Run ```afu_sim_setup``` to create the ASE simulation environment for the ```host_chan_mmio``` example AFU. The ```'-t VCS'``` option indicates to prepare the ASE simulation environment for Synopsys® VCS®.
 
 ```
-$ mkdir -p $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16
-$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16
+$ mkdir -p $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001
+$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001
 
 $ afu_sim_setup -s $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/hw/rtl/test_mmio_axi1.txt -t VCS simulation
 
@@ -1548,9 +1517,9 @@ Copying ASE from /opae-sdk/install-opae-sdk/share/opae/ase...
 #################################################################
 
 Tool Brand: VCS
-Loading platform database: /applications.fpga.ofs.fim-n6001/work_adp_base_x16_pr/build_tree/hw/lib/platform/platform_db/ofs_agilex_adp.json
-Loading platform-params database: /install-opae-sdk/share/opae/platform/platform_db/platform_defaults.json
-Loading AFU database: /install-opae-sdk/share/opae/platform/afu_top_ifc_db/ofs_plat_afu.json
+Loading platform database: /ofs-n6001/work_pr/build_tree/hw/lib/platform/platform_db/ofs_agilex_adp.json
+Loading platform-params database: /usr/share/opae/platform/platform_db/platform_defaults.json
+Loading AFU database: /usr/share/opae/platform/afu_top_ifc_db/ofs_plat_afu.json
 Writing rtl/platform_afu_top_config.vh
 Writing rtl/platform_if_addenda.txt
 Writing rtl/platform_if_includes.txt
@@ -1585,7 +1554,7 @@ log_pf_vf_mux_B.tsv
 
 
 
-### 4.2.2 Set Up and Run the SW Process
+#### **4.2.2 Set Up and Run the SW Process**
 
 
 Open an additional shell to build and run the host application that communicates with the actual AFU hardware. Set up the same environment variable you have set up in the shell you have been working on until this point. 
@@ -1616,6 +1585,28 @@ Now, launch the host application to exercise the AFU hardware running on the sim
 
 ```sh
 $ with_ase ./host_chan_mmio
+  [APP]  Initializing simulation session ...
+Running in ASE mode
+AFU ID:  76d7ae9cf66b461f 816a5428bcebdbc5
+AFU MMIO interface: AXI Lite
+AFU MMIO read bus width: 64 bits
+512 bit MMIO write supported: yes
+AFU pClk frequency: 470 MHz
+
+Testing 32 bit MMIO reads:
+  PASS - 4 tests
+
+Testing 32 bit MMIO writes:
+  PASS - 5 tests
+
+Testing 64 bit MMIO writes:
+  PASS - 5 tests
+
+Testing 512 bit MMIO writes:
+  PASS
+  [APP]  Deinitializing simulation session
+  [APP]         Took 1,003,771,568 nsec
+  [APP]  Session ended
 ```
 
 ![](./images/ASE_Run.png)
@@ -1638,27 +1629,22 @@ Right click on the ```afu (afu)``` entry to display the drop-down menu. Then, cl
 
 </br></br>
 
-
-
-
-
-
-## 4.3 Simulating the **hello_world** AFU
+### **4.3 Simulating the hello_world AFU**
  
 
 In this section you will quickly simulate the PIM-based ```hello_world``` sample AFU accompanying the examples-afu repository.
 
-1. Set the environment variables as described in section [4.1. Set Up Steps to Run ASE](Set_Up_Steps_to_Run_ASE).
+1. Set the environment variables as described in section [4.1. Set Up Steps to Run ASE](#41-set-up-steps-to-run-ase).
 
 2. Prepare an RTL simulation environment for the AXI version of the ```hello_world``` AFU.
   
-    Simulation with ASE requires two software processes, one to simulate the AFU RTL and the other to run the host software that excercises the AFU. To construct an RTL simulation environment under the directory ```$OFS_ROOTDIR/work_x16_adp```, execute the following.
+    Simulation with ASE requires two software processes, one to simulate the AFU RTL and the other to run the host software that excercises the AFU. To construct an RTL simulation environment under the directory ```simulation```, execute the following.
 
     ```sh
     
     $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world
-    $ mkdir -p $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/n6001/base_x16
-    $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/n6001/base_x16
+    $ mkdir -p $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/n6001
+    $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/n6001
     $ afu_sim_setup -s $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/hw/rtl/axi/sources.txt simulation
     
       
@@ -1671,7 +1657,7 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
     #################################################################
     
     Tool Brand: VCS
-    Loading platform database: /home/<user_area>/applications.fpga.ofs.fim-n6001/work_adp_base_x16_pr/pr_build_template/hw/lib/platform/platform_db/ofs_agilex_adp.json
+    Loading platform database: /home/<user_area>/ofs-n6001/work_pr/pr_build_template/hw/lib/platform/platform_db/ofs_agilex_adp.json
     Loading platform-params database: /usr/share/opae/platform/platform_db/platform_defaults.json
     Loading AFU database: /usr/share/opae/platform/afu_top_ifc_db/ofs_plat_afu.json
     Writing rtl/platform_afu_top_config.vh
@@ -1688,19 +1674,19 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
 3. Build and execute the AFU RTL simulator.
 
     ```sh 
-    $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/n6001/base_x16/simulation
+    $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/n6001/simulation
     $ make
     $ make sim  
     ```
 
-    The previous commands will build and run the VCS® RTL simulator, which prints a message saying it is ready for simulation. The simulation process also prints a message instructing you to set the ASE_WORKDIR environment variable in a second shell.
+    The previous commands will build and run the Synopsys® VCS® RTL simulator, which prints a message saying it is ready for simulation. The simulation process also prints a message instructing you to set the ASE_WORKDIR environment variable in a second shell.
     
 4. Open a second shell where you will build and execute the host software. In this new "software shell", set up the environment variables you have set up so far in the "hardware simulation" shell.
   
 5. Also, set the ASE_WORKDIR environment variable following the instructions given in the "hardware simulation" shell.
 
   ```sh
-  $ export ASE_WORKDIR=$OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/n6001/base_x16/simulation/work
+  $ export ASE_WORKDIR=$OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/n6001/simulation/work
   ```
 6. Then, move to the **sw** directory of the ```hello_world``` AFU sample to build the host software.
 
@@ -1747,7 +1733,7 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
 
 
 
-# 5. Adding Remote Signal Tap Logic Analyzer to debug the AFU
+## **5. Adding Remote Signal Tap Logic Analyzer to debug the AFU**
 
 
 The OPAE SDK provides a remote Signal Tap facility. It also supports the following in system debug tools included with the Intel Quartus Prime Pro Edition:
@@ -1759,13 +1745,13 @@ The OPAE SDK provides a remote Signal Tap facility. It also supports the followi
 
 This section is a short guide on adding remote Signal Tap instances to an AFU for in system debugging. You can follow the steps in the following sections, in order of execution to create an instrumented AFU. The ```host_chan_mmio``` AFU is used in this guide as the target AFU to be instrumented.
 
-You need a basic understanding of Signal Tap. Please see the [Signal Tap Logic Analyzer: Introduction & Getting Started] Web Based Training for more information.
+You need a basic understanding of Signal Tap. Please see the [Signal Tap Logic Analyzer: Introduction & Getting Started](https://www.intel.com/content/www/us/en/programmable/support/training/course/odsw1164.html) Web Based Training for more information.
 
 You will run with a Signal Tap GUI running locally on the server with the Intel® FPGA SmartNIC N6001-PL as shown below:
 
 ![](./images/RSTP_local.png)
 
-## 5.1. Adding RSTP to the **host_chan_mmio** AFU
+### **5.1. Adding RSTP to the host_chan_mmio AFU**
 
 
 RSTP is added to an AFU by:
@@ -1780,21 +1766,21 @@ You can use these detailed steps to add Signal Tap to your AFU.
 
 1. Set path to platform root directory and create the host_chan_mmio AFU Quartus project for adding Signal Tap.:
 ```
-$ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_adp_base_x16_pr/pr_build_template
+$ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_pr/pr_build_template
 
  # we will now build a new host_chahnel_mmio example based on Signal Tap
 
 $ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio
 
-$ mkdir -p $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16
-$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16
+$ mkdir -p $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001
+$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001
 $ afu_synth_setup -s $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/hw/rtl/test_mmio_axi1.txt hardware_stp
 ```
 
 2. Navigate to host_chan_mmio AFU Quartus project and open the project using Quartus GUI.
 
 ```
-$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware_stp/build/syn/syn_top
+$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware_stp/build/syn/syn_top
       
 $ quartus ofs_top.qpf &
 ```
@@ -1821,13 +1807,14 @@ $ quartus ofs_top.qpf &
     Then click ```Insert``` and ```Close```.
 
 
-10. Save the newly created STP by clicking ```File - Save As``` and in the save as navigate to $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware_stp/build/syn/syn_top and save the STP file as ```host_chan_mmio.stp``` as shown below:
+10. Save the newly created STP by clicking ```File - Save As``` and in the save as navigate to $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware_stp/build/syn/syn_top and save the STP file as ```host_chan_mmio.stp``` as shown below:
+
 ![](./images/stp_save_stp.png)
 
 
 Select ```Yes``` when asked to add host_chan_mmio.stp to current project.  Close Signal Tap window.
 
-11. Edit ```ofs_top.qsf``` to add host_chan_mmio.stp file and enable STP.  Open $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware_stp/build/syn/syn_top/ofs_top.qsf in an editor and add the lines shown below:
+11. Edit ```ofs_top.qsf``` to add host_chan_mmio.stp file and enable STP.  Open $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware_stp/build/syn/syn_top/ofs_top.qsf in an editor and add the lines shown below:
 
 ```
 set_global_assignment -name ENABLE_SIGNALTAP ON
@@ -1837,7 +1824,7 @@ set_global_assignment -name SIGNALTAP_FILE host_chan_mmio.stp
 
 Save the ofs_top.qsf.
 
-12. Edit ```ofs_pr_afu.qsf``` to add host_chan_mmio.stp file and enable STP.  Open $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware_stp/build/syn/syn_top/ofs_pr_afu.qsf in an editor and add the lines shown below:
+12. Edit ```ofs_pr_afu.qsf``` to add host_chan_mmio.stp file and enable STP.  Open $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware_stp/build/syn/syn_top/ofs_pr_afu.qsf in an editor and add the lines shown below:
 
 ```
 set_global_assignment -name VERILOG_MACRO "INCLUDE_REMOTE_STP"
@@ -1850,7 +1837,7 @@ Save the ofs_pr_afu.qsf and close Quartus.
 13. The host_chan_mmio AFU Quartus project is ready to be built.  In your original build shell enter the following commands:
 
 ```
-$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware_stp
+$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware_stp
 $ $OPAE_PLATFORM_ROOT/bin/afu_synth
 
 ...
@@ -1871,8 +1858,8 @@ Wrote host_chan_mmio.gbs
  # however this may be different in your system
 
 # Load FIM
-$ sudo fpgasupdate $OFS_ROOTDIR/work_adp_base_x16_pr/syn/syn_top/output_files/ofs_top_page1_unsigned_user1.bin b1:00.0
-$ sudo fpgasupdate $OFS_ROOTDIR/work_adp_base_x16_pr/syn/syn_top/output_files/ofs_top_page2_unsigned_user2.bin b1:00.0
+$ sudo fpgasupdate $OFS_ROOTDIR/work_pr/syn/syn_top/output_files/ofs_top_page1_unsigned_user1.bin b1:00.0
+$ sudo fpgasupdate $OFS_ROOTDIR/work_pr/syn/syn_top/output_files/ofs_top_page2_unsigned_user2.bin b1:00.0
 $ sudo rsu bmcimg b1:00.0
 
 # Load AFU
@@ -1939,10 +1926,10 @@ $ jtagconfig --debug
   Captured Bypass chain = (0) [1]
 ```
 
-17. Start Quartus Signal Tap GUI, connect to target, load stp file by navigating to $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware_stp/build/syn/syn_top. The Quartus Signal Tap must be the same version of Quartus used to compile the host_chan_mmio.gbs. Quartus Prime Pro Version 23.1 is used in the steps below:
+17. Start Quartus Signal Tap GUI, connect to target, load stp file by navigating to $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware_stp/build/syn/syn_top. The Quartus Signal Tap must be the same version of Quartus used to compile the host_chan_mmio.gbs. Quartus Prime Pro Version 23.1 is used in the steps below:
 
 ```
-$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/base_x16/hardware_stp/build/syn/syn_top
+$ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/n6001/hardware_stp/build/syn/syn_top
 $ quartus_stpw host_chan_mmio.stp &
 ```
 
@@ -1971,11 +1958,10 @@ To remove the JTAG over protocol connection:
 $ jtagconfig --remove 1
 ```
 
-# 6. How to modify the PF/VF MUX configuration
+## **6. How to modify the PF/VF MUX configuration**
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [OFS FIM Developer User Guide].
-
+For information on how to modify the PF/VF mapping for your own design, refer to the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 
 

@@ -1,7 +1,7 @@
 Virtual machine User Guide: Open FPGA Stack + KVM 
 ===
 
-Last updated: **June 02, 2023** 
+Last updated: **July 13, 2023** 
 
 ## Terms and Acronyms
 
@@ -39,7 +39,7 @@ Last updated: **June 02, 2023**
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
  
 
-# Document scope 
+## Document scope 
 
 The document describes setting up and configuring a virtual machine to use PCIe devices. Here are the steps that the document may include:
 
@@ -52,7 +52,7 @@ The document describes setting up and configuring a virtual machine to use PCIe 
 
 
 
-# 1. Verify if the virtualization is enabled.
+## 1. Verify if the virtualization is enabled.
 
 To check if virtualization is enabled on a Red Hat system using `lscpu` and `grep`, you can use the following command:
 
@@ -70,7 +70,7 @@ In this example, the output shows that the system supports Intel VT-x virtualiza
 
 Check the following for the bios configuration, [**Enabling Intel VT-d Technology**](https://github.com/intel-innersource/applications.fpga.ofs.documentation/blob/ritesh_n600x_gs_ww49/n600x/user_guides/ofs_getting_started/ug_qs_ofs_n600x.md#enabling-intel-vt-d-technology)
 
-# 2. Verify if the virtualization modules are loaded
+## 2. Verify if the virtualization modules are loaded
 
 1. Open a terminal window and log in as a user with sudo privileges.
 2. Check if the virtualization kernel modules are loaded by running the following command:
@@ -89,7 +89,7 @@ sudo modprobe kvm
 
 5. If the kernel modules are not loaded, and you cannot load them manually, it may be because virtualization is not supported or enabled in your system's BIOS or UEFI settings. You must reboot your system and enter the BIOS or UEFI settings menu to enable virtualization. The exact steps for doing this may vary depending on your system's hardware and BIOS/UEFI version, so consult your motherboard or system documentation for specific instructions.
 
-# 3. Install Virtual Machine Manager
+## 3. Install Virtual Machine Manager
 
 Virtual Machine Manager (also known as libvirt) on follow these steps:
 
@@ -163,7 +163,7 @@ reboot
 
 After completing these steps, you should be able to use the virt-manager GUI application to manage virtual machines on your system. 
 
-# 4. How to create a Virtual Machine?
+## 4. How to create a Virtual Machine?
 
 Before creating the virtual machine, ensure the DFL drivers are installed in your host machine; the instructions are located here, [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
 

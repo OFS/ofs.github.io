@@ -6,7 +6,7 @@
 ### **1.1 About This Document**
 <a name="about_this_document"></a>
 
-This document serves as a quick start guide for setting up [Intel® oneAPI Base Toolkit (Base Kit)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#gs.yk0mlm) on Open FPGA Stack (OFS) using `oneapi-asp` repository. Please see Table 1-1 for OFS reference platforms targeted in this guide.
+This document serves as a quick start guide for setting up [Intel® oneAPI Base Toolkit (Base Kit)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html) on Open FPGA Stack (OFS) using `oneapi-asp` repository. Please see Table 1-1 for OFS reference platforms targeted in this guide.
 
 **Table 1-1 HLD Tools**
 
@@ -15,7 +15,7 @@ This document serves as a quick start guide for setting up [Intel® oneAPI Base 
 | Intel® Agilex® FPGA | Intel® FPGA SmartNIC N6001-PL |
 | Intel® Stratix 10® FPGA | Intel® FPGA PAC D5005 |
 
-> **Attention:** Intel is discontinuing the Intel FPGA SDK for OpenCL software product. Refer to the [Product Discontinuation Notice PDN2219](https://cdrdv2.intel.com/v1/dl/getContent/738067?explicitVersion=true). Alternatively, Intel recommends using the Intel® oneAPI Base Toolkit (Base Kit), which provides core tools and libraries for developing high-performance data-centric applications across diverse architectures. It features an industry-leading C++ compiler that implements SYCL*, an evolution of C++ for heterogeneous computing. For more information, refer to the [Intel® oneAPI Base Toolkit (Base Kit)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html#gs.yk0mlm) web page. To migrate your OpenCL FPGA designs to SYCL, review [*Migrating OpenCL FPGA Designs to SYCL\* guide*](https://www.intel.com/content/www/us/en/develop/documentation/migrate-opencl-fpga-designs-to-dpcpp/top.html) that demonstrates important differences between OpenCL and SYCL for FPGA and provides steps to migrate your OpenCL designs.
+> **Attention:** Intel is discontinuing the Intel FPGA SDK for OpenCL software product. Refer to the [Product Discontinuation Notice PDN2219](https://cdrdv2.intel.com/v1/dl/getContent/738067?explicitVersion=true). Alternatively, Intel recommends using the Intel® oneAPI Base Toolkit (Base Kit), which provides core tools and libraries for developing high-performance data-centric applications across diverse architectures. It features an industry-leading C++ compiler that implements SYCL*, an evolution of C++ for heterogeneous computing. For more information, refer to the [Intel® oneAPI Base Toolkit (Base Kit)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html) web page. To migrate your OpenCL FPGA designs to SYCL, review [*Migrating OpenCL FPGA Designs to SYCL\* guide*](https://www.intel.com/content/www/us/en/develop/documentation/migrate-opencl-fpga-designs-to-dpcpp/top.html) that demonstrates important differences between OpenCL and SYCL for FPGA and provides steps to migrate your OpenCL designs.
 
 After reviewing the document you will be able to:
 
@@ -72,7 +72,7 @@ For a more detailed diagram and more information about the FPGA Interface Manage
 
 -   [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
-The oneAPI ASP is required for compiling and running HLD application kernel on OFS platforms using Intel oneAPI. It is a collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with other OFS components. The hardware components of the oneAPI ASP along with the kernel lie in the AFU region shown in the figure above. For more details about the components of the oneAPI ASP, please refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md).
+The oneAPI ASP is required for compiling and running HLD application kernel on OFS platforms using Intel oneAPI. It is a collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with other OFS components. The hardware components of the oneAPI ASP along with the kernel lie in the AFU region shown in the figure above. For more details about the components of the oneAPI ASP, please refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
 Figure 1-2 shows the setup steps to use oneAPI base toolkit on OFS platforms.
 
@@ -110,7 +110,7 @@ Once the server is setup with OPAE SDK and DFL kernel driver, the next step is t
 
 For more details on minimal FIM for Intel® Agilex® FPGA and how to create it, refer to Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs.
 
-A `pr_build_template` directory will be generated in the work directory specified as part of the FIM compile command (using `applications.fpga.ofs.fim/ofs-common/scripts/common/syn/build_top.sh` script with the '-p' option enable to create an out-of-tree PR release). The `pr_build_template` directory is required for successful setup of the oneAPI ASP.
+A `pr_build_template` directory will be generated in the work directory specified as part of the FIM compile command (using `OFS/ofs-common/scripts/common/syn/build_top.sh` script with the '-p' option enable to create an out-of-tree PR release). The `pr_build_template` directory is required for successful setup of the oneAPI ASP.
 
 Once the FIM compile is complete, please program FIM using `fpgasupdate` and Remote System Update(`rsu`) command. Use of these commands has been demonstrated in section named `Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim` in [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
@@ -153,7 +153,7 @@ Tool installation guide for your reference:
 -   [Intel® oneAPI Toolkits Installation Guide for Linux* OS](https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top.html)
 
 4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version. 
-> **Note:** For Intel® Agilex® FPGA ensure Quartus patch 0.10 and 0.02iofs are installed. You can find it in the following links [0.10](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license) and [0.02iofs](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license). Use following command to check Quartus version and installed patches.
+> **Note:** For Intel® Agilex® FPGA ensure Quartus patch 0.10 and 0.02iofs are installed. You can find it in the following links [0.10](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license) and [0.02iofs](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license). For Intel® Stratix 10® FPGA ensure Quartus patch 0.01iofs is installed. You can find it in the following link [0.01iofs](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.1/license).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. Use following command to check Quartus version and installed patches.
 
 </pre>
 
@@ -168,7 +168,7 @@ Tool installation guide for your reference:
     export QUARTUS_ROOTDIR=path-to-quartus-installation-dir/quartus
     export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
     # Other OFS environment variables
-    export OFS_ROOTDIR=path-to-directory-containing-cloned-ofs-fim-repo/#applications.fpga.ofs.fim-n6001 for Intel® Agilex® FPGA or ofs-d5005 for Intel® Stratix 10® FPGA
+    export OFS_ROOTDIR=path-to-directory-containing-cloned-ofs-fim-repo/#ofs-n6001 for Intel® Agilex® FPGA or ofs-d5005 for Intel® Stratix 10® FPGA
     export WORKDIR=$OFS_ROOTDIR
     export VERDIR=$OFS_ROOTDIR/verification # This should be "$OFS_ROOTDIR/verification" for Intel Stratix 10 OFS
     export QUARTUS_HOME=$QUARTUS_ROOTDIR
@@ -196,7 +196,7 @@ Once the environment variables are set, you can check the tool version using the
 
     # Printing all (Quartus, OpenCL SDK, GCC, Python) versions for user info
     quartus_sh -v
-    icpx -fsycl --version (for Intel® oneAPI Base Toolkit (Base Kit))
+    icpx --version (for Intel® oneAPI Base Toolkit (Base Kit))
     gcc --version
     python3 -V
 </pre>
@@ -229,7 +229,7 @@ Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(BKC).
 | opae-sdk | Branch: release/2.5.0, Tag: 2.5.0-2 |
 | ofs-fim | Tag: ofs-2023.1-1|
 | oneapi-asp | Tag: ofs-2023.1-1 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)* |
-| Quartus Prime Pro Edition | Version 23.1.0 Pro Edition |
+| Quartus Prime Pro Edition | Version 23.1.0 Pro Edition  with patch [0.01iofs](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.1/license) |
 | Intel® oneAPI Base Toolkit (Base Kit) | Latest version |
 | GCC | 8.5.0 20210514 (Red Hat 8.5.0-10) |
 | Python | 3.6.8 <br> > **Note:** The Python version may differ in Intel oneAPI environment (Python 3.9.10 :: Intel Corporation)|
@@ -273,7 +273,7 @@ Ensure the correct tag has ben checked out:
         ./scripts/build-bsp.sh
 </pre>
 
-The generated directory structure is shown below. For more details refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md).
+The generated directory structure is shown below. For more details refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
 <pre>
 oneapi-asp/platform-name
@@ -316,7 +316,8 @@ oneapi-asp/platform-name
         export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:path-to-oneapi-asp/platform-name/linux64/lib
 </pre>
 
-4) Check if FPGA Client Driver(FCD) exists for any other version of oneAPI ASP or for any other board. You can check with  `sudo  aocl list-devices` command.
+4) Check if FPGA Client Driver(FCD) exists for any other version of oneAPI ASP or for any other board. You can check with  `aocl list-devices` command. It is recommended to run aocl list-devices as root user (login with sudo su) to see all installed ASPs on the host.
+
 
 A sample output when a oneAPI ASP FCD is installed is shown below:
 
@@ -359,7 +360,7 @@ Sample output for `aocl uninstall` command:
     OFS OpenCL BSP uninstall complete
 </pre>
 
-5) Install FPGA Client Driver(FCD) file for the oneAPI ASP using `aocl install path-to-oneapi-asp/platform-name` command as shown below. The host program uses FCD to find and link to the platform Memory Mapped Device (MMD) library. For more information about MMD library, refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md).
+5) Install FPGA Client Driver(FCD) file for the oneAPI ASP using `aocl install path-to-oneapi-asp/platform-name` command as shown below. The host program uses FCD to find and link to the platform Memory Mapped Device (MMD) library. For more information about MMD library, refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
 </pre>
 
@@ -391,7 +392,7 @@ Sample output `aocl install` command in  Intel® oneAPI Base Toolkit (Base Kit) 
 
 OFS software stack expects boards to be initialized with a bitstream for the board variant intended to be used for development. OpenCL sample applications have been provided for generating initialization bitstreams for included board variants for both target devices.
 
-`oneapi-asp` has two board variants (`oneapi-asp/platform-name/hardware` has the hardware design files for these).One OpenCL sample application has been provided in the `oneapi-asp` repository named `hello_world`, for both board variants. For more details on the architecture of the board variants, please refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md).
+`oneapi-asp` has two board variants (`oneapi-asp/platform-name/hardware` has the hardware design files for these).One OpenCL sample application has been provided in the `oneapi-asp` repository named `hello_world`, for both board variants. For more details on the architecture of the board variants, please refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
 **Table 2-5 OpenCL Sample Applications**
 
@@ -673,7 +674,7 @@ First clone the repository and then checkout to the tag according to the oneAPI 
 >**Note:**  Check your oneAPI compiler version with the command:
 
 <pre>
-    icpx -fsycl --version
+    icpx --version
 </pre>
 
 
@@ -772,7 +773,7 @@ Once you have completed running the oneAPI sample application, you can start dev
 
 For more information about developing FPGA applications with Intel oneAPI, refer to [Intel® oneAPI Programming Guide](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top.html) and [FPGA Optimization Guide for Intel® oneAPI Toolkits](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top.html).
 
-If you want to customize the oneAPI ASP, you can refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md).
+If you want to customize the oneAPI ASP, you can refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 ## Notices & Disclaimers
 
 Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.

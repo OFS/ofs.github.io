@@ -97,7 +97,7 @@ The information in this document is intended for customers evaluating the Intel�
 
 ## 1.5 Reference Documents
 
-Documentation for N6001 is collected  [on GitHub](https://github.com/intel-innersource/applications.fpga.ofs.opensource-documentation/tree/main/docs/hw/n6001). The document list is as follows:
+Documentation for N6001 is collected  [on GitHub](https://ofs.github.io/hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/). The document list is as follows:
 
 
 
@@ -112,7 +112,7 @@ Documentation for N6001 is collected  [on GitHub](https://github.com/intel-inner
 |[Hard Processor System Software Developer Guide: Intel OFS for Intel Agilex FPGAs](../../../n6001/)|Describes the HPS configuration and software package for the Intel OFS release targeting Intel Agilex OFS and guides you through the steps to build your own Yocto application image for HPS.|
 | [Accelerator Functional Unit Developer Guide: Intel Open FPGA Stack](../../../n6001/)| Provides guidance on how to build and test an AFU when designing to an OFS-based FPGA Interface Manager|
 | [Simulation User Guide: Intel Open FPGA Stack for Intel Agilex FPGA](../../../n6001/)|Provides steps for setting up the UVM verification tool suite and running UVM unit tests |
-| [Security User Guide: Intel Open FPGA Stack for Intel Agilex FPGA](../../../n6001/)| Describes how to create keys and sign bitstreams for your custom design; includes new VAB feature|
+| [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/ug-pac-security-N600x.md) | Describes how to create keys and sign bitstreams for your custom design; includes new VAB feature|
 | [Intel OFS High Level (HLD) Getting Started User Guide](../../../n6001/)| Describes how to get started using OneAPI with the OFS FIM BSP.|
 | [Intel OFS High Level Design(HLD) Shim Reference Manual](../../../n6001/)| Describes how to use the provided shim for OFS for creating your custom OneAPI board support package.|
 | [Platform Evaluation Script: Open FPGA Stack for Intel Agilex FPGA](../../../n6001/)| Serves as a set-up and user guide for the checkout and evaluation of an Intel FPGA SmartNIC N6001 Platform using Open FPGA Stack (OFS). |
@@ -146,11 +146,11 @@ The following table highlights the versions of the software which compose the OF
 
 | Component | Version |
 | --------- | ------- |
-| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), ([release notes](../../../n6001/))|
+| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), ([release notes](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1)(../../../n6001/))|
 | OPAE SDK | [2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3)|
 | Kernel Drivers |[ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1)|
 | OneAPI-ASP | [ofs-2023.1-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1)  |
-| OFS FIM Source Code for N6001| [ofs-2023.1-1](https://github.com/intel-innersource/applications.fpga.ofs.fim-n6001/releases/tag/ofs-2023.1-1) |
+| OFS FIM Source Code for N6001| [ofs-2023.1-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) |
 | OFS FIM Common Resources| [Tag: ofs-fim-common-1.1.0-rc2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-fim-common-1.1.0-rc2) |
 |OFS Platform AFU BBB | [ofs-2023.1-1](https://github.com/OFS/ofs-platform-afu-bbb.git) |
 | Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.1 for Linux](https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html)  |
@@ -424,7 +424,7 @@ features.
 
 ## **3.0 OFS DFL Kernel Drivers**
 
-OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on the [DFL Wiki](https://github.com/OPAE/linux-dfl/wiki) page.
+OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on the [DFL Wiki](https://github.com/OPAE/linux-dfl/wiki)(https://github.com/OPAE/linux-dfl/wiki) page.
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
@@ -1068,90 +1068,6 @@ systemctl -h
 
 
 
-#### **4.3.3 Updating with fpgasupdate**
-
-The **fpgasupdate** tool updates the Intel Max10 Board Management Controller (BMC) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (PR). The **fpgasupdate** tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the [Security User Guide: Intel Open FPGA Stack for Intel Agilex FPGA](../../../n6001/) for information on created signed images and on programming and managing the root entry hash.  
-
-The Intel® FPGA SmartNIC N6001-PL ships with a factory, user1, and user2 programmed image for both the FIM and BMC FW and RTL on all cards. The platform ships with a single FIM image that can be programmed into either user1 or user2, depending in the image selected.
-
-Use the following chart for information on the Bitstream ID and Pr Interface ID, two unique values reported by `fpgainfo` which can be used to identify the loaded FIM.
-
-
-
-#### Table 13: FIM Version Summary for OFS 2023.1 Release
-
-| FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
-| ----- | ----- | ----- | ----- | ----- |
-| ofs-2023.1| 360571655976424377| 4514ee67-ca01-5def-9fa5-a1ef30d0c76c| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2023.1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1)|
-| ofs-n6001-0.9.0-rc2 |  0x50102025AD3DD11| 92ec8960-2f2f-5544-9804-075d2e8a71a1 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-n6001/releases/tag/ofs-n6001-0.9.1)|
-| OFS-2.3.0 |  0x50102022267A9ED| f59830f7-e716-5369-a8b0-e7ea897cbf82 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.3.0)|
-| OFS-2.2.0 | 0x501020295B081F0 | 8c157a52-1cf2-5d37-9514-944af0a060da | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.2.0-beta Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.2.0-beta)|
-
-
-
-#### Table 14: BMC Version Summary for OFS 2023.1 Release
-| BMC FW and RTL Version | File Name | Download Location|
-| ----- | ----- | ----- |
-| 3.11.0 | AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu | n/a|
-
-1. Example loading a new version of the BMC RTL and FW.
-
-```bash
-sudo fpgasupdate AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu <PCI ADDRESS>
-[2022-04-14 16:32:47.93] [WARNING ] Update starting. Please do not interrupt.                                           
-[2022-04-14 16:32:47.93] [INFO    ] updating from file /home/user/AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu with size 904064                                   
-[2022-04-14 16:32:47.94] [INFO    ] waiting for idle                                                                    
-[2022-04-14 16:32:47.94] [INFO    ] preparing image file                                                                
-[2022-04-14 16:33:26.98] [INFO    ] writing image file                                                                  
-(100%) [████████████████████] [904064/904064 bytes][Elapsed Time: 0:00:00.00]                                           
-[2022-04-14 16:33:26.98] [INFO    ] programming image file                                                              
-(100%) [████████████████████] [Elapsed Time: 0:00:26.02]                                                                 
-[2022-04-14 16:33:53.01] [INFO    ] update of 0000:b1:00.0 complete                                                     
-[2022-04-14 16:33:53.01] [INFO    ] Secure update OK                                                                    
-[2022-04-14 16:33:53.01] [INFO    ] Total time: 0:01:05.07
-sudo rsu bmcimg
-```
-
-2. Example for loading a Static Region (SR) update image. This process will take up to 20 minutes.
-
-```bash
-sudo fpgasupdate ofs_top_page1_unsigned_user1.bin <PCI ADDRESS>
-[2022-04-14 16:42:31.58] [WARNING ] Update starting. Please do not interrupt.                                           
-[2022-04-14 16:42:31.58] [INFO    ] updating from file ofs_top_page1_pacsign_user1.bin with size 19928064               
-[2022-04-14 16:42:31.60] [INFO    ] waiting for idle                                                                    
-[2022-04-14 16:42:31.60] [INFO    ] preparing image file                                                                
-[2022-04-14 16:42:38.61] [INFO    ] writing image file                                                                  
-(100%) [████████████████████] [19928064/19928064 bytes][Elapsed Time: 0:00:16.01]                                       
-[2022-04-14 16:42:54.63] [INFO    ] programming image file                                                              
-(100%) [████████████████████][Elapsed Time: 0:06:16.40]                                                                 
-[2022-04-14 16:49:11.03] [INFO    ] update of 0000:b1:00.0 complete                                                     
-[2022-04-14 16:49:11.03] [INFO    ] Secure update OK                                                                    
-[2022-04-14 16:49:11.03] [INFO    ] Total time: 0:06:39.45
-```
-
-
-
-#### **4.3.4 Signing Images with PACSign**
-
-PACSign is an OPAE utility which allows users to insert authentication markers into bitstreams targeted for the Intel® FPGA SmartNIC N6001-PL. PACSign also allows users updating their Static Region (SR) to designate which partition of flash (user1, user2, factory) to overwrite given a specific FIM binary image. All binary images must be signed using PACSign before fpgasupdate can use them for an update. Assuming no Root Entry Hash (REH) has been programmed on the device, the following examples demonstrate how to prepend the required secury authentication data, and specifiy which region of flash to update.
-More information, including charts detailing the different certification types and their required options, are fully described in the PACsign [README](https://github.com/OPAE/opae-sdk/blob/72b8b36bd31103dd24bf8ffee1b03c9623fb0d69/python/pacsign/PACSign.md) on GitHub.
-
-For more information on PACSign and on general security practices surrounding the Intel N6001-PL FPGA SmartNIC device, visit the [Security User Guide: Intel Open FPGA Stack for Intel Agilex FPGA](../../../n6001/) Guide.
-
-**PACSign** can be run on images that have previously been signed. It will overwrite any existing authentication data.
-
-The following example creates an unsigned SR image from an existing signed SR binary update image, targeting the user1 partition in flash.
-
-```bash
-PACSign SR -t UPDATE -s 0 -H openssl_manager -i ofs_top_page1_pacsign_user1.bin -o new_image.bin
-No root key specified.  Generate unsigned bitstream? Y = yes, N = no: y
-No CSK specified.  Generate unsigned bitstream? Y = yes, N = no: y
-No root entry hash bitstream specified.  Verification will not be done.  Continue? Y = yes, N = no: y
-2021-10-18 14:42:54,490 - PACSign.log - WARNING - Bitstream is already signed - removing signature blocks
-```
-
-
-
 #### **4.3.5 Loading Images with rsu**
 
 The **rsu** performs a **R**emote **S**ystem **U**pdate operation on a N6000/1-PL device, given its PCIe address. An **rsu** operation sends an instruction to the device to trigger a power cycle of the card and forces reconfiguration from flash for either the BMC or FPGA image.
@@ -1618,87 +1534,6 @@ The `hssi_loopback` utility works in conjunction with a packet generator acceler
 The `hssistats` tool provides the MAC statistics.
 
 
-
-## **5.0** Upgrading the Intel® FPGA SmartNIC N6001-PL with 2023.1 Version of the BMC and FIM
-
-If your Intel® FPGA SmartNIC N6001-PL does not have the 2022.3.1 version of the FIM and BMC, use this section to begin your upgrade process. The upgrade process depends on both the OPAE SDK and kernel drivers, which were installed in sections [3.0 Intel OFS DFL Kernel Drivers](#heading-3.0) and [4.0 OPAE Software Development Kit](#heading-4.0). Use the output of **fpgainfo** and compare against the table below to determine if an upgade is necessary.
-
-
-
-#### Table 17: FIM Version Summary for Intel OFS 2023.1 Release
-
-| FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
-| ----- | ----- | ----- | ----- | ----- |
-| 1 | 360571655976424377 | 4514ee67-ca01-5def-9fa5-a1ef30d0c76c | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2023.1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1)|
-
-
-
-#### Table 18: BMC Version Summary for Intel OFS 2023.1 Release
-
-| BMC FW and RTL Version | File Name | Download Location|
-| ----- | ----- | ----- |
-| 3.11.0 | AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu | n/a|
-
-Sample output of `fpgainfo` with matching values:
-
-```bash
-Intel Acceleration Development Platform N6001
-Board Management Controller NIOS FW version: 3.11.0
-Board Management Controller Build version: 3.11.0
-//****** FME ******//
-Object Id                        : 0xED00001
-PCIe s:b:d.f                     : 0000:B1:00.0
-Vendor Id                        : 0x8086
-Device Id                        : 0xBCCE
-SubVendor Id                     : 0x8086
-SubDevice Id                     : 0x1771
-Socket Id                        : 0x00
-Ports Num                        : 01
-Bitstream Id                     : 360571655976424377
-Bitstream Version                : 5.0.1
-Pr Interface Id                  : 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
-Boot Page                        : user1
-Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
-User2 Image Info                 : 4514ee67-ca01-5def-9fa5-a1ef30d0c76c
-```
-
-1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2023.1 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
-
-```bash
-sudo fpgasupdate AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu
-[2022-04-14 16:32:47.93] [WARNING ] Update starting. Please do not interrupt.                                           
-[2022-04-14 16:32:47.93] [INFO    ] updating from file /home/user/AC_BMC_RSU_user_retail_3.11.0_unsigned.rsu with size 904064                                   
-[2022-04-14 16:32:47.94] [INFO    ] waiting for idle                                                                    
-[2022-04-14 16:32:47.94] [INFO    ] preparing image file                                                                
-[2022-04-14 16:33:26.98] [INFO    ] writing image file                                                                  
-(100%) [████████████████████] [904064/904064 bytes][Elapsed Time: 0:00:00.00]                                           
-[2022-04-14 16:33:26.98] [INFO    ] programming image file                                                              
-(100%) [████████████████████] [Elapsed Time: 0:00:26.02]                                                                 
-[2022-04-14 16:33:53.01] [INFO    ] update of 0000:b1:00.0 complete                                                     
-[2022-04-14 16:33:53.01] [INFO    ] Secure update OK                                                                    
-[2022-04-14 16:33:53.01] [INFO    ] Total time: 0:01:05.07
-sudo rsu bmcimg
-```
-2. Load the new FIM image.
-
-```bash
-sudo fpgasupdate ofs_top_page1_unsigned_user1.bin <PCI ADDRESS>
-[2022-04-14 16:42:31.58] [WARNING ] Update starting. Please do not interrupt.                                           
-[2022-04-14 16:42:31.58] [INFO    ] updating from file ofs_top_page1_pacsign_user1.bin with size 19928064               
-[2022-04-14 16:42:31.60] [INFO    ] waiting for idle                                                                    
-[2022-04-14 16:42:31.60] [INFO    ] preparing image file                                                                
-[2022-04-14 16:42:38.61] [INFO    ] writing image file                                                                  
-(100%) [████████████████████] [19928064/19928064 bytes][Elapsed Time: 0:00:16.01]                                       
-[2022-04-14 16:42:54.63] [INFO    ] programming image file                                                              
-(100%) [████████████████████][Elapsed Time: 0:06:16.40]                                                                 
-[2022-04-14 16:49:11.03] [INFO    ] update of 0000:b1:00.0 complete                                                     
-[2022-04-14 16:49:11.03] [INFO    ] Secure update OK                                                                    
-[2022-04-14 16:49:11.03] [INFO    ] Total time: 0:06:39.45
-sudo rsu fpga --page=user1 <PCI ADDRESS>
-```
-
-3. Verify the output of **fpgainfo** matches the table above.
 
 ## Notices & Disclaimers
 
