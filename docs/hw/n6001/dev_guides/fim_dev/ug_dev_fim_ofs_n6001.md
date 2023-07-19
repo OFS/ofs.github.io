@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Intel Agilex PCIe Attach: Open FPGA Stack
 
-Last updated: **July 13, 2023** 
+Last updated: **July 19, 2023** 
 
 ## **1. Introduction**
 ### **1.1. About This Document**
@@ -166,12 +166,12 @@ To run the tutorial steps in this guide requires this development environment:
 
 | Component                                        | Version                                                      |
 | ------------------------------------------------ | ------------------------------------------------------------ |
-| FPGA Platform                                    | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), [release notes](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1)(https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) |
+| FPGA Platform                                    | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), [release notes](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) |
 | OPAE SDK                                         | [2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) |
 | Kernel Drivers                                   | [ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) |
 | OneAPI-ASP                                       | [ofs-2023.1-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1) |
 | OFS FIM Source Code for Intel® FPGA SmartNIC N6001-PL          | [ofs-2023.1-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1)      |
-| OFS Platform AFU BBB                             | [ofs-2023.1-1](https://github.com/OFS/ofs-platform-afu-bbb.git) |
+| OFS Platform AFU BBB                             | [ofs-2023.1-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.1-1) |
 | Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.1 for Linux](https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html) |
 | Operating System                                 | [RedHat® Enterprise Linux® (RHEL) 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software) |
 

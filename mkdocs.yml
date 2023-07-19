@@ -198,7 +198,7 @@ env:
   D5005_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
   D5005_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
   D5005_SIM_UVM_QS: 2021.4
-  D5005_url_intel-fpga-bbb: https://github.com/OPAE/intel-fpga-bbb.git
+  D5005_url_int<sup>&reg;</sup> el-fpga-bbb: https://github.com/OPAE/intel-fpga-bbb.git
   D5005_url_examples-afu: https://github.com/OFS/examples-afu.git
   D5005_url_ofs-platform-afu-bbb: https://github.com/OFS/ofs-platform-afu-bbb.git
   D5005_url_opae-sim: https://github.com/OFS/opae-sim.git
@@ -227,7 +227,7 @@ env:
   N6001_KERNEL_RELEASE_BASE: 6.1.22
   N6001_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1
   N6001_OFS_TAG_DIRECT: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1
-  N6001_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb.git
+  N6001_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.1-1
   N6001_RELEASE_PAGE: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1 
   N6001_DRIVER_KERNEL_BASE: 6.1.22
   N6001_REDHAT_MAJOR_VERSION: 8
@@ -339,12 +339,12 @@ env:
   F2000X_RELEASE_NAME_SHORTENED: 2023.1
   F2000X_YOCTO_WIC_LINK_DIRECT: https://github.com/OFS/meta-ofs/releases/download/ofs-2023.1-2/core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz
   F2000X_YOCTO_WIC_NAME: core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz
-  F2000X_YOCTO_WIC_NAME_UNCOMPRESSED: core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic
+  F2000X_YOCTO_WIC_NAME_UNCOMPRESSED: core-image-full-cmdline-intel-corei7-64-20230512215350.rootfs.wic
   F2000X_GBS_PR_INTERFACE_ID: bf2a9e1a-b05d-5130-b47c-776055c0d67e
   F2000X_BIOS_FILE_NAME: 0ACRH608_REL.bin 
-  F2000X_GBS_DOWNLOAD_LINK: TBD
+  F2000X_GBS_DOWNLOAD_LINK: https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.1-1/ofs_pr_afu.green_region_unsigned.gbs
   F2000X_DOWNLOAD_RELEASE_PAGE: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1
-  F2000X_GITHUB_RELEASE_PAGE_NAME: TBD
+  F2000X_GITHUB_RELEASE_PAGE_NAME: 2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell
   F2000X_MET_OFS_TAG_LINK: https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2
   F2000X_HOST_KERNEL: 5.15-lts
   F2000X_LINUX_DFL_TAG_LINK: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1

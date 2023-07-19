@@ -87,7 +87,7 @@ These components are available under the https://github.com/OFS site.
 |:--------------------------:|------------------------------------------------------------------------|
 | [ofs-n6001](https://github.com/OFS/ofs-n6001) | Contains FIM or shell RTL, automated compilation scripts, and unit tests and UVM framework.  |
 | [oneapi-asp](https://github.com/OFS/oneapi-asp) | Contains the hardware and software components you need to develop your own OneAPI board support package    |
-| [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb)(https://github.com/OFS/ofs-platform-afu-bbb.git) |  Contains the files and scripts to build the platform interface manager.|
+| [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb.git) |  Contains the files and scripts to build the platform interface manager.|
 | [ofs-examples-afu](https://github.com/OFS/examples-afu.git) |  Contains AFU examples you can use.|
 | [ofs-bmc](https://github.com/otcshare/ofs-bmc) | Provides the OFS Board Management Controller RTL, firmware, scripts and collateral targeting the Intel® FPGA SmartNIC N6001-PL which can be leveraged for your own OFS design.  |
 |
