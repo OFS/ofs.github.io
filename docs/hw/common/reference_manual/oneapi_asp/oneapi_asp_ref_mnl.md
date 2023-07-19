@@ -58,7 +58,7 @@ The content in this manual requires readers to be familiar with:
     * Accelerator Functional Unit(AFU)
         * Intel® Stratix 10® FPGA: [Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Stratix 10 FPGA](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
         * Intel® Agilex® FPGA: [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/)
-    * [OPAE SDK](https://ofs.github.io/sw/fpga_api/quick_start/readme/)(https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)
+    * [OPAE SDK](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)
     * [Linux-DFL](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/#110-dfl-linux-kernel-drivers)
     * [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb)
 
@@ -129,7 +129,7 @@ In addition to the hardware components, a software layer is required for handlin
 1. Memory Mapped Device (MMD) Layer: required by the host & runtime to communicate with the oneAPI kernel & other oneAPI ASP hardware registers
 2. oneAPI ASP utilities: required to setup and diagnose the board
 
-The MMD uses API provided by [OPAE SDK](https://ofs.github.io/sw/fpga_api/quick_start/readme/)(https://github.com/OFS/opae-sdk) to communicate with the device. The FPGA driver is provided by the [linux-DFL](https://github.com/OFS/linux-dfl) kernel driver.
+The MMD uses API provided by [OPAE SDK](https://github.com/OFS/opae-sdk) to communicate with the device. The FPGA driver is provided by the [linux-DFL](https://github.com/OFS/linux-dfl) kernel driver.
 
 Figure 1-4 shows how the above oneAPI ASP components tie into Open FPGA Stack.
   

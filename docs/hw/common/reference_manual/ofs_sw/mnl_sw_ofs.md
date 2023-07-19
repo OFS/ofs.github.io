@@ -64,8 +64,8 @@ The remaining sections on OPAE in this document are unique and build on basic pr
 
 | Document | Link |
 | -------------------- | ------------------------------------------------------ |
-| OPAE SDK on github   | [OPAE SDK repository](https://github.com/OFS/opae-sdk)(https://github.com/OFS/opae-sdk) |
-| OPAE Documents | [OFS Site](https://ofs.github.io)(https://ofs.github.io/) |
+| OPAE SDK on github   | [OPAE SDK repository](https://github.com/OFS/opae-sdk) |
+| OPAE Documents | [OFS Site](https://ofs.github.io/) |
 | pybind11             | https://pybind11.readthedocs.io/en/stable/             |
 | CLI11                | https://github.com/CLIUtils/CLI11                      |
 | spdlog               | https://github.com/gabime/spdlog                       |
@@ -3794,7 +3794,7 @@ This mapping is used by the SDK’s metrics API to determine the method of acces
 
 OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks such as DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality.
 
-The OFS driver software can be found in the [OFS repository - linux-dfl](https://github.com/OFS/linux-dfl)(https://github.com/OFS/linux-dfl), under the linux-dfl specific category. This repository has an associated [OFS repository - linux-dfl](https://github.com/OFS/linux-dfl)(https://github.com/OFS/linux-dfl/wiki) that includes the following information:
+The OFS driver software can be found in the [OFS repository - linux-dfl](https://github.com/OFS/linux-dfl), under the linux-dfl specific category. This repository has an associated [OFS repository - linux-dfl](https://github.com/OFS/linux-dfl/wiki) that includes the following information:
 
 - An description of the three available branch archetypes
 - Configuration tweaks required while building the kernel

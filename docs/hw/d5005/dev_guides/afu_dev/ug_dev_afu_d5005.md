@@ -1269,7 +1269,7 @@ The following instructions can be used to compile other AFU samples accompanying
 
 ```bash
    cd $OFS_BUILD_ROOT 
-   git clone https://github.com/OPAE/intel-fpga-bbb.git
+   git clone ${{ env.D5005_url_intel-fpga-bbb }}
    git clone https://github.com/OFS/examples-afu.git
 ```
 
