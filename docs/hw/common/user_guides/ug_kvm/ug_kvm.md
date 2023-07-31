@@ -1,43 +1,7 @@
 Virtual machine User Guide: Open FPGA Stack + KVM 
 ===
 
-Last updated: **July 19, 2023** 
-
-## Terms and Acronyms
-
-| Term                      | Abbreviation | Description                                                  |
-| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
-|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
-|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
-|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
-|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
-|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
-|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
-|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
-|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
-|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
-|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
-|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
-|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
-|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
-|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
-|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
-|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
-|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
-|Open Programmable Acceleration Engine Software Development Kit|	OPAE SDK|	The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
-|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
-|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
-|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
-|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
-|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
-|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
-|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
-|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
-|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
-|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
-|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
-|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
- 
+Last updated: **July 31, 2023** 
 
 ## Document scope 
 
@@ -50,7 +14,15 @@ The document describes setting up and configuring a virtual machine to use PCIe 
 5. Install the DFL (Data Field Level) drivers on the virtual machine. These drivers allow the virtual machine to access and use the PCIe devices on the host machine. This may involve downloading and installing the drivers from the internet.
 6. Once all of the steps have been completed, you should be able to use the virtual machine to access and use the PCIe devices on the host machine. You may need to configure the virtual machine's settings to enable it to use the PCIe devices, such as by assigning a specific device to the virtual machine.
 
+## Operation Modes
 
+Our current operational framework stipulates two distinct modes of operation:
+
+1. **Management Mode**: This mode necessitates the passthrough of only the FME device (use fpgainfo fme to discover your port number, normally .0). The reason for this is that the Open FPGA Stack (OFS) depends on this address for management. Under this mode, the use of the exerciser and virtual functions is not feasible.
+
+2. **Virtual Function Mode**: This mode comes into effect when a user needs to utilize the Virtual Functions (VF). The user will convert (example) Physical Function 0 (PF0) to three Virtual Functions (VF). This means the PF will cease to function for management purposes. Once the VFs are set up, they essentially take over the role of the PF in communicating with the Virtual Machines (VMs).
+
+    However, this mode is subject to a limitation. If the user needs to execute 'fpgainfo fme' or 'fpgaupdate', they will need to transition from Virtual Function Mode to Management Mode. Conversely, if the user intends to utilize the Virtual Functions, they would need to switch from Management Mode to Virtual Function Mode. It is imperative to bear this limitation in mind when operating within these modes.
 
 ## 1. Verify if the virtualization is enabled.
 
@@ -249,7 +221,25 @@ sudo virt-manager&
 
 9. In the "Overview" tab, select "Add Hardware," choose "PCI Host Device" from the drop-down menu and choose the PCI device you want to share with the VM. Click "Apply" to apply the changes, and then click "Finish" to create the VM.
 
-   <img src="C:\Users\jdbolano\AppData\Roaming\Typora\typora-user-images\image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" />
+   1. Option A - Management mode - This will only allow you to load the binaries to the FPGA, you only need to add the PF listed at the fpgainfo fme command
+
+      ```sh
+      fpgainfo fme
+      
+      fpgainfo fme
+      Intel Acceleration Development Platform N6001
+      Board Management Controller NIOS FW version: xxxx 
+      Board Management Controller Build version: xxxx 
+      //****** FME ******//
+      Object Id                        : 0xEE00000
+      PCIe s:b:d.f                     : 0000:b1:00.0
+      ```
+
+      Do you only need to add the 0000:b1:00.0 to the list
+
+       
+
+   <img src="images/image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" />
 
    <img src="images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" />
 
@@ -257,73 +247,181 @@ sudo virt-manager&
 
    <img src="images/image-20221213160128900.png" alt="image-20221213160128900" style="zoom:80%;" />
 
-   * If you are not sure about the devices you want to share, follow the following instructions:
+   2. Option B - Deployment mode - The main idea of this mode is enable the Virtual function used by the Agilex PCIe Attach OFS under the Physical Function 0, This option will allow us to use the Host Exercises.
 
-     1. under the host machine, open the console and run the following command to find your device:
+       Note: assigning multiple devices to the same VM on a guest IOMMU, you may need to increase the hard_limit option in order to avoid hitting a limit of pinned memory. The hard limit should be more than (VM memory size x Number of PCIe devices)
 
-        ```sh 
-        sudo fpgainfo fme
-        ```
+       1. **Create** 3 VFs in the PR region.
 
-     2. The output of the previous command should look like this:
+           ```sh
+           sudo pci_device b1:00.0 vf 3 
+           ```
 
-        ```sh
-        Intel Acceleration Development Platform N6001
-        Board Management Controller NIOS FW version: 3.2.0
-        Board Management Controller Build version: 3.2.0
-        //****** FME ******//
-        Object Id                        : 0xED00000
-        PCIe s:b:d.f                     : 0000:B1:00.0
-        Vendor Id                        : 0x8086
-        Device Id                        : 0xBCCE
-        SubVendor Id                     : 0x8086
-        SubDevice Id                     : 0x1771
-        Socket Id                        : 0x00
-        Ports Num                        : 01
-        Bitstream Id                     : 0x50102022267A9ED
-        Bitstream Version                : 5.0.1
-        Pr Interface Id                  : f59830f7-e716-5369-a8b0-e7ea897cbf82
-        Boot Page                        : user1
-        Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-        User1 Image Info                 : a8b0e7ea897cbf82f59830f7e7165369
-        User2 Image Info                 : af84ddd1166009d09df0c826cf095145
-        ```
+           **1.1** Verify all 3 VFs were created.
 
-     3. The Device Address is B1:00.0; in our case, we need to use the B1:00.0 to B1:00.4 address.
+           ```sh
+           lspci -s b1:00 
+           b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01) 
+           b1:00.1 Processing accelerators: Intel Corporation Device bcce 
+           b1:00.2 Processing accelerators: Intel Corporation Device bcce 
+           b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device 
+           b1:00.4 Processing accelerators: Intel Corporation Device bcce 
+           b1:00.5 Processing accelerators: Intel Corporation Device bccf 
+           b1:00.6 Processing accelerators: Intel Corporation Device bccf 
+           b1:00.7 Processing accelerators: Intel Corporation Device bccf 
+           ```
+
+           **2.** **Bind** all of the PF/VF endpoints to the `vfio-pci` driver.
+
+           ```
+           sudo opae.io init -d 0000:b1:00.1 user:user
+           Unbinding (0x8086,0xbcce) at 0000:b1:00.1 from dfl-pci
+           Binding (0x8086,0xbcce) at 0000:b1:00.1 to vfio-pci
+           iommu group for (0x8086,0xbcce) at 0000:b1:00.1 is 187
+           Assigning /dev/vfio/187 to DCPsupport
+           Changing permissions for /dev/vfio/187 to rw-rw----
+           
+           sudo opae.io init -d 0000:b1:00.2 user:user
+           Unbinding (0x8086,0xbcce) at 0000:b1:00.2 from dfl-pci
+           Binding (0x8086,0xbcce) at 0000:b1:00.2 to vfio-pci
+           iommu group for (0x8086,0xbcce) at 0000:b1:00.2 is 188
+           Assigning /dev/vfio/188 to DCPsupport
+           Changing permissions for /dev/vfio/188 to rw-rw----
+           
+           ...
+           
+           sudo opae.io init -d 0000:b1:00.7 user:user
+           Binding (0x8086,0xbccf) at 0000:b1:00.7 to vfio-pci
+           iommu group for (0x8086,0xbccf) at 0000:b1:00.7 is 319
+           Assigning /dev/vfio/319 to DCPsupport
+           Changing permissions for /dev/vfio/319 to rw-rw----
+           ```
+
+           **3.** Check that the accelerators are present using `fpgainfo`. *Note your port configuration may differ from the below.*
+
+           ```
+           sudo fpgainfo port 
+           //****** PORT ******//
+           Object Id                        : 0xEC00000
+           PCIe s:b:d.f                     : 0000:B1:00.0
+           Vendor Id                        : 0x8086
+           Device Id                        : 0xBCCE
+           SubVendor Id                     : 0x8086
+           SubDevice Id                     : 0x1771
+           Socket Id                        : 0x00
+           //****** PORT ******//
+           Object Id                        : 0xE0B1000000000000
+           PCIe s:b:d.f                     : 0000:B1:00.7
+           Vendor Id                        : 0x8086
+           Device Id                        : 0xBCCF
+           SubVendor Id                     : 0x8086
+           SubDevice Id                     : 0x1771
+           Socket Id                        : 0x01
+           Accelerator GUID                 : 4dadea34-2c78-48cb-a3dc-5b831f5cecbb
+           //****** PORT ******//
+           Object Id                        : 0xC0B1000000000000
+           PCIe s:b:d.f                     : 0000:B1:00.6
+           Vendor Id                        : 0x8086
+           Device Id                        : 0xBCCF
+           SubVendor Id                     : 0x8086
+           SubDevice Id                     : 0x1771
+           Socket Id                        : 0x01
+           Accelerator GUID                 : 823c334c-98bf-11ea-bb37-0242ac130002
+           //****** PORT ******//
+           Object Id                        : 0xA0B1000000000000
+           PCIe s:b:d.f                     : 0000:B1:00.5
+           Vendor Id                        : 0x8086
+           Device Id                        : 0xBCCF
+           SubVendor Id                     : 0x8086
+           SubDevice Id                     : 0x1771
+           Socket Id                        : 0x01
+           Accelerator GUID                 : 8568ab4e-6ba5-4616-bb65-2a578330a8eb
+           //****** PORT ******//
+           Object Id                        : 0x80B1000000000000
+           PCIe s:b:d.f                     : 0000:B1:00.4
+           Vendor Id                        : 0x8086
+           Device Id                        : 0xBCCE
+           SubVendor Id                     : 0x8086
+           SubDevice Id                     : 0x1771
+           Socket Id                        : 0x01
+           Accelerator GUID                 : 44bfc10d-b42a-44e5-bd42-57dc93ea7f91
+           //****** PORT ******//
+           Object Id                        : 0x40B1000000000000
+           PCIe s:b:d.f                     : 0000:B1:00.2
+           Vendor Id                        : 0x8086
+           Device Id                        : 0xBCCE
+           SubVendor Id                     : 0x8086
+           SubDevice Id                     : 0x1771
+           Socket Id                        : 0x01
+           Accelerator GUID                 : 56e203e9-864f-49a7-b94b-12284c31e02b
+           //****** PORT ******//
+           Object Id                        : 0x20B1000000000000
+           PCIe s:b:d.f                     : 0000:B1:00.1
+           Vendor Id                        : 0x8086
+           Device Id                        : 0xBCCE
+           SubVendor Id                     : 0x8086
+           SubDevice Id                     : 0x1771
+           Socket Id                        : 0x01
+           Accelerator GUID                 : 3e7b60a0-df2d-4850-aa31-f54a3e403501
+           ```
+
+   The following table contains a mapping between each VF, Accelerator GUID, and component.
+
+   ###### Table 16: Accelerator PF/VF and GUID Mappings[¶](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#table-16-accelerator-pfvf-and-guid-mappings)
+
+   | Component                                     | VF           | Accelerator GUID                     |
+   | :-------------------------------------------- | :----------- | :----------------------------------- |
+   | Intel N6001-PL FPGA SmartNIC Platform base PF | XXXX:XX:XX.0 | N/A                                  |
+   | VirtIO Stub                                   | XXXX:XX:XX.1 | 3e7b60a0-df2d-4850-aa31-f54a3e403501 |
+   | HE-MEM Stub                                   | XXXX:XX:XX.2 | 56e203e9-864f-49a7-b94b-12284c31e02b |
+   | Copy Engine                                   | XXXX:XX:XX.4 | 44bfc10d-b42a-44e5-bd42-57dc93ea7f91 |
+   | HE-MEM                                        | XXXX:XX:XX.5 | 8568ab4e-6ba5-4616-bb65-2a578330a8eb |
+   | HE-HSSI                                       | XXXX:XX:XX.6 | 823c334c-98bf-11ea-bb37-0242ac130002 |
+   | MEM-TG                                        | XXXX:XX:XX.7 | 4dadea34-2c78-48cb-a3dc-5b831f5cecbb |
+
+   3. Now you need to ensure you add the desire VF in you PCIE devices list 
+
+       <img src="images/image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" />
+
+       <img src="images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" />
+
+       Ensure to select your desire VF, in our case .5 HE-MEM
 
 10. Edit the XML file for your machine and include the following
 
-    1. < ioapic driver='qemu'/> inside of features:
+   1. < ioapic driver='qemu'/> inside of features:
 
-       ```xml
-       <features>
-       	<acpi/>
-       	<apic/>
-       	<ioapic driver='qemu'/>
-       </features>
-       ```
+      ```xml
+      <features>
+      	<acpi/>
+      	<apic/>
+      	<ioapic driver='qemu'/>
+      </features>
+      ```
 
-    2. Inside of devices
+   2. Inside of devices
 
-       ```xml
-       <devices>
-           ........
-           ......
-           <iommu model='intel'>
-           	<driver intremap='on' caching_mode='on'/>
-           </iommu>
-       </devices>
-       ```
+      ```xml
+      <devices>
+          ........
+          ......
+          <iommu model='intel'>
+          	<driver intremap='on' caching_mode='on'/>
+          </iommu>
+      </devices>
+      ```
 
-    3. Ensure the hard limit is setup correctly otherwise you can only pass one device:
+   3. Ensure the hard limit is setup correctly otherwise you can only pass one device:
 
-       ```xml
-       <memtune>
-       	<hard_limit unit='G'>64</hard_limit>
-       </memtune>
-       ```
+      ```xml
+      <memtune>
+      	<hard_limit unit='G'>64</hard_limit>
+      </memtune>
+      ```
 
-    4. Save the changes "Apply"
+      Note: assigning multiple devices to the same VM on a guest IOMMU, you may need to increase the hard_limit option in order to avoid hitting a limit of pinned memory. The hard limit should be more than (VM memory size x Number of PCIe devices)
+
+   4. Save the changes "Apply"
 
 11. On the host machine append intel_iommu=on to the end of the GRUB_CMDLINE_LINUX line in the grub configuration file.
     ```sh
@@ -342,22 +440,33 @@ sudo virt-manager&
 12. Ensure your devices are enumerated properly.
 
     1. Example in you host system should look like this:
-      B1:00.0
-      B1:00.1
-      B1:00.2
-      B1:00.3
-      B1:00.4
+
+      1. Management Mode
+
+        B1:00.0
+
+      2. Deployment Mode 
+
+          B1:00.5
+
+          
+
     2. Under the virtual machine (The PCIe Address is an example you could get a different
       number):
-      177:00.0
-      177:00.1
-      177:00.2
-      177:00.3
-      177:00.4
+
+      1. Management Mode
+
+        177:00.0
+
+      2. Deployment Mode 
+
+          177:00.0
+
+      
 
 13. Click on "Begin Installation." and follow the wizard installation of the OS. 
 
-    ![image-20221213160221768](C:\Users\jdbolano\AppData\Roaming\Typora\typora-user-images\image-20221213160221768.png)
+    ![image-20221213160221768](images/image-20221213160221768.png)
 
 14. Once the VM is created, you can start it by selecting it in the `virt-manager` window and clicking the "Run" button. This will boot the VM and start the Red Hat 8.2/Ubuntu installation process. Follow the on-screen instructions to complete the installation.
 
@@ -373,47 +482,70 @@ sudo virt-manager&
 
 16. To include OPAE in your virtual machine, follow the instructions from the following link  [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide. To install the DFL drivers, please follow the instructions from the following link  [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
 
-17. Use the OPAE SDK tool opae.io (under your virtual machine) to check default driver binding using your card under test PCIe B:D.F. 
+17. Use the OPAE SDK tool opae.io (under your virtual machine) to check default driver binding using your card under test PCIe B:D.F (Management mode). 
 
     ```sh
     sudo fpgainfo fme
     
     Intel Acceleration Development Platform N6001
-    Board Management Controller NIOS FW version: 3.2.0 
-    Board Management Controller Build version: 3.2.0 
+    Board Management Controller NIOS FW version: xxx 
+    Board Management Controller Build version: xxx
     //****** FME ******//
     Object Id                        : 0xED00001
-    PCIe s:b:d.f                     : 0000:B1:00.0
+    PCIe s:b:d.f                     : 0000:177:00.0
     
-    sudo opae.io init -d 0000:b1:00.0 $USER
-    [0000:b1:00.0] (0x8086, 0xbcce) Intel N6001 ADP (Driver: dfl-pci)
+    
     ```
 
-18. The dfl-pci driver is used by OPAE SDK fpgainfo commands. The next steps will bind the card under test to the vfio driver to enable access to the registers.
+18. Use the Virtual function (Not supported at management mode)
 
-```sh
-sudo opae.io init -d 0000:B1:00.0 $USER
+    1. Ensure the [DFL kernel drivers is install in your VM system](https://ofs.github.io/sw/install_guide/installation_guide/#build-the-kernel-and-dfl-drivers)
+    2. Bind VFs to VFIO driver
 
-opae.io 0.2.3
-Unbinding (0x8086,0xbcce) at 0000:b1:00.0 from dfl-pci
-Binding (0x8086,0xbcce) at 0000:b1:00.0 to vfio-pci
-iommu group for (0x8086,0xbcce) at 0000:b1:00.0 is 192
-Assigning /dev/vfio/192 to DCPsupport
-Changing permissions for /dev/vfio/192 to rw-rw----
-```
+    ```bash
+    $ sudo opae.io init -d 0000:177:00.0
+    [sudo] password for dcpsupport: 
+    opae.io 0.2.3
+    Binding (0x8086,0xbccf) at 0000:177:00.0 to vfio-pci
+    iommu group for (0x8086,0xbccf) at 0000:177:00.0 is 13
+    ```
 
-17. Confirm the vfio driver is bound to the card under test.
+    3. Verify the binding is correct 
 
-```sh
-opae.io ls
-opae.io 0.2.3
-[0000:b1:00.0] (0x8086, 0xbcce) Intel N6001 ADP (Driver: vfio-pci)
-[0000:b1:00.1] (0x8086, 0xbcce) Intel N6001 ADP (Driver: dfl-pci)
-[0000:b1:00.2] (0x8086, 0xbcce) Intel N6001 ADP (Driver: dfl-pci)
-[0000:b1:00.4] (0x8086, 0xbcce) Intel N6001 ADP (Driver: dfl-pci)
-```
+    ```sh
+    $ opae.io ls
+    opae.io 0.2.3
+    [0000:177:00.0] (0x8086, 0xbccf) Intel N6001 ADP VF (Driver: vfio-pci)
+    
+    ```
 
-After the installation, you can use `virt-manager` to manage and configure the VM, including setting up networking, attaching additional storage, and installing additional software. The shared PCI device will be available to the VM, allowing it to use it as if it were connected directly to the physical system.
+    4. Test the  HE mem
+
+        ```bash
+        host_exerciser mem
+            starting test run, count of 1
+        API version: 1
+        Frequency of AFU clock unknown. Assuming 350 MHz.
+        Allocate SRC Buffer
+        Allocate DST Buffer
+        Allocate DSM Buffer
+            Host Exerciser Performance Counter:
+            Host Exerciser numReads: 1024
+            Host Exerciser numWrites: 1025
+            Host Exerciser numPendReads: 0
+            Host Exerciser numPendWrites: 0
+            Host Exerciser numPendEmifReads: 0
+            Host Exerciser numPendEmifWrites: 0
+            Number of clocks: 6737
+            Total number of Reads sent: 1024
+            Total number of Writes sent: 1022
+            Bandwidth: 3.405 GB/s
+            Test mem(1): PASS
+        ```
+
+        
+
+After the installation, you can use `virt-manager` to manage and configure the VM to move from Management mode to Deployment or vice versa, including setting up networking, attaching additional storage, and installing additional software. The shared PCI device will be available to the VM, allowing it to use it as if it were connected directly to the physical system.
 
 ## Notices & Disclaimers
 
