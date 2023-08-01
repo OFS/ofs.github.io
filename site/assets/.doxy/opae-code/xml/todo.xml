@@ -1,0 +1,21 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="todo" kind="page">
+    <compoundname>todo</compoundname>
+    <title>Todo List</title>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+<para><variablelist>
+<varlistentry><term>Global <ref refid="event_8h_1acee9793072cfe2d18a9603339cf5e8a7" kindref="member">fpgaRegisterEvent</ref>  (fpga_handle handle, fpga_event_type event_type, fpga_event_handle event_handle, uint32_t flags)</term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000001"/>define if calling fpgaRegisterEvent multiple times with the same event_handle is an error condition or if it is silently ignored. </para>
+</listitem>
+<varlistentry><term>Global <ref refid="event_8h_1aa9f920468d8ff05e7411c925a176f5cb" kindref="member">fpgaUnregisterEvent</ref>  (fpga_handle handle, fpga_event_type event_type, fpga_event_handle event_handle)</term></varlistentry>
+<listitem><para><anchor id="todo_1_todo000002"/>define if calling fpgaUnregisterEvent multiple times with the same event_handle is an error condition or if it is silently ignored.</para>
+</listitem>
+</variablelist>
+</para>
+    </detaileddescription>
+    <location file="todo"/>
+  </compounddef>
+</doxygen>
