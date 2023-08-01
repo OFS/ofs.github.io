@@ -232,7 +232,7 @@ The OFS Git OFS repository ofs-d5005 directory structure is shown below:
 |   ├── spi
 |   └── README.md
 ├── license
-│   └── quartus-0.0-0.01Intel OFS-linux.run
+│   └── quartus-0.0-0.01iofs-linux.run
 ├── ofs-common
 |   ├── scripts
 |   ├── src
@@ -453,8 +453,8 @@ ofs-2023.1-1
 
 ```bash
 cd license
-chmod +x quartus-0.0-0.01Intel OFS-linux.run
-sudo ./quartus-0.0-0.01Intel OFS-linux.run
+chmod +x quartus-0.0-0.01iofs-linux.run
+sudo ./quartus-0.0-0.01iofs-linux.run
 ```
 
 3. Verify patch installed
@@ -483,6 +483,8 @@ Set required environment variables as shown below. These environment variables m
 ```bash
 cd $OFS_BUILD_ROOT/ofs-d5005
 export OFS_ROOTDIR=$PWD
+export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.1/quartus
+export QUARTUS_ROOTDIR=$QUARTUS_HOME
 
 ##   *Note, OFS_ROOTDIR is the directory where you cloned the repo, e.g. /home/MyProject/ofs-d5005 *
 
@@ -501,6 +503,7 @@ export OPAE_SDK_REPO_BRANCH=release/2.5.0
 #### 4.2.2. Compiling
 
 The usage of the compile build script is shown below:
+
 ```bash
 ofs-common/scripts/common/syn/build_top.sh [-p] target_configuration work_dir 
 Usage: ofs-common/scripts/common/syn/build_top.sh [-k] [-p] <build target> [<work dir name>]
@@ -538,13 +541,13 @@ Usage: ofs-common/scripts/common/syn/build_top.sh [-k] [-p] <build target> [<wor
 In the next example, you will build the provided example design using a flat, non-PR build flow.
 
 
- Build the provided base example design:
+Build the provided base example design:
 
- ```bash
+```bash
 cd $OFS_BUILD_ROOT/ofs-d5005
     
 ofs-common/scripts/common/syn/build_top.sh d5005 work_d5005
- ```
+```
 
 ```bash
     ... build takes ~5 hours to complete

@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="dir_9a6968a8846ef48cff617fcd6355d7b4" kind="dir">
+    <compoundname>docs/sw/samples</compoundname>
+    <innerdir refid="dir_d66a8e4b979fa79493bebe26e2602d2b">docs/sw/samples/hello_events</innerdir>
+    <innerdir refid="dir_a3c160366dc832de1042e5d4d49ef034">docs/sw/samples/hello_fpga</innerdir>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="docs/sw/samples/"/>
+  </compounddef>
+</doxygen>

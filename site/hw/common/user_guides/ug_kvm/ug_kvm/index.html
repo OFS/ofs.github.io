@@ -1,0 +1,2629 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../ug_docker/ug_docker/">
+      
+      
+        <link rel="next" href="../../../../f2000x/doc_modules/Glossary/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>KVM User guide - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#virtual-machine-user-guide-open-fpga-stack-kvm" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              KVM User guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-tabs__link">
+        Stratix 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/" class="md-tabs__link">
+        Agilex PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-tabs__link md-tabs__link--active">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../sw/fpga_api/quick_start/readme/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Stratix 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Quick Start Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        FPGA Interface Manager Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_docker/ug_docker/" class="md-nav__link">
+        Docker User guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          KVM User guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        KVM User guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#document-scope" class="md-nav__link">
+    Document scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operation-modes" class="md-nav__link">
+    Operation Modes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-verify-if-the-virtualization-is-enabled" class="md-nav__link">
+    1. Verify if the virtualization is enabled.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-verify-if-the-virtualization-modules-are-loaded" class="md-nav__link">
+    2. Verify if the virtualization modules are loaded
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-install-virtual-machine-manager" class="md-nav__link">
+    3. Install Virtual Machine Manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-how-to-create-a-virtual-machine" class="md-nav__link">
+    4. How to create a Virtual Machine?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Agilex PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/" class="md-nav__link">
+        Quick Start Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/" class="md-nav__link">
+        FPGA Interface Manager Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001/" class="md-nav__link">
+        AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_docker/ug_docker/" class="md-nav__link">
+        Docker User guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          KVM User guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        KVM User guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#document-scope" class="md-nav__link">
+    Document scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operation-modes" class="md-nav__link">
+    Operation Modes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-verify-if-the-virtualization-is-enabled" class="md-nav__link">
+    1. Verify if the virtualization is enabled.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-verify-if-the-virtualization-modules-are-loaded" class="md-nav__link">
+    2. Verify if the virtualization modules are loaded
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-install-virtual-machine-manager" class="md-nav__link">
+    3. Install Virtual Machine Manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-how-to-create-a-virtual-machine" class="md-nav__link">
+    4. How to create a Virtual Machine?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Quick Start Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        FPGA Interface Manager Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_docker/ug_docker/" class="md-nav__link">
+        Docker User guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          KVM User guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        KVM User guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#document-scope" class="md-nav__link">
+    Document scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operation-modes" class="md-nav__link">
+    Operation Modes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-verify-if-the-virtualization-is-enabled" class="md-nav__link">
+    1. Verify if the virtualization is enabled.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-verify-if-the-virtualization-modules-are-loaded" class="md-nav__link">
+    2. Verify if the virtualization modules are loaded
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-install-virtual-machine-manager" class="md-nav__link">
+    3. Install Virtual Machine Manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-how-to-create-a-virtual-machine" class="md-nav__link">
+    4. How to create a Virtual Machine?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        oneAPI ASP Getting Started User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_1" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
+          OPAE USER GUIDES
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE USER GUIDES
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_api/quick_start/readme/" class="md-nav__link">
+        Quick Start Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/install_guide/installation_guide/" class="md-nav__link">
+        OPAE Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_api/prog_guide/readme/" class="md-nav__link">
+        OPAE C API Programming Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/pyopae/python_bindings/" class="md-nav__link">
+        OPAE Python Bindings
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_api/plug_guide/readme/" class="md-nav__link">
+        OPAE Plugin Developers Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+          OPAE LIBRARIES
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE LIBRARIES
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_api/fpga_api/" class="md-nav__link">
+        OPAE C API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_api/fpga_cxx_api/" class="md-nav__link">
+        OPAE C++ Core API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_api/fpga_python_api/" class="md-nav__link">
+        OPAE Python API Reference
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_api/plug_guide/readme/" class="md-nav__link">
+        OPAE Plugin Developers Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_3" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+          OPAE LINUX KERNEL DRIVERS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE LINUX KERNEL DRIVERS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/drv_arch/drv_arch/" class="md-nav__link">
+        Open Programmable Accelerator Engine (OPAE) Linux Device Driver Architecture
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+          
+        
+      
+      
+        
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../../../../../sw/fpga_tools/fpgadiag/">OPAE FPGA TOOLS</a>
+          
+            <label for="__nav_6_4">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA TOOLS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgaconf/fpgaconf/" class="md-nav__link">
+        fpgaconf
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssiloopback/" class="md-nav__link">
+        HSSI ethernet loopback
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#document-scope" class="md-nav__link">
+    Document scope
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operation-modes" class="md-nav__link">
+    Operation Modes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-verify-if-the-virtualization-is-enabled" class="md-nav__link">
+    1. Verify if the virtualization is enabled.
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-verify-if-the-virtualization-modules-are-loaded" class="md-nav__link">
+    2. Verify if the virtualization modules are loaded
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-install-virtual-machine-manager" class="md-nav__link">
+    3. Install Virtual Machine Manager
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-how-to-create-a-virtual-machine" class="md-nav__link">
+    4. How to create a Virtual Machine?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="virtual-machine-user-guide-open-fpga-stack-kvm">Virtual machine User Guide: Open FPGA Stack + KVM<a class="headerlink" href="#virtual-machine-user-guide-open-fpga-stack-kvm" title="Permanent link">&para;</a></h1>
+<p>Last updated: <strong>August 01, 2023</strong> </p>
+<h2 id="document-scope">Document scope<a class="headerlink" href="#document-scope" title="Permanent link">&para;</a></h2>
+<p>The document describes setting up and configuring a virtual machine to use PCIe devices. Here are the steps that the document may include:</p>
+<ol>
+<li>Install the necessary tools, such as virt-manager, on the host machine. This may involve downloading and installing the software from the internet.</li>
+<li>Enable the virtualization feature on the host machine. This may involve going into the BIOS settings and enabling hardware-assisted virtualization or using a command-line tool to enable it in the operating system.</li>
+<li>Use virt-manager to create a new virtual machine and configure its settings. This may involve choosing a name and operating system for the virtual machine and setting the amount of memory and storage it will use.</li>
+<li>Install the OPAE (Open Programmable Acceleration Engine) tool on the virtual machine. This may involve downloading and installing the OPAE software.</li>
+<li>Install the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> (Data Field Level) drivers on the virtual machine. These drivers allow the virtual machine to access and use the PCIe devices on the host machine. This may involve downloading and installing the drivers from the internet.</li>
+<li>Once all of the steps have been completed, you should be able to use the virtual machine to access and use the PCIe devices on the host machine. You may need to configure the virtual machine's settings to enable it to use the PCIe devices, such as by assigning a specific device to the virtual machine.</li>
+</ol>
+<h2 id="operation-modes">Operation Modes<a class="headerlink" href="#operation-modes" title="Permanent link">&para;</a></h2>
+<p>Our current operational framework stipulates two distinct modes of operation:</p>
+<ol>
+<li>
+<p><strong>Management Mode</strong>: This mode necessitates the passthrough of only the <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> device (use fpgainfo fme to discover your port number, normally .0). The reason for this is that the Open FPGA Stack (<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>) depends on this address for management. Under this mode, the use of the exerciser and virtual functions is not feasible.</p>
+</li>
+<li>
+<p><strong>Virtual Function Mode</strong>: This mode comes into effect when a user needs to utilize the Virtual Functions (VF). The user will convert (example) Physical Function 0 (PF0) to three Virtual Functions (VF). This means the PF will cease to function for management purposes. Once the VFs are set up, they essentially take over the role of the PF in communicating with the Virtual Machines (VMs).</p>
+<p>However, this mode is subject to a limitation. If the user needs to execute 'fpgainfo fme' or 'fpgaupdate', they will need to transition from Virtual Function Mode to Management Mode. Conversely, if the user intends to utilize the Virtual Functions, they would need to switch from Management Mode to Virtual Function Mode. It is imperative to bear this limitation in mind when operating within these modes.</p>
+</li>
+</ol>
+<h2 id="1-verify-if-the-virtualization-is-enabled">1. Verify if the virtualization is enabled.<a class="headerlink" href="#1-verify-if-the-virtualization-is-enabled" title="Permanent link">&para;</a></h2>
+<p>To check if virtualization is enabled on a Red Hat system using <code>lscpu</code> and <code>grep</code>, you can use the following command:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>lscpu<span class="w"> </span>-e<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Virtualization
+</code></pre></div>
+<p>This command will run <code>lscpu</code> with the <code>-e</code> or <code>--extended</code> option, which displays information about the CPU and its available virtualization capabilities. Then, it pipes the output to <code>grep</code> with the search pattern "Virtualization". If the system has support for virtualization, the output will show the "Virtualization" field and its value, for example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Virtualization:<span class="w"> </span>VT-x
+</code></pre></div>
+<p>In this example, the output shows that the system supports Intel VT-x virtualization technology. If the "Virtualization" field is empty, the system does not have support for virtualization. Keep in mind that even if the system has support for virtualization, it may not be enabled in the BIOS or the operating system itself. </p>
+<p>Check the following for the bios configuration, <a href="https://github.com/intel-innersource/applications.fpga.ofs.documentation/blob/ritesh_n600x_gs_ww49/n600x/user_guides/ofs_getting_started/ug_qs_ofs_n600x.md#enabling-intel-vt-d-technology"><strong>Enabling <abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr> Technology</strong></a></p>
+<h2 id="2-verify-if-the-virtualization-modules-are-loaded">2. Verify if the virtualization modules are loaded<a class="headerlink" href="#2-verify-if-the-virtualization-modules-are-loaded" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Open a terminal window and log in as a user with sudo privileges.</li>
+<li>Check if the virtualization kernel modules are loaded by running the following command:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lsmod | grep kvm
+</code></pre></div>
+<ol>
+<li>
+<p>If the command outputs a list of modules, the virtualization kernel modules are loaded, and virtualization is enabled on your system.</p>
+</li>
+<li>
+<p>The virtualization kernel modules are not loaded if the command does not output anything. You can try loading them manually by running the following command:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>sudo modprobe kvm
+</code></pre></div>
+<ol>
+<li>If the kernel modules are not loaded, and you cannot load them manually, it may be because virtualization is not supported or enabled in your system's BIOS or UEFI settings. You must reboot your system and enter the BIOS or UEFI settings menu to enable virtualization. The exact steps for doing this may vary depending on your system's hardware and BIOS/UEFI version, so consult your motherboard or system documentation for specific instructions.</li>
+</ol>
+<h2 id="3-install-virtual-machine-manager">3. Install Virtual Machine Manager<a class="headerlink" href="#3-install-virtual-machine-manager" title="Permanent link">&para;</a></h2>
+<p>Virtual Machine Manager (also known as libvirt) on follow these steps:</p>
+<ol>
+<li>Open a terminal window and log in as a user with sudo privileges.</li>
+<li>
+<p>Update your system package index by running the following command:</p>
+<ul>
+<li>Redhat </li>
+</ul>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>update
+</code></pre></div>
+ * Ubuntu
+ <div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</code></pre></div></p>
+</li>
+<li>
+<p>Install the libvirt package and any required dependencies by running the following command:</p>
+<ul>
+<li>Redhat </li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>@virtualization
+</code></pre></div>
+<ul>
+<li>Ubuntu</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>qemu-kvm<span class="w"> </span>libvirt-bin<span class="w"> </span>bridge-utils<span class="w"> </span>virt-manager
+</code></pre></div>
+</li>
+<li>
+<p>Start the libvirtd service and enable it to start automatically at boot time by running the following commands:</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>libvirtd
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>libvirtd
+</code></pre></div>
+<ol>
+<li>Optional: Install the virt-manager package, which provides a GUI application for managing virtual machines, by running the following command:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>virt-manager
+</code></pre></div>
+<ol>
+<li>Optional: If you want to be able to run virtual machines as a non-root user, add your user to the libvirt group by running the following command, replacing "USERNAME" with your username:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>sudo<span class="w"> </span>usermod<span class="w"> </span>-a<span class="w"> </span>-G<span class="w"> </span>libvirt<span class="w"> </span>USERNAME
+</code></pre></div>
+<ol>
+<li>You can now launch virt-manager by running the command <code>virt-manager</code> as the non-root user.</li>
+</ol>
+<p>Note: By default, virt-manager will only allow non-root users to create and manage virtual machines with limited resources, such as a limited amount of memory and CPU cores. To allow non-root users to create and manage virtual machines with more resources, you need to edit the <code>/etc/libvirt/qemu.conf</code> configuration file and set the <code>user</code> and <code>group</code> values for the <code>dynamic_ownership</code> option to <code>1</code>. For example:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a># Set user and group ownership of dynamic /dev/kvm device nodes
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>dynamic_ownership = 1
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>user = &quot;root&quot;
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>group = &quot;root&quot;
+</code></pre></div>
+<p>You will also need to restart the libvirtd service for the changes to take effect. You can do this by running the command. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>libvirtd
+</code></pre></div>
+<ol>
+<li>Reboot your server to apply the changes </li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>reboot
+</code></pre></div>
+<p>After completing these steps, you should be able to use the virt-manager GUI application to manage virtual machines on your system. </p>
+<h2 id="4-how-to-create-a-virtual-machine">4. How to create a Virtual Machine?<a class="headerlink" href="#4-how-to-create-a-virtual-machine" title="Permanent link">&para;</a></h2>
+<p>Before creating the virtual machine, ensure the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers are installed in your host machine; the instructions are located here, <a href="https://ofs.github.io"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Site</a> select your desired platform and select Getting stated guide.</p>
+<p>To create a Red Hat 8.2 or Ubuntu 22.04  virtual machine (VM) using <code>virt-manager</code> and share PCI devices with the VM, you will need to perform the following steps:</p>
+<ol>
+<li>Start the <code>virt-manager</code> GUI by running the following command:</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>virt-manager<span class="p">&amp;</span>
+</code></pre></div>
+<p><a class="glightbox" href="images/img2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/img2.png" alt="img2" style="zoom:50%;" /></a></p>
+<ol>
+<li>
+<p>Create a new connection from the menu File-&gt; "Add Connection," Use the default options and click "Connect."</p>
+<p><a class="glightbox" href="../images/img3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img3" src="../images/img3.png" /></a></p>
+<p><a class="glightbox" href="../images/img4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img4" src="../images/img4.png" /></a></p>
+</li>
+<li>
+<p>In the <code>virt-manager</code> window, click the "New virtual machine" button.</p>
+<p><a class="glightbox" href="../images/img3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img3" src="../images/img3.png" /></a></p>
+</li>
+<li>
+<p>In the "New VM" wizard, select "Local install media (ISO image or CDROM)" as the installation source, and then click "Forward."</p>
+<p><a class="glightbox" href="images/img6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/img6.png" alt="img6" style="zoom:67%;" /></a></p>
+<ul>
+<li>
+<p>Get the Red Hat image from the following link.</p>
+<p>https://developers.redhat.com/content-gateway/file/rhel-8.2-x86_64-dvd.iso</p>
+</li>
+</ul>
+<ul>
+<li>
+<p>Get the Ubuntu image from the following link.</p>
+<p>https://releases.ubuntu.com/22.04/ubuntu-22.04.1-desktop-amd64.iso</p>
+</li>
+</ul>
+</li>
+<li>
+<p>In the next step, Click Browse -&gt; Browse local, select the Red Hat 8.2 ISO image as the installation source and click "Forward".</p>
+<p><a class="glightbox" href="../images/img7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img7" src="../images/img7.png" /></a></p>
+<p><a class="glightbox" href="../images/img8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img8" src="../images/img8.png" /></a></p>
+<p>Note: if the system is not detected, disable "Automatic detected from the installation media/source" and type ubuntu and select 19.10 (this should be fine for the 22.04); this step is necessary to copy the default values for the specific OS</p>
+<p><a class="glightbox" href="../images/img10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img10" src="../images/img10.png" /></a></p>
+</li>
+<li>
+<p>In the next step, specify a name and location for the VM, and select the desired memory and CPU configuration. in our case, 16 cores and 64 GB of RAM; Click "Forward" to continue.</p>
+<p><a class="glightbox" href="../images/img12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img12" src="../images/img12.png" /></a></p>
+</li>
+<li>
+<p>Select "enable storage for this virtual machine," Select "Create a new disk for the virtual machine," and enter a size for the virtual disk (at least 200~300GB in case you need to compile the design) or create a custom storage.</p>
+<p><a class="glightbox" href="../images/img13.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img13" src="../images/img13.png" /></a></p>
+<ol>
+<li>
+<p>If you need to create custom storage, select "Select or Create custom storage" and click "Manage."</p>
+<p><a class="glightbox" href="../images/img14.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img14" src="../images/img14.png" /></a></p>
+</li>
+<li>
+<p>Click on the "+" icon (Bottom left) to create the storage pool.</p>
+<p><a class="glightbox" href="../images/image-20221213155215073.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155215073" src="../images/image-20221213155215073.png" /></a></p>
+</li>
+<li>
+<p>In the "Create a new storage pool" dialog, enter a name for the storage pool and select the type of storage pool you want to create; select the Target Path and Click "Finish."</p>
+<p><a class="glightbox" href="../images/img16.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img16" src="../images/img16.png" /></a></p>
+</li>
+<li>
+<p>Select the pool and later click on the "+" icon (The Icon is on the right side of the Volume label) to create the New Storage Volume.</p>
+<p><a class="glightbox" href="../images/image-20221213155420459.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155420459" src="../images/image-20221213155420459.png" /></a></p>
+</li>
+<li>
+<p>In the "Create Storage Volume" dialog, Define the name and format (keep with the default qcow2) and select the Max Capacity (at least 200~300GB  in case you need to compile the design); click "Finish" to create the disk.</p>
+<p><a class="glightbox" href="../images/img21.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img21" src="../images/img21.png" /></a></p>
+</li>
+<li>
+<p>Once the disk is created, it will appear in your virtual machine's list of storage devices. You can now use this disk just like any other disk. Select from the list and Click "Choose Volume."</p>
+<p><a class="glightbox" href="../images/img18.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img18" src="../images/img18.png" /></a></p>
+</li>
+</ol>
+</li>
+<li>
+<p>In the next step, select the "Customize configuration before install" option and click "Finish."</p>
+<p><a class="glightbox" href="../images/image-20221213155659594.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155659594" src="../images/image-20221213155659594.png" /></a></p>
+</li>
+<li>
+<p>In the "Overview" tab, select "Add Hardware," choose "PCI Host Device" from the drop-down menu and choose the PCI device you want to share with the VM. Click "Apply" to apply the changes, and then click "Finish" to create the VM.</p>
+<ol>
+<li>Option A - Management mode - This will only allow you to load the binaries to the FPGA, you only need to add the PF listed at the fpgainfo fme command<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>fpgainfo<span class="w"> </span>fme
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>fpgainfo<span class="w"> </span>fme
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>Intel<span class="w"> </span>Acceleration<span class="w"> </span>Development<span class="w"> </span>Platform<span class="w"> </span>N6001
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>NIOS<span class="w"> </span>FW<span class="w"> </span>version:<span class="w"> </span>xxxx<span class="w"> </span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>Build<span class="w"> </span>version:<span class="w"> </span>xxxx<span class="w"> </span>
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>//******<span class="w"> </span>FME<span class="w"> </span>******//
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>Object<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0xEE00000
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>PCIe<span class="w"> </span>s:b:d.f<span class="w">                     </span>:<span class="w"> </span><span class="m">0000</span>:b1:00.0
+</code></pre></div>
+<p>Do you only need to add the 0000:b1:00.0 to the list</p>
+</li>
+</ol>
+<p><a class="glightbox" href="images/image-20221213155843256.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" /></a></p>
+<p><a class="glightbox" href="images/image-20221213155919267.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" /></a></p>
+<p><a class="glightbox" href="../images/image-20221213160028673.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160028673" src="../images/image-20221213160028673.png" /></a></p>
+<p><a class="glightbox" href="images/image-20221213160128900.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/image-20221213160128900.png" alt="image-20221213160128900" style="zoom:80%;" /></a></p>
+<ol>
+<li>Option B - Deployment mode - The main idea of this mode is enable the Virtual function used by the Agilex PCIe Attach <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> under the Physical Function 0, This option will allow us to use the Host Exercises.<p>Note: assigning multiple devices to the same VM on a guest IOMMU, you may need to increase the hard_limit option in order to avoid hitting a limit of pinned memory. The hard limit should be more than (VM memory size x Number of PCIe devices)</p>
+<p>1. <strong>Create</strong> 3 VFs in the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region.</p>
+<div class="highlight"><pre><span></span><code>   ```sh
+   sudo pci_device b1:00.0 vf 3 
+   ```
+
+   **1.1** Verify all 3 VFs were created.
+
+   ```sh
+   lspci -s b1:00 
+   b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01) 
+   b1:00.1 Processing accelerators: Intel Corporation Device bcce 
+   b1:00.2 Processing accelerators: Intel Corporation Device bcce 
+   b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device 
+   b1:00.4 Processing accelerators: Intel Corporation Device bcce 
+   b1:00.5 Processing accelerators: Intel Corporation Device bccf 
+   b1:00.6 Processing accelerators: Intel Corporation Device bccf 
+   b1:00.7 Processing accelerators: Intel Corporation Device bccf 
+   ```
+
+   **2.** **Bind** all of the PF/VF endpoints to the `vfio-pci` driver.
+
+   ```
+   sudo opae.io init -d 0000:b1:00.1 user:user
+   Unbinding (0x8086,0xbcce) at 0000:b1:00.1 from dfl-pci
+   Binding (0x8086,0xbcce) at 0000:b1:00.1 to vfio-pci
+   iommu group for (0x8086,0xbcce) at 0000:b1:00.1 is 187
+   Assigning /dev/vfio/187 to DCPsupport
+   Changing permissions for /dev/vfio/187 to rw-rw----
+
+   sudo opae.io init -d 0000:b1:00.2 user:user
+   Unbinding (0x8086,0xbcce) at 0000:b1:00.2 from dfl-pci
+   Binding (0x8086,0xbcce) at 0000:b1:00.2 to vfio-pci
+   iommu group for (0x8086,0xbcce) at 0000:b1:00.2 is 188
+   Assigning /dev/vfio/188 to DCPsupport
+   Changing permissions for /dev/vfio/188 to rw-rw----
+
+   ...
+
+   sudo opae.io init -d 0000:b1:00.7 user:user
+   Binding (0x8086,0xbccf) at 0000:b1:00.7 to vfio-pci
+   iommu group for (0x8086,0xbccf) at 0000:b1:00.7 is 319
+   Assigning /dev/vfio/319 to DCPsupport
+   Changing permissions for /dev/vfio/319 to rw-rw----
+   ```
+
+   **3.** Check that the accelerators are present using `fpgainfo`. *Note your port configuration may differ from the below.*
+
+   ```
+   sudo fpgainfo port 
+   //****** PORT ******//
+   Object Id                        : 0xEC00000
+   PCIe s:b:d.f                     : 0000:B1:00.0
+   Vendor Id                        : 0x8086
+   Device Id                        : 0xBCCE
+   SubVendor Id                     : 0x8086
+   SubDevice Id                     : 0x1771
+   Socket Id                        : 0x00
+   //****** PORT ******//
+   Object Id                        : 0xE0B1000000000000
+   PCIe s:b:d.f                     : 0000:B1:00.7
+   Vendor Id                        : 0x8086
+   Device Id                        : 0xBCCF
+   SubVendor Id                     : 0x8086
+   SubDevice Id                     : 0x1771
+   Socket Id                        : 0x01
+   Accelerator GUID                 : 4dadea34-2c78-48cb-a3dc-5b831f5cecbb
+   //****** PORT ******//
+   Object Id                        : 0xC0B1000000000000
+   PCIe s:b:d.f                     : 0000:B1:00.6
+   Vendor Id                        : 0x8086
+   Device Id                        : 0xBCCF
+   SubVendor Id                     : 0x8086
+   SubDevice Id                     : 0x1771
+   Socket Id                        : 0x01
+   Accelerator GUID                 : 823c334c-98bf-11ea-bb37-0242ac130002
+   //****** PORT ******//
+   Object Id                        : 0xA0B1000000000000
+   PCIe s:b:d.f                     : 0000:B1:00.5
+   Vendor Id                        : 0x8086
+   Device Id                        : 0xBCCF
+   SubVendor Id                     : 0x8086
+   SubDevice Id                     : 0x1771
+   Socket Id                        : 0x01
+   Accelerator GUID                 : 8568ab4e-6ba5-4616-bb65-2a578330a8eb
+   //****** PORT ******//
+   Object Id                        : 0x80B1000000000000
+   PCIe s:b:d.f                     : 0000:B1:00.4
+   Vendor Id                        : 0x8086
+   Device Id                        : 0xBCCE
+   SubVendor Id                     : 0x8086
+   SubDevice Id                     : 0x1771
+   Socket Id                        : 0x01
+   Accelerator GUID                 : 44bfc10d-b42a-44e5-bd42-57dc93ea7f91
+   //****** PORT ******//
+   Object Id                        : 0x40B1000000000000
+   PCIe s:b:d.f                     : 0000:B1:00.2
+   Vendor Id                        : 0x8086
+   Device Id                        : 0xBCCE
+   SubVendor Id                     : 0x8086
+   SubDevice Id                     : 0x1771
+   Socket Id                        : 0x01
+   Accelerator GUID                 : 56e203e9-864f-49a7-b94b-12284c31e02b
+   //****** PORT ******//
+   Object Id                        : 0x20B1000000000000
+   PCIe s:b:d.f                     : 0000:B1:00.1
+   Vendor Id                        : 0x8086
+   Device Id                        : 0xBCCE
+   SubVendor Id                     : 0x8086
+   SubDevice Id                     : 0x1771
+   Socket Id                        : 0x01
+   Accelerator GUID                 : 3e7b60a0-df2d-4850-aa31-f54a3e403501
+   ```
+</code></pre></div>
+</li>
+</ol>
+<p>The following table contains a mapping between each VF, Accelerator GUID, and component.</p>
+<p>###### Table 16: Accelerator PF/VF and GUID Mappings</p>
+<table>
+<thead>
+<tr>
+<th align="left">Component</th>
+<th align="left">VF</th>
+<th align="left">Accelerator GUID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Intel N6001-PL FPGA SmartNIC Platform base PF</td>
+<td align="left">XXXX:XX:XX.0</td>
+<td align="left">N/A</td>
+</tr>
+<tr>
+<td align="left">VirtIO Stub</td>
+<td align="left">XXXX:XX:XX.1</td>
+<td align="left">3e7b60a0-df2d-4850-aa31-f54a3e403501</td>
+</tr>
+<tr>
+<td align="left">HE-MEM Stub</td>
+<td align="left">XXXX:XX:XX.2</td>
+<td align="left">56e203e9-864f-49a7-b94b-12284c31e02b</td>
+</tr>
+<tr>
+<td align="left">Copy Engine</td>
+<td align="left">XXXX:XX:XX.4</td>
+<td align="left">44bfc10d-b42a-44e5-bd42-57dc93ea7f91</td>
+</tr>
+<tr>
+<td align="left">HE-MEM</td>
+<td align="left">XXXX:XX:XX.5</td>
+<td align="left">8568ab4e-6ba5-4616-bb65-2a578330a8eb</td>
+</tr>
+<tr>
+<td align="left">HE-HSSI</td>
+<td align="left">XXXX:XX:XX.6</td>
+<td align="left">823c334c-98bf-11ea-bb37-0242ac130002</td>
+</tr>
+<tr>
+<td align="left">MEM-TG</td>
+<td align="left">XXXX:XX:XX.7</td>
+<td align="left">4dadea34-2c78-48cb-a3dc-5b831f5cecbb</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>Now you need to ensure you add the desire VF in you PCIE devices list <p><a class="glightbox" href="../images/image-20221213155843256.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/image-20221213155843256.png" /></a></p>
+<p><a class="glightbox" href="../images/image-20221213155919267.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/image-20221213155919267.png" /></a></p>
+<p>Ensure to select your desire VF, in our case .5 HE-MEM</p>
+</li>
+</ol>
+</li>
+<li>
+<p>Edit the XML file for your machine and include the following</p>
+<ol>
+<li>
+<p>&lt; ioapic driver='qemu'/&gt; inside of features:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="nt">&lt;features&gt;</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="w">  </span><span class="nt">&lt;acpi/&gt;</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="w">  </span><span class="nt">&lt;apic/&gt;</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="w">  </span><span class="nt">&lt;ioapic</span><span class="w"> </span><span class="na">driver=</span><span class="s">&#39;qemu&#39;</span><span class="nt">/&gt;</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="nt">&lt;/features&gt;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Inside of devices</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="nt">&lt;devices&gt;</span>
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="w">    </span>........
+<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span>......
+<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="nt">&lt;iommu</span><span class="w"> </span><span class="na">model=</span><span class="s">&#39;intel&#39;</span><span class="nt">&gt;</span>
+<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a><span class="w">      </span><span class="nt">&lt;driver</span><span class="w"> </span><span class="na">intremap=</span><span class="s">&#39;on&#39;</span><span class="w"> </span><span class="na">caching_mode=</span><span class="s">&#39;on&#39;</span><span class="nt">/&gt;</span>
+<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="w">    </span><span class="nt">&lt;/iommu&gt;</span>
+<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a><span class="nt">&lt;/devices&gt;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Ensure the hard limit is setup correctly otherwise you can only pass one device:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nt">&lt;memtune&gt;</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="w">  </span><span class="nt">&lt;hard_limit</span><span class="w"> </span><span class="na">unit=</span><span class="s">&#39;G&#39;</span><span class="nt">&gt;</span>64<span class="nt">&lt;/hard_limit&gt;</span>
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="nt">&lt;/memtune&gt;</span>
+</code></pre></div>
+<p>Note: assigning multiple devices to the same VM on a guest IOMMU, you may need to increase the hard_limit option in order to avoid hitting a limit of pinned memory. The hard limit should be more than (VM memory size x Number of PCIe devices)</p>
+</li>
+<li>
+<p>Save the changes "Apply"</p>
+</li>
+</ol>
+</li>
+<li>
+<p>On the host machine append intel_iommu=on to the end of the GRUB_CMDLINE_LINUX line in the grub configuration file.
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>nano<span class="w"> </span>/etc/default/grub
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>......
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a><span class="nv">GRUB_CMDLINE_LINUX</span><span class="o">=</span><span class="s2">&quot;....... ... intel_iommu=on&quot;</span>
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>...
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a><span class="c1">#Refresh the grub.cfg file for these changes to take effect</span>
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>shutdown<span class="w"> </span>-r<span class="w"> </span>now
+</code></pre></div></p>
+</li>
+<li>
+<p>Ensure your devices are enumerated properly.</p>
+<p>1. Example in you host system should look like this:</p>
+<div class="highlight"><pre><span></span><code>1. Management Mode
+
+  B1:00.0
+
+2. Deployment Mode
+
+    B1:00.5
+</code></pre></div>
+<p>2. Under the virtual machine (The PCIe Address is an example you could get a different
+    number):</p>
+<div class="highlight"><pre><span></span><code>1. Management Mode
+
+  177:00.0
+
+2. Deployment Mode
+
+    177:00.0
+</code></pre></div>
+</li>
+<li>
+<p>Click on "Begin Installation." and follow the wizard installation of the OS. </p>
+<p><a class="glightbox" href="../images/image-20221213160221768.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160221768" src="../images/image-20221213160221768.png" /></a></p>
+</li>
+<li>
+<p>Once the VM is created, you can start it by selecting it in the <code>virt-manager</code> window and clicking the "Run" button. This will boot the VM and start the Red Hat 8.2/Ubuntu installation process. Follow the on-screen instructions to complete the installation.</p>
+<p><a class="glightbox" href="../images/image-20221213160336305.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160336305" src="../images/image-20221213160336305.png" /></a></p>
+<p><a class="glightbox" href="../images/image-20221213160310002.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160310002" src="../images/image-20221213160310002.png" /></a></p>
+</li>
+<li>
+<p>Under your virtual machine, configure your VM proxy:</p>
+<p>* Redhat <a href="https://access.redhat.com/solutions/1351253">How to apply a system-wide proxy?</a>
+  * Ubuntu <a href="https://help.ubuntu.com/stable/ubuntu-help/net-proxy.html.en">Define proxy settings</a>
+  * <a href="https://gist.github.com/evantoli/f8c23a37eb3558ab8765">Configure Git to use a proxy</a></p>
+</li>
+<li>
+<p>To include OPAE in your virtual machine, follow the instructions from the following link  <a href="https://ofs.github.io"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Site</a> select your desired platform and select Getting stated guide. To install the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers, please follow the instructions from the following link  <a href="https://ofs.github.io"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Site</a> select your desired platform and select Getting stated guide.</p>
+</li>
+<li>
+<p>Use the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> tool opae.io (under your virtual machine) to check default driver binding using your card under test PCIe B:D.F (Management mode). </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>sudo<span class="w"> </span>fpgainfo<span class="w"> </span>fme
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a>
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a>Intel<span class="w"> </span>Acceleration<span class="w"> </span>Development<span class="w"> </span>Platform<span class="w"> </span>N6001
+<a id="__codelineno-24-4" name="__codelineno-24-4" href="#__codelineno-24-4"></a>Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>NIOS<span class="w"> </span>FW<span class="w"> </span>version:<span class="w"> </span>xxx<span class="w"> </span>
+<a id="__codelineno-24-5" name="__codelineno-24-5" href="#__codelineno-24-5"></a>Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>Build<span class="w"> </span>version:<span class="w"> </span>xxx
+<a id="__codelineno-24-6" name="__codelineno-24-6" href="#__codelineno-24-6"></a>//******<span class="w"> </span>FME<span class="w"> </span>******//
+<a id="__codelineno-24-7" name="__codelineno-24-7" href="#__codelineno-24-7"></a>Object<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0xED00001
+<a id="__codelineno-24-8" name="__codelineno-24-8" href="#__codelineno-24-8"></a>PCIe<span class="w"> </span>s:b:d.f<span class="w">                     </span>:<span class="w"> </span><span class="m">0000</span>:177:00.0
+</code></pre></div>
+</li>
+<li>
+<p>Use the Virtual function (Not supported at management mode)</p>
+<p>1. Ensure the <a href="https://ofs.github.io/sw/install_guide/installation_guide/#build-the-kernel-and-dfl-drivers"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel drivers is install in your VM system</a>
+  2. Bind VFs to <abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr> driver</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>opae.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span><span class="m">0000</span>:177:00.0
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="o">[</span>sudo<span class="o">]</span><span class="w"> </span>password<span class="w"> </span><span class="k">for</span><span class="w"> </span>dcpsupport:<span class="w"> </span>
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>opae.io<span class="w"> </span><span class="m">0</span>.2.3
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>Binding<span class="w"> </span><span class="o">(</span>0x8086,0xbccf<span class="o">)</span><span class="w"> </span>at<span class="w"> </span><span class="m">0000</span>:177:00.0<span class="w"> </span>to<span class="w"> </span>vfio-pci
+<a id="__codelineno-25-5" name="__codelineno-25-5" href="#__codelineno-25-5"></a>iommu<span class="w"> </span>group<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="o">(</span>0x8086,0xbccf<span class="o">)</span><span class="w"> </span>at<span class="w"> </span><span class="m">0000</span>:177:00.0<span class="w"> </span>is<span class="w"> </span><span class="m">13</span>
+</code></pre></div>
+<p>3. Verify the binding is correct </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>$<span class="w"> </span>opae.io<span class="w"> </span>ls
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>opae.io<span class="w"> </span><span class="m">0</span>.2.3
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a><span class="o">[</span><span class="m">0000</span>:177:00.0<span class="o">]</span><span class="w"> </span><span class="o">(</span>0x8086,<span class="w"> </span>0xbccf<span class="o">)</span><span class="w"> </span>Intel<span class="w"> </span>N6001<span class="w"> </span>ADP<span class="w"> </span>VF<span class="w"> </span><span class="o">(</span>Driver:<span class="w"> </span>vfio-pci<span class="o">)</span>
+</code></pre></div>
+<p>4. Test the  HE mem</p>
+<div class="highlight"><pre><span></span><code>  ```bash
+  host_exerciser mem
+      starting test run, count of 1
+  API version: 1
+  Frequency of AFU clock unknown. Assuming 350 MHz.
+  Allocate SRC Buffer
+  Allocate DST Buffer
+  Allocate DSM Buffer
+      Host Exerciser Performance Counter:
+      Host Exerciser numReads: 1024
+      Host Exerciser numWrites: 1025
+      Host Exerciser numPendReads: 0
+      Host Exerciser numPendWrites: 0
+      Host Exerciser numPendEmifReads: 0
+      Host Exerciser numPendEmifWrites: 0
+      Number of clocks: 6737
+      Total number of Reads sent: 1024
+      Total number of Writes sent: 1022
+      Bandwidth: 3.405 GB/s
+      Test mem(1): PASS
+  ```
+</code></pre></div>
+</li>
+</ol>
+<p>After the installation, you can use <code>virt-manager</code> to manage and configure the VM to move from Management mode to Deployment or vice versa, including setting up networking, attaching additional storage, and installing additional software. The shared PCI device will be available to the VM, allowing it to use it as if it were connected directly to the physical system.</p>
+<h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
+<p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
+<p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   </p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

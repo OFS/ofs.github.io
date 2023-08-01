@@ -392,6 +392,9 @@ env:
   OFS_PLAT_AFU_BBB_BRANCH: ofs-platform-bbb
   OPAE_SIM_TAG: 2.5.0-2
   OPAE_SIM_BRANCH: opae-sim
+  OPAE_SDK_TAG: 2.5.0-3
+  OPAE_SDK_BRANCH: release/2.5.0
+  LINUX_DFL_TAG: ofs-2023.1-6.1-1
   ONEAPI_ASP_REPO: https://github.com/OFS/oneapi-asp
   OPAE_SDK_REPO: https://github.com/OFS/opae-sdk
   LINUX_DFL_REPO: https://github.com/OFS/linux-dfl
