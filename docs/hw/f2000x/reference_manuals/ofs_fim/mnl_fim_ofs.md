@@ -1539,7 +1539,7 @@ Files for design, build and unit test simulation are found at https://github.com
 ### 15.1 Design Guidance
 
 
-The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
+The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x.md)
 
 **Table 15-2 Features**
 
@@ -1551,7 +1551,7 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
 | 4    | Add user implemented function(s) in AFU                      | * All of your implemented functions must have the required Arm® AMBA® 4 AXI4-Stream interface for both the data path and the MMIO control path to CSRs. <br />* All CSRs in the user-implemented function must have the required DFH layout. <br />* See host exerciser CSRs for reference. |
 | 5    | Update UVM testbench                                         | * The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory, and Ethernet. <br />* User must update the UVM testbench to reflect new RTL behavior for any customization changes. <br />See The [Simulation User Guide]( https://ofs.github.io/hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md) |
 
-For more information on modifying the FIM, refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
+For more information on modifying the FIM, refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x.md)
 
 
 

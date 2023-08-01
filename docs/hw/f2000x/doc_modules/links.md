@@ -17,7 +17,7 @@
 [examples AFU]: https://github.com/OFS/examples-afu.git
 [Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html
 [evaluation script]: https://github.com/OFS/ofs-f2000x-pl/tree/release/ofs-2023.1-1-rc3/eval_scripts
-[FPGA Interface Manager Developer's Guide]: https://ofs.github.io/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md
+[FPGA Interface Manager Developer's Guide]: https://ofs.github.io/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x.md
 
 [OFS]: https://github.com/OFS
 [OFS GitHub page]: https://ofs.github.io
@@ -52,7 +52,7 @@
 
 [Compiling the FIM in preparation for designing your AFU]: #6-compiling-the-fim-in-preparation-for-designing-your-afu
 [AFU Development Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: https://ofs.github.io/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_f2000x
-[FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs
+[FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x
 [Getting Started User Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: https://ofs.github.io/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x
 
 [Connecting an AFU to a Platform using PIM]: https://github.com/OPAE/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
@@ -71,21 +71,20 @@
 
 [Intel FPGA Ethernet Subsystem IP User Guide]: https://www.intel.com/content/www/us/en/docs/programmable/773413/23-1-22-5-0/introduction.html
 
-[Clone the OFS Git Repo]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo
-[Setting Up Required Environment Variables]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables
-[How to Resize the Partial Reconfiguration Region]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region
-[Compiling the FIM]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#442-compiling-the-fim
-[High Level Development Flow]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-high-level-development-flow
-[Custom FIM Development Flow]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#5-custom-fim-development-flow
-[Create a Relocatable PR Directory Tree]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim
-[Pre-Requisites for Adding Hello FIM]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#515-pre-requisites-for-adding-hello-fim
-[How to add a new module to the FIM]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-how-to-add-a-new-module-to-the-fim
-[Installation of OFS]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#42-installation-of-ofs
-[How to compile the FIM in preparation for designing your AFU]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu
-[Compiling the OFS FIM Using Quartus GUI]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui
+[Clone the OFS Git Repo]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#421-clone-the-ofs-git-repo
+[Setting Up Required Environment Variables]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables
+[How to Resize the Partial Reconfiguration Region]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#54-how-to-resize-the-partial-reconfiguration-region
+[Compiling the FIM]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#442-compiling-the-fim
+[High Level Development Flow]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#4-high-level-development-flow
+[Custom FIM Development Flow]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#5-custom-fim-development-flow
+[Create a Relocatable PR Directory Tree]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim
+[Pre-Requisites for Adding Hello FIM]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#515-pre-requisites-for-adding-hello-fim
+[How to add a new module to the FIM]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#51-how-to-add-a-new-module-to-the-fim
+[Installation of OFS]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#42-installation-of-ofs
+[How to compile the FIM in preparation for designing your AFU]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu
+[Compiling the OFS FIM Using Quartus GUI]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#444-compiling-the-ofs-fim-using-quartus-gui
 
-[Configuring the FPGA with a SOF Image via JTAG]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#522-configuring-the-fpga-with-a-sof-image-via-jtag
-
+[Configuring the FPGA with a SOF Image via JTAG]: https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#522-configuring-the-fpga-with-a-sof-image-via-jtag
 
 
 
