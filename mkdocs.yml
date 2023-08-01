@@ -18,7 +18,9 @@ theme:
     - content.code.copy
     - navigation.indexes
     - toc.follow
-
+extra_css:
+  - stylesheets/extra.css
+  
 plugins:
   - glightbox
   - search:
