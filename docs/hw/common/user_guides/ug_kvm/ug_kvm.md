@@ -1,7 +1,7 @@
 Virtual machine User Guide: Open FPGA Stack + KVM 
 ===
 
-Last updated: **July 31, 2023** 
+Last updated: **August 01, 2023** 
 
 ## Document scope 
 
@@ -367,7 +367,7 @@ sudo virt-manager&
 
    The following table contains a mapping between each VF, Accelerator GUID, and component.
 
-   ###### Table 16: Accelerator PF/VF and GUID Mappings[¶](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#table-16-accelerator-pfvf-and-guid-mappings)
+   ###### Table 16: Accelerator PF/VF and GUID Mappings
 
    | Component                                     | VF           | Accelerator GUID                     |
    | :-------------------------------------------- | :----------- | :----------------------------------- |
@@ -381,9 +381,9 @@ sudo virt-manager&
 
    3. Now you need to ensure you add the desire VF in you PCIE devices list 
 
-       <img src="images/image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" />
+       ![](images/image-20221213155843256.png)
 
-       <img src="images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" />
+       ![](images/image-20221213155919267.png)
 
        Ensure to select your desire VF, in our case .5 HE-MEM
 
