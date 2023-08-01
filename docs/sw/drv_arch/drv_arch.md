@@ -30,12 +30,7 @@ User-space applications can acquire exclusive access to the FME using `open()`,
 and release it using `close()`. Device access may be managed by standard Linux
 interfaces and tools.
 
-.. Note::
-
-```
-    If an application terminates without freeing the FME or Port resources, Linux closes all
-    file descriptors owned by the terminating process, freeing those resources.
-```
+> If an application terminates without freeing the FME or Port resources, Linux closes all file descriptors owned by the terminating process, freeing those resources.
 
 ## Port ##
 
@@ -63,12 +58,7 @@ exported by the driver in sysfs.
 
 In all other cases PR fails and may cause system instability.
 
-.. note::
-
-```
-    Platforms that support 512-bit Partial Reconfiguration require
-    binutils >= version 2.25.
-```
+> Platforms that support 512-bit Partial Reconfiguration require binutils >= version 2.25.
 
 Close any software programs accessing the FPGA, including those running in a virtualized host before
 initiating PR. For virtualized environments, the recommended sequence is as
@@ -77,14 +67,8 @@ follows:
 1. Unload the driver from the guest
 2. Release the VF from the guest
 
-.. note::
+> Releasing the VF from the guest while an application on the guest is still accessing its resources may lead to VM instabilities. We recommend closing all applications accessing the VF in the guest before releasing the VF.
 
-```
-    NOTE: Releasing the VF from the guest while an application on the guest is
-    still accessing its resources may lead to VM instabilities. We recommend
-    closing all applications accessing the VF in the guest before releasing the
-    VF.
-```
 3. Disable SR-IOV
 4. Perform PR
 5. Enable SR-IOV
@@ -104,28 +88,21 @@ N is the number of Port released from the PF.
 ```console
     echo N > $PCI_DEVICE_PATH/sriov_numvfs
 ```
-.. note::
 
-```
-    NOTE: The number, 'N', cannot be greater than the number of supported VFs.
-    This can be read from $PCI_DEVICE_PATH/sriov_totalvfs.
-```
+> The number, 'N', cannot be greater than the number of supported VFs. This can be read from $PCI_DEVICE_PATH/sriov_totalvfs.
 
 3. Pass the VFs through to VMs using hypervisor interfaces.
 
 4. Access the AFU on a VF from applications running on the VM using the same driver inside the VM.
 
-.. Note::
+> Creating VFs is only supported for port devices. Consequently, PR and other management functions are only available through the PF.    
 
-``
-Creating VFs is only supported for port devices. Consequently, PR and other management functions are only available through
-the PF.
-```
+<br>
+
+> If assigning multiple devices to the same VM on a guest IOMMU, you may need to increase the [hard_limit option](https://libvirt.org/formatdomain.html#memory-tuning) in order to avoid hitting a limit of pinned memory. The hard limit should be more than (VM memory size x Number of PCIe devices).
+
+
 ## Driver Organization ##
-
-### PCIe Module Device Driver ###
-
-!## Driver Organization ##
 
 ### PCIe Module Device Driver ###
 

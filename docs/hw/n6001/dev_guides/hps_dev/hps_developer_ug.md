@@ -2,7 +2,7 @@
 
 [Quartus Prime Pro Version: 23.1](https://www.intel.com/content/www/us/en/search.html?ws=text#q=quartus%20prime%20pro%2023.1&sort=relevancy)
 
-Last updated: Last updated: **July 19, 2023** 
+Last updated: Last updated: **July 31, 2023** 
 
 ## Glossary
 
@@ -245,6 +245,8 @@ The SSBL + Linux is a part of an itb file and may also be signed with Quartus\_s
 ![](images/Image3.png)
 
 When creating a development environment using `meta-bake.py` both U-Boot and the patches required to work with the Intel N6000/1-PL FPGA SmartNIC Platform are located at */meta-opae-fpga/tools/meta-bake/build/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/build/socfpga_agilex_n6000_defconfig*. To review the required patches applied to U-Boot, navigate to */meta-opae-fpga/tools/meta-bake/build/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/git/patches*. From there, using git commands such as `git status` and `git branch` will show changes to the build environment. 
+
+Currently the *meta-bake* build flow requires a specific environment and software dependencies. Refer to section [6.1 Running meta-bake.py](#61-running-meta-bakepy) for more information. 
 
 Invoke the `meta-bake.py` build script to build your entire image, including U-Boot.
 
@@ -697,7 +699,7 @@ following confiration data:
 
 To create an U-Boot fit and spl image for N6000/1 platforms, run the following command after meeting these setup conditions:
 
-- Host PC with Linux. Ubuntu 20.04, Centos 8, and RHEL 8.7 were used for the development of the N6000/1 image
+- Host PC with Ubuntu 20.04 LTS
   - ARM cross compiler
     - set CROSS_COMPILE environment variable to: <path to cross compiler>/bin/aarch64-linux-gnu-
         - e.x. export CROSS_COMPILE=aarch64-linux-gnu-
@@ -705,6 +707,8 @@ To create an U-Boot fit and spl image for N6000/1 platforms, run the following c
         - e.x. export ARCH=arm64
 - At least 100 Gb of disk space
 - Tested on OFS 3.0.0
+
+This script does not require any bare-metal accesses to perform its build and can be run from a VM with no alterations. Ensure that the Ubuntu 20.04 Guest VM you create has enough to space to perform the entire build (recommend at least 200 GiB total space), as does the drive it is stored on. You will need to configure proxy access in the VM if required for your environment. You can use any VM technology; having `ssh` enabled in the VM will allow you to more easily transfer the completed build files back to the host system but is not required.
 
 Package dependencies to build Yocto on each supported OS can be found on the [Yocto Quick Start](https://docs.yoctoproject.org/1.8/yocto-project-qs/yocto-project-qs.html) page.
 
