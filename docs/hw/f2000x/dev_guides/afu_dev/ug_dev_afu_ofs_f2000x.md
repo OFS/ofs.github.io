@@ -17,7 +17,7 @@ This diagram shows the separation of FPGA board interface development from the i
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
   
 
-Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs). This guide covers logic in the AFU Main region.
+Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x). This guide covers logic in the AFU Main region.
 
 ### **1.1. Document Organization**
 
@@ -87,7 +87,7 @@ This guide assumes you have the following FPGA logic design-related knowledge an
 * Simulation of complex RTL using industry standard simulators (Synopsys® VCS® or Siemens® QuestaSim®).
 * Signal Tap Logic Analyzer tool in the Intel® Quartus® Prime Pro Edition software.
 
-You are strongly encouraged to review the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs)
+You are strongly encouraged to review the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x)
 
 ### **1.3. Acceleration Functional Unit (AFU) Development Flow**
 
@@ -1620,7 +1620,7 @@ Remote Signal Tap is currently not supported in F2000x base FIM configuration.
 ## **6. How to modify the PF/VF MUX configuration**
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs).
+For information on how to modify the PF/VF mapping for your own design, refer to the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x).
 
 ## Notices & Disclaimers
 

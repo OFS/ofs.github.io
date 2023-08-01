@@ -28,54 +28,18 @@ The following flow charts show a high level overview of the initial bring up pro
 
 ![UG_3](images/UG_DIAGRAM_3.png)
 
-### 1.2 Terminology
-
-#### Table 1: Glossary
-
-| Term                      | Abbreviation | Description                                                  |
-| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
-|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
-|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
-|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
-|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
-|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel Max10 or Intel Cyclone10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
-|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
-|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
-|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
-|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
-|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
-|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
-|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
-|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
-|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
-|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
-|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
-|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
-|Open Programmable Acceleration Engine Software Development Kit|	OPAE-SDK|	The OPAE-SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
-|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
-|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
-|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
-|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
-|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
-|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
-|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
-|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
-|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
-|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
-|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
-|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
 
-### 1.3 Introduction to OFS
+### 1.2 Introduction to OFS
 
 Each OFS FIM targets a specific platform, but the modular hardware, software, simulation and test infrastructure allow users to modify each part of the design and test environment for their own custom acceleration platform card. This OFS release targets the Intel® FPGA SmartNIC N6001-PL.
 
-### 1.4 Intended Audience
+### 1.3 Intended Audience
 
 The information in this document is intended for customers evaluating the Intel® FPGA SmartNIC N6001-PL
 . The card is an acceleration development platform (ADP) intended to be used as a starting point for evaluation and development. This document will cover key topics related to initial bring up and development, with links for deeper dives on the topics discussed therein.
 
-### 1.5 Reference Documents
+### 1.4 Reference Documents
 
 Documentation for N6001 is collected  [on GitHub](https://ofs.github.io/hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/). The document list is as follows:
 
@@ -95,7 +59,7 @@ Documentation for N6001 is collected  [on GitHub](https://ofs.github.io/hw/n6001
 | [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/)| Describes how to use the provided shim for OFS for creating your custom OneAPI board support package.|
 | [Platform Evaluation Script: Open FPGA Stack for Intel Agilex FPGA](https://ofs.github.io/hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/)| Serves as a set-up and user guide for the checkout and evaluation of an Intel FPGA SmartNIC N6001 Platform using Open FPGA Stack (OFS). |
 
-### 1.6 Component Version Summary
+### 1.5 Component Version Summary
 
 The OFS 2023.1 Release targeting the Intel® FPGA SmartNIC N6001-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
 
@@ -146,9 +110,9 @@ The following table highlights the programmable firmware versions that are suppo
 | BMC RTL | 3.11.0 |
 | BMC NIOS FW| 3.11.0 |
 
-### 1.7 Initial Server Setup
+### 1.6 Initial Server Setup
 
-#### 1.7.1 Server BMC and BIOS Updates
+#### 1.6.1 Server BMC and BIOS Updates
 
 Both the server BIOS and BMC need to match the versions listed below in [Table 7: Supermicro Server BMC BKC](#table-7-supermicro-server-bmc-bkc). These updates only apply for this specific Best Known Configuration (BKC) - other server manufacturers may require different BIOS updates. Please consult your server's user guide and release notes for update information.
 
@@ -179,7 +143,7 @@ instructions on remote system management.
 | -----| -----|
 | BIOS Version| American Megatrends International, LLC(1.4) |
 
-#### 1.7.2 Server Fan Speed
+#### 1.6.2 Server Fan Speed
 
 The recommended fan speed setting is to use the 100% preset. If using a different
 server model, refer to that server’s user guide for instructions on changing fan
@@ -193,19 +157,19 @@ printed on the service tag that pulls out from the front of the server
 case.
 3. On the left menu select **System** -> **Component Info**, select the **Fan** tab, under **Advanced Settings** click the circle next to **Full Speed**.
 
-#### 1.7.3 Server BIOS Configuration Changes
+#### 1.6.3 Server BIOS Configuration Changes
 
 To enter the Supermicro server’s BIOS setup page, reboot, and press \<Delete\> when
 prompted. You can browse the tabs / options with a combination of arrow keys along with
 \<Escape\> and \<Enter\>.
 
-##### 1.7.3.1 Enabling Intel VT-d Technology
+##### 1.6.3.1 Enabling Intel VT-d Technology
 
 Navigate right to the **Advanced** tab, then select the following menu options: **Chipset
 Configuration** -> **North Bridge** -> **IIO Configuration** -> **Intel VT for Directed I/O (VT-d)**.
 If not already, enable the option **Intel VT for Directed I/O (VT-d)**.
 
-##### 1.7.3.2 PCie Slot Mapping
+##### 1.6.3.2 PCie Slot Mapping
 
 The Intel N6001-PL FPGA SmartNIC Platform is officially verified in the upper middle PCIe x16 slot (Slot 3). If using a different slot, refer to the information in [Table 8 PCIe Slot Mapping](#table-8-pcie-slot-mapping) for which port to manually change in the server BIOS.
 
@@ -219,7 +183,7 @@ The Intel N6001-PL FPGA SmartNIC Platform is officially verified in the upper mi
 | CPU2| Port 2| 1 and 2|
 | CPU2| Port 4| 3 and 4|
 
-#### 1.7.4 Intel® FPGA SmartNIC N6001-PL Installation Procedure
+#### 1.6.4 Intel® FPGA SmartNIC N6001-PL Installation Procedure
 
 The following instructions will help to ensure safe installation of the Intel® FPGA SmartNIC N6001-PL into a supported server. Refer to [Table 8 PCIe Slot Mapping](#table-8-pcie-slot-mapping) for a breakdown of the available PCIe slots on a SuperMicro SYS-220HE.
 
@@ -241,7 +205,7 @@ Do not bend the card while inserting into a slot. Do not apply much pressure in 
 
 ![SERVER_3](images/SERVER_3.png)
 
-#### 1.7.5 Intel® FPGA SmartNIC N6001-PL Removal Procedure
+#### 1.6.5 Intel® FPGA SmartNIC N6001-PL Removal Procedure
 
 The following instructions will help to ensure safe removal of the platform from a supported server.
 
