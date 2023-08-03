@@ -5,6 +5,9 @@
     <includes local="no">stdio.h</includes>
     <includes local="no">stdint.h</includes>
     <incdepgraph>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
       <node id="1">
         <label>docs/sw/include/opae/uio.h</label>
         <link refid="uio_8h"/>
@@ -12,9 +15,6 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
-      </node>
-      <node id="3">
-        <label>stdint.h</label>
       </node>
       <node id="2">
         <label>stdio.h</label>
