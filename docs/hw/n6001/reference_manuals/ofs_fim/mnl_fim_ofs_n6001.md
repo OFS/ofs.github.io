@@ -9,7 +9,47 @@
 This document describes the hardware architecture for the PCIe attach reference FIM of the Open FPGA Stack (OFS)
 targeting the Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
 
-### **1.2 Introduction to Open FPGA Stack**
+
+### **1.2 Glossary**
+
+This table defines some of the common terms used when discussing OFS.
+
+**Table 1-1 Glossary Table**
+
+| Term                      | Abbreviation | Description                                                  |
+| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
+|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
+|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
+|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
+|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
+|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
+|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
+|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
+|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
+|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
+|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
+|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
+|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
+|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
+|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
+|Open Programmable Acceleration Engine Software Development Kit|	OPAE SDK|	The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
+|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
+|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
+|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
+|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
+|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
+|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
+|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
+|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
+|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
+|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
+|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
+
+### **1.3 Introduction to Open FPGA Stack**
 
 The Open FPGA Stack (OFS) is a modular infrastructure of hardware
 platform components, open source upstreamed software, and broad
@@ -63,7 +103,7 @@ These components are available under the https://github.com/OFS site.
 
 Providing the hardware and software source code and supporting test frameworks in a GitHub repository allows you to customize your designs with the latest versions easily.
 
-### **1.3 OFS Features**
+### **1.4 OFS Features**
 
 
 The OFS architecture within the FPGA comprises two partitions:
@@ -78,7 +118,7 @@ The FIM provides a standard Arm® AMBA® 4 AXI4 datapath interface. The FIM resi
 
 The AFU partition is provided for custom acceleration workloads and may contain both static and partial reconfiguration regions.
 
-#### **1.4 FPGA Interface Manager (FIM)**
+#### **1.4.1 FPGA Interface Manager (FIM)**
 
 The primary components of the FPGA Interface Manager or shell of this reference design are: 
 
@@ -147,7 +187,7 @@ This design supports virtualization by making use of the virtualization function
 
 This reference FIM example supports 5 PFs and 4 VFs; however, you may extend your configuration to whatever the PCIe Hard IP can support or your application requires.
 
-#### **1.4.1 AFU**
+#### **1.4.2 AFU**
 
 An AFU is an acceleration workload that interfaces with the FIM. The AFU boundary in this design comprises both static and partial reconfiguration (PR) regions.  You can decide how you want to partition these two areas or if you want your AFU region to only be a partial reconfiguration region.  A port gasket within the design provides all the PR specific modules and logic required for partial reconfiguration. Only one partial reconfiguration region is supported in this design.
 
@@ -190,16 +230,16 @@ For this design the PF/VF Mux provides the following mappings (found in src/afu_
 ![](images/PR_Gasket_Agilex.svg)
 
 
-#### **1.4.2 Platform Interface Manager**
+#### **1.4.3 Platform Interface Manager**
 
 The PIM provides a way to abstract the AXI4-Stream interface to the AFU by providing a library of shims that convert the host channel native
 packet into other protocols such as AXI4 memory-mapped, Avalon<sup>&reg;</sup> streaming (Avalon-ST) or Avalon<sup>&reg;</sup> memory-mapped (Avalon-MM). 
 
 The FPGA or AFU developer implements these interface abstractions in the AFU region (afu_main) of the design.  
 
-For more information, refer to [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/).
+For more information, refer to [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/).
 
-#### **1.4.3 Platform Feature Discovery** 
+#### **1.4.4 Platform Feature Discovery** 
 
 This reference design comes with specific Intel FPGA drivers that are upstreamed to linux-dfl.  These drivers abstract the hardware and operating system specific details of the platform to the host. 
 
@@ -216,7 +256,7 @@ The software must continue traversing the linked list until it sees the EOL (End
 
 ![](images/DFH-traversal.png)
 
-#### **1.4.4 OFS Reference Design**
+#### **1.4.5 OFS Reference Design**
 
 OFS provides FIM designs you can use as a starting point for your own custom design. These designs target a specific programmable acceleration card or development kit and exercise key FPGA device interfaces. 
 
@@ -224,7 +264,7 @@ The Intel Agilex<sup>&reg;</sup> code line for OFS targets the Intel N6001-PL FP
 
 In addition to the OFS FIM for Agilex that targets the Intel N6001-PL FPGA SmartNIC Platform, vertical market FIMs are available for the Intel N6000-PL SmartNIC Platform. 
 
-#### **1.4.5 FIM Simulation**
+#### **1.4.6 FIM Simulation**
 
 OFS provides unit tests and a UVM environment for the FIM and a framework for new feature verification. UVM provides a modular, reusable, and scalable testbench structure by providing an API framework that can be deployed across multiple projects. 
 
@@ -240,7 +280,7 @@ Verification components include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found [here](https://github.com/OFS/ofs-n6001/verification) for evaluation and use. Please refer to the [Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/) for more information.
+The verification infrastructure can be found [here](https://github.com/OFS/ofs-n6001/verification) for evaluation and use. Please refer to the [Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/) for more information.
 
 
 ## **2 OFS High Level Architecture**
@@ -459,7 +499,7 @@ If you are modifying the APF or BPF connections, you must use Platform Designer 
 
 For modifying the PF/VF mux you must update the tools/pfvf_config_tool/pcie_host.ofss file and run the ofs-fim-common/pfvf_config_tool/gen_ofs_settings.py script to initiate the PCIe SS and PF/VF mux parameters to be regenerated before running the FIm build script.  
 
-For details on these modifications, please refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).  
+For details on these modifications, please refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).  
 
 ### **5.1	AFU Peripheral Fabric (APF)**
 
@@ -539,7 +579,7 @@ The default mapping is shown below:
 |HPS Copy Engine Module |PF4|
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+For information on how to modify the PF/VF mapping for your own design, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 ### **5.4 AFU Interface Handler**
 
@@ -1116,7 +1156,7 @@ The CSR excel for HE-HSSI module can be found at ofs-common/src/common/he_hssi/H
 
 **13.3 HE-Null Overview**
 
-This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg.  To find out more about these compiler directives, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg.  To find out more about these compiler directives, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 **Table 13-1  HE-Null DFH**
 
@@ -1285,7 +1325,7 @@ Files for design, build and unit test simulation are found at https://github.com
 
 ### **15.1 Design Guidance**
 
-The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the F[Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/) for detaaled design guidance. 
+The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the F[Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/) for detaaled design guidance. 
 
 
 

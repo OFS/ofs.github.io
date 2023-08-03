@@ -1,6 +1,6 @@
 # **AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs**
 
-Last updated: **August 01, 2023** 
+Last updated: **August 03, 2023** 
 
 ## **1. Introduction**
 
@@ -17,7 +17,7 @@ This diagram shows the separation of FPGA board interface development from the i
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
   
 
-Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).  This guide covers logic in the AFU Main region.
+Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).  This guide covers logic in the AFU Main region.
 
 ### **1.1. Document Organization**
 
@@ -39,6 +39,40 @@ This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all tutor
 
 If you have worked with previous Intel Programmable Acceleration products, you will find out that OFS for Intel® Agilex® FPGAs PCIe Attach is similar. However, there are differences and you are advised to carefully read and follow the tutorial steps to fully understand the design tools and flow.
 
+#### **1.1.1. Glossary**
+
+| Term                      | Abbreviation | Description                                                  |
+| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
+|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
+|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
+|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
+|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
+|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
+|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
+|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
+|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
+|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
+|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
+|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
+|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
+|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
+|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
+|Open Programmable Acceleration Engine Software Development Kit|	OPAE SDK|	The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
+|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
+|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
+|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
+|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
+|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
+|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
+|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
+|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
+|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
+|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
+|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
 
 ### **1.2. Prerequisite**
@@ -53,7 +87,7 @@ This guide assumes you have the following FPGA logic design-related knowledge an
 * Simulation of complex RTL using industry standard simulators (Synopsys® VCS® or Siemens® QuestaSim®).
 * Signal Tap Logic Analyzer tool in the Intel® Quartus® Prime Pro Edition software.
 
-You are strongly encouraged to review the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+You are strongly encouraged to review the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
 
 ### **1.3. Acceleration Functional Unit (AFU) Development Flow**
 
@@ -145,7 +179,7 @@ A typical development and hardware test environment consists of a development se
 
 Note: both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel® FPGA SmartNIC N6001-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The Intel® FPGA SmartNIC N6001-PL must be fully installed following the [Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
+This guide uses Intel® FPGA SmartNIC N6001-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The Intel® FPGA SmartNIC N6001-PL must be fully installed following the [Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
 
 ### **2.2. Installation of Quartus and OFS**
 
@@ -332,9 +366,9 @@ The directories are arranged as shown below:
 ### **2.3. Installation of OPAE SDK**
 
 
-Follow the instructions in the Getting Started Guide: Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL.
+Follow the instructions in the Getting Started Guide: Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL.
 
-Working with the Intel® Intel® FPGA SmartNIC N6001-PL card requires **opae-2.5.0-3**. Follow the instructions in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL section [4.0 OPAE Software Development Kit](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
+Working with the Intel® Intel® FPGA SmartNIC N6001-PL card requires **opae-2.5.0-3**. Follow the instructions in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA SmartNIC N6001-PL section [4.0 OPAE Software Development Kit](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```sh
 $ git checkout tags/2.5.0-3 -b release/2.5.0
@@ -392,7 +426,7 @@ The build scripts included with OFS are verified to run in a bash shell. Other s
 
 The following sections describe how to set up the environment and build the provided FIM with a relocatable build-tree supporting PR. You will use this relocatable PR build-tree for all example AFU simulation and compilation steps in this guide.
 
-> Note: For instructions to compile FIMs available for the Intel® FPGA SmartNIC N6001-PL, refer to [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/). 
+> Note: For instructions to compile FIMs available for the Intel® FPGA SmartNIC N6001-PL, refer to [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/). 
 
 #### **2.5.1. Setting Up the Required Environment Variables to build the FIM**
 
@@ -1296,9 +1330,9 @@ In this section you will set up your server to support ASE by independently down
 #### **4.1.1. Install OPAE SDK**
 
 
-Follow the instructions documented in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL card.
+Follow the instructions documented in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA SmartNIC N6001-PL card.
 
-The N6001 SKU2 card requires **2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
+The N6001 SKU2 card requires **2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL, section [4.0 OPAE Software Development Kit](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```sh
 $ git checkout tags/2.5.0-3 -b release/2.5.0
@@ -1596,7 +1630,7 @@ Right click on the ```afu (afu)``` entry to display the drop-down menu. Then, cl
 </br></br>
 
 ### **4.3 Simulating the hello_world AFU**
-
+ 
 
 In this section you will quickly simulate the PIM-based ```hello_world``` sample AFU accompanying the examples-afu repository.
 
@@ -1665,7 +1699,7 @@ In this section you will quickly simulate the PIM-based ```hello_world``` sample
 
   ```sh      
   $ with_ase ./hello_world
-  
+
     [APP]  Initializing simulation session ...
   Hello world!
     [APP]  Deinitializing simulation session
@@ -1927,7 +1961,7 @@ $ jtagconfig --remove 1
 ## **6. How to modify the PF/VF MUX configuration**
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+For information on how to modify the PF/VF mapping for your own design, refer to the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 
 

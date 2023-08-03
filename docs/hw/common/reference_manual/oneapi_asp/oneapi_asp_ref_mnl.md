@@ -11,7 +11,7 @@
 
 This document serves as a reference manual for platform designers wanting to enable [oneAPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit.html#gs.jxodgk) support on their Open FPGA Stack(OFS) platforms. The document describes essential hardware and software components required for enabling this design flow using OFS. Implementation details for [`oneapi-asp`](https://github.com/OFS/oneapi-asp) for Open FPGA Stack(OFS) reference platforms is covered towards the end of the document.
 
-> **Note:** Table 1-1 in [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
+> **Note:** Table 1-1 in [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
 
 For more information about developing application kernels for FPGA using Intel® oneAPI Base Toolkit (Base Kit) refer to [Intel® FPGA Add-on for oneAPI Base Toolkit](https://www.intel.com/content/www/us/en/developer/tools/oneapi/fpga.html#gs.jxoidi) webpage.
 
@@ -53,11 +53,11 @@ The content in this manual requires readers to be familiar with:
             * [FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/)
             * [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/)
         * Intel® Agilex® FPGA:
-            * [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/)
-            * [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+            * [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach](/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/)
+            * [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
     * Accelerator Functional Unit(AFU)
         * Intel® Stratix 10® FPGA: [Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Stratix 10 FPGA](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
-        * Intel® Agilex® FPGA: [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/)
+        * Intel® Agilex® FPGA: [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/)
     * [OPAE SDK](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)
     * [Linux-DFL](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/#110-dfl-linux-kernel-drivers)
     * [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb)
@@ -73,7 +73,7 @@ In addition to above, developers must be familiar with the following tools & con
 * C++ 
 * [Familiarity with SYCL](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/2023-1/data-parallelism-in-c-using-sycl.html) 
 * Familiarity with [oneAPI compilation process for FPGAs](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/2023-1/fpga-flow.html) & [oneAPI code samples](https://github.com/oneapi-src/oneAPI-samples) 
-* Familiarity with [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
+* Familiarity with [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
 
 ### **1.4 Introduction to oneAPI on Open FPGA Stack(OFS)**
 <div id="intro_oneapi_ofs"></div>
@@ -751,7 +751,7 @@ All `oneapi-asp` components reside in the AFU region in the PR slot. The `ofs_pl
 
 The [`oneapi-asp` repository](https://github.com/OFS/oneapi-asp) contains source files for components that reside in the `ofs-plat-afu.sv` for each reference platform. The FIM database is copied to the `oneapi-asp` during ASP *build* flow (`oneapi-asp/Platform-Name/scripts/build-bsp.sh`). Hence, `oneapi-asp` expects a compiled FIM netlist and a corresponding PR tree. ASP *compile* scripts import the FIM database during oneAPI compilation.
 
-> **Notes:** <br> 1. FIM developer guide outlines steps to compile a FIM and generate PR tree, please refer to section 1.3 for links to FIM developer guides<br> 2. The steps to build `oneapi-asp` using PR tree and `build-bsp.sh` script are covered in the [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
+> **Notes:** <br> 1. FIM developer guide outlines steps to compile a FIM and generate PR tree, please refer to section 1.3 for links to FIM developer guides<br> 2. The steps to build `oneapi-asp` using PR tree and `build-bsp.sh` script are covered in the [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
 
 The following figure shows the `oneapi-asp` *build* process.
 
@@ -767,8 +767,8 @@ The following figure shows the `oneapi-asp` *build* process.
 |---------|---------|---------|
 | 1 | OFS_PLATFORM_AFU_BBB | Should point to location where ofs-platform-afu-bbb repository is cloned, if this variable is not set, `build-bsp.sh` script clones the repository |
 | 2 | OPAE_PLATFORM_ROOT | Must point to the PR tree generated during FIM build, this is a required variable and build flow fails without this |
-| 3 | LIBOPAE_C_ROOT | Should point to the installation location for OPAE libraries (please see [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) for more information on this variable setting), `build-opae.sh` script is used to clone & build OPAE library if this variable is not set |
-| 4 | OPAE_SDK_REPO_BRANCH | If `LIBOPAE_C_ROOT` is not set, it is recommended to set this variable to indicate the OPAE SDK branch to be used for building OPAE libraries (please see [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)) |
+| 3 | LIBOPAE_C_ROOT | Should point to the installation location for OPAE libraries (please see [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) for more information on this variable setting), `build-opae.sh` script is used to clone & build OPAE library if this variable is not set |
+| 4 | OPAE_SDK_REPO_BRANCH | If `LIBOPAE_C_ROOT` is not set, it is recommended to set this variable to indicate the OPAE SDK branch to be used for building OPAE libraries (please see [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)) |
 
 All scripts required for `oneapi-asp` *build* are located in `oneapi-asp/Platform-Name/scripts` folder, where `Platform-Name` is:
 

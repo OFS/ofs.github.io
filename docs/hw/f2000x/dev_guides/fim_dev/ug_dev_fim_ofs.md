@@ -1,6 +1,6 @@
 # **Intel<sup>&reg;</sup> FPGA Interface Manager Developer Guide: Intel Agilex SoC Attach: Open FPGA Stack**
 
-Last updated: **August 01, 2023** 
+Last updated: **August 03, 2023** 
 
 ## **1 Introduction**
 
@@ -26,7 +26,6 @@ As can be seen in this diagram, the OFS FPGA structure has a natural separation 
   * Contains logic supporting partial reconfiguration
   * Remote Signal Tap core for remote debugging of workload
   
-
 This guide is organized as follows: 
 
 * Introduction
@@ -46,6 +45,44 @@ This guide is organized as follows:
 This document uses the  Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL as the main example platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS.  The demonstration steps serve as a tutorial for the development of your OFS knowledge.  
 
 This document covers OFS architecture lightly. For more details on the OFS architecture, please see [Open FPGA Stack Technical Reference Manual](../../reference_manuals/ofs_fim/mnl_fim_ofs.md).
+
+#### **1.1.1 Glossary**
+
+The following table describes several terms that are used in this document.
+
+| Term                      | Abbreviation | Description                                                  |
+| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
+|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
+|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
+|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
+|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
+|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
+|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
+|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
+|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
+|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
+|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
+|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
+|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
+|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
+|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
+|Open Programmable Acceleration Engine Software Development Kit|	OPAE SDK|	The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
+|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
+|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
+|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
+|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
+|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
+|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
+|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
+|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
+|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
+|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
+|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
+
 
 ### **1.2 Release Capabilities**
 
@@ -68,7 +105,7 @@ The FIM also integrates:
 * Remote Signal Tap
 * Partial Reconfiguration
 
-The Host exercisers are provided for the quick evaluation of the FIM and can be leveraged for the verification of the platform's functionality and capabilities.  The host exercisers can be removed by the designer to release FPGA real estate to accommodate new workload functions. To compile the FIM without host exercisers go to [How to compile the FIM in preparation for designing your AFU](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu).
+The Host exercisers are provided for the quick evaluation of the FIM and can be leveraged for the verification of the platform's functionality and capabilities.  The host exercisers can be removed by the designer to release FPGA real estate to accommodate new workload functions. To compile the FIM without host exercisers go to [How to compile the FIM in preparation for designing your AFU](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu).
 
 OFS is extensible to meet the needs of a broad set of customer applications.  The general use cases listed below are examples where the OFS base design is easily extended to build a custom FIM:
 
@@ -289,7 +326,7 @@ Refer to the following documents for more information on sub-systems:
 
 ## **4 High Level Development Flow**
 
-OFS provides a framework of FPGA synthesizable code, simulation environment, and synthesis/simulation scripts.  FIM designers can use the provided code as-is, modify the provided code, or add new code to meet your specific product requirements. The instructions provided after this point are for you to either evaluate the existing design (the current section) or to modify and generate your own design (described in the [Custom FIM Development Flow](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#5-custom-fim-development-flow) section). 
+OFS provides a framework of FPGA synthesizable code, simulation environment, and synthesis/simulation scripts.  FIM designers can use the provided code as-is, modify the provided code, or add new code to meet your specific product requirements. The instructions provided after this point are for you to either evaluate the existing design (the current section) or to modify and generate your own design (described in the [Custom FIM Development Flow](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#5-custom-fim-development-flow) section). 
 
 ### **4.1 Development Pre-requisites**
 
@@ -303,7 +340,7 @@ To run the FPGA compilation steps covered in this guide, requires the following:
 2. Compilation targeting Agilex devices requires a minimum of 64 GB of RAM.
 3. Simulation of lower level functionality (not chip level) is supported by Synopsys<sup>&reg;</sup> VCS and Mentor Graphics<sup>&reg;</sup> QuestaSim SystemVerilog simulators.
 4. Simulation of chip level requires Synopsys VCS and VIP
-  
+   
 #### **4.1.2 Development Environment**
 
 To run the tutorial steps in this guide requires this development environment:
@@ -319,7 +356,7 @@ To run the tutorial steps in this guide requires this development environment:
 | git with git-lfs  | 1.8.3.1 |
 | PERL | 5.8.8 |
 
->**Note:** Steps to install Intel Quartus Prime Pro are provided in the [Installation of OFS](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#42-installation-of-ofs) section.
+>**Note:** Steps to install Intel Quartus Prime Pro are provided in the [Installation of OFS](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#42-installation-of-ofs) section.
 
 To install the ```Git Large File Storage (LFS)``` extension run the following commands:
 
@@ -332,7 +369,7 @@ git lfs install
 To test FPGA image files on hardware, this version of OFS only targets  Intel IPU Platform F2000X-PL. You may modify the build scripts and pin files to target different boards with Agilex FPGA devices.
 ### **4.2 Installation of OFS**
 
-In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see the [Getting Started Guide: Intel® Open FPGA Stack for Intel FPGA](https://ofs.github.io/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
+In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see the [Getting Started Guide: Intel® Open FPGA Stack for Intel FPGA](/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
 
 Building the OFS FIM requires the build machine to have at least 64 GB of RAM.  
 
@@ -502,7 +539,7 @@ OFS provides a build script with the following FPGA image creation options:
 
 The build scripts included with OFS are verified to run in a bash shell. Other shells have not been tested. The full build script typically takes around 3 hours to complete.
 
-The build script flow is the primary flow described in this user guide. For instructions on compiling using the Intel Quartus Prime Pro GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#444-compiling-the-ofs-fim-using-quartus-gui) section.
+The build script flow is the primary flow described in this user guide. For instructions on compiling using the Intel Quartus Prime Pro GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui) section.
 
 The following sections describe how to set up the environment and build the provided FIM and AFU. Follow these steps as a tutorial to learn the build flow.  You will use this environment and build scripts for the creation of your specialized FIM.
 
@@ -554,7 +591,7 @@ export PATH=$PATH:$QUARTUS_HOME/bin:$QUARTUS_HOME/qsys/bin:$QUARTUS_HOME/sopc_bu
 
 ### **4.4.2 Compiling the FIM**
 
-The f2000x  FIM build flow uses the bash script `$OFS_ROOTDIR/ofs-common/scripts/common/syn/build_top.sh`.  There are several setup files that must be put in place before compilation, which is handled by the build script. If you wish to compile the f2000x FIM using the Intel Quartus Prime Pro GUI, you must at least run the setup portion of the `build_top.sh` script before compiling with the GUI. For instructions on compiling the FIM using the Quartus GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#444-compiling-the-ofs-fim-using-quartus-gui) section.
+The f2000x  FIM build flow uses the bash script `$OFS_ROOTDIR/ofs-common/scripts/common/syn/build_top.sh`.  There are several setup files that must be put in place before compilation, which is handled by the build script. If you wish to compile the f2000x FIM using the Intel Quartus Prime Pro GUI, you must at least run the setup portion of the `build_top.sh` script before compiling with the GUI. For instructions on compiling the FIM using the Quartus GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui) section.
 
 The usage of the compile build script is shown below:
 ```bash
@@ -583,7 +620,7 @@ ofs-common/scripts/common/syn/build_top.sh/build_top.sh [-p] f2000x[:OPTIONS]  w
     ./ofs-common/scripts/common/syn/build_top.sh -p f2000x work_dir
     ```
     
-    Refer to the [Create a Relocatable PR Directory Tree](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim) section for more information on out-of-tree PR builds.
+    Refer to the [Create a Relocatable PR Directory Tree](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim) section for more information on out-of-tree PR builds.
 
 The build takes ~3 hours to complete. A successful build will report the following:
 
@@ -688,7 +725,7 @@ This build tree can be moved to a different location and used for AFU developmen
 
 Perform the following steps to compile the OFS FIM using the Quartus GUI:
 
-1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+1. Set the environment variables as described in the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
 2. Run the setup portion of the build script. This takes a few seconds to complete.
 
@@ -765,7 +802,7 @@ The `regress_run.py` script is provided to automatically run all unit tests for 
 
 Perform the following steps to run comprehensive tests:
 
-1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+1. Set the environment variables as described in the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 2. Navigate to the test directory you wish to run from.
   * SoC Tests
 
@@ -829,7 +866,7 @@ Perform the following steps to run comprehensive tests:
 
 The `run_sim.sh` scripts are provided to run individual unit tests for either the SoC or the Host. Before you can run any unit tests, you must generate the IP simulation files. Note that the `regress_run.py` script used for comprehensive testing does this step automatically. Perform the following steps to generate the IP simulation files:
 
-1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+1. Set the environment variables as described in the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 2. Generate the IP simulation files for all unit tests:
 
     ```bash
@@ -875,7 +912,7 @@ Next, perform the following steps to run individual tests:
 
     ```bash
     Test status: OK
-      
+   
     ********************
     Test summary
     ********************
@@ -966,8 +1003,8 @@ This section describes how to perform specific customizations of areas of the FI
 
 In each section, it is assumed that:
 
-1. You have a clean, unmodified clone of the OFS repo.  See the [Clone the OFS Git Repo](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#421-clone-the-ofs-git-repo) section.
-2. After cloning, you must set various environment variables. See the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+1. You have a clean, unmodified clone of the OFS repo.  See the [Clone the OFS Git Repo](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
+2. After cloning, you must set various environment variables. See the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
 ### **5.1 How to add a new module to the FIM**
 
@@ -1013,7 +1050,7 @@ We will add the Hello FIM module to an un-used address space in the SoC MMIO reg
 |0x133000|Remote SignalTap (Port Gasket)|
 |0x140000|AFU Errors (AFU Interface Handler)|
 
-Refer to the [FIM Technical Reference Manual: Interconnect Fabric](https://ofs.github.io/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/#5-interconnect-fabric) for more information on the default MMIO region.
+Refer to the [FIM Technical Reference Manual: Interconnect Fabric](/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/#5-interconnect-fabric) for more information on the default MMIO region.
 #### **5.1.3 Hello FIM CSR**
 
 The Hello FIM CSR will consist of the three registers shown in the table below. The DFH and Hello FIM ID registers are read-only. The Scratchpad register supports read and write accesses.
@@ -1049,8 +1086,8 @@ The table below shows all files in $OFS_ROOTDIR that will be modified or created
 
 The following pre-requisites must be satisfied before adding the Hello FIM module.
 
-1. Clone the design repositories. See the [Clone the OFS Git Repo](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#421-clone-the-ofs-git-repo) section.
-2. Set the environment variables. See the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+1. Clone the design repositories. See the [Clone the OFS Git Repo](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
+2. Set the environment variables. See the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
 #### **5.1.6 File Modification**
 
@@ -1155,7 +1192,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     //*******************************
     // Hello FIM Subsystem
     //*******************************
-     
+   
     `ifdef INCLUDE_HELLO_FIM
     hello_fim_top #(
        .ADDR_WIDTH       (12),
@@ -1180,7 +1217,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
        .rst_n       (rst_n_csr),
        .csr_lite_if (bpf_hello_fim_slv_if)
     );
-     
+   
     `endif 
     ```
 
@@ -1291,10 +1328,10 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     // -----------------------------------------------------------
        ofs_fim_axi_lite_if.slave   csr_lite_if
     );
-     
+   
     import ofs_fim_cfg_pkg::*;
     import ofs_csr_pkg::*;
-     
+   
     //-------------------------------------
     // Signals
     //-------------------------------------
@@ -1304,21 +1341,21 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
        logic                               csr_write;
        logic                               csr_slv_wready;
        csr_access_type_t                   csr_write_type;
-     
+   
        logic [ADDR_WIDTH-1:0]              csr_raddr;
        logic                               csr_read;
        logic                               csr_read_32b;
        logic [DATA_WIDTH-1:0]              csr_readdata;
        logic                               csr_readdata_valid;
        logic [ADDR_WIDTH-1:0]              csr_addr;
-     
+   
        logic [63:0]                        com_csr_writedata;
        logic                               com_csr_read;
        logic                               com_csr_write;
        logic [63:0]                        com_csr_readdata;
        logic                               com_csr_readdatavalid;
        logic [5:0]                         com_csr_address;
-     
+   
     // AXI-M CSR interfaces
     ofs_fim_axi_mmio_if #(
        .AWID_WIDTH   (ofs_fim_cfg_pkg::MMIO_TID_WIDTH),
@@ -1328,7 +1365,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
        .ARADDR_WIDTH (ADDR_WIDTH),
        .RDATA_WIDTH  (ofs_fim_cfg_pkg::MMIO_DATA_WIDTH)
     ) csr_if();
-     
+   
     // AXI4-lite to AXI-M adapter
     axi_lite2mmio axi_lite2mmio (
        .clk       (clk),
@@ -1336,7 +1373,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
        .lite_if   (csr_lite_if),
        .mmio_if   (csr_if)
     );
-     
+   
     //---------------------------------
     // Map AXI write/read request to CSR write/read,
     // and send the write/read response back
@@ -1347,7 +1384,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
        
        ) csr_slave (
        .csr_if             (csr_if),
-     
+   
        .csr_write          (csr_write),
        .csr_waddr          (csr_waddr),
        .csr_write_type     (csr_write_type),
@@ -1360,14 +1397,14 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
        .csr_readdata       (csr_readdata),
        .csr_readdata_valid (csr_readdata_valid)
     );
-     
+   
     // Address mapping
     assign csr_addr          	= csr_write ? csr_waddr : csr_raddr;
     assign com_csr_address     	= csr_addr[5:0];  // byte address
     assign csr_slv_wready 		= 1'b1 ;
     // Write data mapping
     assign com_csr_writedata   	= csr_wdata;
-     
+   
     // Read-Write mapping
     always_comb
     begin
@@ -1384,7 +1421,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
           end
        endcase
     end
-     
+   
     // Read data mapping
     always_comb begin
        if (com_csr_readdatavalid) begin
@@ -1396,7 +1433,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
           csr_readdata_valid = 1'b0;
        end
     end
-     
+   
     hello_fim_com  #(
        .FEAT_ID          (FEAT_ID),
        .FEAT_VER         (FEAT_VER),
@@ -1436,23 +1473,23 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     output reg readdatavalid,
     input [5:0] address
     );
-     
+   
     wire reset_n = !reset;	
     reg [63:0] rdata_comb;
     reg [63:0] scratch_reg;
-     
+   
     always @(negedge reset_n ,posedge clk)  
        if (!reset_n) readdata[63:0] <= 64'h0; else readdata[63:0] <= rdata_comb[63:0];
-     
+   
     always @(negedge reset_n , posedge clk)
        if (!reset_n) readdatavalid <= 1'b0; else readdatavalid <= read;
-     
+   
     wire wr = write;
     wire re = read;
     wire [5:0] addr = address[5:0];
     wire [63:0] din  = writedata [63:0];
     wire wr_scratch_reg = wr & (addr[5:0]  == 6'h30)? byteenable[0]:1'b0;
-     
+   
     // 64 bit scratch register
     always @( negedge  reset_n,  posedge clk)
        if (!reset_n)  begin
@@ -1463,7 +1500,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
           scratch_reg <=  din;  
        end
     end
-     
+   
     always @ (*)
     begin
     rdata_comb = 64'h0000000000000000;
@@ -1491,7 +1528,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     end
       
     endmodule
-    
+
     ```
 
 10. Modify `src/pd_qsys/fabric/bpf.txt`
@@ -1588,7 +1625,7 @@ Perform the following steps to modify the Unit Level simulation files to support
     ```verilog
     function automatic [MAX_DFH_IDX-1:0][63:0] get_dfh_values();
        logic[MAX_DFH_IDX-1:0][63:0] dfh_values;
-    
+
        dfh_values[FME_DFH_IDX]        = 64'h4000_0000_1000_0000;
        dfh_values[THERM_MNGM_DFH_IDX] = 64'h3_00000_002000_0001;
        dfh_values[GLBL_PERF_DFH_IDX]  = 64'h3_00000_001000_0007;
@@ -1605,7 +1642,7 @@ Perform the following steps to modify the Unit Level simulation files to support
        dfh_values[PG_USER_CLK_DFH_IDX] = 64'h3_00000_001000_1014;
        dfh_values[PG_REMOTE_STP_DFH_IDX] = 64'h3_00000_00d000_2013;
        dfh_values[AFU_ERR_DFH_IDX] = 64'h3_00001_000000_2010;
-    
+
        return dfh_values;
     endfunction
     ```
@@ -1616,7 +1653,7 @@ Perform the following steps to modify the Unit Level simulation files to support
   cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
   sh gen_sim_files.sh f2000x 
   ```
-  
+   
 ##### **5.1.7.2 Run DFH Walker Simulation**
 
 After the simulation files have been re-generated, run the DFH Walker test to ensure the Hello FIM module can be accessed by the SoC through the BPF.
@@ -1716,18 +1753,18 @@ Perform the following steps to modify the UVM simulation files to support the He
     ```verilog
     // HELLO_FIM_Scratchpad 64 bit access
     `uvm_info(get_name(), $psprintf("////Accessing PF0 HELLO_FIM_Scratchpad Register %0h+'h16030////", tb_cfg0.PF0_BAR0), UVM_LOW)
-    
+
     assert(std::randomize(wdata));
     addr = tb_cfg0.PF0_BAR0+'h1_6000+'h30;
-    
+
     mmio_write64(.addr_(addr), .data_(wdata));
     mmio_read64 (.addr_(addr), .data_(rdata));
-    
+
     if(wdata !== rdata)
         `uvm_error(get_name(), $psprintf("Data mismatch 64! Addr = %0h, Exp = %0h, Act = %0h", addr, wdata, rdata))
     else
         `uvm_info(get_name(), $psprintf("Data match 64! addr = %0h, data = %0h", addr, rdata), UVM_LOW)
-    
+
     addr = tb_cfg0.PF0_BAR0+'h1_6000+'h38;
     wdata = 64'h6626_0701_5000_0034;
     mmio_read64 (.addr_(addr), .data_(rdata));
@@ -1752,7 +1789,7 @@ Perform the following steps to modify the UVM simulation files to support the He
     ```bash
     cd $VERDIR/scripts
     ```
-    
+       
   2. Clean the output of previous builds
 
     ```bash
@@ -1851,7 +1888,7 @@ Perform the following steps to run the UVM MMIO Simulation.
 
 Perform the following to compile the Hello FIM design.
 
-1. Ensure the pre-requesites described in the [Pre-Requisites for Adding Hello FIM](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#515-pre-requisites-for-adding-hello-fim) section are satisfied.
+1. Ensure the pre-requesites described in the [Pre-Requisites for Adding Hello FIM](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#515-pre-requisites-for-adding-hello-fim) section are satisfied.
 2. Ensure that Intel Quartus Prime Pro is in your $PATH
 3. Compile the design
 
@@ -1912,9 +1949,9 @@ Perform the following steps to program the f2000x with the HelloFIM design gener
   ```bash
   sudo rsu fpga --page=user1 0000:15:00.0
   ```
-  
+    
 5. Run the `fpgainfo fme` command again to verify the User1 Image Info has been updated.
-  
+   
   Example Output:
 
   ```bash
@@ -2110,7 +2147,7 @@ This section will describe how to access the Hello FIM registers using the opae.
 
 ### **5.2 How to Debug the FIM with Signal Tap**
 
-For debugging issues within the FIM, Signal Tap can be used to gain internal visibility into your design. This section describes the process of adding a Signal Tap instance to the Hello FIM design example described in the [How to add a new module to the FIM](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#51-how-to-add-a-new-module-to-the-fim) section, however the process can be used for any design.
+For debugging issues within the FIM, Signal Tap can be used to gain internal visibility into your design. This section describes the process of adding a Signal Tap instance to the Hello FIM design example described in the [How to add a new module to the FIM](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-how-to-add-a-new-module-to-the-fim) section, however the process can be used for any design.
 
 For more detailed information on Signal Tap please see refer to [Quartus Prime Pro Edition User Guide: Debug Tools](https://www.intel.com/content/www/us/en/docs/programmable/683819/22-4/faq.html) (RDC Document ID 683819).
 
@@ -2128,9 +2165,9 @@ The steps below use the hello_fim example to add Signal Tap, however the general
     ```bash
     cp -r $OFS_ROOTDIR/work_hello_fim $OFS_ROOTDIR/work_hello_fim_with_stp
     ```
-  
+   
   * If you are adding signal tap to a new design that has not yet been synthesized, perform the following steps to synthesize the design.
-    1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+    1. Set the environment variables as described in the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
     2. Run the setup portion of the build script to create a working directory based on the original source files.
 
       ```bash
@@ -2386,13 +2423,13 @@ Perform the following steps to program the Agilex FPGA via JTAG.
 
 
 6. Click **Auto Detect** and make sure the Agilex Device is shown in the JTAG chain. Select the Cyclone 10 and Agilex devices if prompted.
-  
+   
   ![](images/stp_autodetect_agilex.png)
-  
+   
 7. Right-click on the cell in the **File** column for the Agilex device and click on **Change file**
 
   ![](images/stp_change_file_hello_fim.png)
-  
+      
 8. Select the generated **ofs_top.sof** file for the Agilex FPGA with the Signal Tap instrumented Hello FIM example. Remember that the output files are located under **work_hello_fim_with_stp/syn/syn_top/output_files/**.
   
 9. Tick the checkbox below "Program/Configure" column and click on **Start** to program this .sof file.
@@ -2452,19 +2489,19 @@ Perform the following steps to program the Agilex FPGA via JTAG.
   ```
 
 2. In the Signal Tap GUI, open your STP file. Your STP file settings will load. In this example we used `STP_For_Hello_FIM.stp`.
-  
+   
   ![](images/stp_open_STP_For_Hello_FIM.stp.png)
-  
+   
 3. In the right pane of the Signal Tap GUI, in the **Hardware:** selection box select the cable `USB-BlasterII`. In the **Device:** selection box select the Agilex device.
 
   ![](images/stp_select_usbBlasterII_hardware.png)
-  
+   
 4.   If the Agilex Device is not displayed in the **Device:** list, click the **'Scan Chain'** button to re-scan the JTAG device chain.
 
 5. If not already set, you can create the trigger conditions. In this example, we will capture data on a rising edge of the Read Address Valid signal.
-  
+   
   ![](images/stp_set_trigger_conditions.png)
-  
+   
 6. Start analysis by selecting the **'STP_For_Hello_FIM'** instance and pressing **'F5'** or clicking the **Run Analysis** icon in the toolbar. You should see a green message indicating the Acquisition is in progress. Then, move to the **Data** Tab to observe the signals captured.
 
   ![](images/stp_start_signal_capture.png)
@@ -2480,7 +2517,7 @@ Perform the following steps to program the Agilex FPGA via JTAG.
   The signals should be captured on the rising edge of `arvalid` in this example. Zoom in to get a better view of the signals.
 
   ![](images/stp_captured_csr_lite_if_traces.png)
-  
+   
 8. The PCIe AER feature is automatically re-enabled by rebooting the server. 
 
 This concludes the example on how to instrument an OFS FIM with the Quartus Prime Signal Tap Logic Analyzer.
@@ -2519,7 +2556,7 @@ Perform the following steps to customize the resources allocated to the AFU in t
 1. The `$OFS_ROOTDIR/syn/setup/pr_assignments.tcl` TCL file defines the Logic Lock Regions in the design, including the PR partition where the AFU is allocated.
 
   The default design uses the the following Logic Lock Regions:
-  
+   
   ```tcl
   set TOP_MEM_REGION    "X115 Y310 X219 Y344"
   set BOTTOM_MEM_REGION "X0 Y0 X294 Y20"
@@ -2557,9 +2594,9 @@ Refer to the following documentation for more information on how to optimize the
 
 In this example we will modify the Memory Subsystem to enable ECC on all of the existing memory interfaces. You may make different modifications to meet your own design requirements. Perform the following steps to make this change.
 
-1. Clone the design repositories or use an existing design. See the [Clone the OFS Git Repo](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#421-clone-the-ofs-git-repo) section.
+1. Clone the design repositories or use an existing design. See the [Clone the OFS Git Repo](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
 
-2. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+2. Set the environment variables as described in the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
 3. Navigate to the directory containing the Memory Subsystem IP file `mem_ss_fm.ip`.
 
@@ -2681,7 +2718,7 @@ In this example we will modify the Memory Subsystem to enable ECC on all of the 
   ofs-common/scripts/common/syn/build_top.sh -p f2000x <YOUR_WORK_DIRECTORY>
   ```
 
-11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
 
 The configuration edits described here were made to the original source files of the cloned OFS repository. Therefore, these modifications will present in subsequent FIM compilations. This is because the FIM compilation process links and copies source files from the cloned OFS repository to the FIM compilation work directory.
 
@@ -2694,7 +2731,7 @@ cd $OFS_ROOTDIR
 ofs-common/scripts/common/syn/build_top.sh f2000x :flat,no_hssi <YOUR_WORK_DIRECTORY>
 ```
 
-If you wish to build a PR enabled design, you may adjust the Logic Lock regions to allocate more resources to the PR region since the Ethernet subsystem has been removed from the FIM. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+If you wish to build a PR enabled design, you may adjust the Logic Lock regions to allocate more resources to the PR region since the Ethernet subsystem has been removed from the FIM. Refer to the [How to Resize the Partial Reconfiguration Region](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
 
 ### **5.7 How to change the PCIe device ID and Vendor ID**
 
@@ -2772,25 +2809,25 @@ You will use IP Parameter Editor to modify the PCIe configuration registers.
   qsys-edit pcie_ss.ip
   ```
   The IP Parameter Editor GUI will open.  Close any tool pop-ups.
-  
+    
   ![](images/pcie_ss_editor.PNG)
 
 2. Scroll down through the PCIe subsystem settings tabs to the PCIe Interfaces 0 Ports Settings tab as shown below:
 
   ![](images/pcie_ss_editor2.PNG)
-  
+    
   Select the PCIe0 Device Identification Registers tab. You can edit the values of Vendor ID, Device ID, Subsystem Vendor ID and Subsystem Device ID for each PF/VF in use.
 
 3. Once you have made changes, click Generate HDL and save. 
-4. Make sure the environment variables are set as described in the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+4. Make sure the environment variables are set as described in the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 5. Build your new FPGA image with build_top.sh script
-  
+   
   ```bash
   cd $OFS_ROOTDIR
   ofs-common/scripts/common/syn/build_top.sh -p f2000x work_pcie_vid
   ```
 
-Be aware that OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to initially confiugre the FPGA via JTAG to load the test FPGA image. Instructions for thes process are given in the [Configuring the FPGA with a SOF Image via JTAG](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#522-configuring-the-fpga-with-a-sof-image-via-jtag) section. If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command ```fpgasupdate```.
+Be aware that OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to initially confiugre the FPGA via JTAG to load the test FPGA image. Instructions for thes process are given in the [Configuring the FPGA with a SOF Image via JTAG](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#522-configuring-the-fpga-with-a-sof-image-via-jtag) section. If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command ```fpgasupdate```.
 
 The changes to software required to work with new PCIe settings are described in [Software Reference Manual: Intel Open FPGA Stack](../../../common/reference_manual/ofs_sw/mnl_sw_ofs.md) 
 
@@ -2804,9 +2841,9 @@ The default device for the Intel® Infrastructure Processing Unit (Intel® IPU) 
 
 Perform the following steps to change the device to a larger density with the same package.
 
-1. Clone the design repository. See the [Clone the OFS Git Repo](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#421-clone-the-ofs-git-repo) section.
+1. Clone the design repository. See the [Clone the OFS Git Repo](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
 
-2. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+2. Set the environment variables as described in the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
 3. Navigate to the OFS Root Directory
 
@@ -2835,7 +2872,7 @@ Perform the following steps to change the device to a larger density with the sa
   ofs-common/scripts/common/syn/build_top.sh f2000x:flat  <YOUR_WORK_DIRECTORY>
   ```
 
-6. To enable the PR region, use Quartus Chip Planner to analyze the compiled flat design and adjust the Logic Lock constraints defined in `$OFS_ROOTDIR/syn/setup/pr_assignments.tcl` for the new device layout. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#54-how-to-resize-the-partial-reconfiguration-region) section for instructions. Re-compile the design with the out-of-tree PR region enabled.
+6. To enable the PR region, use Quartus Chip Planner to analyze the compiled flat design and adjust the Logic Lock constraints defined in `$OFS_ROOTDIR/syn/setup/pr_assignments.tcl` for the new device layout. Refer to the [How to Resize the Partial Reconfiguration Region](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for instructions. Re-compile the design with the out-of-tree PR region enabled.
 
   ```bash
   cd $OFS_ROOTDIR
@@ -2847,7 +2884,7 @@ Perform the following steps to change the device to a larger density with the sa
 This section describes steps to change the Ethernet interface from 8x25 GbE to 8x10 GbE. 
 
 1. Edit the HSSI IP Subsystem **$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss_8x25g.ip** to be 8x10 GbE using IP Platform Editor.
-  
+   
   ```bash
   cd $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss
   qsys-edit hssi_ss_8x25g.ip
@@ -2858,7 +2895,7 @@ This section describes steps to change the Ethernet interface from 8x25 GbE to 8
   ![](images/ip_param_editor_10g_1.png)
 
 3. Click the IP Configuration tab and note the default settings of **OFF** for AN/LT and SYNCE.  You may optionally change these settings based on your application needs. The settings for P0 IP cover ports 0 to 3.  The settings for P4 cover ports 4 to 7.
-  
+   
   ![](images/ip_param_editor_10g_2.png)
 
 4.  Click "P0 Configuration" tab and note the default settings for maximum frame size.  You may optionally change these settings based on your application needs.  Set "P4 Configuration" as needed. 
@@ -2891,14 +2928,14 @@ This section describes steps to change the Ethernet interface from 8x25 GbE to 8
   ofs-common/scripts/common/syn/build_top.sh -p f2000x work_8x10gbe
   ```
 
-11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
 
 ### **5.10 How to change Ethernet interface from 8 X 25 GbE to 2 X 100 GbE**
 
 This section describes steps to change the Ethernet interface from 8 X 25 GbE to 2 x 100 GbE. 
 
 1. Edit HSSI IP Subsystem **$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/hssi_ss_8x25g.ip** to be 2 X 100 GbE using IP Platform Editor.
-  
+   
   ```bash
   cd $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss
   qsys-edit hssi_ss_8x25g.ip
@@ -2909,7 +2946,7 @@ This section describes steps to change the Ethernet interface from 8 X 25 GbE to
   ![](images/ip_param_editor_100g_1.png)
 
 3. Click the IP Configuration tab and note the default settings of OFF for AN/LT and SYNCE.  You may optionally change these settings based on your application needs.
-  
+   
   ![](images/ip_param_editor_100g_2.png)
 
 4.  Click "P0 Configuration" tab and note the default settings for maximum frame size.  You may optionally change these settings based on your application needs.  Set "P4 Configuration" as needed. 
@@ -2920,7 +2957,7 @@ This section describes steps to change the Ethernet interface from 8 X 25 GbE to
 6. Click `File` and `Save As` hssi_ss_2x100g.  Click `Generate HDL` in the bottom right hand corner of IP Editor and enable simulation support.
 
 7. Edit $OFS_ROOTDIR/ipss/hssi/eth_design_files.tcl to comment out 8x25g and add in 2x100g.ip
-  
+   
   ```
   #-----------------
   # HSSI SS IP
@@ -2931,22 +2968,22 @@ This section describes steps to change the Ethernet interface from 8 X 25 GbE to
   ```
 
 8. Edit $OFS_ROOTDIR/syn/syn_top/ofs_top.qsf and $OFS_ROOTDIR/syn/syn_top/ofs_pr_afu.qsf to add new macro definition:
-  
+    
   ```
   set_global_assignment -name VERILOG_MACRO "ETH_100G"      # Change Ethernet from 8x25 to 2x100 GbE
   ```
 
 9. Update $OFS_ROOTDIR/syn/setup/eth_top.sdc:
-  
+   
   ```
   #Timing for 100G
   set_false_path -from [get_clocks {sys_pll|iopll_0_clk_100m}] -to [get_clocks {hssi_wrapper|hssi_ss|hssi_ss_0|U_hssi_ss_ip_wrapper|U_hssi_ss_ip_top_p*|alt_ehipc3_fm_0|alt_ehipc3_fm_top_p*|alt_ehipc3_fm_hard_inst|E100GX4_FEC.altera_xcvr_native_inst|xcvr_native_s10_etile_0_example_design_4ln_ptp|tx_clkout|ch0}]; 
-  
+
   set_false_path -from [get_clocks {hssi_wrapper|hssi_ss|hssi_ss_0|U_hssi_ss_ip_wrapper|U_hssi_ss_ip_top_p*|alt_ehipc3_fm_0|alt_ehipc3_fm_top_p*|alt_ehipc3_fm_hard_inst|E100GX4_FEC.altera_xcvr_native_inst|xcvr_native_s10_etile_0_example_design_4ln_ptp|tx_clkout|ch0}] -to [get_clocks {sys_pll|iopll_0_clk_100m}];   
   ```
-  
+    
 10. Build new 2x100G FIM.
-  
+    
   ```
   cd $OFS_ROOTDIR
   ofs-common/scripts/common/syn/build_top.sh -p f2000x work_2x100gbe
@@ -2960,8 +2997,8 @@ This section describes how to add 4 extra Ethernet channels to the existing f200
 
 In this exercise we will add 4 extra channels to make a total of 12 channels. This configuration will be called 12x25G.
 
-1. Clone the design repository or use an existing design. See the [Clone the OFS Git Repo](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#421-clone-the-ofs-git-repo) section.
-2. Set the environment variables. See the [Setting Up Required Environment Variables](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#441-setting-up-required-environment-variables) section.
+1. Clone the design repository or use an existing design. See the [Clone the OFS Git Repo](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
+2. Set the environment variables. See the [Setting Up Required Environment Variables](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 3. Navigate to the directory containing the existing Ethernet Subsystem IP `hssi_ss_8x25g.ip`.
 
   ```bash
@@ -3049,7 +3086,7 @@ In this exercise we will add 4 extra channels to make a total of 12 channels. Th
     ```verilog
     localparam NUM_QSFP_PORTS = 3; // QSFP cage on board
     ```
-    
+        
   2. Change the number of ethernet channels parameter for the 25G with no CVL configuration from `8` to `12`
     
     ```verilog
@@ -3064,7 +3101,7 @@ In this exercise we will add 4 extra channels to make a total of 12 channels. Th
     set_location_assignment PIN_DN4  -to qsfp_serial[2].tx_p[1]
     set_location_assignment PIN_DY1  -to qsfp_serial[2].tx_p[2]
     set_location_assignment PIN_EB4  -to qsfp_serial[2].tx_p[3]
-    
+
     set_location_assignment PIN_DL8  -to qsfp_serial[2].rx_p[0]
     set_location_assignment PIN_DN13 -to qsfp_serial[2].rx_p[1]
     set_location_assignment PIN_DY8  -to qsfp_serial[2].rx_p[2]
@@ -3072,13 +3109,13 @@ In this exercise we will add 4 extra channels to make a total of 12 channels. Th
     ```
 
 14. Compile the design
-  
+   
   ```bash
   cd $OFS_ROOTDIR
   ofs-common/scripts/common/syn/build_top.sh -p f2000x <YOUR_WORK_DIRECTORY>
   ```
 
-15. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+15. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
 
 ### **5.12 How to modify the PF/VF MUX configuration**
 
@@ -3194,21 +3231,21 @@ The **PF/VF Configuration Tool** allows you to easily reconfigure the default nu
   Success!  Thank you for using the IP-Deploy Tool
   ```
 
-4. Recompile the FIM using the ```build_top.sh``` script described in the [Compiling the FIM](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#442-compiling-the-fim) section of this guide. 
+4. Recompile the FIM using the ```build_top.sh``` script described in the [Compiling the FIM](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#442-compiling-the-fim) section of this guide. 
 
 5. Verify the correct functionality of new the PF/VF Mux configuration.
 
   New PF/VF are seamlessly connected to their own CSR stub, which can be read at DFH Offset 0x0. You can bind to the function and perform ```opae.io peek``` commands to read from the stub CSR. Similarly, perform ```opae.io poke``` commands to write into the stub CSRs. Use this mechanism to verify that the new PF/VF Mux configuration allows to write and read back values from the stub CSRs. 
-  
+   
   The GUID for every new PF/VF CSR stub is the same.   
-  
+   
   * NULL_GUID_L           = 64'haa31f54a3e403501
   * NULL_GUID_H           = 64'h3e7b60a0df2d4850
 
   > **Limitations:** Setting 0 virtual functions on SoC PF0 is not supported. This is because the **PR** region cannot be left unconnected. A loopback may need to be instantiated in this special case. 
-  
+   
   Load the newly compiled FIM to the card to test the functionality of the new PF/VF functions. Use the following commands to verify the number of PFs/VFs created:
-  
+   
   ```bash 
   sudo lspci -vvv -s b1:00.0 | grep VF
   ```
@@ -3257,7 +3294,7 @@ To create this minimal FIM, perform the following steps:
     OutputName = soc_pcie_ss
     ComponentName = pcie_ss
     is_host = False
-    
+
     [pf0]
     num_vfs = 1
     pg_enable = True
@@ -3278,7 +3315,7 @@ To create this minimal FIM, perform the following steps:
   ./ofs-common/scripts/common/syn/build_top.sh -p f2000x:null_he,null_he_lp,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_null_he_no_hssi
   ```
 
-4. The build will complete with reduced resources as compared to the base version. You may review the floorplan in Quartus Chip Planner and modify the Logic Lock regions to allocate more resources to the PR region if desired. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan. 
+4. The build will complete with reduced resources as compared to the base version. You may review the floorplan in Quartus Chip Planner and modify the Logic Lock regions to allocate more resources to the PR region if desired. Refer to the [How to Resize the Partial Reconfiguration Region](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan. 
 
 ## **6 Single Event Upset Reporting**
 

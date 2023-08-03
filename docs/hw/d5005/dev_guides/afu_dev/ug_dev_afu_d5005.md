@@ -19,7 +19,7 @@ This diagram shows the FPGA board interface development separation from the inte
 - Scripts for both compilation setup
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
 
-Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/) . This guide covers logic in the AFU Main (PR) region.
+Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/) . This guide covers logic in the AFU Main (PR) region.
 
 
 
@@ -40,6 +40,36 @@ This guide provides theory followed by tutorial steps to solidify your AFU devel
 This guide uses the Intel® FPGA PAC D5005 as the platform for all tutorial steps. Additionally, this guide and the tutorial steps can be used with other platforms; However, please consult the **board** and FIM supplier of other platforms for specific instructions on the use of custom FIM to develop  AFU design.
 
 If you have worked with previous Intel® Programmable Acceleration products, you will find OFS for Intel® Stratix 10® FPGA is similar; however, there are differences, and you are advised to carefully read and follow the tutorial steps to understand the design tools and flow fully.
+
+
+
+| Term     | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
+| AFU      | Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region |
+| BBB | Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID. |
+| BKC      | Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against. |
+| BMC      | Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors. |
+| CSR | Command/status registers (CSR) and software interface, OFS uses a defined set of CSR's to expose the functionality of the FPGA to the host software. |
+| DFL      | Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. |
+| FIM      | FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring. |
+| FME      | FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform. |
+| HEM      | Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. |
+| Intel FPGA PAC D5005 | Intel FPGA Programmable Acceleration Card D5005, A high performance PCI Express (PCIe)-based FPGA acceleration card for data centers. This card is the target platform for the initial OFS release. |
+| Intel VT-d | Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
+| IOCTL | Input/Output Control, System calls used to manipulate underlying device parameters of special files. |
+| JTAG     | Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology. |
+| MMIO | Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators. |
+| OFS      | Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
+| OPAE SDK | Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. |
+| PAC | Programmable Acceleration Card: FPGA based Accelerator card |
+| PIM      | Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
+| PR       | Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. |
+| RSU      | Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration. |
+| SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
+| TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
+| UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
 
 
 
@@ -75,7 +105,7 @@ The following server and Intel® PAC card are required to run the examples in th
 
 1. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Intel® for root entry hash erase instructions). The standard Intel® FPGA PAC D5005 card is programmed only to allow the FIM binary files signed by Intel® to be loaded. The root entry hash erases process will allow unsigned FIM binary files to be loaded.
 2. Qualified Server Models see [Qualified Servers](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html).
-3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/)
+3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/)
 
 ## 1.3 Acceleration Functional Unit (AFU) Development Flow
 
@@ -154,9 +184,9 @@ Peripherals are presented to software as:
 
 The peripherals connected to the peripheral fabric are primarily OPAE managed resources, whereas the peripherals connected to the AFU are "primarily" driven by native OS drivers. The word "primarily" is used since the AFU is not mandated to expose all its peripherals to Intel® OPAE. Instead, it can be connected to the peripheral fabric but can choose to expose only a subset of its capability to OPAE.
 
-OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software. These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software. These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
 
-If you make changes to the FIM that affect the software operation, Intel® OFS provides a mechanism to communicate that information to the proper software driver. The [Device Feature Header (DFH) structure](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software. Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, Intel® OFS provides a mechanism to communicate that information to the proper software driver. The [Device Feature Header (DFH) structure](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software. Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
 
 When planning your address space for your FIM updates, please be aware OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features, and 128kB of MMIO region is given for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at the 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of the external feature list. Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
@@ -228,11 +258,11 @@ Typical development and hardware test environments consist of a development serv
 
 ![](./images/AFU_Dev_Deploy.png)
 
-Please refer to Unit Level Simulation if you would like to make any simulation [Unit Level Simulation](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation).
+Please refer to Unit Level Simulation if you would like to make any simulation [Unit Level Simulation](/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation).
 
 Note that both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/) If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
+This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [OFS Getting Started User Guide](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/) If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
 
 
 > **_NOTE:_**  
@@ -825,7 +855,7 @@ sudo fpgainfo fme
 
 The base FIM used in AFU compilation must be loaded on the board. In this step, you will load the generated FIM binary into the Intel® FPGA PAC D5005 FPGA flash. By performing this step, subsequent AFU developed in this guide will use this base FIM and allow your newly created AFU to match the base FIM loaded on the board.
 
-More information related to fpgaupdate is located [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+More information related to fpgaupdate is located [OFS Getting Started User Guide](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 Run fpgasupdate to load the image into the user location of the Intel® FPGA PAC D5005 FPGA flash and the <span title='Remote System Update, A Remote System Update operation sends an instruction to the Intel® FPGA PAC D5005 that triggers a power cycle of the card only, forcing reconfiguration.'>**RSU** </span> command to reboot the PCIE Card:
 
@@ -1205,7 +1235,7 @@ make
 ### 4.1.2. Loading and running the **hello_world** example AFU
 
 
-The platform-independent BBB repository, [ofs-platform-afu-bbb](https://github.com/OPAE/ofs-platform-afu-bbb), also provides some interesting [example AFUs]. In this section, you will compile and execute the PIM-based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory-mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
+The platform-independent BBB repository, [ofs-platform-afu-bbb](https://github.com/OPAE/ofs-platform-afu-bbb), also provides some interesting [example AFUs](https://github.com/OFS/examples-afu.git). In this section, you will compile and execute the PIM-based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory-mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
 
 The ```hello_world``` example AFU consists of the following files. 
 
@@ -1542,9 +1572,9 @@ In this section you will set up your server to support ASE by independently down
 ### 5.1.1. Install OPAE SDK
 
 
-Follow the instructions documented in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005, section [5.0 OPAE Software Development Kit](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card.
+Follow the instructions documented in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005, section [5.0 OPAE Software Development Kit](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card.
 
-The Intel® FPGA PAC D5005 PAC card requires **opae-2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005 section [5.0 OPAE Software Development Kit](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
+The Intel® FPGA PAC D5005 PAC card requires **opae-2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005 section [5.0 OPAE Software Development Kit](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```bash
 git checkout tags/2.5.0-3 -b release/2.5.0
@@ -1804,7 +1834,7 @@ Right click on the ```afu (afu)``` entry to display the drop-down menu. Then, cl
 </br></br>
 
 ### 5.3 Simulating the **hello_world** AFU
-
+ 
 
 In this section, you will quickly simulate the PIM-based ```hello_world``` sample AFU accompanying the example_afu repository.
 

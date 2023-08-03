@@ -26,9 +26,39 @@ This development guide is organized as follows:
 
 This document uses the Intel® FPGA PAC D5005 as an example platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS (Open FPGA Stack) to custom platforms. The demonstration steps serves as a tutorial for the development of your OFS knowledge.
 
-This document covers OFS architecture lightly.  For more details on the OFS architecture, please see [Open FPGA Stack Technical Reference Manual](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
+This document covers OFS architecture lightly.  For more details on the OFS architecture, please see [Open FPGA Stack Technical Reference Manual](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
 
-You are encouraged to read [OFS AFU Development Guide](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) to fully understand how AFU Developers will use your newly developed FIM.
+You are encouraged to read [OFS AFU Development Guide](/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) to fully understand how AFU Developers will use your newly developed FIM.
+
+
+
+| Term     | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
+| AFU      | Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region |
+| BBB | Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID. |
+| BKC      | Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against. |
+| BMC      | Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors. |
+| CSR | Command/status registers (CSR) and software interface, OFS uses a defined set of CSR's to expose the functionality of the FPGA to the host software. |
+| DFL      | Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. |
+| FIM      | FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring. |
+| FME      | FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform. |
+| HEM      | Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. |
+| Intel FPGA PAC D5005 | Intel FPGA Programmable Acceleration Card D5005, A high performance PCI Express (PCIe)-based FPGA acceleration card for data centers. This card is the target platform for the initial OFS release. |
+| Intel VT-d | Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
+| IOCTL | Input/Output Control, System calls used to manipulate underlying device parameters of special files. |
+| JTAG     | Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology. |
+| MMIO | Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators. |
+| OFS      | Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
+| OPAE SDK | Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. |
+| PAC | Programmable Acceleration Card: FPGA based Accelerator card |
+| PIM      | Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
+| PR       | Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. |
+| RSU      | Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration. |
+| SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
+| TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
+| UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. | 
 
 
 
@@ -124,7 +154,7 @@ The following server and Intel PAC card are required to run the examples in this
 
 1. Qualified Intel Xeon <sup>&reg;</sup> server see [Qualified Servers](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html).
 2. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Intel for root entry hash erase instructions).  The standard Intel® FPGA PAC D5005 card is programmed to only allow the FIM binary files signed by Intel to be loaded.  The root entry hash erase process will allow newly created, unsigned FIM binary files to be loaded.
-3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 The steps included in this guide have been verified in the Dell R740 and HPE ProLiant DL380 Gen10 servers.
 ## 2. High Level Description
@@ -232,7 +262,7 @@ The OFS Git OFS repository ofs-d5005 directory structure is shown below:
 |   ├── spi
 |   └── README.md
 ├── license
-│   └── quartus-0.0-0.01iofs-linux.run
+│   └── quartus-0.0-0.01Intel OFS-linux.run
 ├── ofs-common
 |   ├── scripts
 |   ├── src
@@ -323,9 +353,9 @@ Peripherals are presented to software as:
 
 The peripherals connected to the peripheral fabric are primarily Intel OPAE managed resources, whereas the peripherals connected to the AFU are “primarily” managed by native OS drivers. The word “primarily” is used since the AFU is not mandated to expose all its peripherals to Intel OPAE. It can be connected to the peripheral fabric, but can choose to expose only a subset of its capability to Intel OPAE.
 
-OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
 
-If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver.  The [Device Feature Header (DFH) structure](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver.  The [Device Feature Header (DFH) structure](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
 
 When you are planning your address space for your FIM updates, please be aware that the OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features and 128kB of MMIO region is allocated for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of external feature list.  Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
@@ -371,11 +401,11 @@ FIM development for a new acceleration card consists of the following steps:
 
 The FIM developer works closely with the hardware design of the target board, software development and system validation.
 
-Understanding how the AFU developer utilizes the FIM is important for FIM development success.  Please read [OFS AFU Development Guide](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) for a detailed description of AFU development.
+Understanding how the AFU developer utilizes the FIM is important for FIM development success.  Please read [OFS AFU Development Guide](/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) for a detailed description of AFU development.
 
 ### 4.1. Installation of OFS
 
-In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
+In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see [OFS Getting Started User Guide](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
 
 Building the OFS FIM requires the development machine to have at least 64 GB of RAM.
 
@@ -453,8 +483,8 @@ ofs-2023.1-1
 
 ```bash
 cd license
-chmod +x quartus-0.0-0.01iofs-linux.run
-sudo ./quartus-0.0-0.01iofs-linux.run
+chmod +x quartus-0.0-0.01Intel OFS-linux.run
+sudo ./quartus-0.0-0.01Intel OFS-linux.run
 ```
 
 3. Verify patch installed
@@ -483,8 +513,6 @@ Set required environment variables as shown below. These environment variables m
 ```bash
 cd $OFS_BUILD_ROOT/ofs-d5005
 export OFS_ROOTDIR=$PWD
-export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.1/quartus
-export QUARTUS_ROOTDIR=$QUARTUS_HOME
 
 ##   *Note, OFS_ROOTDIR is the directory where you cloned the repo, e.g. /home/MyProject/ofs-d5005 *
 
@@ -503,7 +531,6 @@ export OPAE_SDK_REPO_BRANCH=release/2.5.0
 #### 4.2.2. Compiling
 
 The usage of the compile build script is shown below:
-
 ```bash
 ofs-common/scripts/common/syn/build_top.sh [-p] target_configuration work_dir 
 Usage: ofs-common/scripts/common/syn/build_top.sh [-k] [-p] <build target> [<work dir name>]
@@ -541,13 +568,13 @@ Usage: ofs-common/scripts/common/syn/build_top.sh [-k] [-p] <build target> [<wor
 In the next example, you will build the provided example design using a flat, non-PR build flow.
 
 
-Build the provided base example design:
+ Build the provided base example design:
 
-```bash
+ ```bash
 cd $OFS_BUILD_ROOT/ofs-d5005
     
 ofs-common/scripts/common/syn/build_top.sh d5005 work_d5005
-```
+ ```
 
 ```bash
     ... build takes ~5 hours to complete
@@ -1018,7 +1045,7 @@ An example of FIM modification is provided in this section.  This example can be
 
 ### 5.1. Hello FIM example
 
-If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions).
+If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions).
 
 See [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
 
