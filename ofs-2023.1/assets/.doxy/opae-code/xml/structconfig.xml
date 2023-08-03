@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structconfig" kind="struct" language="C++" prot="public">
+    <compoundname>config</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structconfig_1a56a710b532c4f7d6213fbd173920ffca" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int config::open_flags</definition>
+        <argsstring></argsstring>
+        <name>open_flags</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/samples/hello_fpga/hello_fpga.c" line="130" column="5" bodyfile="docs/sw/samples/hello_fpga/hello_fpga.c" bodystart="130" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structconfig_1a860ca20f3c0dd13da4979632fb61f505" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int config::run_n3000</definition>
+        <argsstring></argsstring>
+        <name>run_n3000</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/samples/hello_fpga/hello_fpga.c" line="131" column="5" bodyfile="docs/sw/samples/hello_fpga/hello_fpga.c" bodystart="131" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="docs/sw/samples/hello_fpga/hello_fpga.c" line="129" column="1" bodyfile="docs/sw/samples/hello_fpga/hello_fpga.c" bodystart="129" bodyend="132"/>
+    <listofallmembers>
+      <member refid="structconfig_1a56a710b532c4f7d6213fbd173920ffca" prot="public" virt="non-virtual"><scope>config</scope><name>open_flags</name></member>
+      <member refid="structconfig_1a860ca20f3c0dd13da4979632fb61f505" prot="public" virt="non-virtual"><scope>config</scope><name>run_n3000</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
