@@ -58,21 +58,21 @@ Figure 1-1 shows how OFS components can be used with Intel HLD tool.
 
 For high level description and setup details for OFS components shown in figure above, please refer to the Getting Started guide for your target device.
 
--   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
+-   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
 
--   [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+-   [OFS Getting Started User Guide](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 For a more detailed diagram and more information about the FPGA Interface Manager(FIM) shown in figure above, please refer to the FIM developer guides for your target device.
 
--   [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+-   [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach](/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
--   [Open FPGA Stack Technical Reference Manual](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
+-   [Open FPGA Stack Technical Reference Manual](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
 
--   [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+-   [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
--   [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
+-   [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
-The oneAPI ASP is required for compiling and running HLD application kernel on OFS platforms using Intel oneAPI. It is a collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with other OFS components. The hardware components of the oneAPI ASP along with the kernel lie in the AFU region shown in the figure above. For more details about the components of the oneAPI ASP, please refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
+The oneAPI ASP is required for compiling and running HLD application kernel on OFS platforms using Intel oneAPI. It is a collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with other OFS components. The hardware components of the oneAPI ASP along with the kernel lie in the AFU region shown in the figure above. For more details about the components of the oneAPI ASP, please refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
 Figure 1-2 shows the setup steps to use oneAPI base toolkit on OFS platforms.
 
@@ -89,12 +89,12 @@ The next section covers the setup steps in detail.
 ### **2.1 Setup Server for OFS**
 <a name="server_setup_ofs"></a>
 
-As a first step, the server or host machine being used for developing HLD application needs to be setup for OFS. This involves setting up the FPGA card as well as installing OFS software stack including [OPAE SDK](https://ofs.github.io/sw/fpga_api/quick_start/readme/) and [OFS DFL kernel driver](https://ofs.github.io/sw/fpga_api/quick_start/readme/#build-the-opae-linux-device-drivers-from-the-source).
+As a first step, the server or host machine being used for developing HLD application needs to be setup for OFS. This involves setting up the FPGA card as well as installing OFS software stack including [OPAE SDK](sw/fpga_api/quick_start/readme/) and [OFS DFL kernel driver](sw/fpga_api/quick_start/readme/#build-the-opae-linux-device-drivers-from-the-source).
 
 Please follow steps in Getting started guides for your target devices to setup Linux DFL kernel driver and install OPAE SDK.
 
--   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
--   [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/): OFS for Intel® Stratix 10® FPGA.
+-   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
+-   [OFS Getting Started User Guide](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/): OFS for Intel® Stratix 10® FPGA.
 
 
 ### **2.2 Clone and Compile FIM**
@@ -104,15 +104,15 @@ As shown in Figure 1-1, OFS components in the FPGA include the FIM and Accelerat
 
 Once the server is setup with OPAE SDK and DFL kernel driver, the next step is to clone and compile the static region of the design, i.e. FIM. You can use the default configuration of the FIM for both target platforms or just for Intel® Agilex® FPGA you have the option to create a minimal FIM which removes additional VFs and host exercisers in the design. Please follow steps in the *Intel® FPGA Interface Manager Developer Guides* for your target device to compile FIM supporting PR release.
 
--   [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+-   [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
--   [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
+-   [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
 For more details on minimal FIM for Intel® Agilex® FPGA and how to create it, refer to Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs.
 
 A `pr_build_template` directory will be generated in the work directory specified as part of the FIM compile command (using `OFS/ofs-common/scripts/common/syn/build_top.sh` script with the '-p' option enable to create an out-of-tree PR release). The `pr_build_template` directory is required for successful setup of the oneAPI ASP.
 
-Once the FIM compile is complete, please program FIM using `fpgasupdate` and Remote System Update(`rsu`) command. Use of these commands has been demonstrated in section named `Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim` in [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+Once the FIM compile is complete, please program FIM using `fpgasupdate` and Remote System Update(`rsu`) command. Use of these commands has been demonstrated in section named `Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim` in [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 ### **2.3 Prerequisites**
 <a name="prerequisites"></a>
@@ -128,9 +128,9 @@ In addition to server setup and FIM compilation, a few linux packages are needed
 
 2) Ensure that IOMMU is turned on as explained in section `Building and Installing the OFS DFL Kernel Drivers from Source` in Getting started guides for your target devices:
 
--   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
+-   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
 
--   [OFS Getting Started User Guide](https://ofs.github.io/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/): OFS for Intel® Stratix 10® FPGA.
+-   [OFS Getting Started User Guide](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/): OFS for Intel® Stratix 10® FPGA.
 
 You can verify this setting using `cat /proc/cmdline` command. The output must have `intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200`.
 
@@ -273,7 +273,7 @@ Ensure the correct tag has ben checked out:
         ./scripts/build-bsp.sh
 </pre>
 
-The generated directory structure is shown below. For more details refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
+The generated directory structure is shown below. For more details refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
 <pre>
 oneapi-asp/platform-name
@@ -360,7 +360,7 @@ Sample output for `aocl uninstall` command:
     OFS OpenCL BSP uninstall complete
 </pre>
 
-5) Install FPGA Client Driver(FCD) file for the oneAPI ASP using `aocl install path-to-oneapi-asp/platform-name` command as shown below. The host program uses FCD to find and link to the platform Memory Mapped Device (MMD) library. For more information about MMD library, refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
+5) Install FPGA Client Driver(FCD) file for the oneAPI ASP using `aocl install path-to-oneapi-asp/platform-name` command as shown below. The host program uses FCD to find and link to the platform Memory Mapped Device (MMD) library. For more information about MMD library, refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
 </pre>
 
@@ -392,7 +392,7 @@ Sample output `aocl install` command in  Intel® oneAPI Base Toolkit (Base Kit) 
 
 OFS software stack expects boards to be initialized with a bitstream for the board variant intended to be used for development. OpenCL sample applications have been provided for generating initialization bitstreams for included board variants for both target devices.
 
-`oneapi-asp` has two board variants (`oneapi-asp/platform-name/hardware` has the hardware design files for these).One OpenCL sample application has been provided in the `oneapi-asp` repository named `hello_world`, for both board variants. For more details on the architecture of the board variants, please refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
+`oneapi-asp` has two board variants (`oneapi-asp/platform-name/hardware` has the hardware design files for these).One OpenCL sample application has been provided in the `oneapi-asp` repository named `hello_world`, for both board variants. For more details on the architecture of the board variants, please refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
 **Table 2-5 OpenCL Sample Applications**
 
@@ -425,9 +425,9 @@ Once the bitstreams are generated, create a VF and initialize the board as expla
 
 The oneAPI ASP is located in the PR region of the FIM and is accessed through PF/VF Mux. Refer to the FIM Reference Manual for your target platforms for more details about PF/VF mapping.
 
-* Reference FIM for Intel® Agilex® FPGA OFS: VF0 is mapped to PR region and you can create 1 VF when using this FIM. See [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for diagram showing VF mapping.
+* Reference FIM for Intel® Agilex® FPGA OFS: VF0 is mapped to PR region and you can create 1 VF when using this FIM. See [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach](/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for diagram showing VF mapping.
 
-* Reference FIM for Intel® Stratix 10® FPGA OFS: VF1 is mapped to PR region and you must create 2 VFs when using this FIM. See [Open FPGA Stack Technical Reference Manual](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/) for diagram showing VF mapping.
+* Reference FIM for Intel® Stratix 10® FPGA OFS: VF1 is mapped to PR region and you must create 2 VFs when using this FIM. See [Open FPGA Stack Technical Reference Manual](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/) for diagram showing VF mapping.
 
 
 - Create a VF using PCIe ID obtained from the output of `fpgainfo fme` (PCIe s\:b\:d.f output)
@@ -773,7 +773,7 @@ Once you have completed running the oneAPI sample application, you can start dev
 
 For more information about developing FPGA applications with Intel oneAPI, refer to [Intel® oneAPI Programming Guide](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top.html) and [FPGA Optimization Guide for Intel® oneAPI Toolkits](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top.html).
 
-If you want to customize the oneAPI ASP, you can refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
+If you want to customize the oneAPI ASP, you can refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 ## Notices & Disclaimers
 
 Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.

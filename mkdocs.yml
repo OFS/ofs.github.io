@@ -4,6 +4,7 @@ repo_url: https://github.com/ofs
 repo_name: ofs
 theme:
   name: material
+  custom_dir: overrides
   icon:
     repo: fontawesome/brands/git-alt
   features:
@@ -21,10 +22,22 @@ theme:
 extra_css:
   - stylesheets/extra.css
 
+extra:
+  version:
+    default: stable
+
 plugins:
   - glightbox
   - search:
       lang: en
+  - mike:
+      alias_type: symlink
+      redirect_template: null
+      deploy_prefix: ''
+      canonical_version: null
+      version_selector: true
+      css_dir: css
+      javascript_dir: js
   - mkdoxy:
       projects:
         opae-code:
@@ -57,7 +70,6 @@ nav:
       - Simulation User Guide: 'hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md'  
       - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
       - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
-      - Glossary: 'hw/d5005/doc_modules/Glossary.md'
   - Agilex PCIe Attach OFS:
       - Quick Start Evaluation Guide: 'hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001.md'
       - Getting Started: 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
@@ -69,18 +81,16 @@ nav:
       - Simulation User Guide: 'hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001.md'  
       - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
       - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
-      - Glossary: 'hw/n6001/doc_modules/Glossary.md'
   - Agilex SoC Attach OFS:
       - Quick Start Evaluation Guide: 'hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x.md'
       - Getting Started: 'hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x.md'
       - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
       - FPGA Interface Manager Technical Reference Manual: 'hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs.md'
-      - FPGA Interface Manager Developer Guide: 'hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs_f2000x.md'
+      - FPGA Interface Manager Developer Guide: 'hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md'
       - AFU Developer Guide: 'hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x.md'
       - Simulation User Guide: 'hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md'
       - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
       - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md' 
-      - Glossary: 'hw/f2000x/doc_modules/Glossary.md'
 
   - oneAPI: 
       - oneAPI ASP Getting Started User Guide: hw/common/user_guides/oneapi_asp/ug_oneapi_asp.md
@@ -392,9 +402,6 @@ env:
   OFS_PLAT_AFU_BBB_BRANCH: ofs-platform-bbb
   OPAE_SIM_TAG: 2.5.0-2
   OPAE_SIM_BRANCH: opae-sim
-  OPAE_SDK_TAG: 2.5.0-3
-  OPAE_SDK_BRANCH: release/2.5.0
-  LINUX_DFL_TAG: ofs-2023.1-6.1-1
   ONEAPI_ASP_REPO: https://github.com/OFS/oneapi-asp
   OPAE_SDK_REPO: https://github.com/OFS/opae-sdk
   LINUX_DFL_REPO: https://github.com/OFS/linux-dfl

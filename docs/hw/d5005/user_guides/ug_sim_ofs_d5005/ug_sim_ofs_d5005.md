@@ -1,6 +1,32 @@
 # Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA
 
-
+| Term     | Description                                                  |
+| -------- | ------------------------------------------------------------ |
+| AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
+| AFU      | Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region |
+| BBB | Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID. |
+| BKC      | Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against. |
+| BMC      | Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors. |
+| CSR | Command/status registers (CSR) and software interface, OFS uses a defined set of CSR's to expose the functionality of the FPGA to the host software. |
+| DFL      | Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. |
+| FIM      | FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring. |
+| FME      | FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform. |
+| HEM      | Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. |
+| Intel FPGA PAC D5005 | Intel FPGA Programmable Acceleration Card D5005, A high performance PCI Express (PCIe)-based FPGA acceleration card for data centers. This card is the target platform for the initial OFS release. |
+| Intel VT-d | Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
+| IOCTL | Input/Output Control, System calls used to manipulate underlying device parameters of special files. |
+| JTAG     | Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology. |
+| MMIO | Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators. |
+| OFS      | Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
+| OPAE SDK | Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. |
+| PAC | Programmable Acceleration Card: FPGA based Accelerator card |
+| PIM      | Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
+| PR       | Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. |
+| RSU      | Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration. |
+| SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
+| TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
+| UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. | 
 
 ## **1 Overview**
 
@@ -95,12 +121,12 @@ PCIe host verification IP and DUT connection is achieved by connecting 16 bits l
 <br><br> 
 
 ## **5 Test Plan**
-
+  
 
 The test plan consists of four major categories: MMIO path, HE-LB, HE-MEM, HE-HSSI and interrupt tests. 
 
 ## **5.1 MMIO Path**
-
+   
 
 The tests under this category exercise MMIO path including all destination functions or blocks as well as PF/VF mux and different fabrics. 
 
@@ -118,24 +144,24 @@ For loopback mode, data is compared between source buffer and destination buffer
 RTL statistic counters are also compared against the corresponding variables inside the test sequence at the end of the simulation. 
 
 ## **5.3 HE-MEM**
-
+ 
 
 HE-MEM tests are duplicates from HE-LB with MMIO to CSRs targeting HE-MEM instead of HE-LB. 
 
 The DDR simulation model is inside memory controller IP when being generated.  
 
 ## **5.4 HE-HSSI**
-
+ 
 
 HE-HSSI has indirect registers that are associated with HSSI subsystem, MMIO for indirect registers is different from other functions. 
 
 ## **5.4.1 Indirect Registers**
-
+ 
 
 To obtain access to indirect registers, either reading or writing, a MMIO write must be performed.
 
 ## **5.4.2 TX Loopback**
-
+ 
 
 In TX loopback, HE-HSSI initiates ethernet packets to HSSI subsystem and the packets are looped back to HE-HSSI. The loopback is achieved by hard-wiring HSSI TX and RX lanes. This is done inside RTL and for simulation purposes only. 
 
@@ -160,37 +186,37 @@ CSR consists of two parts.
 Front-door MMIO read data is compared against RAL register reset value out of reset. 
 
 ## **5.7.2 RW Attribute CSR**
-
+ 
 
 MMIO write-read-compare is performed after reset value check for RW attribute CSRs.
 <br><br>
 
 ## **6 Checking Mechanism**
-
+ 
 
 Since there is only PCIe host verification component in testbench, data checking is done by a self-checking mechanism in the test sequence.  
 
 ## **6.1 Protocol Violation**
-
+  
 
 PCIe host VIP has built-in protocol checking on TLP received from FPGA. Abnormal responses are also flagged by the VIP. 
 
 Internal AXI Streaming interface has integrated RTL assertion to check AXI Streaming protocol violations. 
 
 ## **6.2 Data Checking**
-
+ 
 
 Data checking is done by self-checking inside a test sequence. MMIO write/read/compare to read-writable CSRs is done inside a sequence. 
 
 For memory transactions initiated by functions, backdoor reads from host memory on source buffer and destination buffer is done inside a sequence. Data is compared in case of loopback mode. 
 
 ## **6.3 Counter Checking**
-
+  
 
 RTL statistic counters records the number of transactional information that can be read at the end of the simulation and compared against the test expected number. 
 
 ## **6.4 AFU Error CSR**
-
+  
 
 AFU interface handler provides an error log for illegal transactions that can be read at the end of the simulation.
 <br><br>
@@ -744,7 +770,7 @@ In the following example we will modify an existing test "he_lpbk" and name it "
 9) Check new test and log files
         cd ofs-d5005/verification/sim/he_lpbk_test_new
         
-   
+    
     ```sh
     open runsim.log
     ```

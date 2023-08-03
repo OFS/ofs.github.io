@@ -11,80 +11,30 @@ Download the Fedora  (x86_64 version) installation file in [fedora](https://getf
 
 For building the OPAE kernel and kernel driver, the kernel development environment is required. So before you build the kernel, you must install the required packages. Run the following commands:
 
-```bash
-subscription-manager release --set=8.6
-sudo dnf update
-
-# If you require the use of a proxy, add it to DNF using by editing the following file
-sudo nano /etc/dnf/dnf.conf
-# Include your proxy by adding the following line, replacing the URL with your proxy's URL
-# proxy=http://proxy.server.com:port
-sudo dnf update
-subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-
-sudo dnf install -y python3 python3-pip python3-devel \
-gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel nmap \
-python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel \
-python3-pyyaml hwloc-devel libedit-devel git kernel-headers kernel-devel elfutils-libelf-devel ncurses-devel openssl-devel bison flex cli11-devel spdlog-devel
-
-python3 -m pip install --user jsonschema virtualenv pudb pyyaml
-
-sudo pip3 uninstall setuptools
-
-sudo pip3 install Pybind11==2.10.0 --proxy http://yourproxy:xxx
-
-sudo pip3 install setuptools==59.6.0 --prefix=/usr --proxy http://yourproxy:xxx
-
-wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/pybind11-devel-2.4.3-2.el8.x86_64.rpm
-
-wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/python3-pybind11-2.4.3-2.el8.x86_64.rpm
-
-sudo dnf localinstall ./python3-pybind11-2.4.3-2.el8.x86_64.rpm ./pybind11-devel-2.4.3-2.el8.x86_64.rpm -y
+```console
+$ sudo dnf install gcc gcc-c++ make kernel-headers kernel-devel elfutils-libelf-devel ncurses-devel openssl-devel bison flex
 ```
 
 Download the OPAE upstream kernel tree from github, for example download from fpga-ofs-dev-5.15-lts branch.
-```bash
-git clone https://github.com/OFS/linux-dfl
-cd linux-dfl
-git checkout tags/ofs-2023.1-6.1-1
+```console
+$ git clone https://github.com/OPAE/linux-dfl.git -b fpga-ofs-dev-5.15-lts
 ```
 
-*Note: The linux-dfl repository is roughly 5 GB in size*
-
-##Building and Installing the OFS DFL Kernel Drivers from Source
-
-1. The following set of instructions walk you through copying an existing kernel configuration file on your machine and changing the minimal required configuration settings:
-
-```bash
-cd linux-dfl
-cp /boot/config-`uname -r` .config
-cat configs/dfl-config >> .config
-echo 'CONFIG_LOCALVERSION="-dfl"' >> .config
-echo 'CONFIG_LOCALVERSION_AUTO=y' >> .config
-sed -i -r 's/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=""/' .config
-sed -i '/^CONFIG_DEBUG_INFO_BTF/ s/./#&/' .config
-echo 'CONFIG_DEBUG_ATOMIC_SLEEP=y' >> .config
-make olddefconfig
+Configure the kernel.
+```console
+$ cd linux-dfl
+$ cp /boot/config-`uname -r` .config
+$ cat configs/dfl-config >> .config
+$ echo 'CONFIG_LOCALVERSION="-dfl"' >> .config
+$ echo 'CONFIG_LOCALVERSION_AUTO=y' >> .config
+$ sed -i -r 's/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=""/' .config
+$ sed -i '/^CONFIG_DEBUG_INFO_BTF/ s/./#&/' .config
+$ echo 'CONFIG_DEBUG_ATOMIC_SLEEP=y' >> .config
+$ make olddefconfig
 ```
 
-
-
-> Note: The above command may report errors resembling `symbol value 'm' invalid for CHELSIO_IPSEC_INLINE`. These errors indicate that the nature of the config has changed between the currently executing kernel and the kernel being built. The option "m" for a particular kernel module is no longer a valid option, and the default behavior is to simply turn the option off. However the option can likely be turned back on by setting it to 'y'. If the user wants to turn the option back on, change it to 'y' and re-run "make olddefconfig":
->
-> ```bash
-> cd /home/OFS/linux-dfl
-> echo 'CONFIG_CHELSIO_IPSEC_INLINE=y' >> .config
-> make olddefconfig
-> ```
->
-> (Optional) To use the built-in GUI menu for editing kernel configuration parameters, you can opt to run `make menuconfig`.
-
-
-
-**2.** Linux kernel builds take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system
-
-```bash
+Compile and install the new kernel.
+```console
 $ make -j $(nproc)
 $ sudo make modules_install -j $(nproc)
 $ sudo make install
@@ -92,36 +42,15 @@ $ sudo make install
 
 Build linux DFL Kernel instructions please also refer to: https://github.com/OPAE/linux-dfl/wiki/Build-the-linux-dfl-kernel
 
-
-
-## Locally building a set of RPM/DEP packages.
-
-3. This first flow will directly install the kernel and kernel module files without the need to create a package first:
-
-    ```bash
-    cd /<your_path>/linux-dfl
-    make INSTALL_MOD_STRIP=1 binrpm-pkg
-    ```
-
-4.  By default a directory is created in your `home` directory called `rpmbuild`. This directory will house all of the kernel packages which have been built. You need to navigate to the newly built kernel packages and install them. The following files were generated using the build command executed in the previous step:
-
-    ```bash
-    cd ~/rpmbuild/RPMS/x86_64
-    ls
-    kernel-${{ env.DFL_KERNEL_NAME }}.x86_64.rpm  kernel-headers-${{ env.DFL_KERNEL_NAME }}.x86_64.rpm
-    sudo dnf localinstall kernel*.rpm
-    ```
-
-5. When install finished, reboot your system.
-    When the system login again, verify the kernel version is correct. For example:
-
-```bash
-[figo@localhost linux-dfl]$ uname -r
-${{ env.DFL_KERNEL_NAME }}
+When install finished, reboot your system.
+When the system login again, verify the kernel version is correct. For example:
+```console
+[figo@localhost linux-dfl]$ uname -a
+Linux localhost.localdomain 5.15.lts-dfl-g73e16386cda0 #6 SMP Mon Jun 13 21:21:31 -04 2022 x86_64 x86_64 x86_64
 ```
 
 And also you can check the OPAE dfl drivers have auto-loaded.
-```bash
+```console
 [figo@localhost linux-dfl]$ lsmod | grep fpga
 ifpga_sec_mgr          20480  1 intel_m10_bmc_secure
 fpga_region            20480  3 dfl_fme_region,dfl_fme,dfl
@@ -143,116 +72,63 @@ fpga_bridge            24576  4 dfl_fme_region,fpga_region,dfl_fme,dfl_fme_br
 fpga_mgr               16384  4 dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme
 ```
 
-
-
-6. Two kernel parameters must be added to the boot commandline for the newly installed kernel. First, open the file `grub`:
-
-```
-sudo vim /etc/default/grub
-```
-
-7. In the variable GRUB_CMDLINE_LINUX add the following parameters in bold: GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet **intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200**"
-
-*Note: If you wish to instead set hugepages on a per session bassis, you can perform the following steps. These settings will be lost on reboot.*
-
-```
-mkdir -p /mnt/huge 
-mount -t hugetlbfs nodev /mnt/huge 
-echo 2048 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages 
-echo 2048 > /sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepages 
-```
-
-8. Save your edits, then apply them to the GRUB2 configuration file.
-
-```
-sudo grub2-mkconfig
-```
-
-9. Warm reboot. Your kernel parameter changes should have taken affect.
-
-```
-cat /proc/cmdline
-BOOT_IMAGE=(hd1,gpt2)/vmlinuz-${{ env.DFL_KERNEL_NAME }} root=/dev/mapper/cl-root ro crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200 rhgb quiet
-```
-
-
-
 ## Build the OPAE-SDK ##
-
 Before you build the OPAE SDK, you must install the required packages. Run the following commands:
 
 ### Rocky Linux 8.5 ###
 
-```bash
-dnf install -y 'dnf-command(config-manager)'
-dnf config-manager --set-enabled powertools
-dnf install -y epel-release
-dnf check-update
-dnf upgrade -y
-dnf install -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml python3-pybind11 git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel rpm-build rpmdevtools pybind11-devel yaml-cpp-devel libudev-devel linuxptp rsync 
-python3 -m pip install jsonschema virtualenv pyyaml
+```console
+# dnf install -y 'dnf-command(config-manager)'
+# dnf config-manager --set-enabled powertools
+# dnf install -y epel-release
+# dnf check-update
+# dnf upgrade -y
+# dnf install -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml python3-pybind11 git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel rpm-build rpmdevtools pybind11-devel yaml-cpp-devel libudev-devel linuxptp
+# python3 -m pip install jsonschema virtualenv pyyaml
 ```
 
 ### Fedora  ###
 
-```bash
-dnf check-update
-dnf upgrade -y
-dnf install -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml python3-pybind11 git gcc g++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel libedit-devel rpm-build rpmdevtools pybind11-devel yaml-cpp-devel libudev-devel cli11-devel spdlog-devel linuxptp rsync
-pip3 install jsonschema virtualenv pyyaml
+```console
+# dnf check-update
+# dnf upgrade -y
+# dnf install -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml python3-pybind11 git gcc g++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel libedit-devel rpm-build rpmdevtools pybind11-devel yaml-cpp-devel libudev-devel cli11-devel spdlog-devel linuxptp
+# pip3 install jsonschema virtualenv pyyaml
 ```
 
 ### Ubuntu 20.04 ###
 
-```bash
-apt-get update
-apt-get upgrade -y
-apt-get install -y python3 python3-pip python3-dev git gcc g++ make cmake uuid-dev libjson-c-dev libhwloc-dev libtbb-dev libedit-dev libudev-dev linuxptp pandoc devscripts debhelper doxygen rsync
-pip3 install jsonschema virtualenv pyyaml pybind11
+```console
+# apt-get update
+# apt-get upgrade -y
+# apt-get install -y python3 python3-pip python3-dev git gcc g++ make cmake uuid-dev libjson-c-dev libhwloc-dev libtbb-dev libedit-dev libudev-dev linuxptp pandoc devscripts debhelper doxygen
+# pip3 install jsonschema virtualenv pyyaml pybind11
 ```
 
 ### RHEL 8.2 ###
 Register and enable Red Hat subscription to install any packages on the system.
 
-```bash
-subscription-manager register --proxy=PROXY --username=USER --password=PASSWORD --auto-attach
+```console
+# subscription-manager register --proxy=PROXY --username=USER --password=PASSWORD --auto-attach
 ```
 
 Set the RHEL version and install packages. Set proxy name and port number.
 
-```bash
-# If you require the use of a proxy, add it to DNF using by editing the following file
-sudo nano /etc/dnf/dnf.conf
-# Include your proxy by adding the following line, replacing the URL with your proxy's URL
-# proxy=http://proxy.server.com:port
-sudo dnf update
-subscription-manager release --set=8.2 --proxy proxy-name.com:port number
-subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-
-sudo dnf install -y python3 python3-pip python3-devel \
-gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel nmap \
-python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel \
-python3-pyyaml hwloc-devel libedit-devel git kernel-headers kernel-devel elfutils-libelf-devel ncurses-devel openssl-devel bison flex cli11-devel spdlog-devel
-
-python3 -m pip install --user jsonschema virtualenv pudb pyyaml
-
-sudo pip3 uninstall setuptools
-
-sudo pip3 install Pybind11==2.10.0 --proxy http://yourproxy:xxx
-
-sudo pip3 install setuptools==59.6.0 --prefix=/usr --proxy http://yourproxy:xxx
-
-wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/pybind11-devel-2.4.3-2.el8.x86_64.rpm
-
-wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/python3-pybind11-2.4.3-2.el8.x86_64.rpm
-
-sudo dnf localinstall ./python3-pybind11-2.4.3-2.el8.x86_64.rpm ./pybind11-devel-2.4.3-2.el8.x86_64.rpm -y
+```console
+# subscription-manager release --set=8.2 --proxy proxy-name.com:port number
+# subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+# dnf upgrade -y
+# dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+# dnf install -y python3 python3-pip python3-devel gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel  nmap
+# dnf install -y python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel 
+# dnf check-update || true
+# dnf install -y spdlog-devel cli11-devel python3-pyyaml python3-pybind11 hwloc-devel libedit-devel
+# python3 -m pip install --user jsonschema virtualenv pudb pyyaml
 ```
 
 Install the latest version of [cmake](https://github.com/Kitware) on top of the outdated cmake package from the package manager.
 
-```bash
+```console
 # cd cmake-3.25.1/
 # ./bootstrap --prefix=/usr
 # make
@@ -265,59 +141,43 @@ Install the latest version of [cmake](https://github.com/Kitware) on top of the 
 
 Download the OPAE-SDK source code from github. For example, download from Master branch.
 
-```bash
+```console
 $ git clone https://github.com/OPAE/opae-sdk.git
-$ cd opae-sdk
-$ git checkout tags/2.5.0-3
 ```
 
 Compile and build the OPAE-SDK RPMs (Fedora, Rocky, RHEL 8.2).
-```bash
+```console
 $ cd opae-sdk/packaging/opae/rpm
 $ ./create fedora
 ```
 
-#### OPAE Package Description
-
-| Package Name               | Description                                                  |
-| :------------------------- | :----------------------------------------------------------- |
-| opae                       | OPAE SDK is a collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. It provides a library implementing the OPAE C API for presenting a streamlined and easy-to-use interface for software applications to discover, access, and manage FPGA devices and accelerators using the OPAE software stack. |
-| opae-debuginfo             | This package provides debug information for package opae. Debug information is useful when developing applications that use this package or when debugging this package. |
-| opae-debugsource           | This package provides debug sources for package opae. Debug sources are useful when developing applications that use this package or when debugging this package. |
-| opae-devel                 | OPAE headers, tools, sample source, and documentation        |
-| opae-devel-debuginfo       | This package provides debug information for package opae-devel. Debug information is useful when developing applications that use this package or when debugging this package. |
-| opae-tools                 | This package contains OPAE base tools binaries               |
-| opae-extra-tools           | Additional OPAE tools                                        |
-| opae-extra-tools-debuginfo | This package provides debug information for package opae-extra-tools. Debug information is useful when developing applications that use this package or when debugging this package. |
-
 Note that if you find that your distribution has changed package names such that there is a conflict
 when building RPMs, you can install all of the build dependencies so that the SDK compiles and then
 build the RPMs in unrestricted mode:
-
-```bash
+```console
 $ cd opae-sdk/packaging/opae/rpm
 $ ./create unrestricted
 ```
 
 
 After a successful compile, there are 3 rpm packages generated (Fedora, Rocky, RHEL8.2). For example:
-```bash
-opae-2.5.0-3.fc34.x86_64.rpm
-opae-devel-2.5.0-3.fc34.x86_64.rpm
-opae-extra-tools-2.5.0-3.fc34.x86_64.rpm
+```console
+opae-2.1.0-1.fc34.x86_64.rpm
+opae-devel-2.1.0-1.fc34.x86_64.rpm
+opae-extra-tools-2.1.0-1.fc34.x86_64.rpm
 ```
 
 Compile and build the OPAE-SDK deb packages (Ubuntu 22.04).
-```bash
+```console
 $ cd opae-sdk/packaging/opae/deb
 $ ./create
 ```
 
 After a successful compile, there are 3 deb packages generated (Ubuntu 22.04). For example:
-```bash
-opae_2.5.0-3_amd64.deb  
-opae-devel_2.5.0-3_amd64.deb  
-opae-extra-tools_2.5.0-3_amd64.deb
+```console
+opae_2.1.1-1_amd64.deb  
+opae-devel_2.1.1-1_amd64.deb  
+opae-extra-tools_2.1.1-1_amd64.deb
 ```
 
 
@@ -325,39 +185,22 @@ opae-extra-tools_2.5.0-3_amd64.deb
 ## OPAE SDK installation with rpm/deb packages ##
 The rpm packages generated in the previous step can be installed using these commands:
 
-```bash
-rm -rf opae-2.5.0-3.el8.src.rpm
-sudo dnf localinstall -y opae*.rpm
-```
-
-Check that all packages have been installed:
-
-```
-[user@localhost opae-sdk]# rpm -qa | grep opae
-opae-packager-2.5.0-3.x86_64
-opae-devel-2.5.0-3.x86_64
-opae-PACSign-2.5.0-3.x86_64
-opae-tools-extra-2.5.0-3.x86_64
-opae-2.5.0-3.x86_64
-opae-tools-2.5.0-3.x86_64
-opae-libs-2.5.0-3.x86_64
-opae-opae.admin-2.5.0-3.x86_64
-opae-tests-2.5.0-3.x86_64
+```console
+$ sudo dnf install ./*.rpm
 ```
 
 The deb packages generated in the previous step can be installed using these commands:
 
-```bash
-rm -rf opae-2.5.0-3_amd64.deb
-sudo dpkg -i  ./*.deb
+```console
+$ sudo dpkg -i  ./*.deb
 ```
 
 
 When you installed the rpms, you can run fpgainfo command to check the FPGA FME infomation. For example:
-```bash
+```console
 [figo@localhost install_guide]$ fpgainfo fme
-Board Management Controller, xxxx NIOS FW version: xxxxxx
-Board Management Controller, xxxx Build version: xxxxx
+Board Management Controller, MAX10 NIOS FW version: D.2.1.24
+Board Management Controller, MAX10 Build version: D.2.0.7
 //****** FME ******//
 Object Id                        : 0xEF00000
 PCIe s:b:d.f                     : 0000:08:00.0
@@ -371,13 +214,13 @@ Boot Page                        : user
 ```
 
 To uninstall the OPAE rpms, you can use this commands
-```bash
+```console
 $ dnf list installed | grep opae
 $ sudo dnf remove opae*.x86_64
 ```
 
 To uninstall the OPAE deb, you can use this commands
-```bash
+```console
 $ dpkg -l  | grep opae
 $ dpkg -r opae-extra-tools:amd64
 $ dpkg -r opae-devel:amd64
@@ -392,7 +235,7 @@ Intel&reg; FPGA device files, `/dev/dfl-fme.*` and `/dev/dfl-port.*`, as well as
 
 In order to allow regular (non-root) users to access accelerators, you need to grant them read and write permissions on `/dev/dfl-port.*` (with `*` denoting the respective socket, i.e. 0 or 1). E.g.:
 
-```bash
+```console
 $ sudo chmod a+rw /dev/dfl-port.0
 ```
 
@@ -404,14 +247,14 @@ exact way to do this depends on your Linux distribution.
 
 You can check the current memlock limit using
 
-```bash
+```console
 $ ulimit -l
 ```
 
 A way to permanently remove the limit for locked memory for a regular user is
 to add the following lines to your /etc/security/limits.conf:
 
-```bash
+```console
 user1    hard   memlock           unlimited
 user1    soft   memlock           unlimited
 ```
@@ -419,7 +262,7 @@ user1    soft   memlock           unlimited
 This removes the limit on locked memory for user `user1`. To remove it for
 all users, you can replace `user1` with `*`:
 
-```bash
+```console
 *    hard   memlock           unlimited
 *    soft   memlock           unlimited
 ```
@@ -428,7 +271,7 @@ Note that settings in the /etc/security/limits.conf file don't apply to
 services.  To increase the locked memory limit for a service you need to
 modify the application's systemd service file and add the line:
 
-```bash
+```console
 [Service]
 LimitMEMLOCK=infinity
 ```
@@ -441,27 +284,27 @@ Users need to configure system hugepages to reserve 2MB-hugepages or
 
 The command below reserves 20 2M-hugepages:
 
-```bash
+```console
 $ sudo sh -c 'echo 20 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages'
 ```
 
 The command below reserves 4 1GB-hugepages:
 
-```bash
+```console
 $ sudo sh -c 'echo 4 > /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages'
 ```
 
 
 For x86\_64 architecture processors, user can use following command to find out avaiable hugepage sizes:
 
-```bash
+```console
 $ grep pse /proc/cpuinfo | uniq
 flags : ... pse ...
 ```
 
 If this commands returns a non-empty string, 2MB pages are supported.
 
-```bash
+```console
 $ grep pse /proc/cpuinfo | uniq
 flags : ... pdpe1gb ...
 ```
