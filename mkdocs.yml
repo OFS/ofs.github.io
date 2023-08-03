@@ -24,7 +24,6 @@ extra_css:
 
 extra:
   version:
-    default: stable
     provider: mike
 
 plugins:
