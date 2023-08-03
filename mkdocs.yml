@@ -4,7 +4,6 @@ repo_url: https://github.com/ofs
 repo_name: ofs
 theme:
   name: material
-  custom_dir: overrides
   icon:
     repo: fontawesome/brands/git-alt
   features:
