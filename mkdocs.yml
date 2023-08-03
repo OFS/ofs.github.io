@@ -25,6 +25,7 @@ extra_css:
 extra:
   version:
     provider: mike
+    default: ofs-2023.1
 
 plugins:
   - glightbox
