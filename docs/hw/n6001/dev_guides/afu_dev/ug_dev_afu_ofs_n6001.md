@@ -1,6 +1,6 @@
 # **AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs**
 
-Last updated: **August 03, 2023** 
+Last updated: **August 14, 2023** 
 
 ## **1. Introduction**
 

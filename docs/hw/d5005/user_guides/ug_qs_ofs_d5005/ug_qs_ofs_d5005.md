@@ -762,7 +762,7 @@ Pr Interface Id                  : 2b5c1c35-9ec4-54ec-8835-94ce6b6c3461
 
 #### **5.2.3 `rsu`**
 
-The **rsu** performs a **R**emote **S**ystem **U**pdate operation on a device, given its PCIe address. A **rsu** operation sends an instruction to the device to trigger a power cycle of the card only. This will force reconfiguration from flash for either the BMC or FPGA.
+The **rsu** performs a Remote System Update operation on a device, given its PCIe address. A **rsu** operation sends an instruction to the device to trigger a power cycle of the card only. This will force reconfiguration from flash for either the BMC or FPGA.
 
 The Intel FPGA PAC contains a region of flash the user may store their FIM image. After an image has been programmed with fpgasupdate the user may choose to perform rsu to update the image on the device.
 

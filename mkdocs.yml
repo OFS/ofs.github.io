@@ -362,7 +362,7 @@ env:
   F2000X_GITHUB_RELEASE_PAGE_NAME: 2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell
   F2000X_MET_OFS_TAG_LINK: https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2
   F2000X_HOST_KERNEL: 5.15-lts
-  F2000X_LINUX_DFL_TAG_LINK: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1
+  F2000X_LINUX_DFL_TAG_LINK: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-5.15-1
   F2000X_OPAE_SDK_TAG_LINK: https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3
   F2000X_SOC_OS: meta-intel-ese Reference Distro 1.0-ESE (kirkstone)
   F2000X_BASE_BIOS_FILE_NAME: 0ACRH007.bin
@@ -377,7 +377,7 @@ env:
   F2000X_OFS_PLATFORM_BBB_TAG: ofs-2023.1-1
   F2000X_OFS_F2000X_TAG: ofs-2023.1-1
   F2000X_FIM_COMMON_TAG: ofs-2023.1-1
-  F2000X_LINUX_DFL_TAG: ofs-2023.1-6.1-1
+  F2000X_LINUX_DFL_TAG: ofs-2023.1-5.15-1
   F2000X_OPAE_SDK_TAG: 2.5.0-3
   F2000X_META_OFS_REPO: https://github.com/OFS/meta-ofs
   F2000X_KERNEL_VER_COMPLETE: 5.15.92-dfl-66b0076c2c-lts

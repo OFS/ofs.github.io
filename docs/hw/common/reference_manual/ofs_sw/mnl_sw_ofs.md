@@ -42,7 +42,7 @@ The information presented in this document is intended to be used by software de
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
 
-## **1.3 OPAE Software Development Kit (SDK)**
+### **1.3 OPAE Software Development Kit (SDK)**
 
 The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE SDK repository](https://github.com/OFS/opae-sdk), under the opae-sdk tag.
 
@@ -72,7 +72,7 @@ The remaining sections on OPAE in this document are unique and build on basic pr
 
 
 
-### **2.0 OPAE C API**
+## **2.0 OPAE C API**
 
 
 
@@ -140,7 +140,7 @@ interface.
 
 
 
-### **2.1.2 Enumeration**
+#### **2.1.2 Enumeration**
 
 Enumeration is the process by which an OPAE application becomes aware of
 the existence of FPGA\_DEVICE’s and FPGA\_ACCELERATOR’s. Refer to the
@@ -186,7 +186,7 @@ returns all tokens that can be enumerated.
 
 
 
-#### **2.1.2.1 fpga\_properties and Filtering**
+##### **2.1.2.1 fpga\_properties and Filtering**
 
 An
 [fpga\_properties](https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L71-L92)
@@ -339,7 +339,7 @@ and
 
 
 
-### **2.1.3 Access**
+#### **2.1.3 Access**
 
 Once a token is discovered and returned to the caller by
 [fpgaEnumerate()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103),
@@ -358,7 +358,7 @@ handle is no longer needed, it should be closed and released by calling
 
 
 
-### **2.1.4 Events**
+#### **2.1.4 Events**
 
 Event registration in OPAE is a two-step process. First, the type of
 event must be identified. The following
@@ -412,7 +412,7 @@ call.
 
 
 
-### **2.1.5 MMIO and Shared Memory**
+#### **2.1.5 MMIO and Shared Memory**
 
 Communication with the AFU is achieved via reading and writing CSRs and
 by reading and writing to AFU/host shared memory buffers. An AFU’s CSRs
@@ -521,7 +521,7 @@ Buffers can also be allocated and mapped as read-only by specifying
 
 
 
-### **2.1.6 Management**
+#### **2.1.6 Management**
 
 The management feature in OPAE concerns re-programming the programmable
 region of the Port. To program the Port bitstream, pass a handle to the
@@ -552,7 +552,7 @@ int flags);
 
 
 
-### **2.1.7 Errors**
+#### **2.1.7 Errors**
 
 The OPAE errors API provides a means to query and clear both
 FPGA\_DEVICE and FPGA\_ACCELERATOR errors. Each FPGA device exports a
@@ -601,7 +601,7 @@ clears all the errors for the given fpga\_token.
 
 
 
-### **2.1.8 Metrics**
+#### **2.1.8 Metrics**
 
 The OPAE metrics API refers to a group of functions and data structures
 that allow querying the various device metrics from the Board Management
@@ -748,7 +748,7 @@ structure:
 
 
 
-#### **2.1.8.1 Querying Metric Values by Index**
+##### **2.1.8.1 Querying Metric Values by Index**
 
 [fpgaGetMetricsByIndex](https://github.com/OFS/opae-sdk/blob/master/include/opae/metrics.h#L77-L94)()
 retrieves a metric value using the metric\_num field of the metric info:
@@ -771,7 +771,7 @@ passing arrays so that multiple values can be fetched in a single call.
 
 
 
-#### **2.1.8.2 Querying Metric Values by Name**
+##### **2.1.8.2 Querying Metric Values by Name**
 
 [fpgaGetMetricsByName](https://github.com/OFS/opae-sdk/blob/master/include/opae/metrics.h#L96-L112)()
 retrieves a metric value using the metric\_name field of the metric
@@ -799,7 +799,7 @@ considered deprecated for current and future FPGA designs.
 
 
 
-### **2.1.9 SysObject**
+#### **2.1.9 SysObject**
 
 When the hardware access method in use is the DFL drivers (see 2.3.2
 libxfpga Plugin), the sysfs tree rooted at the struct \_fpga\_token’s
@@ -866,7 +866,7 @@ When an fpga\_object is no longer needed, it should be freed via
 
 
 
-#### **2.1.9.1 FPGA\_OBJECT\_CONTAINER API’s**
+##### **2.1.9.1 FPGA\_OBJECT\_CONTAINER API’s**
 
 For directory sysfs entities, passing a value of
 [FPGA\_OBJECT\_RECURSE\_ONE](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L172)
@@ -906,7 +906,7 @@ when it is no longer needed.
 
 
 
-#### **2.1.9.2 FPGA\_OBJECT\_ATTRIBUTE API’s**
+##### **2.1.9.2 FPGA\_OBJECT\_ATTRIBUTE API’s**
 
 Attribute sysfs entities may be queried for their size and read from or
 written to. In order to determine the size of an attribute’s data, use
@@ -958,7 +958,7 @@ uint64_t value, int flags);
 
 
 
-### **2.1.10 Utilities**
+#### **2.1.10 Utilities**
 
 The
 [fpga\_result](https://github.com/OFS/opae-sdk/blob/master/include/opae/types_enum.h#L38-L69)
@@ -1107,7 +1107,7 @@ FME error interrupt count.
 
 
 
-##### **2.2.11 FME Error Interrupt Configuration**
+#### **2.2.11 FME Error Interrupt Configuration**
 
 The
 [DFL\_FPGA\_FME\_ERR\_SET\_IRQ](https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L280-L290)
@@ -1202,7 +1202,7 @@ performed by libopaevfio.so during initialization of the VFIO session.
 
 
 
-### **2.3.1 Plugin Model**
+#### **2.3.1 Plugin Model**
 
 The OPAE SDK plugin model is facilitated by its use of opaque C
 structures for
@@ -1298,7 +1298,7 @@ table, passing the lower-level opae\_token struct member.
 
 
 
-### **2.3.2 libxfpga Plugin**
+#### **2.3.2 libxfpga Plugin**
 
 2.3.1 Plugin Model introduced the concept of an
 [opae\_wrapped\_token](https://github.com/OFS/opae-sdk/blob/master/libraries/libopae-c/opae_int.h#L102-L109)
@@ -1402,7 +1402,7 @@ Relevant Links:
 
 
 
-### **2.3.3 libopae-v Plugin**
+#### **2.3.3 libopae-v Plugin**
 
 libopae-v.so is the plugin library that implements the VFIO hardware
 access method. Its plugin-specific token data structure is
@@ -1476,11 +1476,11 @@ Relevant Links:
 
 
 
-#### **2.3.3.1 Supporting Libraries**
+##### **2.3.3.1 Supporting Libraries**
 
 
 
-##### **2.3.3.1.1 libopaevfio**
+###### **2.3.3.1.1 libopaevfio**
 
 [libopaevfio.so](https://github.com/OFS/opae-sdk/blob/master/include/opae/vfio.h)
 is OPAE’s implementation of the Linux kernel’s Virtual Function I/O
@@ -1494,7 +1494,7 @@ and for configuring interrupts for the device.
 
 
 
-##### **2.3.3.1.2 libopaemem**
+###### **2.3.3.1.2 libopaemem**
 
 Each DMA buffer allocation made by libopaevfio.so’s
 [opae\_vfio\_buffer\_allocate](https://github.com/OFS/opae-sdk/blob/master/include/opae/vfio.h#L333-L336)()
@@ -1529,7 +1529,7 @@ allocations, and coalescing small chunks back into larger ones on frees.
 
 
 
-#### **2.3.3.2 Configuring PCIe Virtual Functions**
+##### **2.3.3.2 Configuring PCIe Virtual Functions**
 
 Before an AFU can be accessed with VFIO, the FPGA Physical Function must
 be configured to enable its Virtual Functions. Then, each VF must be
@@ -1848,7 +1848,7 @@ fpgaWriteMMIO32(afu_handle, 0, CSR_CTRL, 3);
 
 
 
-#### 2.4.8 Wait for Task Completion
+#### **2.4.8 Wait for Task Completion**
 
 Once the acceleration task is initiated, the application may poll the
 AFU for a completion status. This process is AFU-specific. The AFU may
@@ -1858,7 +1858,7 @@ to a shared buffer.
 
 
 
-#### 2.4.9 Free DMA Buffers
+#### **2.4.9 Free DMA Buffers**
 
 When the acceleration task completes and the AFU is quiesced such that
 there are no outstanding memory transactions targeted for the shared
@@ -1878,7 +1878,7 @@ fpgaReleaseBuffer(afu_handle, dest_wsid);
 
 
 
-#### 2.4.10 Unmap MMIO Region
+#### **2.4.10 Unmap MMIO Region**
 
 The MMIO regions should also be unmapped using
 [fpgaUnmapMMIO](https://github.com/OFS/opae-sdk/blob/master/include/opae/mmio.h#L200-L201)():
@@ -1910,7 +1910,7 @@ fpgaClose(afu_handle);
 
 <br>
 
-#### 2.4.12 Release the Tokens and Properties
+#### **2.4.12 Release the Tokens and Properties**
 
 The fpga\_token’s returned by
 [fpgaEnumerate](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L101-L103)()
@@ -2149,7 +2149,7 @@ abstractions: properties, tokens, handles, dma buffers, etc.
 
 
 
-#### **4.1 \_opae**
+#### **4.1 opae**
 
 The Python API is coded as a
 [pybind11](https://pybind11.readthedocs.io/en/stable/) project, which
@@ -2572,78 +2572,78 @@ print(f'first 0x{first.read64():0x}')
 
 <p align = "center">Figure 78 Python sysobject Container</p>
 
-### **5.0 Management Interfaces - opae.admin**
+## **5.0 Management Interfaces - opae.admin**
 
 While the OPAE SDK C, C++, and Python APIs focus on presenting the AFU and all its related functionality to the end user, there is also a need for a maintenance functionality to aid in configuring the platform and performing secure firmware updates for the FPGA device and its components.  opae.admin is a Python framework which provides abstractions for performing these types of maintenance tasks on FPGA devices.  opae.admin provides Python classes which model the FPGA and the sysfs interfaces provided by the DFL drivers.
 
 
 
-#### **5.1 sysfs** 
+### **5.1 sysfs** 
 opae.admin’s sysfs module provides abstractions for interacting with sysfs nodes, which comprise the base entity abstraction of opae.admin.
 
 
 
-#####	**5.1.1 sysfs_node**
+####	**5.1.1 sysfs_node**
 A sysfs_node is an object that tracks a unique path within a sysfs directory tree.  sysfs_node provides methods for finding and constructing other sysfs_node objects, based on the root path of the parent sysfs_node object.  sysfs_node also provides a mechanism to read and write sysfs file contents.  sysfs_node serves as the base class for many of the sysfs module’s other classes.
 
 
 
-#####	**5.1.2 pci_node**
+####	**5.1.2 pci_node**
 A pci_node is a sysfs_node that is rooted at /sys/bus/pci/devices.  Each pci_node has a unique PCIe address corresponding to the PCIe device it represents.  Methods for finding the pci_node’s children, for determining the PCIe device tree rooted at the node, for manipulating the node’s PCIe address, for determining the vendor and device ID’s, and for removing, unbinding, and rescanning the device are provided.
 
 
 
-#####	**5.1.3 sysfs_driver**
+####	**5.1.3 sysfs_driver**
 A sysfs_driver is a sysfs_node that provides a method for unbinding a sysfs_device object.
 
 
 
-#####	**5.1.4 sysfs_device**
+####	**5.1.4 sysfs_device**
 A sysfs_device is a sysfs_node that is located under /sys/class or /sys/bus.  sysfs_device provides the basis for opae.admin’s FPGA enumeration capability.
 
 
 
-#####	**5.1.5 pcie_device**
+####	**5.1.5 pcie_device**
 A pcie_device is a sysfs_device that is rooted at /sys/bus/pci/devices.
 
 
 
-#### **5.2 fpga**
+### **5.2 fpga**
 opae.admin’s fpga module provides classes which abstract an FPGA and its components.
 
 
 
-#####	**5.2.1 region**
+####	**5.2.1 region**
 A region is a sysfs_node that has an associated Linux character device, rooted at /dev.  Methods for opening the region’s character device file and for interacting with the character device via its IOCTL interface are provided.
 
 
 
-#####	**5.2.2 fme**
+####	**5.2.2 fme**
 An fme is a region that represents an FPGA device’s FME component.  An fme provides accessors for the PR interface ID, the various bus paths that may exist under an FME, and the BMC firmware revision information.
 
 
 
-#####	**5.2.3 port**
+####	**5.2.3 port**
 A port is a region that represents an FPGA device’s Port component.  A port provides an accessor for the Port AFU ID.
 
 
 
-#####	**5.2.4 fpga_base**
+####	**5.2.4 fpga_base**
 An fpga_base is a sysfs_device that provides accessors for the FPGA device’s FME, for the FPGA device’s Port, and for the secure update sysfs controls.  fpga_base provides routines for enabling and disabling AER and for performing device RSU.
 
 
 
-#####	**5.2.5 fpga**
+####	**5.2.5 fpga**
 An fpga (derived from fpga_base) is the basis for representing the FPGA device in opae.admin.  Utilities such as fpgasupdate rely on fpga’s enum classmethod to enumerate all of the FPGA devices in the system.  In order for a device to enumerate via this mechanism, it must be bound to the dfl-pci driver at the time of enumeration.
 
 
 
-####	**5.3 opae.admin Utilities**
+###	**5.3 opae.admin Utilities**
 Several utilities are written on top of opae.admin’s class abstractions.  The following sections highlight some of the most commonly-used utilities.
 
 
 
-#####	**5.3.1 fpgasupdate**
+####	**5.3.1 fpgasupdate**
 fpgasupdate, or FPGA Secure Update, is used to apply firmware updates to the components of the FPGA.  As the name implies, these updates target a secure FPGA device, one that has the ability to implement a secure root of trust.
 The command-line interface to fpgasupdate was designed to be as simple as possible for the end user.  The command simply takes a path to the firmware update file to be applied and the PCIe address of the targeted FPGA device.
 
@@ -2673,12 +2673,12 @@ fpgasupdate can apply a variety of firmware image updates.
 
 
 
-#####	**5.3.2 pci_device**
+####	**5.3.2 pci_device**
 pci_device is a utility that provides a convenient interface to some of the Linux Kernel’s standard PCIe device capabilities.
 
 
 
-######	**5.3.2.1 pci_device aer subcommand**
+#####	**5.3.2.1 pci_device aer subcommand**
 The aer dump subcommand displays the Correctable, Fatal, and NonFatal device errors.
 
 ```bash
@@ -2709,7 +2709,7 @@ aer clear errors: 00000000
 
 
 
-######	**5.3.2.2 pci_device unbind subcommand**
+#####	**5.3.2.2 pci_device unbind subcommand**
 
 The unbind subcommand unbinds the target device from the currently-bound device driver.
 
@@ -2729,7 +2729,7 @@ In order to re-bind the device to a driver, eg dfl-pci, use the following comman
 
 
 
-######	**5.3.2.3 pci_device rescan subcommand**
+#####	**5.3.2.3 pci_device rescan subcommand**
 The rescan subcommand triggers a PCIe bus rescan of all PCIe devices.
 
 ```bash
@@ -2741,7 +2741,7 @@ The rescan subcommand triggers a PCIe bus rescan of all PCIe devices.
 
 
 
-######	**5.3.2.4 pci_device remove subcommand**
+#####	**5.3.2.4 pci_device remove subcommand**
 The remove subcommand removes the target device from Linux kernel management.
 
 ```bash
@@ -2754,7 +2754,7 @@ Note: a reboot may be required in order to re-establish the Linux kernel managem
 
 
 
-######	**5.3.2.5 pci_device topology subcommand**
+#####	**5.3.2.5 pci_device topology subcommand**
 
 The topology subcommand shows a tab-delimited depiction of the target device as it exists in the PCIe device tree in the Linux kernel.
 
@@ -2780,7 +2780,7 @@ The green output indicates the target device.  The other endpoint devices are sh
 
 
 
-######	**5.3.2.6 pci_device vf subcommand**
+#####	**5.3.2.6 pci_device vf subcommand**
 
 The vf subcommand allows setting the value of the sriov_numvfs sysfs node of the target device.  This is useful in scenarios where device functionality is presented in the form of one or more PCIe Virtual Functions.
 
@@ -2793,12 +2793,12 @@ The vf subcommand allows setting the value of the sriov_numvfs sysfs node of the
 
 
 
-#####	**5.3.3 rsu**
+####	**5.3.3 rsu**
 rsu is a utility that performs Remote System Update.  rsu is used subsequent to programming a firmware update or other supported file type with fpgasupdate, in order to reset the targeted FPGA entity so that a newly-loaded firmware image becomes active.
 
 
 
-######	**5.3.3.1 rsu bmc subcommand**
+#####	**5.3.3.1 rsu bmc subcommand**
 The bmc subcommand causes a Board Management Controller reset.  This command is used to apply a previous fpgasupdate of a BMC firmware image.  The --page argument selects the desired boot image.  Valid values for --page are ‘user’ and ‘factory’.
 
 
@@ -2810,7 +2810,7 @@ The bmc subcommand causes a Board Management Controller reset.  This command is 
 
 
 
-######	**5.3.3.2 rsu retimer subcommand**
+#####	**5.3.3.2 rsu retimer subcommand**
 The retimer subcommand causes a Parkvale reset (specific to Vista Creek).  This command is used to apply a previous fpgasupdate of a BMC firmware image (the Parkvale firmware is contained within the BMC firmware image).  The retimer subcommand causes only the Parkvale to reset.
 
 ```bash
@@ -2822,7 +2822,7 @@ The retimer subcommand causes a Parkvale reset (specific to Vista Creek).  This 
 
 
 
-######	**5.3.3.3 rsu fpga subcommand**
+#####	**5.3.3.3 rsu fpga subcommand**
 The fpga subcommand causes a reconfiguration of the FPGA Static Region.  This command is used to apply a previous fpgasupdate of the Static Region image.  The --page argument selects the desired boot image.  Valid values for --page are ‘user1’, ‘user2’, and ‘factory’.
 
 
@@ -2836,7 +2836,7 @@ The fpga subcommand causes a reconfiguration of the FPGA Static Region.  This co
 
 
 
-######	**5.3.3.4 rsu sdm subcommand**
+#####	**5.3.3.4 rsu sdm subcommand**
 The sdm subcommand causes a reset of the Secure Device Manager.  This command is used to apply a previous fpgasupdate of the SDM image.
 
 ```bash
@@ -2847,7 +2847,7 @@ The sdm subcommand causes a reset of the Secure Device Manager.  This command is
 
 
 
-######	**5.3.3.5 rsu fpgadefault subcommand**
+#####	**5.3.3.5 rsu fpgadefault subcommand**
 The fpgadefault subcommand can be used to display the default FPGA boot sequence; and it can be used to select the image to boot on the next reset of the FPGA.
 When given without additional parameters, the fpgadefault subcommand displays the default FPGA boot sequence:
 
@@ -2882,11 +2882,11 @@ The fallback boot sequence is used to determine which FPGA image to load in the 
 
 
 
-### **6.0 Sample Applications**
+## **6.0 Sample Applications**
 
 
 
-#### **6.1 afu-test Framework**
+### **6.1 afu-test Framework**
 
 afu-test refers to a test-writing framework that exists as a set of C++
 classes written on top of the OPAE C++ bindings. The first class,
@@ -3005,11 +3005,11 @@ implements the command-specific test functionality.
 
 
 
-#### **6.2 afu-test Based Samples**
+### **6.2 afu-test Based Samples**
 
 
 
-##### **6.2.1 dummy\_afu**
+#### **6.2.1 dummy\_afu**
 
 The dummy\_afu application is a afu-test based application that
 implements three commands: mmio, ddr, and lpbk.
@@ -3023,32 +3023,32 @@ implements three commands: mmio, ddr, and lpbk.
 
 
 
-##### **6.2.2 host\_exerciser**
+#### **6.2.2 host\_exerciser**
 
 [host\_exerciser](https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/host_exerciser/host_exerciser.md)
 markdown document.
 
 
 
-##### **6.2.3 hssi**
+#### **6.2.3 hssi**
 
 [hssi](https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/hssi/hssi.md)
 markdown document.
 
 
 
-###  **7.0 Other Utilities**
+##  **7.0 Other Utilities**
 
 
 
-#### **7.1 opae.io**
+### **7.1 opae.io**
 
 [opae.io](https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/opae.io/opae.io.md)
 markdown document.
 
 
 
-#### **7.2 bitstreaminfo**
+### **7.2 bitstreaminfo**
 
 The bitstreaminfo command prints diagnostic information about firmware
 image files that have been passed through the PACSign utility. PACSign
@@ -3066,7 +3066,7 @@ To run bitstreaminfo, pass the path to the desired firmware image file:
 
 
 
-#### **7.3 fpgareg**
+### **7.3 fpgareg**
 
 The fpgareg command prints the register spaces for the following fpga
 device components:
@@ -3085,7 +3085,7 @@ It will not work with prior platforms, eg N3000.
 
 
 
-#### **7.4 opaevfio**
+### **7.4 opaevfio**
 
 [opaevfio](https://github.com/OFS/opae-sdk/blob/master/doc/src/fpga_tools/opaevfio/opaevfio.md)
 markdown document.
@@ -3093,7 +3093,7 @@ markdown document.
 
 
 
-###  **8.0 Building OPAE**
+##  **8.0 Building OPAE**
 
 The OPAE SDK uses the cmake build and configuration system, version >=
 3.10. The basic steps required to build the SDK from source are:
@@ -3113,7 +3113,7 @@ $ make
 
 
 
-#### **8.1 Installing Prerequisite Packages**
+### **8.1 Installing Prerequisite Packages**
 
 The OPAE SDK is intended to build and run on modern Linux distributions.
 The SDK contains a set of system configuration scripts to aid the system
@@ -3129,13 +3129,13 @@ configuration process.
 
 For more information on the environment setup instructions for your exact platform, please visit [https://ofs.github.io/](https://ofs.github.io/) and refer to your platform's User Guide.
 
-#### **8.2 Cloning the SDK repository**
+### **8.2 Cloning the SDK repository**
 
 ```bash
 $ git clone https://github.com/OFS/opae-sdk.git
 ```
 
-##### **8.3 CMake Options**
+### **8.3 CMake Options**
 
 <table>
 <thead>
@@ -3301,7 +3301,7 @@ $ git clone https://github.com/OFS/opae-sdk.git
 
 
 
-#### **8.4 Building OPAE for Debug**
+### **8.4 Building OPAE for Debug**
 
 ```bash
 $ cmake .. -DCMAKE_BUILD_TYPE=Debug
@@ -3309,7 +3309,7 @@ $ cmake .. -DCMAKE_BUILD_TYPE=Debug
 
 
 
-#### **8.5 Creating RPMs**
+### **8.5 Creating RPMs**
 
 To ease the RPM creation process, the OPAE SDK provides a simple RPM
 creation script. The parameters to the RPM create script are fedora or
@@ -3344,7 +3344,7 @@ packaging/opae/rpm directory.
 
 
 
-##### **8.5.1 Updating the RPM Version Information**
+#### **8.5.1 Updating the RPM Version Information**
 
 The RPMs will be versioned according to the information found in the
 file
@@ -3353,11 +3353,11 @@ Edit this file to update the version information, then re-run the create
 script to create the RPMs.
 
 
-### **9.0 Debugging OPAE**
+## **9.0 Debugging OPAE**
 
 
 
-#### **9.1	Enabling Debug Logging**
+### **9.1	Enabling Debug Logging**
 
 The OPAE SDK has a built-in debug logging facility.  To enable it, set the cmake flag `-DCMAKE_BUILD_TYPE=Debug` and then use the following environment variables:
 | Variable| Description|
@@ -3369,7 +3369,7 @@ The OPAE SDK has a built-in debug logging facility.  To enable it, set the cmake
 
 
 
-#### **9.2 GDB**
+### **9.2 GDB**
 To enable gdb-based debugging, the cmake configuration step must specify a value for -DCMAKE_BUILD_TYPE of either Debug or RelWithDebInfo so that debug symbols are included in the output binaries.
 The OPAE SDK makes use of dynamically-loaded library modules.  When debugging with gdb, the best practice is to remove all OPAE SDK libraries from the system installation paths to ensure that library modules are only loaded from the local build tree:
 
@@ -3380,11 +3380,11 @@ $ LD_LIBRARY_PATH=$PWD/lib gdb --args <some_opae_executable> <args>
 
 <p align = "center">Figure 103 Debugging with GDB</p>
 
-### **10.0 Adding New Device Support**
+## **10.0 Adding New Device Support**
 
 As of OPAE 2.2.0 the SDK has transitioned to a single configuration file model.  The libraries, plugins, and applications obtain their runtime configuration during startup by examining a single JSON configuration file.  In doing so, the original configuration file formats for libopae-c and fpgad have been deprecated in favor of the respective sections in the new configuration file. 
 
-####	**10.1 Configuration File Search Order**
+###	**10.1 Configuration File Search Order**
 By default the OPAE SDK will install its configuration file to /etc/opae/opae.cfg. 
 
 
@@ -3424,7 +3424,7 @@ usr/local/etc/opae/opae.cfg
 
 If the search exhausts all of the possible configuration file locations without finding a configuration file, then an internal default configuration is used.  This internal default configuration matches that of the opae.cfg file shipped with the OPAE SDK. 
 
-####	**10.2 Configuration File Format **
+###	**10.2 Configuration File Format**
 The OPAE SDK configuration file is stored in JSON formatted text.  The file has two main sections: “configs” and “configurations”.  The “configs” section is an array of strings.  Each value in the “configs” array is a key into the data stored in the “configurations” section.  If a key is present in “configs”, then that key is searched for and processed in “configurations”.  If the key is not found in “configs”, then that section of “configurations” will not be processed, irrespective of whether it exists in “configurations”. 
 
 ```C
@@ -4056,7 +4056,7 @@ This concludes our integration our new platform with the linux-dfl driver set. B
 sections in the user guide linked above. If the above conditions have been met, and your N6001 board has been configured with this new "N6002" FIM, you should see the following output when running the command "fpgainfo fme" (your Bitstream ID,
 PR Interface ID, and Image Info entries may differ). Check that the board's display name at the top and values for Vendor/Device/SubVendor/Subdevice IDs are correct.
 
-```bash session
+```c
 Intel Acceleration Development Platform N6002
 Board Management Controller NIOS FW version: 3.11.0
 Board Management Controller Build version: 3.11.0
@@ -4076,7 +4076,7 @@ Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
 User1 Image Info                 : 9804075d2e8a71a192ec89602f2f5544
 User2 Image Info                 : 9804075d2e8a71a192ec89602f2f5544
-
+```
 
 <br>
 

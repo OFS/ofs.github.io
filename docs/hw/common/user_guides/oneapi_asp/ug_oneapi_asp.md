@@ -153,7 +153,7 @@ Tool installation guide for your reference:
 -   [Intel® oneAPI Toolkits Installation Guide for Linux* OS](https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top.html)
 
 4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version. 
-> **Note:** For Intel® Agilex® FPGA ensure Quartus patch 0.10 and 0.02iofs are installed. You can find it in the following links [0.10](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license) and [0.02iofs](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license). For Intel® Stratix 10® FPGA ensure Quartus patch 0.01iofs is installed. You can find it in the following link [0.01iofs](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.1/license).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. Use following command to check Quartus version and installed patches.
+> **Note:** For Intel® Agilex® FPGA ensure Quartus patch 0.30 and 0.02iofs are installed. You can find it in the following links [0.30](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1) and [0.02iofs](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license). For Intel® Stratix 10® FPGA ensure Quartus patch 0.01iofs is installed. You can find it in the following link [0.01iofs](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.1/license).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. Use following command to check Quartus version and installed patches.
 
 </pre>
 
@@ -213,7 +213,7 @@ Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(BKC).
 | opae-sdk | Branch: release/2.5.0, Tag: 2.5.0-2 |
 | ofs-fim | Tag: ofs-2023.1-1|
 | oneapi-asp | Tag: ofs-2023.1-1 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)*|
-| Quartus Prime Pro Edition | Version 23.1.0 Pro Edition with patches [0.10](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license) and [0.02iofs](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license) |
+| Quartus Prime Pro Edition | Version 23.1.0 Pro Edition with patches [0.30](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.1-1) and [0.02iofs](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.1/license) |
 | Intel® oneAPI Base Toolkit (Base Kit) | Latest version |
 | GCC | 8.5.0 20210514 (Red Hat 8.5.0-10) |
 | Python | 3.6.8 <br> > **Note:** The Python version may differ in Intel oneAPI environment (Python 3.9.10 :: Intel Corporation)|
