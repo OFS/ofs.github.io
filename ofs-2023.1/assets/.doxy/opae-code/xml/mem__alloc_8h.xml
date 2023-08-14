@@ -5,14 +5,14 @@
     <includes local="no">stdint.h</includes>
     <includedby refid="vfio_8h" local="no">docs/sw/include/opae/vfio.h</includedby>
     <incdepgraph>
-      <node id="2">
-        <label>stdint.h</label>
-      </node>
       <node id="1">
         <label>docs/sw/include/opae/mem_alloc.h</label>
         <link refid="mem__alloc_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="2">
+        <label>stdint.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
