@@ -1,6 +1,6 @@
 # OFS Getting Started Guide for Intel Agilex SoC Attach FPGAs
 
-Last updated: **August 03, 2023** 
+Last updated: **August 14, 2023** 
 
 ## 1.0 About this Document
 
@@ -51,14 +51,14 @@ The information in this document is intended for customers evaluating the Intel 
 | Name| Location|
 | -----| -----|
 | Platform Evaluation Script: Open FPGA Stack for Intel Agilex FPGA| [link](https://ofs.github.io/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/)|
-| FPGA Interface Manager Technical Reference Manual for Intel Agilex SoC Attach: Open FPGA Stack| [link](../../f2000x/)|
+| FPGA Interface Manager Technical Reference Manual for Intel Agilex SoC Attach: Open FPGA Stack| [link](https://ofs.github.io/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs)|
 | Software Reference Manual: Open FPGA Stack| [link](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)|
 | Intel® FPGA Interface Manager Developer Guide: Intel Agilex SoC Attach: Open FPGA Stack| [link](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)|
 | Intel® Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Agilex® FPGAs SoC Attach| [link](https://ofs.github.io/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)|
 | Security User Guide: Intel Open FPGA Stack| [link](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) |
 | Virtual machine User Guide: Open FPGA Stack + KVM| [link](https://ofs.github.io/hw/common/user_guides/ug_kvm/ug_kvm/)|
 | Docker User Guide: Intel® Open FPGA Stack| [link](https://ofs.github.io/hw/common/user_guides/ug_docker/ug_docker/)|
-| Release Notes| [link](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) - under "Important Notes"|
+| Release Notes| [link](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) - under "Important Notes"|
 | Board Management Controller User Guide v1.1.9 (Pre-Release): Intel IPU Platform F2000X-PL| Work with your Intel sales representative for access|
 
 #### Table 3: Related Repositories
@@ -69,7 +69,7 @@ The information in this document is intended for customers evaluating the Intel 
 | OFS-PLATFORM-AFU-BBB| https://github.com/OFS/ofs-platform-afu-bbb.git, tag: ofs-2023.1-1 |
 | AFU-EXAMPLES| https://github.com/OFS/examples-afu.git, tag: ofs-2023.1-1|
 | OPAE-SDK| https://github.com/OFS/opae-sdk.git, tag: 2.5.0-3 |
-| LINUX-DFL| https://github.com/OFS/linux-dfl.git, tag: ofs-2023.1-6.1-1|
+| LINUX-DFL| https://github.com/OFS/linux-dfl.git, tag: ofs-2023.1-5.15-1|
 | META-OFS| https://github.com/OFS/meta-ofs, tag: ofs-2023.1-4|
 
 #### Table 4: Software and Firmware Component Version Summary for SoC Attach
@@ -79,11 +79,10 @@ The information in this document is intended for customers evaluating the Intel 
 | Available FIM Version(s)|PR Interface ID: bf2a9e1a-b05d-5130-b47c-776055c0d67e |[2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) |
 | Host Operating System| Ubuntu 22.04| [Official Release Page](https://ubuntu.com/download/desktop)|
 | Host OPAE SDK| 2.5.0-3| [https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3)|
-| Host Linux DFL| ofs-2023.1-6.1-1| [https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1)|
 | SoC OS | meta-intel-ese Reference Distro 1.0-ESE (kirkstone)| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
 | SoC Kernel Version| 5.15.92-dfl-66b0076c2c-lts| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
 | SoC OPAE SDK| 2.5.0-3| [https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3)|
-| SoC Linux DFL| ofs-2023.1-6.1-1| [https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1)|
+| SoC Linux DFL| ofs-2023.1-5.15-1| [https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-5.15-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-5.15-1)|
 | SoC BMC and RTL| 1.1.9| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
 | SoC BIOS| 0ACRH608_REL| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
 
@@ -108,7 +107,6 @@ Te Host BIOS settings known to work with the Intel IPU Platform F2000X-PL:
 - PCIe slot speed must be **4**
 - PCIe slot must have **iommu** enabled
 - Intel VT for Directed I/O (VT-d) must be **enabled**
-- PCIe Volume Management for the riser and PCIe slot in which the F2000x-PL card is installed must be **disabled**
 
 Specific BIOS paths are not listed here, as they can differ between BIOS vendors and versions.
 
@@ -323,7 +321,7 @@ You will load the latest pre-compiled Yocto `core-image-minimal` WIC image into 
     umount: /dev/sdd1: not mounted.
     ```
     
-4. Download the Yocto WIC image to the Linux computer. To prevent boot errors that may arise when using the same boot image loaded in both USB flash and on-board NVMe, you must choose an older version of the Yocto WIC to load onto the USB. Browse the tagged Yocto release images on [GitHub](https://github.com/OFS/meta-ofs/releases) and choose the second newest release image as the temporary USB boot target. In this example we will use the OFS 2023.1 RC3 release. You will also need to download the newest Yocto release image (core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz).
+4. Download the Yocto WIC image. To prevent boot errors that may arise when using the same boot image loaded in both USB flash and on-board NVMe, you must choose an older version of the Yocto WIC to load onto the USB. Browse the tagged Yocto release images on [GitHub](https://github.com/OFS/meta-ofs/releases) and choose the second newest release image as the temporary USB boot target. In this example we will use the OFS 2023.1 RC3 release. You will also need to download the newest Yocto release image (core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz).
     
     ```bash
     # Download an older version of the Yocto release image to use as the USB boot target, version 2023.1 RC3 shown here
@@ -348,7 +346,7 @@ You will load the latest pre-compiled Yocto `core-image-minimal` WIC image into 
 5. Copy core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic to the USB flash. This process may take several minutes.
     
     ```bash
-    $ sudo dd if=core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic of=/dev/sdd1 bs=512k status=progress conv=sync
+    $ sudo dd if=core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic of=/dev/sdd1 bs=512k status=progress conv=sync 
     $ sgdisk -e /dev/sdd
     ```
 
@@ -389,7 +387,7 @@ You will load the latest pre-compiled Yocto `core-image-minimal` WIC image into 
 9. Copy compressed `core-image-minimal` WIC into /mnt.
     
     ```bash
-    $ cp core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz /mnt
+    $ cp core-image-full-cmdline-intel-corei7-64-20230512215350.rootfs.wic /mnt
     ```
 
 Remove the USB flash from the Linux computer and install the flash drive in the USB hub attached to the Intel IPU Platform F2000X-PL.
@@ -501,10 +499,9 @@ The Intel IPU Platform F2000X-PL ships with a Yocto image pre-programmed in NVMe
     $ cd /mnt
     ```
 
-6. Uncompress and install the Yocto release image in the SoC NVMe.
+6. Install the Yocto release image in the SoC NVMe.
     
     ```bash
-    $ zcat core-image-full-cmdline-intel-corei7-64-20230512215350.rootfs.wic
     $ dd if=core-image-full-cmdline-intel-corei7-64-20230512215350.rootfs.wic of=/dev/nvme0n1 bs=1M status=progress conv=sync
     $ sync
     $ sgdisk -e /dev/nvme0n1
@@ -545,26 +542,28 @@ The Intel IPU Platform F2000X-PL ships with a Yocto image pre-programmed in NVMe
 
 Updating the Intel IPU Platform F2000X-PL firmware often requires reboots of the SoC or reconfiguration of the FPGA region. If there are processes connected from the host to the SoC that do not expect the downtime to occur, or if the host is not tolerant to a surprise PCie link down, the following instructions can be used to properly orchestrate updates with the host when reboots occur.
 
-**Note:** The following instructions assume you know the PCIe Bus/Device/Function (BDF) address of your Intel IPU Platform F2000X-PL. Run the command `lspci | grep bcce` to print all boards with a DID that matches `bcce`.
+**Note:** Intel IPU Platform F2000X-PL FPGA and BMC updates are initiated by commands issued on the IPU SoC. Issue the following commands from the host to remove any processes that would be impacted by this update. The instructions on properly removing the IPU from PCIe bus require the OPAE SDK to be installed on the host. Refer to section [6.0 Setting up the Host](#60-setting-up-the-host) for this process.
 
-```bash
-$ lspci | grep bcce
-31:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
-31:00.1 Processing accelerators: Intel Corporation Device bcce (rev 01)
-# In this example, 31:00.0 is the proper PCIe BDF of our device
-```
+1. From a host terminal shell, find PCIe Bus/Device/Function (BDF) address of your Intel IPU Platform F2000X-PL. Run the command `lspci | grep bcce` to print all boards with a DID that matches bcce.
 
-1. Shut down all VMs and software applications attached to any PFs/VFs on the host
-2. Issue the command `sudo pci_device <<PCIe BDF>> unplug` on the host to remove the PCIe device from the PCIe bus
-3. Shut down all software applications on the SoC accessing non-management PFs/VFs
-4. Issue your update command on the SoC, which will cause an SoC reboot and surprise PCIe link down on the host (ex. `reboot`, `rsu bmc/bmcimg/fpga`)
-5. Once you have completed all firmware updates, you may restart application software on the SoC
-6. Issue command `sudo pci_device <<PCIe BDF>> plug` on the host to rescan the PCIe bus and rebind the device to its native driver
-7. Restart software applications on the host
+    ```bash
+    $ lspci | grep bcce
+    31:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    31:00.1 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    # In this example, 31:00.0 is the proper PCIe BDF of our device
+    ```
+
+2. Shut down all VMs and software applications attached to any PFs/VFs on the host
+3. Issue the command `sudo pci_device <<PCIe BDF>> unplug` on the host to remove the PCIe device from the PCIe bus
+4. Shut down all software applications on the SoC accessing non-management PFs/VFs
+5. Issue your update command on the SoC, which will cause an SoC reboot and surprise PCIe link down on the host (ex. `reboot`, `rsu bmc/bmcimg/fpga`)
+6. Once you have completed all firmware updates, you may restart application software on the SoC
+7. Issue command `sudo pci_device <<PCIe BDF>> plug` on the host to rescan the PCIe bus and rebind the device to its native driver
+8. Restart software applications on the host
 
 ### 3.2 Updating FIM, BMC and AFU with `fpgasupdate`
 
-The `fpgasupdate` tool updates the Intel<sup>&reg;</sup> C10 10 BMC image and firmware, root entry hash, FPGA Static Region (SR) and user image (PR). The `fpgasupdate` will only accept images that have been formatted using PACSign. If a root entry hash has been programmed onto the board, then the image will also need to be signed using the correct keys. Please refer to the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) for information on creating signed images and on programming and managing the root entry hash. The `fpgasupdate` tool is used to program images into flash memory. The `rsu` tool is used to configure the FPGA/BMC with an image that is already stored in flash memory, or to switch between **user1** and **user2** images. All images received from an official Intel release will be "unsigned", as described in the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/).
+The `fpgasupdate` tool updates the Intel<sup>&reg;</sup> C10 10 BMC image and firmware, root entry hash, FPGA Static Region (SR) and user image (PR). The `fpgasupdate` will only accept images that have been formatted using PACSign. If a root entry hash has been programmed onto the board, then the image will also need to be signed using the correct keys. Please refer to the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) for information on creating signed images and on programming and managing the root entry hash. This repository requires special permissions to access - please reach out to your Intel representative to request. The `fpgasupdate` tool is used to program images into flash memory. The `rsu` tool is used to configure the FPGA/BMC with an image that is already stored in flash memory, or to switch between **user1** and **user2** images. All images received from an official Intel release will be "unsigned", as described in the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/).
 
 **Note:** 'Unsigned' in this context means the image has passed through `PACsign` and has had the proper security blocks prepended using a set of 'dummy' keys. FIMs with image signing enabled will require all programmable images to pass through `PACsign` even if the currently programmed FIM/BMC do not require specific keys to authenticate.
 

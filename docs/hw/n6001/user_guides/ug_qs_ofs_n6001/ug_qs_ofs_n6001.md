@@ -357,7 +357,7 @@ In this way the OFS software provides a clean and extensible framework
 for the creation and integration of additional functionalities and their
 features.
 
-*Note: A deeper dive on available SW APIs and programming model is available in the [Software Reference Manual: Intel® Open FPGA Stack](../../reference_manual/ofs_sw/mnl_sw_ofs.md) and on [kernel.org](https://docs.kernel.org/fpga/dfl.html?highlight=fpga).
+*Note: A deeper dive on available SW APIs and programming model is available in the [Software Reference Manual: Intel® Open FPGA Stack](https://ofs.github.io/ofs-2023.1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) and on [kernel.org](https://docs.kernel.org/fpga/dfl.html?highlight=fpga).
 
 ## 3.0 OFS DFL Kernel Drivers
 
@@ -412,7 +412,7 @@ sudo dnf localinstall ./python3-pybind11-2.4.3-2.el8.x86_64.rpm ./pybind11-devel
 
 ```
 
-It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/OFS/`. If you have created a different top-level directory, replace this path with your custom path.
+It is recommended you create an empty top level directory for your OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/OFS/`. If you have created a different top-level directory, replace this path with your custom path.
 
 **3.** Initialize an empty git repository and clone the LTS tagged DFL driver source code:
 
