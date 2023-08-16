@@ -12,7 +12,7 @@
         <link rel="prev" href="../../ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/">
       
       
-        <link rel="next" href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/">
+        <link rel="next" href="../../../reference_manuals/ofs_fim/mnl_fim_ofs_n6001/">
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
@@ -377,8 +377,6 @@
         
           
         
-          
-        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -415,20 +413,6 @@
     <li class="md-nav__item">
       <a href="../../../../d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
         Getting Started
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
-        Software Reference Manual
       </a>
     </li>
   
@@ -543,8 +527,6 @@
       <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
       
       
-        
-          
         
           
         
@@ -1212,20 +1194,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
-        Software Reference Manual
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../../../reference_manuals/ofs_fim/mnl_fim_ofs_n6001/" class="md-nav__link">
         FPGA Interface Manager Technical Reference Manual
       </a>
@@ -1357,8 +1325,6 @@
         
           
         
-          
-        
       
       
         <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
@@ -1395,20 +1361,6 @@
     <li class="md-nav__item">
       <a href="../../../../f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
         Getting Started
-      </a>
-    </li>
-  
-
-            
-          
-            
-              
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
-        Software Reference Manual
       </a>
     </li>
   
@@ -1638,6 +1590,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_6_1" id="__nav_6_1_label" tabindex="0">
@@ -1716,6 +1670,20 @@
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_api/plug_guide/readme/" class="md-nav__link">
         OPAE Plugin Developers Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
       </a>
     </li>
   
@@ -3093,7 +3061,7 @@
 <td>Provides steps for setting up the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> verification tool suite and running <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> unit tests</td>
 </tr>
 <tr>
-<td><a href="https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/ug-pac-security-N600x.md">Security User Guide: Intel Open FPGA Stack</a></td>
+<td><a href="https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/">Security User Guide: Intel Open FPGA Stack</a> (request access by emailing <a href="ofs.github@intel.com">ofs.github@intel.com</a>)</td>
 <td>Describes how to create keys and sign bitstreams for your custom design; includes new VAB feature</td>
 </tr>
 <tr>
@@ -4028,7 +3996,7 @@ Sample output: Warning message when the 'CVL Core0 Voltage VR Temperature' excee
 <div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>systemctl<span class="w"> </span>-h
 </code></pre></div>
 <h4 id="433-updating-with-fpgasupdate">4.3.3 Updating with fpgasupdate<a class="headerlink" href="#433-updating-with-fpgasupdate" title="Permanent link">&para;</a></h4>
-<p>The <strong>fpgasupdate</strong> tool updates the Intel Max10 Board Management Controller (<abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (<abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>). The <strong>fpgasupdate</strong> tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the <a href="https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/ug-pac-security-N600x.md">Security User Guide: Intel Open FPGA Stack</a> for information on created signed images and on programming and managing the root entry hash.  </p>
+<p>The <strong>fpgasupdate</strong> tool updates the Intel Max10 Board Management Controller (<abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (<abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>). The <strong>fpgasupdate</strong> tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the <a href="https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/">Security User Guide: Intel Open FPGA Stack</a> for information on created signed images and on programming and managing the root entry hash.  </p>
 <p>The Intel® FPGA SmartNIC N6001-PL ships with a factory, user1, and user2 programmed image for both the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> FW and RTL on all cards. The platform ships with a single <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> image that can be programmed into either user1 or user2, depending in the image selected.</p>
 <p>Use the following chart for information on the Bitstream ID and Pr Interface ID, two unique values reported by <code>fpgainfo</code> which can be used to identify the loaded <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>.</p>
 <h5 id="table-13-fim-version-summary-for-ofs-20231-release">Table 13: <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Version Summary for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> 2023.1 Release<a class="headerlink" href="#table-13-fim-version-summary-for-ofs-20231-release" title="Permanent link">&para;</a></h5>
@@ -4126,7 +4094,7 @@ Sample output: Warning message when the 'CVL Core0 Voltage VR Temperature' excee
 <h4 id="434-signing-images-with-pacsign">4.3.4 Signing Images with PACSign<a class="headerlink" href="#434-signing-images-with-pacsign" title="Permanent link">&para;</a></h4>
 <p>PACSign is an OPAE utility which allows users to insert authentication markers into bitstreams targeted for the Intel® FPGA SmartNIC N6001-PL. PACSign also allows users updating their Static Region (SR) to designate which partition of flash (user1, user2, factory) to overwrite given a specific <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> binary image. All binary images must be signed using PACSign before fpgasupdate can use them for an update. Assuming no Root Entry Hash (REH) has been programmed on the device, the following examples demonstrate how to prepend the required secury authentication data, and specifiy which region of flash to update.
 More information, including charts detailing the different certification types and their required options, are fully described in the PACsign <a href="https://github.com/OPAE/opae-sdk/blob/72b8b36bd31103dd24bf8ffee1b03c9623fb0d69/python/pacsign/PACSign.md">README</a> on GitHub.</p>
-<p>For more information on PACSign and on general security practices surrounding the Intel N6001-PL FPGA SmartNIC device, visit the <a href="https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/ug-pac-security-N600x.md">Security User Guide: Intel Open FPGA Stack</a>.</p>
+<p>For more information on PACSign and on general security practices surrounding the Intel N6001-PL FPGA SmartNIC device, visit the <a href="https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/">Security User Guide: Intel Open FPGA Stack</a>.</p>
 <p><strong>PACSign</strong> can be run on images that have previously been signed. It will overwrite any existing authentication data.</p>
 <p>The following example creates an unsigned SR image from an existing signed SR binary update image, targeting the user1 partition in flash.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a>PACSign<span class="w"> </span>SR<span class="w"> </span>-t<span class="w"> </span>UPDATE<span class="w"> </span>-s<span class="w"> </span><span class="m">0</span><span class="w"> </span>-H<span class="w"> </span>openssl_manager<span class="w"> </span>-i<span class="w"> </span>ofs_top_page1_pacsign_user1.bin<span class="w"> </span>-o<span class="w"> </span>new_image.bin
