@@ -1,4 +1,4 @@
-# Simulation User Guide: Open FPGA Stack for Intel Agilex SoC Attach FPGAs
+# Simulation User Guide: Open FPGA Stack for Intel Agilex 7 SoC Attach FPGAs
 
 | Term       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
@@ -25,7 +25,7 @@
 | SR-IOV     | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
 | TB         | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM        | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
-| VFIO       | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space. | 
+| VFIO       | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space. |
 
 
 
@@ -140,7 +140,7 @@ Verification components include:
 ### **4.2 Base FIM DUT**
 
 
-The hardware architecture of an Agilex FIM is based on the OFS hardware architecture. The following is the list of features and subsystems supported in the base shell.
+The hardware architecture of an Intel Agilex 7 FIM is based on the OFS hardware architecture. The following is the list of features and subsystems supported in the base shell.
 
     •	PCIe Subsystem
     •	HSSI Subsystem
@@ -155,14 +155,14 @@ The hardware architecture of an Agilex FIM is based on the OFS hardware architec
 
 **Figure 2 DUT Base Shell Diagram**
 
-Figure 2 shows the high level architecture of an Agilex Base Shell. It has a Gen4x16, 100G Ethernet Datapath in a 2x4x25G configuration. The Agilex Base Shell is a shell that will enable a user to build other shell variants for a custom configuration. For the f2000x board there is one shell variant
+Figure 2 shows the high level architecture of an Intel Agilex 7 Base Shell. It has a Gen4x16, 100G Ethernet Datapath in a 2x4x25G configuration. The Intel Agilex 7 Base Shell is a shell that will enable a user to build other shell variants for a custom configuration. For the f2000x board there is one shell variant
 
 base_x16<br>
 
 ### **4.3 Full Chip Level Verification Archiecture for FIM**
 
 
-Figure 3 shows a graphical representation a full chip testbench that includes major RTL blocks depicted in a OFS Agilex based UVM environment 
+Figure 3 shows a graphical representation a full chip testbench that includes major RTL blocks depicted in a OFS Intel Agilex 7 based UVM environment 
 
 ![](images/ofs-uvm_testbench_architecture.png)
 
@@ -239,7 +239,7 @@ To run the tutorial steps in this guide requires the following development envir
 
 | Item                      | Version|
 | ------------------------- | ----------|
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.1|
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.2|
 | Simulator                 | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
 | Simulator (Questasim)     | Questasim 2021.4 or newer for UVM simulation of top level FIM |
 
@@ -253,8 +253,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir release/ofs-2023.1
-    $ cd release/ofs-2023.1
+    $ mkdir release/ofs-2023.2
+    $ cd release/ofs-2023.2
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --branch --recurse-submodules https://github.com/ofs-f2000x-pl.git
     
@@ -267,13 +267,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-f2000x-pl
-    $ git checkout tags/ofs-2023.1-1
+    $ git checkout tags/ofs-2023.2-1
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2023.1-1
+    $ ofs-2023.2-1
 
 ## **5.2 License Requirements**
 
@@ -300,7 +300,7 @@ The Qualified Verification IPs will help to detect incorrect protocol behavior e
 
 The following tools are required for successful UVM set-up
 
-* Python 3.7.7
+* Python 3.6.8
 * Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
 * VCS R-2020.12-SP2 License<br>
       Note: Makefile can be modified to use DVE instead of Verdi
@@ -326,7 +326,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export WORKDIR=$OFS_ROOTDIR
 
 ## Quartus Tools
-    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.1/quartus
+    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.2/quartus
     export QUARTUS_ROOTDIR=$QUARTUS_HOME
     export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
     export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
@@ -1555,5 +1555,5 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  

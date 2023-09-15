@@ -1,6 +1,6 @@
-# **FPGA Interface Manager Technical Reference Manual for Intel Agilex SoC Attach: Open FPGA Stack**
+# **FPGA Interface Manager Technical Reference Manual for Intel Agilex 7 SoC Attach: Open FPGA Stack**
 
-Last updated: **August 14, 2023** 
+Last updated: **September 15, 2023** 
 
 ## 1 Overview
 
@@ -9,7 +9,7 @@ Last updated: **August 14, 2023**
 ### 1.1 About this Document
 
 
-This document describes the hardware architecture for the SoC Attach reference FIM of the Open FPGA Stack (OFS) targeting the Intel<sup>&reg;</sup> Agilex FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
+This document describes the hardware architecture for the SoC Attach reference FIM of the Open FPGA Stack (OFS) targeting the Intel<sup>&reg;</sup> Agilex 7 FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
 
 
 ### 1.2 Glossary
@@ -76,10 +76,6 @@ The key components of OFS include:
 - Support for other frameworks to be built on top of the OPAE such as DPDK 
 
 
-**Figure 1-1 OFS Ingredients**
-
-<img src="images/OFS_Stack.PNG" alt="drawing" >
-
 These components are available in a two GitHub locations:
 
 * [OFS hardware GitHub site](https://github.com/OFS/ofs-f2000x-pl)
@@ -128,7 +124,7 @@ The AFU partition is provided for custom acceleration workloads and may contain 
 
 #### 1.4.1 FPGA Interface Manager (FIM)
 
-The updated OFS architecture for Intel® Agilex® FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of this reference design are: 
+The updated OFS architecture for Intel® Agilex® 7 FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of this reference design are: 
 
 * P-tile PCIe Subsystem
 * E-Tile Ethernet Subsystem
@@ -143,13 +139,13 @@ The AFU Region provides design space for custom workloads and contains both stat
 
 Note that as discussed previously, the BMC RTL and firmware, the OFS OPAE software stack and support for building your own customer board support package are also provided in separate OFS repositories.
 
-**Figure 1-2 OFS for OFS FIM Platform Block Diagram**
+**Figure 1-1 OFS for OFS FIM Platform Block Diagram**
 
 ![Agilex OFS Block Diagram](images/Agilex_Fabric_Features.svg)
 
-The table provides an overview of the OFS features targeting the Intel® Agilex® FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex devices.
+The table provides an overview of the OFS features targeting the Intel® Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Intel Agilex 7 devices.
 
-**Table 1-4 OFS FIM for Intel® Agilex® FPGA Features**
+**Table 1-4 OFS FIM for Intel® Agilex® 7 FPGA Features**
 
 | Key Feature                           | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
@@ -157,7 +153,7 @@ The table provides an overview of the OFS features targeting the Intel® Agilex�
 | Virtualization                        | Host: 2 physical functions <br />SoC:   1 physical function and 3 Virtual functions |
 | Memory                                | Four Fabric DDR4 banks, x40 (optional ECC, be configured as x32 and ECC x8 ), 1200 MHz, 4GB |
 | Ethernet                              | Eight Arm® AMBA® 4 AXI4-Stream channels of 25G Ethernet interfacing to an E-tile Ethernet Subsystem. |
-| Configuration and Board Manageability | * FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration) * Platform Controller Management Interface (PMCI) Module contained within the Agilex FPGA that interfaces through Avalon-Streaming x8 QuadSPI and SPI to a Board Management Controller |
+| Configuration and Board Manageability | * FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration) * Platform Controller Management Interface (PMCI) Module contained within the Intel Agilex 7 FPGA that interfaces through Avalon-Streaming x8 QuadSPI and SPI to a Board Management Controller |
 | Partial Reconfiguration               | Partial Reconfiguration region supported in hardware and software |
 | Software Support                      | * Linux DFL drivers targeting OFS FIMs * OPAE Software Development Kit * OPAE Tools |
 
@@ -236,7 +232,7 @@ For this design the PF/VF Mux provides the following mappings (found in /src/afu
 |         |      | AFU peripherals  <br />Board peripherals |       | 256KB  <br />768KB |
 | **PF1** |      | HE-LPBK                                  | BAR 0 | 16KB               |
 
-**Figure 1-3 AFU Diagram** 
+**Figure 1-2 AFU Diagram** 
 
 
 
@@ -264,7 +260,7 @@ During host discovery, the driver traverses the DFH of the first feature from th
 The software must continue traversing the linked list until it sees the EOL (End-Of-List) bit set to 1 in the "next DFH offset" field it inspects.  A 1 indicates this is the last feature in the feature set. The figure below gives a simple illustration of the feature discovery by traversing the DFH registers. This model is similar to how PCIe enumeration occurs.
 
 
-**Figure 1-4 Device Feature Header Linked List Traversal**
+**Figure 1-3 Device Feature Header Linked List Traversal**
 
 ![DFH Linked List](images/DFH-traversal.png)
 
@@ -273,7 +269,7 @@ The software must continue traversing the linked list until it sees the EOL (End
 
 OFS provides FIM designs you can use as a starting point for your own custom design. These designs target a specific programmable acceleration card or development kit and exercise key FPGA device interfaces. 
 
-The Intel Agilex<sup>&reg;</sup> code line for OFS targets the Intel IPU Platform F2000X-PL.  [FIM designs](https://github.com/OFS/ofs-f2000x-pl) are released to for evaluation and use. 
+The Intel Agilex<sup>&reg;</sup> 7 code line for OFS targets the Intel IPU Platform F2000X-PL.  [FIM designs](https://github.com/OFS/ofs-f2000x-pl) are released to for evaluation and use. 
 
 #### 1.4.6 FIM Simulation
 
@@ -325,7 +321,7 @@ The FIM's PCIe Subsystem is a hierarchical design that targets the P-tile PCIe* 
 
 Some key features of the PCIe interface are:
 
-| Feature                               | OFS for Intel Agilex FPGA SoC Attach Subsystem Configuration |
+| Feature                               | OFS for Intel Intel Agilex 7 FPGA SoC Attach Subsystem Configuration |
 | ------------------------------------- | :----------------------------------------------------------: |
 | Mode                                  |          Host: PCIe Gen4x16<br />SoC: PCIe Gen4x16           |
 | Tile                                  |                            P-Tile                            |
@@ -377,9 +373,9 @@ The PCIe PF, VF and Base Address Register (BAR) configuration can be modified in
 The first 32 bytes of the TLP from the PCIe subsystem denotes the PCIe header. There are two types of header format supported – Power User Mode header and Data Mover mode header. The tuser_vendor[0] bit on the Arm® AMBA® 4 AXI4-Stream channel indicates the header format of the TLP; tuser_vendor[0] =0 indicates Power User Mode header and tuser_vendor[0] =1 indicates Data Mover Mode header.
 
 
-The OFS FIM for Intel Agilex FPGA implements the Data Mover Functional Mode.  With this implementation, the application has the flexibility to use either mode for PCIe transaction, as shown in the following table. For more detailed information about the PCIe Subsystem, see the PCIe Subsystem Intel FPGA User Guide. 
+The OFS FIM for Intel Intel Agilex 7 FPGA implements the Data Mover Functional Mode.  With this implementation, the application has the flexibility to use either mode for PCIe transaction, as shown in the following table. For more detailed information about the PCIe Subsystem, see the PCIe Subsystem Intel FPGA User Guide. 
 
-**Table 3-2 PCIe Subsystem Header Format Support for OFS for Agilex FPGA**
+**Table 3-2 PCIe Subsystem Header Format Support for OFS for Intel Agilex 7 FPGA**
 
 <table> 
 <thead>
@@ -473,7 +469,7 @@ The interface module provides the following:
 ### 3.3 Data Mover Request Cycles
 
 
-For Host read request cycles using the OFS FIM for Intel Agilex FPGA:
+For Host read request cycles using the OFS FIM for Intel Agilex 7 FPGA:
 * All requests in the RX direction will be MMIO. 
 * Requester ID from the request does get sent to the AFU. It is the AFU's responsibility to send back a completion to the host with the correct completer ID. 
 * Prefix is not supported. 
@@ -482,7 +478,7 @@ For Host read request cycles using the OFS FIM for Intel Agilex FPGA:
 * Base address is not sent to the AFU.
 * Local Address field is not used.
 
-For AFU/application request cycles using the OFS FIM for Intel Agilex FPGA:
+For AFU/application request cycles using the OFS FIM for Intel Agilex 7 FPGA:
 * All requests in the TX direction will be Memory Read/Write. 
 * The tag must be generated by the AFU/application.
 * Prefix is not supported. 
@@ -498,14 +494,14 @@ For AFU/application request cycles using the OFS FIM for Intel Agilex FPGA:
 ### 3.4 Data Mover Completion Cycles
 
 
-For Host completion cycles using the OFS FIM for Intel Agilex FPGA:
+For Host completion cycles using the OFS FIM for Intel Agilex 7 FPGA:
 * All completions in the RX direction will be Data Completions. 
 * Prefix is not supported.
 * MM Mode is not supported.
 * Slot Number is 0.
 * Data packet responses (for Memory Read requests from AFU) from the PCIe SS may come out of order when the size is >64B.
 
-For AFU/application completion cycles using the OFS FIM for Intel Agilex FPGA:
+For AFU/application completion cycles using the OFS FIM for Intel Agilex 7 FPGA:
 * All requests in the TX direction will be Memory Read/Write. 
 * Requester ID is generated within the FIM.
 * That tag must be generated by the AFU/application.
@@ -641,7 +637,7 @@ The PF/VF mux integration is part of afu_top (`src/afu_top/afu_top.sv and /soc_a
 
 Both an A and a B port are passed to each AFU component with a unique PF/VF. You can design your AFU components to send all requests to the primary A port or partition requests across both A and B ports. A typical high-performance AFU sends read requests to the B port and everything else to the A port, giving the arbiter freedom to keep both the host TX and RX channels busy.
 
-In the reference FIM provided for Intel Agilex OFS, the A and B TX trees have been multiplexed down to a single channel for A and another for B. The A/B multiplexer merges them into a single TX stream that will be passed to the tag remapper.
+In the reference FIM provided for Intel Agilex 7 OFS, the A and B TX trees have been multiplexed down to a single channel for A and another for B. The A/B multiplexer merges them into a single TX stream that will be passed to the tag remapper.
 
 The tag remapper provides unique tags as required by the PCIe specification.  Tags are not provided by the PCIe Subsystem FPGA IP.  When creating your own AFU you can leverage this module to generate unique tags.
 
@@ -1010,7 +1006,7 @@ The FIM implements the pending bit array as per the MSI-X specification.  When i
 ### 9.4 Interrupts Supported
 
 
-**Table 9-1: OFS for Agilex FPGA Interrupts Supported**
+**Table 9-1: OFS for Intel Agilex 7 FPGA Interrupts Supported**
 <table> 
 <thead>
 <tr>
@@ -1048,7 +1044,7 @@ The MSI-X vector tables are at BAR4, address 0x2000. The MSI-X PBA tables are at
 
 
 
-There are 4 EMIF channels (4 DDR4 banks) on the f2000x platform which is targeted OFS FIM  for Intel Agilex FPGA. The HE-MEM exerciser module in AFU. ECC is not implemented in this design. Both memory subsystem and HE-MEM implement Arm® AMBA® 4 AXI4-MM interface.
+There are 4 EMIF channels (4 DDR4 banks) on the f2000x platform which is targeted OFS FIM  for Intel Agilex 7 FPGA. The HE-MEM exerciser module in AFU. ECC is not implemented in this design. Both memory subsystem and HE-MEM implement Arm® AMBA® 4 AXI4-MM interface.
 
 **Table 10-1 Memory Subsystem Configuration on the Intel IPU Platform F2000X-PL platform **
 
@@ -1109,7 +1105,7 @@ The Ethernet Subsystem provides portability to different Ethernet configurations
 
 For more information about how to reconfigure the Ethernet Subsystem please refer to the [Ethernet Subsystem Intel FPGA IP].
 
-**Table 11-1: Ethernet Configurations for example OFS FIMs for Agilex FPGAs**
+**Table 11-1: Ethernet Configurations for example OFS FIMs for Intel Agilex 7 FPGAs**
 
 | Configuration/Mode                            | Base Fim                          |
 | --------------------------------------------- | --------------------------------- |
@@ -1359,7 +1355,7 @@ The CSR excel for HE-HSSI module can be found at ofs-fim-common/src/common/he_hs
 
 ### 13.3 HE-Null Overview
 
-This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg. To find out more about these compiler directives, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
+This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg. To find out more about these compiler directives, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach FPGAs].
 
 **Table 13-1 HE-Null DFH**
 
@@ -1533,7 +1529,7 @@ An AFU MMIO Response timeout functions in the same manner described in the [MMIO
 ## 15 OFS Design Hierarchy
 
 
-Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-f2000x-pl, release branch release/ofs-2023.1.  
+Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-f2000x-pl, release branch release/ofs-2023.2.  
 
 
 ### 15.1 Design Guidance
@@ -1568,6 +1564,6 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
 

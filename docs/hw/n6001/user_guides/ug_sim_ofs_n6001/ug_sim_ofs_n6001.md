@@ -1,4 +1,4 @@
-# Simulation User Guide: Open FPGA Stack for Intel Intel® Agilex® FPGA
+# Simulation User Guide: Open FPGA Stack for Intel Intel® Agilex® 7 FPGA
 
 | Term                      | Abbreviation | Description                                                  |
 | :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
@@ -32,7 +32,7 @@
 |Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
 |Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
- 
+
 
 
 
@@ -211,7 +211,7 @@ To run the tutorial steps in this guide requires the following development envir
 
 | Item                      | Version|
 | ------------------------- | ----------|
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.1|
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.2|
 | Simulator                 | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
 | Simulator (Questasim)     | Questasim 2021.4 or newer for UVM simulation of top level FIM |
 
@@ -225,8 +225,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir ofs-2023.1-1
-    $ cd ofs-2023.1-1
+    $ mkdir ofs-2023.2-1
+    $ cd ofs-2023.2-1
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --branch --recurse-submodules https://github.com/ofs-n6001.git
     
@@ -239,13 +239,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-n6001
-    $ git checkout tags/ofs-2023.1-1
+    $ git checkout tags/ofs-2023.2-1
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2023.1-1
+    $ ofs-2023.2-1
 
 ## **5.2 License Requirements**
 
@@ -272,7 +272,7 @@ The Qualified Verification IPs will help to detect incorrect protocol behavior e
 
 The following tools are required for successful UVM set-up
 
-* Python 3.7.7
+* Python 3.6.8
 * Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
 * Synopsys Verdi R-2020.12-SP2 License <br>
     Note: Makefile can be modified to use DVE instead of Verdi
@@ -298,7 +298,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export WORKDIR=$OFS_ROOTDIR
 
 ## Quartus Tools
-    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.1/quartus
+    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.2/quartus
     export QUARTUS_ROOTDIR=$QUARTUS_HOME
     export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
     export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
@@ -1527,5 +1527,5 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
