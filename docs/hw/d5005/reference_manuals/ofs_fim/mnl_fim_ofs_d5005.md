@@ -40,7 +40,7 @@ targeting the Intel<sup>&reg;</sup> Stratix 10 FPGA.  After reviewing this docum
 | SR-IOV | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
 | TB | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
-| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. | 
+| VFIO | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace. |
 
 ### **1.2 Introduction to the Open FPGA Stack**
 
@@ -768,7 +768,7 @@ The default mapping is shown below:
 </tbody>
 </table>
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®](/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
+For information on how to modify the PF/VF mapping for your own design, refer to the [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®].
 
 ### **6.6 Unified Tag Remapping**
 
@@ -1462,7 +1462,7 @@ There are two pieces of software related to running the HSSI Subsystem and the H
 #### **12.3.1 HSSI Linux Driver**
 
 
-The HSSI subystem is exposed as a feature in the PCIe PF BAR0 region.  It has a Device Feature Header (DFH) indicating the HSSI interface. The feature ID in the DFH causes the following driver to be instantiated for the HSSI interface: drivers/net/ethernet/intel/s10hssi.c [Kernel Driver Branch](https://github.com/OFS/linux-dfl/tree/ofs-2022.3-2)
+The HSSI subystem is exposed as a feature in the PCIe PF BAR0 region.  It has a Device Feature Header (DFH) indicating the HSSI interface. The feature ID in the DFH causes the following driver to be instantiated for the HSSI interface: drivers/net/ethernet/intel/s10hssi.c [Kernel Driver Branch](https://github.com/OFS/linux-dfl/tree/ofs-2023.2-1)
 
 The primary functionality of the driver is to interact with the ethernet MAC and PHY through an indirect register access mailbox implemented by the HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers described above. To aid in RTL bringup, the driver provides a debugfs interface directly to the indirect register access mailbox. For each HSSI interface in the system there would be a directory with the following form containing two files, regaddr and regval:
 /sys/kernel/debug/dfl-fme.X.Y
@@ -1473,7 +1473,7 @@ To read a register offset in the MAC/PHY write the offset to the regaddr file as
 #### **12.3.2	HSSI User Space Tool**
 
 
-The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  [OPAE SDK Branch](https://github.com/OFS/opae-sdk/tree/2.3.0-1).
+The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  [OPAE SDK Branch](https://github.com/OFS/opae-sdk/tree/2.8.0-1).
 <pre><code>$ hssi --help
 </pre></code>
 
@@ -1705,7 +1705,7 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
         </tr>
 
 
-For more information on modifying the FIM, refer to the [Open FPGA Stack Technical Reference Manual](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
+For more information on modifying the FIM, refer to the [Open FPGA Stack Technical Reference Manual].
 
 
 
@@ -1722,7 +1722,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
 
 

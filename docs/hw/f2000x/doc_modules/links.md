@@ -5,10 +5,10 @@
 [OFS FIM_COMMON Github Branch]: https://github.com/OFS/ofs-fim-common
 [OPAE SDK Repo]: https://github.com/OFS/opae-sdk/
 [opae-sim]: https://github.com/OFS/opae-sim
-[OPAE SDK Branch]: https://github.com/OFS/opae-sdk/tree/2.5.0-3
-[OPAE SDK Tag]: https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3
-[OPAE SDK SIM Branch]: https://github.com/OFS/opae-sim/tree/2.5.0-2
-[OPAE SDK SIM Tag]: https://github.com/OFS/opae-sim/releases/tag/2.5.0-2
+[OPAE SDK Branch]: https://github.com/OFS/opae-sdk/tree/2.8.0-1
+[OPAE SDK Tag]: https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1
+[OPAE SDK SIM Branch]: https://github.com/OFS/opae-sim/tree/2.8.0-1
+[OPAE SDK SIM Tag]: https://github.com/OFS/opae-sim/releases/tag/2.8.0-1
 [Linux DFL]: https://github.com/OFS/linux-dfl
 [Kernel Driver Branch]: https://github.com/OFS/linux-dfl/tree/ofs-2023.1-5.15-1
 [Kernel Driver Tag]: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-5.15-1
@@ -17,8 +17,8 @@
 
 [intel-fpga-bbb]: https://github.com/OPAE/intel-fpga-bbb.git
 [examples AFU]: https://github.com/OFS/examples-afu.git
-[Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html
-[evaluation script]: https://github.com/OFS/ofs-f2000x-pl/tree/release/ofs-2023.1-1-rc3/eval_scripts
+[Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
+[evaluation script]: https://github.com/OFS/ofs-f2000x-pl/tree/release/ofs-2023.2-1
 
 [FPGA Interface Manager Developer's Guide]: /hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md
 
@@ -37,7 +37,7 @@
 
 [FPGA Device Feature List (DFL) Framework Overview]: https://github.com/OPAE/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview
 [BMC User Guide: Section 15 Single Event Upset Reporting]: https://github.com/otcshare/intel-ofs-docs/blob/main/f2000x/user_guides/ug_bmc_ofs_f2000x/ug_dev_bmc_ofs_f2000x.md#150-single-event-upset-reporting
-[Intel Agilex SEU Mitigation User Guide]: https://www.intel.com/content/www/us/en/docs/programmable/683128/23-1/seu-mitigation-overview.html
+[Intel Agilex 7 SEU Mitigation User Guide]: https://www.intel.com/content/www/us/en/docs/programmable/683128/23-1/seu-mitigation-overview.html
 [Operating System Support]: https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/os-support.html
 
 [Open FPGA Stack Reference Manual - MMIO Regions section]: ../../reference_manuals/ofs_fim/mnl_fim_ofs.md#6-mmio-regions
@@ -65,7 +65,7 @@
 
 [Connecting an AFU to a Platform using PIM]: https://github.com/OPAE/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
 [Signal Tap Logic Analyzer: Introduction & Getting Started]: https://www.intel.com/content/www/us/en/programmable/support/training/course/odsw1164.html
-[Quartus Pro Prime Download]: https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html
+[Quartus Pro Prime Download]: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
 
 [6.2 Installing the OPAE SDK On the Host]: /hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host
 
@@ -99,6 +99,6 @@
 
 [Configuring the FPGA with a SOF Image via JTAG]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#522-configuring-the-fpga-with-a-sof-image-via-jtag
 
-
+[OFS-F2000X-PL release]: https://github.com/OFS/ofs-f2000x-pl/releases/ofs-2023.2-1
 
 

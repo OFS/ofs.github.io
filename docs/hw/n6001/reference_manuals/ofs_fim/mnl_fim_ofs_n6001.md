@@ -85,7 +85,7 @@ These components are available under the https://github.com/OFS site.
 
 | Repository| Contains                                                               |
 |:--------------------------:|------------------------------------------------------------------------|
-| [ofs-n6001](https://github.com/OFS/ofs-n6001) | Contains FIM or shell RTL, automated compilation scripts, and unit tests and UVM framework.  |
+| [ofs-n6001](https://github.com/OFS/ofs-agx7-pcie-attach) | Contains FIM or shell RTL, automated compilation scripts, and unit tests and UVM framework.  |
 | [oneapi-asp](https://github.com/OFS/oneapi-asp) | Contains the hardware and software components you need to develop your own OneAPI board support package    |
 | [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb.git) |  Contains the files and scripts to build the platform interface manager.|
 | [ofs-examples-afu](https://github.com/OFS/examples-afu.git) |  Contains AFU examples you can use.|
@@ -141,9 +141,9 @@ Note that the BMC RTL and firmware that works with this OFS design provided in a
 
 ![](images/Agilex_Fabric_Features.svg)
 
-The table provides an overview of the OFS features targeting the Intel® Agilex® FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex devices.
+The table provides an overview of the OFS features targeting the Intel® Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex devices.
 
-**Table 1-4 OFS FIM for Intel® Agilex® FPGA Features**
+**Table 1-4 OFS FIM for Intel® Agilex® 7 FPGA Features**
 
 | Key Feature                           | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
@@ -237,7 +237,7 @@ packet into other protocols such as AXI4 memory-mapped, Avalon<sup>&reg;</sup> s
 
 The FPGA or AFU developer implements these interface abstractions in the AFU region (afu_main) of the design.  
 
-For more information, refer to [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/).
+For more information, refer to [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
 
 #### **1.4.4 Platform Feature Discovery** 
 
@@ -260,7 +260,7 @@ The software must continue traversing the linked list until it sees the EOL (End
 
 OFS provides FIM designs you can use as a starting point for your own custom design. These designs target a specific programmable acceleration card or development kit and exercise key FPGA device interfaces. 
 
-The Intel Agilex<sup>&reg;</sup> code line for OFS targets the Intel N6001-PL FPGA SmartNIC Platform.  FIM designs are released to <https://github.com/OFS/ofs-n6001> for evaluation and use. 
+The Intel Agilex<sup>&reg;</sup> code line for OFS targets the Intel N6001-PL FPGA SmartNIC Platform.  FIM designs are released to <https://github.com/OFS/ofs-agx7-pcie-attach> for evaluation and use. 
 
 In addition to the OFS FIM for Agilex that targets the Intel N6001-PL FPGA SmartNIC Platform, vertical market FIMs are available for the Intel N6000-PL SmartNIC Platform. 
 
@@ -280,7 +280,7 @@ Verification components include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found [here](https://github.com/OFS/ofs-n6001/verification) for evaluation and use. Please refer to the [Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/) for more information.
+The verification infrastructure can be found [here](https://github.com/OFS/ofs-agx7-pcie-attach/verification) for evaluation and use. Please refer to the [Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs] for more information.
 
 
 ## **2 OFS High Level Architecture**
@@ -499,7 +499,7 @@ If you are modifying the APF or BPF connections, you must use Platform Designer 
 
 For modifying the PF/VF mux you must update the tools/pfvf_config_tool/pcie_host.ofss file and run the ofs-fim-common/pfvf_config_tool/gen_ofs_settings.py script to initiate the PCIe SS and PF/VF mux parameters to be regenerated before running the FIm build script.  
 
-For details on these modifications, please refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).  
+For details on these modifications, please refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].  
 
 ### **5.1	AFU Peripheral Fabric (APF)**
 
@@ -579,7 +579,7 @@ The default mapping is shown below:
 |HPS Copy Engine Module |PF4|
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+For information on how to modify the PF/VF mapping for your own design, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
 
 ### **5.4 AFU Interface Handler**
 
@@ -1156,7 +1156,7 @@ The CSR excel for HE-HSSI module can be found at ofs-common/src/common/he_hssi/H
 
 **13.3 HE-Null Overview**
 
-This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg.  To find out more about these compiler directives, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg.  To find out more about these compiler directives, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
 
 **Table 13-1  HE-Null DFH**
 
@@ -1321,11 +1321,11 @@ An AFU MMIO Response timeout functions in the same manner described in the [MMIO
 ## **15 OFS Design Hierarchy**
 
 
-Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-n6001, release branch ${{ N6001_Release }}.
+Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-agx7-pcie-attach, release branch ${{ N6001_Release }}.
 
 ### **15.1 Design Guidance**
 
-The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the F[Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/) for detaaled design guidance. 
+The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the F[Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs] for detaaled design guidance. 
 
 
 

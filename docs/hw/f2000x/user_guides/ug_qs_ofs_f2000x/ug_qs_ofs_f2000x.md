@@ -1,10 +1,10 @@
-# OFS Getting Started Guide for Intel Agilex SoC Attach FPGAs
+# OFS Getting Started Guide for Intel Agilex 7 SoC Attach FPGAs
 
-Last updated: **August 14, 2023** 
+Last updated: **September 15, 2023** 
 
 ## 1.0 About this Document
 
-The purpose of this document is to help users get started in evaluating the 2023.1 version of the SoC Attach release targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. After reviewing this document, a user shall be able to:
+The purpose of this document is to help users get started in evaluating the 2023.2 version of the SoC Attach release targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. After reviewing this document, a user shall be able to:
 
 - Set up their server environment according to the Best Known Configuration (BKC)
 - Build a Yocto image with the OPAE SDK and Linux DFL Drivers included
@@ -50,11 +50,11 @@ The information in this document is intended for customers evaluating the Intel 
 #### Table 2: Related Documentation
 | Name| Location|
 | -----| -----|
-| Platform Evaluation Script: Open FPGA Stack for Intel Agilex FPGA| [link](https://ofs.github.io/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/)|
-| FPGA Interface Manager Technical Reference Manual for Intel Agilex SoC Attach: Open FPGA Stack| [link](https://ofs.github.io/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs)|
+| Platform Evaluation Script: Open FPGA Stack for Intel Agilex 7 FPGA| [link](https://ofs.github.io/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/)|
+| FPGA Interface Manager Technical Reference Manual for Intel Agilex 7 SoC Attach: Open FPGA Stack| [link](https://ofs.github.io/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs)|
 | Software Reference Manual: Open FPGA Stack| [link](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)|
-| Intel® FPGA Interface Manager Developer Guide: Intel Agilex SoC Attach: Open FPGA Stack| [link](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)|
-| Intel® Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Agilex® FPGAs SoC Attach| [link](https://ofs.github.io/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)|
+| Intel® FPGA Interface Manager Developer Guide: Intel Agilex 7 SoC Attach: Open FPGA Stack| [link](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)|
+| Intel® Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Agilex® 7 FPGAs SoC Attach| [link](https://ofs.github.io/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)|
 | Security User Guide: Intel Open FPGA Stack| [link](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) |
 | Virtual machine User Guide: Open FPGA Stack + KVM| [link](https://ofs.github.io/hw/common/user_guides/ug_kvm/ug_kvm/)|
 | Docker User Guide: Intel® Open FPGA Stack| [link](https://ofs.github.io/hw/common/user_guides/ug_docker/ug_docker/)|
@@ -66,9 +66,9 @@ The information in this document is intended for customers evaluating the Intel 
 | Name| Location|
 | -----| -----|
 | Intel-FPGA-BBB | https://github.com/OPAE/intel-fpga-bbb.git |
-| OFS-PLATFORM-AFU-BBB| https://github.com/OFS/ofs-platform-afu-bbb.git, tag: ofs-2023.1-1 |
-| AFU-EXAMPLES| https://github.com/OFS/examples-afu.git, tag: ofs-2023.1-1|
-| OPAE-SDK| https://github.com/OFS/opae-sdk.git, tag: 2.5.0-3 |
+| OFS-PLATFORM-AFU-BBB| https://github.com/OFS/ofs-platform-afu-bbb.git, tag: ofs-2023.2-1 |
+| AFU-EXAMPLES| https://github.com/OFS/examples-afu.git, tag: ofs-2023.2-1|
+| OPAE-SDK| https://github.com/OFS/opae-sdk.git, tag: 2.8.0-1 |
 | LINUX-DFL| https://github.com/OFS/linux-dfl.git, tag: ofs-2023.1-5.15-1|
 | META-OFS| https://github.com/OFS/meta-ofs, tag: ofs-2023.1-4|
 
@@ -76,17 +76,17 @@ The information in this document is intended for customers evaluating the Intel 
 
 | Component| Version| Download link (where applicable)|
 | -----| -----| -----|
-| Available FIM Version(s)|PR Interface ID: bf2a9e1a-b05d-5130-b47c-776055c0d67e |[2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) |
+| Available FIM Version(s)|PR Interface ID: 3dac7126-3ce7-5fe8-b629-932096abb09b |[2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1) |
 | Host Operating System| Ubuntu 22.04| [Official Release Page](https://ubuntu.com/download/desktop)|
-| Host OPAE SDK| 2.5.0-3| [https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3)|
-| SoC OS | meta-intel-ese Reference Distro 1.0-ESE (kirkstone)| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
-| SoC Kernel Version| 5.15.92-dfl-66b0076c2c-lts| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
+| Host OPAE SDK| 2.8.0-1| [https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3)|
+| SoC OS | meta-intel-ese Reference Distro 1.0-ESE (kirkstone)| [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1)|
+| SoC Kernel Version| 5.15.92-dfl-66b0076c2c-lts| [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1)|
 | SoC OPAE SDK| 2.5.0-3| [https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3)|
 | SoC Linux DFL| ofs-2023.1-5.15-1| [https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-5.15-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-5.15-1)|
-| SoC BMC and RTL| 1.1.9| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
-| SoC BIOS| 0ACRH608_REL| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
+| SoC BMC and RTL| 1.2.3| [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1)|
+| SoC BIOS| 0ACRH608_REL| [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1)|
 
-Not all components shown in Table 4 will have an update available upon release. The OPAE SDK and Linux DFL software stacks are incorporated into a Yocto image and do not need to be downloaded separately. Updates required for the 2023.1 OFS SoC Attach Release for Intel IPU Platform F2000X-PL are shown under Table 9 in section [2.0 Updating the Intel IPU Platform F2000X-PL](#20-updating-the-Intel IPU Platform F2000X-PL).
+Not all components shown in Table 4 will have an update available upon release. The OPAE SDK and Linux DFL software stacks are incorporated into a Yocto image and do not need to be downloaded separately. Updates required for the 2023.2 OFS SoC Attach Release for Intel IPU Platform F2000X-PL are shown under Table 9 in section [2.0 Updating the Intel IPU Platform F2000X-PL](#20-updating-the-Intel IPU Platform F2000X-PL).
 
 ### 1.2 Server Requirements
 
@@ -282,7 +282,7 @@ hub. See *Figure 9*.
 Connect your flash drive to an available Linux host. In this section the USB will set up to be used as a secondary boot source for the SoC and will also be used to update the NVMe from which the ICX-D SoC boots in section [2.1 Updating the F2000X-PL ICX-D SoC NVMe](#21-updating-the-f2000x-pl-icxd-soc-nvme).
 
 You will load the latest pre-compiled Yocto `core-image-minimal` WIC image into USB flash. This image can be downloaded from
-[2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1), under assets, or compiled from [meta-ofs](https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2). Compilation is discussed in section [4.0 Compiling a Custom Yocto SoC Image](#40-compiling-a-custom-yocto-soc-image).
+[2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1), under assets, or compiled from [meta-ofs](https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2). Compilation is discussed in section [4.0 Compiling a Custom Yocto SoC Image](#40-compiling-a-custom-yocto-soc-image).
 
 1. Insert a 64 GB or larger USB Flash Drive into the USB slot of a computer/server you can use to format the drive. The following instructions assume you are using some flavor of GNU+Linux. You need sudo access privileges on this machine.
 
@@ -394,19 +394,19 @@ Remove the USB flash from the Linux computer and install the flash drive in the 
 
 ## 2.0 Updating the Intel IPU Platform F2000X-PL
 
-Every Intel IPU Platform F2000X-PL ships with pre-programmed firmware for the FPGA **user1**, **user2**, and **factory** images, the Cyclone 10 **BMC RTL and FW**, the **SoC NVMe**, and the **SoC BIOS**. The combination of FW images in *Table 4* compose the official 2023.1 OFS SoC Attach Release for Intel IPU Platform F2000X-PL. Upon initial receipt of the board from manufacturing you will need to update two of these regions of flash to conform with the best known configuration for SoC Attach.  As shown in Table 9, not all devices require firmware updates. To instruct users in the process of updating on-board Intel IPU Platform F2000X-PL firmware, examples are provided in this guide illustrating the firmware update process for all devices.  
+Every Intel IPU Platform F2000X-PL ships with pre-programmed firmware for the FPGA **user1**, **user2**, and **factory** images, the Cyclone 10 **BMC RTL and FW**, the **SoC NVMe**, and the **SoC BIOS**. The combination of FW images in *Table 4* compose the official 2023.2 OFS SoC Attach Release for Intel IPU Platform F2000X-PL. Upon initial receipt of the board from manufacturing you will need to update two of these regions of flash to conform with the best known configuration for SoC Attach.  As shown in Table 9, not all devices require firmware updates. To instruct users in the process of updating on-board Intel IPU Platform F2000X-PL firmware, examples are provided in this guide illustrating the firmware update process for all devices.  
 
 #### Table 9: Intel IPU Platform F2000X-PL FW Components
 
 | HW Component| File Name | Version | Update Required (Yes/No) |Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| FPGA SR Image<sup>1</sup> | user1: ofs_top_page1_unsigned_user1.bin<br>user2: ofs_top_page2_unsigned_user2.bin<br>factory: ofs_top_page0_unsigned_factory.bin |PR Interface ID: bf2a9e1a-b05d-5130-b47c-776055c0d67e | Yes| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
+| FPGA SR Image<sup>1</sup> | user1: ofs_top_page1_unsigned_user1.bin<br>user2: ofs_top_page2_unsigned_user2.bin<br>factory: ofs_top_page0_unsigned_factory.bin |PR Interface ID: 3dac7126-3ce7-5fe8-b629-932096abb09b | Yes| [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1)|
 | FPGA PR IMAGE<sup>2</sup>| ofs_pr_afu.green_region_unsigned.gbs | N/A | Yes | Compiled with FIM|
-| ICX-D NVMe | core-image-full-cmdline-intel-corei7-64-20230512215350.rootfs.wic| N/A | Yes | [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
-| BMC RTL and FW | AC_BMC_RSU_user_retail_1.1.9_unsigned.rsu| 1.1.9| No | [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
-| BIOS Version | 0ACRH608_REL.BIN | 0ACRH608_REL| Yes| [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1)|
+| ICX-D NVMe | core-image-full-cmdline-intel-corei7-64-20230512215350.rootfs.wic| N/A | Yes | [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1)|
+| BMC RTL and FW | AC_BMC_RSU_user_retail_1.2.3_unsigned.rsu| 1.2.3| No | [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1)|
+| BIOS Version | 0ACRH608_REL.BIN | 0ACRH608_REL| Yes| [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1)|
 
-If a component does not have a required update, it will not have an entry on [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1).
+If a component does not have a required update, it will not have an entry on [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1).
 
 <sup>1</sup>To check the PR Interface ID of the currently programmed FIM and the BMC RTL and FW version, use `fpgainfo fme` from the SoC.
 <sup>2</sup>Must be programmed if using AFU-enabled exercisers, not required otherwise.
@@ -414,8 +414,8 @@ If a component does not have a required update, it will not have an entry on [20
 ```bash
 $ fpgainfo fme
 Intel IPU Platform F2000X-PL
-**Board Management Controller NIOS FW version: 1.1.9**
-**Board Management Controller Build version: 1.1.9**
+**Board Management Controller NIOS FW version: 1.2.3**
+**Board Management Controller Build version: 1.2.3**
 //****** FME ******//
 Object Id                        : 0xEF00000
 PCIe s:b:d.f                     : 0000:15:00.0
@@ -425,9 +425,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x17D4
 Socket Id                        : 0x00
 Ports Num                        : 01
-**Bitstream Id                     : 360572756236924878**
+**Bitstream Id                     : 360572756485162679**
 Bitstream Version                : 5.0.1
-**Pr Interface Id                  : bf2a9e1a-b05d-5130-b47c-776055c0d67e**
+**Pr Interface Id                  : 3dac7126-3ce7-5fe8-b629-932096abb09b**
 Boot Page                        : user1
 User1 Image Info                 : 9e3db8b6a4d25a4e3e46f2088b495899
 User2 Image Info                 : None
@@ -511,7 +511,7 @@ The Intel IPU Platform F2000X-PL ships with a Yocto image pre-programmed in NVMe
 
 7. Reboot the SoC and update the SoC BIOS to boot from NVMe. Follow steps 2 and 3 from this section again, and this time move the NVME back to the front of the boot order. The NVMe is named `UEFI OS (PCIe SSD)` by the BIOS. Press F4 to save and exit.
     
-    You can use `wget` to retrieve a new version of the Yocto release image from [meta-ofs](https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2) once the SoC's network connection is up. Use `wget` to copy the image to the SoC over the network under `/mnt`. You may need to delete previous Yocto images to save on space: `$ wget --no-check-certificate --user <Git username> --ask-password https://github.com/OFS/meta-ofs/releases/download/ofs-2023.1-2/core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz`. Uncompress the newly retrieved file: `gzip -d core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz`. This may take several minutes.
+    You can use `wget` to retrieve a new version of the Yocto release image from [meta-ofs](https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2) once the SoC's network connection is up. Use `wget` to copy the image to the SoC over the network under `/mnt`. You may need to delete previous Yocto images to save on space: `$ wget --no-check-certificate --user <Git username> --ask-password https://github.com/OFS/meta-ofs/releases/download/ofs-2023.1-4/core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz`. Uncompress the newly retrieved file: `gzip -d core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz`. This may take several minutes.
 
 #### 2.1.1 Setting the Time
 
@@ -574,8 +574,8 @@ Updating the FIM from the SoC requires the SoC be running a Yocto image that inc
 ```bash
 $ fpgainfo fme
 Intel IPU Platform F2000X-PL
-**Board Management Controller NIOS FW version: 1.1.9**
-**Board Management Controller Build version: 1.1.9**
+**Board Management Controller NIOS FW version: 1.2.3**
+**Board Management Controller Build version: 1.2.3**
 //****** FME ******//
 Object Id                        : 0xEF00000
 PCIe s:b:d.f                     : 0000:15:00.0
@@ -585,9 +585,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x17D4
 Socket Id                        : 0x00
 Ports Num                        : 01
-**Bitstream Id                     : 360572756236924878**
+**Bitstream Id                     : 360572756485162679**
 Bitstream Version                : 5.0.1
-**Pr Interface Id                  : bf2a9e1a-b05d-5130-b47c-776055c0d67e**
+**Pr Interface Id                  : 3dac7126-3ce7-5fe8-b629-932096abb09b**
 Boot Page                        : user1
 User1 Image Info                 : 9e3db8b6a4d25a4e3e46f2088b495899
 User2 Image Info                 : None
@@ -606,13 +606,13 @@ After loading an update image, `rsu fpga/bmc/bmcimg` can be used to reload the f
 
  RSU performs a Remote System Update operation on an Intel IPU Platform F2000X-PL, given its PCIe address. An `rsu` operation sends an instruction to the device to trigger a power cycle of the card only if run with `bmcimg`. `rsu` will force reconfiguration from flash for either the BMC or FPGA. PCIe Advanced Error Reporting (AER) is temporarily disabled for the card when RSU is in progress
 
-The Intel IPU Platform F2000X-PL contains two regions of flash you may store FIM images. These locations are referred to as **user1** and **user2**. After an image has been programmed to either of these regions in flash using fpgasupdate, you may perform an `rsu` to reconfigure the Agilex FPGA with the new image stored in flash. This operation will indicate to the BMC which region to configure the FPGA device from after power-on.
+The Intel IPU Platform F2000X-PL contains two regions of flash you may store FIM images. These locations are referred to as **user1** and **user2**. After an image has been programmed to either of these regions in flash using fpgasupdate, you may perform an `rsu` to reconfigure the Agilex 7 FPGA with the new image stored in flash. This operation will indicate to the BMC which region to configure the FPGA device from after power-on.
 
 If the factory image has been updated, Intel strongly recommends you immediately RSU to the factory image to ensure the image is functional.
 
 You can determine which region of flash was used to configure their FPGA device using the command `fpgainfo fme` and looking at the row labelled **Boot Page**.
 
-When loading a new FPGA SR image, use the command `rsu fpga`. When loading a new BMC image, use the command `rsu bmc`. When using the RSU command, you may select which image will be configured to the selected device. For example, when performing an RSU for the Agilex FPGA, you may select to configure the **user1**, **user2**, or **factory** image. When performing an RSU for the C10 BMC, you may select to configure the user or factory image. You may also use RSU to reconfigure the SDM on devices that support it. The RSU command sends an instruction to the BMC to reconfigure the selected device from an image stored in flash.
+When loading a new FPGA SR image, use the command `rsu fpga`. When loading a new BMC image, use the command `rsu bmc`. When using the RSU command, you may select which image will be configured to the selected device. For example, when performing an RSU for the Intel Agilex 7 FPGA, you may select to configure the **user1**, **user2**, or **factory** image. When performing an RSU for the C10 BMC, you may select to configure the user or factory image. You may also use RSU to reconfigure the SDM on devices that support it. The RSU command sends an instruction to the BMC to reconfigure the selected device from an image stored in flash.
 
 ```bash
 $ rsu fpga --page=user1 15:00.0
@@ -638,7 +638,7 @@ Use to set the default FPGA boot sequence. The `--page` option determines the pr
 
 ### 3.4 Updating the ICX-D SoC BIOS
 
-The ICX-D SoC NVMe comes pre-programmed with BIOS v7 (0ACRH007). This version will need to be replaced with 0ACRH608_REL. BIOS update files come in the form 0ACRH\<\<version\>\>.bin, and can be downloaded on [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1). This update process is in-band, and requires you to download and install a BIOS UEFI utility from AMI called "APTIO V AMI Firmware Update Utility", available [here](https://www.ami.com/bios-uefi-utilities/#aptiov). This package will install a utility in the UEFI shell called AfuEfix64.efi which will be used to overwrite the ICX-D BIOS.
+The ICX-D SoC NVMe comes pre-programmed with BIOS v7 (0ACRH007). This version will need to be replaced with 0ACRH608_REL. BIOS update files come in the form 0ACRH\<\<version\>\>.bin, and can be downloaded on [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1). This update process is in-band, and requires you to download and install a BIOS UEFI utility from AMI called "APTIO V AMI Firmware Update Utility", available [here](https://www.ami.com/bios-uefi-utilities/#aptiov). This package will install a utility in the UEFI shell called AfuEfix64.efi which will be used to overwrite the ICX-D BIOS.
 
 1. Check your BIOS Version. Reboot the SoC and wait for the BIOS version to be shown. In this example, the BIOS will need to be updated.
     
@@ -723,7 +723,7 @@ The uncompressed Yocto image can be loaded onto a flash drive as discussed in se
 
 ## 5.0 Verifying the ICX-D SoC OPAE SDK
 
-The reference SoC Attach FIM and unaltered FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. Full supported functionality of the HEMs is documented in the [host_exerciser](https://opae.github.io/latest/docs/fpga_tools/host_exerciser/host_exerciser.html) opae.io GitHub page. SoC Attach supports HEMs run both with and without an AFU image programmed into the board's one supported PR region. This image is available on the offial [SoC Attach GitHub Page](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1), and is programmed using `fpgasupdate` as shown in section 3.2. A few select examples run from the SoC and their expected results will be shown below.
+The reference SoC Attach FIM and unaltered FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. Full supported functionality of the HEMs is documented in the [host_exerciser](https://opae.github.io/latest/docs/fpga_tools/host_exerciser/host_exerciser.html) opae.io GitHub page. SoC Attach supports HEMs run both with and without an AFU image programmed into the board's one supported PR region. This image is available on the offial [SoC Attach GitHub Page](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1), and is programmed using `fpgasupdate` as shown in section 3.2. A few select examples run from the SoC and their expected results will be shown below.
 
 ### 5.1 Checking Telemetry with `fpgainfo`
 
@@ -760,7 +760,7 @@ Factory Image Info               : None
 
 ### 5.2 Host Exercisers
 
-Of these five tests listed below, the first three do not require an AFU be loaded into the board's PR region. They exercise data paths that pass exclusively through the FIM. The latter three tests exercise data through the AFU data path, and require [SoC Attach release AFU Image](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) to be configured using `fpgasupdate`.
+Of these five tests listed below, the first three do not require an AFU be loaded into the board's PR region. They exercise data paths that pass exclusively through the FIM. The latter three tests exercise data through the AFU data path, and require [SoC Attach release AFU Image](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1) to be configured using `fpgasupdate`.
 
 * Run HE-MEM with 2 cachelines per request in `mem` mode, exercising the FPGA's connection to DDR. No AFU required.
     
@@ -971,7 +971,7 @@ The OPAE SDK source code is contained within a single [GitHub repository](https:
     $ sudo dpkg -i opae*.deb
     ```
     
-    The OPAE tools installed on the host are identical to those installed on the SoC as shown in sections 5.0 through 5.3. A set of pre-compiled OPAE SDK artifacts are included in this release. These can be downloaded from [2023.1 OFS Release for Intel Agilex SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) and installed without building/configuring.
+    The OPAE tools installed on the host are identical to those installed on the SoC as shown in sections 5.0 through 5.3. A set of pre-compiled OPAE SDK artifacts are included in this release. These can be downloaded from [2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1) and installed without building/configuring.
     
     ```bash
     $ tar xf opae-*.tar.gz
@@ -1051,5 +1051,5 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
 

@@ -1,6 +1,6 @@
 # Docker User Guide: Intel® Open FPGA Stack
 
-Last updated: **August 14, 2023** 
+Last updated: **September 15, 2023** 
 
 ## 1 Introduction
 
@@ -51,7 +51,7 @@ The following table highlights the hardware that comprises the Best-Known Config
 
 ## 3.0 Development Installation
 
-Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1 requires a specific version. For this guide, [Red Hat Linux ](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) is used for general instructions. 
+Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the ${{ env.COMMON_QUARTUS_VER }} requires a specific version. For this guide, [Red Hat Linux ](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) is used for general instructions. 
 
 The OFS Docker image includes all the libraries and tools required by the OFS and OPAE SDK (Python, Perl, CMake, and so on).
 
@@ -61,7 +61,7 @@ The OFS Docker image includes all the libraries and tools required by the OFS an
 
 Building AFUs with OFS for Intel Agilex FPGA requires the build machine to have at least 64 GB of RAM.
 
-Go to [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide for a list of detailed steps for the Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1 installation.  
+Go to [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide for a list of detailed steps for the ${{ env.COMMON_QUARTUS_VER }} installation.  
 
 ### 3.2 Docker Engine installation
 ## RHEL 8.6
@@ -334,7 +334,7 @@ Now you are ready to start the container, and you should be prepared to run it:
 
 2. Using the previous example now, you can execute the docker run command.
    ```sh
-   docker run --rm -itd --name myOFS -v=/home/intelFPGA_pro/23.1:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm -itd --name myOFS -v=/home/intelFPGA_pro/23.2:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    bdc1289fb0813bb325b55dd11df4eeec252143d6745a6e5772638fbc107d0949
    ```
 3. Now the docker container should be available.
@@ -370,7 +370,7 @@ The OFS container has two possible ways to interact with the container:
      quartus_syn --version
      
      Quartus Prime Synthesis
-     Version Quartus Prime Pro Version 23.1
+     Version Quartus Prime Pro Version 23.2
      ```
      
   4. Everything is set up correctly. Please go to the following link for more information related to the [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
@@ -386,7 +386,7 @@ The OFS container has two possible ways to interact with the container:
   2. Let's use option 2   - Check versions of Operating System and Quartus Premier Design Suite (QPDS); remember multiple options could not be available if the DFL drivers and the FPGA Platform is **not installed**, This example uses the Intel® FPGA SmartNIC N6001-PL . 
   
      ```sh
-     $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs-n6001_eval.sh 2
+     $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs-agx7-pcie-attach_eval.sh 2
      
      Go to selection: 2
      ###########################################################################################
@@ -394,7 +394,7 @@ The OFS container has two possible ways to interact with the container:
      ###########################################################################################
      
      Checking Linux release
-     Linux version 6.1.22-dfl .....
+     Linux version 6.1.41-dfl .....
      
      ....
          
@@ -443,10 +443,10 @@ Now you are ready to start the container, and should be prepared to run it (Note
    docker run --rm --privileged -itd --name myOFS -v=<yourintallationfolder>:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    ```
 
-   Example, my Quartus installation is located at "/home/intelFPGA_pro/23.1" as a result, my  command should be 
+   Example, my Quartus installation is located at "/home/intelFPGA_pro/23.2" as a result, my  command should be 
 
    ```sh
-   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.1:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.2:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    bdc1289fb0813bb325b55dd11df4eeec252143d6745a6e5772638fbc107d0949
    ```
 
@@ -459,7 +459,7 @@ Now you are ready to start the container, and should be prepared to run it (Note
 2. Execute the docker run command.
 
    ```sh
-   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.1:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.2:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    25b41eb4d232de9c750b52ddc6b92a3db612200e5993f55733b59068898623d7
    ```
 
@@ -496,7 +496,7 @@ The OFS container has two possible ways to interact with the container:
      quartus_syn --version
      
      Quartus Prime Synthesis
-     Version 23.1
+     Version 23.2
      ```
      
   4. Everything is set up correctly. Please go to the following link for more information related to the [OFS Site](https://ofs.github.io) select your desired platform and select User Guide,  Technical Reference Manual, Developer Guide, or Getting Started Guide.
@@ -515,7 +515,7 @@ The OFS container has two possible ways to interact with the container:
   
   
   ```sh
-  $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs-n6001_eval.sh 3
+  $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs-agx7-pcie-attach_eval.sh 3
   
   Go to selection: 3
   
@@ -557,5 +557,5 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  

@@ -1,4 +1,4 @@
-# Platform Evaluation Script: Open FPGA Stack for Intel Agilex SoC Attach FPGAs
+# Platform Evaluation Script: Open FPGA Stack for Intel Agilex 7 SoC Attach FPGAs
 
 | Term       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
@@ -25,7 +25,7 @@
 | SR-IOV     | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
 | TB         | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
 | UVM        | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
-| VFIO       | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space. | 
+| VFIO       | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space. |
 
 ## **1 Overview**
 
@@ -47,16 +47,16 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | Component | Version |  Description |
 | --------- | ------- | -------|
 | FPGA Platform | [Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL]()| Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-f2000x-pl](https://github.com/OFS/https://github.com/OFS/ofs-f2000x-pl), [Tag: ofs-2023.1-1](https://github.com/OFS/https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) | OFS Shell RTL for Intel Agilex FPGA (targeting https://github.com/OFS/ofs-f2000x-pl) |
-| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.1](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.1](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.1) | Common RTL across all OFS-based platforms |
-| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
+| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-f2000x-pl](https://github.com/OFS/ofs-f2000x-pl), [Tag: ofs-2023.2-1](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1) | OFS Shell RTL for Intel Agilex 7 FPGA (targeting https://github.com/OFS/ofs-f2000x-pl) |
+| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.2](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.2](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.2) | Common RTL across all OFS-based platforms |
+| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
 | OPAE SDK | [Branch: 2.5.0-3](https://github.com/OFS/opae-sdk/tree/2.5.0-3), [Tag: 2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) | Open Programmable Acceleration Engine Software Development Kit |
 | Kernel Drivers | [Branch: ofs-2023.1-5.15-1](https://github.com/OFS/linux-dfl/tree/ofs-2023.1-5.15-1), [Tag: ofs-2023.1-5.15-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-5.15-1) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.5.0-3](https://github.com/OFS/opae-sim/releases/tag/2.5.0-3) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Intel Quartus Prime Pro Edition Design Software | 23.1 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html) | Software tool for Intel FPGA Development|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.8.0-1](https://github.com/OFS/opae-sim/releases/tag/2.8.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Intel Quartus Prime Pro Edition Design Software | 23.2 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html) | Software tool for Intel FPGA Development|
 | Operating System | [Ubuntu 22.04](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL can be found on the [OFS ofs-2023.1-1](https://github.com/OFS/ofs-f2000x/releases/tag/ofs-2023.1-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL can be found on the [OFS ofs-2023.2-1](https://github.com/OFS/ofs-f2000x/releases/tag/ofs-2023.2-1) official release drop on GitHub.
 
 <br>
 
@@ -115,16 +115,16 @@ This script uses the following set of software tools which should be installed u
 
 ![](images/ofs_f2000x_tools_menu.png)
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.1-1. 
+1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.2-1. 
 
 2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table for locations. Please go [OFS Getting Started User Guide] for the instructions for the BKC installation.
 
-3. Once the repositories are cloned, copy the evaluation script (ofs_f2000x_eval.sh) which is located at [eval_scripts] beneath the $IOFS_BUILD_ROOT directory location as shown in the example below:
+3. Once the repositories are cloned, contact your intel representative to receive the eval script evaluation script (ofs_f2000x_eval.sh) and copy it to the $IOFS_BUILD_ROOT directory location as shown in the example below:
 
 **Figure 2-2 Directory Structure for OFS Project**
 
 ```sh
-## ofs-2023.1-1
+## ofs-2023.2-1
 ##  -> examples-afu
 ##  -> linux-dfl
 ##  -> ofs-f2000x-pl
@@ -133,7 +133,7 @@ This script uses the following set of software tools which should be installed u
 ##  -> ofs_f2000x_eval.sh
 ```
 
-4. Open the README file named (README_ofs_f2000x_eval.txt) which is located at [eval_scripts] which informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
+4. Contact your intel representative to receive the README file named (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the $IOFS_BUILD_ROOT directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
 
 ### **2.2 f2000x Evaluation Script modification**
 
@@ -144,11 +144,11 @@ To adapt this script to the user environment please follow the instructions belo
 
 The user must create the top-level source directory and then clone the OFS repositories
     
-    mkdir ofs-2023.1-1
+    mkdir ofs-2023.2-1
 
-In the example above we have used ofs-2023.1-1 as the directory name
+In the example above we have used ofs-2023.2-1 as the directory name
 
-### **Set-Up Proxy Server (lines 65-67)**
+### **Set-Up Proxy Server (lines 67-69)**
 
 Please enter the location of your proxy server to allow access to external internet to build software packages.
 
@@ -158,7 +158,7 @@ Note: Failing to add proxy server will prevent cloning of repositories and the u
     export https_proxy=<user_proxy>
     export no_proxy=<user_proxy>
 
-### **License Files (lines 70-72)**
+### **License Files (lines 72-74)**
 
 Please enter the the license file locations for the following tool variables
 
@@ -166,23 +166,26 @@ Please enter the the license file locations for the following tool variables
     export DW_LICENSE_FILE=<user_license>
     export SNPSLMD_LICENSE_FILE=<user_license>
 
-### **Tools Location (line 85, 86, 87, 88)**
+### **Tools Location (line 87, 88, 89, 90)**
 
 Set Location of Quartus, Synopsys and Questasim
 
     export QUARTUS_TOOLS_LOCATION=/home
     export SYNOPSYS_TOOLS_LOCATION=/home
     export QUESTASIM_TOOLS_LOCATION=/home
+    export ONEAPI_TOOLS_LOCATION=/opt
+
+In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools
 
 ### **Quartus Tools Version (line 93)**
 
 Set version of Quartus
 
-    export QUARTUS_VERSION=23.1
+    export QUARTUS_VERSION=23.2
 
-In the example above "23.1" is used as the Quartus tools version
+In the example above "23.2" is used as the Quartus tools version
 
-### **OPAE Tools (line 106)**
+### **OPAE Tools (line 108)**
 
 change OPAE SDK VERSION<br>
 
@@ -190,11 +193,11 @@ change OPAE SDK VERSION<br>
 
 In the example above "2.5.0-3" is used as the OPAE SDK tools version
 
-### **PCIe (Bus Number) (lines 230 and 237)**
+### **PCIe (Bus Number)**
 
 The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
 
-    export ADP_CARD0_BUS_NUMBER=b1
+    export OFS_CARD0_BUS_NUMBER=b1
 
  The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerater card plugged into a server. 
 
@@ -205,7 +208,7 @@ The Bus number must be entered by the user after installing the hardware in the 
 
 The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
 
-    export ADP_CARD0_BUS_NUMBER=b1
+    export OFS_CARD0_BUS_NUMBER=b1
 
 The user can also run the following command on the ofs_f2000x_eval.sh script to automatically change the bus number to b1 in the ofs_f2000x_eval.sh script.
 
@@ -235,10 +238,10 @@ The figure below shows a snapshot of the full evaluation script menu showing all
 
 ![](images/ofs_f2000x_adp_eval_menu.png)
 
-### **3.1.1 ADP TOOLS MENU**
+### **3.1.1 OFS TOOLS MENU**
 
 
-By selecting "List of Documentation for ADP f2000x Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
+By selecting "List of Documentation for OFS f2000x Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
 
 By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.
 
@@ -253,7 +256,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
     </thead>
     <tbody>
         <tr>
-             <td>1 - List of Documentation for ADP f2000x Project</td>
+             <td>1 - List of Documentation for OFS f2000x Project</td>
             <td> Open FPGA Stack Overview<br>
                  Guides you through the setup and build steps to evaluate the OFS solution<br>
                 https://ofs.github.io<br>
@@ -279,14 +282,14 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
                 SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number<br>
                 <br>
                 Checking Tool versions<br>
-                QUARTUS_HOME is set to /home/intelFPGA_pro/23.1/quartus<br>
-                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus<br>
-                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus/../ip<br>
-                QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus/../qsys/bin<br>
+                QUARTUS_HOME is set to /home/intelFPGA_pro/23.2/quartus<br>
+                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus<br>
+                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus/../ip<br>
+                QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus/../qsys/bin<br>
                 <br>
                 Checking QPDS Patches<br>
                 Quartus Prime Shell<br>
-                Version 23.1 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
+                Version 23.2 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
                 Copyright (C) XXXX  Intel Corporation. All rights reserved.<br>
                 <br>
                </td>
@@ -295,7 +298,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
      </tbody>
 </table>
 
-### **3.1.2 ADP HARDWARE MENU**
+### **3.1.2 OFS HARDWARE MENU**
 
 
 Identifies card by PCIe number, checks power, temperature and current firmware configuration. 
@@ -311,7 +314,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
     </thead>
     <tbody>
         <tr>
-            <td>3 - Identify Acceleration Development Platform (ADP) f2000x Hardware via PCIe</td>
+            <td>3 - Identify Acceleration Development Platform (OFS) f2000x Hardware via PCIe</td>
             <td>PCIe card detected as<br>
                 15:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
                 Host Server is connected to SINGLE card configuration<br>
@@ -476,7 +479,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
      </tbody>
 </table>
 
-### **3.1.3 ADP PF/VF MUX MENU**
+### **3.1.3 OFS PF/VF MUX and OFSS MENU**
 
 
 This menu reports the number of PF/VF functions in the reference example and also allows you to reduce the number to 1PF and 1VF to reduce resource utilisation and create larger area for your workload development. This selection is optional and if the user wants to implement the default number of PF's and VF's then option 9, 10 and 11 should not be used.  Additionally the code used to make the PF/VF modification can be leveraged to increase or modify the number of PF/VFs in the existing design within the limits that the PCIe Subsystem supports (8PF/2K VFs)
@@ -492,52 +495,118 @@ This menu reports the number of PF/VF functions in the reference example and als
     </thead>
     <tbody>
         <tr>
-            <td>9 - Check PF/VF Mux Configuration</td>
-            <td> This menu selection displays the current configuration of the pcie_host.ofss and pcie_soc.ofss file which is located at the following directory $OFS_ROOTDIR/tools/pfvf_config_tool<br>
+            <td>9 - Check PF/VF Mux and OFSS Configuration for OFS f2000x Project</td>
+            <td> This menu selection displays the current configuration of all f2000x ofss files located in the following directory $OFS_ROOTDIR/tools/ofss_config<br>
             <br>
-                [ProjectSettings]<br>
-                platform = f2000x<br>
-                fim = base_x16<br>
-                family = Agilex<br>
-                Part = AGFC023R25A2E2VR0<br>
-                IpDeployFile = pcie_ss.sh<br>
-                IpFile = pcie_ss.ip<br>
-                OutputName = pcie_ss<br>
-                ComponentName = pcie_ss<br>
-                is_host = True<br>
-                <br>
-                [pf0]<br>
-                <br>
-                [pf1]<br>
-                <br>
-                [ProjectSettings]<br>
-                platform = f2000x<br>
-                fim = base_x16<br>
-                family = Agilex<br>
-                Part = AGFC023R25A2E2VR0<br>
-                IpDeployFile = pcie_ss.sh<br>
-                IpFile = pcie_ss.ip<br>
-                OutputName = soc_pcie_ss<br>
-                ComponentName = pcie_ss<br>
-                is_host = False<br>
-                <br>
-                [pf0]<br>
-                pg_enable = True<br>
-                num_vfs = 3<br>
+            
+            Check f2000x base config OFSS set up
+            [ip]
+            type = ofs
+
+            [settings]
+            platform = f2000x
+            fim = base_x16
+            family = agilex
+            part = AGFC023R25A2E2VR0
+            device_id = 6100
+
+
+            Check f2000x hssi_2x100 OFSS set up
+            [ip]
+            type = hssi
+
+            [settings]
+            output_name = hssi_ss
+            num_channels = 2
+            data_rate = 100GCAUI-4
+
+
+            Check f2000x hssi_2x100_caui2 OFSS set up
+            [ip]
+            type = hssi
+
+            [settings]
+            output_name = hssi_ss
+            num_channels = 2
+            data_rate = 100GAUI-2
+
+
+            Check f2000x hssi_8x10 OFSS set up
+            [ip]
+            type = hssi
+
+            [settings]
+            output_name = hssi_ss
+            num_channels = 8
+            data_rate = 10GbE
+
+            Check f2000x hssi_8x25 OFSS set up
+            [ip]
+            type = hssi
+
+            [settings]
+            output_name = hssi_ss
+            num_channels = 8
+            data_rate = 25GbE
+
+
+            Check f2000x IOPLL OFSS set up
+            [ip]
+            type = iopll
+
+            [settings]
+            output_name = sys_pll
+            instance_name = iopll_0
+
+            [p_clk]
+            freq = 470
+
+            Check f2000x Memory OFSS set up
+            [ip]
+            type = memory
+
+            [settings]
+            output_name = mem_ss_fm
+            preset = f2000x
+
+            Check f2000x PCIe Host OFSS set up
+            [ip]
+            type = pcie
+
+            [settings]
+            output_name = pcie_ss
+
+            [pf0]
+            bar0_address_width = 21
+
+            [pf1]
+
+            Check f2000x PCIe SoC OFSS set up
+            [ip]
+            type = pcie
+
+            [settings]
+            output_name = soc_pcie_ss
+
+            [pf0]
+            num_vfs = 3
+            bar0_address_width = 21
+            vf_bar0_address_width = 21
+
             <br>
 </td>        
         </tr>
         <tr>
-            <td>10 - Modify PF/VF Mux Configuration</td>
-            <td>As an example this menu selection modifies the pcie_host.ofss and pcie_soc.ofss file to 1 PF located in the following directory $OFS_ROOTDIR/tools/pfvf_config_tool<br>
+            <td>10 - Modify PF/VF Mux and OFSS Configuration for OFS f2000x Project</td>
+            <td>As an example this menu selection modifies the pcie_host.ofss and pcie_soc.ofss file to 1 PF located in the following directory $OFS_ROOTDIR/tools/ofss_config/pcie<br>
             This option also displays the the modified pcie_host.ofss and pcie_soc.ofss files<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>11 - Build PF/VF Mux Configuration</td>
-            <td>If option 10 is not used then then the default number of PF's and VF's is used to build the FIM, if option 10 is selected then only 1 VF is built to reduce logic utilisation<br>
+            <td>11 - Build PF/VF Mux and OFSS Configuration for OFS f2000x Project</td>
+            <td>If option 10 is not used then the default number of PF's and VF's is used to build the FIM, if option 10 is selected then only 1 VF is built to reduce logic utilisation<br>
             <br>
         </tr>
 </tr>
@@ -545,7 +614,7 @@ This menu reports the number of PF/VF functions in the reference example and als
 </table>
 
 
-### **3.1.4 ADP FIM/PR BUILD MENU**
+### **3.1.4 OFS FIM/PR BUILD MENU**
 
 
 Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
@@ -561,7 +630,7 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
     </thead>
     <tbody>
         <tr>
-            <td>12 - Check ADP software versions for ADP f2000x Project</td>
+            <td>12 - Check OFS software versions for OFS f2000x Project</td>
             <td>OFS_ROOTDIR is set to /home/user_area/ofs-X.X.X/ofs-f2000x-pl<br>
                 OPAE_SDK_REPO_BRANCH is set to release/X.X.X<br>
                 OPAE_SDK_ROOT is set to /home/user_area/ofs-X.X.X/ofs-f2000x-pl/../opae-sdk<br>
@@ -572,7 +641,7 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
         </tr>
         <tr>
             <td>13 - Build FIM for f2000x Hardware</td>
-            <td>This option builds the FIM based on the setting for the $ADP_PLATFORM, $FIM_SHELL environment variable. Check this variable in the following file ofs_f2000x_eval.sh<br>
+            <td>This option builds the FIM based on the setting for the $OFS_PLATFORM, $FIM_SHELL environment variable. Check this variable in the following file ofs_f2000x_eval.sh<br>
             <br>
         </tr>
 </td>        
@@ -614,7 +683,7 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
      </tbody>
 </table>
 
-### **3.1.5 ADP HARDWARE PROGRAMMING/DIAGNOSTIC MENU**
+### **3.1.5 OFS HARDWARE PROGRAMMING/DIAGNOSTIC MENU**
 
 
 The following submenu allows you to:
@@ -756,7 +825,7 @@ The following submenu allows you to:
      </tbody>
 </table>
 
-### **3.1.6  ADP HARDWARE AFU TESTING MENU**
+### **3.1.6  OFS HARDWARE AFU TESTING MENU**
 
 
 This submenu tests partial reconfiguration by building and loading an memory-mapped I/O example AFU/workload, executes software from host, and tests remote signal tap.
@@ -808,7 +877,7 @@ This submenu tests partial reconfiguration by building and loading an memory-map
      </tbody>
 </table>
 
-### **3.1.7 ADP HARDWARE AFU BBB TESTING MENU**
+### **3.1.7 OFS HARDWARE AFU BBB TESTING MENU**
 
 
 This submenu tests partial reconfiguration using a hello_world example AFU/workload, executes sw from host
@@ -839,7 +908,7 @@ This submenu tests partial reconfiguration using a hello_world example AFU/workl
 </table>
 
 
-### **3.1.9 ADP UNIT TEST PROJECT MENU**
+### **3.1.9 OFS UNIT TEST PROJECT MENU**
 
 
 Builds, compiles and runs standalone simulation block tests. More unit test examples are found at the following location ofs-f2000x-pl/sim/unit_test 
@@ -870,7 +939,7 @@ Builds, compiles and runs standalone simulation block tests. More unit test exam
 </table>
 
 
-### **3.1.10 ADP UVM PROJECT MENU**
+### **3.1.10 OFS UVM PROJECT MENU**
 
 
 Builds, compiles and runs full chip simulation tests. The user should execute the options sequentially ie 41,42, 43 and 44
@@ -896,7 +965,7 @@ Builds, compiles and runs full chip simulation tests. The user should execute th
 </td>        
         <tr>
             <td>42 - Compile UVM IP</td>
-            <td>This option cmpiles the UVM IP <br>
+            <td>This option compiles the UVM IP <br>
             <br>
         <tr>
 </td>        
@@ -919,7 +988,7 @@ Builds, compiles and runs full chip simulation tests. The user should execute th
      </tbody>
 </table>
 
-### **3.1.11 ADP BUILD ALL PROJECT MENU**
+### **3.1.11 OFS BUILD ALL PROJECT MENU**
 
 
 Builds the complete OFS flow, good for regression testing and overnight builds
@@ -964,13 +1033,13 @@ MULTI_TEST[46,0]=2
 
 A= 46 is the total number of options in the script
 B= 0 indicates that this is the first test to be run in the script
-C= Menu option in Script ie 2- List of Documentation for ADP f2000x Project
+C= Menu option in Script ie 2- List of Documentation for OFS f2000x Project
 
 Example 2<br>
 MULTI_TEST[46,0]=2<br>
 MULTI_TEST[46,1]=9<br>
 
-In the example above two tests are run in order ie 0, and 1 and the following menu options are executed ie 2- List of Documentation for ADP f2000x Project and 9 - Check ADP software versions for ADP f2000x Project
+In the example above two tests are run in order ie 0, and 1 and the following menu options are executed ie 2- List of Documentation for OFS f2000x Project and 9 - Check OFS software versions for OFS f2000x Project
 
 The user can also modify the build time by de-selecting options they do not wish to use, see below for a couple of use-case scenarios.
 
@@ -980,9 +1049,9 @@ A user can run a sequence of tests and execute them sequentially. In the example
 
 ![](images/ofs_f2000x_default_build.png)
 
-## **User Case for ADP FIM/PR BUILD MENU**
+## **User Case for OFS FIM/PR BUILD MENU**
 
-In the example below when the user selects option 46 from the main menu the script will only run options from the ADP FIM/PR BUILD MENU (7 options, main menu options 12, 13, 14, 15, 16, 17 and 18). All other tests with an "X" indicates do not run that test.
+In the example below when the user selects option 46 from the main menu the script will only run options from the OFS FIM/PR BUILD MENU (7 options, main menu options 12, 13, 14, 15, 16, 17 and 18). All other tests with an "X" indicates do not run that test.
 
 ![](images/ofs_f2000x_user_case1_build.png)
 
@@ -1077,5 +1146,5 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  

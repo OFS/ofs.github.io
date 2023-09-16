@@ -11,14 +11,14 @@
 
 This document serves as a reference manual for platform designers wanting to enable [oneAPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit.html#gs.jxodgk) support on their Open FPGA Stack(OFS) platforms. The document describes essential hardware and software components required for enabling this design flow using OFS. Implementation details for [`oneapi-asp`](https://github.com/OFS/oneapi-asp) for Open FPGA Stack(OFS) reference platforms is covered towards the end of the document.
 
-> **Note:** Table 1-1 in [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
+> **Note:** Table 1-1 in [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) lists OFS reference platforms.
 
 For more information about developing application kernels for FPGA using Intel® oneAPI Base Toolkit (Base Kit) refer to [Intel® FPGA Add-on for oneAPI Base Toolkit](https://www.intel.com/content/www/us/en/developer/tools/oneapi/fpga.html#gs.jxoidi) webpage.
 
 ### **1.2 Terminology**
 <div id="terminology"></div>
 
-This table defines some of the common terms used when discussing OFS.
+This table defines some of the common terms used when discussing OFS. 
 
 **Table 1-1: Terminology**
 
@@ -48,21 +48,29 @@ This table defines some of the common terms used when discussing OFS.
 The content in this manual requires readers to be familiar with:
 
 * [Hardware and software components of Open FPGA Stack](https://github.com/OFS), especially the following:
+
     * FPGA Interface Manager(FIM)
+
         * Intel® Stratix 10® FPGA:
+
             * [FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/)
             * [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/)
-        * Intel® Agilex® FPGA:
-            * [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach](/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/)
-            * [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+
+        * Intel® Agilex® 7 FPGA:
+
+            * [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach]
+            * [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs]
+
     * Accelerator Functional Unit(AFU)
+
         * Intel® Stratix 10® FPGA: [Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Stratix 10 FPGA](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
-        * Intel® Agilex® FPGA: [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/)
+        * Intel® Agilex® 7 FPGA: [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs]
+
     * [OPAE SDK](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)
     * [Linux-DFL](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/#110-dfl-linux-kernel-drivers)
     * [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb)
 
-In addition to above, developers must be familiar with the following tools & concepts: 
+In addition to above, developers must be familiar with the following tools & concepts:
 
 * [Intel® Quartus® Prime Design Software](https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/user-guides.html) (Intel® Quartus® software revisions, Platform Designer, compilation Flows, timing analysis, compilation reports, understanding FPGA resource utilization, programming Intel® FPGAs) 
 * [Partial Reconfiguration (PR)](https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/partial-reconfiguration.html)
@@ -80,7 +88,7 @@ In addition to above, developers must be familiar with the following tools & con
 
 The [Intel® oneAPI Base Toolkit (Base Kit)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html) is a core set of tools and libraries for developing high-performance, data-centric applications across diverse architectures (CPUs, GPUs and FPGAs). It features an industry-leading C++ compiler that implements SYCL, an evolution of C++ for heterogeneous computing.
 
-Figure 1-1 shows the high-level representation of oneAPI application developers using FPGAs for acceleration of their applications. The runtime flow consists of a host code running on a processor and an application kernel code running on an FPGA. Open FPGA Stack enables vendors to enable support for this flow on their platforms.
+Figure 1-1 shows the high-level representation of oneAPI application developers using FPGAs for acceleration. The runtime flow consists of a host code running on a processor and an application kernel code running on an FPGA. Open FPGA Stack enables vendors to enable support for this flow on their platforms.
  
 **Figure 1-1: oneAPI Application on OFS Platforms**
 
@@ -101,7 +109,7 @@ Figure 1-2 shows the workload design steps and steps in which the Intel® oneAPI
 ### **1.5 Introduction to oneAPI Accelerator Support Package(ASP)**
 <div id="intro_oneapi_asp"></div>
 
-As mentioned in previous section, oneAPI ASP is a collection of hardware and software components that interface with the hardware circuit generated by the oneAPI compiler. The hardware circuit generated by the oneAPI compiler from a oneAPI kernel is referred to as the `kernel system`. While the `kernel system` consists of logic controlled by the workload developer's specifications, the `kernel system` *interfaces* are generated by the oneAPI compiler based on specifications provided by the OFS platform designer. These specifications are input to the compiler using *XML files* (discussed in section 2.0).
+As mentioned in previous section, oneAPI ASP is a collection of hardware and software components that interface with the hardware circuit generated by the oneAPI compiler. The hardware circuit generated by the oneAPI compiler from a oneAPI kernel is referred to as the `kernel system`. While the `kernel system` consists of logic controlled by the workload developer's specifications, the `kernel system` *interfaces* are generated by the oneAPI compiler based on specifications provided by the oneAPI ASP designer. These specifications are input to the compiler using *XML files* (discussed in section 2.0).
 
 > **Note:** All the interfaces generated by the oneAPI compiler are [Avalon® Interfaces](https://www.intel.com/content/www/us/en/docs/programmable/683091/22-3/introduction-to-the-interface-specifications.html).
  
@@ -116,7 +124,8 @@ Figure 1-3 shows a high-level representation of an OFS hardware design and inter
 * Path 1 represents host-to-External Memory Interface (EMIF)
 * Path 2 represents the host to kernel interface
 * Path 3 represents kernel to EMIF
-* Path 4 represents kernel to host memory Interface
+* Path 4 represents kernel to Unified Shared Memory (USM) Interface
+* Path 5 represents kernel to HSSI interface
 
 oneAPI ASP hardware components can be divided into 3 categories:
 
@@ -171,8 +180,11 @@ Elements of board_spec.xml file are summarized in table 2-1. Each element has ad
 | global_mem | Different attributes in this element are used to provide details about the external memory used as the global memory for the FPGA oneAPI kernel/application. | name, max_bandwidth, interleaved_bytes, config_addr, default, interface |
 | host | Used to specify the offset at which the kernel resides. | kernel_config |
 | interfaces | Used to specify control signals to oneAPI kernels | interface, kernel_clk_reset |
+| channels | Used to describe interface to stream data directly between kernels and I/O | interface |
 
-The compiler expects a separate `board_spec.xml` file for every board variant a platform supports. Board variants are different hardware design implementations for the same platform, a oneAPI ASP can have multiple board variants. A oneAPI kernel developer can select the variant suitable for their application at compile time. A `board_spec.xml` file must be located at the top most level of the board variants hardware directory (the hardware directory is specified by `board_env.xml`, please refer to section 2.2 for details on `hardware` element). For example, a separate `board_spec.xml` file for each board variant for OFS reference platforms is located in `oneapi-asp/Platform-Name/hardware/Board-Variant/` directory, where `Platform-Name` is `n6001` for Agilex OFS and `d5005` for Stratix 10 OFS.
+The compiler expects a separate `board_spec.xml` file for every board variant a platform supports. Board variants are different hardware design implementations for the same platform, a oneAPI ASP can have multiple board variants. A oneAPI kernel developer can select the board variant suitable for their application at compile time.
+
+A `board_spec.xml` file must be located at the top most level of each board variant's hardware directory (the hardware directory is specified by `board_env.xml`, please refer to section 2.2 for details on `hardware` element). For example, a separate `board_spec.xml` file for each board variant for OFS reference platforms is located in `oneapi-asp/Platform-Name/hardware/Board-Variant/` directory, where `Platform-Name` is `n6001` for Agilex OFS and `d5005` for Stratix 10 OFS.
 
 #### **2.1.1 board Element**
 <div id="board_element"></div>
@@ -228,7 +240,7 @@ There can be multiple `compile` elements for the different compilation flows tha
 #### **2.1.3 device Element**
 <div id="device_element"></div>
 
-A device model(DM) file is an XML file that has the total resources on the device (i.e. ALMs, FFs, DSPs, RAMs). This is required for any FPGA part used in a oneAPI design. Most device model files are provided as part of the Intel® oneAPI Base Toolkit (Base Kit) installation (`$INTELFPGAOCLSDKROOT/share/models/dm`, where INTELFPGAOCLSDKROOT is set by the `setvars.sh` environment setup script provided by [oneAPI toolkit](https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/2023-1/prerequisites.html)). A new device model file can also be created using existing files as reference.
+A device model(DM) file is an XML file that has the total resources on the device (i.e. ALMs, FFs, DSPs, RAMs). This is required for any FPGA part used in a oneAPI design. Most device model files are provided as part of the Intel® oneAPI Base Toolkit (Base Kit) installation (`$INTELFPGAOCLSDKROOT/share/models/dm`, where INTELFPGAOCLSDKROOT is set by the `setvars.sh` environment setup script provided by [oneAPI toolkit](https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/2023-1/prerequisites.html)). If the device model file for your part number is not included in `$INTELFPGAOCLSDKROOT/share/models/dm`, it must be created and placed in the same folder as `board_spec.xml`. A new device model file can be created using existing files as reference. 
 
 The device model file name must be specified in the `device_model` attribute of `device` element. The `used_resources` attribute is used to specify the resources being utilized by the oneAPI ASP and peripheral IPs. The utilization by non-kernel logic is calculated during platform design. The compiler utilizes the total resources from device model file and utilized resources in `used_resources` section to estimate the available resources for application kernel.
 
@@ -239,7 +251,7 @@ The device model file name must be specified in the `device_model` attribute of 
 | device_model | The file name of the device model file that describes the available FPGA resources on the accelerator board. |
 | used_resources | Reports the number of adaptive logic modules (ALMs), flip-flops, digital signal processor (DSP) blocks and RAM blocks that the board design consumes in the absence of any kernel. If you create a defined partition around all the board logic, you can obtain the used resources data from the Partition Statistics section of the Fitter report. Extract the information from the following parameters: <br>* alms num — The number of logic ALMs used, excluding the number of ALMs with only their registers used. The value should correspond to [a]+[b]+[d] from part [A] of the Fitter Partition Statistics. <br>* ffs num — The number of flip flops. <br>* dsps num — The number of DSP blocks. <br>* rams num — The number of RAM blocks. |
 
-Example below shows the `device` element added for a Intel® Agilex® FPGA based platform with device model file named "agfb014r24a2e2vr0_dm.xml". The number of used_resources are for demonstration purposes and are not to be used by platform developers.
+Example below shows the `device` element added for a Intel® Agilex® 7 FPGA based platform with device model file named "agfb014r24a2e2vr0_dm.xml". The number of used_resources are for demonstration purposes and are not to be used by oneAPI ASP developers.
 
 **Figure 2-4: `device` Element**
 
@@ -260,7 +272,7 @@ In the board_spec.xml file, each global memory, channel or kernel connection is 
 | name |* For global_mem: instance name of the Platform Designer component.<br>* For channels: instance name of the Platform Designer component that has the channel interface.<br>* For interfaces: name of the entity in which the kernel interface resides (for example, board). | All |
 | port |* For global_mem: name of the Avalon®-MM interface in the Platform Designer component that corresponds to the interface attribute.<br>* For channels: name of the streaming interface in the Platform Designer component.<br>* For interfaces: name of the interface to the `OpenCL™ Kernel Interface` Platform Designer component. For example, kernel_cra is the Avalon®-MM interface, and kernel_irq is an interrupt. | All |
 | type |* For global_mem: set to agent. <br>* For channels: <br>- Set to streamsource for a stream source that provides data to the kernel.<br>- Set to streamsink for a stream sink interface that consumes data from the kernel.<br>* For interfaces: set to either host, irq, or streamsource. | All |
-| width |* For global_mem: width of the memory interface in bits.<br>For channels: number of bits in the channel interface.<br>For interfaces: width of the kernel interface in bits. | All |
+| width |* For global_mem: width of the memory interface in bits.<br>* For channels: number of bits in the channel interface.<br>* For interfaces: width of the kernel interface in bits. | All |
 | waitrequest_allowance	|* For global_mem: [Optional] Amount of Avalon®-MM waitrequest allowance supported on the agent interface (that is, kernel-facing interface) of the clock-crossing bridge that spans between the memory and the kernel clock domains.<br>* For kernel_cra: [Optional] Amount of Avalon®-MM waitrequest allowance that the kernel_cra agent interface must support.<br>This parameter defaults to 0 if you do not specify it in the board_spec.xml file. A value of 0 indicates that this waitrequest allowance feature is disabled. | All |
 | maxburst | Maximum burst size for the agent interface.<br>Attention: The value of width ÷ 8 x maxburst must be less than the value of interleaved_bytes. | global_mem |
 | address | Starting address of the memory interface that corresponds to the host interface-side address.<br>For example, address 0 should correspond to the bank1 memory host from the `OpenCL Memory Bank Divider`. In addition, any non-zero starting address must abut the end address of the previous memory. | global_mem |
@@ -285,7 +297,7 @@ The different attributes for global_mem element are discussed in table 2-6.
 |---------|---------|
 | name | The name FPGA application/kernel developer should use to identify the memory type. Each name must be unique and must comprise of less than 32 characters. |
 | max_bandwidth | The maximum bandwidth, in megabytes per second (MB/s), of all global memory interfaces combined in their current configuration. The oneAPI compiler uses max_bandwidth to choose an architecture suitable for the application and the board. <br> Compute this bandwidth value from datasheets of memories on your board. <br> Example max_bandwidth calculation for a 64-bit DDR4 interface running at 1200 MHz: <br> max_bandwidth = 1200 MHz x 2 x 64 bits ÷ 8-bits = 19200 MB/s <br> The max_bandwidth value will change based on global memory configuration, for example, if the memory configuration comprises of 4 banks of DDR4 configured as a single homogenous memory, the max_bandwidth will be 19200 x 4 (i.e. number of memory interfaces from kernel). Please see section 2.1.5.1 for more information on global memory configurations. <br> Designers have the option to use block RAM instead of or in conjunction with external memory as global memory. The formula for calculating max_bandwidth for block RAM is max_bandwidth = block RAM speed x (block RAM interface size ÷ 8 bits). <br> Example max_bandwidth calculation for a 512-bit block RAM running at 100 MHz: <br> max_bandwidth = 100 MHz x 512 bits ÷ 8 bits = 6400 MB/s |
-| interleaved_bytes | Include the interleaved_bytes attribute in the board_spec.xml file when you instantiate multiple interfaces(i.e. memory banks) for a given global memory system. This attribute controls the size of data that the offline compiler distributes across the interfaces. <br> The offline compiler currently can interleave data across banks no finer than the size of one full burst. This attribute specifies this size in bytes and following are the recommended values: <br> For two or fewer global memory banks: maxburst x width_bytes <br> For four or more global memory banks: maxburst x width_bytes x 4 <br> The interleaved_bytes value must be the same for the host interface and the kernels. Therefore, the configuration of the `OpenCL Memory Bank Divider` must match the exported kernel agent interfaces in this respect (refer to section 3.1.1 for information about OpenCL Memory Bank Divider) <br> For block RAM, interleaved_bytes equals the width of the interface in bytes. |
+| interleaved_bytes | Include the interleaved_bytes attribute in the board_spec.xml file when you instantiate multiple interfaces(i.e. memory banks) for a given global memory system. This attribute controls the size of data that the offline compiler distributes across the interfaces. <br> The offline compiler currently can interleave data across banks no finer than the size of one full burst. This attribute specifies this size in bytes and following are the recommended values: <br> For two or fewer global memory banks: maxburst x width_bytes <br> For four or more global memory banks: maxburst x width_bytes x 4 <br> The interleaved_bytes value must be the same for the host interface and the kernels. Therefore, the configuration of the `OpenCL Memory Bank Divider` must match the exported kernel agent interfaces in this respect (refer to section 3.1.1 for information about `OpenCL Memory Bank Divider`) <br> For block RAM, interleaved_bytes equals the width of the interface in bytes. |
 | config_addr | The address of the ACL Mem Organization Control Platform Designer component (mem_org_mode) that the host software uses to configure memory. You may omit this attribute if your board has homogeneous memory; the software uses the default address (0x18) for this component. If your board has heterogeneous memory, there is a mem_org_mode component in the board system for each memory type. <br> Enter the config_addr attribute and set it to the value of the base address of the mem_org_mode component(s). |
 | default | Include this optional attribute and assign a value of 1 to set the global memory as the default memory interface. The default memory must start at address 0x0. <br> If you do not implement this attribute, the first memory type defined in the board_spec.xml file becomes the default memory interface. |
 | interface | See the `interface` section above for the parameters you must specify for each interface. |
@@ -310,7 +322,7 @@ Example below shows a `global_mem` element configuration for a kernel system con
 
 A board can have a single memory bank, multiple memory banks of the same type (e.g. 4 banks of DDR4) or different banks of different types.
 
-The partitioning of memory for oneAPI kernel developers is explained in the [FPGA optimization Guide for oneAPI](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top/optimize-your-design/throughput-1/memory-accesses/global-memory-accesses-optimization.html). The global memory configuration required by an application kernel must match the configuration in board_spec.xml as the compiler uses this information to generate a suitable architecture for the application.
+The partitioning of memory for oneAPI kernel developers is explained in the [FPGA Optimization Guide for Intel® oneAPI Toolkits](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top/optimize-your-design/throughput-1/memory-accesses/global-memory-accesses-optimization.html). The global memory configuration required by an application kernel must match the configuration in board_spec.xml as the compiler uses this information to generate a suitable architecture for the application.
 The different memory configurations are
 
 * A single global memory region (possible with same type of memory banks)
@@ -322,7 +334,7 @@ The different memory configurations are
 For boards with multiple memory banks of the same type, designers can configure these as a single contiguous global memory region. This is done by specifying each memory interface within a single global_mem element.
 Figure 2-5 showed 4 DDR4 memory banks configured as a single global memory region.
 
-With this configuration, FPGA application developers have the option to use contiguous memory region in an interleaved or a non-interleaved fashion. Even with contiguous memory regions, kernel developers can partition data buffers across the banks/memory channels. Please refer to [Global Memory Access Optimization section in FPGA Optimization Guide for oneAPI](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top/optimize-your-design/throughput-1/memory-accesses/global-memory-accesses-optimization.html) for more details on these partitioning techniques.
+With this configuration, FPGA application developers have the option to use contiguous memory region in an interleaved or a non-interleaved fashion. Even with contiguous memory regions, kernel developers can partition data buffers across the banks/memory channels. Please refer to [Global Memory Access Optimization section in FPGA Optimization Guide for Intel® oneAPI Toolkits](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top/optimize-your-design/throughput-1/memory-accesses/global-memory-accesses-optimization.html) for more details on these partitioning techniques.
 
 ###### **2.1.5.1.2 Heterogeneous Memory**
 <div id="het_mem"></div>
@@ -395,6 +407,21 @@ Figure 2-9 shows example of `interfaces` element.
 
 > **Note:** Name the kernel clock and reset interfaces in the Platform Designer connection format (that is, <instance_name>.<interface_name>). For example: board.kernel_clk
 
+#### **2.1.8 channels Element**
+<div id="channels_element"></div>
+
+The `channels` element provides channels for streaming data directly between kernel and I/O. Each channel (implemented using Avalon-ST specification) must be connected to the kernel via the `interface` attribute. The channel interface only supports data, and valid and ready Avalon-ST signals. The I/O channel defaults to 8-bit symbols and big-endian ordering at the interface level.
+
+Figure 2-10 shows an example of `channels` element for a single channel with a width of 64 bits. The `chan_id` attribute identified helps identify the port in the generated `kernel_system`. Refer to [section 2.1.4](#214-interface-attribute) for more information about the `interface` attribute parameters. Additional interface attributes can be added for additional channels. 
+
+**Figure 2-10: `channels` Element Example**
+
+
+
+![Channels element example](images/channels_element.png)
+
+For more information about kernel development using channels, refer to *I/O Pipes* section in [FPGA Optimization Guide for Intel® oneAPI Toolkits](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/optimization-guide/2023-2/i-o-pipes.html).
+
 ### **2.2 `board_env.xml` File**
 <div id="board_env"></div>
 
@@ -402,7 +429,7 @@ The `board_env.xml` file is used by the oneAPI toolkit to set up the board insta
 
 A sample board_env.xml file is shown below. Table 2-9 explains the elements of this file.
 
-**Figure 2-10: `board_env.xml` File Structure**
+**Figure 2-11: `board_env.xml` File Structure**
 
 
 
@@ -415,24 +442,25 @@ A sample board_env.xml file is shown below. Table 2-9 explains the elements of t
 | board_env | * version: The oneAPI compiler version used to create oneAPI ASP<br>* name: The runtime uses this as the name of the FPGA Client Driver(FCD) file name |
 | hardware | * dir: Name of the subdirectory, within the oneAPI ASP directory, that contains the board variant directories for a platform<br> * default: The default board variant that the compiler targets when a platform has multiple board variants and user does not specify an explicit argument using [-Xstarget option](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/2023-1/fpga-compilation-flags.html) |
 | platform | name: Name of the operating system. A separate `platform` element must be specified for each supported OS for the oneAPI ASP platform |
-| mmdlib | A string that specifies the path to the MMD library of your oneAPI ASP. To load multiple libraries, specify them in an ordered, comma-separated list. The host application will load the libraries in the order that they appear in the list<br>> **Note:** You can use `%b` to reference your oneAPI ASP directory |
-| linkflags | A string that specifies the linker flags necessary for linking with the MMD layer available with the board<br>> **Note:** %b to reference your oneAPI ASP directory |
+| mmdlib | A string that specifies the path to the MMD library of your oneAPI ASP. To load multiple libraries, specify them in an ordered, comma-separated list. The host application will load the libraries in the order that they appear in the list<br>> **Note:** You can use `%b` to reference your oneAPI ASP directory and provide path relative to oneAPI ASP directory, for example, if MMD library is located inside `linux64/lib` folder in oneAPI ASP, the path would be `%b/linux64/lib/libintel_opae_mmd.so`  |
+| linkflags | A string that specifies the linker flags necessary for linking with the MMD layer available with the board<br>> **Note:** You can use %b to reference your oneAPI ASP directory and provide path relative to oneAPI ASP directory, for example, if MMD library is located inside `linux64/lib` folder in oneAPI ASP, the path would be `%b/linux64/lib`.   |
 | linklibs | A string that specifies the libraries the oneAPI runtime must link against to use the MMD layer available with the board |
-| utilbindir | Directory in which the runtime expects to locate board utility executables (i.e. install, uninstall, program, diagnose, flash) <br>> **Note:** You can use %b to reference your board installation directory |
+| utilbindir | Directory in which the runtime expects to locate board utility executables (i.e. install, uninstall, program, diagnose, flash) <br>> **Note:** You can use %b to reference your oneAPI ASP directory and provide path relative to oneAPI ASP directory, for example, if the utilities are located in `linux64/libexec` folder in oneAPI ASP, the path would be `%b/linux64/libexec` |
 
 ## **3.0 oneAPI ASP Hardware**
 <div id="oneAPI_asp_hw"></div>
 
-The oneAPI compiler generates the `kernel system` interfaces based on specifications provided by the platform/board developer in the `board_spec.xml` file. The `kernel system` interfaces with the rest of the oneAPI ASP RTL as shown in figure 1-3.
+The oneAPI compiler generates the `kernel system` interfaces based on specifications provided by the oneAPI ASP developer in the `board_spec.xml` file. The `kernel system` interfaces with the rest of the oneAPI ASP RTL as shown in figure 1-3.
 
-Figure 1-3 shows 4 different paths, summarized below:
+Figure 1-3 shows 5 different paths, summarized below:
 
 * Host to EMIF: Consisting of RTL to handle data transfer between host and on-board memory (e.g. DDR4)
 * Host to Kernel: Consisting of RTL to handle control signals & interrupts between host and kernel
 * Kernel to EMIF: Consisting of RTL to handle data transfer between kernel and on-board memory
-* Kernel to Host memory: Required to support Unified Shared Memory. This requires some additional RTL to handle data transfer between kernel and host memory.
+* Kernel to Host memory: Required to support Unified Shared Memory. This requires some additional RTL to handle data transfer between kernel and host memory
+* Kernel to HSSI: Consisting of RTL to handle data streaming between kernel and I/O
 
-Please note that the `kernel system` generated by oneAPI compiler has Avalon® interfaces. OFS FIM has AXI interfaces. Additional logic blocks from Platform Interface Manager are used to handle protocol conversions. Please refer to section 5.2.1 for more details on PIM.
+Please note that the `kernel system` generated by oneAPI compiler has Avalon® interfaces. OFS FIM has AXI interfaces. Additional logic blocks from Platform Interface Manager are used to handle protocol conversions. Please refer to section 5.3.1 for more details on PIM.
 The next few sections cover some of the important IP components provided by Intel® oneAPI Base Toolkit (Base Kit) installation that are required to enable kernel communications with host and board peripherals. More design implementation details are covered in section 5.0.
 
 ### **3.1 Host to External Memory Interface(EMIF)**
@@ -514,7 +542,7 @@ The OpenCL Kernel Interface is a Platform Designer component that allows the hos
 
 ![OpenCL Kernel Interface IP Parameters](images/ocl_kern_intf_ip_param.PNG)
 
-> \***Note:** OpenCL Kernel Interface IPs are device specific. There are different IPs for Intel® Stratix 10® FPGA and Intel® Agilex® FPGA device families. Please refer to hardware designs for oneAPI ASP for OFS reference platforms to view device specific instantiations for OpenCL Kernel Interface IPs.<br>* [Stratix 10 OFS `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/d5005)<br>* [Agilex OFS `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/n6001)
+> \***Note:** OpenCL Kernel Interface IPs are device specific. There are different IPs for Intel® Stratix 10® FPGA and Intel® Agilex® 7 FPGA device families. Please refer to hardware designs for oneAPI ASP for OFS reference platforms to view device specific instantiations for OpenCL Kernel Interface IPs.<br>* [Stratix 10 OFS `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/d5005)<br>* [Agilex OFS `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/n6001) 
 
 **Table 3-3: Parameter Settings for the OpenCL Kernel Interface Component**
 
@@ -544,7 +572,7 @@ The OpenCL Kernel Interface is a Platform Designer component that allows the hos
 The kernel system masters the interface from kernel to external memory. oneAPI compiler generates kernel system memory interface logic (e.g. Load-Store Unit) according to the global memory configuration and `interface` specifications in `board_spec.xml` file.
 The kernel system operates at kernel clock(see next section for more information), hence, oneAPI ASP developers must handle clock domain crossing from kernel to EMIF clock domain.
 
-For implementation details for all datapaths discussed above, please refer to section 5.2.
+For implementation details for all datapaths discussed above, please refer to section 5.3.
 
 
 
@@ -563,6 +591,7 @@ The oneAPI ASP Memory Mapped Device (MMD) layer sits in between the oneAPI runti
 > **Note:** For more information about the FPGA runtime, please refer to FPGA Runtime documentation [here](https://github.com/intel/fpga-runtime-for-opencl/tree/main/docs).
 
 A header file, called `aocl_mmd.h`, has the list of MMD API calls that must be implemented by oneAPI ASPs. From the perspective of the caller, below is typical MMD API lifecycle:
+
 1. Open device to provide handle for further operations
 2. Set interrupt and status handlers
 3. Program device with kernel bitstream
@@ -571,7 +600,834 @@ A header file, called `aocl_mmd.h`, has the list of MMD API calls that must be i
 6. Free memory if allocation done in step 4
 7. Close device. No further operations permitted until subsequent open device call
 
-Section 5.3 discusses more about the implementation of the MMD layer APIs in oneAPI ASPs for OFS reference platforms.
+Table below summarizes all APIs listed in `aocl_mmd.h`.  
+
+**Table 4-1: Summary of MMD API from `aocl_mmd.h`**
+
+| API | Purpose |
+|---------|---------|
+| aocl_mmd_get_offline_info | Obtain offline information about the board. This function is offline because it is device-independent and does not require a handle from the `aocl_mmd_open()` call |
+| aocl_mmd_get_info | Obtain information about the board specified in the `requested_info_id` argument (refer to section 4.1.2 for more information) |
+| aocl_mmd_open | Open and initialize the specified device |
+| aocl_mmd_close | Close an opened device via its handle |
+| aocl_mmd_set_interrupt_handler | Set the interrupt handler for the opened device |
+| aocl_mmd_set_device_interrupt_handler | Sets the device interrupt handler for opened device, interrupt handler is called to notify runtime of any exceptions |
+| aocl_mmd_set_status_handler | Set the operation status handler for the opened device |
+| aocl_mmd_yield | The `aocl_mmd_yield` function is called when the host interface is idle. The host interface might be idle because it is waiting for the device to process certain events |
+| aocl_mmd_read | Read operation on a single interface |
+| aocl_mmd_write | Write operation on a single interface |
+| aocl_mmd_copy | Copy operation on a single interface |
+| aocl_mmd_hostchannel_create | Creates a channel interface |
+| aocl_mmd_hostchannel_destroy | Destroys channel interface |
+| aocl_mmd_hostchannel_get_buffer | Provides host with pointer used to read/write from channel interface |
+| aocl_mmd_hostchannel_ack_buffer | Acknowledges read/write from channel |
+| aocl_mmd_program | Reprogram operation for the specified device |
+| aocl_mmd_host_alloc | Provide memory that is allocated on the host. Host allocations are accessible by the host and one or more devices |
+| aocl_mmd_free | Free memory that has been allocated by MMD |
+| aocl_mmd_device_alloc | Allocate memory that is owned by the device |
+| aocl_mmd_shared_alloc | Allocate shared memory between the host and the FPGA |
+| aocl_mmd_shared_migrate | Handle migration of non-concurrent shared allocations any time the accessor of the allocation changes |
+
+
+
+Sections below cover more details for each API (expected arguments, return values). Section 5.4 discusses more about the implementation of the MMD layer APIs in oneAPI ASPs for OFS reference platforms.
+
+#### **4.1.1 `aocl_mmd_get_offline_info`**
+<div id="aocl_mmd_get_offline_info"></div>
+
+The `aocl_mmd_get_offline_info` function obtains offline information about the board specified in the `requested_info_id` argument. This function is offline because it is device-independent and does not require a handle from the `aocl_mmd_open()` call.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_get_offline_info (
+        aocl_mmd_offline_info_t requested_info_id,
+        size_t param_value_size,
+        void* param_value,
+        size_t* param_size_ret )
+
+</pre>
+
+**Function Arguments**
+
+1. `requested_info_id`: An enum value of type `aocl_mmd_offline_info_t` that indicates the offline device information returning to the caller.
+
+**Table 4-2: Possible Enum Values for the `requested_info_id` Argument**
+
+| Name | Description | Type |
+|---------|---------|---------|
+| AOCL_MMD_VERSION | Version of MMD layer | char* |
+| AOCL_MMD_NUM_BOARDS | Number of candidate boards | int |
+| AOCL_MMD_BOARD_NAMES | Names of available boards<br> > **Note**: Separate each board name by a semicolon (;) delimiter. | char* |
+| AOCL_MMD_VENDOR_NAME | Name of board vendor | char* |
+| AOCL_MMD_VENDOR_ID | An integer board vendor ID | int |
+| AOCL_MMD_USES_YIELD | A value of 0 instructs the runtime to suspend user's processes. The runtime resumes these processes after it receives an event update (for example, an interrupt) from the MMD layer.<br>A value of 1 instructs the runtime to continuously call the `aocl_mmd_yield` function while it waits for events to complete.<br>**CAUTION**: Setting `AOCL_MMD_USES_YIELD` to 1 might cause high CPU utilization if the `aocl_mmd_yield` function does not suspend the current thread. | int |
+
+
+2. `param_value_size`: Size of the `param_value` field in bytes. This size_t value should match the size of the expected return type that the enum definition indicates.
+For example, if `AOCL_MMD_NUM_BOARDS` returns a value of type int, set the `param_value_size` to sizeof (int). You should see the same number of bytes returned in the `param_size_ret` argument.
+
+3. `param_value`: A void* pointer to the variable that receives the returned information.
+
+4. `param_size_ret`: A pointer argument of type size_t* that receives the number of bytes of returned data.
+
+**Return Value**
+
+A negative return value indicates an error.
+
+#### **4.1.2 `aocl_mmd_get_info`**
+<div id="aocl_mmd_get_info"></div>
+
+The `aocl_mmd_get_info` function obtains information about the board specified in the `requested_info_id` argument.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_get_info (
+        int handle,
+        aocl_mmd_info_t requested_info_id,
+        size_t param_value_size,
+        void* param_value,
+        size_t* param_size_ret )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `requested_info_id`: An enum value of type `aocl_mmd_info_t` that indicates the device information returning to the caller.
+
+**Table 4-3: Possible Enum Values for the `requested_info_id` Argument**
+
+| Name | Description | Type |
+|---------|---------|---------|
+| AOCL_MMD_NUM_KERNEL_INTERFACES | Number of kernel interfaces | int |
+| AOCL_MMD_KERNEL_INTERFACES | Kernel interfaces | int* |
+| AOCL_MMD_PLL_INTERFACES | Kernel clock handles | int* |
+| AOCL_MMD_MEMORY_INTERFACE | Global memory handle | int |
+| AOCL_MMD_TERMPERATURE | Temperature measurement | float |
+| AOCL_MMD_PCIE_INFO | PCIe® information | char* |
+| AOCL_MMD_BOARD_NAME | Board name | char* |
+| AOCL_MMD_BOARD_UNIQUE_ID | Unique board ID | char* |
+| AOCL_MMD_CONCURRENT_READS | Number of parallel reads<br>A value of 1 indicates serial reads. | int |
+| AOCL_MMD_CONCURRENT_WRITES | Number of parallel writes<br>A value of 1 indicates serial writes. | int |
+| AOCL_MMD_CONCURRENT_READS_OR_WRITES | Total number of concurrent read and write operations | int |
+| AOCL_MMD_MIN_HOST_MEMORY_ALIGNMENT | Minimum alignment that the oneAPI ASP supports for host allocations | size_t |
+| AOCL_MMD_HOST_MEM_CAPABILITIES | Capabilities of `aocl_mmd_host_alloc()` function | unsigned int |
+| AOCL_MMD_SHARED_MEM_CAPABILITIES | Capabilities of `aocl_mmd_shared_alloc()` function | unsigned int |
+| AOCL_MMD_DEVICE_MEM_CAPABILITIES | Capabilities of `aocl_mmd_device_alloc()` function | unsigned int |
+| AOCL_MMD_HOST_MEM_CONCURRENT_GRANULARITY | Granularity of concurrent host accesses | size_t |
+| AOCL_MMD_SHARED_MEM_CONCURRENT_GRANULARITY | Granularity of concurrent shared accesses | size_t |
+| AOCL_MMD_DEVICE_MEM_CONCURRENT_GRANULARITY | Granularity of concurrent device accesses | size_t |
+
+3. `param_value_size`: Size of the `param_value` field in bytes. This size_t value should match the size of the expected return type that the enum definition indicates.
+For example, if AOCL_MMD_TEMPERATURE returns a value of type float, set the `param_value_size` to sizeof (float). You should see the same number of bytes returned in the `param_size_ret` argument.
+
+4. `param_value`: A void* pointer to the variable that receives the returned information.
+
+5. `param_size_ret`: A pointer argument of type size_t* that receives the number of bytes of returned data.
+
+**Capability Values** 
+
+**Table 4-4: Capability Values for `aocl_mmd_get_info` Function**
+
+| Value | Description |
+|---------|---------|
+| AOCL_MMD_MEM_CAPABILITY_SUPPORTED | If you do not set this value, allocation function is not supported even if other capabilities are set. |
+| AOCL_MMD_MEM_CAPABILITY_ATOMIC | Supports atomic access to the memory by either the host or the device. |
+| AOCL_MMD_MEM_CAPABILITY_CONCURRENT | Supports concurrent access to the memory either by the host or the device if the accesses are not on the same block. Block granularity is defined by AOCL_MMD_*_MEM_CONCURRENT_GRANULARITY. Blocks are aligned to this granularity. |
+| AOCL_MMD_MEM_CAPABILITY_P2P | Memory can be accessed by multiple devices at the same time. |
+
+**Return Value**
+
+A negative return value indicates an error.
+
+#### **4.1.3 `aocl_mmd_open`**
+<div id="aocl_mmd_open"></div>
+
+The `aocl_mmd_open` function opens and initializes the specified device.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_open (const char *name)
+
+</pre>
+
+**Function Arguments**
+
+1. `name`: The function opens the board with a name that matches this const char* string. The name typically matches the one specified by the AOCL_MMD_BOARD_NAMES offline information.
+
+The runtime first queries the AOCL_MMD_BOARD_NAMES offline information to identify the boards that it might be able to open. Then it attempts to open all possible devices by calling `aocl_mmd_open` and using each of the board names as argument.
+
+> **Note**: The name must be a C-style NULL-terminated ASCII string.
+
+**Return Value**
+
+If `aocl_mmd_open()` executes successfully, the return value is a positive integer that acts as a handle to the board.
+
+If `aocl_mmd_open()` fails to execute, a negative return value indicates an error. In the event of an error, the runtime proceeds to open other known devices. Therefore, it is imperative that the MMD layer does not exit the application if an open call fails.
+
+#### **4.1.4 `aocl_mmd_close`**
+<div id="aocl_mmd_close"></div>
+
+The `aocl_mmd_close` function closes an opened device via its handle.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_close (int handle)
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+**Return Value**
+
+If the `aocl_mmd_close()` executes successfully, the return value is 0.
+
+If `aocl_mmd_close()` fails to execute, a negative return value indicates an error.
+
+#### **4.1.5 `aocl_mmd_set_interrupt_handler`**
+<div id="aocl_mmd_set_interrupt_handler"></div>
+
+The `aocl_mmd_set_interrupt_handler` function sets the interrupt handler for the opened device.
+When the device internals identify an asynchronous kernel event (for example, a kernel completion), the interrupt handler is called to notify the runtime of the event.
+
+> **Note:** Ignore the interrupts from the kernel until this handler is set.
+
+**Syntax**
+
+<pre>
+    
+    int aocl_mmd_set_interrupt_handler (
+        int handle, 
+        aocl_mmd_interrupt_handler_fn fn,
+        void* user_data )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `fn`: The callback function to invoke when a kernel interrupt occurs. The `fn` argument is of type `aocl_mmd_interrupt_handler_fn`, which is defined as follows:
+ 
+<pre>
+    typedef void (*aocl_mmd_interrupt_handler_fn)( int handle, void* user_data );
+</pre>
+ 
+3. `user_data`: The void* type user-provided data that passes to `fn` when it is called.
+
+**Return Value**
+
+If the function executes successfully, the return value is 0.
+
+If the function fails to execute, a negative return value indicates an error.
+
+#### **4.1.6 `aocl_mmd_set_device_interrupt_handler`**
+<div id="aocl_mmd_set_device_interrupt_handler"></div>
+
+The `aocl_mmd_set_device_interrupt_handler` function sets the device interrupt handler for the opened device. When the device internals identify an asynchronous exception event (for example, a bit correction event), the device interrupt handler is called to notify the runtime of the event.
+
+> **Note:** Ignore the interrupts from the device until this handler is set.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_set_device_interrupt_handler (
+        int handle, 
+        aocl_mmd_device_interrupt_handler_fn fn,
+        void* user_data )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `fn`: The callback function to invoke when a kernel interrupt occurs. The `fn` argument is of type `aocl_mmd_device_interrupt_handler_fn`, which is defined as follows:
+
+<pre> 
+    typedef void (*aocl_mmd_device_interrupt_handler_fn)( int handle, aocl_mmd_interrupt_info* data_in, void* user_data );
+</pre>
+
+`aocl_mmd_interrupt_info` is defined as:
+
+<pre>
+
+    typedef struct {
+        unsigned long long int exception_type;
+        void *user_private_info;
+        size_t user_cb;
+    } aocl_mmd_interrupt_info;
+    
+</pre>
+
+Where:
+
+* `exception_type` acts as a bitfield that contains exactly one bit, corresponding to an exception number.
+* `user_private_info` and `user_cb` represent pointers to binary data that the OpenCL implementation return. These pointers log additional information that is helpful for debugging the error.
+
+3. `user_data`: The void* type user-provided data that passes to `fn` when it is called.
+
+**Return Value**
+
+If the function executes successfully, the return value is 0.
+
+If the function fails to execute, a negative return value indicates an error.
+
+#### **4.1.7 `aocl_mmd_set_status_handler`**
+<div id="aocl_mmd_set_status_handler"></div>
+
+The `aocl_mmd_set_status_handler` function sets the operation status handler for the opened device. The operation status handler is called under the following circumstances:
+
+* When the operation completes successfully and status is 0.
+* When the operation completes with errors and status is a negative value.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_set_status_handler (
+        int handle,
+        aocl_mmd_status_handler_fn fn,
+        void* user_data )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `fn`: The callback function to invoke when a status update occurs. The `fn` argument is of type `aocl_mmd_status_handler_fn`, which is defined as follows:
+
+<pre>
+    typedef void (*aocl_mmd_status_handler_fn)( int handle, void* user_data, aocl_mmd_op_t op, int status );
+</pre> 
+
+3. `user_data`: The void* type user-provided data that passes to `fn` when it is called.
+
+**Return Value**
+
+If the function executes successfully, the return value is 0.
+
+If the function fails to execute, a negative return value indicates an error.
+
+#### **4.1.8 `aocl_mmd_yield`**
+<div id="aocl_mmd_yield"></div>
+
+The `aocl_mmd_yield` function is called when the host interface is idle. The host interface might be idle because it is waiting for the device to process certain events.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_yield (int handle)
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+**Return Value**
+
+A nonzero return value indicates that the yield function performed work necessary for proper device functioning such as processing direct memory access (DMA) transactions.
+
+A return value of 0 indicates that the yield function did not perform work necessary for proper device functioning.
+
+> **Note:** The yield function might be called continuously if it reports that it has necessary work to perform.
+
+#### **4.1.9 `aocl_mmd_read`**
+<div id="aocl_mmd_read"></div>
+
+The `aocl_mmd_read` function is the read operation on a single interface.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_read (
+        int handle,
+        aocl_mmd_op_t op,
+        size_t len,
+        void* dst,
+        int mmd_interface, size_t offset )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `op`: The operation object of type `aocl_mmd_op_t` used to track the progress of the operation. If `op` is NULL, the call must block, and return only after the operation completes.
+
+> **Note:** `aocl_mmd_op_t` is defined as follows:
+
+<pre>
+    typedef void* aocl_mmd_op_t;
+</pre>
+
+3. `len`: The size of the data, in bytes, that the function transfers. Declare `len` with type size_t.
+
+4. `dst`: The host buffer, of type void*, to which data is written.
+
+5. `mmd_interface`: the handle to the interface being accessed. For example, to access global memory this handle will be value obtained from `aocl_mmd_get_info` call with AOCL_MMD_MEMORY_INTERFACE as `requested_info_id` argument.
+
+6. `offset`: The size_t byte offset within the interface at which the data transfer begins.
+
+**Return Value**
+
+If the read operation is successful, the return value is 0.
+
+If the read operation fails, a negative return value indicates an error.
+
+#### **4.1.10 `aocl_mmd_write`**
+<div id="aocl_mmd_write"></div>
+
+The aocl_mmd_write function is the write operation on a single interface.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_write (
+        int handle,
+        aocl_mmd_op_t op,
+        size_t len,
+        const void* src,
+        int mmd_interface, size_t offset )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `op`: The operation object of type `aocl_mmd_op_t` used to track the progress of the operation. If `op` is NULL, the call must block, and return only after the operation completes.
+
+> **Note:** `aocl_mmd_op_t` is defined as follows:
+
+<pre>
+    typedef void* aocl_mmd_op_t;
+</pre>
+
+3. `len`: The size of the data, in bytes, that the function transfers. Declare `len` with type size_t.
+
+4. `src`: The host buffer, of type const void*, from which data is read.
+
+5. `mmd_interface`: the handle to the interface being accessed. For example, to access global memory this handle will be value obtained from `aocl_mmd_get_info` call with AOCL_MMD_MEMORY_INTERFACE as `requested_info_id` argument.
+
+6. `offset`: The size_t byte offset within the interface at which the data transfer begins.
+
+**Return Value**
+
+If the write operation is successful, the return value is 0.
+
+If the write operation fails, a negative return value indicates an error.
+
+#### **4.1.11 `aocl_mmd_copy`**
+<div id="aocl_mmd_copy"></div>
+
+The `aocl_mmd_copy` function is the copy operation on a single interface.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_copy (
+        int handle,
+        aocl_mmd_op_t op,
+        size_t len,
+        int mmd_interface, size_t src_offset, size_t dst_offset )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `op`: The operation object of type `aocl_mmd_op_t` used to track the progress of the operation. If `op` is NULL, the call must block, and return only after the operation completes.
+
+> **Note:** `aocl_mmd_op_t` is defined as follows:
+
+<pre>
+    typedef void* aocl_mmd_op_t;
+</pre>
+
+3. `len`: The size of the data, in bytes, that the function transfers. Declare `len` with type size_t.
+
+4. `mmd_interface`: the handle to the interface being accessed. For example, to access global memory this handle will be value obtained from `aocl_mmd_get_info` call with AOCL_MMD_MEMORY_INTERFACE as `requested_info_id` argument.
+
+5. `src_offset`: The size_t byte offset within the source interface at which the data transfer begins.
+
+6. `dst_offset`: The size_t byte offset within the destination interface at which the data transfer begins
+
+**Return Value**
+
+If the copy operation is successful, the return value is 0.
+
+If the copy operation fails, a negative return value indicates an error.
+
+#### **4.1.12 `aocl_mmd_hostchannel_create`**
+<div id="aocl_mmd_hostchannel_create"></div>
+
+The `aocl_mmd_hostchannel_create` function creates a channel interface.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_hostchannel_create (
+        int handle,
+        char *channel_name,
+        size_t queue_depth,
+        int direction )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `channel_name`: Name of the channel to be initialized. The channel name is same as that used in the `board_spec.xml` file.
+
+3. `queue_depth`: The size of pinned internal buffer in bytes. Pointer to the internal buffer is provided when the user calls the `aocl_mmd_hostchannel_get_buffer()` function.
+
+4. `direction`: The direction of the channel.
+
+**Return Value**
+
+If the function executes successfully, the return value is positive and is handle to the channel.
+
+If the function fails to execute, a negative return value indicates an error.
+
+#### **4.1.13 `aocl_mmd_hostchannel_destroy`**
+<div id="aocl_mmd_hostchannel_destroy"></div>
+
+The `aocl_mmd_hostchannel_destroy` function destroys the channel interface.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_hostchannel_destroy (
+        int handle,
+        int channel )
+    
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `channel`: A positive int value representing handle to the channel to close obtained from the `aocl_mmd_hostchannel_create()` call.
+
+**Return Value**
+
+If the function executes successfully, the return value is 0.
+
+If the function fails to execute, a negative return value indicates an error.
+
+#### **4.1.14 `aocl_mmd_hostchannel_get_buffer`**
+<div id="aocl_mmd_hostchannel_get_buffer"></div>
+
+The `aocl_mmd_hostchannel_get_buffer` function provides a host with a pointer to the buffer they can access to write or read from the channel interface, along with the space or data available in the buffer, in bytes.
+
+**Syntax**
+
+<pre>
+
+    void *aocl_mmd_hostchannel_get_buffer (
+        int handle,
+        int channel,
+        size_t *buffer_size,
+        int *status )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `channel`: A positive int value representing handle to the channel to close obtained from the `aocl_mmd_hostchannel_create()` call.
+
+3. `buffer_size`: A pointer to size_t that the function writes available buffer space or size to.
+
+4. `status`: A pointer to int that the function writes result of the call to.
+
+**Return Value**
+
+If the function executes successfully, int pointed to by the status pointer is 0. Returned void* may still be NULL, in which case size_t pointed by the buffer_size is 0.
+
+If the function fails to execute, int pointed by the status pointer is a negative value.
+
+#### **4.1.15 `aocl_mmd_hostchannel_ack_buffer`**
+<div id="aocl_mmd_hostchannel_ack_buffer"></div>
+
+You can acknowledge write or read from the channel by calling `aocl_mmd_hostchannel_ack_buffer`.
+
+**Syntax**
+
+<pre>
+
+    size_t aocl_mmd_hostchannel_ack_buffer (
+        int handle,
+        int channel,
+        size_t send_size,
+        int *status )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `channel`: A positive int value representing handle to the channel to close obtained from the `aocl_mmd_hostchannel_create()` call.
+
+3. `send_size`: The size in bytes that the user is acknowledging.
+
+4. `status`: A pointer to int that the function writes result of the call to.
+
+**Return Value**
+
+If the function executes successfully, int pointed to by status pointer is 0. Also, there is no guarantee that the user's `send_size` is the actual size that gets acknowledged. The returned size_t is the amount of bytes that was actually acknowledged.
+
+If the function fails to execute, int pointed by status pointer is a negative value.
+
+#### **4.1.16 `aocl_mmd_program`**
+<div id="aocl_mmd_program"></div>
+
+The `aocl_mmd_program` function is the program operation for the specified device. The host must guarantee that no other operations are executing on the device during the program operation. 
+
+During `aocl_mmd_program` execution, the kernels are idle and no read, write, or copy operation can occur.
+
+Disable interrupts and program the FPGA with the data from `user_data`, which has a size specified by the size argument. The host then calls `aocl_mmd_set_status_handler` and `aocl_mmd_set_interrupt_handler` again, which enable the interrupts. If events such as interrupts occur during `aocl_mmd_program` execution, race conditions or data corruption might occur.
+
+**Syntax**
+
+<pre>
+
+ int aocl_mmd_program (
+    int handle,
+    void * user_data,
+    size_t size,
+    aocl_mmd_program_mode_t program_mode )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
+
+2. `user_data`: The void* type binary contents of the *fpga.bin* file that is created during kernel compilation.
+
+3. `size`: The size of `user_data` in bytes. The size argument is of size_t.
+
+4. `program_mode`: The bit-field that specifies the mode of device programming.
+
+**Table 4-5: Possible Values for the `program_mode` Argument**
+
+| `program_mode` Argument Value | Description |
+|---------|---------|
+| AOCL_MMD_PROGRAM_PRESERVE_GLOBAL_MEMORY | This flag specifies that during programming the global memory on the devices are preserved. |
+
+**Return Value**
+
+If `aocl_mmd_program` executes successfully, the return value is the pointer value that the host uses to access shared memory.
+
+#### **4.1.17 `aocl_mmd_host_alloc`**
+<div id="aocl_mmd_host_alloc"></div>
+
+Host allocations provide memory that is allocated on the host. This memory must be deallocated with the `aocl_mmd_free` function. Host allocations are accessible by the host and one or more devices. The same pointer to a host allocation may be used on the host and all supported devices. They have address equivalence.
+
+**Syntax**
+
+Once the device has signaled completion through the `aocl_mmd_interrupt_handler_fn` function, the host can assume it has access to the latest contents of the memory, allocated by the `aocl_mmd_host_alloc` function call.
+
+<pre>
+
+    void* aocl_mmd_host_alloc (
+        int* handles,
+        size_t num_devices,
+        size_t size,
+        size_t alignment,
+        aocl_mmd_mem_properties_t *properties,
+        int* error )
+
+</pre>
+
+**Function Arguments**
+
+1. `handles`: Handles for devices that needs access to this memory.
+
+2. `num_devices`: Number of devices in the handles.
+
+3. `size`: The size of the memory region.
+
+4. `alignment`: The alignment (in bytes) of the allocation.
+
+5. `properties`: Specifies additional information about the allocated memory, described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero.  For example, [<property1>, <value1>, <property2>, <value2>, 0]
+
+6. `error`: The error code defined by AOCL_MMD_ERROR*:
+
+* AOCL_MMD_ERROR_SUCCESS: No error occurred.
+* AOCL_MMD_ERROR_INVALID_HANDLE: The device handle provided is invalid.
+* AOCL_MMD_ERROR_OUT_OF_MEMORY: Ran out of memory.
+* AOCL_MMD_ERROR_UNSUPPORTED_ALIGNMENT: The device does not support the provided alignment.
+* AOCL_MMD_ERROR_UNSUPPORTED_PROPERTY: The device does not support the provided property.
+
+**Return Value**
+
+If the `aocl_mmd_host_alloc` function executes successfully, the return value is a valid pointer value. Otherwise, the return value is NULL.
+
+#### **4.1.18 `aocl_mmd_free`**
+<div id="aocl_mmd_free"></div>
+
+Releases memory that was allocated by MMD.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_free (void* mem)
+
+</pre>
+
+**Function Arguments**
+
+1. `mem`: The pointer to the memory region. Must be a pointer that is allocated by the MMD.
+
+**Return Value**
+
+Returns one of the following error code:
+
+* AOCL_MMD_ERROR_SUCCESS: No error occurred
+* AOCL_MMD_ERROR_INVALID_POINTER: Invalid pointer provided
+
+#### **4.1.19 `aocl_mmd_device_alloc`**
+<div id="aocl_mmd_device_alloc"></div>
+
+Allocate memory that is owned by the device. This pointer can only be accessed by the kernel. It cannot be accessed by the host. The host is able to manipulate the pointer (for example, increment it) and not just access the underlying data. This memory must be deallocated by the `aocl_mmd_free()` function.
+
+**Syntax**
+
+<pre>
+
+    void * aocl_mmd_device_alloc (
+        int handle, 
+        size_t size, 
+        size_t alignment, 
+        aocl_mmd_mem_properties_t *properties, 
+        int* error )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: Device that has access to this memory.
+
+2. `size`: The size of the memory region.
+
+3. `alignment`: The alignment (in bytes) of the memory region.
+
+4. `properties`: Specifies additional information about the allocated memory, described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero.  For example, [<property1>, <value1>, <property2>, <value2>, 0]
+
+**Return Value**
+
+Returns one of the following error code:
+
+* AOCL_MMD_ERROR_SUCCESS: No error occurred
+* AOCL_MMD_ERROR_INVALID_HANDLE: The device handle provided is invalid.
+* AOCL_MMD_ERROR_OUT_OF_MEMORY: Ran out of memory.
+* AOCL_MMD_ERROR_UNSUPPORTED_ALIGNMENT: The device does not support the provided alignment.
+* AOCL_MMD_ERROR_UNSUPPORTED_PROPERTY: The device does not support the provided property.
+
+#### **4.1.20 `aocl_mmd_shared_alloc`**
+<div id="aocl_mmd_shared_alloc"></div>
+
+Shared allocations can migrate between the host and one or more associated device. The same pointer to a shared allocation can be used on the host and the supported device. They have address equivalence.
+
+**Syntax**
+
+<pre>
+
+    void * aocl_mmd_shared_alloc (
+        int handle, 
+        size_t size, 
+        size_t alignment, 
+        aocl_mmd_mem_properties_t* properties, 
+        int* error )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: Device that needs access to this memory.
+
+2. `size`: The size of the memory region.
+
+3. `alignment`: The alignment (in bytes) of the allocation.
+
+4. `properties`: Specifies additional information about the allocated memory described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero.  For example, [<property1>, <value1>, <property2>, <value2>, 0]
+
+5. `error`: The error code defined by AOCL_MMD_ERROR*.
+
+* AOCL_MMD_ERROR_SUCCESS: No error occurred.
+* AOCL_MMD_ERROR_INVALID_HANDLE: The device handle provided is invalid.
+* AOCL_MMD_ERROR_OUT_OF_MEMORY: Ran out of memory.
+* AOCL_MMD_ERROR_UNSUPPORTED_ALIGNMENT: The device does not support the provided alignment.
+* AOCL_MMD_ERROR_UNSUPPORTED_PROPERTY: The device does not support the provided property.
+
+**Return Value**
+
+If the `aocl_mmd_shared_alloc` function executes successfully, the return value is a valid pointer value. Otherwise, the return value is NULL.
+
+
+
+#### **4.1.21 `aocl_mmd_shared_migrate`**
+<div id="aocl_mmd_shared_migrate"></div>
+
+A call to the `aocl_mmd_shared_migrate()` function must be made for non-concurrent shared allocations any time the accessor of the allocation changes. For example, the `aocl_mmd_shared_migrate()` function should be called indicating that the allocation should be migrated to the device before a kernel accessing the allocation is launched on the device. Similarly, the `aocl_mmd_shared_migrate()` function should be called indicating that the allocation is migrated to the host before the host accesses the memory after kernel completion. For concurrent allocations, this call may be used as a performance hint, but it is not strictly required for functionality.
+
+**Syntax**
+
+<pre>
+
+    int aocl_mmd_shared_migrate (
+        int handle, 
+        void* shared_ptr, 
+        size_t size, 
+        aocl_mmd_migrate_t destination )
+
+</pre>
+
+**Function Arguments**
+
+1. `handle`: Device that has access to this memory.
+
+2. `shared_ptr`: Pointer allocated by the `aocl_mmd_shared_alloc()` function.
+
+3. `size`: Size (in bytes) of the migration. Must be a multiple of a page boundary that the oneAPI ASP supports.
+
+4. `destination`: The destination of the migration.
+
+**Return Value**
+
+Returns one of the following error code:
+
+* AOCL_MMD_ERROR_SUCCESS: No error occurred.
+* AOCL_MMD_ERROR_INVALID_HANDLE: The device handle provided is invalid.
+* AOCL_MMD_ERROR_INVALID_MIGRATION_SIZE: The migration size is not supported by the device.
 
 ### **4.2 Board Utilities**
 <div id="board_util"></div>
@@ -580,10 +1436,9 @@ oneAPI runtime provides a set of options for the `aocl` utility.
 
 > **Note:** `aocl` is an utility available in the oneAPI runtime environment, please use `aocl help` command for more information on this.
 
+Table 4-6 shows the subcommands that `aocl` utility provides for FPGA platforms.
 
-Table 4-1 shows the subcommands that `aocl` utility provides for FPGA platforms.
-
-**Table 4-1: `aocl` board utilities**
+**Table 4-6: `aocl` Board Utilities**
 
 | Subcommand | Description | Executable Call |
 |---------|---------|---------|
@@ -615,12 +1470,12 @@ oneAPI runtime loads the programming file on the FPGA by invoking program routin
 
 oneAPI runtime runs ICD and FCD diagnostics to check the ICD and FCD files installed on the system. It then queries for available boards in the installed platform and lists boards matching every installed platform. If a `device-name` is specified in the call, runtime invokes the diagnostic routine provided in oneAPI ASP.
 
-For more information about the implementation of these routines in oneAPI ASPs for OFS reference platforms, please refer to section 5.4.
+For more information about the implementation of these routines in oneAPI ASPs for OFS reference platforms, please refer to section 5.5.
 
 ## **5.0 `oneapi-asp` Implementation Details**
 <div id="oneAPI_asp_impl"></div>
 
-`oneapi-asp` in the OFS has two reference platform releases, one is based on Intel® Stratix 10® FPGA and the other is based on an Intel® Agilex® FPGA.
+`oneapi-asp` in the OFS has two reference platform releases, one is based on Intel® Stratix 10® FPGA and the other is based on an Intel® Agilex® 7 FPGA.
 This chapter aims to explain the architecture and current implementation details of `oneapi-asp` for these platforms. The `oneapi-asp` repository is located [here](https://github.com/OFS/oneapi-asp/tree/master).
 
 The next section explains the `oneapi-asp` directory structure, followed by sections on hardware and MMD layers.
@@ -636,19 +1491,20 @@ As described in section 2.0, oneAPI compiler & runtime use the `board_env.xml` a
 
 ![Sample board_env.xml File](images/board_env.xml_sample.png)
 
-Figure 5-1 shows a sample board_env.xml file, the corresponding oneAPI ASP directory structure must match the following format. Table 5-1 provides details on each folder.
+Figure 5-1 shows a sample board_env.xml file, the corresponding oneAPI ASP directory structure must match the following format. Table 5-1 provides details on each folder. 
+
+In addition to below folders, [oneAPI ASP for OFS reference platforms](https://github.com/OFS/oneapi-asp) have another folder for the software layer (MMD & board utilities) source code located in `common` directory (`oneapi-asp/common`). This is because a common source code is utilized for both `d5005` and `n6001` reference platform ASPs. 
 
 <pre>
     oneapi-asp_Platform-Name/
     |--hardware/
     |--|--Board-Variant-1/
     |--|--Board-Variant-2/
-    |--source
     |--linux64/
     |--board_env.xml
 </pre>
 
-> **Note:**<br>1. The `source` folder is located in `common` directory in case of [oneAPI ASP for OFS reference platforms](https://github.com/OFS/oneapi-asp). This is because a common source code is utilized for both `d5005` and `n6001` reference platform ASPs.<br>2. In addition to above folders, oneAPI ASPs for OFS reference platforms have additional directories called `scripts` and `bringup` which contain helper scripts for platform generation & a sample for board bring up respectively. Please refer to the README for each reference platform in the oneASP-asp repository for more information on these additional folders. <br> * README for `oneapi-asp` targeting Intel® FPGA PAC D5005 reference platform: [README](https://github.com/OFS/oneapi-asp/blob/master/d5005/README.md) <br> * README for `oneapi-asp` targeting Intel® FPGA SmartNIC N6001-PL Platform: [README](https://github.com/OFS/oneapi-asp/blob/master/n6001/README.md)
+> **Note:**<br> In addition to above folders, oneAPI ASPs for OFS reference platforms have additional directories called `scripts` and `bringup` which contain helper scripts for platform generation & a sample for board bring up respectively. Please refer to the README for each reference platform in the oneASP-asp repository for more information on these additional folders. <br> * README for `oneapi-asp` targeting Intel® FPGA PAC D5005 reference platform: [README](https://github.com/OFS/oneapi-asp/blob/master/d5005/README.md) <br> * README for `oneapi-asp` targeting Intel® FPGA SmartNIC N6001-PL Platform: [README](https://github.com/OFS/oneapi-asp/blob/master/n6001/README.md)
 
 The `Platform-Name` is used for identifying the platform and can be alphanumeric value decided by the platform developer. For example, Intel uses the `Platform-Name` `d5005` for `oneapi-asp` for Intel® Stratix 10® FPGA as the reference platform is Intel® FPGA PAC D5005.
 
@@ -657,7 +1513,7 @@ The `Platform-Name` is used for identifying the platform and can be alphanumeric
 | Files/Folder | Descriptions |
 |---------|---------|
 | `hardware` | Contains hardware files (RTL, platform designer files, SDCs, compilation scripts, floorplan settings) and the `board_spec.xml` files for all board variants. See table 5-2 for more details |
-| `source` | Source code for MMD layer as well as `oneapi-asp` board utilities |
+| `common/source` | Source code for MMD layer as well as `oneapi-asp` board utilities |
 | `linux64` | Location for FPGA platform libraries and executables for `oneapi-asp` board utilities |
 | `board_env.xml` | Contains platform installation information. Please refer to section 2.2 for more details on board_env.xml elements|
 
@@ -684,7 +1540,7 @@ hardware/
 | `part-number_dm.xml` | Device Model file for Intel® FPGA part on the target platform. The name must be of the format `part-number`_dm.xml. This file has the total resources available on the device. <br>> **Note:** The device model files provided as part of the Intel® oneAPI Base Toolkit (Base Kit) installation are located in `$INTELFPGAOCLSDKROOT/share/models/dm`, where INTELFPGAOCLSDKROOT is set by the `setvars.sh` environment setup script provided by [oneAPI toolkit](https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/2023-1/prerequisites.html). If the device model file for your part number is not included in `$INTELFPGAOCLSDKROOT/share/models/dm`, it must be created and placed in the same folder as `board_spec.xml`. |
 | `quartus.ini` | Intel® Quartus® software ini settings file |
 
-#### **5.1.2 source Folder**
+#### **5.1.2 common/source Folder**
 <div id="source_dir"></div>
 
 <pre>
@@ -699,7 +1555,7 @@ source/
 |--CMakeLists.txt
 </pre>
 
-**Table 5-3: `source` Folder Contents**
+**Table 5-3: `common/source` Folder Contents**
 
 | Files/Folder  | Description  |
 |---------|---------|
@@ -726,36 +1582,24 @@ linux64/
 
 | Files/Folder | Description  |
 |---------|---------|
-| `include` | Contains header files from Intel® FPGA BBB required by MMD (see section 5.3 for more information on use of MPF from Intel® FPGA BBB in MMD) |
+| `include` | Contains header files from Intel® FPGA BBB required by MMD (see section 5.4 for more information on use of MPF from Intel® FPGA BBB in MMD) |
 | `lib` | Contains MMD and Intel® FPGA BBB libraries |
 | `libexec` | Contains executables/scripts for `oneapi-asp` board utilities |
 
-### **5.2 `oneapi-asp` Hardware Implementation**
-<div id="oneAPI_asp_hw_impl"></div>
+### **5.2 `oneapi-asp` Build Flow**
+<div id="oneAPI_asp_build_flow"></div>
 
-This section goes deeper into the current hardware architecture of the `oneapi-asp`.
+Figure 1-3 shows a high level overview of the hardware design and Figure 1-4 shows oneAPI ASP as part of the Open FPGA Stack. As shown in these images, all `oneapi-asp` hardware components reside in the AFU region in the PR slot.
 
-Figure 1-3 shows a high level overview of the hardware design. Figure 5-2 shows a detailed diagram of the `oneapi-asp` components.
+> **Note:** The architecture of the FIM with PR slot is explained in the FIM technical reference manuals, please refer to [section 1.3](#13-prerequisites) for link to the manuals.
 
-**Figure 5-2: `oneapi-asp` Reference Platform Hardware Design**
-
-
-
-
-
-![Hardware Design](images/HW_Implementation_Details.png)
-
-All `oneapi-asp` components reside in the AFU region in the PR slot. The `ofs_plat_afu.sv` is the top level entity for the `oneapi-asp`.
-
-> **Note:** The architecture of the FIM with PR slot is explained in the FIM technical reference manuals, please refer to section 1.3 for link to the manuals.
-
-The [`oneapi-asp` repository](https://github.com/OFS/oneapi-asp) contains source files for components that reside in the `ofs-plat-afu.sv` for each reference platform. The FIM database is copied to the `oneapi-asp` during ASP *build* flow (`oneapi-asp/Platform-Name/scripts/build-bsp.sh`). Hence, `oneapi-asp` expects a compiled FIM netlist and a corresponding PR tree. ASP *compile* scripts import the FIM database during oneAPI compilation.
+The [`oneapi-asp` repository](https://github.com/OFS/oneapi-asp) contains source files for components that reside in the AFU region for each reference platform. `oneapi-asp` expects a compiled FIM netlist and a corresponding PR tree. The FIM database is copied to the `oneapi-asp` during ASP *build* flow (`oneapi-asp/Platform-Name/scripts/build-bsp.sh`). ASP *compile* scripts import the FIM database during oneAPI compilation.
 
 > **Notes:** <br> 1. FIM developer guide outlines steps to compile a FIM and generate PR tree, please refer to section 1.3 for links to FIM developer guides<br> 2. The steps to build `oneapi-asp` using PR tree and `build-bsp.sh` script are covered in the [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
 
 The following figure shows the `oneapi-asp` *build* process.
 
-**Figure 5-3: `oneapi-asp` Build Flow**
+**Figure 5-2: `oneapi-asp` Build Flow**
 
 
 
@@ -777,57 +1621,110 @@ All scripts required for `oneapi-asp` *build* are located in `oneapi-asp/Platfor
 
 The build flow generates the complete hardware directories for all board variants in `oneapi-asp`.
 
-Each OFS reference platform currently has two `Board-Variants`. Figure 5-2 shows the first variant that has a DMA engine on the Host to EMIF path. The second variant has support for USM (Unified Shared Memory) added. This requires few additional modules in the `oneapi-asp` to handle the kernel to host memory datapath. Figure 5-4 shows the detailed diagram for board variant with USM support.
+> **Note:** For more information about the build scripts, please refer to README in `oneapi-asp/Platform-Name/scripts` directory.
 
-> **Note:** Please see `oneapi-asp/Platform-Name/hardware` folder for the board variants for each OFS reference platform. Board variants with USM support have a `_usm` in the name.
+### **5.3 `oneapi-asp` Hardware Implementation**
+<div id="oneAPI_asp_hw_impl"></div>
 
-**Figure 5-4: `oneapi-asp` Reference Platform with USM Hardware Design**
+This section goes deeper into the current hardware architecture of the `oneapi-asp`.
+
+Figure 1-3 shows a high level overview of the hardware design. OFS reference platforms have different `board variants` enabling the different paths shown in Figure 1-3. Table below summarizes the board variants and paths supported in each. The Path numbers in the table match the ones in Figure 1-3. Figure 5-3 to 5-6 show the detailed diagram for `oneapi-asp` components in each of these board variants.
+
+**Table 5-6: OFS Reference Platform Board Variants**
+
+| # | Device | Board Variant | Host to EMIF with DMA Engine (Path 1) | Host to Kernel Interface (Path 2) | Kernel to EMIF (Path 3) | Kernel to Unified Shared Memory (Path 4) | Kernel to HSSI (Path 5) | Figure # |
+|---------|---------|---------|---------|---------|---------|---------|---------|---------|
+| 1 | Agilex OFS <br> Stratix 10 OFS | ofs_n6001 <br> ofs_d5005 |  Yes | Yes | Yes | No | No | 5-3 |
+| 2 | Agilex OFS <br> Stratix 10 OFS | ofs_n6001_usm <br> ofs_d5005_usm | Yes | Yes | Yes | Yes | No | 5-4 |
+| 3 | Agilex OFS | ofs_n6001_iopies | Yes | Yes | Yes | No | Yes | 5-5 |
+| 4 | Agilex OFS | ofs_n6001_usm_iopipes | Yes | Yes | Yes | Yes | Yes | 5-6 |
+
+> **Note:** Please see `oneapi-asp/Platform-Name/hardware` folder for the board variants for each OFS reference platform.
+
+**Figure 5-3: `oneapi-asp` Reference Platform Hardware Design - Board Variant #1**
+
+
+
+
+
+![Hardware Design](images/HW_Implementation_Details.png)
+
+**Figure 5-4: `oneapi-asp` Reference Platform with USM Hardware Design - Board Variant #2**
 
 
 
 ![Hardware Design with USM Support](images/HW_USM_Implementation_Details.png)
 
-All hardware design files for the components inside `ofs_plat_afu` module are inside the `oneapi-asp/Platform-Name/hardware/Board-Variant/build` directory.
+**Figure 5-5: `oneapi-asp` Reference Platform with IO Pipes Hardware Design - Board Variant #3**
 
-Table 5-6 gives a brief description of the important design files in all board variants. Please refer to figure 5-2 and figure 5-4 for visual representation of the design.
 
-**Table 5-6: Hardware Design Files**
+
+![Hardware Design with IO Pipes](images/HW_IOPipes_Implementation_Details.png)
+
+**Figure 5-6: `oneapi-asp` Reference Platform with IO Pipes and USM Hardware Design - Board Variant #4**
+
+
+
+![Hardware Design with IO Pipes and USM](images/HW_USM_IOPipes_Implementation_Details.png)
+
+The `ofs_plat_afu.sv` is the top level entity for the `oneapi-asp`.
+
+All hardware design files for the components inside `ofs_plat_afu` module are inside the `oneapi-asp/Platform-Name/hardware/Board-Variant/build` directory. The FIM database files imported during oneapi-asp build (section 5.2) are located in `oneapi-asp/Platform-Name/hardware/Board-Variant/fim_platform` directory.
+
+Table 5-7 gives a brief description of the important design files in all board variants.
+
+**Table 5-7: Hardware Design Files in `oneapi-asp/Platform-Name/hardware/Board-Variant`**
 
 | Files/Folder | Description  |
 |---------|---------|
-| ip | Contains all the *.ip files for IP components used in the hardware design |
-| rtl | Contains the system verilog and verilog design files shown in figure 5-2 & 5-4 above  |
-| scripts | Contains scripts to control oneAPI kernel and asp Intel® Quartus® software compile flow (see section 5.2.3 for more information on compile flow) |
-| platform | Contains Platform Interface Modules (PIM) modules used in the design. See PIM subtopic below |
-| afu_flat.qsf | Intel® Quartus® software Settings File for revision that is compiled by default. The name (`afu_flat.qsf`) matches `revision` attibute in `compile` element in `board_spec.xml` file |
-| afu_ip.qsf |  Adds platform specific settings & design files, this file is sourced in afu_flat.qsf |
-| mpf_vtp.qsf | Adds IP components from Intel® FPGA BBB (see section 5.2.2 below for information about use of MPF blocks from Intel® FPGA BBB) repository used in the design |
-| bsp_design_files.tcl | Adds design files to the project, this file is source in afu_ip.qsf |
-| board.qsys | Please refer to figure 5-2 for components in board.qsys system |
-| ddr_board.qsys | Instantiated in the board.qsys system, contains IP components in the host to EMIF and kernel to EMIF datapath. `OpenCL Memory Bank Divider` is instantiated in this platform designer system. Please refer to section 3.1.1 for more details on `OpenCL Memory Bank Divider` |
-| ddr_channel.qsys | Instantiated in ddr_board.qsys, contains bridges required for clock domain crossings between PCIe and EMIF clocks as well as kernel and EMIF clock |
+| build/ip | Contains all the *.ip files for IP components used in the hardware design |
+| build/rtl | Contains the SystemVerilog and Verilog design files shown in figures 5-3 to 5-6 above  |
+| build/scripts | Contains scripts to control oneAPI kernel and asp Intel® Quartus® software compile flow (see section 5.3.4 for more information on compile flow) |
+| build/afu_ip.qsf |  Adds platform specific settings & design files, this file is sourced in afu_flat.qsf |
+| build/mpf_vtp.qsf | Adds IP components from Intel® FPGA BBB (see section 5.3.2 below for information about use of MPF blocks from Intel® FPGA BBB) repository used in the design |
+| build/bsp_design_files.tcl | Adds design files to the project, this file is source in afu_ip.qsf |
+| build/board.qsys | Please refer to figures above for components in board.qsys system |
+| build/ddr_board.qsys | Instantiated in the board.qsys system, contains IP components in the host to EMIF and kernel to EMIF datapath. `OpenCL Memory Bank Divider` is instantiated in this platform designer system. Please refer to section 3.1.1 for more details on `OpenCL Memory Bank Divider` |
+| build/ddr_channel.qsys | Instantiated in ddr_board.qsys, contains bridges required for clock domain crossings between PCIe and EMIF clocks as well as kernel and EMIF clock |
+| fim_platform | Contains Platform Interface Modules (PIM) modules and FIM database used in the design. See PIM subtopic below |
 
-#### **5.2.1 Platform Interface Modules(PIM)**
+| opencl_bsp.sdc | Contains clock group constraints for all clocks in oneAPI ASP |
+| user_clock.sdc | Contains initial user clock constraints. These are modified during oneAPI kernel compilation (by the compilation scripts) to achieve higher kernel clock frequency |
+
+
+
+The hardware implementation diagrams show a PF/VF Mux/De-mux module in the AFU region. The PF/VF mux routes packets to AFU component based on `pf_num` and `vf_num` information in PCIe TLP header. The `oneapi-asp` resides inside the AFU region and connects to the lowest VF number that routes into the PR slot. For more information about the PF/VF mux, please refer to the PF/VF Mapping details in *FPGA Interface Manager Technical Reference Manual* (link is available in section 1.3). Table below summazires the VF mapping in `oneapi-asp`.
+
+**Table 5-8: PF/VF Mapping in `oneapi-asp`**
+
+| Device | PF/VF Mapping  in `oneapi-asp` |
+|---------|---------|
+| Stratix 10 OFS | PF0-VF1 |
+| Agilex OFS | PF0-VF0 |
+
+Sections below provide some more information on some blocks in the hardware design block diagram shown above. Refer to section 3.1 for more information about `OpenCL Memory Bank Divider` and to section 3.2 for information about `OpenCL Kernel Interface`. 
+
+#### **5.3.1 Platform Interface Modules(PIM)**
 <div id="pim"></div>
 
 In addition to above files/folders, an important part of the design are the `ofs_plat_*` modules provided by [Platform Interface Manager (PIM)](https://github.com/OFS/ofs-platform-afu-bbb). oneAPI kernel system and `oneapi-asp` have Avalon® interfaces. FIM components have AXI interfaces. PIM modules are used for protocol translation. 
 
 > **Note:** For more information about PIM, please refer to PIM README [here](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/README.md).
 
-#### **5.2.2 Direct Memory Access(DMA) Module**
+#### **5.3.2 Direct Memory Access(DMA) Module**
 <div id="dma"></div>
 
-The Direct Memory Access module is located in the host to EMIF datapath in the `oneapi-asp` and provides a controller to execute transfers from host to DDR on the board and vice versa. The source files for the DMA module used in `oneapi-asp` for OFS reference platforms are located in `oneapi-asp/Platform-Name/hardware/Board-Variant/build/rtl/dma` directory. Figure 5-5 shows the DMA module interface.
+The Direct Memory Access module is located in the host to EMIF datapath in the `oneapi-asp` and provides a controller to execute transfers from host to DDR on the board and vice versa. The source files for the DMA module used in `oneapi-asp` for OFS reference platforms are located in `oneapi-asp/Platform-Name/hardware/Board-Variant/build/rtl/dma` directory. Figure below shows the DMA module interface.
 
-**Figure 5-5: DMA Controller Block Diagram**
+**Figure 5-7: DMA Controller Block Diagram**
 
 
 
 ![Image DMA Controller Block Diagram](images/dma_controller_top.png)
 
-Figure 5-2 shows the instantiation of this dma_top module as `dma_controller_inst`. Table 5-7 shows the signal names and descriptions.
+Figure 5-3 shows the instantiation of this dma_top module as `dma_controller_inst`. Table 5-9 shows the signal names and descriptions. Section 5-5 covers the complete compilation flow.
 
-**Table 5-7: DMA Module Signal Descriptions**
+**Table 5-9: DMA Module Signal Descriptions**
 
 | Signal or Port | Description  |
 |---------|---------|
@@ -847,85 +1744,111 @@ To start a data transfer, the data transfer module requires following informatio
 * Destination address
 * Number of bytes to transfer
 
-`oneapi-asp` for OFS reference platforms uses *virtual* addresses in the DMA controller for data transfer. The Memory Properties Factory(MPF) Virtual to Physical(VTP) blocks (i.e.`mpf_vtp_*` modules) shown in figure 5-2 translate virtual addresses to appropriate host addresses. 
+`oneapi-asp` for OFS reference platforms uses *virtual* addresses in the DMA controller for data transfer. The Memory Properties Factory(MPF) Virtual to Physical(VTP) blocks (i.e.`mpf_vtp_*` modules) shown in figure 5-3 translate virtual addresses to appropriate host addresses. 
 
-.
+
 
 > **Note:** Memory Properties Factory(MPF) is a part of Intel® FPGA Basic Building Blocks. Please refer to [Intel® FPGA BBB repository](https://github.com/OPAE/intel-fpga-bbb/wiki/BBB_cci_mpf) for more information.
 
-#### **5.2.3 Hardware Compile Flow**
+#### **5.3.3 User Datagram Protocol(UDP) Engine**
+<div id="udp_engine"></div>
+
+I/O pipes allow kernel to stream data directly using HSSI. To demonstrate this functionality, reference design in `oneapi-asp` repository (refer to Figure 5-5 and 5-6) has a UDP protocol engine to allow transmitting UDP/IP packets over HSSI..
+
+Figure below shows a simple block diagram of the UDP engine.
+
+**Figure 5-8: UDP Offload Engine**
+
+
+
+![UDP Offload Engine](images/udp_engine.png)
+
+The UDP engine consists of a separate receive (`rx`) and trasmit (`tx`) path. The following functionalilty is performed by this reference design engine:
+
+* Implements an Address Resolution Protocol (ARP) functionality to respond to be able to send & respond to ARP requests. This is needed for routing between different subnets using a gateway. 
+* Packetizes data from kernel to add the required header information (for MAC, IP & UDP layers) 
+* Extracts data from packets received by removing header information
+* Handles clock crossing between kernel clock and Ethernet MAC clock domains
+
+The source files for UDP engine used in `oneapi-asp` for OFS reference platform are located in `oneapi-asp/n6001/hardware/ofs_n6001_iopipes/build/rtl/udp_offload_engine` directory.
+
+> **Note:** The same engine is used in the board variant with USM shown in Figure 5-6 (source files are in `oneapi-asp/n6001/hardware/ofs_n6001_usm_iopipes/build/rtl/udp_offload_engine`). 
+
+
+
+#### **5.3.4 Hardware Compile Flow**
 <div id="compile_flow"></div>
 
-Figure 5-6 shows the compile flow overview; the oneAPI compiler generated hardware circuit is compiled by Intel® Quartus® software along with design files for `oneapi-asp`.
+Figure below shows the compile flow overview; the oneAPI compiler generated hardware circuit is compiled by Intel® Quartus® software along with design files for `oneapi-asp`.
 
-**Figure 5-6: oneAPI Compile Flow Overview**
+**Figure 5-9: oneAPI Compile Flow Overview**
 
 
 
 ![Image_Compile_Flow_Overvew](images/Compile_Flow_Overvew.PNG)
 
-The oneAPI compiler uses the `board_spec.xml` to get more information about the `oneapi-asp` configuration. `board_spec.xml` file has a `compile` element to allow control of the Intel® Quartus® software compilation flow. The attributes of this element are discussed in section 2.1.2. The `oneapi-asp` uses tcl scripts to control the Intel® Quartus® software compilation flow. Figure 5-7 shows the flow and scripts used. All compilation scripts are located in `oneapi-asp/Platform-Name/hardware/Board-Variant/build/scripts` folder.
+The oneAPI compiler uses the `board_spec.xml` to get more information about the `oneapi-asp` configuration. `board_spec.xml` file has a `compile` element to allow control of the Intel® Quartus® software compilation flow. The attributes of this element are discussed in section 2.1.2. The `oneapi-asp` uses tcl scripts to control the Intel® Quartus® software compilation flow. Figure 5-10 shows the flow and scripts used. All compilation scripts are located in `oneapi-asp/Platform-Name/hardware/Board-Variant/build/scripts` folder.
 
-**Figure 5-7: Compilation Scripts in `oneapi-asp`**
+**Figure 5-10: Compilation Scripts in `oneapi-asp`**
 
 
 
 ![Compile Flow Scripts Image](images/Compile_flow_scripts.png)
 
-Table 5-8 summarizes notes for reference numbers 1-5 marked in figure above.
+Table 5-10 summarizes notes for reference numbers 1-5 marked in figure above.
 
-**Table 5-8 Notes for Reference Numbers in Figure 5-7**
+**Table 5-10: Notes for Reference Numbers in Figure 5-10**
 
 | Reference Number | Note |
 |---------|---------|
 | 1 | revision_name is `afu_flat` for `oneapi-asps` for OFS reference platforms |
-| 2 | `import_opencl_kernel.tcl` script imports compiler generated files into `build` folder for Intel® Quartus® software compilation step |
-| 3 | `add_bbb_to_pr_project.tcl` script adds the Intel® FPGA BBB MPF files to the Intel® Quartus® software project |
-| 4 | `compile_script.tcl` runs synthesis(quartus_syn), fitter(quartus_fit), assembler(quartus_asm) and static timing analysis(quartus_sta) for the design |
-| 5 |`adjust_plls.tcl` script calculates the highest achievable kernel clock frequency (to ensure timing closure) and writes the data to a pll_metadata.txt file, which is used while generating the gbs (bitstream for AFU region) |
+| 2 | `compile_script.tcl` runs synthesis(quartus_syn), fitter(quartus_fit), assembler(quartus_asm) and static timing analysis(quartus_sta) for the design |
+| 3 | `adjust_plls.tcl` script calculates the highest achievable kernel clock frequency (to ensure timing closure) and writes the data to a pll_metadata.txt file, which is used while generating the gbs (bitstream for AFU region) |
 
-### **5.3 `oneapi-asp` Memory Mapped Device(MMD) Layer Implementation**
+### **5.4 `oneapi-asp` Memory Mapped Device(MMD) Layer Implementation**
 <div id="mmd_impl"></div>
 
 As discussed in section 4.1, the MMD provides a set of API that allow the runtime to control the device and communicate with it.
 
-The source code for MMD layer is located in `oneapi-asp/common/source/host` folder. `aocl_mmd.h` is the header file for the implemented API and is located in `oneapi-asp/common/source/include` folder. Table 5-9 summarizes the APIs that have been implemented in `oneapi-asp` for OFS reference platforms.
+The source code for MMD layer is located in `oneapi-asp/common/source/host` folder. `aocl_mmd.h` is the header file for the implemented API and is located in `oneapi-asp/common/source/include` folder. Table below summarizes the APIs that have been implemented in `oneapi-asp` for OFS reference platforms.
 
-> **Note:** For more details about the API, its arguments and enums please refer to the `aocl_mmd.h` file
+> **Note:** For more details about the API, its arguments and enums please refer to the `aocl_mmd.h` file and to section 4.1.
 
-**Table 5-9: MMD API Implemented in `oneapi-asp`**
+**Table 5-11: MMD API Implemented in `oneapi-asp` for OFS Reference Platforms**
 
-| API | Purpose |
-|---------|---------|
-| aocl_mmd_get_offline_info | Obtain offline information about the board. This function is offline because it is device-independent and does not require a handle from the `aocl_mmd_open()` call |
-| aocl_mmd_get_info | Obtain information about the board specified in the `requested_info_id` argument |
-| aocl_mmd_open | Open and initialize the specified device |
-| aocl_mmd_close | Close an opened device via its handle |
-| aocl_mmd_set_interrupt_handler | Set the interrupt handler for the opened device |
-| aocl_mmd_set_status_handler | Set the operation status handler for the opened device |
-| aocl_mmd_yield | The aocl_mmd_yield function is called when the host interface is idle. The host interface might be idle because it is waiting for the device to process certain events |
-| aocl_mmd_read | Read operation on a single interface |
-| aocl_mmd_write | Write operation on a single interface |
-| aocl_mmd_copy | Copy operation on a single interface |
-| aocl_mmd_program | Reprogram operation for the specified device |
-| aocl_mmd_host_alloc | Provide memory that is allocated on the host. Host allocations are accessible by the host and one or more devices |
-| aocl_mmd_free | Free memory that has been allocated by MMD |
-| aocl_mmd_shared_alloc | Allocate shared memory between the host and the FPGA |
-| aocl_mmd_shared_migrate | Handle migration of non-concurrent shared allocations any time the accessor of the allocation changes |
+| API |
+|---------|
+| aocl_mmd_get_offline_info |
+| aocl_mmd_get_info |
+| aocl_mmd_open |
+| aocl_mmd_close |
+| aocl_mmd_set_interrupt_handler |
+| aocl_mmd_set_status_handler |
+| aocl_mmd_yield |
+| aocl_mmd_read |
+| aocl_mmd_write |
+| aocl_mmd_copy |
+| aocl_mmd_program |
+| aocl_mmd_host_alloc |
+| aocl_mmd_free |
+| aocl_mmd_shared_alloc |
+| aocl_mmd_shared_migrate |
 
-The implementation of these APIs is in `oneapi-asp/common/source/host/mmd.cpp`. The functions used in the implementation are distributed across various source files. Table 5-10 provides details on source code files.
+The implementation of these APIs is in `oneapi-asp/common/source/host/mmd.cpp`. The functions used in the implementation are distributed across various source files. Table below provides details on source code files.
 
-**Table 5-10: MMD Source Code Files**
+**Table 5-12: MMD Source Code Files**
 
 | Files/Folder | Description |
 |---------|---------|
-| mmd.cpp | This file has the implementation for all MMD API calls listed in table 5-9 |
+| mmd.cpp | This file has the implementation for all MMD API calls listed in table 5-11 |
 | fpgaconf.h<br>fpgaconf.c | Contains bitstream reconfiguration function declaration(.h) & definition(.c) |
 | kernel_interrupt.h | Contains `KernelInterrupt` class declaration; the class consists of functions to handle kernel interrupts |
 | kernel_interrupt.cpp | Contains `KernelInterrupt` class constructor and function definitions |
 | mmd_device.h | Contains `Device` class declaration, which stores device data and has functions to interact with the device |
 | mmd_device.cpp | Contains `Device` class constructor and function definitions |
 | mmd_dma.h<br>mmd_dma.cpp | Contain DMA functions declaration(.h) & definition(.cpp) |
+| mmd_iopipes.h | Contains the `iopipes` class declaration(.h) |
+| mmd_iopipes.cpp | Contains function definitions, these functions include `iopipes` class constructor as well as fucntions to detect and setup CSR space for IO pipes feature in board variants that support IO pipes |
 | zlib_inflate.h<br>zlib_inflate.c | Function declaration(.h) and definition(.c) for decompressing bitstream data |
 | CMakeLists.txt | CMakeLists.txt file for building MMD source code |
 
@@ -945,14 +1868,14 @@ In addition to OPAE, the MMD also uses API from Memory Properties Factory(MPF) s
 
 > **Note:** Memory Properties Factory(MPF) is a part of Intel® FPGA BBB. Please refer to [Intel® FPGA BBB wiki](https://github.com/OPAE/intel-fpga-bbb) for more information about MPF.
 
-### **5.4 `oneapi-asp` Utilities Implementation**
+### **5.5 `oneapi-asp` Utilities Implementation**
 <div id="util_impl"></div>
 
 This section covers the implementation of board utilities (refer to section 4.2 for more information on board utilities) in `oneapi-asp` for OFS reference platforms.
 
-Table 5-11 shows the source code/script locations for the utilities.
+Table below shows the source code/script locations for the utilities.
 
-**Table 5-11: `oneapi-asp` Utilities Source Code Locations**
+**Table 5-13: `oneapi-asp` Utilities Source Code Locations**
 
 | Utility | Source Location |
 |---------|---------|
@@ -964,9 +1887,9 @@ Table 5-11 shows the source code/script locations for the utilities.
 
 The path to all of the above utility executables is used in `utilbinder` element in `board_env.xml` (demonstrated in sample `board_env.xml` in figure 5-1). The runtime uses this when the corresponding `aocl` utility is invoked.
 
-Brief descriptions for the source code files are given in table 5-12.
+Brief descriptions for the source code files are given in table below.
 
-**Table 5-12: Brief Descriptions of `oneapi-asp` Utility Routines for OFS Reference Platforms**
+**Table 5-14: Brief Descriptions of `oneapi-asp` Utility Routines for OFS Reference Platforms**
 
 | File | Description |
 |---------|---------|
@@ -976,6 +1899,14 @@ Brief descriptions for the source code files are given in table 5-12.
 | initialize | initialize routine performs the following steps:<br> * looks for the initialization bitstreams for the board variant to be initialized<br> * invokes the `setup_permissions.sh` script to set correct device permissions<br> * performs partial reconfiguration of the FPGA device by invoking `program` routine with the initialization bitstream as an argument |
 | program | `program` routine allocates memory and loads the supplied initialization bitstream in memory followed by a call to reprogramming function provided by `oneapi-asp's` MMD library. The MMD library uses `fpgaReconfigureSlot` API provided by OPAE library to perform device reconfiguration<br>> **Note:** Please refer to [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for more information about OPAE SDK API |
 | diagnose | `diagnose` routine scans for the available devices for the installed platform and performs DMA transactions between host & device. It also reports the PCIe bandwidth. `diagnose` routine uses functions provided by the MMD library for scanning & opening connection to available devices |
+
+## **Document Revision History**
+<div id="doc_rev_history"></div>
+
+| Date | Release | Changes |
+|---------|---------|---------|
+| May 26, 2023 | 2023.1 | First release of *oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack* on https://ofs.github.io/ |
+|  | 2023.2 | 1. Section 1:<br> * Updated Figure 1-3 to add HSSI path<br> 2. Section 2:<br> * Added `channels` element in Ffigure 2-1 and table 2-1, added information about board variants below this table<br> * Added Section 2.1.8 on `channels` element<br> 3. Section 4:<br> * Added information about MMD API (table 4-1) and new sections 4.1.1 to 4.1.21<br> 4. Section 5:<br> * Moved `oneapi-asp` build flow information into new section 5.2<br> * Added new table 5-6 with oneAPI ASP board variants information<br> * Added hardware design diagrams and information about new board variants with I/O pipes support (Hardware Design with IO Pipes and Hardware Design with IO Pipes and USM)<br> * Updated hardware design diagrams to show PF/VF Mux/De-mux and added information about PF/VF mapping in section 5.3<br> * Added new section on UDP engine (section 5.3.3)<br> * Updated figure 5-10 to remove `import_opencl_kernel.tcl` and `add_bbb_to_pr_project.tcl`<br> * Updated table 5-12 to add `mmd_iopipes.h` and `mmd_iopipes.cpp` files |
 
 ## Notices & Disclaimers
 

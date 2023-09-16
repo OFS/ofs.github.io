@@ -1,6 +1,6 @@
-# **Intel<sup>&reg;</sup> FPGA Interface Manager Developer Guide: Intel Agilex SoC Attach: Open FPGA Stack**
+# **Intel<sup>&reg;</sup> FPGA Interface Manager Developer Guide: Intel Agilex<sup>&reg;</sup> 7 SoC Attach: Open FPGA Stack**
 
-Last updated: **August 14, 2023** 
+Last updated: **September 15, 2023** 
 
 ## **1 Introduction**
 
@@ -24,7 +24,7 @@ As can be seen in this diagram, the OFS FPGA structure has a natural separation 
 * Acceleration Function Unit ("the workload")
   * Uses the FIM interfaces to perform useful work inside the FPGA
   * Contains logic supporting partial reconfiguration
-  * Remote Signal Tap core for remote debugging of workload
+  * Remote Signal Tap core for remote debugging of SoC AFU PR region
   
 This guide is organized as follows: 
 
@@ -42,7 +42,7 @@ This guide is organized as follows:
   * Simulation  
 * Design customization walkthroughs
 
-This document uses the  Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL as the main example platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS.  The demonstration steps serve as a tutorial for the development of your OFS knowledge.  
+This document uses the  Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL as the platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS.  The demonstration steps serve as a tutorial for the development of your OFS knowledge.  
 
 This document covers OFS architecture lightly. For more details on the OFS architecture, please see [Open FPGA Stack Technical Reference Manual](../../reference_manuals/ofs_fim/mnl_fim_ofs.md).
 
@@ -86,7 +86,7 @@ The following table describes several terms that are used in this document.
 
 ### **1.2 Release Capabilities**
 
-Agilex SoC Attach OFS supports the following features.
+Intel Agilex 7 SoC Attach OFS supports the following features.
 
 |                                     | FIM BASE                                    |
 | ----------------------------------- | ------------------------------------------- |
@@ -103,7 +103,7 @@ The FIM also integrates:
 * Exercisers demonstrating PCIe, external memory, and Ethernet interfaces
 * FME CSR
 * Remote Signal Tap
-* Partial Reconfiguration
+* Partial Reconfiguration of the SoC AFU
 
 The Host exercisers are provided for the quick evaluation of the FIM and can be leveraged for the verification of the platform's functionality and capabilities.  The host exercisers can be removed by the designer to release FPGA real estate to accommodate new workload functions. To compile the FIM without host exercisers go to [How to compile the FIM in preparation for designing your AFU](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu).
 
@@ -127,8 +127,8 @@ OFS is extensible to meet the needs of a broad set of customer applications.  Th
 
 OFS is an advanced application of FPGA technology. This guide assumes you have the following FPGA logic design-related knowledge and skills:
 
-* FPGA compilation flows using Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1.
-* Static Timing closure, including familiarity with the Timing Analyzer tool in Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
+* FPGA compilation flows using Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.2.
+* Static Timing closure, including familiarity with the Timing Analyzer tool in Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.2, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 * RTL (System Verilog) and coding practices to create synthesized logic.
 * RTL simulation tools.
 * Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Signal Tap Logic Analyzer tool software.
@@ -147,7 +147,7 @@ The FIM targets operation in the  Intel® Infrastructure Processing Unit (Intel�
   * 2 - QSFP28/56 cages
   * Eight Arm® AMBA® 4 AXI4-Stream channels of 25G Ethernet interfacing to an E-tile Ethernet Subsystem.
 * External Memory - DDR4
-  * Four Fabric DDR4 banks, 1200 MHz, 4GB, x32 no ECC (optionally can be configured x40 with ECC or x8 no ECC)
+  * Four Fabric DDR4-2400 banks - 4 GB organized as 1Gb x 32 with 1 Gb x 8 ECC (ECC login not implemented in default FIM) 
 * Board Management
   * SPI interface
   * FPGA configuration
@@ -336,8 +336,8 @@ The following pre-requisites must be satisfied to go through the development flo
 
 To run the FPGA compilation steps covered in this guide, requires the following:
 
-1. Workstation or server with a Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1 installed on a Intel Quartus Prime Pro-supported Linux distribution.  See [Operating System Support](https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/os-support.html).  The Linux distribution known to work with this version of Ubuntu 22.04 . Note, Windows is not supported.
-2. Compilation targeting Agilex devices requires a minimum of 64 GB of RAM.
+1. Workstation or server with a Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.2 installed on a Intel Quartus Prime Pro-supported Linux distribution.  See [Operating System Support](https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/os-support.html).  The Linux distribution known to work with this version of RedHatEnterprise Linux® (RHEL) 8.6 . Note, Windows is not supported.
+2. Compilation targeting Intel Agilex 7 devices requires a minimum of 64 GB of RAM.
 3. Simulation of lower level functionality (not chip level) is supported by Synopsys<sup>&reg;</sup> VCS and Mentor Graphics<sup>&reg;</sup> QuestaSim SystemVerilog simulators.
 4. Simulation of chip level requires Synopsys VCS and VIP
    
@@ -347,12 +347,12 @@ To run the tutorial steps in this guide requires this development environment:
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
-| Intel Quartus Prime Pro | 23.1 |
+| Intel Quartus Prime Pro | 23.2 |
 | OPAE SDK   | **Branch Tag:** release/2.5.0 |
 | Simulator  | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
-| Python            | 3.7.7 |
+| Python            | 3.6.8 |
 | GCC               | 7.2.0 |
-| cmake             | 3.11.4 |
+| cmake             | 3.15 |
 | git with git-lfs  | 1.8.3.1 |
 | PERL | 5.8.8 |
 
@@ -366,7 +366,7 @@ sudo dnf install git-lfs
 git lfs install
 ```
 
-To test FPGA image files on hardware, this version of OFS only targets  Intel IPU Platform F2000X-PL. You may modify the build scripts and pin files to target different boards with Agilex FPGA devices.
+To test FPGA image files on hardware, this version of OFS only targets  Intel IPU Platform F2000X-PL. You may modify the build scripts and pin files to target different boards with Intel Agilex 7 FPGA devices.
 ### **4.2 Installation of OFS**
 
 In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see the [Getting Started Guide: Intel® Open FPGA Stack for Intel FPGA](/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
@@ -375,16 +375,16 @@ Building the OFS FIM requires the build machine to have at least 64 GB of RAM.
 
 The following is a summary of the steps to set up for FIM development:
 
-1. Install Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1 Linux with Agilex device support
+1. Install Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.2 Linux with Agilex device support
 2. Make sure support tools are installed and meet version requirements
 3. Clone the  repository
 4. Install required Intel Quartus Prime Pro patches which are included in the cloned `ofs-f2000x` repository
 5. Review the files provided in the repo
 6. Test installation by building the FIM
 
-**Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.1** is the currently verified version of Intel Quartus Prime Pro used for building the FIM and AFU images.  Porting to newer versions of Intel Quartus Prime Pro may be performed by developers, however, you will need to verify operation.
+**Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.2** is the currently verified version of Intel Quartus Prime Pro used for building the FIM and AFU images.  Porting to newer versions of Intel Quartus Prime Pro may be performed by developers, however, you will need to verify operation.
 
-The recommended Best Known Configuration (BKC) for development of the OFS FIM is Ubuntu 22.04, which is the assumed operating system for this developer guide. 
+The recommended Best Known Configuration (BKC) for development of the OFS FIM is RedHatEnterprise Linux® (RHEL) 8.6, which is the assumed operating system for this developer guide. 
 
 1. Prior to installing Intel Quartus Prime Pro, perform the following steps to satisfy the required dependencies.
 
@@ -400,7 +400,7 @@ The recommended Best Known Configuration (BKC) for development of the OFS FIM is
     sudo ln -s /usr/bin/python3 /usr/bin/python
     ```
 
-3. Download [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/746666/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html).
+3. Download [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html).
 
 4. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -409,11 +409,11 @@ The recommended Best Known Configuration (BKC) for development of the OFS FIM is
     export PATH=<Quartus install directory>/qsys/bin:$PATH
     ```
 
-    For example, if the Intel Quartus Prime Pro install directory is /home/intelFPGA_pro/23.1 then the new line is:
+    For example, if the Intel Quartus Prime Pro install directory is /home/intelFPGA_pro/23.2 then the new line is:
 
     ```bash
-    export PATH=/home/intelFPGA_pro/23.1/quartus/bin:$PATH
-    export PATH=/home/intelFPGA_pro/23.1/qsys/bin:$PATH
+    export PATH=/home/intelFPGA_pro/23.2/quartus/bin:$PATH
+    export PATH=/home/intelFPGA_pro/23.2/qsys/bin:$PATH
     ```
 
 5. Verify, Intel Quartus Prime Pro is discoverable by opening a new shell:
@@ -424,9 +424,23 @@ The recommended Best Known Configuration (BKC) for development of the OFS FIM is
 
     Example output:
     ```bash
-    /home/intelFPGA_pro/23.1/quartus/bin/quartus
+    /home/intelFPGA_pro/23.2/quartus/bin/quartus
     ```
 
+6. Install Quartus two patches 0.11 and 0.19.  The patch files are included as assets in the [OFS-F2000X-PL release](https://github.com/OFS/ofs-f2000x-pl/releases/ofs-2023.2-1).  Scroll to the bottom of the page and download the patches to your Quartus development computer and then install the patches by running the patch script and following the installation items.
+
+    ```bash
+    sudo ./quartus-23.2-0.11-linux-internal-donot-distribute.run
+    sudo ./quartus-23.2-0.19-linux-internal-donot-distribute.run
+    ```
+
+7. Verify Quartus the version of Quartus.
+
+    ```bash
+    quartus_sh --version
+    Version 23.2.0 Build 94 06/14/2023 Patches 0.11,0.19 SC Pro Edition
+    Copyright (C) 2023  Intel Corporation. All rights reserved.
+    ```
 
 #### **4.2.1 Clone the OFS Git Repo**
 
@@ -449,7 +463,7 @@ Retrieve the OFS FIM source code from the [OFS f2000x FIM Github Branch](https:/
 
     ```bash
     cd ofs-f2000x-pl
-    git checkout --recurse-submodules tags/ofs-2023.1-1
+    git checkout --recurse-submodules tags/ofs-2023.2-1
     ```
 
 4. Ensure that `ofs-common` has been cloned as well
@@ -461,7 +475,7 @@ Retrieve the OFS FIM source code from the [OFS f2000x FIM Github Branch](https:/
     Example output:
 
     ```bash
-    ea585a4f48d50faf3ae7ecfbec82525a8d22c730 ofs-common (ofs-2023.1-1)
+    ea585a4f48d50faf3ae7ecfbec82525a8d22c730 ofs-common (ofs-2023.2-1)
     ```
 
 ### **4.3 Directory Structure of OFS**
@@ -473,10 +487,11 @@ ls -1
 ```
 Expected output:
 ```bash
-external
 ipss
 LICENSE.txt
 ofs-common
+README.md  
+SECURITY.md
 sim
 src
 syn
@@ -492,8 +507,7 @@ find . -mindepth 1 -maxdepth 2 -type d -not -path '*/\.*' -print | sed -e 's/[^-
 Expected output:
 
 ```bash
-|  eval_scripts
-|  | 
+
 |  ipss
 |  |  hssi
 |  |  mem
@@ -550,14 +564,14 @@ Set required environment variables as shown below.  These environment variables 
 Set the following environment variables based on your environment:
 ```bash
 
-export QUARTUS_MAINPATH=/<YOUR_QUARTUS_DIRECTORY>/23.1 
+export QUARTUS_MAINPATH=/<YOUR_QUARTUS_DIRECTORY>/23.2 
 export TOOLS_LOCATION=<YOUR_TOOLS_DIRECTORY> 
 export LM_LICENSE_FILE=<YOUR_LM_LICENSE_PATH>
 export DW_LICENSE_FILE=<YOUR_DW_LICENSE_PATH>
 export SNPSLMD_LICENSE_FILE=<YOUR_SNPSLMD_LICENSE_PATH>
 ```
 
->**Note:** The TOOLS_LOCATION directory is where the Synopsis tools reside. Refer to the `UVM_HOME` variable below for an example.
+>**Note:** The TOOLS_LOCATION directory is where the Synopsys tools reside. Refer to the `UVM_HOME` variable below for an example.
 
 Then set the remaining environment variables:
 ```bash
@@ -570,7 +584,7 @@ export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 export INTELFPGAOCLSDKROOT=$QUARTUS_MAINPATH/hld 
 export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys/bin 
 export IOFS_BUILD_ROOT=$PWD
-export OFS_ROOTDIR=$IOFS_BUILD_ROOT/ofs-f2000x
+export OFS_ROOTDIR=$IOFS_BUILD_ROOT/ofs-f2000x-pl
 export WORKDIR=$OFS_ROOTDIR 
 export VERDIR=$OFS_ROOTDIR/verification/ofs-f2000x/common:$OFS_ROOTDIR/verification 
 export OFS_PLATFORM_AFU_BBB=$IOFS_BUILD_ROOT/ofs-platform-afu-bbb 
@@ -579,7 +593,6 @@ export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_dir/build_tree
 export LIBRARY_PATH=$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/lib 
 export LD_LIBRARY_PATH=$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/lib64 
 export OPAE_LOC=/install-opae-sdk 
-export PYTHONPATH=/root/.local/lib/python3.7.7/site-packages/ 
 export QUARTUS_NUM_PARALLEL_PROCESSORS=8 
 export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/vip_Q-2020.03A
 export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm 
@@ -664,7 +677,7 @@ The following table provides a detailed description of the generated *.bin files
 | ofs_top_page1_unsigned_user1.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User1 Image. This file is used to load the FPGA flash User1 Image using the fpgasupdate tool. **Unsigned** means that the image has been signed with an empty header. |
 | ofs_top_page2_user2.bin |  This is an input file to PACSign to generate `ofs_top_page2_unsigned_user2.bin`. This file is created by taking the `ofs_top.bin` file and assigning the User2 or appending factory block information. |
 | ofs_top_page2_unsigned_user2.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User2 Image. This file is used to load the FPGA flash User2 Image using the fpgasupdate tool. **Unsigned** means that the image has been signed with an empty header. |
-| ofs_top.sof | This image is used to generate `ofs_top.bin`, and can also be used to program the Agilex device directly through JTAG |
+| ofs_top.sof | This image is used to generate `ofs_top.bin`, and can also be used to program the Intel Agilex 7 device directly through JTAG |
 
 >**Note:** The `build/output_files/timing_report` directory contains clocks report, failing paths and passing margin reports. 
 
@@ -994,7 +1007,7 @@ This section describes how to perform specific customizations of areas of the FI
 | 5.5 | How to modify the Memory Subsystem |
 | 5.6 | How to compile the FIM with no HSSI |
 | 5.7 | How to change the PCIe Device ID and Vendor ID |
-| 5.8 | How to migrate to a different Agilex device number |
+| 5.8 | How to migrate to a different Intel Agilex 7 device number |
 | 5.9 | How to change the Ethernet interface from 8x25 GbE to 8x10 GbE |
 | 5.10 | How to change the Ethernet interface from 8x25 GbE to 2x100 GbE |
 | 5.11 | How to add more transceiver channels to the FIM|
@@ -1912,8 +1925,8 @@ Perform the following steps to program the f2000x with the HelloFIM design gener
 
   ```bash
   Intel IPU Platform f2000x
-  Board Management Controller NIOS FW version: 1.1.9 
-  Board Management Controller Build version: 1.1.9 
+  Board Management Controller NIOS FW version: 1.2.3 
+  Board Management Controller Build version: 1.2.3 
   //****** FME ******//
   Object Id                        : 0xF000000
   PCIe s:b:d.f                     : 0000:15:00.0
@@ -1956,8 +1969,8 @@ Perform the following steps to program the f2000x with the HelloFIM design gener
 
   ```bash
   Intel IPU Platform f2000x
-  Board Management Controller NIOS FW version: 1.1.9 
-  Board Management Controller Build version: 1.1.9 
+  Board Management Controller NIOS FW version: 1.2.3 
+  Board Management Controller Build version: 1.2.3 
   //****** FME ******//
   Object Id                        : 0xF000000
   PCIe s:b:d.f                     : 0000:15:00.0
@@ -2291,13 +2304,13 @@ The steps below use the hello_fim example to add Signal Tap, however the general
 
 #### **5.2.2 Configuring the FPGA with a SOF Image via JTAG**
 
-Every successful run of `build_top.sh` script creates the file `$OFS_ROOTDIR/<WORK_DIRECTORY>/syn/syn_top/output_files/ofs_top_hps.sof` which can be used with the Intel FPGA Download Cable II to load the image into the FPGA using the f2000x  JTAG access connector. 
+Every successful run of `build_top.sh` script creates the file `$OFS_ROOTDIR/<WORK_DIRECTORY>/syn/syn_top/output_files/ofs_top.sof` which can be used with the Intel FPGA Download Cable II to load the image into the FPGA using the f2000x  JTAG access connector. 
 
-Perform the steps described in the following sections to load the `ofs_fim.sof` image created in the previous section into the Agilex FPGA using the Intel FPGA Download Cable II. You will also use the Intel FPGA Download Cable II to access the Signal Tap instance via JTAG.
+Perform the steps described in the following sections to load the `ofs_fim.sof` image created in the previous section into the Intel Agilex 7 FPGA using the Intel FPGA Download Cable II. You will also use the Intel FPGA Download Cable II to access the Signal Tap instance via JTAG.
 
 ##### **5.2.2.1 Connecting to Intel FPGA Download Cable**
 
-The f2000x  has a 10 pin JTAG header on the top side of the board.  This JTAG header provides access to either the Agilex FPGA or Cyclone<sup>&reg;</sup> 10 BMC device.  Perform the followign steps to connect the Itel FPGA Download Cable II and target the Agilex device:
+The f2000x  has a 10 pin JTAG header on the top side of the board.  This JTAG header provides access to either the Intel Agilex 7 FPGA or Cyclone<sup>&reg;</sup> 10 BMC device.  Perform the followign steps to connect the Itel FPGA Download Cable II and target the Intel Agilex 7 device:
 
 1. Locate SW2 and SW3 on the f2000x board as shown in the following figure.
 
@@ -2319,7 +2332,7 @@ The f2000x  has a 10 pin JTAG header on the top side of the board.  This JTAG he
     ![f2000x_jtag_sm_server](images/f2000x_jtag_sm_server.png)
 
 
-5. There are two JTAG modes that exist. Short-chain mode is when only the Cyclone 10 device is on the JTAG chain. Long-chain mode is when both the Cyclone 10 and the Agilex FPGA are on the JTAG chain. Check which JTAG mode the f2000x board is in by running the following command.
+5. There are two JTAG modes that exist. Short-chain mode is when only the Cyclone 10 device is on the JTAG chain. Long-chain mode is when both the Cyclone 10 and the Intel Agilex 7 FPGA are on the JTAG chain. Check which JTAG mode the f2000x board is in by running the following command.
 
   ```bash
   $QUARTUS_ROOTDIR/bin/jtagconfig
@@ -2332,80 +2345,125 @@ The f2000x  has a 10 pin JTAG header on the top side of the board.  This JTAG he
     020F60DD    10CL080(Y|Z)/EP3C80/EP4CE75
     ```
 
-  * Example output when in long-chain mode (both Cyclone 10 and Agilex detected):
+  * Example output when in long-chain mode (both Cyclone 10 and Intel Agilex 7 detected):
 
     ```bash
     1) USB-BlasterII [3-4]
     020F60DD   10CL080(Y|Z)/EP3C80/EP4CE75
     234150DD   AGFC023R25A(.|AE|R0)
     ```
-  If the Agilex device does not appear on the chain, ensure that the switches described in Step 1 have been set correctly and power cycle the board.
+  If the Intel Agilex 7 device does not appear on the chain, ensure that the switches described in Step 1 have been set correctly and power cycle the board. Also ensure that the JTAG Longchain bit is set to `0` in BMC Register 0x378. The BMC registers are accessed through SPI control registers at addresses 0x8040C and 0x80400 in the PMCI. Use the following commands to clear the JTAG Longchain bit in BMC register 0x378. 
 
-##### **5.2.2.2 Programming the Agilex FPGA via JTAG**
-
-Perform the following steps to program the Agilex FPGA via JTAG.
-
-1. Set the JTAG Enable bit in BMC register 0x378. The BMC registers are accessed through SPI control registers at addresses 0x8040C and 0x80400. in the PMCI.
   >**Note**: These commands must be executed as root user from the SoC.
 
   >**Note**: You may find the PCIe BDF of your card by running `fpgainfo fme`.
 
-  These commands must be executed every time a new FPGA SOF image is to be loaded prior to running the Intel Quartus Prime Pro programmer.
-
   ```bash
   opae.io init -d <BDF>
-  opae.io -d <BDF> -r 0 poke 0x8040c 0x100000000
+  opae.io -d <BDF> -r 0 poke 0x8040c 0x000000000
   opae.io -d <BDF> -r 0 poke 0x80400 0x37800000002
   opae.io release -d <BDF>
   ```
   For example, for a board with PCIe BDF `15:00.0`:
   ```bash
   opae.io init -d 15:00.0
-  opae.io -d 15:00.0 -r 0 poke 0x8040c 0x100000000
+  opae.io -d 15:00.0 -r 0 poke 0x8040c 0x000000000
   opae.io -d 15:00.0 -r 0 poke 0x80400 0x37800000002
   opae.io release -d 15:00.0
   ```
 
-2. The SOF file is located in the work directory **$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/output_files/ofs_top_hps.sof**. If the target FPGA is on a different server, then transfer **ofs_top_hps.sof** and **STP_For_Hello_FIM.stp** files to the server with the target FPGA.
 
-3. You can use a Full Intel Quartus Prime Pro Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the f2000x  is installed or on a separte machine such as a laptop.
+##### **5.2.2.2 Programming the Intel Agilex 7 FPGA via JTAG**
+
+Perform the following steps to program the Intel Agilex 7 FPGA via JTAG.
+
+1. The generated SOF file is located in the work directory **$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/output_files/ofs_top.sof**. If the target FPGA is on a different server, then transfer **ofs_top.sof** and **STP_For_Hello_FIM.stp** files to the server with the target FPGA.
+
+2. You can use a Full Intel Quartus Prime Pro Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the f2000x  is installed or on a separte machine such as a laptop.
 
   >**Note**: You can download the Quartus Prime Programmer and Tools by clicking on the "Additional Software" tab on the FPGA download page. The Quartus Prime Programmer and Tools come with Quartus programmer as well as System Console which are needed to program the flash devices.
 
   >**Note**: If using the Intel FGPA download Cable on Linux, add the udev rule as described in [Intel FPGA Download Cable (formerly USB-Blaster) Driver for Linux]((https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-b-lnx.html)).
 
 
-4. Temporarily disable the PCIe AER feature. This is required because when you program the FPGA using JTAG, the f2000x PCIe link goes down for a moment causing a server surprise link down event. To prevent this server event, temporarily disable PCIe AER and remove the root port connected to the f2000x  PCIe slot using the following steps:
+3. Temporarily disable the PCIe AER feature and remove the PCIe port for the board you are going to update.. This is required because when you program the FPGA using JTAG, the f2000x PCIe link goes down for a moment causing a server surprise link down event. To prevent this server event, temporarily disable PCIe AER and remove the PCIe port using the following commands:
 
-  1. Find the root port connected to the f2000x .  In this example, the f2000x  is assigned PCIe BDF 15:00, so you will use Linux lspci tree command to determine the root port.  
+  >**Note:** enter the following commands as root.
 
-    ```bash
-    lspci -t
-    ```
-    Sample Output;
-    ``` 
-    ...
-        +-[0000:14]-+-00.0
-       |           +-00.1
-       |           +-00.2
-       |           +-00.3
-       |           +-00.4
-       |           \-02.0-[15]----00.0   # The root port for 15:00.0 is 14:02.0
-    ...
-    ```
-    In this example, we see that the root port PCIe BDF of 15:00.0 is 14:02.0.
-
-  2. Disable AER on the f2000x  PCIe root port and remove the root port using the commands entered as root.
+  1. Find the PCIe BDF and Device ID of your board from the SoC. You may use the OPAE command `fpaginfo fme` on the SoC to display this information. Run this command on the SoC.
 
     ```bash
-    sudo su   
-    ```
-    ```bash
-    setpci -s 0000:14:02.0 ECAP_AER+0x08.L=0xFFFFFFFF
-    setpci -s 0000:14:02.0 ECAP_AER+0x14.L=0xFFFFFFFF
+    fpgainfo fme
     ```
 
-5. Launch "Quartus Prime Programmer" software from the device which the Intel FPGA Programmer is connected.
+    Example output:
+
+    ```bash
+    Intel IPU Platform F2000X-PL
+    Board Management Controller NIOS FW version: 1.2.3
+    Board Management Controller Build version: 1.2.3
+    //****** FME ******//
+    Object Id                        : 0xEF00000
+    PCIe s:b:d.f                     : 0000:15:00.0
+    Vendor Id                        : 0x8086
+    Device Id                        : 0xBCCE
+    SubVendor Id                     : 0x8086
+    SubDevice Id                     : 0x17D4
+    Socket Id                        : 0x00
+    Ports Num                        : 01
+    Bitstream Id                     : 0x50103024BF5B5B1
+    Bitstream Version                : 5.0.1
+    Pr Interface Id                  : e7926956-9b1b-5ea1-b02c-307f1cb33446
+    Boot Page                        : user1
+    User1 Image Info                 : b02c307f1cb33446e79269569b1b5ea1
+    User2 Image Info                 : b02c307f1cb33446e79269569b1b5ea1
+    Factory Image Info               : b02c307f1cb33446e79269569b1b5ea1
+    ```
+
+    In this case, the PCIe BDF for the board on the SoC is `15:00.0`, and the Device ID is `0xBCCE`.
+
+  2. From the SoC, use the `pci_device` OPAE command to "unplug" the PCIe port for your board using the PCIe BDF found in Step 3.a. Run this command on the SoC.
+
+    ```bash
+    pci_device <B:D.F> unplug
+    ```
+
+    For example:
+
+    ```bash
+    pci_device 15:00.0 unplug
+    ```
+
+  3. Find the PCIe BDF of your board from the Host. Use `lspci` and `grep` for the device ID found in Step 3.a to get the PCIe BDF. Run this command on the Host.
+
+    For example:
+
+    ```bash
+    lspci | grep bcce
+    ```
+
+    Example output:
+
+    ```bash
+    31:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    31:00.1 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    ```
+
+    In this case, the board has PCIe BDF 31:00.0 from the Host.
+
+  3. From the Host, use the `pci_device` OPAE command to "unplug" the PCIe port for your board using the PCIe BDF found in Step 3.c. Run this command on the Host.
+
+    ```bash
+    pci_device <B:D.F> unplug
+    ```
+
+    For example:
+
+    ```bash
+    pci_device 31:00.0 unplug
+    ```
+
+4. Launch "Quartus Prime Programmer" software from the device which the Intel FPGA Programmer is connected.
 
   ```bash
   $QUARTUS_ROOTDIR/bin/quartus_pgmw
@@ -2422,34 +2480,51 @@ Perform the following steps to program the Agilex FPGA via JTAG.
   ```
 
 
-6. Click **Auto Detect** and make sure the Agilex Device is shown in the JTAG chain. Select the Cyclone 10 and Agilex devices if prompted.
+5. Click **Auto Detect** and make sure the Intel Agilex 7 Device is shown in the JTAG chain. Select the Cyclone 10 and Intel Agilex 7 devices if prompted.
    
   ![](images/stp_autodetect_agilex.png)
    
-7. Right-click on the cell in the **File** column for the Agilex device and click on **Change file**
+6. Right-click on the cell in the **File** column for the Intel Agilex 7 device and click on **Change file**
 
   ![](images/stp_change_file_hello_fim.png)
       
-8. Select the generated **ofs_top.sof** file for the Agilex FPGA with the Signal Tap instrumented Hello FIM example. Remember that the output files are located under **work_hello_fim_with_stp/syn/syn_top/output_files/**.
+7. Select the generated **ofs_top.sof** file for the Intel Agilex 7 FPGA with the Signal Tap instrumented Hello FIM example. Remember that the output files are located under **work_hello_fim_with_stp/syn/syn_top/output_files/**.
   
-9. Tick the checkbox below "Program/Configure" column and click on **Start** to program this .sof file.
+8. Tick the checkbox below "Program/Configure" column and click on **Start** to program this .sof file.
 
   ![](images/stp_program_hello_fim.png)
 
-10. After successful programming, you can close the "Quartus Prime Programmer" software. You can answer 'No' if a dialog pops up asking to save the **'Chain.cdf'** file. This completes the Agilex .sof programming.
+9. After successful programming, you can close the "Quartus Prime Programmer" software. You can answer 'No' if a dialog pops up asking to save the **'Chain.cdf'** file. This completes the Intel Agilex 7 .sof programming.
 
-11. Remove the PCIe root port found earlier and re-scan the PCIe Bus.
+10. Re-plug the PCIe ports on both the SoC and Host.
 
-  >**Note:** enter the command as root.
+  >**Note:** enter the following commands as root.
 
-  ```bash
-  sudo su
-  echo 1 > /sys/bus/pci/devices/0000\:14\:02.0/remove
-  echo 1 > /sys/bus/pci/rescan
-  exit
-  ```
+  1. From the SoC, use the `pci_device` OPAE command to "plug" the PCIe port for your board using the PCIe BDF found in Step 3.a. Run this command on the SoC.
 
-12. Verify the f2000x is present by checking expected bitstream ID using `fpaginfo fme`:
+    ```bash
+    pci_device <B:D.F> plug
+    ```
+
+    For example:
+
+    ```bash
+    pci_device 15:00.0 plug
+    ```
+
+  2. From the Host, use the `pci_device` OPAE command to "plug" the PCIe port for your board using the PCIe BDF found in Step 3.c. Run this command on the Host.
+
+    ```bash
+    pci_device <B:D.F> plug
+    ```
+
+    For example:
+
+    ```bash
+    pci_device 31:00.0 plug
+    ```
+
+11. Verify the f2000x is present by checking expected bitstream ID using `fpaginfo fme` on the SoC:
 
   ```bash
   fpgainfo fme
@@ -2478,11 +2553,11 @@ Perform the following steps to program the Agilex FPGA via JTAG.
   Factory Image Info               : None
   ```
 
-  >**Note:** The **Image Info** fields will not change, because these represent the images stored in flash. In this example, we are programming the Agilex FPGA directly, thus only the Bitstream ID should change.
+  >**Note:** The **Image Info** fields will not change, because these represent the images stored in flash. In this example, we are programming the Intel Agilex 7 FPGA directly, thus only the Bitstream ID should change.
 
 #### **5.2.3 Signal Tap trace acquisition of Hello FIM signals**
 
-1. Once the instrumented HelloFIM SOF file is downloaded into the Agilex FPGA, start the Quartus Signal Tap GUI.
+1. Once the instrumented HelloFIM SOF file is downloaded into the Intel Agilex 7 FPGA, start the Quartus Signal Tap GUI.
 
   ```bash
   $QUARTUS_ROOTDIR/bin/quartus_stpw
@@ -2492,11 +2567,11 @@ Perform the following steps to program the Agilex FPGA via JTAG.
    
   ![](images/stp_open_STP_For_Hello_FIM.stp.png)
    
-3. In the right pane of the Signal Tap GUI, in the **Hardware:** selection box select the cable `USB-BlasterII`. In the **Device:** selection box select the Agilex device.
+3. In the right pane of the Signal Tap GUI, in the **Hardware:** selection box select the cable `USB-BlasterII`. In the **Device:** selection box select the Intel Agilex 7 device.
 
   ![](images/stp_select_usbBlasterII_hardware.png)
    
-4.   If the Agilex Device is not displayed in the **Device:** list, click the **'Scan Chain'** button to re-scan the JTAG device chain.
+4.   If the Intel Agilex 7 Device is not displayed in the **Device:** list, click the **'Scan Chain'** button to re-scan the JTAG device chain.
 
 5. If not already set, you can create the trigger conditions. In this example, we will capture data on a rising edge of the Read Address Valid signal.
    
@@ -2540,7 +2615,7 @@ ofs-common/scripts/common/syn/build_top.sh -p f2000x:null_he,null_he_hssi,null_h
 
 ### **5.4 How to Resize the Partial Reconfiguration Region**
 
-To take advantage of the available resources in the Agilex FPGA for an AFU design, you can adjust the size of the AFU PR partition. An example reason for the changing the size of PR region is if you add more logic to the FIM region, then you may need to reduce the size of the PR region to fit the additional logic into the static region.  Similiarly, if you reduce logic in the FIM region, then you can increase the size of the PR region to provide more logic resources for the AFU.
+To take advantage of the available resources in the Intel Agilex 7 FPGA for an AFU design, you can adjust the size of the AFU PR partition. An example reason for the changing the size of PR region is if you add more logic to the FIM region, then you may need to reduce the size of the PR region to fit the additional logic into the static region.  Similiarly, if you reduce logic in the FIM region, then you can increase the size of the PR region to provide more logic resources for the AFU.
 
 After the compilation of the FIM, the resources usage broken down by partitions is reported in the `Logic Lock Region Usage Summary` sections of following two files:
 
@@ -2568,7 +2643,7 @@ Perform the following steps to customize the resources allocated to the AFU in t
 
   Each region is made up of rectangles defined by the origin (X0,Y0) and the top right corner (X1,Y1).
 
-2. Use Quartus Chip Planner to identify the locations of the resources available within the Agilex device for placement and routing your AFU. The image below shows the default floorplan for the f2000x Agilex device.
+2. Use Quartus Chip Planner to identify the locations of the resources available within the Intel Agilex 7 device for placement and routing your AFU. The image below shows the default floorplan for the f2000x Intel Agilex 7 device.
 
   ![](images/chip_planner_coordinates.png)
 
@@ -2831,9 +2906,9 @@ Be aware that OPAE FPGA management commands require recognition of the FPGA PCIe
 
 The changes to software required to work with new PCIe settings are described in [Software Reference Manual: Intel Open FPGA Stack](../../../common/reference_manual/ofs_sw/mnl_sw_ofs.md) 
 
-### **5.8 How to migrate to a different Agilex device number**
+### **5.8 How to migrate to a different Intel Agilex 7 device number**
 
-The following instructions enable you to change the Agilex FPGA device part number of the f2000x, for example, to migrate to a device with a larger density. Be aware that this release works with Agilex devices that have P-tile for PCIe and E-tile for Ethernet.
+The following instructions enable you to change the Intel Agilex 7 FPGA device part number of the f2000x, for example, to migrate to a device with a larger density. Be aware that this release works with Intel Agilex 7 devices that have P-tile for PCIe and E-tile for Ethernet.
 
 The default device for the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL is AGFC023R25A2E2VR0
 
@@ -3201,7 +3276,7 @@ The **PF/VF Configuration Tool** allows you to easily reconfigure the default nu
     * Adding scratch register reads/writes to sim/csr_test for added functions
     * Updating the simulation filelists ($OFS_ROOTDIR/sim/common/pfvf_sim_pkg.sv)
 
-  If the port gasket is enabled in the OFSS file, all functions in the PR region must be a virtual function (VF) on physical function 0 (PF0) and are routed to Port AFU Instances (port_afu_instances.sv) in the port gasket.  You can enable the port gasket in the ini (*.ofss file) by adding `pg_enable = True` under the `num_vfs` in PF0. In the 2023.1 OFS SoC Attach Release for Intel IPU Platform F2000X-PL the PR region is in the SoC AFU, so the SoC OFSS file has the port gasket enabled by default:
+  If the port gasket is enabled in the OFSS file, all functions in the PR region must be a virtual function (VF) on physical function 0 (PF0) and are routed to Port AFU Instances (port_afu_instances.sv) in the port gasket.  You can enable the port gasket in the ini (*.ofss file) by adding `pg_enable = True` under the `num_vfs` in PF0. In the 2023.2 OFS SoC Attach Release for Intel IPU Platform F2000X-PL the PR region is in the SoC AFU, so the SoC OFSS file has the port gasket enabled by default:
 
   ```bash
   [ProjectSettings]
@@ -3327,7 +3402,7 @@ With the EDCRC there is no method to determine the severity of an SEU error i.e.
 
 SEU errors can be read from either the Card BMC SEU Status Register or the PMCI Subsystem SEU Error Indication Register. The processes to read these registers are described in greater detail in the BMC User Guide. Contact your Intel representative for access to the BMC User Guide.
 
-Additionally, refer to the [Intel Agilex SEU Mitigation User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683128/23-1/seu-mitigation-overview.html) for more information on SEU detection and mitigation.
+Additionally, refer to the [Intel Agilex SEU Mitigation User Guide] for more information on SEU detection and mitigation.
 
 
 
@@ -3344,6 +3419,6 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
 

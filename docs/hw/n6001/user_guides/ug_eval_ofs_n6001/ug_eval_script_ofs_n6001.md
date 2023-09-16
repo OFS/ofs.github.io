@@ -32,7 +32,7 @@
 |Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
 |Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
- 
+
 
 ## **1 Overview**
 
@@ -42,11 +42,11 @@
 
 This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL development platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
 
--   Set-up and modify the script to the your environment
+* Set-up and modify the script to the your environment
 
--   Compile and simulate an OFS reference design
+* Compile and simulate an OFS reference design
 
--   Run hardware and software tests to evaluate the complete OFS flow
+* Run hardware and software tests to evaluate the complete OFS flow
 
 
 #### **Table 1-2: Software Version Summary**
@@ -54,16 +54,16 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | Component | Version |  Description |
 | --------- | ------- | -------|
 | FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html)| Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-n6001](https://github.com/OFS/https://github.com/OFS/ofs-n6001), [Tag: ofs-2023.1-1](https://github.com/OFS/https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
-| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.1](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.1](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.1) | Common RTL across all OFS-based platforms |
-| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.5.0-3](https://github.com/OFS/opae-sdk/tree/2.5.0-3), [Tag: 2.5.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3) | Open Programmable Acceleration Engine Software Development Kit |
-| Kernel Drivers | [Branch: ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/tree/ofs-2023.1-6.1-1), [Tag: ofs-2023.1-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-6.1-1) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.5.0-3](https://github.com/OFS/opae-sim/releases/tag/2.5.0-3) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Intel Quartus Prime Pro Edition Design Software | 23.1 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
+| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2023.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
+| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.2](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.2](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.2) | Common RTL across all OFS-based platforms |
+| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
+| OPAE SDK | [Branch: 2.8.0-1](https://github.com/OFS/opae-sdk/tree/2.8.0-1), [Tag: 2.8.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1) | Open Programmable Acceleration Engine Software Development Kit |
+| Kernel Drivers | [Branch: ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/tree/ofs-2023.2-6.1-1), [Tag: ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.2-6.1-1) | OFS specific kernel drivers|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.8.0-1](https://github.com/OFS/opae-sim/releases/tag/2.8.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Intel Quartus Prime Pro Edition Design Software | 23.2 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.1-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.1-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.2-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1) official release drop on GitHub.
 
 <br>
 
@@ -84,16 +84,16 @@ This script uses the following set of software tools which should be installed u
 
 ![](images/ofs_n6001_tools_menu.png)
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.1-1. 
+1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.2-1. 
 
-2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table for locations. Please go [OFS Getting Started User Guide] for the instructions for the BKC installation.
+2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table for locations. When cloning the FIM repository, please follow the instructions in section 4.1 and 4.2 of the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].  Additionally, please go [OFS Getting Started User Guide] for the instructions for the BKC software installation.
 
 3. Once the repositories are cloned, copy the evaluation script (ofs_n6001_eval.sh) which is located at [eval_scripts] beneath the $IOFS_BUILD_ROOT directory location as shown in the example below:
 
 **Figure 2-2 Directory Structure for OFS Project**
 
 ```sh
-## ofs-2023.1-1
+## ofs-2023.2-1
 ##  -> examples-afu
 ##  -> linux-dfl
 ##  -> ofs-n6001
@@ -115,9 +115,9 @@ To adapt this script to the user environment please follow the instructions belo
 
 The user must create the top-level source directory and then clone the OFS repositories
     
-    mkdir ofs-2023.1-1
+    mkdir ofs-2023.2-1
 
-In the example above we have used ofs-2023.1-1 as the directory name
+In the example above we have used ofs-2023.2-1 as the directory name
 
 ### **Set-Up Proxy Server (lines 65-67)**
 
@@ -150,17 +150,17 @@ Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
 
 Set version of Quartus
 
-    export QUARTUS_VERSION=23.1
+    export QUARTUS_VERSION=23.2
 
-In the example above "23.1" is used as the Quartus tools version
+In the example above "23.2" is used as the Quartus tools version
 
 ### **OPAE Tools (line 106)**
 
 change OPAE SDK VERSION<br>
 
-    export OPAE_SDK_VERSION=2.5.0-3
+    export OPAE_SDK_VERSION=2.8.0-1
 
-In the example above "2.5.0-3" is used as the OPAE SDK tools version
+In the example above "2.8.0-1" is used as the OPAE SDK tools version
 
 ### **PCIe (Bus Number) (lines 231 and 238)**
 
@@ -258,14 +258,14 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
                 SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number<br>
                 <br>
                 Checking Tool versions<br>
-                QUARTUS_HOME is set to /home/intelFPGA_pro/23.1/quartus<br>
-                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus<br>
-                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus/../ip<br>
-                QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.1/quartus/../qsys/bin<br>
+                QUARTUS_HOME is set to /home/intelFPGA_pro/23.2/quartus<br>
+                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus<br>
+                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus/../ip<br>
+                QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus/../qsys/bin<br>
                 <br>
                 Checking QPDS Patches<br>
                 Quartus Prime Shell<br>
-                Version 23.1 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
+                Version 23.2 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
                 Copyright (C) XXXX  Intel Corporation. All rights reserved.<br>
                 <br>
                </td>
@@ -1171,5 +1171,5 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™.   
+OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
