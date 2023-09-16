@@ -1,6 +1,6 @@
 # **FPGA Developer Journey Guide: Intel® Open FPGA Stack**
 
-Last updated: **September 15, 2023** 
+Last updated: **September 16, 2023** 
 ## **1 Introduction**
 
 This document is intended to help you understand the FPGA developer flow using OFS as well as considerations you should take when creating your custom platform.  

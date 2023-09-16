@@ -72,7 +72,7 @@ nav:
       - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
       - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
   - Agilex PCIe Attach OFS:
-      - Quick Start Evaluation Guide: 'hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001.md'
+      - Quick Start Evaluation Guide: 'hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach.md'
       - Getting Started (Intel FPGA SmartNIC N6001-PL): 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
       - Getting Started (Intel Agilex 7 FPGA F-Series Development Kit (2x F-Tile)): 'hw/ftile_devkit/user_guides/ug_qs_ofs_ftile.md'
       - FPGA Interface Manager Technical Reference Manual: 'hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001.md'

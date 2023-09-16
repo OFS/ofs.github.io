@@ -1,6 +1,6 @@
-# Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) (AGFB027R24C2E2VR2)
+# Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) 
 
-Last updated: **September 15, 2023** 
+Last updated: **September 16, 2023** 
 
 ## 1.0 About This Document
 

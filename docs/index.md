@@ -26,7 +26,7 @@ To find out more about Intel FPGAs, visit the [Intel Stratix 10](https://www.int
 
  4. If you are an application developer, preview our overview [video](https://www.youtube.com/watch?v=i-z7Oyyg_l8) on how OFS can help you develop FPGA-based workloads and review one of the AFU Developer Guides to find the OFS resources available for creating your own application workload.
 
-* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001/)
+* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2023.2/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/)
 * [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)
 * [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Stratix® 10 FPGA PCIe Attach](https://ofs.github.io/ofs-2023.1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
 

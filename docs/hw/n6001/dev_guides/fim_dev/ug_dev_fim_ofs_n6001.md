@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6001-PL PCIe Attach
 
-Last updated: **September 15, 2023** 
+Last updated: **September 16, 2023** 
 
 ## **1. Introduction**
 
