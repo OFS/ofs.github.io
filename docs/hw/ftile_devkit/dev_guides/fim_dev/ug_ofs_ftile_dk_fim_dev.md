@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) PCIe Attach
 
-Last updated: **September 15, 2023** 
+Last updated: **September 16, 2023** 
 
 ## **1. Introduction**
 
