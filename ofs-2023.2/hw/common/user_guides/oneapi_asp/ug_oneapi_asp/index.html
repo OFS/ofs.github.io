@@ -231,7 +231,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../../../n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/" class="md-tabs__link">
+      <a href="../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link">
         Agilex PCIe Attach OFS
       </a>
     </li>
@@ -637,7 +637,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/" class="md-nav__link">
+      <a href="../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
         Quick Start Evaluation Guide
       </a>
     </li>
@@ -2217,7 +2217,7 @@
 <ul>
 <li>[Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®].</li>
 </ul>
-<p>The oneAPI ASP is required for compiling and running HLD application kernel on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platforms using Intel oneAPI. It is a collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with other <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> components. The hardware components of the oneAPI ASP along with the kernel lie in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region shown in the figure above. For more details about the components of the oneAPI ASP, please refer to <a href="/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<p>The oneAPI ASP is required for compiling and running HLD application kernel on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platforms using Intel oneAPI. It is a collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with other <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> components. The hardware components of the oneAPI ASP along with the kernel lie in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region shown in the figure above. For more details about the components of the oneAPI ASP, please refer to <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
 <p>Figure 1-2 shows the setup steps to use oneAPI base toolkit on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platforms.</p>
 <p><strong>Figure 1-2 Setup Steps for oneAPI base toolkit on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Platforms</strong>
 <a class="glightbox" href="../images/HLD_Development_Flow.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="setup-steps-for-oneapi-base-toolkit-on-ofs-platforms" src="../images/HLD_Development_Flow.PNG" /></a></p>
@@ -2476,7 +2476,7 @@ gcc --version
     ./scripts/build-bsp.sh
 </code></pre></div>
 </pre>
-<p>The generated directory structure is shown below. For more details refer to the <a href="/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<p>The generated directory structure is shown below. For more details refer to the <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
 <pre>
 oneapi-asp/platform-name
 |--ase/
@@ -2554,7 +2554,7 @@ Removing configuration files
 OFS oneAPI-ASP uninstall complete
 </code></pre></div>
 </pre>
-<p>5) Install FPGA Client Driver(FCD) file for the oneAPI ASP using <code>aocl install path-to-oneapi-asp/platform-name</code> command as shown below. The host program uses FCD to find and link to the platform Memory Mapped Device (MMD) library. For more information about MMD library, refer to <a href="/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<p>5) Install FPGA Client Driver(FCD) file for the oneAPI ASP using <code>aocl install path-to-oneapi-asp/platform-name</code> command as shown below. The host program uses FCD to find and link to the platform Memory Mapped Device (MMD) library. For more information about MMD library, refer to <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
 </pre>
 <div class="highlight"><pre><span></span><code>    aocl install path-to-directory-containing-oneapi-asp/oneapi-asp/platform-name
 </code></pre></div>
@@ -2582,7 +2582,7 @@ Run &#39;aocl diagnose&#39; to list devices or &#39;aocl initialize &lt;dev_name
 <h3 id="25-board-initialization"><strong>2.5 Board Initialization</strong><a class="headerlink" href="#25-board-initialization" title="Permanent link">&para;</a></h3>
 <p><a name="init_board"></a></p>
 <p><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software stack expects boards to be initialized with a bitstream for the board variant intended to be used for development. OpenCL sample applications have been provided for generating initialization bitstreams for included board variants for both target devices.</p>
-<p><code>oneapi-asp</code> has four board variants for Intel® Agilex® 7 FPGA and two board variants for Intel® Stratix 10® FPGA (<code>oneapi-asp/platform-name/hardware</code> has the hardware design files for these).One OpenCL sample application has been provided in the <code>oneapi-asp</code> repository named <code>hello_world</code>, for all board variants. For more details on the architecture of the board variants, please refer to the <a href="/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<p><code>oneapi-asp</code> has four board variants for Intel® Agilex® 7 FPGA and two board variants for Intel® Stratix 10® FPGA (<code>oneapi-asp/platform-name/hardware</code> has the hardware design files for these).One OpenCL sample application has been provided in the <code>oneapi-asp</code> repository named <code>hello_world</code>, for all board variants. For more details on the architecture of the board variants, please refer to the <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
 <p><strong>Table 2-5 OpenCL Sample Applications</strong></p>
 <table>
 <thead>
@@ -2949,7 +2949,7 @@ $ sudo opae.io ls
 <p><a name="next_step_customer"></a></p>
 <p>Once you have completed running the oneAPI sample application, you can start developing your own applications.</p>
 <p>For more information about developing FPGA applications with Intel oneAPI, refer to <a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top.html">Intel® oneAPI Programming Guide</a> and <a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top.html">FPGA Optimization Guide for Intel® oneAPI Toolkits</a>.</p>
-<p>If you want to customize the oneAPI ASP, you can refer to <a href="/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<p>If you want to customize the oneAPI ASP, you can refer to <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
 <h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
 <p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
 No product or component can be absolutely secure. 
