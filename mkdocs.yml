@@ -78,7 +78,7 @@ nav:
       - FPGA Interface Manager Technical Reference Manual: 'hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001.md'
       - FPGA Interface Manager Developer Guide for PCIe Attach (P-Tile/E-Tile): 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
       - FPGA Interface Manager Developer Guide for PCIe Attach (2xF-Tile): 'hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev.md'
-      - AFU Developer Guide: 'hw/common/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach.md'
+      - AFU Developer Guide: 'hw/common/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_%20afu_ofs_agx7_pcie_attach.md'
       - HPS Developer Guide: 'hw/n6001/dev_guides/hps_dev/hps_developer_ug.md'
       - Simulation User Guide: 'hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001.md'  
       - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
