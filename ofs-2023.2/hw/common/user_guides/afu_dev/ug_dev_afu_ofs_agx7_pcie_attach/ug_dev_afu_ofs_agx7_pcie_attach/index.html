@@ -9,13 +9,17 @@
       
       
       
+        <link rel="prev" href="../../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/">
+      
+      
+        <link rel="next" href="../../../../../n6001/dev_guides/hps_dev/hps_developer_ug/">
       
       <link rel="icon" href="../../../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
     
     
       
-        <title>**AFU Development Guide: OFS for Intel® Agilex® 7 PCIe Attach FPGAs** - OFS</title>
+        <title>AFU Developer Guide - OFS</title>
       
     
     
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              **AFU Development Guide: OFS for Intel® Agilex® 7 PCIe Attach FPGAs**
+              AFU Developer Guide
             
           </span>
         </div>
@@ -221,13 +225,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link">
+      <a href="../../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link md-tabs__link--active">
         Agilex PCIe Attach OFS
       </a>
     </li>
@@ -578,14 +584,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
         
@@ -618,7 +626,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Agilex PCIe Attach OFS
@@ -659,8 +667,8 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile.md" class="md-nav__link">
-        Getting Started (Intel Agilex 7 FPGA F-Series Development Kit (2x F-Tile))
+      <a href="../../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        Getting Started (Intel Agilex 7 FPGA F-Series Development Kit 2xF-Tile)
       </a>
     </li>
   
@@ -713,11 +721,364 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../../afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_%20afu_ofs_agx7_pcie_attach.md" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          AFU Developer Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         AFU Developer Guide
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-introduction" class="md-nav__link">
+    1. Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-document-organization" class="md-nav__link">
+    1.1. Document Organization
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1. Document Organization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#111-glossary" class="md-nav__link">
+    1.1.1. Glossary
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-prerequisite" class="md-nav__link">
+    1.2. Prerequisite
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-acceleration-functional-unit-afu-development-flow" class="md-nav__link">
+    1.3. Acceleration Functional Unit (AFU) Development Flow
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3. Acceleration Functional Unit (AFU) Development Flow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#131-understanding-platform-capabilities" class="md-nav__link">
+    1.3.1. Understanding Platform Capabilities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#132-high-level-data-flow" class="md-nav__link">
+    1.3.2. High Level Data Flow
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#133-considerations-for-pim-usage" class="md-nav__link">
+    1.3.3. Considerations for PIM Usage
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#134-afu-interfaces-included-with-intel-fpga-smartnic-n6001-pl" class="md-nav__link">
+    1.3.4. AFU Interfaces Included with Intel® FPGA SmartNIC N6001-PL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-set-up-afu-development-environment" class="md-nav__link">
+    2. Set Up AFU Development Environment
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Set Up AFU Development Environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-prepare-afu-development-environment" class="md-nav__link">
+    2.1. Prepare AFU development environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-installation-of-quartus-and-ofs" class="md-nav__link">
+    2.2. Installation of Quartus and OFS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-installation-of-opae-sdk" class="md-nav__link">
+    2.3. Installation of OPAE SDK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-download-the-basic-building-blocks-repositories" class="md-nav__link">
+    2.4. Download the Basic Building Blocks repositories
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-compiling-the-ofs-fim-for-the-intel-fpga-smartnic-n6001-pl" class="md-nav__link">
+    2.5. Compiling the OFS FIM for the Intel® FPGA SmartNIC N6001-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5. Compiling the OFS FIM for the Intel® FPGA SmartNIC N6001-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-setting-up-the-required-environment-variables-to-build-the-fim" class="md-nav__link">
+    2.5.1. Setting Up the Required Environment Variables to build the FIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-compiling-the-pcie-attach-fim" class="md-nav__link">
+    2.5.2 Compiling the PCIe Attach FIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-compiling-the-fim-in-preparation-for-designing-your-afu" class="md-nav__link">
+    2.5.3. Compiling the FIM in preparation for designing your AFU
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#254-load-the-fim-into-the-flash-of-the-intel-fpga-smartnic-n6001-pl" class="md-nav__link">
+    2.5.4. Load the FIM into the Flash of the Intel® FPGA SmartNIC N6001-PL
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-compiling-an-afu" class="md-nav__link">
+    3. Compiling an AFU
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Compiling an AFU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-create-the-afu-synthesis-environment" class="md-nav__link">
+    3.1. Create the AFU Synthesis Environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-loading-and-running-host_chan_mmio-example-afu" class="md-nav__link">
+    3.2. Loading and Running host_chan_mmio example AFU
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-loading-and-running-the-hello_world-example-afu" class="md-nav__link">
+    3.3. Loading and running the hello_world example AFU
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-modify-the-afu-user-clocks-frequency" class="md-nav__link">
+    3.4. Modify the AFU user clocks frequency
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-simulating-an-afu-using-ase" class="md-nav__link">
+    4. Simulating an AFU using ASE
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Simulating an AFU using ASE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-set-up-steps-to-run-ase" class="md-nav__link">
+    4.1. Set Up Steps to Run ASE
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1. Set Up Steps to Run ASE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-install-opae-sdk" class="md-nav__link">
+    4.1.1. Install OPAE SDK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-install-ase-tools" class="md-nav__link">
+    4.1.2 Install ASE Tools
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-setup-required-ase-environment-variables" class="md-nav__link">
+    4.1.3. Setup Required ASE Environment Variables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-simulating-the-host_chan_mmio-afu" class="md-nav__link">
+    4.2. Simulating the host_chan_mmio AFU
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2. Simulating the host_chan_mmio AFU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#421-set-up-and-run-the-hw-simulation-process" class="md-nav__link">
+    4.2.1 Set Up and Run the HW Simulation Process
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#422-set-up-and-run-the-sw-process" class="md-nav__link">
+    4.2.2 Set Up and Run the SW Process
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-simulating-the-hello_world-afu" class="md-nav__link">
+    4.3 Simulating the hello_world AFU
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-adding-remote-signal-tap-logic-analyzer-to-debug-the-afu" class="md-nav__link">
+    5. Adding Remote Signal Tap Logic Analyzer to debug the AFU
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Adding Remote Signal Tap Logic Analyzer to debug the AFU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-adding-rstp-to-the-host_chan_mmio-afu" class="md-nav__link">
+    5.1. Adding RSTP to the host_chan_mmio AFU
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-how-to-modify-the-pfvf-mux-configuration" class="md-nav__link">
+    6. How to modify the PF/VF MUX configuration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
