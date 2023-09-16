@@ -33,8 +33,8 @@ There are two ways to evaluate OFS depending on your needs:
 
 1. Setup your card and software in a server using the steps provided in one of the corresponding **Getting Started Guides** and leverage the appended binaries in the FIM RTL repository release page "Assets" tab to preview the software tools and design functionality the OFS framework provides you out of the box.  This step will give you a good high-level overview of OFS. **Getting Started Guides** are available for the following FIM(shell) designs:
 
-* [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
-* [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs (Intel Agilx 7 FPGA F-Series Development Kit (2xF-Tile))](/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
+* [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
+* [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs (Intel Agilx 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
 * [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs](/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/)
 * [Getting Started Guide: Open FPGA Stack for Intel® Stratix® 10 PCIe Attach FPGAs](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/)
 
@@ -288,7 +288,7 @@ The FIM Developer Guides for each reference FIM show you how to make these chang
 
 If you are also interested in testing different examples for the Acceleration Functional Unit (AFU) or workload region of your design or creating your own AFU design, you can refer to the corresponding **AFU Developer Guides**:
 
-* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2023.2/hw/common/dev_guides/afu_dev/ug_dev_fim_ofs_agx7_pcie_attach/)
+* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2023.2/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach)
 * [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)
 * [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Stratix® 10 FPGA PCIe Attach]
 

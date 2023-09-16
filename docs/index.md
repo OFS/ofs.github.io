@@ -26,7 +26,7 @@ To find out more about Intel FPGAs, visit the [Intel Stratix 10](https://www.int
 
  4. If you are an application developer, preview our overview [video](https://www.youtube.com/watch?v=i-z7Oyyg_l8) on how OFS can help you develop FPGA-based workloads and review one of the AFU Developer Guides to find the OFS resources available for creating your own application workload.
 
-* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2023.2/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/)
+* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2023.2/hw/common/user_guides/afu_dev/ug_dev_%20afu_ofs_agx7_pcie_attach)
 * [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)
 * [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Stratix® 10 FPGA PCIe Attach](https://ofs.github.io/ofs-2023.1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
 
@@ -38,7 +38,7 @@ Beyond the resources we have on this [site](https://ofs.github.io), you can navi
 
 Below details the four current reference designs (aka FIMs) you can choose from:
 
-**Figure 3-1: OFS FIM Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup>7 PCIe Attach (P-tile, E-tile)**
+**OFS FIM Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup>7 PCIe Attach (P-tile, E-tile)**
 
 
 <image src="hw/n6001/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.png">
@@ -64,9 +64,9 @@ Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</s
 <br>
 
 
-**Figure 3-2: OFS FIM Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup>7 PCIe Attach (2xF-tile)**
+**OFS FIM Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup>7 PCIe Attach (2xF-tile)**
 
-<image src="hw/common/user_guides/ug_fpga_Developer/images/F-tile-PCIe-Attach.png">
+<image src="hw/common/user_guides/ug_fpga_developer/images/F-tile-PCIe-Attach.png">
 
 
 | Key Feature                           | Description                                                  |
@@ -88,7 +88,7 @@ Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</s
 <br>
 
 
-**Figure 3-3: OFS FIM Features Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> 7 SoC Attach**
+**OFS FIM Features Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> 7 SoC Attach**
 
 <image src="hw/f2000x/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.svg">
 
@@ -113,7 +113,7 @@ Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</s
 <br>
 
 
-**Figure 3-4: OFS FIM Targeting Intel<sup>&reg;</sup> Stratix<sup>&reg;</sup> 10 FPGA PCIe Attach**
+**OFS FIM Targeting Intel<sup>&reg;</sup> Stratix<sup>&reg;</sup> 10 FPGA PCIe Attach**
 
 <image src="hw/d5005/reference_manuals/ofs_fim/images/FIM-s10-OFS.png">
 

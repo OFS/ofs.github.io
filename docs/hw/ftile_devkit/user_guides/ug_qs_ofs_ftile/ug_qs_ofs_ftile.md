@@ -267,7 +267,7 @@ Steps:
   quartus_pgmw
   ```
 
-  ![quartus_pgmw](/hw/n6001/doc_modules/images/quartus_pgmw.png)
+  ![quartus_pgmw](images/quartus_pgmw.png)
 
 6. Click **Hardware Setup** to open the Hardware Setup dialog window.
 
