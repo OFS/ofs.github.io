@@ -12,31 +12,31 @@
 [Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html?
 
 
-[FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs]: /hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/
+[FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/
 [Qualified Servers]: https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html
-[OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs]: /hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/
-[Open FPGA Stack Reference Manual - MMIO Regions section]: /hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions
-[Device Feature Header (DFH) structure]: /hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure
+[OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/
+[Open FPGA Stack Reference Manual - MMIO Regions section]: https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions
+[Device Feature Header (DFH) structure]: https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure
 [FPGA Device Feature List (DFL) Framework Overview]: https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview
 [ofs-platform-afu-bbb]: https://github.com/OPAE/ofs-platform-afu-bbb
 [Connecting an AFU to a Platform using PIM]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
-[OFS AFU Development Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs]: /hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
+[OFS AFU Development Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
 [example AFUs]: https://github.com/OFS/examples-afu.git
 [PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial
 [Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial
-[Unit Level Simulation]: /hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation
+[Unit Level Simulation]: https://ofs.github.io/ofs-2023.2/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation
 
 [Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs]: https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md
 [Board Management User Guide]: https://github.com/otcshare/intel-ofs-docs/blob/main/d5005/user_guides/%20ug_security_ofs_d5005/ug-pac-security-d5005.md
 [OPAE.io]: https://opae.github.io/latest/docs/fpga_tools/opae.io/opae.io.html
 [OPAE GitHub]: https://github.com/OFS/opae-sdk
 
-[5.0 OPAE Software Development Kit]: /hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit
+[5.0 OPAE Software Development Kit]: https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit
 [Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® PCIe Attach FPGAs]: https://github.com/OFS/otcshare/blob/main/hw/docs/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md
 [README_ofs_d5005_eval.txt]: https://github.com/OFS/ofs-d5005/blob/release/1.0.x/eval_scripts/README_ofs_d5005_eval.txt
-[FIM MMIO Regions]: /hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions
+[FIM MMIO Regions]: https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions
 
-[FIM Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs]: /hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/
+[FIM Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/
 
 
 [evaluation script]: https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.2-1

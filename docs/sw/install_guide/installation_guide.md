@@ -83,7 +83,7 @@ Before you build the OPAE SDK, you must install the required packages. Run the f
 # dnf install -y epel-release
 # dnf check-update
 # dnf upgrade -y
-# dnf install -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml python3-pybind11 git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel rpm-build rpmdevtools pybind11-devel yaml-cpp-devel libudev-devel linuxptp
+# dnf install -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml python3-pybind11 git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel rpm-build rpmdevtools pybind11-devel yaml-cpp-devel libudev-devel linuxptp numactl-devel
 # python3 -m pip install jsonschema virtualenv pyyaml
 ```
 
@@ -92,16 +92,16 @@ Before you build the OPAE SDK, you must install the required packages. Run the f
 ```console
 # dnf check-update
 # dnf upgrade -y
-# dnf install -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml python3-pybind11 git gcc g++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel libedit-devel rpm-build rpmdevtools pybind11-devel yaml-cpp-devel libudev-devel cli11-devel spdlog-devel linuxptp
+# dnf install -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml python3-pybind11 git gcc g++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel libedit-devel rpm-build rpmdevtools pybind11-devel yaml-cpp-devel libudev-devel cli11-devel spdlog-devel linuxptp numactl-devel
 # pip3 install jsonschema virtualenv pyyaml
 ```
 
-### Ubuntu 20.04 ###
+### Ubuntu 22.04 ###
 
 ```console
 # apt-get update
 # apt-get upgrade -y
-# apt-get install -y python3 python3-pip python3-dev git gcc g++ make cmake uuid-dev libjson-c-dev libhwloc-dev libtbb-dev libedit-dev libudev-dev linuxptp pandoc devscripts debhelper doxygen
+# apt-get install -y python3 python3-pip python3-dev git gcc g++ make cmake uuid-dev libjson-c-dev libhwloc-dev libtbb-dev libedit-dev libudev-dev linuxptp pandoc devscripts debhelper doxygen libnuma-dev
 # pip3 install jsonschema virtualenv pyyaml pybind11
 ```
 
@@ -120,7 +120,7 @@ Set the RHEL version and install packages. Set proxy name and port number.
 # dnf upgrade -y
 # dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 # dnf install -y python3 python3-pip python3-devel gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel  nmap
-# dnf install -y python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel 
+# dnf install -y python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel numactl-devel
 # dnf check-update || true
 # dnf install -y spdlog-devel cli11-devel python3-pyyaml python3-pybind11 hwloc-devel libedit-devel
 # python3 -m pip install --user jsonschema virtualenv pudb pyyaml

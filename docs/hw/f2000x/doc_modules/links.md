@@ -1,5 +1,5 @@
 
-[Simulation User Guide]:  /hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md
+[Simulation User Guide]:  https://ofs.github.io/ofs-2023.2/hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md
 
 [OFS f2000x FIM Github Branch]: https://github.com/OFS/ofs-f2000x-pl
 [OFS FIM_COMMON Github Branch]: https://github.com/OFS/ofs-fim-common
@@ -20,7 +20,7 @@
 [Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
 [evaluation script]: https://github.com/OFS/ofs-f2000x-pl/tree/release/ofs-2023.2-1
 
-[FPGA Interface Manager Developer's Guide]: /hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md
+[FPGA Interface Manager Developer's Guide]: https://ofs.github.io/ofs-2023.2/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md
 
 
 [OFS]: https://github.com/OFS
@@ -32,7 +32,7 @@
 [fme_csr.sv]: https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/fme_csr.sv
 [Ethernet Subsystem Intel FPGA IP User Guide]: https://cdrdv2-public.intel.com/773414/intelofs-773413-773414.pdf
 
-[Getting Started Guide: Intel® Open FPGA Stack for Intel FPGA]: /hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/
+[Getting Started Guide: Intel® Open FPGA Stack for Intel FPGA]: https://ofs.github.io/ofs-2023.2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/
 
 
 [FPGA Device Feature List (DFL) Framework Overview]: https://github.com/OPAE/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview
@@ -58,23 +58,23 @@
 
 [Compiling the FIM in preparation for designing your AFU]: #6-compiling-the-fim-in-preparation-for-designing-your-afu
 
-[AFU Development Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: /hw/f2000x/dev_guides/afu_dev/ug_dev_afu_f2000x
-[FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs
-[Getting Started User Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: /hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x
+[AFU Development Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_f2000x
+[FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs
+[Getting Started User Guide: OFS for Intel® Agilex® SoC Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x
 
 
 [Connecting an AFU to a Platform using PIM]: https://github.com/OPAE/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
 [Signal Tap Logic Analyzer: Introduction & Getting Started]: https://www.intel.com/content/www/us/en/programmable/support/training/course/odsw1164.html
 [Quartus Pro Prime Download]: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
 
-[6.2 Installing the OPAE SDK On the Host]: /hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host
+[6.2 Installing the OPAE SDK On the Host]: https://ofs.github.io/ofs-2023.2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host
 
 [PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial
 [Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial
 
 
 
-[FIM Technical Reference Manual: Interconnect Fabric]: /hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/#5-interconnect-fabric
+[FIM Technical Reference Manual: Interconnect Fabric]: https://ofs.github.io/ofs-2023.2/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/#5-interconnect-fabric
 
 
 [Intel FPGA PCI Express Subsystem IP User Guide]: https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf
@@ -84,20 +84,20 @@
 [Intel FPGA Ethernet Subsystem IP User Guide]: https://www.intel.com/content/www/us/en/docs/programmable/773413/23-1-22-5-0/introduction.html
 
 
-[Clone the OFS Git Repo]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo
-[Setting Up Required Environment Variables]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables
-[How to Resize the Partial Reconfiguration Region]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region
-[Compiling the FIM]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#442-compiling-the-fim
-[High Level Development Flow]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-high-level-development-flow
-[Custom FIM Development Flow]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#5-custom-fim-development-flow
-[Create a Relocatable PR Directory Tree]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim
-[Pre-Requisites for Adding Hello FIM]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#515-pre-requisites-for-adding-hello-fim
-[How to add a new module to the FIM]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-how-to-add-a-new-module-to-the-fim
-[Installation of OFS]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#42-installation-of-ofs
-[How to compile the FIM in preparation for designing your AFU]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu
-[Compiling the OFS FIM Using Quartus GUI]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui
+[Clone the OFS Git Repo]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo
+[Setting Up Required Environment Variables]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables
+[How to Resize the Partial Reconfiguration Region]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region
+[Compiling the FIM]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#442-compiling-the-fim
+[High Level Development Flow]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-high-level-development-flow
+[Custom FIM Development Flow]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#5-custom-fim-development-flow
+[Create a Relocatable PR Directory Tree]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim
+[Pre-Requisites for Adding Hello FIM]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#515-pre-requisites-for-adding-hello-fim
+[How to add a new module to the FIM]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-how-to-add-a-new-module-to-the-fim
+[Installation of OFS]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#42-installation-of-ofs
+[How to compile the FIM in preparation for designing your AFU]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu
+[Compiling the OFS FIM Using Quartus GUI]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui
 
-[Configuring the FPGA with a SOF Image via JTAG]: /hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#522-configuring-the-fpga-with-a-sof-image-via-jtag
+[Configuring the FPGA with a SOF Image via JTAG]: https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#522-configuring-the-fpga-with-a-sof-image-via-jtag
 
 [OFS-F2000X-PL release]: https://github.com/OFS/ofs-f2000x-pl/releases/ofs-2023.2-1
 

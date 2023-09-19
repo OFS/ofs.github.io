@@ -1,6 +1,6 @@
 This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
 
-1. Ensure that ${{ env.QUARTUS_PP_VER_L }} for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Walkthrough: Install Quartus Prime Pro Software](/hw/doc_modules/quartus_installation) section for step-by-step installation instructions.
+1. Ensure that ${{ env.QUARTUS_PP_VER_L }} for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Walkthrough: Install Quartus Prime Pro Software] section for step-by-step installation instructions.
 
   1. Verify version number
 

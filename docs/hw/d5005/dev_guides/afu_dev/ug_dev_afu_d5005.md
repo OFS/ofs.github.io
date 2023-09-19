@@ -19,7 +19,7 @@ This diagram shows the FPGA board interface development separation from the inte
 - Scripts for both compilation setup
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
 
-Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/). This guide covers logic in the AFU Main (PR) region.
+Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/). This guide covers logic in the AFU Main (PR) region.
 
 
 ## 1.1 Document Organization
@@ -72,7 +72,7 @@ The following server and Intel® PAC card are required to run the examples in th
 
 1. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Intel® for root entry hash erase instructions). The standard Intel® FPGA PAC D5005 card is programmed only to allow the FIM binary files signed by Intel® to be loaded. The root entry hash erases process will allow unsigned FIM binary files to be loaded.
 2. Qualified Server Models see [Qualified Servers](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html).
-3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 ## 1.3 Acceleration Functional Unit (AFU) Development Flow
 
@@ -151,9 +151,9 @@ Peripherals are presented to software as:
 
 The peripherals connected to the peripheral fabric are primarily OPAE managed resources, whereas the peripherals connected to the AFU are "primarily" driven by native OS drivers. The word "primarily" is used since the AFU is not mandated to expose all its peripherals to Intel® OPAE. Instead, it can be connected to the peripheral fabric but can choose to expose only a subset of its capability to OPAE.
 
-OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software. These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software. These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
 
-If you make changes to the FIM that affect the software operation, Intel® OFS provides a mechanism to communicate that information to the proper software driver. The [Device Feature Header (DFH) structure](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software. Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, Intel® OFS provides a mechanism to communicate that information to the proper software driver. The [Device Feature Header (DFH) structure](https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software. Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
 
 When planning your address space for your FIM updates, please be aware OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features, and 128kB of MMIO region is given for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at the 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of the external feature list. Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
@@ -225,11 +225,11 @@ Typical development and hardware test environments consist of a development serv
 
 ![](./images/AFU_Dev_Deploy.png)
 
-Please refer to Unit Level Simulation if you would like to make any simulation [Unit Level Simulation](/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation).
+Please refer to Unit Level Simulation if you would like to make any simulation [Unit Level Simulation](https://ofs.github.io/ofs-2023.2/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation).
 
 Note that both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
+This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
 
 
 > **_NOTE:_**  
@@ -755,7 +755,7 @@ sudo fpgainfo fme
 
 The base FIM used in AFU compilation must be loaded on the board. In this step, you will load the generated FIM binary into the Intel® FPGA PAC D5005 FPGA flash. By performing this step, subsequent AFU developed in this guide will use this base FIM and allow your newly created AFU to match the base FIM loaded on the board.
 
-More information related to fpgaupdate is located [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+More information related to fpgaupdate is located [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 Run fpgasupdate to load the image into the user location of the Intel® FPGA PAC D5005 FPGA flash and the <span title='Remote System Update, A Remote System Update operation sends an instruction to the Intel® FPGA PAC D5005 that triggers a power cycle of the card only, forcing reconfiguration.'>**RSU** </span> command to reboot the PCIE Card:
 
@@ -1446,9 +1446,9 @@ In this section you will set up your server to support ASE by independently down
 ### 5.1.1. Install OPAE SDK
 
 
-Follow the instructions documented in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005, section [5.0 OPAE Software Development Kit](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card.
+Follow the instructions documented in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005, section [5.0 OPAE Software Development Kit](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card.
 
-The Intel® FPGA PAC D5005 PAC card requires **opae-2.8.0-1**. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005 section [5.0 OPAE Software Development Kit](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.8.0-1** and branch **release/2.8.0**.
+The Intel® FPGA PAC D5005 PAC card requires **opae-2.8.0-1**. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005 section [5.0 OPAE Software Development Kit](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.8.0-1** and branch **release/2.8.0**.
 
 ```bash
 git checkout tags/2.8.0-1 -b release/2.8.0

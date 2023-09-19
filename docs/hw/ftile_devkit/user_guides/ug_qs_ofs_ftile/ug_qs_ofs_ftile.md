@@ -1,6 +1,6 @@
 # Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) 
 
-Last updated: **September 16, 2023** 
+Last updated: **September 19, 2023** 
 
 ## 1.0 About This Document
 
@@ -267,7 +267,7 @@ Steps:
   quartus_pgmw
   ```
 
-  ![quartus_pgmw](/hw/n6001/doc_modules/images/quartus_pgmw.png)
+  ![quartus_pgmw](images/quartus_pgmw.png)
 
 6. Click **Hardware Setup** to open the Hardware Setup dialog window.
 
