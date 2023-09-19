@@ -1,15 +1,15 @@
 [OFS Welcome Page]: https://ofs.github.io/ofs-2023.2/
-[OFS Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]: /hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
-[Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]: /hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/
-[Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]: /hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/
-[AFU Development Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]: /hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/
-[Simulation User Guide: Open FPGA STack for Intel® Agilex® PCIe Attach FPGAs]: /hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/
-[FPGA Interface Manager Developer Guide: For Intel® Agilex® PCIe Attach FPGAs]: /hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/
-[OFS Getting Started User Guide: For Intel® Agilex® PCIe Attach FPGAs]: /hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
+[OFS Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
+[Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/
+[Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/
+[AFU Development Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/
+[Simulation User Guide: Open FPGA STack for Intel® Agilex® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/
+[FPGA Interface Manager Developer Guide: For Intel® Agilex® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/
+[OFS Getting Started User Guide: For Intel® Agilex® PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
 
 [OFS-N6001 release]: https://github.com/OFS/ofs-n6001/releases
-[FPGA Interface Manager Developer Guide for Intel® Agilex® 7 PCIe Attach]: /hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/
-[Getting Started User Guide: OFS for Intel® Agilex® 7 PCIe Attach FPGAs]: /hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
+[FPGA Interface Manager Developer Guide for Intel® Agilex® 7 PCIe Attach]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/
+[Getting Started User Guide: OFS for Intel® Agilex® 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
 
 [FPGA Device Feature List (DFL) Framework Overview]: https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview
 [ofs-platform-afu-bbb]: https://github.com/OFS/ofs-platform-afu-bbb
@@ -30,7 +30,7 @@
 
 [README_ofs_n6001_eval.txt]: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1
 
-[FIM MMIO Regions]: /hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/#6-mmio-regions
+[FIM MMIO Regions]: https://ofs.github.io/ofs-2023.2/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/#6-mmio-regions
 
 
 [evaluation script]: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1
@@ -39,9 +39,9 @@
 [DFL Wiki]: https://github.com/OPAE/linux-dfl/wiki
 [release notes]: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1
 
-[Setting Up Required Environment Variables]: /hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-setting-up-required-environment-variables
+[Setting Up Required Environment Variables]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-setting-up-required-environment-variables
 
-[4.0 OPAE Software Development Kit]: /hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit
+[4.0 OPAE Software Development Kit]: https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit
 
 [Signal Tap Logic Analyzer: Introduction & Getting Started]: https://www.intel.com/content/www/us/en/programmable/support/training/course/odsw1164.html
 [Quartus Pro Prime Download]: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html

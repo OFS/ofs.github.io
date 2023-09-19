@@ -1,6 +1,6 @@
-# **AFU Development Guide: OFS for Intel® Agilex® SoC Attach FPGAs**
+# **AFU Development Guide: OFS for Intel® Intel® Agilex® 7 FPGA SoC Attach FPGAs**
 
-Last updated: **September 16, 2023** 
+Last updated: **September 19, 2023** 
 
 ## **1. Introduction**
 
@@ -17,7 +17,7 @@ This diagram shows the separation of FPGA board interface development from the i
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
   
 
-Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs). This guide covers logic in the AFU Main region.
+Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs). This guide covers logic in the AFU Main region.
 
 ### **1.1. Document Organization**
 
@@ -56,7 +56,7 @@ This guide assumes you have the following FPGA logic design-related knowledge an
 * Simulation of complex RTL using industry standard simulators (Synopsys® VCS® or Siemens® QuestaSim®).
 * Signal Tap Logic Analyzer tool in the Intel® Quartus® Prime Pro Edition software.
 
-You are strongly encouraged to review the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs)
+You are strongly encouraged to review the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs)
 
 ### **1.3. Acceleration Functional Unit (AFU) Development Flow**
 
@@ -141,7 +141,7 @@ A typical development and hardware test environment consists of a development se
 
 Note: both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel IPU Platform F2000X-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The Intel IPU Platform F2000X-PL must be fully installed following the [Getting Started User Guide: OFS for Intel® Agilex® SoC Attach FPGAs](/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
+This guide uses Intel IPU Platform F2000X-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The Intel IPU Platform F2000X-PL must be fully installed following the [Getting Started User Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
 
 The following is a summary of the steps to set up for AFU development:
 
@@ -235,9 +235,9 @@ The OFS provided Quartus build scripts require the following tools. Verify these
 
 ### **2.4. Installation of OPAE SDK**
 
-Follow the instructions in the Getting Started Guide: Open FPGA Stack for Intel IPU Platform F2000X-PL, section [6.2 Installing the OPAE SDK On the Host](/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host) to build and install the required OPAE SDK for the Intel IPU Platform F2000X-PL.
+Follow the instructions in the Getting Started Guide: Open FPGA Stack for Intel IPU Platform F2000X-PL, section [6.2 Installing the OPAE SDK On the Host](https://ofs.github.io/ofs-2023.2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host) to build and install the required OPAE SDK for the Intel IPU Platform F2000X-PL.
 
-Working with the Intel® Intel IPU Platform F2000X-PL card requires **opae-2.5.0-3**. Follow the instructions in the Getting Started Guide: Intel® Open FPGA Stack for Intel IPU Platform F2000X-PL section [6.2 Installing the OPAE SDK On the Host](/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host). Make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
+Working with the Intel® Intel IPU Platform F2000X-PL card requires **opae-2.5.0-3**. Follow the instructions in the Getting Started Guide: Intel® Open FPGA Stack for Intel IPU Platform F2000X-PL section [6.2 Installing the OPAE SDK On the Host](https://ofs.github.io/ofs-2023.2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host). Make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```sh
 $ git checkout tags/2.5.0-3 -b release/2.5.0
@@ -294,7 +294,7 @@ $ export OPAE_PLATFORM_ROOT=$PWD
 
 ```
 
-To build your own FIM and generate the PR build tree for the Intel IPU Platform F2000X-PL platform, refer the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs) and follow the Out-of-Tree PR FIM build flow.  If you are using a different platform, refer to the FPGA Interface Manager Developer Guide for your platform and follow the Out-of-Tree PR FIM build flow.
+To build your own FIM and generate the PR build tree for the Intel IPU Platform F2000X-PL platform, refer the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs) and follow the Out-of-Tree PR FIM build flow.  If you are using a different platform, refer to the FPGA Interface Manager Developer Guide for your platform and follow the Out-of-Tree PR FIM build flow.
 
 ### **2.7. Download FIM to FPGA**
 
@@ -922,9 +922,9 @@ In this section you will set up your server to support ASE by independently down
 #### **4.1.1. Install OPAE SDK**
 
 
-Follow the instructions documented in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 FPGAs Targeting the Intel IPU Platform F2000X-PL, section [6.2 Installing the OPAE SDK On the Host](/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host) to build and install the required OPAE SDK for the Intel IPU Platform F2000X-PL card.
+Follow the instructions documented in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 FPGAs Targeting the Intel IPU Platform F2000X-PL, section [6.2 Installing the OPAE SDK On the Host](https://ofs.github.io/ofs-2023.2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host) to build and install the required OPAE SDK for the Intel IPU Platform F2000X-PL card.
 
-The F2000x SKU2 card requires **2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 FPGAs Targeting the Intel IPU Platform F2000X-PL, section [6.2 Installing the OPAE SDK On the Host](/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
+The F2000x SKU2 card requires **2.5.0-3**. Follow the instructions provided in the Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 FPGAs Targeting the Intel IPU Platform F2000X-PL, section [6.2 Installing the OPAE SDK On the Host](https://ofs.github.io/ofs-2023.2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host). However, just make sure to check out the cloned repository to tag **2.5.0-3** and branch **release/2.5.0**.
 
 ```sh
 $ git checkout tags/2.5.0-3 -b release/2.5.0
@@ -1319,7 +1319,7 @@ Remote Signal Tap is currently not supported in F2000x base FIM configuration.
 ## **6. How to modify the PF/VF MUX configuration**
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs).
+For information on how to modify the PF/VF mapping for your own design, refer to the [FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® SoC Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs).
 
 ## Notices & Disclaimers
 

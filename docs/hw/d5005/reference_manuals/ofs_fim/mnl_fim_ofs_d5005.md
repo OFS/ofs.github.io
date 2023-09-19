@@ -217,7 +217,7 @@ Each FME feature exposes its capability to host software drivers through
 a device feature header (DFH) register found at the beginning of its control
 status register (CSR) space. The FME CSR maps to physical function 0
 (PF0) Base address register 0 (BAR0) so that software can access it
-through a single PCIe link.  For more information about DFHs, refer to the [Device Feature Header (DFH) structure](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure).
+through a single PCIe link.  For more information about DFHs, refer to the [Device Feature Header (DFH) structure](https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure).
 
 ##### **Streaming Datapath**
 

@@ -1,6 +1,6 @@
 # **FPGA Interface Manager Technical Reference Manual for Intel Agilex 7 SoC Attach: Open FPGA Stack**
 
-Last updated: **September 16, 2023** 
+Last updated: **September 19, 2023** 
 
 ## 1 Overview
 
@@ -287,7 +287,7 @@ Verification components include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found [here](https://github.com/OFS/ofs-f2000x-pl/verification) for evaluation and use. Please refer to the [Simulation User Guide]( /hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md) for more information.
+The verification infrastructure can be found [here](https://github.com/OFS/ofs-f2000x-pl/verification) for evaluation and use. Please refer to the [Simulation User Guide]( https://ofs.github.io/ofs-2023.2/hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md) for more information.
 
 
 ## 2 OFS High Level Architecture
@@ -1535,7 +1535,7 @@ Files for design, build and unit test simulation are found at https://github.com
 ### 15.1 Design Guidance
 
 
-The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the [FPGA Interface Manager Developer's Guide](/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
+The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/ofs-2023.2/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
 
 **Table 15-2 Features**
 
@@ -1545,9 +1545,9 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
 | 2    | Update Arm® AMBA® 4 AXI4-Stream PF/VF MUX-DEMUX configuration (if necessary) | * The PF/VF MUX-DEMUX is parameterized for flexibility. You can change, add or delete PF or VF functions by updating the top_cfg_pkg.sv file. * You also have the option of keeping the default configuration and tying off the unused VFs if needed. |
 | 3    | Update top level and AFU level as necessary                  | * If you integrating additional external interfaces, make the edits at the top level (ofs_top.sv) and propagate the interface down to the AFU level (afu_top.sv and soc_afu_top.sv) |
 | 4    | Add user implemented function(s) in AFU                      | * All of your implemented functions must have the required Arm® AMBA® 4 AXI4-Stream interface for both the data path and the MMIO control path to CSRs. <br />* All CSRs in the user-implemented function must have the required DFH layout. <br />* See host exerciser CSRs for reference. |
-| 5    | Update UVM testbench                                         | * The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory, and Ethernet. <br />* User must update the UVM testbench to reflect new RTL behavior for any customization changes. <br />See The [Simulation User Guide]( /hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md) |
+| 5    | Update UVM testbench                                         | * The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory, and Ethernet. <br />* User must update the UVM testbench to reflect new RTL behavior for any customization changes. <br />See The [Simulation User Guide]( https://ofs.github.io/ofs-2023.2/hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md) |
 
-For more information on modifying the FIM, refer to the [FPGA Interface Manager Developer's Guide](/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
+For more information on modifying the FIM, refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/ofs-2023.2/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
 
 
 

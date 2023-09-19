@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6001-PL PCIe Attach
 
-Last updated: **September 16, 2023** 
+Last updated: **September 19, 2023** 
 
 ## **1. Introduction**
 
@@ -54,7 +54,7 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 It is recommended that you have the following knowledge and skills before using this developer guide.
 
 * Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2023.2/).
-* Review of [OFS Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
+* Review of [OFS Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
 * FPGA compilation flows using Intel® Quartus® Prime Pro Edition.
 * Static Timing closure, including familiarity with the Timing Analyzer tool in Intel® Quartus® Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 * RTL (System Verilog) and coding practices to create synthesized logic.
@@ -220,7 +220,7 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 
 This section describes the components required for OFS FIM development, and provides a walkthrough for setting up the environment on your development machine.
 
-Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)] for instructions on setting up the environment for deployment machines.
+Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up the environment for deployment machines.
 
 #### **1.3.1 Development Tools**
 
@@ -460,7 +460,7 @@ Perform the following steps to set the required environment variables. These env
 
 This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
 
-1. Ensure that Quartus Prime Pro Version 23.2 for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Walkthrough: Install Quartus Prime Pro Software](/hw/doc_modules/quartus_installation) section for step-by-step installation instructions.
+1. Ensure that Quartus Prime Pro Version 23.2 for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Walkthrough: Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
 
   1. Verify version number
 
@@ -518,7 +518,7 @@ This walkthrough guides you through the process of setting up your development e
       cmake version 3.15
       ```
 
-  4. git with git-lfs 1.8.3.1 or later. Refer to the [Walkthrough: Install Git Large File Storage Extension] section for step-by-step instructions on installing the Git Large File Storage (LFS) extension.
+  4. git with git-lfs 1.8.3.1 or later. Refer to the [Walkthrough: Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#1312-walkthrough-install-git-large-file-storage-extension) section for step-by-step instructions on installing the Git Large File Storage (LFS) extension.
 
     1. Verify version number
 
@@ -532,7 +532,7 @@ This walkthrough guides you through the process of setting up your development e
       git version 1.8.3.1
       ```
 
-3. Clone the ofs-agx7-pcie-attach repository. Refer to the [Walkthrough: Clone FIM Repository] section for step-by-step instructions.
+3. Clone the ofs-agx7-pcie-attach repository. Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
 4. Install UART IP license patch `.02`.
 
@@ -713,7 +713,7 @@ Currently supported configuration options for an OFSS file with IP type `iopll` 
 
 ##### **2.1.2.5 Memory IP OFSS File**
 
-An OFSS file with IP type `memory` (e.g. `$OFS_ROOTDIR/tools/ofss_config/memory/memory_ftile.ofss`) is used to configure the Memory-SS in the FIM.
+An OFSS file with IP type `memory` (e.g. `$OFS_ROOTDIR/tools/ofss_config/memory/memory.ofss`) is used to configure the Memory-SS in the FIM.
 
 The Memory OFSS file specifies a `preset` value, which selects a presets file (`.qprs`) to configure the Memory-SS.
 
@@ -1023,20 +1023,20 @@ Perform the following steps to run an individual unit test.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment] Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository] section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables] section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-3. Generate the simulation files for the n6001
+3. Generate the simulation files for the ${{ env.MODEL }}
 
   ```bash
   cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
 
-  ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/n6001.ofss n6001
+  ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/n6001.ofss ${{ env.FTLE_DK_MODEL }}
   ```
 
 4. Navigate to the common simulation directory
@@ -1160,7 +1160,7 @@ Steps:
 
 ## **4. FIM Customization**
 
-This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)] for instructions on setting up a deployment environment.
+This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 *Table: FIM Customization Walkthroughs*
 
@@ -2039,7 +2039,7 @@ Perform the following steps to program and hardware test a FIM that has had a ne
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Walkthrough: Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
 
@@ -2234,7 +2234,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Walkthrough: Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
 
@@ -2510,7 +2510,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -2622,7 +2622,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -2677,7 +2677,7 @@ Pre-Requisites:
 
 * This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -2813,7 +2813,7 @@ Pre-Requisites:
 
 * This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -3499,11 +3499,11 @@ Perform the following steps to set up a JTAG connection to the Intel® FPGA Smar
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [OFS Agilex PCIe Attach Getting Started Guide] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a workstation with Quartus Prime Pro Version 23.2 tools installed, specifically the `jtagconfig` tool.
 
-* This walkthrough requires an [Intel FPGA Download Cable II].
+* This walkthrough requires an [Intel FPGA Download Cable II](https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html).
 
 Steps:
 
@@ -3517,7 +3517,7 @@ Steps:
 
   ![](images/n6000_jtag_connection.png)
 
-  >**Note:** If using the Intel FGPA download Cable on Linux, add the udev rule as described in [Intel FPGA Download Cable Driver for Linux].
+  >**Note:** If using the Intel FGPA download Cable on Linux, add the udev rule as described in [Intel FPGA Download Cable Driver for Linux](https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-b-lnx.html ).
 
 3. Set the JTAG chain to select the Intel® Agilex® 7 FPGA as the target by writing to the JTAG enable register in the BMC (Register `0x378`). This is done via PMCI registers `0x2040C` and `0x20400`.
 
@@ -3566,11 +3566,11 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® F
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [OFS Agilex PCIe Attach Getting Started Guide] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM] Section for step-by-step instructions for generating a `SOF` image.
+* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
 
-* This walkthrough requires a JTAG connection to the n6001. Refer to the [Walkthrough: Set up JTAG] section for step-by-step instructions.
+* This walkthrough requires a JTAG connection to the n6001. Refer to the [Walkthrough: Set up JTAG](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
 * This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel® FPGA SmartNIC N6001-PL is connected via JTAG.
 
@@ -3703,11 +3703,11 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® F
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [OFS Agilex PCIe Attach Getting Started Guide] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM] Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
+* This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
 
-* This walkthrough requires a JTAG connection to the n6001. Refer to the [Walkthrough: Set up JTAG] section for step-by-step instructions.
+* This walkthrough requires a JTAG connection to the n6001. Refer to the [Walkthrough: Set up JTAG](https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
 * This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel® FPGA SmartNIC N6001-PL is connected via JTAG.
 
@@ -3889,5 +3889,6 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
+
  
 

@@ -60,7 +60,7 @@ For high level description and setup details for OFS components shown in figure 
 
 -   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
 
--   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+-   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 For a more detailed diagram and more information about the FPGA Interface Manager(FIM) shown in figure above, please refer to the FIM developer guides for your target device.
 
@@ -89,12 +89,12 @@ The next section covers the setup steps in detail.
 ### **2.1 Setup Server for OFS**
 <a name="server_setup_ofs"></a>
 
-As a first step, the server or host machine being used for developing HLD application needs to be setup for OFS. This involves setting up the FPGA card as well as installing OFS software stack including [OPAE SDK](sw/fpga_api/quick_start/readme/) and [OFS DFL kernel driver](sw/fpga_api/quick_start/readme/#build-the-opae-linux-device-drivers-from-the-source).
+As a first step, the server or host machine being used for developing HLD application needs to be setup for OFS. This involves setting up the FPGA card as well as installing OFS software stack including [OPAE SDK](https://ofs.github.io/ofs-2023.2/sw/fpga_api/quick_start/readme/) and [OFS DFL kernel driver](https://ofs.github.io/ofs-2023.2/sw/fpga_api/quick_start/readme/#build-the-opae-linux-device-drivers-from-the-source).
 
 Please follow steps in Getting started guides for your target devices to setup Linux DFL kernel driver and install OPAE SDK.
 
 -   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
--   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+-   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 
 ### **2.2 Clone and Compile FIM**
@@ -130,7 +130,7 @@ In addition to server setup and FIM compilation, a few linux packages are needed
 
 -   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
 
--   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+-   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 You can verify this setting using `cat /proc/cmdline` command. The output must have `intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200`.
 
