@@ -23,9 +23,6 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="4">
-        <label>stddef.h</label>
-      </node>
       <node id="6">
         <label>opae/types_enum.h</label>
         <link refid="types__enum_8h"/>
@@ -35,6 +32,9 @@
         <link refid="event_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="4">
+        <label>stddef.h</label>
       </node>
     </incdepgraph>
     <invincdepgraph>
