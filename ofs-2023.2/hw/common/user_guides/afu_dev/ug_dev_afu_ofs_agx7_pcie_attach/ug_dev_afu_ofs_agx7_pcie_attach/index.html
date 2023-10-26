@@ -379,6 +379,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -401,6 +403,20 @@
     <li class="md-nav__item">
       <a href="../../../ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
         FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
       </a>
     </li>
   
@@ -1078,7 +1094,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../../n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+      <a href="../../../ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
         Simulation User Guide
       </a>
     </li>
@@ -2389,7 +2405,7 @@
 
 
 <h1 id="afu-development-guide-ofs-for-intel-agilex-7-pcie-attach-fpgas"><strong><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Development Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® 7 PCIe Attach FPGAs</strong><a class="headerlink" href="#afu-development-guide-ofs-for-intel-agilex-7-pcie-attach-fpgas" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>September 20, 2023</strong> </p>
+<p>Last updated: <strong>October 26, 2023</strong> </p>
 <h2 id="1-introduction"><strong>1. Introduction</strong><a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
 <p>This document is a design guide for the creation of an Accelerator Functional Unit (<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>) using Open FPGA Stack (<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>) for Intel® Agilex® 7 FPGAs PCIe Attach. The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> concept consists of separating out the FPGA design development process into two parts, the construction of the foundational FPGA Interface Manager (<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>), and the development of the Acceleration Function Unit (<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>), as shown in the diagram below.</p>
 <p><a class="glightbox" href="../images/FIM_top_intro.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/FIM_top_intro.png" /></a></p>
@@ -2627,17 +2643,20 @@ As shown in the figure below, here are the interfaces connected to the <abbr tit
 <p>Or you can build your own <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and generated the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> build tree during the process.</p>
 <p>To download and untar the pr_build_template:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$OFS_BUILD_ROOT</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.2-1/pr_build_template.tar.gz
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>$<span class="w"> </span>tar<span class="w"> </span>-zxvf<span class="w"> </span>pr_build_template.tar.gz
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pr_build_template
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_PLATFORM_ROOT</span><span class="o">=</span><span class="nv">$PWD</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>$<span class="w"> </span>mkdir<span class="w"> </span>pr_build_template
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>pr_build_template
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.2-1/pr_template-n6001.tar.gz
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>$<span class="w"> </span>tar<span class="w"> </span>-zxvf<span class="w"> </span>pr_template-n6001.tar.gz
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_PLATFORM_ROOT</span><span class="o">=</span><span class="nv">$PWD</span>
 </code></pre></div>
 <p>To build your own <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and generate the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> build tree for the Intel® FPGA SmartNIC N6001-PL platform, refer the <a href="https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">FPGA Interface Manager Developer Guide for Intel® Agilex® 7 PCIe Attach</a> and follow the Out-of-Tree <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> build flow.  If you are using a different platform, refer to the FPGA Interface Manager Developer Guide for your platform and follow the Out-of-Tree <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> build flow.</p>
 <h3 id="27-download-fim-to-fpga"><strong>2.7. Download <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> to FPGA</strong><a class="headerlink" href="#27-download-fim-to-fpga" title="Permanent link">&para;</a></h3>
 <p>The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> requires that the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> from which the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> is derived be loaded onto the FPGA.   </p>
 <p>If you are using the Intel® FPGA SmartNIC N6001-PL release package, download the associated <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> files:
-<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.2-1/ofs_top_page1_unsigned_user1.bin
-<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.2-1/ofs_top_page2_unsigned_user2.bin
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$OFS_BUILD_ROOT</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.2-1/n6001-images.tar.gz
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>$<span class="w"> </span>tar<span class="w"> </span>-zxvf<span class="w"> </span>n6001-images.tar.gz
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>n6001-images
 </code></pre></div></p>
 <p>If you are generating your own <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>, use the unsigned FPGA binary images from your <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> build. </p>
 <p>To downlaod the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> to the Intel® FPGA SmartNIC N6001-PL platform:
@@ -2656,14 +2675,14 @@ As shown in the figure below, here are the interfaces connected to the <abbr tit
 <a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
 <a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1"># Quartus Tools</span>
 <a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># Note, QUARTUS_HOME is your Quartus installation directory, e.g. $QUARTUS_HOME/bin contains Quartus executable.</span>
-<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_HOME</span><span class="o">=</span>&lt;user_path&gt;/intelFPGA_pro/23.2
-<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/quartus
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_HOME</span><span class="o">=</span>&lt;user_path&gt;/intelFPGA_pro/23.2/quartus
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>
 <a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_INSTALL_DIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
 <a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR_OVERRIDE</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
 <a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">IMPORT_IP_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../ip
 <a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">IP_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../ip
-<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QSYS_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../qsys/bin
-<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QUARTUS_HOME</span>/qsys/bin:<span class="nv">$QUARTUS_HOME</span>/sopc_builder/bin/:<span class="nv">$PATH</span>
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QSYS_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../qsys
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QSYS_ROOTDIR</span>/bin:<span class="nv">$QUARTUS_HOME</span>/../sopc_builder/bin/:<span class="nv">$PATH</span>
 <a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
 <a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="c1"># Synopsys Verification Tools</span>
 <a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>
@@ -3837,7 +3856,7 @@ You are responsible for safety of the overall system, including compliance with 
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.2", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
     
       <script src="../../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>

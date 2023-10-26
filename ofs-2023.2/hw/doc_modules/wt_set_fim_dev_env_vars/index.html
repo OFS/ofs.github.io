@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -390,6 +392,20 @@
     <li class="md-nav__item">
       <a href="../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
         FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Glossary/" class="md-nav__link">
+        Glossary
       </a>
     </li>
   
@@ -738,7 +754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+      <a href="../../common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
         Simulation User Guide
       </a>
     </li>
@@ -1793,21 +1809,20 @@
 <a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_INSTALL_DIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
 <a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR_OVERRIDE</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
 <a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_VER_AC</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
-<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">IMPORT_IP_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../ip
-<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">IP_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../ip
-<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">IMPORT_IP_ROOTDIR</span><span class="o">=</span><span class="nv">$IP_ROOTDIR</span>
-<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QSYS_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../qsys/bin
-<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>
-<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="c1"># Set Verification Tools variables (if running simulations)</span>
-<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DESIGNWARE_HOME</span><span class="o">=</span><span class="nv">$TOOLS_LOCATION</span>/synopsys/vip_common/vip_Q-2020.03A
-<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="nb">export</span><span class="w"> </span><span class="nv">UVM_HOME</span><span class="o">=</span><span class="nv">$TOOLS_LOCATION</span>/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm
-<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VCS_HOME</span><span class="o">=</span><span class="nv">$TOOLS_LOCATION</span>/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel
-<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MTI_HOME</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../questa_fse
-<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VERDIR</span><span class="o">=</span><span class="nv">$OFS_ROOTDIR</span>/verification
-<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VIPDIR</span><span class="o">=</span><span class="nv">$VERDIR</span>
-<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>
-<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="c1"># Set PATH to include compilation and simulation tools</span>
-<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QUARTUS_HOME</span>/qsys/bin:<span class="nv">$QUARTUS_HOME</span>/sopc_builder/bin/:<span class="nv">$IOFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk/bin:<span class="nv">$MTI_HOME</span>/linux_x86_64/:<span class="nv">$MTI_HOME</span>/bin/:<span class="nv">$DESIGNWARE_HOME</span>/bin:<span class="nv">$VCS_HOME</span>/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="nb">export</span><span class="w"> </span><span class="nv">IP_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../ip
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="nb">export</span><span class="w"> </span><span class="nv">IMPORT_IP_ROOTDIR</span><span class="o">=</span><span class="nv">$IP_ROOTDIR</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QSYS_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../qsys/bin
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="c1"># Set Verification Tools variables (if running simulations)</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DESIGNWARE_HOME</span><span class="o">=</span><span class="nv">$TOOLS_LOCATION</span>/synopsys/vip_common/vip_Q-2020.03A
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="nb">export</span><span class="w"> </span><span class="nv">UVM_HOME</span><span class="o">=</span><span class="nv">$TOOLS_LOCATION</span>/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VCS_HOME</span><span class="o">=</span><span class="nv">$TOOLS_LOCATION</span>/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MTI_HOME</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../questa_fse
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VERDIR</span><span class="o">=</span><span class="nv">$OFS_ROOTDIR</span>/verification
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VIPDIR</span><span class="o">=</span><span class="nv">$VERDIR</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="c1"># Set PATH to include compilation and simulation tools</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QUARTUS_HOME</span>/../qsys/bin:<span class="nv">$QUARTUS_HOME</span>/sopc_builder/bin/:<span class="nv">$IOFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk/bin:<span class="nv">$MTI_HOME</span>/linux_x86_64/:<span class="nv">$MTI_HOME</span>/bin/:<span class="nv">$DESIGNWARE_HOME</span>/bin:<span class="nv">$VCS_HOME</span>/bin:<span class="nv">$PATH</span>
 </code></pre></div>
 </li>
 </ol>
@@ -1853,7 +1868,7 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.2", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
     
       <script src="../../../assets/javascripts/bundle.fac441b0.min.js"></script>

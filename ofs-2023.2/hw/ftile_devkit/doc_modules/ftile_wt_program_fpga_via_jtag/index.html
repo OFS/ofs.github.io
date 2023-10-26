@@ -368,6 +368,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -390,6 +392,20 @@
     <li class="md-nav__item">
       <a href="../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
         FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
       </a>
     </li>
   
@@ -738,7 +754,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+      <a href="../../../common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
         Simulation User Guide
       </a>
     </li>
@@ -1768,7 +1784,7 @@
 </li>
 <li>
 <p>If the card is already programmed with an <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> enabled design, determine the PCIe B:D.F of the card using OPAE command <code>fpgainfo fme</code>. In this example, the PCIe B:D.F is <code>B1:00.0</code>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>fpgainfo<span class="w"> </span>fme
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sudo<span class="w"> </span>fpgainfo<span class="w"> </span>fme
 </code></pre></div>
 <p>Example output:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Intel<span class="w"> </span>Acceleration<span class="w"> </span>Development<span class="w"> </span>Platform<span class="w"> </span>N6001
@@ -1809,7 +1825,7 @@
 <p>Open the Quartus programmer GUI</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>quartus_pgmw
 </code></pre></div>
-<p><a class="glightbox" href="images/quartus_pgmw.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw" src="images/quartus_pgmw.png" /></a></p>
+<p><a class="glightbox" href="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw" src="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw.png" /></a></p>
 </li>
 <li>
 <p>Click <strong>Hardware Setup</strong> to open the Hardware Setup dialog window.</p>
@@ -1819,7 +1835,7 @@
 </li>
 <li>
 <p>In the <strong>Hardware frequency</strong> field enter <code>16000000</code> Hz</p>
-<p><a class="glightbox" href="images/quartus_pgmw_hardware_setup.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw_hardware_setup" src="images/quartus_pgmw_hardware_setup.png" /></a></p>
+<p><a class="glightbox" href="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_hardware_setup.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw_hardware_setup" src="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_hardware_setup.png" /></a></p>
 </li>
 <li>
 <p>Click <strong>Close</strong></p>
@@ -1831,18 +1847,18 @@
 </li>
 <li>
 <p>If prompted, select the AGFB027R24C2E2VR2 device. The <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> chain should show the device.</p>
-<p><a class="glightbox" href="images/quartus_pgmw_device_chain.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw_device_chain" src="images/quartus_pgmw_device_chain.png" /></a></p>
+<p><a class="glightbox" href="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_device_chain.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw_device_chain" src="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_device_chain.png" /></a></p>
 </li>
 <li>
 <p>Right click the AGFB027R24C2E2VR2 row and selct <strong>Change File</strong>.</p>
-<p><a class="glightbox" href="images/quartus_pgmw_change_file.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw_change_file" src="images/quartus_pgmw_change_file.png" /></a></p>
+<p><a class="glightbox" href="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_change_file.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw_change_file" src="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_change_file.png" /></a></p>
 </li>
 <li>
-<p>In the <strong>Select New Programming File</strong> window that opens, select the <code>.sof</code> image you wish to program and click <strong>Open</strong>.</p>
+<p>In the <strong>Select New Programming File</strong> window that opens, select  <code>ofs_top_hps.sof</code> and click <strong>Open</strong>.</p>
 </li>
 <li>
 <p>Check the <strong>Program/Configure</strong> box for the AGFB027R24C2E2VR2 row, then click <strong>Start</strong>. Wait for the <strong>Progress</strong> bar to show <code>100% (Success)</code>.</p>
-<p><a class="glightbox" href="images/quartus_pgmw_success.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw_success" src="images/quartus_pgmw_success.png" /></a></p>
+<p><a class="glightbox" href="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_success.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="quartus_pgmw_success" src="/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_success.png" /></a></p>
 </li>
 <li>
 <p>Close the Quartus Programmer GUI.</p>
@@ -1874,9 +1890,9 @@
 <a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>SubDevice<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x1771
 <a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>Socket<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0x00
 <a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>Ports<span class="w"> </span>Num<span class="w">                        </span>:<span class="w"> </span><span class="m">01</span>
-<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>Bitstream<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x501020241BF165B
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>Bitstream<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span><span class="m">360571655976424377</span>
 <a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>Bitstream<span class="w"> </span>Version<span class="w">                </span>:<span class="w"> </span><span class="m">5</span>.0.1
-<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>Pr<span class="w"> </span>Interface<span class="w"> </span>Id<span class="w">                  </span>:<span class="w"> </span>e7f69412-951f-5d1a-8cb7-8c778ac02055
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>Pr<span class="w"> </span>Interface<span class="w"> </span>Id<span class="w">                  </span>:<span class="w"> </span>d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
 <a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>Boot<span class="w"> </span>Page<span class="w">                        </span>:<span class="w"> </span>N/A
 </code></pre></div>
 <blockquote>
@@ -1926,7 +1942,7 @@
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.2", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
     
       <script src="../../../../assets/javascripts/bundle.fac441b0.min.js"></script>

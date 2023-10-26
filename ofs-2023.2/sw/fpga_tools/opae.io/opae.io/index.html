@@ -379,6 +379,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -401,6 +403,20 @@
     <li class="md-nav__item">
       <a href="../../../../hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
         FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/doc_modules/Glossary/" class="md-nav__link">
+        Glossary
       </a>
     </li>
   
@@ -749,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+      <a href="../../../../hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
         Simulation User Guide
       </a>
     </li>
@@ -1902,14 +1918,15 @@
 
 <h1 id="opaeio">opae.io<a class="headerlink" href="#opaeio" title="Permanent link">&para;</a></h1>
 <h2 id="synopsis">SYNOPSIS<a class="headerlink" href="#synopsis" title="Permanent link">&para;</a></h2>
-<p><code>opae.io ls [-v,--viddid VID:DID]</code><br>
-<code>opae.io init [-d PCI_ADDR USER[:GROUP]]</code><br>
-<code>opae.io release [-d PCI_ADDR]</code><br>
-<code>opae.io [-d PCI_ADDR] [-r REGION] walk OFFSET [-u,--show-uuid]</code><br>
-<code>opae.io [-d PCI_ADDR] [-r REGION] peek OFFSET</code><br>
-<code>opae.io [-d PCI_ADDR] [-r REGION] poke OFFSET VALUE</code><br>
-<code>opae.io [-d PCI_ADDR] [-r REGION] SCRIPT ARG1 ARG2 ... ARGN</code><br>
-<code>opae.io [-d PCI_ADDR] [-r REGION]</code></p>
+<p><code>opae.io ls [-v,--viddid VIDDID] [-s,--sub-viddid SUB_VIDDID] [--all] [--system-class]</code><br>
+<code>opae.io init [-d,--device PCI_ADDR] [USER[:GROUP]]</code><br>
+<code>opae.io release [-d,--device PCI_ADDR]</code><br>
+<code>opae.io [-d,--device PCI_ADDR] [-r,--region REGION] walk [--offset [OFFSET]] [-u,--show-uuid] [-D,--dump] [-c,--count COUNT] [-y,--delay DELAY] [-s,--safe]</code><br>
+<code>opae.io [-d,--device PCI_ADDR] [-r,--region REGION] dump [--offset [OFFSET]] [-o,--output OUTPUT] [-f,--format {bin,hex}] [-c,--count COUNT]</code><br>
+<code>opae.io [-d,--device PCI_ADDR] [-r,--region REGION] peek OFFSET</code><br>
+<code>opae.io [-d,--device PCI_ADDR] [-r,--region REGION] poke OFFSET VALUE</code><br>
+<code>opae.io [-d,--device PCI_ADDR] [-r,--region REGION] script SCRIPT ARG1 ARG2 ... ARGN</code><br>
+<code>opae.io [-d,--device PCI_ADDR] [-r,--region REGION]</code></p>
 <h2 id="description">DESCRIPTION<a class="headerlink" href="#description" title="Permanent link">&para;</a></h2>
 <p><code>opae.io</code> is an interactive Python environment packaged on top of
 <code>libopaevfio.so</code>, which provides user space access to PCIe devices
@@ -1922,46 +1939,62 @@ mode.</p>
 <h2 id="command-line-mode">COMMAND LINE MODE<a class="headerlink" href="#command-line-mode" title="Permanent link">&para;</a></h2>
 <p>To view the accelerator devices that are present on the system, <code>opae.io</code>
 provides the <code>ls</code> command option.</p>
-<p><code>opae.io ls [-v,--viddid VID:DID]</code></p>
+<p><code>opae.io ls [-v,--viddid VIDDID] [-s,--sub-viddid SUB_VIDDID] [--all] [--system-class]</code></p>
 <p>Each accelerator device is listed along with the PCIe address, the
 PCIe vendor/device ID, a brief description of the device, and the
 driver to which the device is currently bound.</p>
-<p><code>opae.io</code> provide an option to initialize a PCIe device for use with
+<p>Device filtering is available by providing a Vendor ID:Device ID pair,
+eg -v 8086:bcce. Further filtering can be done by providing a sub-
+Vendor ID:sub-Device ID pair, eg -s 8086:1771. The --all option provides
+a list of all of the PCIe devices in the system, which an be quite verbose.
+The --system-class option prints the PCIe database class of the accelerator
+device, rather than the product name.</p>
+<p><code>opae.io</code> provides an option to initialize a PCIe device for use with
 the vfio-pci driver. In order for the device CSRs to be accessed from
 user space, the device must first be bound to the vfio-pci driver. This
 is the job of the <code>init</code> command option.</p>
-<p><code>opae.io init [-d PCI_ADDR USER:[GROUP]]</code></p>
+<p><code>opae.io init [-d,--device PCI_ADDR] [USER[:GROUP]]</code></p>
 <p>The <code>init</code> command unbinds the specified device from its current
 driver and binds it to vfio-pci. This creates a new vfio group under
 /dev/vfio. This group path is then used by the <code>libopaevfio.so</code>
 library to interact with the device.</p>
 <p>To release the PCIe device from vfio-pci and return it to use with its
 previous driver, the <code>release</code> command option is used.</p>
-<p><code>opae.io release [-d PCI_ADDR]</code></p>
+<p><code>opae.io release [-d,--device PCI_ADDR]</code></p>
 <p>The <code>release</code> command option reverses the actions of the last
 <code>init</code> command, releasing the device from vfio-pci and binding
 it to the driver which was bound at the time the <code>init</code> command
 was issued.</p>
 <p>The <code>walk</code> command option traverses and displays the Device
 Feature List of the given region.</p>
-<p><code>opae.io walk [-d PCI_ADDR] [-r REGION] [OFFSET] [-u,--show-uuid]</code></p>
+<p><code>opae.io walk [--offset [OFFSET]] [-u,--show-uuid] [-D,--dump] [-c,--count COUNT] [-y,--delay DELAY] [-s,--safe]</code></p>
 <p>The various fields of each Device Feature Header are displayed. The
 <code>--show-uuid</code> option additionally displays the GUID for each feature.
 OFFSET can be used to specify the beginning of the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> in the <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>
-region.</p>
+region. --dump displays the raw DFH contents in hex format. COUNT
+limits the number of DFH entries traversed. DELAY causes a pause
+between each printout. --safe examines each DFH offset for proper
+alignment.</p>
+<p>The <code>dump</code> command provides a means to dump the <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> space in
+ASCII hex or binary format.</p>
+<p><code>opae.io dump [--offset [OFFSET]] [-o,--output OUTPUT] [-f,--format {bin,hex}] [-c,--count COUNT]</code></p>
+<p>OFFSET specifies the starting <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> offset. OUTPUT gives the name of
+a file to capture the dump output, where sys.stdout is used by default.
+--format allows changing the output format. COUNT specifies the number
+of qwords to dump.</p>
 <p>The <code>peek</code> command option reads and displays a CSR value.</p>
-<p><code>opae.io peek [-d PCI_ADDR] [-r REGION] OFFSET</code></p>
+<p><code>opae.io peek OFFSET</code></p>
 <p>The <code>poke</code> command option writes a given value to a CSR.</p>
-<p><code>opae.io poke [-d PCI_ADDR] [-r REGION] OFFSET VALUE</code></p>
+<p><code>opae.io poke OFFSET VALUE</code></p>
 <p><code>opae.io</code> can also execute Python scripts from the command line.
 These Python scripts may contain calls to the device built-in
 functions that are available during an interactive session. Refer
 to the description of interactive mode for details.</p>
-<p><code>opae.io [-d PCI_ADDR] [-r REGION] myscript.py a b c</code></p>
+<p><code>opae.io script myscript.py a b c</code></p>
 <p>In order to enter the interactive mode of <code>opae.io</code>, simply
 invoke it and optionally pass the desired device address and
 <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> region options.</p>
-<p><code>opae.io [-d PCI_ADDR] [-r REGION]</code></p>
+<p><code>opae.io [-d,--device PCI_ADDR] [-r,--region REGION]</code></p>
 <h2 id="interactive-mode">INTERACTIVE MODE<a class="headerlink" href="#interactive-mode" title="Permanent link">&para;</a></h2>
 <p>Upon entering interactive mode, <code>opae.io</code> begins a Python
 interpreter session and displays the command prompt shown below:</p>
@@ -2150,7 +2183,7 @@ or the length of b1.</p>
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.2", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
     
       <script src="../../../../assets/javascripts/bundle.fac441b0.min.js"></script>

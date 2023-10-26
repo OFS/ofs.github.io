@@ -379,6 +379,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -401,6 +403,20 @@
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
         FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
       </a>
     </li>
   
@@ -749,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+      <a href="../../../../common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
         Simulation User Guide
       </a>
     </li>
@@ -1305,6 +1321,13 @@
         
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
   
 </li>
       
@@ -2614,6 +2637,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2633,7 +2663,7 @@
 
 
 <h1 id="ofs-getting-started-guide-for-intel-agilex-7-soc-attach-fpgas"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started Guide for Intel Agilex 7 SoC Attach FPGAs<a class="headerlink" href="#ofs-getting-started-guide-for-intel-agilex-7-soc-attach-fpgas" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>September 20, 2023</strong> </p>
+<p>Last updated: <strong>October 26, 2023</strong> </p>
 <h2 id="10-about-this-document">1.0 About this Document<a class="headerlink" href="#10-about-this-document" title="Permanent link">&para;</a></h2>
 <p>The purpose of this document is to help users get started in evaluating the 2023.2 version of the SoC Attach release targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. After reviewing this document, a user shall be able to:</p>
 <ul>
@@ -3806,18 +3836,16 @@ hub. See <em>Figure 9</em>.</p>
 </li>
 <li>
 <p>Enable <em>iommu=on</em>, <em>pcie=realloc</em>, and set <em>hugepages</em> as host kernel parameters.</p>
-<p>```bash session
-  # Check if parameters are already enabled
-  $ cat /proc/cmdline
-  <div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a>If you do not see *intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200*, then add them manually.
-<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>
-<a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>```bash session
-<a id="__codelineno-39-4" name="__codelineno-39-4" href="#__codelineno-39-4"></a>$ sudo vim /etc/default/grub
-<a id="__codelineno-39-5" name="__codelineno-39-5" href="#__codelineno-39-5"></a># Edit the value for GRUB_CMDLINE_LINUX, add the values at the end of the variable inside of the double quotes. Example: GRUB_CMDLINE_LINUX=&quot;crashkernel=auto resume=/dev/mapper/rhel00-swap rd.lvm.lv=rhel00/root rd.lvm.lv=rhel00/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200&quot;
-<a id="__codelineno-39-6" name="__codelineno-39-6" href="#__codelineno-39-6"></a># Save your changes, then apply them with the following
-<a id="__codelineno-39-7" name="__codelineno-39-7" href="#__codelineno-39-7"></a>$ sudo grub2-mkconfig
-<a id="__codelineno-39-8" name="__codelineno-39-8" href="#__codelineno-39-8"></a>$ sudo reboot now
-</code></pre></div></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-39-1" name="__codelineno-39-1" href="#__codelineno-39-1"></a><span class="c1"># Check if parameters are already enabled</span>
+<a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>$<span class="w"> </span>cat<span class="w"> </span>/proc/cmdline
+</code></pre></div>
+<p>If you do not see <em>intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200</em>, then add them manually.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>vim<span class="w"> </span>/etc/default/grub
+<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a><span class="c1"># Edit the value for GRUB_CMDLINE_LINUX, add the values at the end of the variable inside of the double quotes. Example: GRUB_CMDLINE_LINUX=&quot;crashkernel=auto resume=/dev/mapper/rhel00-swap rd.lvm.lv=rhel00/root rd.lvm.lv=rhel00/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200&quot;</span>
+<a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a><span class="c1"># Save your changes, then apply them with the following</span>
+<a id="__codelineno-40-4" name="__codelineno-40-4" href="#__codelineno-40-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>grub2-mkconfig
+<a id="__codelineno-40-5" name="__codelineno-40-5" href="#__codelineno-40-5"></a>$<span class="w"> </span>sudo<span class="w"> </span>reboot<span class="w"> </span>now
+</code></pre></div>
 </li>
 </ol>
 <p>After rebooting, check that <code>proc/cmdline</code> reflects your changes.</p>
@@ -3826,41 +3854,40 @@ hub. See <em>Figure 9</em>.</p>
 <ol>
 <li>
 <p>Initialize PF attached to HSSI LPBK GUID with <em>vfio-pci</em> driver.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-40-1" name="__codelineno-40-1" href="#__codelineno-40-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>opae.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span><span class="m">0000</span>:b1:00.0<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
-<a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>opae.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span><span class="m">0000</span>:b1:00.1<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+<div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>opae.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span><span class="m">0000</span>:b1:00.0<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+<a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>opae.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span><span class="m">0000</span>:b1:00.1<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
 </code></pre></div>
 </li>
 <li>
 <p>Run <code>host_exerciser</code> loopback tests (only <em>lpbk</em> is supported). There are more methods of operation than are shown below - read the HE help message for more information.</p>
 </li>
 </ol>
-<p>```bash session</p>
-<h1 id="example-lpbk-tests">Example lpbk tests.<a class="headerlink" href="#example-lpbk-tests" title="Permanent link">&para;</a></h1>
-<p>sudo host_exerciser lpbk
-sudo host_exerciser --mode lpbk lpbk
-sudo host_exerciser --cls cl_4  lpbk
-sudo host_exerciser --perf true --cls cl_4  lpbk</p>
-<h1 id="number-of-cachelines-per-request-4">Number of cachelines per request 4.<a class="headerlink" href="#number-of-cachelines-per-request-4" title="Permanent link">&para;</a></h1>
-<p>sudo host_exerciser --mode lpbk --cls cl_4 lpbk
-sudo host_exerciser --perf true --mode lpbk --cls cl_4 lpbk</p>
-<h1 id="vnumber-of-cachelines-per-request-4">vNumber of cachelines per request 4.<a class="headerlink" href="#vnumber-of-cachelines-per-request-4" title="Permanent link">&para;</a></h1>
-<p>sudo host_exerciser --mode read --cls cl_4 lpbk
-sudo host_exerciser --perf true --mode read --cls cl_4 lpbk</p>
-<h1 id="number-of-cachelines-per-request-4_1">Number of cachelines per request 4.<a class="headerlink" href="#number-of-cachelines-per-request-4_1" title="Permanent link">&para;</a></h1>
-<p>sudo host_exerciser --mode write --cls cl_4 lpbk
-sudo host_exerciser --perf true --mode write --cls cl_4 lpbk</p>
-<h1 id="number-of-cachelines-per-request-4_2">Number of cachelines per request 4.<a class="headerlink" href="#number-of-cachelines-per-request-4_2" title="Permanent link">&para;</a></h1>
-<p>sudo host_exerciser --mode trput --cls cl_4 lpbk
-sudo host_exerciser --perf true --mode trput --cls cl_4 lpbk</p>
-<h1 id="enable-interleave-requests-in-throughput-mode">Enable interleave requests in throughput mode<a class="headerlink" href="#enable-interleave-requests-in-throughput-mode" title="Permanent link">&para;</a></h1>
-<p>sudo host_exerciser --mode trput --interleave 2 lpbk
-sudo host_exerciser --perf true --mode trput --interleave 2 lpbk</p>
-<h1 id="with-delay-option">with delay option.<a class="headerlink" href="#with-delay-option" title="Permanent link">&para;</a></h1>
-<p>sudo host_exerciser --mode read --delay true lpbk
-sudo host_exerciser --mode write --delay true lpbk</p>
-<h1 id="test-all-modes-of-operation">Test all modes of operation<a class="headerlink" href="#test-all-modes-of-operation" title="Permanent link">&para;</a></h1>
-<p>host_exerciser --testall=true lpbk
-```</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-42-1" name="__codelineno-42-1" href="#__codelineno-42-1"></a><span class="c1"># Example lpbk tests.</span>
+<a id="__codelineno-42-2" name="__codelineno-42-2" href="#__codelineno-42-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>lpbk
+<a id="__codelineno-42-3" name="__codelineno-42-3" href="#__codelineno-42-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>lpbk<span class="w"> </span>lpbk
+<a id="__codelineno-42-4" name="__codelineno-42-4" href="#__codelineno-42-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w">  </span>lpbk
+<a id="__codelineno-42-5" name="__codelineno-42-5" href="#__codelineno-42-5"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w">  </span>lpbk
+<a id="__codelineno-42-6" name="__codelineno-42-6" href="#__codelineno-42-6"></a><span class="c1"># Number of cachelines per request 4.</span>
+<a id="__codelineno-42-7" name="__codelineno-42-7" href="#__codelineno-42-7"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>lpbk<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-42-8" name="__codelineno-42-8" href="#__codelineno-42-8"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span>lpbk<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-42-9" name="__codelineno-42-9" href="#__codelineno-42-9"></a><span class="c1"># vNumber of cachelines per request 4.</span>
+<a id="__codelineno-42-10" name="__codelineno-42-10" href="#__codelineno-42-10"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-42-11" name="__codelineno-42-11" href="#__codelineno-42-11"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-42-12" name="__codelineno-42-12" href="#__codelineno-42-12"></a><span class="c1"># Number of cachelines per request 4.</span>
+<a id="__codelineno-42-13" name="__codelineno-42-13" href="#__codelineno-42-13"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>write<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-42-14" name="__codelineno-42-14" href="#__codelineno-42-14"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span>write<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-42-15" name="__codelineno-42-15" href="#__codelineno-42-15"></a><span class="c1"># Number of cachelines per request 4.</span>
+<a id="__codelineno-42-16" name="__codelineno-42-16" href="#__codelineno-42-16"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>trput<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-42-17" name="__codelineno-42-17" href="#__codelineno-42-17"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span>trput<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-42-18" name="__codelineno-42-18" href="#__codelineno-42-18"></a><span class="c1"># Enable interleave requests in throughput mode</span>
+<a id="__codelineno-42-19" name="__codelineno-42-19" href="#__codelineno-42-19"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>trput<span class="w"> </span>--interleave<span class="w"> </span><span class="m">2</span><span class="w"> </span>lpbk
+<a id="__codelineno-42-20" name="__codelineno-42-20" href="#__codelineno-42-20"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span>trput<span class="w"> </span>--interleave<span class="w"> </span><span class="m">2</span><span class="w"> </span>lpbk
+<a id="__codelineno-42-21" name="__codelineno-42-21" href="#__codelineno-42-21"></a><span class="c1">#with delay option.</span>
+<a id="__codelineno-42-22" name="__codelineno-42-22" href="#__codelineno-42-22"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--delay<span class="w"> </span><span class="nb">true</span><span class="w"> </span>lpbk
+<a id="__codelineno-42-23" name="__codelineno-42-23" href="#__codelineno-42-23"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>write<span class="w"> </span>--delay<span class="w"> </span><span class="nb">true</span><span class="w"> </span>lpbk
+<a id="__codelineno-42-24" name="__codelineno-42-24" href="#__codelineno-42-24"></a><span class="c1"># Test all modes of operation</span>
+<a id="__codelineno-42-25" name="__codelineno-42-25" href="#__codelineno-42-25"></a>$<span class="w"> </span>host_exerciser<span class="w"> </span>--testall<span class="o">=</span><span class="nb">true</span><span class="w"> </span>lpbk
+</code></pre></div>
 <h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
 <p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
 No product or component can be absolutely secure. 
@@ -3915,7 +3942,7 @@ You are responsible for safety of the overall system, including compliance with 
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.2", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
     
       <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>

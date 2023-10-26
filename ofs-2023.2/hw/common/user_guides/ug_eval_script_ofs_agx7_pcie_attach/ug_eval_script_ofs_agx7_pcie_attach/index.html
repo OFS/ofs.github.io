@@ -379,6 +379,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -401,6 +403,20 @@
     <li class="md-nav__item">
       <a href="../../ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
         FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
       </a>
     </li>
   
@@ -1026,7 +1042,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+      <a href="../../ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
         Simulation User Guide
       </a>
     </li>
@@ -2285,178 +2301,17 @@
 
 
 <h1 id="evaluation-user-guide-ofs-for-intel-agilex-7-pcie-attach">Evaluation User Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® 7 PCIe Attach<a class="headerlink" href="#evaluation-user-guide-ofs-for-intel-agilex-7-pcie-attach" title="Permanent link">&para;</a></h1>
-<table>
-<thead>
-<tr>
-<th align="center">Term</th>
-<th align="center">Abbreviation</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">Advanced Error Reporting</td>
-<td align="center"><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
-<td>The PCIe <abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr> driver is the extended PCI Express error reporting capability providing more robust error reporting. <a href="https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer">(link)</a></td>
-</tr>
-<tr>
-<td align="center">Accelerator Functional Unit</td>
-<td align="center"><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
-<td>Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside. This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region.</td>
-</tr>
-<tr>
-<td align="center">Basic Building Block</td>
-<td align="center"><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
-<td>Features within an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and host interface requires. All BBBs must have a (globally unique identifier) GUID.</td>
-</tr>
-<tr>
-<td align="center">Best Known Configuration</td>
-<td align="center"><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
-<td>The software and hardware configuration Intel uses to verify the solution.</td>
-</tr>
-<tr>
-<td align="center">Board Management Controller</td>
-<td align="center"><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
-<td>Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> logic is in a separate component, such as an Intel Max10 or Intel Cyclone10 device; a small portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> known as the PMCI resides in the main Agilex FPGA.</td>
-</tr>
-<tr>
-<td align="center">Configuration and Status Register</td>
-<td align="center">CSR</td>
-<td>The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>, various sub-systems and modules).</td>
-</tr>
-<tr>
-<td align="center">Data Parallel C++</td>
-<td align="center">DPC++</td>
-<td>DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.</td>
-</tr>
-<tr>
-<td align="center">Device Feature List</td>
-<td align="center"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
-<td>The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software framework. <a href="https://docs.kernel.org/fpga/dfl.html">(link)</a></td>
-</tr>
-<tr>
-<td align="center">FPGA Interface Manager</td>
-<td align="center"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
-<td>Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
-</tr>
-<tr>
-<td align="center">FPGA Management Engine</td>
-<td align="center"><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
-<td>Performs reconfiguration and other FPGA management functions. Each FPGA device only has one <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> which is accessed through PF0.</td>
-</tr>
-<tr>
-<td align="center">Host Exerciser Module</td>
-<td align="center"><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
-<td>Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc.</td>
-</tr>
-<tr>
-<td align="center">Input/Output Control</td>
-<td align="center"><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
-<td>System calls used to manipulate underlying device parameters of special files.</td>
-</tr>
-<tr>
-<td align="center">Intel Virtualization Technology for Directed I/O</td>
-<td align="center"><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
-<td>Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.</td>
-</tr>
-<tr>
-<td align="center">Joint Test Action Group</td>
-<td align="center"><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
-<td>Refers to the IEEE 1149.1 <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> standard; Another FPGA configuration methodology.</td>
-</tr>
-<tr>
-<td align="center">Memory Mapped Input/Output</td>
-<td align="center"><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
-<td>The memory space users may map and access both control registers and system memory buffers with accelerators.</td>
-</tr>
-<tr>
-<td align="center">oneAPI Accelerator Support Package</td>
-<td align="center">oneAPI-asp</td>
-<td>A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> shell components. oneAPI ASP hardware components and oneAPI kernel form the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region of a oneAPI system in <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</td>
-</tr>
-<tr>
-<td align="center">Open FPGA Stack</td>
-<td align="center"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
-<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3<sup>rd</sup> party, or custom board.</td>
-</tr>
-<tr>
-<td align="center">Open Programmable Acceleration Engine Software Development Kit</td>
-<td align="center">OPAE-SDK</td>
-<td>The OPAE-SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> resides exclusively in user-space.</td>
-</tr>
-<tr>
-<td align="center">Platform Interface Manager</td>
-<td align="center"><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
-<td>An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
-</tr>
-<tr>
-<td align="center">Platform Management Controller Interface</td>
-<td align="center">PMCI</td>
-<td>The portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> that resides in the Agilex FPGA and allows the FPGA to communicate with the primary <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> component on the board.</td>
-</tr>
-<tr>
-<td align="center">Partial Reconfiguration</td>
-<td align="center"><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
-<td>The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> designs, the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region is referred to as the pr_slot.</td>
-</tr>
-<tr>
-<td align="center">Port</td>
-<td align="center">N/A</td>
-<td>When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region containing the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>.</td>
-</tr>
-<tr>
-<td align="center">Remote System Update</td>
-<td align="center"><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
-<td>The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".</td>
-</tr>
-<tr>
-<td align="center">Secure Device Manager</td>
-<td align="center">SDM</td>
-<td>The SDM is the point of entry to the FPGA for <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).</td>
-</tr>
-<tr>
-<td align="center">Static Region</td>
-<td align="center">SR</td>
-<td>The portion of the FPGA design that cannot be dynamically reconfigured during run-time.</td>
-</tr>
-<tr>
-<td align="center">Single-Root Input-Output Virtualization</td>
-<td align="center"><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
-<td>Allows the isolation of PCI Express resources for manageability and performance.</td>
-</tr>
-<tr>
-<td align="center">SYCL</td>
-<td align="center">SYCL</td>
-<td>SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.</td>
-</tr>
-<tr>
-<td align="center">Test Bench</td>
-<td align="center"><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
-<td>Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.</td>
-</tr>
-<tr>
-<td align="center">Universal Verification Methodology</td>
-<td align="center"><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
-<td>A modular, reusable, and scalable testbench structure via an API framework.  In the context of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>, the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> enviroment provides a system level simulation environment for your design.</td>
-</tr>
-<tr>
-<td align="center">Virtual Function Input/Output</td>
-<td align="center"><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
-<td>An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)</td>
-</tr>
-</tbody>
-</table>
 <h2 id="1-overview"><strong>1 Overview</strong><a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
 <h3 id="11-about-this-document"><strong>1.1 About this Document</strong><a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
 <p>This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL and Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) development platform using Open FPGA Stack (<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>). After reviewing the document, you will be able to:</p>
 <ul>
-<li>Set-up and modify the script to the your environment</li>
-</ul>
-<ul>
-<li>Compile and simulate an <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> reference design</li>
+<li>Use the script to run through the most common build and simulation flows when using <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</li>
 </ul>
 <ul>
 <li>Run hardware and software tests to evaluate the complete <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> flow</li>
+</ul>
+<ul>
+<li>Modify and leverage the script to the your environment and design</li>
 </ul>
 <h4 id="table-1-2-software-version-summary"><strong>Table 1-2: Software Version Summary</strong><a class="headerlink" href="#table-1-2-software-version-summary" title="Permanent link">&para;</a></h4>
 <table>
@@ -2470,18 +2325,13 @@
 <tbody>
 <tr>
 <td>FPGA Platform</td>
-<td><a href="https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html">Intel® FPGA SmartNIC N6001-PL</a></td>
+<td><a href="https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html">Intel® FPGA SmartNIC N6001-PL</a>, <a href="https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html">Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)</a></td>
 <td>Intel platform you can use for your custom board development</td>
 </tr>
 <tr>
 <td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Source Code</td>
 <td><a href="https://github.com/OFS/ofs-agx7-pcie-attach">Branch: https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach</a>, <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1">Tag: ofs-2023.2-1</a></td>
 <td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL)</td>
-</tr>
-<tr>
-<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Common</td>
-<td><a href="https://github.com/OFS/ofs-fim-common">Branch: https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-fim-common/2023.2</a>, <a href="https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.2">Tag: https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-fim-common/2023.2</a></td>
-<td>Common RTL across all <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>-based platforms</td>
 </tr>
 <tr>
 <td><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Examples</td>
@@ -2538,11 +2388,20 @@
 <p>You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.2-1. </p>
 </li>
 <li>
-<p>You must clone the required <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> repositories as per Figure 2-2.  Please refer to the <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr> table for locations. When cloning the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> repository, please follow the instructions in section 4.1 and 4.2 of the [Intel® FPGA Interface Manager Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® PCIe Attach FPGAs].  Additionally, please go [<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started User Guide] for the instructions for the <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr> software installation.</p>
+<p>You must clone the required <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> repositories as per Figure 2-2.  Please refer to the <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr> table 1-2 for locations. When cloning the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> repository, please follow the instructions in the following guides</p>
 </li>
-<li>
-<p>Once the repositories are cloned, contact your intel representative to receive the eval script evaluation script (ofs-agx7-pcie-attach_eval.sh) and copy it to the $IOFS_BUILD_ROOT directory location as shown in the example below:</p>
-</li>
+</ol>
+<ul>
+<li><a href="https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/">FPGA Interface Manager (<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>) Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® 7 SoC Attach</a></li>
+<li><a href="https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/">FPGA Interface Manager (<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>) Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® 7 PCIe Attach (2xF-tile)</a>.</li>
+</ul>
+<p>Additionally, please follow the instructions in the following guides for the <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr> software installation.</p>
+<ul>
+<li><a href="https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/">Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)</a></li>
+<li><a href="https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/">Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs (Intel Agilx 7 FPGA F-Series Development Kit (2xF-Tile))</a> </li>
+</ul>
+<ol>
+<li>Once the repositories are cloned, The scripts that go with each user guide are found in the assets tab of the corresponding <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> RTL repository. Download the evaluation script (ofs-agx7-pcie-attach_eval.sh) and copy it to the $IOFS_BUILD_ROOT directory location as shown in the example below:</li>
 </ol>
 <p><strong>Figure 2-2 Directory Structure for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project</strong></p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">## ofs-2023.2-1</span>
@@ -2556,7 +2415,7 @@
 <a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">##  -&gt; ofs-agx7-pcie-attach_eval.sh</span>
 </code></pre></div>
 <ol>
-<li>Contact your intel representative to receive the README file named (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the $IOFS_BUILD_ROOT directory location. The README informs the user which sections to modify in the script prior to building the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and running hardware, software and simulation tests.</li>
+<li>The README file that accompanies each user guide are found in the assets tab of the corresponding <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> RTL repository. Download the README file (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the $IOFS_BUILD_ROOT directory location. The README informs the user which sections to modify in the script prior to building the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and running hardware, software and simulation tests.</li>
 </ol>
 <h3 id="22-intel-agilex-7-pcie-attach-evaluation-script-modification"><strong>2.2 Intel® Agilex® 7 PCIe Attach Evaluation Script modification</strong><a class="headerlink" href="#22-intel-agilex-7-pcie-attach-evaluation-script-modification" title="Permanent link">&para;</a></h3>
 <p>To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the ofs-agx7-pcie-attach.sh script </p>
@@ -2629,9 +2488,9 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 <h3 id="31-overview"><strong>3.1 Overview</strong><a class="headerlink" href="#31-overview" title="Permanent link">&para;</a></h3>
 <p>The figure below shows a snapshot of the full evaluation script menu showing all 62 options and each one of 11 sub-menus which focus on different areas of evaluation. Each of these menu options are described in the next section.</p>
 <p><strong>Figure 3-1 ofs-agx7-pcie-attach_eval.sh Evaluation Menu</strong></p>
-<p><a class="glightbox" href="images/ofs_n6001_OFS_eval_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="images/ofs_n6001_OFS_eval_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_n6001_adp_eval_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_n6001_adp_eval_menu.png" /></a></p>
 <h3 id="311-ofs-tools-menu"><strong>3.1.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> TOOLS MENU</strong><a class="headerlink" href="#311-ofs-tools-menu" title="Permanent link">&para;</a></h3>
-<p>By selecting "List of Documentation for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> n6001 Project," a list of links to the latest <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> version.</p>
+<p>By selecting "List of Documentation for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project," a list of links to the latest <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> version.</p>
 <p>By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.</p>
 <p><a class="glightbox" href="../images/ofs_n6001_adp_tools_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_n6001_adp_tools_menu.png" /></a></p>
 <table>
@@ -2643,7 +2502,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
     </thead>
     <tbody>
         <tr>
-             <td>1 - List of Documentation for OFS n6001 Project</td>
+             <td>1 - List of Documentation for OFS PCI Attach Project Project</td>
             <td> Open FPGA Stack Overview<br>
                  Guides you through the setup and build steps to evaluate the OFS solution<br>
                 https://ofs.github.io<br>
@@ -2697,7 +2556,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
     </thead>
     <tbody>
         <tr>
-            <td>3 - Identify Acceleration Development Platform (OFS) n6001 Hardware via PCIe</td>
+            <td>3 - Identify Platform Hardware via PCIe</td>
             <td>PCIe card detected as<br>
                 b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
                 b1:00.1 Processing accelerators: Intel Corporation Device bcce<br>
@@ -3017,7 +2876,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
     </thead>
     <tbody>
         <tr>
-            <td>12 - Check OFS software versions for OFS n6001 Project</td>
+            <td>12 - Check OFS software version for OFS Project</td>
             <td>OFS_ROOTDIR is set to /home/user_area/ofs-X.X.X/ofs-agx7-pcie-attach<br>
                 OPAE_SDK_REPO_BRANCH is set to release/X.X.X<br>
                 OPAE_SDK_ROOT is set to /home/user_area/ofs-X.X.X/ofs-agx7-pcie-attach/../opae-sdk<br>
@@ -3027,21 +2886,21 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 </td>        
         </tr>
         <tr>
-            <td>13 - Build FIM for n6001 Hardware</td>
+            <td>13 - Build FIM for Hardware</td>
             <td>This option builds the FIM based on the setting for the $OFS_PLATFORM, $FIM_SHELL environment variable. Check this variable in the following file ofs-agx7-pcie-attach_eval.sh<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>14 - Check FIM Identification of FIM for n6001 Hardware</td>
+            <td>14 - Check FIM Identification of FIM for Hardware</td>
             <td>The FIM is identified by the following file fme-ifc-id.txt located at $OFS_ROOTDIR/$FIM_WORKDIR/syn/syn_top/<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>15 - Build Partial Reconfiguration Tree for n6001 Hardware</td>
+            <td>15 - Build Partial Reconfiguration Tree for Hardware</td>
             <td>This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the oneAPI build flow <br>
             <br>
         </tr>
@@ -3055,7 +2914,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 </td>        
         </tr>
         <tr>
-            <td>17 - Build Partial Reconfiguration Tree for n6001 Hardware with Remote Signal Tap</td>
+            <td>17 - Build Partial Reconfiguration Tree for Hardware with Remote Signal Tap</td>
             <td>This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the oneAPI build flow for the Remote Signal Tap flow<br>
             <br>
         </tr>
@@ -3087,13 +2946,13 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
     </thead>
     <tbody>
         <tr>
-            <td>19 - Program BMC Image into n6001 Hardware</td>
+            <td>19 - Program BMC Image into Hardware</td>
             <td>The user must place a new BMC flash file in the following directory $OFS_ROOTDIR/bmc_flash_files. Once the user executes this option a new BMC image will be programmed. A remote system upgrade command is initiated to store the new BMC image<br>
             <br>
 </td>        
         </tr>
         <tr>
-            <td>20 - Check Boot Area Flash Image from n6001 Hardware</td>
+            <td>20 - Check Boot Area Flash Image from Hardware</td>
             <td>This option checks which location area in FLASH the image will boot from, the default is user1<br>
             <br>
             Boot Page : user1<br>
@@ -3103,7 +2962,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 </td>        
         </tr>
         <tr>
-            <td>21 - Program FIM Image into user1 area for n6001 Hardware</td>
+            <td>21 - Program FIM Image into user1 area for Hardware</td>
             <td>This option programs the FIM image "ofs_top_page1_unsigned_user1.bin" into user1 area in flash<br>
             <br>
             Note: Please refer to the Getting Started Guide for details on flashing images for the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
@@ -3111,7 +2970,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 </td>        
         </tr>
         <tr>
-            <td>22 - Initiate Remote System Upgrade (RSU) from user1 Flash Image into n6001 Hardware</td>
+            <td>22 - Initiate Remote System Upgrade (RSU) from user1 Flash Image into Hardware</td>
             <td>This option initiates a Remote System Upgrade and soft reboots the server and re-scans the PCIe bus for the new image to be loaded<br>
             <br>
             2022-11-10 11:26:24,307 - [[pci_address(0000:b1:00.0), pci_id(0x8086, 0xbcce)]] performing RSU operation<br>
@@ -3139,7 +2998,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 </td>        
         </tr>
         <tr>
-            <td>25 - Create Virtual Functions (VF) and bind driver to vfio-pci n6001 Hardware</td>
+            <td>25 - Create Virtual Functions (VF) and bind driver to vfio-pci Hardware</td>
             <td>This option creates vfio-pci driver binding for the PF's and VF's<br>
             Once the VF's have been bound to the driver the user can select menu option 23 to check that the new drivers are bound<br>
             <br>
@@ -3200,7 +3059,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 </td>        
         </tr>
         <tr>
-            <td>31 - Read from CSR (Command and Status Registers) for n6001 Hardware</td>
+            <td>31 - Read from CSR (Command and Status Registers) for Hardware</td>
             <td>This option reads from the following CSR's<br>
             HE-LB Command and Status Register Default Definitions<br>
             HE-MEM Command and Status Register Default Definitions<br>
@@ -3297,7 +3156,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
     </thead>
     <tbody>
         <tr>
-            <td>39 - Check oneAPI software versions for n6001 Project</td>
+            <td>39 - Check oneAPI software versions for Project</td>
             <td>This option checks the setup of the oneAPI software and adds the relevant oneAPI environment variables to the terminal. This option also informs the user to match the oneAPI software version to the oneAPI-samples version<br>
             <br>
         <tr>
@@ -3327,7 +3186,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
         </tr>
 </td>        
         <tr>
-            <td>44 - Build oneAPI BSP ofs_n6001 Default Kernel (hello_world)</td>
+            <td>44 - Build oneAPI BSP Default Kernel (hello_world)</td>
             <td>This option Builds the oneAPI BSP using hello_world kernel<br>
             <br>
         </tr>
@@ -3369,14 +3228,14 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
         </tr>
 </td>        
         <tr>
-            <td>51 - Create Virtual Function (VF) and bind driver to vfio-pci n6001 Hardware</td>
+            <td>51 - Create Virtual Function (VF) and bind driver to vfio-pci Hardware</td>
             <td>This option creates vfio-pci driver binding for the PF's and VF's<br>
             Once the VF's have been bound to the driver the user can select menu option 45 to check that the new drivers are bound<br><br>
             <br>
         </tr>
 </td>        
         <tr>
-            <td>52 - Program OpenCL BSP ofs_n6001 Default Kernel (hello_world)</td>
+            <td>52 - Program OpenCL BSP Default Kernel (hello_world)</td>
             <td>This option programs the FPGA with a aocf file based on the hello_world kernel<br>
             <br>
         </tr>
@@ -3434,7 +3293,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
     </thead>
     <tbody>
         <tr>
-            <td>57 - Check UVM software versions for n6001 Project</td>
+            <td>57 - Check UVM software versions for Project</td>
             <td>DESIGNWARE_HOME is set to /home/synopsys/vip_common/vip_Q-2020.03A<br>
                 UVM_HOME  is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm<br>
                 VCS_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel<br>
@@ -3593,6 +3452,167 @@ MULTI_TEST[62,1]=9<br></p>
      </tbody>
 </table>
 
+<table>
+<thead>
+<tr>
+<th align="center">Term</th>
+<th align="center">Abbreviation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Advanced Error Reporting</td>
+<td align="center"><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
+<td>The PCIe <abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr> driver is the extended PCI Express error reporting capability providing more robust error reporting. <a href="https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer">(link)</a></td>
+</tr>
+<tr>
+<td align="center">Accelerator Functional Unit</td>
+<td align="center"><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td>Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside. This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region.</td>
+</tr>
+<tr>
+<td align="center">Basic Building Block</td>
+<td align="center"><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td>Features within an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and host interface requires. All BBBs must have a (globally unique identifier) GUID.</td>
+</tr>
+<tr>
+<td align="center">Best Known Configuration</td>
+<td align="center"><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
+<td>The software and hardware configuration Intel uses to verify the solution.</td>
+</tr>
+<tr>
+<td align="center">Board Management Controller</td>
+<td align="center"><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
+<td>Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> known as the PMCI resides in the main Agilex FPGA.</td>
+</tr>
+<tr>
+<td align="center">Configuration and Status Register</td>
+<td align="center">CSR</td>
+<td>The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>, various sub-systems and modules).</td>
+</tr>
+<tr>
+<td align="center">Data Parallel C++</td>
+<td align="center">DPC++</td>
+<td>DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.</td>
+</tr>
+<tr>
+<td align="center">Device Feature List</td>
+<td align="center"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software framework. <a href="https://docs.kernel.org/fpga/dfl.html">(link)</a></td>
+</tr>
+<tr>
+<td align="center">FPGA Interface Manager</td>
+<td align="center"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
+</tr>
+<tr>
+<td align="center">FPGA Management Engine</td>
+<td align="center"><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
+<td>Performs reconfiguration and other FPGA management functions. Each FPGA device only has one <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> which is accessed through PF0.</td>
+</tr>
+<tr>
+<td align="center">Host Exerciser Module</td>
+<td align="center"><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
+<td>Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc.</td>
+</tr>
+<tr>
+<td align="center">Input/Output Control</td>
+<td align="center"><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
+<td>System calls used to manipulate underlying device parameters of special files.</td>
+</tr>
+<tr>
+<td align="center">Intel Virtualization Technology for Directed I/O</td>
+<td align="center"><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
+<td>Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.</td>
+</tr>
+<tr>
+<td align="center">Joint Test Action Group</td>
+<td align="center"><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
+<td>Refers to the IEEE 1149.1 <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> standard; Another FPGA configuration methodology.</td>
+</tr>
+<tr>
+<td align="center">Memory Mapped Input/Output</td>
+<td align="center"><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td>The memory space users may map and access both control registers and system memory buffers with accelerators.</td>
+</tr>
+<tr>
+<td align="center">oneAPI Accelerator Support Package</td>
+<td align="center">oneAPI-asp</td>
+<td>A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> shell components. oneAPI ASP hardware components and oneAPI kernel form the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region of a oneAPI system in <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</td>
+</tr>
+<tr>
+<td align="center">Open FPGA Stack</td>
+<td align="center"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3<sup>rd</sup> party, or custom board.</td>
+</tr>
+<tr>
+<td align="center">Open Programmable Acceleration Engine Software Development Kit</td>
+<td align="center"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> resides exclusively in user-space.</td>
+</tr>
+<tr>
+<td align="center">Platform Interface Manager</td>
+<td align="center"><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
+<td>An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
+</tr>
+<tr>
+<td align="center">Platform Management Controller Interface</td>
+<td align="center">PMCI</td>
+<td>The portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> that resides in the Agilex FPGA and allows the FPGA to communicate with the primary <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> component on the board.</td>
+</tr>
+<tr>
+<td align="center">Partial Reconfiguration</td>
+<td align="center"><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
+<td>The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> designs, the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region is referred to as the pr_slot.</td>
+</tr>
+<tr>
+<td align="center">Port</td>
+<td align="center">N/A</td>
+<td>When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region containing the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>.</td>
+</tr>
+<tr>
+<td align="center">Remote System Update</td>
+<td align="center"><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
+<td>The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".</td>
+</tr>
+<tr>
+<td align="center">Secure Device Manager</td>
+<td align="center">SDM</td>
+<td>The SDM is the point of entry to the FPGA for <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).</td>
+</tr>
+<tr>
+<td align="center">Static Region</td>
+<td align="center">SR</td>
+<td>The portion of the FPGA design that cannot be dynamically reconfigured during run-time.</td>
+</tr>
+<tr>
+<td align="center">Single-Root Input-Output Virtualization</td>
+<td align="center"><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
+<td>Allows the isolation of PCI Express resources for manageability and performance.</td>
+</tr>
+<tr>
+<td align="center">SYCL</td>
+<td align="center">SYCL</td>
+<td>SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.</td>
+</tr>
+<tr>
+<td align="center">Test Bench</td>
+<td align="center"><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
+<td>Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.</td>
+</tr>
+<tr>
+<td align="center">Universal Verification Methodology</td>
+<td align="center"><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
+<td>A modular, reusable, and scalable testbench structure via an API framework.  In the context of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>, the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> enviroment provides a system level simulation environment for your design.</td>
+</tr>
+<tr>
+<td align="center">Virtual Function Input/Output</td>
+<td align="center"><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
+<td>An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
 <p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
 No product or component can be absolutely secure. 
@@ -3647,7 +3667,7 @@ You are responsible for safety of the overall system, including compliance with 
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.2", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
     
       <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>

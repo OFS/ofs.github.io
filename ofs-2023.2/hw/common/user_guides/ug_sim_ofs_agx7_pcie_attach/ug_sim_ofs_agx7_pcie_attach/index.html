@@ -9,13 +9,17 @@
       
       
       
+        <link rel="prev" href="../../../../n6001/dev_guides/hps_dev/hps_developer_ug/">
+      
+      
+        <link rel="next" href="../../ug_docker/ug_docker/">
       
       <link rel="icon" href="../../../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
     
     
       
-        <title>Simulation User Guide: OFS for Intel® Agilex® PCIe Attach** - OFS</title>
+        <title>Simulation User Guide - OFS</title>
       
     
     
@@ -109,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Simulation User Guide: OFS for Intel® Agilex® PCIe Attach**
+              Simulation User Guide
             
           </span>
         </div>
@@ -221,13 +225,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link">
+      <a href="../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link md-tabs__link--active">
         Agilex PCIe Attach OFS
       </a>
     </li>
@@ -373,6 +379,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -395,6 +403,20 @@
     <li class="md-nav__item">
       <a href="../../ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
         FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
       </a>
     </li>
   
@@ -578,14 +600,16 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
       
       
         
@@ -618,7 +642,7 @@
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
         <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Agilex PCIe Attach OFS
@@ -741,11 +765,558 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../../../n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Simulation User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Simulation User Guide
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    1 Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="1 Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-about-this-document" class="md-nav__link">
+    1.1 About this Document
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-introduction-to-uvm" class="md-nav__link">
+    2 Introduction to UVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-universal-testbench-architecture" class="md-nav__link">
+    3 Universal Testbench Architecture
+  </a>
+  
+    <nav class="md-nav" aria-label="3 Universal Testbench Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-overview" class="md-nav__link">
+    3.1 Overview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-core-verification-concepts" class="md-nav__link">
+    3.2 Core Verification Concepts
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-ofs-testbench-architecture" class="md-nav__link">
+    4 OFS Testbench Architecture
+  </a>
+  
+    <nav class="md-nav" aria-label="4 OFS Testbench Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-overview" class="md-nav__link">
+    4.1 Overview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-base-fim-dut" class="md-nav__link">
+    4.2 Base FIM DUT
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-full-chip-level-verification-archiecture-for-fim" class="md-nav__link">
+    4.3 Full Chip Level Verification Archiecture for FIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#431-testbench-components" class="md-nav__link">
+    4.3.1 Testbench components
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4311-tb-top" class="md-nav__link">
+    4.3.1.1 TB TOP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4312-fim-verification-environment" class="md-nav__link">
+    4.3.1.2 FIM Verification Environment
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4313-synopsys-vips" class="md-nav__link">
+    4.3.1.3 Synopsys VIPs
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3.1.3 Synopsys VIPs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#43131-pci-vip-as-host" class="md-nav__link">
+    4.3.1.3.1 PCI VIP as Host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43132-axi-streaming-vip-monitors" class="md-nav__link">
+    4.3.1.3.2 AXI-Streaming VIP Monitors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43133-axi4-memory-mapped-vip-monitors" class="md-nav__link">
+    4.3.1.3.3 AXI4-Memory Mapped VIP Monitors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43134-axi4-lite-vip-monitors" class="md-nav__link">
+    4.3.1.3.4 AXI4-Lite VIP Monitors
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43135-axi4-lite-vip-as-pmci-master" class="md-nav__link">
+    4.3.1.3.5 AXI4-Lite VIP as PMCI Master
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4314-axi4-s-scoreboard" class="md-nav__link">
+    4.3.1.4 AXI4-S Scoreboard
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4315-virtual-sequencer" class="md-nav__link">
+    4.3.1.5 Virtual Sequencer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4316-fim-monitor" class="md-nav__link">
+    4.3.1.6 FIM Monitor
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4317-fim-assertions" class="md-nav__link">
+    4.3.1.7 FIM Assertions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4318-fim-functional-coverage" class="md-nav__link">
+    4.3.1.8 FIM Functional Coverage
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-uvm-verification-set-up" class="md-nav__link">
+    5 UVM Verification set-up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-uvm-prerequisite" class="md-nav__link">
+    5.1 UVM Prerequisite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-license-requirements" class="md-nav__link">
+    5.2 License Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-software-tools-requirements" class="md-nav__link">
+    5.3 Software Tools Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54-creating-a-software-tools-script" class="md-nav__link">
+    5.4 Creating a Software Tools Script
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-files" class="md-nav__link">
+    License Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-environment-variables" class="md-nav__link">
+    General Environment Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quartus-tools" class="md-nav__link">
+    Quartus Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-verification-tools" class="md-nav__link">
+    Synopsys Verification Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-verification-tools" class="md-nav__link">
+    QuestaSIM Verification Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-running-a-uvm-simulation-test-and-analysing-results" class="md-nav__link">
+    6 Running a UVM Simulation Test and Analysing Results
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-simulation" class="md-nav__link">
+    6.1 Simulation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-file-structure" class="md-nav__link">
+    6.2 File Structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-uvm-test-suite" class="md-nav__link">
+    6.3 UVM Test Suite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-ip-compile" class="md-nav__link">
+    6.4 IP Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-tbd" class="md-nav__link">
+    Questasim (TBD)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#65-rtl-test-bench-compile" class="md-nav__link">
+    6.5 RTL &amp; Test Bench Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_1" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-tbd_1" class="md-nav__link">
+    Questasim (TBD)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#66-ip-and-rtl-test-bench-compile" class="md-nav__link">
+    6.6 IP and RTL &amp; Test Bench Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_2" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-tbd_2" class="md-nav__link">
+    Questasim (TBD)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_3" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-tbd_3" class="md-nav__link">
+    Questasim (TBD)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_4" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-tbd_4" class="md-nav__link">
+    Questasim (TBD)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#67-uvm-regression-test" class="md-nav__link">
+    6.7 UVM Regression Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#68-uvm-waveform-and-transcript-analysis" class="md-nav__link">
+    6.8 UVM Waveform and Transcript Analysis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_5" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-tbd_5" class="md-nav__link">
+    Questasim (TBD)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#69-uvm-coverage-analysis" class="md-nav__link">
+    6.9 UVM Coverage Analysis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-csr-verification-using-uvm-ral" class="md-nav__link">
+    7 CSR Verification using UVM RAL
+  </a>
+  
+    <nav class="md-nav" aria-label="7 CSR Verification using UVM RAL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#71-overview" class="md-nav__link">
+    7.1 Overview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#72-ral-integration" class="md-nav__link">
+    7.2 RAL Integration
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#73-ral-model-generation" class="md-nav__link">
+    7.3 RAL Model Generation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#74-top-level-verification-architecture-for-csr-testing" class="md-nav__link">
+    7.4 Top Level Verification Architecture for CSR testing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#741-testbench-components" class="md-nav__link">
+    7.4.1 Testbench components
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-modifying-uvm-testbench" class="md-nav__link">
+    8 Modifying UVM Testbench
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#81-modifying-uvm-environment-for-new-shell-variant" class="md-nav__link">
+    8.1 Modifying UVM environment for new Shell Variant
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-modifying-uvm-environment-and-setting-up-compile-and-run-flow" class="md-nav__link">
+    8.2 Modifying UVM environment and setting up Compile and Run flow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-adding-a-new-ral-directory" class="md-nav__link">
+    8.3 Adding a new RAL directory
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-modifying-tbtest-files-for-new-variant" class="md-nav__link">
+    8.4 Modifying TB/Test files for new Variant
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-uvm-pcie-drivers" class="md-nav__link">
+    8.5 UVM PCIe Drivers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -3839,7 +4410,7 @@ You are responsible for safety of the overall system, including compliance with 
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.2", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
     
       <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>

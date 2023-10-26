@@ -379,6 +379,8 @@
         
           
         
+          
+        
       
       
         <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -401,6 +403,20 @@
     <li class="md-nav__item">
       <a href="../../ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
         FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
       </a>
     </li>
   
@@ -749,7 +765,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../../../n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/" class="md-nav__link">
+      <a href="../../ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
         Simulation User Guide
       </a>
     </li>
@@ -2291,7 +2307,7 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-5.15.52-dfl root=/dev/mapper/rhel-root ro crashker
 </ul>
 <p>4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version.</p>
 <blockquote>
-<p><strong>Note:</strong> For Intel® Agilex® 7 FPGA ensure Quartus patch 0.02 and 0.02iofs are installed. You can find it in under assets in the following link <a href="https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1">0.02</a> and <a href="https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.2-1/license">0.02iofs</a>. For Intel® Stratix 10® FPGA ensure Quartus patch 0.01iofs is installed. You can find it in the following link <a href="https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.1/license">0.01iofs</a>.For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. </p>
+<p><strong>Note:</strong> For Intel® Agilex® 7 FPGA ensure Quartus patch 0.02 and 0.02iofs are installed. You can find it in under assets in the following link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1">0.02</a> and <a href="https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2/license">0.02iofs</a>. For Intel® Stratix 10® FPGA ensure Quartus patch 0.01iofs is installed. You can find it in the following link <a href="https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.2/license">0.01iofs</a>.For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. </p>
 </blockquote>
 <p>Use following command to check Quartus version and installed patches.</p>
 </pre>
@@ -2378,7 +2394,7 @@ gcc --version
 </tr>
 <tr>
 <td>Quartus Prime Pro Edition</td>
-<td>Version 23.2 Pro Edition with patches under assets on this link <a href="https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1">0.02</a> and <a href="https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.2-1/license">0.02iofs</a></td>
+<td>Version 23.2 Pro Edition with patches under assets on this link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1">0.02</a> and <a href="https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2/license">0.02iofs</a></td>
 </tr>
 <tr>
 <td>Intel® oneAPI Base Toolkit (Base Kit)</td>
@@ -2890,7 +2906,6 @@ To check your oneAPI compiler version use the command:</p>
 
 <p>Follow steps below to compile and run oneAPI <code>board_test</code> and <code>io_streaming_one_pipe</code> binaries. Use <code>-DFPGA_DEVICE</code> in <code>cmake</code> command to provide path to the oneAPI ASP and name of board variant being compiled.</p>
 <p>Ensure you have sourced <code>setvars.sh</code> script located in the root of your oneAPI installation as explained in <em><a href="#23-prerequisites">Table 2-2 Initialization Script for HLD tool</a></em>.</p>
-<p>For more information on additional environment settings required for running <code>io_streaming_one_pipe</code> sample see the README file in the location of the sample, for this location refer to the table 2-6 .</p>
 </pre>
 <div class="highlight"><pre><span></span><code>    cd path-to-sample-location
     mkdir build
@@ -2913,9 +2928,10 @@ To check your oneAPI compiler version use the command:</p>
 </pre>
 <div class="highlight"><pre><span></span><code>    make fpga
 </code></pre></div>
-<p></pre>
-Hardware compilation takes several hours to complete. Once complete, you should see <code>sample-name.fpga</code> executable generated, where sample-name could be <code>board_test</code> or <code>io_streaming_one_pipe</code>.
-Run the generated hardware executable as follows:</p>
+</pre>
+<p>Hardware compilation takes several hours to complete. Once complete, you should see <code>sample-name.fpga</code> executable generated, where sample-name could be <code>board_test</code> or <code>io_streaming_one_pipe</code>.</p>
+<p>For more information on additional environment settings required for running <code>io_streaming_one_pipe</code> sample see the README file in the location of the sample, for this location refer to the table 2-6 .</p>
+<p>Run the generated hardware executable as follows:</p>
 </pre>
 <div class="highlight"><pre><span></span><code>   ./sample-name.fpga
 </code></pre></div>
@@ -3004,7 +3020,7 @@ You are responsible for safety of the overall system, including compliance with 
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.2", "provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
     
       <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
