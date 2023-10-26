@@ -153,7 +153,7 @@ Tool installation guide for your reference:
 
 4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version.
 
-> **Note:** For Intel® Agilex® 7 FPGA ensure Quartus patch 0.02 and 0.02iofs are installed. You can find it in under assets in the following link [0.02](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1) and [0.02iofs](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.2-1/license). For Intel® Stratix 10® FPGA ensure Quartus patch 0.01iofs is installed. You can find it in the following link [0.01iofs](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.1/license).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. 
+> **Note:** For Intel® Agilex® 7 FPGA ensure Quartus patch 0.02 and 0.02iofs are installed. You can find it in under assets in the following link [0.02](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) and [0.02iofs](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2/license). For Intel® Stratix 10® FPGA ensure Quartus patch 0.01iofs is installed. You can find it in the following link [0.01iofs](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.2/license).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. 
 
 Use following command to check Quartus version and installed patches.
 
@@ -214,7 +214,7 @@ Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(BKC).
 | opae-sdk | Branch: release/2.8.0, Tag: 2.8.0-1 |
 | ofs-fim | Tag: ofs-2023.2-1|
 | oneapi-asp | Tag: ofs-2023.2-1 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)*|
-| Quartus Prime Pro Edition | Version 23.2 Pro Edition with patches under assets on this link [0.02](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1) and [0.02iofs](https://github.com/OFS/ofs-n6001/tree/release/ofs-2023.2-1/license) |
+| Quartus Prime Pro Edition | Version 23.2 Pro Edition with patches under assets on this link [0.02](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) and [0.02iofs](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2/license) |
 | Intel® oneAPI Base Toolkit (Base Kit) | Latest version |
 | GCC | 7.4.0 |
 | cmake | 3.15 |
@@ -685,8 +685,6 @@ Follow steps below to compile and run oneAPI `board_test` and `io_streaming_one_
 
 Ensure you have sourced `setvars.sh` script located in the root of your oneAPI installation as explained in *[Table 2-2 Initialization Script for HLD tool](#23-prerequisites)*.
 
-For more information on additional environment settings required for running `io_streaming_one_pipe` sample see the README file in the location of the sample, for this location refer to the table 2-6 .
-
 </pre>
 
         cd path-to-sample-location
@@ -711,7 +709,11 @@ Compile the design using the generated `Makefile`. The following build targets a
 
         make fpga
 </pre>
+
 Hardware compilation takes several hours to complete. Once complete, you should see `sample-name.fpga` executable generated, where sample-name could be `board_test` or `io_streaming_one_pipe`.
+
+For more information on additional environment settings required for running `io_streaming_one_pipe` sample see the README file in the location of the sample, for this location refer to the table 2-6 .
+
 Run the generated hardware executable as follows:
 
 </pre>

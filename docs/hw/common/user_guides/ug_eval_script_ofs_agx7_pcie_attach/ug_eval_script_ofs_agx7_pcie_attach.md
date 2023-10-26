@@ -1,38 +1,5 @@
 # Evaluation User Guide: OFS for Intel® Agilex® 7 PCIe Attach
 
-| Term                      | Abbreviation | Description                                                  |
-| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
-|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
-|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
-|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
-|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
-|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel Max10 or Intel Cyclone10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
-|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
-|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
-|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
-|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
-|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
-|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
-|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
-|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
-|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
-|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
-|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
-|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
-|Open Programmable Acceleration Engine Software Development Kit|	OPAE-SDK|	The OPAE-SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
-|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
-|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
-|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
-|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
-|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
-|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
-|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
-|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
-|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
-|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
-|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
-|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
-
 
 ## **1 Overview**
 
@@ -42,20 +9,19 @@
 
 This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL and Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) development platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
 
-* Set-up and modify the script to the your environment
-
-* Compile and simulate an OFS reference design
+* Use the script to run through the most common build and simulation flows when using OFS.
 
 * Run hardware and software tests to evaluate the complete OFS flow
+
+* Modify and leverage the script to the your environment and design
 
 
 #### **Table 1-2: Software Version Summary**
 
 | Component | Version |  Description |
 | --------- | ------- | -------|
-| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html)| Intel platform you can use for your custom board development |
+| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html), [Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html) | Intel platform you can use for your custom board development |
 | OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2023.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
-| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.2](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.2](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.2) | Common RTL across all OFS-based platforms |
 | AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
 | OPAE SDK | [Branch: 2.8.0-1](https://github.com/OFS/opae-sdk/tree/2.8.0-1), [Tag: 2.8.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1) | Open Programmable Acceleration Engine Software Development Kit |
 | Kernel Drivers | [Branch: ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/tree/ofs-2023.2-6.1-1), [Tag: ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.2-6.1-1) | OFS specific kernel drivers|
@@ -91,9 +57,17 @@ This script uses the following set of software tools which should be installed u
 
 1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.2-1. 
 
-2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table for locations. When cloning the FIM repository, please follow the instructions in section 4.1 and 4.2 of the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].  Additionally, please go [OFS Getting Started User Guide] for the instructions for the BKC software installation.
+2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table 1-2 for locations. When cloning the FIM repository, please follow the instructions in the following guides
+   
+* [FPGA Interface Manager (FIM) Developer Guide: OFS for Intel® Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2023.2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)
+* [FPGA Interface Manager (FIM) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach (2xF-tile)](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/).
 
-3. Once the repositories are cloned, contact your intel representative to receive the eval script evaluation script (ofs-agx7-pcie-attach_eval.sh) and copy it to the $IOFS_BUILD_ROOT directory location as shown in the example below:
+Additionally, please follow the instructions in the following guides for the BKC software installation.
+
+* [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
+* [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs (Intel Agilx 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) 
+
+3. Once the repositories are cloned, The scripts that go with each user guide are found in the assets tab of the corresponding FIM RTL repository. Download the evaluation script (ofs-agx7-pcie-attach_eval.sh) and copy it to the $IOFS_BUILD_ROOT directory location as shown in the example below:
 
 **Figure 2-2 Directory Structure for OFS Project**
 
@@ -109,7 +83,7 @@ This script uses the following set of software tools which should be installed u
 ##  -> ofs-agx7-pcie-attach_eval.sh
 ```
 
-4. Contact your intel representative to receive the README file named (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the $IOFS_BUILD_ROOT directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
+4. The README file that accompanies each user guide are found in the assets tab of the corresponding FIM RTL repository. Download the README file (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the $IOFS_BUILD_ROOT directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
 
 ### **2.2 Intel® Agilex® 7 PCIe Attach Evaluation Script modification**
 
@@ -219,12 +193,12 @@ The figure below shows a snapshot of the full evaluation script menu showing all
 
 **Figure 3-1 ofs-agx7-pcie-attach_eval.sh Evaluation Menu**
 
-![](images/ofs_n6001_OFS_eval_menu.png)
+![](images/ofs_n6001_adp_eval_menu.png)
 
 ### **3.1.1 OFS TOOLS MENU**
 
 
-By selecting "List of Documentation for OFS n6001 Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
+By selecting "List of Documentation for OFS Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
 
 By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.
 
@@ -239,7 +213,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
     </thead>
     <tbody>
         <tr>
-             <td>1 - List of Documentation for OFS n6001 Project</td>
+             <td>1 - List of Documentation for OFS PCI Attach Project Project</td>
             <td> Open FPGA Stack Overview<br>
                  Guides you through the setup and build steps to evaluate the OFS solution<br>
                 https://ofs.github.io<br>
@@ -297,7 +271,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
     </thead>
     <tbody>
         <tr>
-            <td>3 - Identify Acceleration Development Platform (OFS) n6001 Hardware via PCIe</td>
+            <td>3 - Identify Platform Hardware via PCIe</td>
             <td>PCIe card detected as<br>
                 b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
                 b1:00.1 Processing accelerators: Intel Corporation Device bcce<br>
@@ -626,7 +600,7 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
     </thead>
     <tbody>
         <tr>
-            <td>12 - Check OFS software versions for OFS n6001 Project</td>
+            <td>12 - Check OFS software version for OFS Project</td>
             <td>OFS_ROOTDIR is set to /home/user_area/ofs-X.X.X/ofs-agx7-pcie-attach<br>
                 OPAE_SDK_REPO_BRANCH is set to release/X.X.X<br>
                 OPAE_SDK_ROOT is set to /home/user_area/ofs-X.X.X/ofs-agx7-pcie-attach/../opae-sdk<br>
@@ -636,21 +610,21 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
 </td>        
         </tr>
         <tr>
-            <td>13 - Build FIM for n6001 Hardware</td>
+            <td>13 - Build FIM for Hardware</td>
             <td>This option builds the FIM based on the setting for the $OFS_PLATFORM, $FIM_SHELL environment variable. Check this variable in the following file ofs-agx7-pcie-attach_eval.sh<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>14 - Check FIM Identification of FIM for n6001 Hardware</td>
+            <td>14 - Check FIM Identification of FIM for Hardware</td>
             <td>The FIM is identified by the following file fme-ifc-id.txt located at $OFS_ROOTDIR/$FIM_WORKDIR/syn/syn_top/<br>
             <br>
         </tr>
 </td>        
         </tr>
         <tr>
-            <td>15 - Build Partial Reconfiguration Tree for n6001 Hardware</td>
+            <td>15 - Build Partial Reconfiguration Tree for Hardware</td>
             <td>This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the oneAPI build flow <br>
             <br>
         </tr>
@@ -664,7 +638,7 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
 </td>        
         </tr>
         <tr>
-            <td>17 - Build Partial Reconfiguration Tree for n6001 Hardware with Remote Signal Tap</td>
+            <td>17 - Build Partial Reconfiguration Tree for Hardware with Remote Signal Tap</td>
             <td>This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the oneAPI build flow for the Remote Signal Tap flow<br>
             <br>
         </tr>
@@ -700,13 +674,13 @@ The following submenu allows you to:
     </thead>
     <tbody>
         <tr>
-            <td>19 - Program BMC Image into n6001 Hardware</td>
+            <td>19 - Program BMC Image into Hardware</td>
             <td>The user must place a new BMC flash file in the following directory $OFS_ROOTDIR/bmc_flash_files. Once the user executes this option a new BMC image will be programmed. A remote system upgrade command is initiated to store the new BMC image<br>
             <br>
 </td>        
         </tr>
         <tr>
-            <td>20 - Check Boot Area Flash Image from n6001 Hardware</td>
+            <td>20 - Check Boot Area Flash Image from Hardware</td>
             <td>This option checks which location area in FLASH the image will boot from, the default is user1<br>
             <br>
             Boot Page : user1<br>
@@ -716,7 +690,7 @@ The following submenu allows you to:
 </td>        
         </tr>
         <tr>
-            <td>21 - Program FIM Image into user1 area for n6001 Hardware</td>
+            <td>21 - Program FIM Image into user1 area for Hardware</td>
             <td>This option programs the FIM image "ofs_top_page1_unsigned_user1.bin" into user1 area in flash<br>
             <br>
             Note: Please refer to the Getting Started Guide for details on flashing images for the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
@@ -724,7 +698,7 @@ The following submenu allows you to:
 </td>        
         </tr>
         <tr>
-            <td>22 - Initiate Remote System Upgrade (RSU) from user1 Flash Image into n6001 Hardware</td>
+            <td>22 - Initiate Remote System Upgrade (RSU) from user1 Flash Image into Hardware</td>
             <td>This option initiates a Remote System Upgrade and soft reboots the server and re-scans the PCIe bus for the new image to be loaded<br>
             <br>
             2022-11-10 11:26:24,307 - [[pci_address(0000:b1:00.0), pci_id(0x8086, 0xbcce)]] performing RSU operation<br>
@@ -752,7 +726,7 @@ The following submenu allows you to:
 </td>        
         </tr>
         <tr>
-            <td>25 - Create Virtual Functions (VF) and bind driver to vfio-pci n6001 Hardware</td>
+            <td>25 - Create Virtual Functions (VF) and bind driver to vfio-pci Hardware</td>
             <td>This option creates vfio-pci driver binding for the PF's and VF's<br>
             Once the VF's have been bound to the driver the user can select menu option 23 to check that the new drivers are bound<br>
             <br>
@@ -813,7 +787,7 @@ The following submenu allows you to:
 </td>        
         </tr>
         <tr>
-            <td>31 - Read from CSR (Command and Status Registers) for n6001 Hardware</td>
+            <td>31 - Read from CSR (Command and Status Registers) for Hardware</td>
             <td>This option reads from the following CSR's<br>
             HE-LB Command and Status Register Default Definitions<br>
             HE-MEM Command and Status Register Default Definitions<br>
@@ -922,7 +896,7 @@ Builds oneAPI kernel, executes sw from host and runs diagnostic tests
     </thead>
     <tbody>
         <tr>
-            <td>39 - Check oneAPI software versions for n6001 Project</td>
+            <td>39 - Check oneAPI software versions for Project</td>
             <td>This option checks the setup of the oneAPI software and adds the relevant oneAPI environment variables to the terminal. This option also informs the user to match the oneAPI software version to the oneAPI-samples version<br>
             <br>
         <tr>
@@ -952,7 +926,7 @@ Builds oneAPI kernel, executes sw from host and runs diagnostic tests
         </tr>
 </td>        
         <tr>
-            <td>44 - Build oneAPI BSP ofs_n6001 Default Kernel (hello_world)</td>
+            <td>44 - Build oneAPI BSP Default Kernel (hello_world)</td>
             <td>This option Builds the oneAPI BSP using hello_world kernel<br>
             <br>
         </tr>
@@ -994,14 +968,14 @@ Builds oneAPI kernel, executes sw from host and runs diagnostic tests
         </tr>
 </td>        
         <tr>
-            <td>51 - Create Virtual Function (VF) and bind driver to vfio-pci n6001 Hardware</td>
+            <td>51 - Create Virtual Function (VF) and bind driver to vfio-pci Hardware</td>
             <td>This option creates vfio-pci driver binding for the PF's and VF's<br>
             Once the VF's have been bound to the driver the user can select menu option 45 to check that the new drivers are bound<br><br>
             <br>
         </tr>
 </td>        
         <tr>
-            <td>52 - Program OpenCL BSP ofs_n6001 Default Kernel (hello_world)</td>
+            <td>52 - Program OpenCL BSP Default Kernel (hello_world)</td>
             <td>This option programs the FPGA with a aocf file based on the hello_world kernel<br>
             <br>
         </tr>
@@ -1068,7 +1042,7 @@ Builds, compiles and runs full chip simulation tests.  The user should execute t
     </thead>
     <tbody>
         <tr>
-            <td>57 - Check UVM software versions for n6001 Project</td>
+            <td>57 - Check UVM software versions for Project</td>
             <td>DESIGNWARE_HOME is set to /home/synopsys/vip_common/vip_Q-2020.03A<br>
                 UVM_HOME  is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm<br>
                 VCS_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel<br>
@@ -1253,6 +1227,39 @@ This section will describe the most common compile build scenarios if a user wan
      </tbody>
 </table>
 
+| Term                      | Abbreviation | Description                                                  |
+| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
+|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
+|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
+|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
+|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
+|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
+|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
+|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
+|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
+|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
+|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
+|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
+|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
+|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
+|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
+|Open Programmable Acceleration Engine Software Development Kit|	OPAE SDK|	The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
+|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
+|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
+|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
+|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
+|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
+|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
+|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
+|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
+|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
+|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
+|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
+
 ## Notices & Disclaimers
 
 Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
@@ -1267,5 +1274,6 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
+
  
 

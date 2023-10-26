@@ -3,10 +3,10 @@ Perform the following steps to clone the OFS Agilex PCIe Attach FIM Repository:
 1. Create a new directory to use as a clean starting point to store the retrieved files.
     ```bash
     mkdir OFS_BUILD_ROOT
-    cd IOFS_BUILD_ROOT
-    export IOFS_BUILD_ROOT=$PWD
+    cd OFS_BUILD_ROOT
+    export OFS_BUILD_ROOT=$PWD
     ```
-2. Clone GitHub repository ussing the HTTPS git method
+2. Clone GitHub repository using the HTTPS git method
     ```bash
     git clone --recurse-submodules ${{ env.REPO }}.git
     ```

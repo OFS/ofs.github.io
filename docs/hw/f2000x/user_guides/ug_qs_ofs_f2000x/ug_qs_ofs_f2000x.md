@@ -1,6 +1,6 @@
 # OFS Getting Started Guide for Intel Agilex 7 SoC Attach FPGAs
 
-Last updated: **September 19, 2023** 
+Last updated: **October 26, 2023** 
 
 ## 1.0 About this Document
 
@@ -980,14 +980,14 @@ The OPAE SDK source code is contained within a single [GitHub repository](https:
     
 6. Enable *iommu=on*, *pcie=realloc*, and set *hugepages* as host kernel parameters.
     
-    ```bash session
+    ```bash
     # Check if parameters are already enabled
     $ cat /proc/cmdline
     ```
     
     If you do not see *intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200*, then add them manually.
     
-    ```bash session
+    ```bash
     $ sudo vim /etc/default/grub
     # Edit the value for GRUB_CMDLINE_LINUX, add the values at the end of the variable inside of the double quotes. Example: GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/rhel00-swap rd.lvm.lv=rhel00/root rd.lvm.lv=rhel00/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200"
     # Save your changes, then apply them with the following
@@ -1010,32 +1010,32 @@ The SoC Attach workload supports testing MMIO HW and Latency and PCIe BW and lat
     
 2. Run `host_exerciser` loopback tests (only *lpbk* is supported). There are more methods of operation than are shown below - read the HE help message for more information.
 
-```bash session
+```bash
 # Example lpbk tests.
-sudo host_exerciser lpbk
-sudo host_exerciser --mode lpbk lpbk
-sudo host_exerciser --cls cl_4  lpbk
-sudo host_exerciser --perf true --cls cl_4  lpbk
+$ sudo host_exerciser lpbk
+$ sudo host_exerciser --mode lpbk lpbk
+$ sudo host_exerciser --cls cl_4  lpbk
+$ sudo host_exerciser --perf true --cls cl_4  lpbk
 # Number of cachelines per request 4.
-sudo host_exerciser --mode lpbk --cls cl_4 lpbk
-sudo host_exerciser --perf true --mode lpbk --cls cl_4 lpbk
+$ sudo host_exerciser --mode lpbk --cls cl_4 lpbk
+$ sudo host_exerciser --perf true --mode lpbk --cls cl_4 lpbk
 # vNumber of cachelines per request 4.
-sudo host_exerciser --mode read --cls cl_4 lpbk
-sudo host_exerciser --perf true --mode read --cls cl_4 lpbk
+$ sudo host_exerciser --mode read --cls cl_4 lpbk
+$ sudo host_exerciser --perf true --mode read --cls cl_4 lpbk
 # Number of cachelines per request 4.
-sudo host_exerciser --mode write --cls cl_4 lpbk
-sudo host_exerciser --perf true --mode write --cls cl_4 lpbk
+$ sudo host_exerciser --mode write --cls cl_4 lpbk
+$ sudo host_exerciser --perf true --mode write --cls cl_4 lpbk
 # Number of cachelines per request 4.
-sudo host_exerciser --mode trput --cls cl_4 lpbk
-sudo host_exerciser --perf true --mode trput --cls cl_4 lpbk
+$ sudo host_exerciser --mode trput --cls cl_4 lpbk
+$ sudo host_exerciser --perf true --mode trput --cls cl_4 lpbk
 # Enable interleave requests in throughput mode
-sudo host_exerciser --mode trput --interleave 2 lpbk
-sudo host_exerciser --perf true --mode trput --interleave 2 lpbk
+$ sudo host_exerciser --mode trput --interleave 2 lpbk
+$ sudo host_exerciser --perf true --mode trput --interleave 2 lpbk
 #with delay option.
-sudo host_exerciser --mode read --delay true lpbk
-sudo host_exerciser --mode write --delay true lpbk
+$ sudo host_exerciser --mode read --delay true lpbk
+$ sudo host_exerciser --mode write --delay true lpbk
 # Test all modes of operation
-host_exerciser --testall=true lpbk
+$ host_exerciser --testall=true lpbk
 ```
 
 ## Notices & Disclaimers

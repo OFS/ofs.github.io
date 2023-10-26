@@ -1,6 +1,6 @@
 # **AFU Development Guide: OFS for Intel® Agilex® 7 PCIe Attach FPGAs**
 
-Last updated: **September 19, 2023** 
+Last updated: **October 26, 2023** 
 
 ## **1. Introduction**
 
@@ -292,9 +292,10 @@ To download and untar the pr_build_template:
 
 ```sh
 $ cd $OFS_BUILD_ROOT
-$ wget https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.2-1/pr_build_template.tar.gz
-$ tar -zxvf pr_build_template.tar.gz
+$ mkdir pr_build_template
 $ cd pr_build_template
+$ wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.2-1/pr_template-n6001.tar.gz
+$ tar -zxvf pr_template-n6001.tar.gz
 $ export OPAE_PLATFORM_ROOT=$PWD
 
 ```
@@ -308,8 +309,10 @@ The AFU requires that the FIM from which the AFU is derived be loaded onto the F
 
 If you are using the Intel® FPGA SmartNIC N6001-PL release package, download the associated FIM files:
 ```sh
-$ wget https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.2-1/ofs_top_page1_unsigned_user1.bin
-$ wget https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.2-1/ofs_top_page2_unsigned_user2.bin
+$ cd $OFS_BUILD_ROOT
+$ wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.2-1/n6001-images.tar.gz
+$ tar -zxvf n6001-images.tar.gz
+$ cd n6001-images
 
 ```
 
@@ -339,14 +342,14 @@ $ export OPAE_PLATFORM_ROOT=<path to pr build tree>
  
 # Quartus Tools
 # Note, QUARTUS_HOME is your Quartus installation directory, e.g. $QUARTUS_HOME/bin contains Quartus executable.
-$ export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.2
-$ export QUARTUS_ROOTDIR=$QUARTUS_HOME/quartus
+$ export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.2/quartus
+$ export QUARTUS_ROOTDIR=$QUARTUS_HOME
 $ export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
 $ export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
 $ export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 $ export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
-$ export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys/bin
-$ export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$PATH
+$ export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys
+$ export PATH=$QUARTUS_HOME/bin:$QSYS_ROOTDIR/bin:$QUARTUS_HOME/../sopc_builder/bin/:$PATH
 
 # Synopsys Verification Tools
 

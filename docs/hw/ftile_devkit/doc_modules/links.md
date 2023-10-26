@@ -1,9 +1,11 @@
+[release notes]: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1
+
 [OFS Welcome Page]: https://ofs.github.io/ofs-2023.2/
-[OFS Agilex PCIe Attach Getting Started Guide]: https://ofs.github.io/ofs-2023.1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
-[OFS Agilex PCIe Attach FIM Technical Reference Manual]: https://ofs.github.io/ofs-2023.1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/
+[OFS Agilex PCIe Attach Getting Started Guide]: https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
+[OFS Agilex PCIe Attach FIM Technical Reference Manual]: https://ofs.github.io/ofs-2023.2/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/
 [Ethernet Subsystem Intel FPGA IP User Guide]: https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148
 [Memory Subsystem Intel FPGA IP User Guide for Intel Agilex OFS]: https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148
-[PCIe Subsystem Intel FPGA IP User Guide for Intel Agilex OFS]: hw/common/user_guides/ug_qs_pcie_ss.pdf
+[PCIe Subsystem Intel FPGA IP User Guide for Intel Agilex OFS]: https://ofs.github.io/ofs-2023.2/hw/common/user_guides/ug_qs_pcie_ss.pdf
 
 [Analyzing and Optimizing the Design Floorplan]: https://www.intel.com/content/www/us/en/docs/programmable/683641/21-4/analyzing-and-optimizing-the-design-03170.html "Analyzing and Optimizing the Design Floorplan"
 
@@ -47,6 +49,8 @@
 [HE_NULL FIM]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#223-he_null-fim
 [Walkthrough: Compile OFS FIM]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim
 [Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim
+[Compilation Seed]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#227-compilation-seed
+[Walkthrough: Change the Compilation Seed]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed
 [FIM Simulation]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#3-fim-simulation
 [Simulation File Generation]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#31-simulation-file-generation
 [Individual Unit Tests]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#32-individual-unit-tests
@@ -67,17 +71,20 @@
 [Partial Reconfiguration Region]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#43-partial-reconfiguration-region
 [Walkthrough: Resize the Partial Reconfiguration Region]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region
 [PF/VF MUX Configuration]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#44-pf/vf-mux-configuration
-[Walkthrough: Modify the PF/VF MUX Configuration]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pf/vf-mux-configuration
+[Walkthrough: Modify the PF/VF MUX Configuration]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration
 [Minimal FIM]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#45-minimal-fim
 [Walkthrough: Create a Minimal FIM]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim
 [PCIe-SS Configuration Registers]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#46-pcie-ss-configuration-registers
-[Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point]: hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point
+[Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point
 [Migrating to a Different Agilex Device Number]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#47-migrating-to-a-different-agilex-device-number
+[Walkthrough: Migrating to a Different Agilex Device Number]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrating-to-a-different-agilex-device-number
 [Modify the Memory Sub-System]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#48-modify-the-memory-sub-system
 [Modify the Ethernet Sub-System]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#49-modify-the-ethernet-sub-system
+[Walkthrough: Modify the Ethernet Sub-System to 2x4x10GbE]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe
+[Walkthrough: Modify the Ethernet Sub-System to 3x4x10GbE]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe
 [FPGA Configuration]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#5-fpga-configuration
 [Walkthrough: Set up JTAG]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag
-[Walkthrough: Program the FPGA via JTAG]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#5-walkthrough-program-the-fpga-via-jtag
+[Walkthrough: Program the FPGA via JTAG]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag
 
 [Appendix A]: https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-a-resource-utilizatio-tables
 [Appendix B]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-b-glossary

@@ -46,7 +46,6 @@ Perform the following steps to set the required environment variables. These env
   export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
   export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
   export QUARTUS_VER_AC=$QUARTUS_ROOTDIR
-  export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
   export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
   export IMPORT_IP_ROOTDIR=$IP_ROOTDIR
   export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys/bin
@@ -60,5 +59,5 @@ Perform the following steps to set the required environment variables. These env
   export VIPDIR=$VERDIR
 
   # Set PATH to include compilation and simulation tools
-  export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
+  export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/../qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
   ```

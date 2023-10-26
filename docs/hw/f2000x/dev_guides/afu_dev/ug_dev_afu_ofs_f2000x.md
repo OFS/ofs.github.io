@@ -1,6 +1,6 @@
 # **AFU Development Guide: OFS for Intel® Intel® Agilex® 7 FPGA SoC Attach FPGAs**
 
-Last updated: **September 19, 2023** 
+Last updated: **October 26, 2023** 
 
 ## **1. Introduction**
 
@@ -334,14 +334,14 @@ $ export OPAE_PLATFORM_ROOT=<path to pr build tree>
  
 # Quartus Tools
 # Note, QUARTUS_HOME is your Quartus installation directory, e.g. $QUARTUS_HOME/bin contains Quartus executable.
-$ export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.2
-$ export QUARTUS_ROOTDIR=$QUARTUS_HOME/quartus
+$ export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.2/quartus
+$ export QUARTUS_ROOTDIR=$QUARTUS_HOME
 $ export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
 $ export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
 $ export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 $ export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
-$ export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys/bin
-$ export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$PATH
+$ export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys
+$ export PATH=$QUARTUS_HOME/bin:$QSYS_ROOTDIR/bin:$QUARTUS_HOME/sopc_builder/bin/:$PATH
 
 # Synopsys Verification Tools
 
