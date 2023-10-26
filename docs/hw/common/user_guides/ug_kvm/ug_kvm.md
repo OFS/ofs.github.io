@@ -1,7 +1,7 @@
 Virtual machine User Guide: Open FPGA Stack + KVM 
 ===
 
-Last updated: **September 19, 2023** 
+Last updated: **October 26, 2023** 
 
 ## Document scope 
 

@@ -37,7 +37,7 @@
 [OFS]: https://github.com/OFS
 [OFS GitHub page]: https://ofs.github.io
 [DFL Wiki]: https://github.com/OPAE/linux-dfl/wiki
-[release notes]: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1
+[release notes]: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1
 
 [Setting Up Required Environment Variables]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-setting-up-required-environment-variables
 
@@ -76,6 +76,8 @@
 [Walkthrough: Set Up Development Environment]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment
 [Walkthrough: Compile OFS FIM]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim
 [Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim
+[Compilation Seed]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#227-compilation-seed
+[Walkthrough: Change the Compilation Seed]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#2271-walkthrough-change-the-compilation-seed
 [Walkthrough: Running Individual Unit Level Simulation]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#321-walkthrough-running-individual-unit-level-simulation
 [Walkthrough: Running Regression Unit Level Simulation]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#331-walkthrough-running-regression-unit-level-simulation
 [Walkthrough: Add a new module to the OFS FIM]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim
@@ -89,7 +91,7 @@
 [Walkthrough: Create a Minimal FIM]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#451-walkthrough-create-a-minimal-fim
 [Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point
 [Walkthrough: Modify the PCIe IDs Without Using OFSS Flow]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#462-walkthrough-modify-the-pcie-ids-without-using-ofss-flow
-[Walkthrough: Migrating to a Different Agilex Device Number]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#472-walkthrough-migrating-to-a-different-agilex-device-number
+[Walkthrough: Migrating to a Different Agilex Device Number]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#471-walkthrough-migrating-to-a-different-agilex-device-number
 [Walkthrough: Modify the Memory Sub-System Using IP Presets With OFSS]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#481-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss
 [Walkthrough: Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#491-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss
 [Walkthrough: Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS]: https://ofs.github.io/ofs-2023.2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#492-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss

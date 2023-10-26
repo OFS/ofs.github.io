@@ -17,7 +17,7 @@ Steps:
 2. If the card is already programmed with an OFS enabled design, determine the PCIe B:D.F of the card using OPAE command `fpgainfo fme`. In this example, the PCIe B:D.F is `B1:00.0`.
 
   ```bash
-  fpgainfo fme
+  sudo fpgainfo fme
   ```
 
   Example output:
@@ -62,33 +62,33 @@ Steps:
   quartus_pgmw
   ```
 
-  ![quartus_pgmw](images/quartus_pgmw.png)
+  ![quartus_pgmw](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw.png)
 
-6. Click **Hardware Setup** to open the Hardware Setup dialog window.
+1. Click **Hardware Setup** to open the Hardware Setup dialog window.
 
   1. In the **Currently selected hardware** field select the fseries-dk.
 
   2. In the **Hardware frequency** field enter `16000000` Hz
 
-      ![quartus_pgmw_hardware_setup](images/quartus_pgmw_hardware_setup.png)
+      ![quartus_pgmw_hardware_setup](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_hardware_setup.png)
 
   3. Click **Close**
 
-7. In the **Quartus Prime Programmer** window, click **Auto Detect**.
+2. In the **Quartus Prime Programmer** window, click **Auto Detect**.
 
-8. If prompted, select the AGFB027R24C2E2VR2 device. The JTAG chain should show the device.
+3. If prompted, select the AGFB027R24C2E2VR2 device. The JTAG chain should show the device.
 
-  ![quartus_pgmw_device_chain](images/quartus_pgmw_device_chain.png)
+  ![quartus_pgmw_device_chain](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_device_chain.png)
 
 9. Right click the AGFB027R24C2E2VR2 row and selct **Change File**.
 
-  ![quartus_pgmw_change_file](images/quartus_pgmw_change_file.png)
+  ![quartus_pgmw_change_file](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_change_file.png)
 
-10. In the **Select New Programming File** window that opens, select the `.sof` image you wish to program and click **Open**.
+1.  In the **Select New Programming File** window that opens, select  `ofs_top_hps.sof` and click **Open**.
 
-11. Check the **Program/Configure** box for the AGFB027R24C2E2VR2 row, then click **Start**. Wait for the **Progress** bar to show `100% (Success)`.
+2.  Check the **Program/Configure** box for the AGFB027R24C2E2VR2 row, then click **Start**. Wait for the **Progress** bar to show `100% (Success)`.
 
-  ![quartus_pgmw_success](images/quartus_pgmw_success.png)
+  ![quartus_pgmw_success](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_success.png)
 
 12. Close the Quartus Programmer GUI.
 
@@ -120,9 +120,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 0x501020241BF165B
+  Bitstream Id                     : 360571655976424377
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : e7f69412-951f-5d1a-8cb7-8c778ac02055
+  Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
   Boot Page                        : N/A
   ```
 

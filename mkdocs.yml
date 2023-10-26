@@ -62,6 +62,7 @@ nav:
   - Welcome: index.md
   - Start Here: 
       - FPGA Developer Journey Guide: 'hw/common/user_guides/ug_fpga_developer/ug_fpga_developer.md'
+      - Glossary: 'hw/doc_modules/Glossary.md'
   - Stratix 10 PCIe Attach OFS:
       - Quick Start Evaluation Guide: 'hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005.md'
       - Getting Started: 'hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005.md'
@@ -80,7 +81,7 @@ nav:
       - FPGA Interface Manager Developer Guide for PCIe Attach (2xF-Tile): 'hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev.md'
       - AFU Developer Guide: 'hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach.md'
       - HPS Developer Guide: 'hw/n6001/dev_guides/hps_dev/hps_developer_ug.md'
-      - Simulation User Guide: 'hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001.md'  
+      - Simulation User Guide: 'hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach.md'  
       - Docker User guide: 'hw/common/user_guides/ug_docker/ug_docker.md' 
       - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
   - Agilex SoC Attach OFS:
@@ -264,9 +265,9 @@ env:
   N6001_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.2
   N6001_QUARTUS_PP_VER_S: 23.2
   N6001_QUARTUS_LINK: https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
-  N6001_QUARTUS_PATCHES: 0.11 (required for oneAPI only), 0.19 (Ethernet)
+  N6001_QUARTUS_PATCHES: 0.02 patch (oneAPI), 0.11 patch (PCIe), and 0.19 patch (Ethernet Subsystem) 
   #N6001_ONEAPI
-  N6001_ONEAPI_ASP_PATCHES: 0.11 and 0.02iofs
+  N6001_ONEAPI_ASP_PATCHES: 0.02
   N6001_ONEAPI_ASP_TAG: ofs-2023.2-1
   N6001_ONEAPI_ASP_REL_PATH: https://github.com/OFS/oneapi-asp/ofs-2023.2
   #N6001_OS
@@ -307,12 +308,14 @@ env:
   FTILE_DK_DESIGN: Agilex PCIe Attach
   FTILE_DK_MPN: AGFB027R24C2E2VR2
   FTILE_DK_MODEL: fseries-dk
+  FTILE_DK_ARTIFACTS: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.2-1/fseries-dk-images.tar.gz
+  FTILE_DK_MODEL_FULL: F-tile Development Kit
   FTILE_DK_RELEASE: ofs-2023.2-1
   FTILE_DK_BRANCH: release/ofs2023.2-1
   FTILE_DK_TAG: ofs-2023.2-1
   FTILE_DK_FIM_REPO: ofs-agx7-pcie-attach
   FTILE_DK_REPO: https://github.com/OFS/ofs-agx7-pcie-attach
-  FTILE_DK_RELEASE_PATH: https://github.com/OFS/ofs-agx7-pcie-attach/ofs-2023.2
+  FTILE_DK_RELEASE_PATH: https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2
   FTILE_DK_OFS_TAG_DIRECT: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1
   FTILE_DK_DOC_REPO: https://ofs.github.io/hw/ftile_devkit/user_guides/ug_eval_ofs_ftile_devkit/ug_eval_script_ofs_ftile_devkit
   FTILE_DK_OPAE_REPO_GENERIC: https://github.com/OFS/opae-sdk
@@ -326,17 +329,17 @@ env:
   FTILE_DK_REDHAT_MAJOR_VERSION: 8
   FTILE_DK_REDHAT_MINOR_VERSION: 6
   #FTILE_DK_FIM
-  FTILE_DK_BITSTREAM_ID: 0x5010202FA3D0C10
-  FTILE_DK_PR_INTERFACE_ID: 96e9ac04-b686-55ab-bbea-c0e263e0e9ab
+  FTILE_DK_BITSTREAM_ID: 0x5010202A8769764
+  FTILE_DK_PR_INTERFACE_ID: d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
   #FTILE_DK_Server_Platform
   FTILE_DK_BIOS_VERSION: American Megatrends International, LLC(1.4)
   #FTILE_DK_Quartus
   FTILE_DK_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.2
   FTILE_DK_QUARTUS_PP_VER_S: 23.2
   FTILE_DK_QUARTUS_LINK: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
-  FTILE_DK_QUARTUS_PATCHES: 0.11 (required for oneAPI only) 0.19 (Ethernet)
+  FTILE_DK_QUARTUS_PATCHES: 0.11 patch (PCIe), and 0.19 patch (Ethernet Subsystem) 
   #FTILE_DK_ONEAPI
-  FTILE_DK_ONEAPI_ASP_PATCHES: 0.11 and 0.02iofs
+  FTILE_DK_ONEAPI_ASP_PATCHES: 0.02 
   FTILE_DK_ONEAPI_ASP_TAG: ofs-2023.2-1
   FTILE_DK_ONEAPI_ASP_REL_PATH: https://github.com/OFS/oneapi-asp/ofs-2023.2
   #FTILE_DK_OS

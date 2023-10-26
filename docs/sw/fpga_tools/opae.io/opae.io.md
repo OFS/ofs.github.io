@@ -2,14 +2,15 @@
 
 ## SYNOPSIS ##
 
-`opae.io ls [-v,--viddid VID:DID]`<br>
-`opae.io init [-d PCI_ADDR USER[:GROUP]]`<br>
-`opae.io release [-d PCI_ADDR]`<br>
-`opae.io [-d PCI_ADDR] [-r REGION] walk OFFSET [-u,--show-uuid]`<br>
-`opae.io [-d PCI_ADDR] [-r REGION] peek OFFSET`<br>
-`opae.io [-d PCI_ADDR] [-r REGION] poke OFFSET VALUE`<br>
-`opae.io [-d PCI_ADDR] [-r REGION] SCRIPT ARG1 ARG2 ... ARGN`<br>
-`opae.io [-d PCI_ADDR] [-r REGION]`
+`opae.io ls [-v,--viddid VIDDID] [-s,--sub-viddid SUB_VIDDID] [--all] [--system-class]`<br>
+`opae.io init [-d,--device PCI_ADDR] [USER[:GROUP]]`<br>
+`opae.io release [-d,--device PCI_ADDR]`<br>
+`opae.io [-d,--device PCI_ADDR] [-r,--region REGION] walk [--offset [OFFSET]] [-u,--show-uuid] [-D,--dump] [-c,--count COUNT] [-y,--delay DELAY] [-s,--safe]`<br>
+`opae.io [-d,--device PCI_ADDR] [-r,--region REGION] dump [--offset [OFFSET]] [-o,--output OUTPUT] [-f,--format {bin,hex}] [-c,--count COUNT]`<br>
+`opae.io [-d,--device PCI_ADDR] [-r,--region REGION] peek OFFSET`<br>
+`opae.io [-d,--device PCI_ADDR] [-r,--region REGION] poke OFFSET VALUE`<br>
+`opae.io [-d,--device PCI_ADDR] [-r,--region REGION] script SCRIPT ARG1 ARG2 ... ARGN`<br>
+`opae.io [-d,--device PCI_ADDR] [-r,--region REGION]`
 
 ## DESCRIPTION ##
 
@@ -28,18 +29,25 @@ mode.
 To view the accelerator devices that are present on the system, ```opae.io```
 provides the ```ls``` command option.
 
-`opae.io ls [-v,--viddid VID:DID]`
+`opae.io ls [-v,--viddid VIDDID] [-s,--sub-viddid SUB_VIDDID] [--all] [--system-class]`
 
 Each accelerator device is listed along with the PCIe address, the
 PCIe vendor/device ID, a brief description of the device, and the
 driver to which the device is currently bound.
 
-```opae.io``` provide an option to initialize a PCIe device for use with
+Device filtering is available by providing a Vendor ID:Device ID pair,
+eg -v 8086:bcce. Further filtering can be done by providing a sub-
+Vendor ID:sub-Device ID pair, eg -s 8086:1771. The --all option provides
+a list of all of the PCIe devices in the system, which an be quite verbose.
+The --system-class option prints the PCIe database class of the accelerator
+device, rather than the product name.
+
+```opae.io``` provides an option to initialize a PCIe device for use with
 the vfio-pci driver. In order for the device CSRs to be accessed from
 user space, the device must first be bound to the vfio-pci driver. This
 is the job of the ```init``` command option.
 
-`opae.io init [-d PCI_ADDR USER:[GROUP]]`
+`opae.io init [-d,--device PCI_ADDR] [USER[:GROUP]]`
 
 The ```init``` command unbinds the specified device from its current
 driver and binds it to vfio-pci. This creates a new vfio group under
@@ -49,7 +57,7 @@ library to interact with the device.
 To release the PCIe device from vfio-pci and return it to use with its
 previous driver, the ```release``` command option is used.
 
-`opae.io release [-d PCI_ADDR]`
+`opae.io release [-d,--device PCI_ADDR]`
 
 The ```release``` command option reverses the actions of the last
 ```init``` command, releasing the device from vfio-pci and binding
@@ -59,33 +67,46 @@ was issued.
 The ```walk``` command option traverses and displays the Device
 Feature List of the given region.
 
-`opae.io walk [-d PCI_ADDR] [-r REGION] [OFFSET] [-u,--show-uuid]`
+`opae.io walk [--offset [OFFSET]] [-u,--show-uuid] [-D,--dump] [-c,--count COUNT] [-y,--delay DELAY] [-s,--safe]`
 
 The various fields of each Device Feature Header are displayed. The
 `--show-uuid` option additionally displays the GUID for each feature.
 OFFSET can be used to specify the beginning of the DFL in the MMIO
-region.
+region. --dump displays the raw DFH contents in hex format. COUNT
+limits the number of DFH entries traversed. DELAY causes a pause
+between each printout. --safe examines each DFH offset for proper
+alignment.
+
+The ```dump``` command provides a means to dump the MMIO space in
+ASCII hex or binary format.
+
+`opae.io dump [--offset [OFFSET]] [-o,--output OUTPUT] [-f,--format {bin,hex}] [-c,--count COUNT]`
+
+OFFSET specifies the starting MMIO offset. OUTPUT gives the name of
+a file to capture the dump output, where sys.stdout is used by default.
+--format allows changing the output format. COUNT specifies the number
+of qwords to dump.
 
 The ```peek``` command option reads and displays a CSR value.
 
-`opae.io peek [-d PCI_ADDR] [-r REGION] OFFSET`
+`opae.io peek OFFSET`
 
 The ```poke``` command option writes a given value to a CSR.
 
-`opae.io poke [-d PCI_ADDR] [-r REGION] OFFSET VALUE`
+`opae.io poke OFFSET VALUE`
 
 ```opae.io``` can also execute Python scripts from the command line.
 These Python scripts may contain calls to the device built-in
 functions that are available during an interactive session. Refer
 to the description of interactive mode for details.
 
-`opae.io [-d PCI_ADDR] [-r REGION] myscript.py a b c`
+`opae.io script myscript.py a b c`
 
 In order to enter the interactive mode of ```opae.io```, simply
 invoke it and optionally pass the desired device address and
 MMIO region options.
 
-`opae.io [-d PCI_ADDR] [-r REGION]`
+`opae.io [-d,--device PCI_ADDR] [-r,--region REGION]`
 
 ## INTERACTIVE MODE ##
 
