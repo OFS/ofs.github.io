@@ -48,27 +48,19 @@ This table defines some of the common terms used when discussing OFS.
 The content in this manual requires readers to be familiar with:
 
 * [Hardware and software components of Open FPGA Stack](https://github.com/OFS), especially the following:
-
-    * FPGA Interface Manager(FIM)
-
-        * Intel® Stratix 10® FPGA:
-
-            * [FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/)
-            * [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/)
-
-        * Intel® Agilex® 7 FPGA:
-
-            * [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach]
-            * [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs]
-
-    * Accelerator Functional Unit(AFU)
-
-        * Intel® Stratix 10® FPGA: [Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Stratix 10 FPGA](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
-        * Intel® Agilex® 7 FPGA: [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs]
-
-    * [OPAE SDK](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)
-    * [Linux-DFL](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/#110-dfl-linux-kernel-drivers)
-    * [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb)
+  * FPGA Interface Manager(FIM)
+    * Intel® Stratix 10® FPGA:
+      * [FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/)
+      * [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/)
+    * Intel® Agilex® 7 FPGA:
+      * [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach]
+      * [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs]
+  * Accelerator Functional Unit(AFU)
+    * Intel® Stratix 10® FPGA: [Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Stratix 10 FPGA](https://ofs.github.io/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
+    * Intel® Agilex® 7 FPGA: [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs]
+  * [OPAE SDK](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)
+  * [Linux-DFL](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/#110-dfl-linux-kernel-drivers)
+  * [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb)
 
 In addition to above, developers must be familiar with the following tools & concepts:
 
@@ -270,18 +262,45 @@ In the board_spec.xml file, each global memory, channel or kernel connection is 
 | Parameter | Description | Applicable Interface |
 |---------|---------|---------|
 | name |* For global_mem: instance name of the Platform Designer component.<br>* For channels: instance name of the Platform Designer component that has the channel interface.<br>* For interfaces: name of the entity in which the kernel interface resides (for example, board). | All |
-| port |* For global_mem: name of the Avalon®-MM interface in the Platform Designer component that corresponds to the interface attribute.<br>* For channels: name of the streaming interface in the Platform Designer component.<br>* For interfaces: name of the interface to the `OpenCL™ Kernel Interface` Platform Designer component. For example, kernel_cra is the Avalon®-MM interface, and kernel_irq is an interrupt. | All |
+| port | port parameter can be defined either inline in `interface` attribute or as a separate element in `interface` attribute. See section 2.1.4.1 for more information. | All |
 | type |* For global_mem: set to agent. <br>* For channels: <br>- Set to streamsource for a stream source that provides data to the kernel.<br>- Set to streamsink for a stream sink interface that consumes data from the kernel.<br>* For interfaces: set to either host, irq, or streamsource. | All |
 | width |* For global_mem: width of the memory interface in bits.<br>* For channels: number of bits in the channel interface.<br>* For interfaces: width of the kernel interface in bits. | All |
 | waitrequest_allowance	|* For global_mem: [Optional] Amount of Avalon®-MM waitrequest allowance supported on the agent interface (that is, kernel-facing interface) of the clock-crossing bridge that spans between the memory and the kernel clock domains.<br>* For kernel_cra: [Optional] Amount of Avalon®-MM waitrequest allowance that the kernel_cra agent interface must support.<br>This parameter defaults to 0 if you do not specify it in the board_spec.xml file. A value of 0 indicates that this waitrequest allowance feature is disabled. | All |
 | maxburst | Maximum burst size for the agent interface.<br>Attention: The value of width ÷ 8 x maxburst must be less than the value of interleaved_bytes. | global_mem |
-| address | Starting address of the memory interface that corresponds to the host interface-side address.<br>For example, address 0 should correspond to the bank1 memory host from the `OpenCL Memory Bank Divider`. In addition, any non-zero starting address must abut the end address of the previous memory. | global_mem |
-| size | Size of the memory interface in bytes. The sizes of all memory interfaces should be equal. | global_mem |
+| address | Starting address of the memory interface that corresponds to the host interface-side address.<br>For example, address 0 should correspond to the bank1 memory host from the `Memory Bank Divider`. In addition, any non-zero starting address must abut the end address of the previous memory. | global_mem |
+| size | Size of the memory interface in bytes.<br>* For global_mem: The sizes of all memory interfaces should be equal.<br>* For interfaces: interface can have variable sizes. | global_mem<br>interfaces<br> > **Note:** Support for size parameter for interface attribute is available in Intel® oneAPI Base Toolkit (Base Kit) version 2024.0 and beyond. |
 | latency_type | If the memory interface has variable latency, set this parameter to average to signify that the specified latency is considered the average case. If the complete kernel-to-memory path has a guaranteed fixed latency, set this parameter to fixed. | global_mem |
 | chan_id | A string used to identify the channel interface. The string may have up to 128 characters. | channels |
 | clock	| For the streamsource kernel interface type, the parameter specifies the name of the clock that the snoop stream uses. Usually, this clock is the kernel clock. | interfaces |
 
 Example for how the `interface` attribute is used in `global_mem` and `interfaces` elements is covered in section for these elements respectively.
+
+##### **2.1.4.1 port Parameter**
+<div id=port_parameter></div>
+
+
+
+As mentioned in Table 2-5, port parameter can be defined either inline in `interface` attribute or as a separate element in `interface` attribute. The definition method to use depends on the direction of the port. 
+
+* If the direction of the port is either `read` or `write`, it must be a separate element in `interface` attribute. 
+* If the direction is `readwrite`, port must be inline with the port name in `interface` attribute. No direction specification is required. 
+
+Table below shows the `port` element attributes.
+
+**Table 2-6: `port` parameter**
+
+| Parameter | Description |
+|---------|---------|---------|
+| name | * For global_mem: name of the Avalon®-MM interface in the Platform Designer component that corresponds to the interface attribute.<br>* For channels: name of the streaming interface in the Platform Designer component.<br>* For interfaces: name of the interface to the `Kernel Interface` Platform Designer component. For example, kernel_cra is the Avalon®-MM interface, and kernel_irq is an interrupt. |
+| direction | Direction of the port. Valid values are: <br> * "r" : Indicates read <br> * "w" : Indicates `write` |
+
+Snippet below shows the inline and separate element definitions of `port` parameter.
+
+> **Note:** Direction specification for port is available in Intel® oneAPI Base Toolkit (Base Kit) versions 2024.0 and beyond. For versions prior to Intel® oneAPI Base Toolkit (Base Kit) version 2024.0, only the default inline definition of port parameter is supported. 
+
+![Port Element Example](images/port_element.png)
+
+Examples for `global_mem` and `interfaces` elements in sections below use the inline definition of port.  
 
 #### **2.1.5 global_mem Element**
 <div id="global_mem_element"></div>
@@ -289,25 +308,25 @@ Example for how the `interface` attribute is used in `global_mem` and `interface
 The `global_mem` element of the board_spec.xml file is used to provide information on the memory interfaces that connect to the kernel.
 
 > **Note:** For each global memory that the kernel accesses, you must include one interface element that describes its characteristics.
-The different attributes for global_mem element are discussed in table 2-6.
+The different attributes for global_mem element are discussed in table below.
 
-**Table 2-6: Attributes for `global_mem` Element**
+**Table 2-7: Attributes for `global_mem` Element**
 
 | Attribute | Description |
 |---------|---------|
 | name | The name FPGA application/kernel developer should use to identify the memory type. Each name must be unique and must comprise of less than 32 characters. |
 | max_bandwidth | The maximum bandwidth, in megabytes per second (MB/s), of all global memory interfaces combined in their current configuration. The oneAPI compiler uses max_bandwidth to choose an architecture suitable for the application and the board. <br> Compute this bandwidth value from datasheets of memories on your board. <br> Example max_bandwidth calculation for a 64-bit DDR4 interface running at 1200 MHz: <br> max_bandwidth = 1200 MHz x 2 x 64 bits ÷ 8-bits = 19200 MB/s <br> The max_bandwidth value will change based on global memory configuration, for example, if the memory configuration comprises of 4 banks of DDR4 configured as a single homogenous memory, the max_bandwidth will be 19200 x 4 (i.e. number of memory interfaces from kernel). Please see section 2.1.5.1 for more information on global memory configurations. <br> Designers have the option to use block RAM instead of or in conjunction with external memory as global memory. The formula for calculating max_bandwidth for block RAM is max_bandwidth = block RAM speed x (block RAM interface size ÷ 8 bits). <br> Example max_bandwidth calculation for a 512-bit block RAM running at 100 MHz: <br> max_bandwidth = 100 MHz x 512 bits ÷ 8 bits = 6400 MB/s |
-| interleaved_bytes | Include the interleaved_bytes attribute in the board_spec.xml file when you instantiate multiple interfaces(i.e. memory banks) for a given global memory system. This attribute controls the size of data that the offline compiler distributes across the interfaces. <br> The offline compiler currently can interleave data across banks no finer than the size of one full burst. This attribute specifies this size in bytes and following are the recommended values: <br> For two or fewer global memory banks: maxburst x width_bytes <br> For four or more global memory banks: maxburst x width_bytes x 4 <br> The interleaved_bytes value must be the same for the host interface and the kernels. Therefore, the configuration of the `OpenCL Memory Bank Divider` must match the exported kernel agent interfaces in this respect (refer to section 3.1.1 for information about `OpenCL Memory Bank Divider`) <br> For block RAM, interleaved_bytes equals the width of the interface in bytes. |
+| interleaved_bytes | Include the interleaved_bytes attribute in the board_spec.xml file when you instantiate multiple interfaces(i.e. memory banks) for a given global memory system. This attribute controls the size of data that the offline compiler distributes across the interfaces. <br> The offline compiler currently can interleave data across banks no finer than the size of one full burst. This attribute specifies this size in bytes and following are the recommended values: <br> For two or fewer global memory banks: maxburst x width_bytes <br> For four or more global memory banks: maxburst x width_bytes x 4 <br> The interleaved_bytes value must be the same for the host interface and the kernels. Therefore, the configuration of the `Memory Bank Divider` must match the exported kernel agent interfaces in this respect (refer to section 3.1.1 for information about `Memory Bank Divider`) <br> For block RAM, interleaved_bytes equals the width of the interface in bytes. |
 | config_addr | The address of the ACL Mem Organization Control Platform Designer component (mem_org_mode) that the host software uses to configure memory. You may omit this attribute if your board has homogeneous memory; the software uses the default address (0x18) for this component. If your board has heterogeneous memory, there is a mem_org_mode component in the board system for each memory type. <br> Enter the config_addr attribute and set it to the value of the base address of the mem_org_mode component(s). |
 | default | Include this optional attribute and assign a value of 1 to set the global memory as the default memory interface. The default memory must start at address 0x0. <br> If you do not implement this attribute, the first memory type defined in the board_spec.xml file becomes the default memory interface. |
 | interface | See the `interface` section above for the parameters you must specify for each interface. |
 | allocation_type | A list that specifies which USM allocator is used to allocate from the global_mem element. Values allowed in this list are `host`, `shared`, and `device`. The following conditions apply: <br> If there are multiple global_mem elements with the same allocation_type attribute, the first allocation_type attribute in the board_spec.xml is assumed to be the one used by the specified allocator. <br> If there is a single global_mem element with multiple allocation_type attributes, this indicates that allocations of the specified types use this global_mem interface. <br> [Legacy support] If you have not specified the allocation_type attribute, it is assumed that all global memory interfaces have the `device` allocation_type. |
 
-Example below shows a `global_mem` element configuration for a kernel system connected to four 4GB DDR4 memory banks. The DDR4 interface is 64 bit operating at 1200MHz. Note that the name of the platform designer system name is `board.qsys`. As mentioned in description for `interleaved_bytes` in table above, the `OpenCL Memory Bank Divider` configuration ensures that the host interface matches the interleaved_bytes setting (i.e. 512 bits x 64 burst size = 4096 bytes). For information on `waitrequest_allowance`, refer to section 2.1.4 on `interface` attribute.
+Example below shows a `global_mem` element configuration for a kernel system connected to four 4GB DDR4 memory banks. The DDR4 interface is 64 bit operating at 1200MHz. Note that the name of the platform designer system name is `board.qsys`. As mentioned in description for `interleaved_bytes` in table above, the `Memory Bank Divider` configuration ensures that the host interface matches the interleaved_bytes setting (i.e. 512 bits x 64 burst size = 4096 bytes). For information on `waitrequest_allowance`, refer to section 2.1.4 on `interface` attribute.
 
-> **Note:** More details on the `OpenCL Memory Bank Divider` and the Clock Crossing Bridges is covered in section 3.0
+> **Note:** More details on the `Memory Bank Divider` and the Clock Crossing Bridges is covered in section 3.0
 
-**Figure 2-5: Memory Connection Example Block Diagram and Corresponding `global_mem` Element in `board_spec.xml`**
+**Figure 2-6: Memory Connection Example Block Diagram and Corresponding `global_mem` Element in `board_spec.xml`**
 
 
 
@@ -332,7 +351,7 @@ The different memory configurations are
 <div id="cont_mem"></div>
 
 For boards with multiple memory banks of the same type, designers can configure these as a single contiguous global memory region. This is done by specifying each memory interface within a single global_mem element.
-Figure 2-5 showed 4 DDR4 memory banks configured as a single global memory region.
+Figure 2-6 showed 4 DDR4 memory banks configured as a single global memory region.
 
 With this configuration, FPGA application developers have the option to use contiguous memory region in an interleaved or a non-interleaved fashion. Even with contiguous memory regions, kernel developers can partition data buffers across the banks/memory channels. Please refer to [Global Memory Access Optimization section in FPGA Optimization Guide for Intel® oneAPI Toolkits](https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top/optimize-your-design/throughput-1/memory-accesses/global-memory-accesses-optimization.html) for more details on these partitioning techniques.
 
@@ -341,9 +360,9 @@ With this configuration, FPGA application developers have the option to use cont
 
 For boards with different memory technologies, designers must specify each type of memory that the kernel needs to access as a separate global memory.
 
-Figure 2-6 shows heterogeneous configurations and the `global_mem` element structure for two different types of memories (QDR, DDR4). The `global_mem` element in example below also demonstrates use of the `default` attribute. It is set to "1" for the DDR4 memory banks, indicating to the oneAPI compiler that the default global memory for the kernel is DDR4.
+Figure 2-7 shows heterogeneous configurations and the `global_mem` element structure for two different types of memories (QDR, DDR4). The `global_mem` element in example below also demonstrates use of the `default` attribute. It is set to "1" for the DDR4 memory banks, indicating to the oneAPI compiler that the default global memory for the kernel is DDR4.
 
-**Figure 2-6: Heterogeneous Memory Example Block Diagram and Corresponding `global_mem` Element in `board_spec.xml`**
+**Figure 2-7: Heterogeneous Memory Example Block Diagram and Corresponding `global_mem` Element in `board_spec.xml`**
 
 
 
@@ -358,9 +377,9 @@ Figure 2-6 shows heterogeneous configurations and the `global_mem` element struc
 
 For applications that require [USM](https://oneapi-src.github.io/DPCPP_Reference/usm.html) support, the board_spec.xml must specify host and device memories in a heterogeneous manner.
 The `allocation_type` must be `host` for global memory region on the host processor. The `allocation_type` must be set to `device` for global memory on the FPGA board.
-Example below extends the board_spec.xml snippet in figure 2-5 to add a `global_mem` element for the kernel system to host processor memory interface.
+Example below extends the board_spec.xml snippet in figure 2-6 to add a `global_mem` element for the kernel system to host processor memory interface.
 
-**Figure 2-7: `global_mem` Element Example for Unified Shared Memory(USM)**
+**Figure 2-8: `global_mem` Element Example for Unified Shared Memory(USM)**
 
 
 
@@ -369,15 +388,15 @@ Example below extends the board_spec.xml snippet in figure 2-5 to add a `global_
 #### **2.1.6 host Element**
 <div id="host_element"></div>
 
-The host element of the board_spec.xml file provides information on the interface from the host to the kernel. Figure 2-8 shows an example of host element.
+The host element of the board_spec.xml file provides information on the interface from the host to the kernel. Figure below shows an example of host element.
 
-**Figure 2-8: `host` Element Example**
+**Figure 2-9: `host` Element Example**
 
 
 
 ![host element example](images/host_element.png)
 
-**Table 2-7: Attributes for the `host` Element**
+**Table 2-8: Attributes for the `host` Element**
 
 | Attribute | Description |
 |---------|---------|
@@ -389,15 +408,15 @@ The host element of the board_spec.xml file provides information on the interfac
 The `interfaces` element of the board_spec.xml file describes the kernel interfaces that connect to application kernels and control kernel behavior. For this element, include one of each interface of types host, irq and streamsource. Refer to the `interface` section for the parameters you must specify for each interface.
 In addition to the host, irq, and streamsource interfaces, if your design includes a separate Platform Designer subsystem containing the board logic, the kernel clock and reset interfaces exported from it are also part of the interfaces element. Specify these interfaces with the `kernel_clk_reset` attribute and its corresponding parameters.
 
-Figure 2-9 shows example of `interfaces` element.
+Figure below shows example of `interfaces` element.
 
-**Figure 2-9: `interfaces` Element Example**
+**Figure 2-10: `interfaces` Element Example**
 
 
 
 ![Interfaces element example](images/interfaces_element.png)
 
-**Table 2-8:  Parameters for the `kernel_clk_reset` Attribute**
+**Table 2-9:  Parameters for the `kernel_clk_reset` Attribute**
 
 | Attribute | Description |
 |---------|---------|
@@ -412,9 +431,9 @@ Figure 2-9 shows example of `interfaces` element.
 
 The `channels` element provides channels for streaming data directly between kernel and I/O. Each channel (implemented using Avalon-ST specification) must be connected to the kernel via the `interface` attribute. The channel interface only supports data, and valid and ready Avalon-ST signals. The I/O channel defaults to 8-bit symbols and big-endian ordering at the interface level.
 
-Figure 2-10 shows an example of `channels` element for a single channel with a width of 64 bits. The `chan_id` attribute identified helps identify the port in the generated `kernel_system`. Refer to [section 2.1.4](#214-interface-attribute) for more information about the `interface` attribute parameters. Additional interface attributes can be added for additional channels. 
+Figure below shows an example of `channels` element for a single channel with a width of 64 bits. The `chan_id` attribute identified helps identify the port in the generated `kernel_system`. Refer to [section 2.1.4](#214-interface-attribute) for more information about the `interface` attribute parameters. Additional interface attributes can be added for additional channels. 
 
-**Figure 2-10: `channels` Element Example**
+**Figure 2-11: `channels` Element Example**
 
 
 
@@ -427,15 +446,15 @@ For more information about kernel development using channels, refer to *I/O Pipe
 
 The `board_env.xml` file is used by the oneAPI toolkit to set up the board installation that enables the compiler to target a specific accelerator platform. The board_env.xml file must be located in the top most level of the oneAPI ASP for each platform. For example, the `board_env.xml` for oneAPI ASP for OFS reference platforms is located in the `oneapi-asp/Platform-Name` folder, where `Platform-Name` is `n6001` for Agilex OFS and `d5005` for Stratix 10 OFS.
 
-A sample board_env.xml file is shown below. Table 2-9 explains the elements of this file.
+A sample board_env.xml file is shown below. Table 2-10 explains the elements of this file.
 
-**Figure 2-11: `board_env.xml` File Structure**
+**Figure 2-12: `board_env.xml` File Structure**
 
 
 
 ![Board_env.xml File Structure](images/board_env.xml.png)
 
-**Table 2-9:  Specifications of XML Elements and Attributes in the `board_env.xml` File**
+**Table 2-10:  Specifications of XML Elements and Attributes in the `board_env.xml` File**
 
 | Element | Attribute Description |
 |---------|---------|
@@ -443,9 +462,11 @@ A sample board_env.xml file is shown below. Table 2-9 explains the elements of t
 | hardware | * dir: Name of the subdirectory, within the oneAPI ASP directory, that contains the board variant directories for a platform<br> * default: The default board variant that the compiler targets when a platform has multiple board variants and user does not specify an explicit argument using [-Xstarget option](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/2023-1/fpga-compilation-flags.html) |
 | platform | name: Name of the operating system. A separate `platform` element must be specified for each supported OS for the oneAPI ASP platform |
 | mmdlib | A string that specifies the path to the MMD library of your oneAPI ASP. To load multiple libraries, specify them in an ordered, comma-separated list. The host application will load the libraries in the order that they appear in the list<br>> **Note:** You can use `%b` to reference your oneAPI ASP directory and provide path relative to oneAPI ASP directory, for example, if MMD library is located inside `linux64/lib` folder in oneAPI ASP, the path would be `%b/linux64/lib/libintel_opae_mmd.so`  |
-| linkflags | A string that specifies the linker flags necessary for linking with the MMD layer available with the board<br>> **Note:** You can use %b to reference your oneAPI ASP directory and provide path relative to oneAPI ASP directory, for example, if MMD library is located inside `linux64/lib` folder in oneAPI ASP, the path would be `%b/linux64/lib`.   |
+| linkflags | A string that specifies the linker flags necessary for linking with the MMD layer available with the board<br>> **Note:** You can use %b to reference your oneAPI ASP directory and provide path relative to oneAPI ASP directory, for example, if MMD library is located inside `linux64/lib` folder in oneAPI ASP, the path would be `%b/linux64/lib`. |
 | linklibs | A string that specifies the libraries the oneAPI runtime must link against to use the MMD layer available with the board |
 | utilbindir | Directory in which the runtime expects to locate board utility executables (i.e. install, uninstall, program, diagnose, flash) <br>> **Note:** You can use %b to reference your oneAPI ASP directory and provide path relative to oneAPI ASP directory, for example, if the utilities are located in `linux64/libexec` folder in oneAPI ASP, the path would be `%b/linux64/libexec` |
+
+
 
 ## **3.0 oneAPI ASP Hardware**
 <div id="oneAPI_asp_hw"></div>
@@ -461,7 +482,7 @@ Figure 1-3 shows 5 different paths, summarized below:
 * Kernel to HSSI: Consisting of RTL to handle data streaming between kernel and I/O
 
 Please note that the `kernel system` generated by oneAPI compiler has Avalon® interfaces. OFS FIM has AXI interfaces. Additional logic blocks from Platform Interface Manager are used to handle protocol conversions. Please refer to section 5.3.1 for more details on PIM.
-The next few sections cover some of the important IP components provided by Intel® oneAPI Base Toolkit (Base Kit) installation that are required to enable kernel communications with host and board peripherals. More design implementation details are covered in section 5.0.
+The next few sections cover some of the important IP components  required to enable kernel communications with host and board peripherals. More design implementation details are covered in section 5.0.
 
 ### **3.1 Host to External Memory Interface(EMIF)**
 <div id="host_to_emif"></div>
@@ -478,24 +499,24 @@ The External Memory Interface Subsystem (EMIF SS) consists of EMIF IP and additi
 
 Large buffers of data are usually transferred between host and on-board memory in oneAPI applications. This necessitates a Direct Memory Access(DMA) Engine between host and on-board memory. In oneAPI ASP designs for OFS reference platform, this DMA engine is placed in the AFU region. 
 
-As described in section 2.1.5.1, there are different configurations for memories on board. In addition to above, figure 1-3 also shows an additional IP in the host to memory datapath, called *OpenCL Memory Bank Divider*. This IP is a part of Intel® oneAPI Base Toolkit (Base Kit) installation and is used for handling one of the most commonly used configurations, i.e. configuring multiple memory banks of same type as a contiguous memory region. In this case, the kernel has a contiguous view of the memory and data can be interleaved across the different memory channels. The host must also have the same view of the memory in order to ensure read and write transactions from correct addresses.
+As described in section 2.1.5.1, there are different configurations for memories on board. In addition to above, figure 1-3 also shows an additional IP in the host to memory datapath, called *Memory Bank Divider*. This IP is used for handling one of the most commonly used configurations, i.e. configuring multiple memory banks of same type as a contiguous memory region. In this case, the kernel has a contiguous view of the memory and data can be interleaved across the different memory channels. The host must also have the same view of the memory in order to ensure read and write transactions from correct addresses.
 
-#### **3.1.1 OpenCL Memory Bank Divider**
+#### **3.1.1 Memory Bank Divider**
 <div id="ocl_mem_divider"></div>
 
 The OpenCL™ Memory Bank Divider is a Platform Designer component that takes an incoming request from the host interface on the Avalon®-MM agent port and routes it to the appropriate bank host port. This component must reside on the path between the host and the global memory interfaces. In addition, it must reside outside of the path between the kernel and the global memory interfaces.
 
-**Figure 3-1: OpenCL Memory Bank Divider IP**
+**Figure 3-1: Memory Bank Divider IP**
 
 
 
-![OpenCL Memory Bank Divider IP Block Diagram](images/ocl_mem_divider_block_dia.png)
+![Memory Bank Divider IP Block Diagram](images/ocl_mem_divider_block_dia.png)
 
 
 
-![OpenCL Memory Bank Divider IP Parameters](images/ocl_mem_divider_param.png)
+![Memory Bank Divider IP Parameters](images/ocl_mem_divider_param.png)
 
-**Table 3-1: Parameter Settings for the OpenCL Memory Bank Divider Component**
+**Table 3-1: Parameter Settings for the Memory Bank Divider Component**
 
 | Parameter | Description |
 |---------|---------|
@@ -508,7 +529,7 @@ The OpenCL™ Memory Bank Divider is a Platform Designer component that takes an
 | Maximum Pending Reads	| Maximum number of pending read transfers the component can process without asserting a waitrequest signal. Intel® recommended value is 64 if BSP has two global memory banks or fewer and 128 if BSP has four or more global memory banks. <br> CAUTION: A high Maximum Pending Reads value causes Platform Designer to insert a deep response FIFO buffer, between the component's host and agent, that consumes a lot of device resources. It also increases the achievable bandwidth between host and memory interfaces. |
 | Split read/write bursts on burst word boundary | Enable splitting of read and write bursts on burst word boundary. <br> Enable this parameter if the Number of banks parameter value is greater than 1, and the burst reads and writes that the host controller sends to the agent port crosses burst word boundary. |
 
-**Table 3-2: Signals and Ports for the OpenCL Memory Bank Divider Component**
+**Table 3-2: Signals and Ports for the Memory Bank Divider Component**
 
 | Signal or Port | Description |
 |---------|---------|
@@ -516,41 +537,43 @@ The OpenCL™ Memory Bank Divider is a Platform Designer component that takes an
 | reset | The reset input that connects to the board power-on reset. |
 | s	| The agent port that connects to the host interface controller. |
 | kernel_clk | The kernel_clk drives this clock input  |
-| kernel_reset | The kernel_reset output from the `OpenCL Kernel Interface` drives this reset input. |
-| acl_bsp_snoop | Export this Avalon® Streaming (Avalon®-ST) source. In the board_spec.xml file, under interfaces, describe only the snoop interface for the default memory (acl_internal_snoop). If you have a heterogeneous memory design, perform these tasks only for the `OpenCL Memory Bank Divider` component associated with the  default memory.<br> **Important:** The memory system you build in Platform Designer alters the width of acl_bsp_snoop. You must update the width of the streamsource interface within the channels element in the board_spec.xml file to match the width of acl_bsp_snoop.<br> In the board_spec.xml file, update the width of the snoop interface (acl_internal_snoop) specified with the streamsource kernel interface within the interfaces element. Updating the width ensures that the global_mem interface entries in `board_spec.xml` match the characteristics of the bank`N` Avalon®-MM hosts from corresponding `OpenCL Memory Bank Divider` component for the default memory. |
+| kernel_reset | The kernel_reset output from the `Kernel Interface` IP drives this reset input. |
+| acl_bsp_snoop | Export this Avalon® Streaming (Avalon®-ST) source. In the board_spec.xml file, under interfaces, describe only the snoop interface for the default memory (acl_internal_snoop). If you have a heterogeneous memory design, perform these tasks only for the `Memory Bank Divider` component associated with the  default memory.<br> **Important:** The memory system you build in Platform Designer alters the width of acl_bsp_snoop. You must update the width of the streamsource interface within the channels element in the board_spec.xml file to match the width of acl_bsp_snoop.<br> In the board_spec.xml file, update the width of the snoop interface (acl_internal_snoop) specified with the streamsource kernel interface within the interfaces element. Updating the width ensures that the global_mem interface entries in `board_spec.xml` match the characteristics of the bank`N` Avalon®-MM hosts from corresponding `Memory Bank Divider` component for the default memory. |
 | acl_bsp_memorg_host | This conduit connects to the acl_bsp_memorg_host interface of the `OpenCL` Kernel Interface`.<br>> **Note:** Signal present if Number of banks > 1. |
-| bank1, bank2, ..., bank8 | The number of memory hosts available in the `OpenCL Memory Bank Divider` depends on the number of memory banks that were included when the unit was instantiated. Connect each bank with each memory interface in the same order as the starting address for the corresponding kernel memory interface specified in the board_spec.xml file. <br> For example, global_mem interface that begins at address 0 must correspond to the memory host in bank1 from the `OpenCL Memory Bank Divider`. |
+| bank1, bank2, ..., bank8 | The number of memory hosts available in the `Memory Bank Divider` depends on the number of memory banks that were included when the unit was instantiated. Connect each bank with each memory interface in the same order as the starting address for the corresponding kernel memory interface specified in the board_spec.xml file. <br> For example, global_mem interface that begins at address 0 must correspond to the memory host in bank1 from the `Memory Bank Divider`. |
 
 ### **3.2 Host to Kernel Interface**
 <div id="host_to_kern"></div>
 
-The host exchanges control signals with kernel with the help of an additional IP provided as part of Intel® oneAPI Base Toolkit (Base Kit) installation. The control signals coming from the host are on a different clock domain (PCIe clock) while the kernel runs on different clock frequency . The *OpenCL Kernel Interface* IP handles the clock domain crossing for these control signals as well as handles communication with kernel CSR, interrupts, generates the reset for kernel.
-All oneAPI ASP designs must instantiate *OpenCL Kernel Interface* IPs to ensure the kernel functions correctly.
+The host exchanges control signals with kernel with the help of an additional IP . The control signals coming from the host are on a different clock domain (PCIe clock) while the kernel runs on different clock frequency . The *Kernel Interface* IP handles the clock domain crossing for these control signals as well as handles communication with kernel CSR, interrupts, generates the reset for kernel.
+All oneAPI ASP designs must instantiate *Kernel Interface* IPs to ensure the kernel functions correctly.
 
-#### **3.2.1 OpenCL Kernel Interface**
+#### **3.2.1 Kernel Interface**
 <div id="ocl_kern_intf"></div>
 
-The OpenCL Kernel Interface is a Platform Designer component that allows the host interface to access and control the oneAPI kernel.
+The Kernel Interface is a Platform Designer component that allows the host interface to access and control the oneAPI kernel.
 
-**Figure 3-2: OpenCL Kernel Interface IP**
-
-
-
-![OpenCL Kernel Interface IP Block Diagram](images/ocl_kern_intf_block_dia.png)
+**Figure 3-2: Kernel Interface IP**
 
 
 
-![OpenCL Kernel Interface IP Parameters](images/ocl_kern_intf_ip_param.PNG)
+![Kernel Interface IP Block Diagram](images/ocl_kern_intf_block_dia.png)
 
-> \***Note:** OpenCL Kernel Interface IPs are device specific. There are different IPs for Intel® Stratix 10® FPGA and Intel® Agilex® 7 FPGA device families. Please refer to hardware designs for oneAPI ASP for OFS reference platforms to view device specific instantiations for OpenCL Kernel Interface IPs.<br>* [Stratix 10 OFS `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/d5005)<br>* [Agilex OFS `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/n6001) 
 
-**Table 3-3: Parameter Settings for the OpenCL Kernel Interface Component**
+
+![Kernel Interface IP Parameters](images/ocl_kern_intf_ip_param.PNG)
+
+
+
+
+
+**Table 3-3: Parameter Settings for the Kernel Interface Component**
 
 | Parameter | Description |
 |---------|---------|
 | Number of global memory systems | Number of global memory types in your board design. |
 
-**Table 3-4: Signals and Ports for the OpenCL Kernel Interface Component**
+**Table 3-4: Signals and Ports for the Kernel Interface Component**
 
 |Signal or Port | Description |
 |---------|---------|
@@ -558,11 +581,11 @@ The OpenCL Kernel Interface is a Platform Designer component that allows the hos
 | reset | This reset input resets the control interface. It also triggers the kernel_reset signal, which resets all kernel logic. |
 | ctrl | Use this agent port to connect to the host interface. This interface is a low-speed interface with which you set kernel arguments and start the kernel's execution. |
 | kernel_clk | kernel clock drives this clock input. |
-| kernel_cra | This Avalon®-MM host interface communicates directly with the kernels generated by the oneAPI compiler. Export the Avalon®-MM interface to the OpenCL Kernel Interface and name it in the board_spec.xml file. |
+| kernel_cra | This Avalon®-MM host interface communicates directly with the kernels generated by the oneAPI compiler. Export the Avalon®-MM interface to the Kernel Interface and name it in the board_spec.xml file. |
 | sw_reset_in | When necessary, the host interface resets the kernel via the ctrl interface. If the board design requires a kernel reset, it can do so via this reset input. Otherwise, connect the interface to a global power-on reset. |
 | kernel_reset | Use this reset output to reset the kernel and any other hardware that communicates with the kernel. <br> Warning: This reset occurs between the MMD open and close calls. Therefore, it must not reset anything necessary for the operation of your MMD. |
 | sw_reset_export | This reset output is the same as kernel_reset, but it is synchronized to the clk interface. Use this output to reset logic that is not in the kernel_clk clock domain but should be reset whenever the kernel resets. |
-| acl_bsp_memorg_host | The memory interfaces use these signals. <br> Based on the number of global memory systems you specify in the `OpenCL Kernel Interface` component parameter editor, the Intel® Quartus® Prime Pro Edition Software creates the corresponding number of copies of this signal, each with a different hexadecimal suffix. Connect each signal to the `OpenCL Memory Bank Divider` component associated with each global memory system (for example, DDR). Then, list the hexadecimal suffix in the config_addr attribute of the global_mem element in the board_spec.xml file. |
+| acl_bsp_memorg_host | The memory interfaces use these signals. <br> Based on the number of global memory systems you specify in the `Kernel Interface` component parameter editor, the Intel® Quartus® Prime Pro Edition Software creates the corresponding number of copies of this signal, each with a different hexadecimal suffix. Connect each signal to the `Memory Bank Divider` component associated with each global memory system (for example, DDR). Then, list the hexadecimal suffix in the config_addr attribute of the global_mem element in the board_spec.xml file. |
 | kernel_irq_from_kernel | An interrupt input from the kernel. This signal is exported and named in the board_spec.xml file. |
 | kernel_irq_to_host | An interrupt output from the kernel. This signal connects to the host interface. |
 
@@ -1444,8 +1467,8 @@ Table 4-6 shows the subcommands that `aocl` utility provides for FPGA platforms.
 |---------|---------|---------|
 | install | Install board into the host system. This installs the FPGA Client Driver (FCD) for your FPGA platform. FCD allows runtime to find and load the FPGA platform libraries at runtime | aocl install `path-to-FPGA-platform-oneapi-asp` |
 | uninstall | Uninstall board from the host system. Removes FCD. | aocl uninstall `path-to-FPGA-platform-oneapi-asp` |
-| initialize | Configure a default FPGA image onto the board | aocl initialize `device-name` |
-| program | Configure a new FPGA image onto the board | aocl program `device-name` |
+| initialize | Configure a default FPGA image onto the board. For more information about initialization refer to [Intel oneAPI FPGA Handbook](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/2024-0/fpga-board-initialization.html) | Two methods are available to initalize the board:<br> 1. aocl initialize `device-name` `board-variant`<br> 2. aocl initialize `device-name` `oneAPI fat binary`<br> > **Note:** The second option requires Intel® oneAPI Base Toolkit (Base Kit) version 2024.0 & above as well as 2023.3 OFS Release for oneAPI Accelerator Support Package and above |
+| program | Configure a new FPGA image onto the board | aocl program `device-name` `aocx file`|
 | diagnose | Runs ICD and FCD diagnostics followed by querying devices in installed platforms. If a `device-name` is specified in the call, it run board vendor's test program for the FPGA platform | * aocl diagnose : This queries the devices in FPGA platform and supplies a list of valid strings assigned to the list of devices <br> * aocl diagnose `device-name` : This runs full diagnostic test on the FPGA platform |
 
 The runtime expects the routine for each of this utilities to be defined in the oneAPI ASP. It looks for the routine executables in the location specified by the `utilbinder` element in the `board_env.xml` file.
@@ -1684,12 +1707,14 @@ Table 5-7 gives a brief description of the important design files in all board v
 | build/mpf_vtp.qsf | Adds IP components from Intel® FPGA BBB (see section 5.3.2 below for information about use of MPF blocks from Intel® FPGA BBB) repository used in the design |
 | build/bsp_design_files.tcl | Adds design files to the project, this file is source in afu_ip.qsf |
 | build/board.qsys | Please refer to figures above for components in board.qsys system |
-| build/ddr_board.qsys | Instantiated in the board.qsys system, contains IP components in the host to EMIF and kernel to EMIF datapath. `OpenCL Memory Bank Divider` is instantiated in this platform designer system. Please refer to section 3.1.1 for more details on `OpenCL Memory Bank Divider` |
+| build/ddr_board.qsys | Instantiated in the board.qsys system, contains IP components in the host to EMIF and kernel to EMIF datapath. `Memory Bank Divider` is instantiated in this platform designer system. Please refer to section 3.1.1 for more details on `Memory Bank Divider` |
 | build/ddr_channel.qsys | Instantiated in ddr_board.qsys, contains bridges required for clock domain crossings between PCIe and EMIF clocks as well as kernel and EMIF clock |
 | fim_platform | Contains Platform Interface Modules (PIM) modules and FIM database used in the design. See PIM subtopic below |
+| ofs_asp.sdc | Contains clock group constraints for all clocks in oneAPI ASP |
 
-| opencl_bsp.sdc | Contains clock group constraints for all clocks in oneAPI ASP |
-| user_clock.sdc | Contains initial user clock constraints. These are modified during oneAPI kernel compilation (by the compilation scripts) to achieve higher kernel clock frequency |
+
+
+
 
 
 
@@ -1702,7 +1727,7 @@ The hardware implementation diagrams show a PF/VF Mux/De-mux module in the AFU r
 | Stratix 10 OFS | PF0-VF1 |
 | Agilex OFS | PF0-VF0 |
 
-Sections below provide some more information on some blocks in the hardware design block diagram shown above. Refer to section 3.1 for more information about `OpenCL Memory Bank Divider` and to section 3.2 for information about `OpenCL Kernel Interface`. 
+Sections below provide some more information on some blocks in the hardware design block diagram shown above. Refer to section 3.1 for more information about `Memory Bank Divider` and to section 3.2 for information about `Kernel Interface`. 
 
 #### **5.3.1 Platform Interface Modules(PIM)**
 <div id="pim"></div>
@@ -1802,8 +1827,9 @@ Table 5-10 summarizes notes for reference numbers 1-5 marked in figure above.
 | Reference Number | Note |
 |---------|---------|
 | 1 | revision_name is `afu_flat` for `oneapi-asps` for OFS reference platforms |
-| 2 | `compile_script.tcl` runs synthesis(quartus_syn), fitter(quartus_fit), assembler(quartus_asm) and static timing analysis(quartus_sta) for the design |
-| 3 | `adjust_plls.tcl` script calculates the highest achievable kernel clock frequency (to ensure timing closure) and writes the data to a pll_metadata.txt file, which is used while generating the gbs (bitstream for AFU region) |
+| 2 | `gen-asp-quartus-report.tcl` script generates a report (`acl_quartus_report.txt`) containing resource utilization and kernel clock frequency summary |
+
+
 
 ### **5.4 `oneapi-asp` Memory Mapped Device(MMD) Layer Implementation**
 <div id="mmd_impl"></div>
@@ -1852,6 +1878,8 @@ The implementation of these APIs is in `oneapi-asp/common/source/host/mmd.cpp`. 
 | zlib_inflate.h<br>zlib_inflate.c | Function declaration(.h) and definition(.c) for decompressing bitstream data |
 | CMakeLists.txt | CMakeLists.txt file for building MMD source code |
 
+
+
 The build flow scripts build the MMD library, i.e. `libintel_opae_mmd`, and place them in `oneapi-asp/Platform-Name/linux64/lib` folder. The MMD library is specified as part of `mmdlib`, `linklibs` element in `board_env.xml` and used at runtime (refer to figure 5-1 for sample `board_env.xml` file and section 2.2 for more information about `board_env.xml` elements).
 
 **Use of OPAE library in MMD**
@@ -1896,7 +1924,7 @@ Brief descriptions for the source code files are given in table below.
 | setup_permissions.sh | Helper script to configure correct device port permissions, make changes to allow users to lock pages in memory and set the hugepages required for the software stack to function correctly. The helper script is used by `install`, `initialize` routines |
 | install | install routine invokes the `setup_permissions.sh` script after the FPGA Client Driver (FCD) is setup by the runtime  |
 | uninstall | uninstall routine reverts the port permission, memory locking and hugepage setting changes performed by `install` routine and is invoked by runtime after the FCD is removed by runtime |
-| initialize | initialize routine performs the following steps:<br> * looks for the initialization bitstreams for the board variant to be initialized<br> * invokes the `setup_permissions.sh` script to set correct device permissions<br> * performs partial reconfiguration of the FPGA device by invoking `program` routine with the initialization bitstream as an argument |
+| initialize | initialize routine performs the following steps:<br> * looks for the initialization binary for the board variant to be initialized<br> * extracts the FPGA hardware configuration file from the oneAPI fat binary using `clang-offload-extract` command provided by Intel® oneAPI Base Toolkit (Base Kit) version 2024.0 and beyond <br> * invokes the `setup_permissions.sh` script to set correct device permissions<br> * performs partial reconfiguration of the FPGA device by invoking `program` routine with the initialization bitstream as an argument <br> >**Note:** For more information about how `initialize` utility extracts FPGA hardware configuration file from oneAPI fat binary, refer to [Intel oneAPI® FPGA Handbook](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/extracting-the-fpga-hardware-configuration-aocx.html) |
 | program | `program` routine allocates memory and loads the supplied initialization bitstream in memory followed by a call to reprogramming function provided by `oneapi-asp's` MMD library. The MMD library uses `fpgaReconfigureSlot` API provided by OPAE library to perform device reconfiguration<br>> **Note:** Please refer to [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for more information about OPAE SDK API |
 | diagnose | `diagnose` routine scans for the available devices for the installed platform and performs DMA transactions between host & device. It also reports the PCIe bandwidth. `diagnose` routine uses functions provided by the MMD library for scanning & opening connection to available devices |
 
@@ -1906,7 +1934,10 @@ Brief descriptions for the source code files are given in table below.
 | Date | Release | Changes |
 |---------|---------|---------|
 | May 26, 2023 | 2023.1 | First release of *oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack* on https://ofs.github.io/ |
-|  | 2023.2 | 1. Section 1:<br> * Updated Figure 1-3 to add HSSI path<br> 2. Section 2:<br> * Added `channels` element in Ffigure 2-1 and table 2-1, added information about board variants below this table<br> * Added Section 2.1.8 on `channels` element<br> 3. Section 4:<br> * Added information about MMD API (table 4-1) and new sections 4.1.1 to 4.1.21<br> 4. Section 5:<br> * Moved `oneapi-asp` build flow information into new section 5.2<br> * Added new table 5-6 with oneAPI ASP board variants information<br> * Added hardware design diagrams and information about new board variants with I/O pipes support (Hardware Design with IO Pipes and Hardware Design with IO Pipes and USM)<br> * Updated hardware design diagrams to show PF/VF Mux/De-mux and added information about PF/VF mapping in section 5.3<br> * Added new section on UDP engine (section 5.3.3)<br> * Updated figure 5-10 to remove `import_opencl_kernel.tcl` and `add_bbb_to_pr_project.tcl`<br> * Updated table 5-12 to add `mmd_iopipes.h` and `mmd_iopipes.cpp` files |
+| September 15, 2023 | 2023.2 | 1. Section 1:<br> * Updated Figure 1-3 to add HSSI path<br> 2. Section 2:<br> * Added `channels` element in figure 2-1 and table 2-1, added information about board variants below this table<br> * Added Section 2.1.8 on `channels` element<br> 3. Section 4:<br> * Added information about MMD API (table 4-1) and new sections 4.1.1 to 4.1.21<br> 4. Section 5:<br> * Moved `oneapi-asp` build flow information into new section 5.2<br> * Added new table 5-6 with oneAPI ASP board variants information<br> * Added hardware design diagrams and information about new board variants with I/O pipes support (Hardware Design with IO Pipes and Hardware Design with IO Pipes and USM)<br> * Updated hardware design diagrams to show PF/VF Mux/De-mux and added information about PF/VF mapping in section 5.3<br> * Added new section on UDP engine (section 5.3.3)<br> * Updated figure 5-10 to remove `import_opencl_kernel.tcl` and `add_bbb_to_pr_project.tcl`<br> * Updated table 5-12 to add `mmd_iopipes.h` and `mmd_iopipes.cpp` files |
+|  | 2023.3 | 1. Section 2:<br> * Update table 2-5 to add information about port parameter<br> * Added new section 2.1.4.1 on port parameter<br> * Update table & figure numbers<br> * Changed "master" and "slave" ports to "host" & "agent" ports in figures<br> 2. Section 4:<br> * Added new executable call supported by initialize utility<br> 3. Section 5:<br> * Updated `initialize` utility information to add `clang-offload-extract`command usage<br> * Updated table with hardware design files information, added information about ofs_asp.sdc<br> * Updated compile flow diagram, added information about new `gen-asp-quartus-report.tcl` script<br> * Updated hardware implementation diagrams for signal name and IP name changes, replaced `mem_if_vtp` block with `host_mem_if_vtp`<br> * Updated OpenCL Memory Bank Divider to Memory Bank Divider<br> * Updated OpenCL Kernel Interface to Kernel Interface |
+
+
 
 ## Notices & Disclaimers
 

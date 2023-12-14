@@ -8,8 +8,10 @@
 
 The ```fpgasupdate``` command implements a secure firmware update for the following programmable accelerator cards (PACs):
 * Intel&reg; PAC with Intel Arria&reg; 10 GX FPGA
-* Intel FPGA PAC D5005
-* Intel PAC N3000
+* Intel&reg; FPGA PAC D5005
+* Intel&reg; PAC N3000
+* Intel&reg; FPGA SmartNIC N6001-PL with Intel&reg Agilex&reg FPGA
+* Intel&reg; FPGA IPU F2000X-PL
 
 `--log-level <level>`
 

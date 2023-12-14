@@ -4,7 +4,7 @@
 
 ### 1.1 About This Document
 
-The purpose of this document is to help users get started in evaluating the 2023.1
+The purpose of this document is to help users get started in evaluating the 2023.3
  version of the Open FPGA Stack (OFS) for the Intel Agilex FPGA targeting the Intel N6001-PL FPGA SmartNIC Platform. After reviewing the document a user shall be able to:
 
 - Set up their server environment according to the Best Known Configuration (BKC)
@@ -40,7 +40,7 @@ The following flow charts show a high level overview of the initial bring up pro
 |Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
 |Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel Max10 or Intel Cyclone10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
 |Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
-|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implemented on Intel hardware.
 |Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
 |FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
 |FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
@@ -48,11 +48,13 @@ The following flow charts show a high level overview of the initial bring up pro
 |Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
 |Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
 |Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Management Component Transport Protocol	|MCTP|	A standardized model for communication with management controllers. Defines the transport protocol carrying PLDM messages through the BMC.|
 |Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
 |oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
 |Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
 |Open Programmable Acceleration Engine Software Development Kit|	OPAE-SDK|	The OPAE-SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
 |Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Level Data Model |PLDM|	A specification for reporting telemetry data to the host, such as board temperature, voltage, and current.|
 |Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
 |Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
 |Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
@@ -96,9 +98,9 @@ Documentation for N6001 is collected [on GitHub](https://ofs.github.io/hw/n6001/
 
 ### 1.6 Component Version Summary
 
-The OFS 2023.1 Release targeting the Intel® FPGA SmartNIC N6001-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
+The OFS 2023.3 Release targeting the Intel® FPGA SmartNIC N6001-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
 
-The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2023.1 release.
+The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2023.3 release.
 
 #### Table 3: Hardware BKC
 
@@ -115,14 +117,14 @@ The following table highlights the versions of the software which compose the OF
 
 | Component | Version |
 | --------- | ------- |
-| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1> under "Known Issues"|
-| OPAE SDK | [2.8.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1)|
-| Kernel Drivers |[ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.2-6.1-1)|
-| OneAPI-ASP | [ofs-2023.2-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.2-1)  |
-| OFS FIM Source Code for N6001| [ofs-2023.2-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1) |
+| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1> under "Known Issues"|
+| OPAE SDK | [2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1)|
+| Kernel Drivers |[ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2)|
+| OneAPI-ASP | [ofs-2023.3-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-1)  |
+| OFS FIM Source Code for N6001| [ofs-2023.3-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1) |
 | OFS FIM Common Resources| [Tag: ofs-fim-common-1.1.0-rc2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-fim-common-1.1.0-rc2) |
-|OFS Platform AFU BBB | [ofs-2023.2-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.2-1) |
-| Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.2 for Linux](https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html)  |
+|OFS Platform AFU BBB | [ofs-2023.3-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-1) |
+| Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.3 for Linux](https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html)  |
 | Operating System | [RedHatEnterprise Linux® (RHEL) 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software) |
 
 The following table highlights the differences between N6000/1 PL FPGA SmartNIC platforms (SKU1/SKU2). Use this table to identify which version of the N6000/1-PL FPGA SmartNIC platform you have. The board identification printed by the `fpgainfo fme` commands depends on both the OPAE SDK and Linux DFL drivers from sections [3.0 OFS DFL Kernel Drivers](#30-ofs-dfl-kernel-drivers) through [4.0 OPAE Software Development Kit](#40-opae-software-development-kit) to be installed before it can be run.
@@ -134,16 +136,16 @@ The following table highlights the differences between N6000/1 PL FPGA SmartNIC 
 |N6000| Q1613314XXXXX | PCIe Gen 4 1x16 mechanical bifurcated 2x8 logical to host, with one PCIe Gen 4x8 endpoint reserved for Intel E810-C-CAM2 NIC, the other reserved for FIM| "Intel Acceleration Development Platform N6000"|
 |N6001| Q0216514XXXXX | PCIe Gen 4 1x16 mechanical and logical connection between host and FIM| "Intel Acceleration Development Platform N6001"|
 
-The following table highlights the programmable firmware versions that are supported on the Intel N6001-PL FPGA SmartNIC Platform in the [OFS 2023.1 release](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1). Programming and verifying these components is discussed in their respective sections.
+The following table highlights the programmable firmware versions that are supported on the Intel N6001-PL FPGA SmartNIC Platform in the [OFS 2023.3 release](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1). Programming and verifying these components is discussed in their respective sections.
 
 #### Table 6: Intel® FPGA SmartNIC N6001-PL Programmable Component Version Summary
 
 | Component | Version |
 | ----- | ----- |
-| PR Interface ID |  d8fd88a7-8683-57ba-8be6-a1e058b7d4ed  |
-| Bitstream ID | 360571655605884772 |
-| BMC RTL | 3.14.0 |
-| BMC NIOS FW| 3.14.0 |
+| PR Interface ID |  1d6beb4e-86d7-5442-a763-043701fb75b7  |
+| Bitstream ID | 00x50102023508A422 |
+| BMC RTL | 3.15.0 |
+| BMC NIOS FW| 3.15.0 |
 
 ### 1.7 Initial Server Setup
 
@@ -271,7 +273,7 @@ Do not bend the card while removing it from the slot.
 The OFS hardware architecture decomposes all designs into a standard
 set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Agilex FPGA](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
-OFS is a hardware and software infrastructure that provides an efficient approach to developing a customer FPGA-based platform or workload using an Intel, 3rd party, or custom board.
+OFS is a hardware and software infrastructure that provides an efficient approach to developing a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board.
 
 #### 2.1.1 FPGA Interface Manager
 
@@ -283,7 +285,7 @@ peripheral features on the acceleration platform. The OFS architecture for Intel
 
 - PCIe Subsystem - a hierarchical design that targets the P-tile PCIe hard IP and is configured to support Gen4 speeds and Arm AXI4-Stream Data Mover functional mode.
 - Ethernet Subsystem - provides portability to different Ethernet configurations across platforms and generations and reusability of the hardware framework and software stack.
-- Memory Subsystem - composed of 5 DDR4 channels; two HPS DDR4 banks, x40 (x32 Data and x8 ECC), 1200 MHz, 1GB each, and four Fabric DDR4 banks, x32 (no ECC), 1200 MHz, 4GB
+- Memory Subsystem - composed of 5 DDR4 channels; one HPS DDR4 bank, x40 (x32 Data and x8 ECC), 1200 MHz, 1GB each, and four Fabric DDR4 banks, x32 (no ECC), 1200 MHz, 4GB
 - Hard Processor System - 64-bit quad core ARM® Cortex*-A53 MPCore with integrated peripherals.
 - Reset Controller
 - FPGA Management Engine - Provides a way to manage the platform and enable acceleration functions on the platform.
@@ -377,7 +379,7 @@ $ subscription-manager release --set=8.6
 $ sudo dnf update
 ```
 
-If you wish to install the pre-built linux-dfl package available on the [OFS 2023.1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1) skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages).
+If you wish to install the pre-built linux-dfl package available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1) skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages).
 
 **2.** You must satisfy the following package dependencies if building and installing the drivers from source. Double check that all packages have been found and installed. The following section assumes you require use of a proxy to download from remote repositories. If you do not, then you may safely ignore all references to proxies in the following code block.
 
@@ -393,7 +395,7 @@ $ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.n
 $ sudo dnf install -y python3 python3-pip python3-devel \
 gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel nmap \
 python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel \
-python3-pyyaml hwloc-devel libedit-devel git kernel-headers kernel-devel elfutils-libelf-devel ncurses-devel openssl-devel bison flex cli11-devel spdlog-devel
+python3-pyyaml hwloc-devel libedit-devel git kernel-headers kernel-devel elfutils-libelf-devel ncurses-devel openssl-devel bison flex cli11-devel spdlog-devel numactl-devel
 
 $ python3 -m pip install --user jsonschema virtualenv pudb pyyaml
 
@@ -421,14 +423,14 @@ $ cd /home/OFS/
 $ git init
 $ git clone https://github.com/OFS/linux-dfl
 $ cd /home/OFS/linux-dfl
-$ git checkout tags/ofs-2023.2-6.1-1
+$ git checkout tags/ofs-2023.3-6.1-2
 ```
 
 **4.** Verify that the correct tag/branch have been checkout out.
 
 ```bash
 $ git describe --tags
-ofs-2023.2-6.1-1
+ofs-2023.3-6.1-2
 ```
 
 *Note: If two different tagged releases are tied to the same commit, running git describe tags may report the other release's tag. This is why the match is made explicit.*
@@ -593,7 +595,7 @@ $ subscription-manager release --set=8.6
 $ sudo dnf update
 ```
 
-**2.** To use the pre-built Linux DFL packages, the user will need to download the files from the [OFS 2023.1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
+**2.** To use the pre-built Linux DFL packages, the user will need to download the files from the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
 
 ```bash
 $ tar xf kernel-6.1.41_dfl-1.x86_64-<<version>>.tar.gz
@@ -613,7 +615,7 @@ $ sudo dnf localinstall kernel-6.1.41_dfl_<<version>>.src.rpm
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit the [opae reference](https://opae.github.io/2.3.0/index.html) page.
 
 The OPAE SDK source code is contained within a single GitHub repository
-hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
+hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
 
 ### 4.1 OPAE SDK Build Environment Setup
 
@@ -643,26 +645,26 @@ $ cd /home/OFS/
 $ git init
 $ git clone https://github.com/OFS/opae-sdk opae-sdk
 $ cd /home/OFS/opae-sdk
-$ git checkout tags/2.8.0-1
+$ git checkout tags/2.10.0-1
 ```
 
 **5.** Verify that the correct tag/branch have been checkout out.
 
 ```bash
 $ git describe --tags
-2.8.0-1
+2.10.0-1
 ```
 
 ### 4.2 Installing the OPAE SDK with Pre-Built Packages
 
-You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS ofs-2023.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/ofs-2023.2) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.8.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
+You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS ofs-2023.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/ofs-2023.3) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
 
 ```bash
 $ dnf install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel
 
 $ pip3 install --upgrade --prefix=/usr pip setuptools pybind11
 
-$ tar xf opae-2.8.0-1.x86_64-<<date>>_<<build>>.tar.gz
+$ tar xf opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz
 ```
 
 For a fast installation you can delete the source RPM as it isn't necessary, and install all remaining OPAE RPMs:
@@ -717,7 +719,7 @@ The below table lists a short description for each package:
 
 ```bash
 $ cd /home/OFS/opae-sdk/packaging/opae/rpm
-$ rm -rf opae-2.8.0-1.el8.src.rpm 
+$ rm -rf opae-2.10.0-1.el8.src.rpm 
 $ sudo dnf localinstall -y opae*.rpm
 ```
 
@@ -725,22 +727,66 @@ $ sudo dnf localinstall -y opae*.rpm
 
 ```bash
 $ rpm -qa | grep opae
-opae-packager-2.8.0-1.x86_64
-opae-devel-2.8.0-1.x86_64
-opae-PACSign-2.8.0-1.x86_64
-opae-tools-extra-2.8.0-1.x86_64
-opae-2.8.0-1.x86_64
-opae-tools-2.8.0-1.x86_64
-opae-libs-2.8.0-1.x86_64
-opae-opae.admin-2.8.0-1.x86_64
-opae-tests-2.8.0-1.x86_64
+opae-packager-2.10.0-1.x86_64
+opae-devel-2.10.0-1.x86_64
+opae-PACSign-2.10.0-1.x86_64
+opae-tools-extra-2.10.0-1.x86_64
+opae-2.10.0-1.x86_64
+opae-tools-2.10.0-1.x86_64
+opae-libs-2.10.0-1.x86_64
+opae-opae.admin-2.10.0-1.x86_64
+opae-tests-2.10.0-1.x86_64
 ```
 
-### 4.4 OPAE Tools Overview
+### 4.4 FPGA Device Access Permissions
 
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.8.0-1/doc/src/fpga_tools/readme.md).
+Access to FPGA accelerators and devices is controlled using file access permissions on the Intel® FPGA device files, /dev/dfl-fme.* and /dev/dfl-port.*, as well as to the files reachable through /sys/class/fpga_region/.
 
-#### 4.4.1 Board Management with fpgainfo
+In order to allow regular (non-root) users to access accelerators, you need to grant them read and write permissions on /dev/dfl-port.* (with * denoting the respective socket, i.e. 0 or 1). E.g.:
+
+
+```bash
+sudo chmod a+rw /dev/dfl-port.0
+```
+
+
+### 4.5 Memlock limit
+
+Depending on the requirements of your application, you may also want to increase the maximum amount of memory a user process is allowed to lock. The exact way to do this depends on your Linux distribution.
+
+
+You can check the current memlock limit using
+
+```bash
+ulimit -l
+```
+
+A way to permanently remove the limit for locked memory for a regular user is to add the following lines to your /etc/security/limits.conf:
+
+```bash
+user1    hard   memlock           unlimited
+user1    soft   memlock           unlimited
+```
+
+This removes the limit on locked memory for user user1. To remove it for all users, you can replace user1 with *:
+
+```bash
+*    hard   memlock           unlimited
+*    soft   memlock           unlimited
+```
+
+Note that settings in the /etc/security/limits.conf file don't apply to services. To increase the locked memory limit for a service you need to modify the application's systemd service file and add the line:
+
+```bash
+[Service]
+LimitMEMLOCK=infinity
+```
+
+### 4.6 OPAE Tools Overview
+
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.10.0-1/doc/src/fpga_tools/readme.md).
+
+#### 4.6.1 Board Management with fpgainfo
 
 The **fpgainfo** utility displays FPGA information derived from sysfs files.
 
@@ -756,8 +802,8 @@ The following examples walk through sample outputs generated by `fpgainfo`.
 $ sudo fpgainfo fme
 
 Intel Acceleration Development Platform N6001
-Board Management Controller NIOS FW version: 3.14.0
-Board Management Controller Build version: 3.14.0
+Board Management Controller NIOS FW version: 3.15.0
+Board Management Controller Build version: 3.15.0
 //****** FME ******//
 Object Id                        : 0xED00001
 PCIe s:b:d.f                     : 0000:B1:00.0
@@ -767,13 +813,13 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571655605884772
+Bitstream Id                     : 00x50102023508A422
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
+Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
 Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
-User2 Image Info                 : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
+User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
+User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
 
 ```
 
@@ -781,8 +827,8 @@ User2 Image Info                 : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
 $ sudo fpgainfo bmc
 
 Intel Acceleration Development Platform N6001
-Board Management Controller NIOS FW version: 3.14.0
-Board Management Controller Build version: 3.14.0
+Board Management Controller NIOS FW version: 3.15.0
+Board Management Controller Build version: 3.15.0
 //****** FME ******//
 Object Id                        : 0xED00001
 PCIe s:b:d.f                     : 0000:B1:00.0
@@ -792,9 +838,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571655605884772
+Bitstream Id                     : 00x50102023508A422
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
+Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
 ( 1) VCCRT_GXER_0V9 Voltage                             : 0.91 Volts
 ( 2) FPGA VCCIO_1V2 Voltage                             : 1.21 Volts
 ( 3) Inlet 12V Aux Rail Current                         : 0.87 Amps
@@ -809,13 +855,13 @@ Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
 
 ```
 
-#### 4.4.2 Sensor Monitoring with fpgad
+#### 4.6.2 Sensor Monitoring with fpgad
 
 The **fpgad** is a service that can help you protect the server from crashing when the hardware reaches an upper non-recoverable or lower non-recoverable sensor threshold (also called as fatal threshold). The fpgad is capable of monitoring each of the 80 sensors reported by the Board Management Controller. This service is only available once the installation instructions in sections [3.2 Building and Installing the OFS DFL Kernel Drivers](#32-building-and-installing-the-ofs-dfl-kernel-drivers-from-source) and [4.1 OPAE SDK Build Environment Setup](#41-opae-sdk-build-environment-setup) have been completed
 .
 *Note: Qualified OEM server systems should provide the required cooling for your workloads. Therefore, using **fpgad** may be optional.*
 
-When the opae-tools-extra-2.8.0-1.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
+When the opae-tools-extra-2.10.0-1.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
 The **fpgad** periodically reads the sensor values and if the values exceed the warning threshold stated in the fpgad.conf or the hardware defined warning threshold, it masks the PCIe Advanced Error Reporting (AER) registers for the Intel N6000/1-PL FPGA SmartNIC Platform to avoid system reset.
 Use the following command to start the **fpgad** service:
 
@@ -933,7 +979,7 @@ For a full list of systemctl commands, run the following command:
 $ systemctl -h
 ```
 
-#### 4.4.3 Updating with fpgasupdate
+#### 4.6.3 Updating with fpgasupdate
 
 The **fpgasupdate** tool updates the Intel Max10 Board Management Controller (BMC) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (PR). The **fpgasupdate** tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) for information on created signed images and on programming and managing the root entry hash.  
 
@@ -941,19 +987,19 @@ The Intel® FPGA SmartNIC N6001-PL ships with a factory, user1, and user2 progra
 
 Use the following chart for information on the Bitstream ID and Pr Interface ID, two unique values reported by `fpgainfo` which can be used to identify the loaded FIM.
 
-##### Table 13: FIM Version Summary for OFS 2023.1 Release
+##### Table 13: FIM Version Summary for OFS 2023.3 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| ofs-2023.1| 360571655605884772| d8fd88a7-8683-57ba-8be6-a1e058b7d4ed| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2023.1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1)|
+| ofs-2023.3| 00x50102023508A422| 1d6beb4e-86d7-5442-a763-043701fb75b7| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2023.3 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1)|
 | ofs-n6001-0.9.0-rc2 |  0x50102025AD3DD11| 92ec8960-2f2f-5544-9804-075d2e8a71a1 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-n6001/releases/tag/ofs-n6001-0.9.1)|
 | OFS-2.3.0 |  0x50102022267A9ED| f59830f7-e716-5369-a8b0-e7ea897cbf82 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.3.0)|
 | OFS-2.2.0 | 0x501020295B081F0 | 8c157a52-1cf2-5d37-9514-944af0a060da | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.2.0-beta Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.2.0-beta)|
 
-##### Table 14: BMC Version Summary for OFS 2023.1 Release
+##### Table 14: BMC Version Summary for OFS 2023.3 Release
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
-| 3.14.0 | AC_BMC_RSU_user_retail_3.14.0_unsigned.rsu | n/a|
+| 3.15.0 | AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu | n/a|
 
 1. Example loading a new version of the BMC RTL and FW.
 
@@ -992,7 +1038,7 @@ $ sudo fpgasupdate ofs_top_page1_unsigned_user1.bin <PCI ADDRESS>
 
 
 
-#### 4.4.4 Signing Images with PACSign
+#### 4.6.4 Signing Images with PACSign
 
 PACSign is an OPAE utility which allows users to insert authentication markers into bitstreams targeted for the Intel® FPGA SmartNIC N6001-PL. PACSign also allows users updating their Static Region (SR) to designate which partition of flash (user1, user2, factory) to overwrite given a specific FIM binary image. All binary images must be signed using PACSign before fpgasupdate can use them for an update. Assuming no Root Entry Hash (REH) has been programmed on the device, the following examples demonstrate how to prepend the required secury authentication data, and specifiy which region of flash to update.
 More information, including charts detailing the different certification types and their required options, are fully described in the PACsign [README](https://github.com/OPAE/opae-sdk/blob/72b8b36bd31103dd24bf8ffee1b03c9623fb0d69/python/pacsign/PACSign.md) on GitHub.
@@ -1013,7 +1059,7 @@ No root entry hash bitstream specified.  Verification will not be done.  Continu
 
 --->
 
-#### 4.4.5 Loading Images with rsu
+#### 4.6.5 Loading Images with rsu
 
 The **rsu** performs a Remote System Update operation on a N6000/1-PL device, given its PCIe address. An **rsu** operation sends an instruction to the device to trigger a power cycle of the card and forces reconfiguration from flash for either the BMC or FPGA image.
 
@@ -1055,7 +1101,7 @@ $ sudo rsu fpga --page=user2 0000:b1:00.0
 
 
 
-#### 4.4.6 Verify FME Interrupts with hello_events
+#### 4.6.6 Verify FME Interrupts with hello_events
 
 The **hello_events** utility is used to verify FME interrupts. This tool injects FME errors and waits for error interrupts, then clears the errors.
 
@@ -1072,7 +1118,7 @@ clearing error
 
 
 
-#### 4.4.7 Host Exercisor Modules
+#### 4.6.7 Host Exercisor Modules
 
 The reference FIM and unchanged FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. There are three HEMs present in the Intel OFS Reference FIM - HE-LPBK, HE-MEM, and HE-HSSI. These exercisers are tied to three different VFs that must be enabled before they can be used.
 Execution of these exercisers requires you bind specific VF endpoint to **vfio-pci**. The host-side software looks for these endpoints to grab the correct FPGA resource.
@@ -1092,7 +1138,7 @@ Refer to the Intel [FPGA Interface Manager Technical Reference Manual: Intel Ope
 |VirtIO LB Stub|PF3|
 |HPS Copy Engine|PF4 |
 
-##### 4.4.7.1 HE-MEM / HE-LB
+##### 4.6.7.1 HE-MEM / HE-LB
 
 The host exerciser used to exercise and characterize the various host-FPGA interactions eg. MMIO, Data transfer from host to FPGA , PR, host to FPGA memory etc.
 **Host Exerciser Loopback (HE-LBK)** AFU can move data between host memory and FPGA.
@@ -1163,7 +1209,7 @@ Allocate DSM Buffer
     Test lpbk(1): PASS
 
 ```
-##### 4.4.7.2 Traffic Generator AFU Test Application
+##### 4.6.7.2 Traffic Generator AFU Test Application
 
 Beginning in OPAE version 2.0.11-1+ the TG AFU has an OPAE application to access & exercise traffic, targeting a specific bank. The supported arguments for test configuration are:
 
@@ -1203,7 +1249,7 @@ Write BW: 4.37232 GB/s
 Read BW: 4.37232 GB/s
 ```
 
-##### 4.4.7.3 HE-HSSI
+##### 4.6.7.3 HE-HSSI
 
 HE-HSSI is responsible for handling client-side ethernet traffic. It wraps the 10G and 100G HSSI AFUs, and includes a traffic generator and checker. The user-space tool hssi exports a control interface to the HE-HSSI's AFU's packet generator logic.
 
@@ -1345,8 +1391,8 @@ The following table contains a mapping between each VF, Accelerator GUID, and co
 ```bash
 $ sudo fpgainfo phy -B 0xb1 
 IIntel Acceleration Development Platform N6001
-Board Management Controller NIOS FW version: 3.14.0
-Board Management Controller Build version: 3.14.0
+Board Management Controller NIOS FW version: 3.15.0
+Board Management Controller Build version: 3.15.0
 //****** FME ******//
 Object Id                        : 0xED00001
 PCIe s:b:d.f                     : 0000:B1:00.0
@@ -1356,9 +1402,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571655605884772
+Bitstream Id                     : 00x50102023508A422
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
+Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
 //****** HSSI information ******//
 HSSI version                     : 1.0
 Number of ports                  : 8
@@ -1474,28 +1520,28 @@ The `hssi_loopback` utility works in conjunction with a packet generator acceler
 
 The `hssistats` tool provides the MAC statistics.
 
-## 5.0 Upgrading the Intel® FPGA SmartNIC N6001-PL with 2023.1 Version of the BMC and FIM
+## 5.0 Upgrading the Intel® FPGA SmartNIC N6001-PL with 2023.3 Version of the BMC and FIM
 
 If your Intel® FPGA SmartNIC N6001-PL does not have the 2022.3.1 version of the FIM and BMC, use this section to begin your upgrade process. The upgrade process depends on both the OPAE SDK and kernel drivers, which were installed in sections [3.0 Intel OFS DFL Kernel Drivers](#30-ofs-dfl-kernel-drivers) and [4.0 OPAE Software Development Kit](#40-opae-software-development-kit). Use the output of **fpgainfo** and compare against the table below to determine if an upgade is necessary.
 
-### Table 17: FIM Version Summary for Intel OFS 2023.1 Release
+### Table 17: FIM Version Summary for Intel OFS 2023.3 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| 1 | 360571655605884772 | d8fd88a7-8683-57ba-8be6-a1e058b7d4ed | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2023.1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1)|
+| 1 | 00x50102023508A422 | 1d6beb4e-86d7-5442-a763-043701fb75b7 | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2023.3 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1)|
 
-### Table 18: BMC Version Summary for Intel OFS 2023.1 Release
+### Table 18: BMC Version Summary for Intel OFS 2023.3 Release
 
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
-| 3.14.0 | AC_BMC_RSU_user_retail_3.14.0_unsigned.rsu | n/a|
+| 3.15.0 | AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu | n/a|
 
 Sample output of `fpgainfo` with matching values:
 
 ```bash
 Intel Acceleration Development Platform N6001
-Board Management Controller NIOS FW version: 3.14.0
-Board Management Controller Build version: 3.14.0
+Board Management Controller NIOS FW version: 3.15.0
+Board Management Controller Build version: 3.15.0
 //****** FME ******//
 Object Id                        : 0xED00001
 PCIe s:b:d.f                     : 0000:B1:00.0
@@ -1505,21 +1551,21 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571655605884772
+Bitstream Id                     : 00x50102023508A422
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
+Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
 Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
-User2 Image Info                 : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
+User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
+User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
 ```
 
-1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2023.1 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
+1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2023.3 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
 
 ```bash
-$ sudo fpgasupdate AC_BMC_RSU_user_retail_3.14.0_unsigned.rsu
+$ sudo fpgasupdate AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu
 [2022-04-14 16:32:47.93] [WARNING ] Update starting. Please do not interrupt.                                           
-[2022-04-14 16:32:47.93] [INFO    ] updating from file /home/user/AC_BMC_RSU_user_retail_3.14.0_unsigned.rsu with size 904064                                   
+[2022-04-14 16:32:47.93] [INFO    ] updating from file /home/user/AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu with size 904064                                   
 [2022-04-14 16:32:47.94] [INFO    ] waiting for idle                                                                    
 [2022-04-14 16:32:47.94] [INFO    ] preparing image file                                                                
 [2022-04-14 16:33:26.98] [INFO    ] writing image file                                                                  

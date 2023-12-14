@@ -7,23 +7,6 @@
 
 This document serves as a design guide for FPGA developers, system architects and hardware developers using OFS as a starting point for the creating the FPGA Interface Manager (FIM) for a custom FPGA acceleration board or Platform with Intel FPGAs.
 
-This development guide is organized as follows: 
-
-* Introduction
-* Top Level Block Diagram description
-  * Control and data flow
-* Description of Subsystems
-  * Command/status registers (CSR) and software interface
-  * Clocking, resets and interfaces
-  * High speed interface (HSSI)
-  * External attached memory
-* High Level development flow description
-  * Installation of OFS RTL and development packages
-  * Compiling FIM
-  * Simulation  
-* Demonstration steps illustrating how to change areas of the design
-* Debugging using JTAG
-
 This document uses the Intel® FPGA PAC D5005 as an example platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS (Open FPGA Stack) to custom platforms. The demonstration steps serves as a tutorial for the development of your OFS knowledge.
 
 This document covers OFS architecture lightly.  For more details on the OFS architecture, please see [Open FPGA Stack Technical Reference Manual].
@@ -141,10 +124,10 @@ To run the tutorial steps in this guide requires this development environment:
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.2 (with license patch) |
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.3 (with license patch) |
 | Target D5005 Sever Operating System   | RHEL 8.6 |
-| OPAE SDK   | [2.8.0-1 ](https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1 ) |
-| Linux DFL    | [ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.2-6.1-1) |
+| OPAE SDK   | [2.10.0-1 ](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1 ) |
+| Linux DFL    | [ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2) |
 | Python    | 3.6.8 |
 | cmake     | 3.15 |
 | GCC       | 7.4.0 |
@@ -353,9 +336,9 @@ Peripherals are presented to software as:
 
 The peripherals connected to the peripheral fabric are primarily Intel OPAE managed resources, whereas the peripherals connected to the AFU are “primarily” managed by native OS drivers. The word “primarily” is used since the AFU is not mandated to expose all its peripherals to Intel OPAE. It can be connected to the peripheral fabric, but can choose to expose only a subset of its capability to Intel OPAE.
 
-OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
 
-If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver.  The [Device Feature Header (DFH) structure](https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver.  The [Device Feature Header (DFH) structure](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
 
 When you are planning your address space for your FIM updates, please be aware that the OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features and 128kB of MMIO region is allocated for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of external feature list.  Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
@@ -411,11 +394,75 @@ Building the OFS FIM requires the development machine to have at least 64 GB of 
 
 The following is a summary of the steps to set up for FIM development:
 
-1. Install Quartus Prime Pro 23.2 Linux and setup environment
+1. Install Quartus Prime Pro 23.3 Linux and setup environment
 2. Clone the github `ofs-d5005` repository
 3. Test installation by building the provided FIM
 
-Intel Quartus Prime Pro version 23.2 is the currently verified version of Quartus used for building the FIM and AFU images for this release.  Porting to newer versions of Quartus may be performed by developers.  Download Quartus Prime Pro Linux version 23.2 from [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html?).
+Intel Quartus Prime Pro version 23.3 is the currently verified version of Quartus used for building the FIM and AFU images for this release.  Porting to newer versions of Quartus may be performed by developers.  Download Quartus Prime Pro Linux version 23.3 from [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-3-for-linux.html).
+
+
+
+**Intel Quartus Prime Pro Version 23.3** is verified to work with the latest OFS release ofs-2023.3.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
+
+Use RedHatEnterprise Linux® (RHEL) for compatibility with your development flow and also testing your FIM design in your platform. 
+
+Prior to installing Quartus:
+
+1. Ensure you have at least 64 GB of free space for Quartus Prime Pro installation and your development work.
+  * Intel® recommends that your system be configured to provide virtual memory equal in size or larger than the recommended physical RAM size that is required to process your design.
+  * The disk space may be significantly more based on the device families included in the install. Prior to installation, the disk space should be enough to hold both zipped tar files and uncompressed installation files. After successful installation, delete the downloaded zipped files and uncompressed zip files to release the disk space.
+
+2. Perform the following steps to satisfy the required dependencies.
+
+  ```bash
+  $ sudo dnf install -y gcc gcc-c++ make cmake libuuid-devel rpm-build autoconf automake bison boost boost-devel libxml2 libxml2-devel make ncurses grub2 bc csh flex glibc-locale-source libnsl ncurses-compat-libs 
+  ```
+
+  Apply the following configurations.
+
+  ```bash
+  $ sudo localedef -f UTF-8 -i en_US en_US.UTF-8 
+  $ sudo ln -s /usr/lib64/libncurses.so.6 /usr/lib64/libncurses.so.5 
+  $ sudo ln -s /usr/bin/python3 /usr/bin/python
+  ```
+
+3. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
+
+  The installation path must satisfy the following requirements:
+
+  * Contain only alphanumeric characters
+  * No special characters or symbols, such as !$%@^&*<>,
+  * Only English characters
+  * No spaces
+
+4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
+
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-d5005/ofs-2023.3). The patches for this release are 0.23.
+
+6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
+
+  ```bash
+  export PATH=<Quartus install directory>/quartus/bin:$PATH
+  export PATH=<Quartus install directory>/qsys/bin:$PATH
+  ```
+
+  For example, if the Quartus install directory is /home/intelFPGA_pro/23.3 then the new line is:
+
+  ```bash
+  export PATH=/home/intelFPGA_pro/23.3/quartus/bin:$PATH
+  export PATH=/home/intelFPGA_pro/23.3/qsys/bin:$PATH
+  ```
+
+7. Verify, Quartus is discoverable by opening a new shell:
+
+  ```
+  $ which quartus
+  /home/intelFPGA_pro/23.3/quartus/bin/quartus
+  ```
+
+
+
+
 
 After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -423,10 +470,10 @@ After running the Quartus Prime Pro installer, set the PATH environment variable
 export PATH=$PATH:<Quartus install directory>/quartus/bin
 ```
 
-For example, if the Quartus install directory is /home/intelFPGA_pro/23.2 then the new line is:
+For example, if the Quartus install directory is /home/intelFPGA_pro/23.3 then the new line is:
 
 ```bash
-export PATH=$PATH:/home/intelFPGA_pro/23.2/quartus/bin
+export PATH=$PATH:/home/intelFPGA_pro/23.3/quartus/bin
 ```
 
 Verify, Quartus is discoverable by opening a new shell:
@@ -434,7 +481,7 @@ Verify, Quartus is discoverable by opening a new shell:
 ```bash
 which quartus
 ## Output
-/home/intelFPGA_pro/23.2/quartus/bin/quartus
+/home/intelFPGA_pro/23.3/quartus/bin/quartus
 ```
 Note, for some Linux distributions such as RHEL 8.6, Quartus requires installation of the following libraries:
 ```bash
@@ -443,11 +490,9 @@ sudo dnf install ncurses-compat-libs
 sudo ln -s /usr/bin/python3 /usr/bin/python
 ```
 
-You will need to obtain a license for Intel Quartus Prime Pro version 23.2 to compile the design.  This license is obtained from Intel.  Additionally, OFS for Intel® Stratix 10® FPGA requires a license for the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core.  This license is required to generate a programming file using the provided OFS source code.  The Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core license patch installer is provided in the ofs-d5005 git repository in the /license directory.  After cloning the OFS release in step 4 below, you can install this IP license.  
+You will need to obtain a license for Intel Quartus Prime Pro version 23.3 to compile the design.  This license is obtained from Intel.  Additionally, OFS for Intel® Stratix 10® FPGA requires a license for the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core.  This license is required to generate a programming file using the provided OFS source code.  The Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core license patch installer is provided in the ofs-d5005 git repository in the /license directory.  After cloning the OFS release in step 4 below, you can install this IP license.  
 
-
-
-3. Install git and install git lfs to extract large files within the repository that are compressed with git lfs.  Please note, for proper operation of files retrieved from OFS repository, you will require git lfs. 
+4. Install git and install git lfs to extract large files within the repository that are compressed with git lfs.  Please note, for proper operation of files retrieved from OFS repository, you will require git lfs. 
 
 ```bash
 sudo dnf install git
@@ -459,9 +504,9 @@ sudo dnf install git-lfs
 git lfs install
 ```
 
-4. Retrieve OFS repositories:
+5. Retrieve OFS repositories:
 
-The OFS FIM source code is included in the GitHub repository. Create a new directory to use as a clean starting point to store the retrieved files.  
+​	The OFS FIM source code is included in the GitHub repository. Create a new directory to use as a clean starting point to store the retrieved files.  
 
 1. Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
@@ -471,13 +516,13 @@ cd OFS_fim_build_root
 export OFS_BUILD_ROOT=$PWD
 git clone --recurse-submodules  https://github.com/OFS/ofs-d5005.git
 cd ofs-d5005
-git checkout tags/ofs-2023.2-1
+git checkout tags/ofs-2023.3-1
 ```
 Verify proper tag is selected:
 
 ```bash   
 git describe --tags
-ofs-2023.2-1
+ofs-2023.3-1
 ```
 2. Install the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP license by running provided license installer.
 
@@ -492,7 +537,7 @@ sudo ./quartus-0.0-0.01Intel OFS-linux.run
 quartus_sh --version
 ##Output
 Quartus Prime Shell
-Version 23.2 Pro Edition
+Version 23.3 Pro Edition
 ```
 
 ### 4.2. Compiling OFS FIM
@@ -514,18 +559,18 @@ Set required environment variables as shown below. These environment variables m
 cd $OFS_BUILD_ROOT/ofs-d5005
 export OFS_ROOTDIR=$PWD
 
-##   *Note, OFS_ROOTDIR is the directory where you cloned the repo, e.g. /home/MyProject/ofs-d5005 *
+##   Note, OFS_ROOTDIR is the directory where you cloned the repo, e.g. /home/MyProject/ofs-d5005 *
 
 export WORKDIR=$OFS_ROOTDIR
 export VERDIR=$OFS_ROOTDIR/verification
 export QUARTUS_HOME=$QUARTUS_ROOTDIR
 
-##   *Note, QUARTUS_ROOTDIR is your Quartus installation directory, e.g. $QUARTUS_ROOTDIR/bin contains Quartus executuable*
+##   Note, QUARTUS_ROOTDIR is your Quartus installation directory, e.g. $QUARTUS_ROOTDIR/bin contains Quartus executuable*
 
 export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
 export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
-export OPAE_SDK_REPO_BRANCH=release/2.8.0
+export OPAE_SDK_REPO_BRANCH=release/2.10.0
 ```
 
 #### 4.2.2. Compiling
@@ -715,8 +760,12 @@ Unit level simulation of key components is provided. These simulations provide v
 
 These simulations use the Synopsys VCS simulator. Each simulation contains a readme file explaining how to run the simulation. Refer to [Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA]  for details of simulation examples. Your simulation shell requires Python, Quartus, and VCS to run.  To run a simulation of the dfh_walker that simulates host access to the internal DFH registers, perform the following steps:
 
-```bash
+
+
 Before running unit simulation, you must set environment variables as described below:
+
+```bash
+
 cd $OFS_BUILD_ROOT/ofs-d5005
 export OFS_ROOTDIR=$PWD
 
@@ -731,7 +780,7 @@ export QUARTUS_HOME=$QUARTUS_ROOTDIR
 export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
 export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
 export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
-export OPAE_SDK_REPO_BRANCH=release/2.8.0
+export OPAE_SDK_REPO_BRANCH=release/2.10.0
 ```
 
 To compile all IPs:
@@ -1045,7 +1094,7 @@ An example of FIM modification is provided in this section.  This example can be
 
 ### 5.1. Hello FIM example
 
-If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions](https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions).
+If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions).
 
 See [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
 
@@ -1942,9 +1991,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 288511861617784948
+Bitstream Id                     : 288511863935352239
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : edad864c-99d6-5831-ab67-62bfd81ec654
+Pr Interface Id                  : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98
 Boot Page                        : user
 
 ```

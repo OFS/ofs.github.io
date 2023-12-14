@@ -197,17 +197,17 @@ In this design, the AFU region is comprised of:
 
 * AFU Interface handler to verify transactions coming from AFU region.
 * PF/VF Mux to route transactions to and from corresponding AFU components: 
-* ST2MM module.
-* Null Host exerciser (HE_NULL) stub.
-* PCIe loopback host exerciser (HE-LB).
-* HSSI host exerciser (HE-HSSI).
-* Memory Host Exerciser (HE-MEM).
-* Traffic Generator to memory (HE-MEM-TG).
-    Port Gasket (PRG). 
-* HPS Copy Engine.
+   * ST2MM module.
+   * Null Host exerciser (HE_NULL) stub.
+   * PCIe loopback host exerciser (HE-LB).
+   * HSSI host exerciser (HE-HSSI).
+   * Memory Host Exerciser (HE-MEM).
+   * Traffic Generator to memory (HE-MEM-TG).
+       Port Gasket (PRG). 
+   * HPS Copy Engine.
 * Arm® AMBA® 4 AXI4 Streaming to Memory Map (ST2MM) Module that routes MMIO CSR accesses to FME and board peripherals.
 * Host exercisers to test PCIe, memory and HSSI interfaces (these can be removed from the AFU region after your FIM design is complete to provide more resource area for workloads)
-* Basic HPS Copy Engine to copy second-stage bootloader and Linux OS image from Host DDR to HPS DDR.  
+* HPS Copy Engine to copy second-stage bootloader and Linux OS image from Host DDR to HPS DDR.  
 * Port gasket and partial reconfiguration support.
 * Component for handling PLDM over MCTP over PCIe Vendor Defined Messages (VDM)
 

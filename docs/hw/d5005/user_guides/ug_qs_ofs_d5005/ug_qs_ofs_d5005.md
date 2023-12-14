@@ -37,9 +37,6 @@ The following flow charts show a high level overview of the initial bringup proc
 
 ### 1.2 Terminology
 
-
-<br>
-
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
 | AER | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
@@ -97,9 +94,9 @@ Please refer to the README on the OFS GitHub for an updated list of collateral o
 
 ### **1.6 Component Version Summary**
 
-The OFS 2023.2 Release targeting the Intel® Stratix 10® FPGA is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which comprise this release.
+The OFS 2023.3 Release targeting the Intel® Stratix 10® FPGA is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which comprise this release.
 
-The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2023.2 release.
+The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2023.3 release.
 
 
 
@@ -120,13 +117,13 @@ The following table highlights the versions of the software which comprise the O
 | Component | Version |
 | --------- | ------- |
 | FPGA Platform | [Intel® FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html) |
-| OPAE SDK | [Tag: 2.8.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1) |
-| Kernel Drivers | [Tag: ofs-2023.2-6.1-1](https://github.com/OPAE/linux-dfl/releases/tag/ofs-2023.2-6.1-1) |
-| OFS FIM Source Code| [Branch: release/ofs-2023.1](https://github.com/OFS/ofs-fim-common/tree/release/ofs-2023.1) |
-| Intel Quartus Prime Pro Edition Design Software | 23.2 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html?) |
+| OPAE SDK | [Tag: 2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1) |
+| Kernel Drivers | [Tag: ofs-2023.3-6.1-2](https://github.com/OPAE/linux-dfl/releases/tag/ofs-2023.3-6.1-2) |
+| OFS FIM Source Code| [Branch: release/ofs-2023.3](https://github.com/OFS/ofs-fim-common/tree/release/ofs-2023.3) |
+| Intel Quartus Prime Pro Edition Design Software | 23.3 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-3-for-linux.html) |
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2023.2](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.2-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2023.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) official release drop on GitHub.
 
 **Note:** If you wish to freeze your Red Hat operating system version on the RHEL 8.6, refer to the following [solution](https://access.redhat.com/solutions/238533) provided in the Red Hat customer portal.
 
@@ -308,7 +305,7 @@ $ cd /home/user/OFS/
 $ git init
 $ git clone https://github.com/OPAE/linux-dfl
 $ cd /home/user/OFS/linux-dfl
-$ git checkout tags/ofs-2023.2-6.1-1 -b fpga-ofs-dev-6.1.41
+$ git checkout tags/ofs-2023.3-6.1-2 -b fpga-ofs-dev-6.1.41
  
 ```
 
@@ -316,7 +313,7 @@ $ git checkout tags/ofs-2023.2-6.1-1 -b fpga-ofs-dev-6.1.41
 
 ```bash
 $ git describe 
-$ ofs-2023.2-6.1-1
+$ ofs-2023.3-6.1-2
 ```
 
 
@@ -472,14 +469,14 @@ Ensure the local environment matches the supported Operating System discussed in
 
 #### 5.1.1 Installing the OPAE SDK with Pre-Built Packages
 
-You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS 2023.2](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.2-1) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.8.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
+You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS 2023.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
 
 ```bash
 $ dnf install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel
 
 $ pip3 install --upgrade --prefix=/usr pip setuptools pybind11
 
-$ tar xf opae-2.8.0-1.x86_64-<<date>>_<<build>>.tar.gz
+$ tar xf opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz
 ```
 
 For a fast installation you can delete the source RPM as it isn't necessary, and install all remaining OPAE RPMs:
@@ -510,14 +507,14 @@ $ cd /home/user/OFS/
 $ git init
 $ git clone https://github.com/OPAE/opae-sdk.git
 $ cd opae-sdk
-$ git checkout tags/2.8.0-1 -b release/2.8.0
+$ git checkout tags/2.10.0-1 -b release/2.10.0
 ```
 
 **4.** Verify that the correct tag has been checkout out:
 
 ```bash
 $ git describe --tags
-2.8.0-1
+2.10.0-1
 ```
 
 **5.** Build the OPAE SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal.
@@ -547,18 +544,18 @@ $ exit
 
 $ ls | grep rpm
 
-opae-2.8.0-1.el8.src.rpm
-opae-2.8.0-1.el8.x86_64.rpm
-opae-debuginfo-2.8.0-1.el8.x86_64.rpm
-opae-debugsource-2.8.0-1.el8.x86_64.rpm
-opae-devel-2.8.0-1.el8.x86_64.rpm
-opae-devel-debuginfo-2.8.0-1.el8.x86_64.rpm
-opae-extra-tools-2.8.0-1.el8.x86_64.rpm
-opae-extra-tools-debuginfo-2.8.0-1.el8.x86_64.rpm
+opae-2.10.0-1.el8.src.rpm
+opae-2.10.0-1.el8.x86_64.rpm
+opae-debuginfo-2.10.0-1.el8.x86_64.rpm
+opae-debugsource-2.10.0-1.el8.x86_64.rpm
+opae-devel-2.10.0-1.el8.x86_64.rpm
+opae-devel-debuginfo-2.10.0-1.el8.x86_64.rpm
+opae-extra-tools-2.10.0-1.el8.x86_64.rpm
+opae-extra-tools-debuginfo-2.10.0-1.el8.x86_64.rpm
 ```
-Remove the opae-2.8.0-1.el8.src.rpm file as it is not used.
+Remove the opae-2.10.0-1.el8.src.rpm file as it is not used.
 ```bash
-$ rm opae-2.8.0-1.el8.src.rpm
+$ rm opae-2.10.0-1.el8.src.rpm
 ```
 
 **7.** Install the user-built OPAE SDK packages:
@@ -574,19 +571,61 @@ $ sudo dnf localinstall -y opae*.rpm
 ```bash
 $ rpm -qa | grep opae
 
-opae-extra-tools-2.8.0-1.el8.x86_64
-opae-debugsource-2.8.0-1.el8.x86_64
-opae-2.8.0-1.el8.x86_64
-opae-extra-tools-debuginfo-2.8.0-1.el8.x86_64
-opae-debuginfo-2.8.0-1.el8.x86_64
-opae-devel-2.8.0-1.el8.x86_64
-opae-devel-debuginfo-2.8.0-1.el8.x86_64
+opae-extra-tools-2.10.0-1.el8.x86_64
+opae-debugsource-2.10.0-1.el8.x86_64
+opae-2.10.0-1.el8.x86_64
+opae-extra-tools-debuginfo-2.10.0-1.el8.x86_64
+opae-debuginfo-2.10.0-1.el8.x86_64
+opae-devel-2.10.0-1.el8.x86_64
+opae-devel-debuginfo-2.10.0-1.el8.x86_64
 ```
 
 You can query information about each installed package using `rpm -qi <package__name>`.
 
 
+#### 5.1.3 FPGA Device Access Permissions
 
+Access to FPGA accelerators and devices is controlled using file access permissions on the Intel® FPGA device files, /dev/dfl-fme.* and /dev/dfl-port.*, as well as to the files reachable through /sys/class/fpga_region/.
+
+In order to allow regular (non-root) users to access accelerators, you need to grant them read and write permissions on /dev/dfl-port.* (with * denoting the respective socket, i.e. 0 or 1). E.g.:
+
+
+```bash
+sudo chmod a+rw /dev/dfl-port.0
+```
+
+
+#### 5.1.4 Memlock limit
+
+Depending on the requirements of your application, you may also want to increase the maximum amount of memory a user process is allowed to lock. The exact way to do this depends on your Linux distribution.
+
+
+You can check the current memlock limit using
+
+```bash
+ulimit -l
+```
+
+A way to permanently remove the limit for locked memory for a regular user is to add the following lines to your /etc/security/limits.conf:
+
+```bash
+user1    hard   memlock           unlimited
+user1    soft   memlock           unlimited
+```
+
+This removes the limit on locked memory for user user1. To remove it for all users, you can replace user1 with *:
+
+```bash
+*    hard   memlock           unlimited
+*    soft   memlock           unlimited
+```
+
+Note that settings in the /etc/security/limits.conf file don't apply to services. To increase the locked memory limit for a service you need to modify the application's systemd service file and add the line:
+
+```bash
+[Service]
+LimitMEMLOCK=infinity
+```
 
 ### **5.2 OPAE Tools Overview**
 
@@ -672,9 +711,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 288511861617784948
+Bitstream Id                     : 288511863935352239
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : edad864c-99d6-5831-ab67-62bfd81ec654
+Pr Interface Id                  : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98
 Boot Page                        : user
 ```
 
@@ -693,9 +732,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 288511861617784948
+Bitstream Id                     : 288511863935352239
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : edad864c-99d6-5831-ab67-62bfd81ec654
+Pr Interface Id                  : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98
 ( 1) VCCERAM Voltage                                    : 0.90 Volts
 ( 2) VCCT Temperature                                   : 29.00 Celsius
 ( 3) 12v Backplane Voltage                              : 12.17 Volts
@@ -1210,7 +1249,7 @@ $ sudo hssi --pci-address 3b:00.3 hssi_10g --eth-ifc s10hssi0 --eth-loopback on 
 
 ## **6.0 Compiling OFS FIM**
 
-Pre-Compiled FIM binaries are at [OFS 2023.2 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.2-1) and to compile the OFS FIM for Intel® FPGA PAC D5005 follow the below steps :
+Pre-Compiled FIM binaries are at [OFS 2023.3 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) and to compile the OFS FIM for Intel® FPGA PAC D5005 follow the below steps :
 
 1) Compile OFS FIM manually - Steps are provided in the developer guide to compile FIM and generate binaries. Refer to [FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® FPGA](https://ofs.github.io/ofs-2023.2/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
 
@@ -1241,9 +1280,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 288511861617784948
+Bitstream Id                     : 288511863935352239
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : edad864c-99d6-5831-ab67-62bfd81ec654
+Pr Interface Id                  : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98
 Boot Page                        : user
 ```
 
@@ -1267,7 +1306,7 @@ If the user's card does not report a PR Interface ID which matches the above tab
 
 #### **7.1.1 Programming the FIM**
 
-**1.** Download the file **d5005_page1_unsigned.bin** from [OFS 2023.2 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.2-1).
+**1.** Download the file **d5005_page1_unsigned.bin** from [OFS 2023.3 release page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1).
 
 **2.** Run `PACSign` to create an unsigned image with added header for use by fpgasupdate
 

@@ -74,11 +74,12 @@ nav:
       - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
   - Agilex PCIe Attach OFS:
       - Quick Start Evaluation Guide: 'hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach.md'
-      - Getting Started (Intel FPGA SmartNIC N6001-PL): 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
+      - Getting Started (Intel Agilex 7 FPGA I-Series Development Kit 2xR-Tile): 'hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries.md'
       - Getting Started (Intel Agilex 7 FPGA F-Series Development Kit 2xF-Tile): 'hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile.md'
-      - FPGA Interface Manager Technical Reference Manual: 'hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001.md'
-      - FPGA Interface Manager Developer Guide for PCIe Attach (P-Tile/E-Tile): 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
-      - FPGA Interface Manager Developer Guide for PCIe Attach (2xF-Tile): 'hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev.md'
+      - Getting Started (Intel FPGA SmartNIC N6001-PL): 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
+      - FPGA Interface Manager Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile): 'hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev.md'
+      - FPGA Interface Manager Developer Guide for PCIe Attach F-Series (2xF-Tile): 'hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev.md'
+      - FPGA Interface Manager Developer Guide for PCIe Attach F-Series (P-Tile/E-Tile): 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
       - AFU Developer Guide: 'hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach.md'
       - HPS Developer Guide: 'hw/n6001/dev_guides/hps_dev/hps_developer_ug.md'
       - Simulation User Guide: 'hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach.md'  
@@ -99,22 +100,9 @@ nav:
       - oneAPI Accelerator Support Package(ASP) Reference Manual: hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md
 
   - OFS Software:
-    - OPAE USER GUIDES:
-       - Quick Start Guide: sw/fpga_api/quick_start/readme.md
-       - OPAE Installation Guide: sw/install_guide/installation_guide.md
-       - OPAE C API Programming Guide: sw/fpga_api/prog_guide/readme.md
-       - OPAE Python Bindings: sw/pyopae/python_bindings.md
-       - OPAE Plugin Developers Guide: sw/fpga_api/plug_guide/readme.md
+    - OPAE SOFTWARE REFERENCE:
        - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
-    - OPAE LIBRARIES:
-      - OPAE C API Reference: sw/fpga_api/fpga_api.md
-      - OPAE C++ Core API Reference: sw/fpga_api/fpga_cxx_api.md
-      - OPAE Python API Reference: sw/fpga_api/fpga_python_api.md
-      - OPAE Plugin Developers Guide: sw/fpga_api/plug_guide/readme.md
-    - OPAE LINUX KERNEL DRIVERS:
-       - Open Programmable Accelerator Engine (OPAE) Linux Device Driver Architecture: sw/drv_arch/drv_arch.md
     - OPAE FPGA TOOLS:
-       - fpgaconf: sw/fpga_tools/fpgaconf/fpgaconf.md
        - fpgainfo: sw/fpga_tools/fpgainfo/fpgainfo.md
        - fpgasupdate: sw/fpga_tools/fpgasupdate/fpgasupdate.md
        - mmlink: sw/fpga_tools/mmlink/mmlink.md
@@ -127,14 +115,12 @@ nav:
        - host_exerciser: sw/fpga_tools/host_exerciser/host_exerciser.md
        - HSSI ethernet statistics: sw/fpga_tools/hssi_ethernet/hssistats.md
        - HSSI ethernet mac: sw/fpga_tools/hssi_ethernet/hssimac.md
-       - HSSI ethernet loopback: sw/fpga_tools/hssi_ethernet/hssiloopback.md
        - mem_tg: sw/fpga_tools/mem_tg/mem_tg.md
        - vabtool: sw/fpga_tools/vabtool/vabtool.md
        - opaevfio: sw/fpga_tools/opaevfio/opaevfio.md
        - ofs.uio: sw/fpga_tools/ofs.uio/ofs.uio.md
        - opaeuio: sw/fpga_tools/opaeuio/opaeuio.md
        - fpgad: sw/fpga_tools/fpgad/fpgad.md
-       - fpgadiag: sw/fpga_tools/fpgadiag/README.md
 
 
 markdown_extensions:
@@ -182,18 +168,25 @@ env:
 # D5005
   D5005_BOARD: Intel® FPGA PAC D5005
   D5005_BOARD_S: D5005
-  D5005_OFS_VER: 2023.2
-  D5005_OFS_RELEASE: ofs-2023.2
-  D5005_OFS_TAG: ofs-2023.2-1
-  D5005_OFS_COMMON_RELEASE: ofs-2023.2-1
-  D5005_OFS_AFU_EXAMPLE_TAG: ofs-2023.2-1
-  D5005_OFS_AFU_BBB_TAG: ofs-2023.2-1
+  D5005_OFS_VER: 2023.3
+  D5005_OFS_RELEASE: ofs-2023.3
+  D5005_RELEASE: ofs-2023.3
+  D5005_OFS_TAG: ofs-2023.3-1
+  D5005_OFS_COMMON_RELEASE: ofs-2023.3-1
+  D5005_OFS_AFU_EXAMPLE_TAG: ofs-2023.3-1
+  D5005_OFS_AFU_BBB_TAG: ofs-2023.3-1
   D5005_FIM_REPO: ofs-d5005
-  D5005_FIM_TAG: release/ofs-2023.1
+  D5005_FIM_TAG: release/ofs-2023.3
   D5005_NIOS_FW_VER: 2.0.14
   D5005_BMC_RTL_BUILD_VER: 2.0.8
-  D5005_QUARTUS_PRIME_PRO_VER_S: 23.2
-  D5005_QUARTUS_PRIME_PRO_VER_L: Quartus Prime Pro Version 23.2
+  D5005_QUARTUS_PRIME_PRO_VER_S: 23.3
+  D5005_QUARTUS_PRIME_PRO_VER_S_LINK: 23-3
+  D5005_QUARTUS_PRIME_PRO_VER_L: Quartus Prime Pro Version 23.3
+  D5005_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.3
+  D5005_QUARTUS_PP_VER_S: 23.3
+  D5005_QUARTUS_PATCHES: 0.23
+  D5005_RELEASE_PATH: https://github.com/OFS/ofs-d5005/ofs-2023.3
+  D5005_HOST_OS_L: RedHatEnterprise Linux® (RHEL) 
   D5005_OS_VER: RHEL 8.6
   D5005_PYTHON_VER: 3.6.8
   D5005_CMAKE_VER: 3.15
@@ -201,88 +194,88 @@ env:
   D5005_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
   D5005_GIT_VER: 1.8.3.1
   D5005_PERL_VER: 5.8.8
-  D5005_OPAE_VER: 2.8.0-1
-  D5005_OPAE_RELEASE: release/2.8.0
+  D5005_OPAE_VER: 2.10.0-1
+  D5005_OPAE_RELEASE: release/2.10.0
   D5005_KERNEL_VER: 6.1.41
   D5005_KERNEL_VER_COMPLETE: 6.1.41
-  D5005_KERNEL_BRANCH: ofs-2023.2-6.1-1
-  D5005_BITSTREAM_ID: 0x40100027136F874
-  D5005_PR_ID: edad864c-99d6-5831-ab67-62bfd81ec654
+  D5005_KERNEL_BRANCH: ofs-2023.3-6.1-2
+  D5005_BITSTREAM_ID: 0x4010002FB5A3DAF
+  D5005_PR_ID: b2d7971b-dd7e-53c4-a4d0-34e6c9391a98
   D5005_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
   D5005_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
   D5005_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
   D5005_SIM_UVM_VCS: S-2021.09-SP1
   D5005_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
   D5005_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
-  D5005_SIM_UVM_QS: 2021.4
-  D5005_url_int<sup>&reg;</sup> el-fpga-bbb: https://github.com/OPAE/intel-fpga-bbb.git
+  D5005_SIM_UVM_QS: 2023.2
+  D5005_url_intel-fpga-bbb: https://github.com/OPAE/intel-fpga-bbb.git
   D5005_url_examples-afu: https://github.com/OFS/examples-afu.git
   D5005_url_ofs-platform-afu-bbb: https://github.com/OFS/ofs-platform-afu-bbb.git
   D5005_url_opae-sim: https://github.com/OFS/opae-sim.git
   D5005_url_FIM: https://github.com/OFS/ofs-d5005.git
   D5005_url_opae-sdk: https://github.com/OFS/opae-sdk.git
   #D5005_ONEAPI
-  D5005_ONEAPI_ASP_TAG: ofs-2023.2-1
+  D5005_ONEAPI_ASP_TAG: ofs-2023.3-1
   D5005_ONEAPI_ASP_PATCHES: 0.01iofs
   #N6001_REPO
   N6001: Intel® FPGA SmartNIC N6001-PL
   N6001_MPN: AGFB014R24A2E2V
   N6001_MODEL: n6001
-  N6001_BRANCH: release/ofs2023.2-1
-  N6001_RELEASE: ofs-2023.2-1
-  N6001_TAG: ofs-2023.2-1
-  N6001_RELEASE_PATH: https://github.com/OFS/ofs-agx7-pcie-attach/ofs-2023.2
+  N6001_BRANCH: release/ofs2023.3-1
+  N6001_RELEASE: ofs-2023.3-1
+  N6001_TAG: ofs-2023.3-1
+  N6001_RELEASE_PATH: https://github.com/OFS/ofs-agx7-pcie-attach/ofs-2023.3
   N6001_REPO: https://github.com/OFS/ofs-agx7-pcie-attach
   N6001_FIM_REPO: ofs-agx7-pcie-attach
-  N6001_RELEASE_NUMBER: 2023.1
+  N6001_RELEASE_NUMBER: 2023.3
   N6001_DOC_REPO: https://ofs.github.io/hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/
   N6001_OPAE_REPO_GENERIC: https://github.com/OFS/opae-sdk
-  N6001_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1
+  N6001_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1
   N6001_LINUX_DFL_REPO_GENERIC: https://github.com/OFS/linux-dfl
-  N6001_LINUX_DFL_TAG_DIRECT: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.2-6.1-1
-  N6001_LINUX_DFL_TAG: ofs-2023.2-6.1-1
+  N6001_LINUX_DFL_TAG_DIRECT: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2
+  N6001_LINUX_DFL_TAG: ofs-2023.3-6.1-2
   N6001_KERNEL_RELEASE_BASE: 6.1.41
-  N6001_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.2-1
-  N6001_OFS_TAG_DIRECT: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1
-  N6001_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.2-1
-  N6001_RELEASE_PAGE: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1 
+  N6001_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-1
+  N6001_OFS_TAG_DIRECT: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1
+  N6001_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-1
+  N6001_RELEASE_PAGE: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1 
   N6001_DRIVER_KERNEL_BASE: 6.1.41
   N6001_REDHAT_MAJOR_VERSION: 8
   N6001_REDHAT_MINOR_VERSION: 6
   #N6001_FIM
-  N6001_BITSTREAM_ID: 0x5010202A8769764
-  N6001_PR_INTERFACE_ID: d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
-  N6001_OFS_FIM_TAG: ofs-2023.2-1
+  N6001_BITSTREAM_ID: 00x50102023508A422
+  N6001_PR_INTERFACE_ID: 1d6beb4e-86d7-5442-a763-043701fb75b7
+  N6001_OFS_FIM_TAG: ofs-2023.3-1
   #N6001_Server_Platform
   N6001_BIOS_VERSION: American Megatrends International, LLC(1.4)
   #N6001_BMC
   N6001_BMC_REPO: https://github.com/otcshare/ofs-bmc
-  N6001_BMC_FW_VER: 3.14.0
-  N6001_BMC_RTL_VER: 3.14.0
+  N6001_BMC_FW_VER: 3.15.0
+  N6001_BMC_RTL_VER: 3.15.0
   N6001_BMC_DL_LINK: TBD
   #N6001_Quartus
-  N6001_BMC_QUARTUS_VER: Quartus Standard Version 23.2
-  N6001_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.2
-  N6001_QUARTUS_PP_VER_S: 23.2
+  N6001_BMC_QUARTUS_VER: Quartus Standard Version 23.3
+  N6001_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.3
+  N6001_QUARTUS_PP_VER_S: 23.3
   N6001_QUARTUS_LINK: https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
-  N6001_QUARTUS_PATCHES: 0.02 patch (oneAPI), 0.11 patch (PCIe), and 0.19 patch (Ethernet Subsystem) 
+  N6001_QUARTUS_PATCHES: 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe)
   #N6001_ONEAPI
   N6001_ONEAPI_ASP_PATCHES: 0.02
-  N6001_ONEAPI_ASP_TAG: ofs-2023.2-1
-  N6001_ONEAPI_ASP_REL_PATH: https://github.com/OFS/oneapi-asp/ofs-2023.2
+  N6001_ONEAPI_ASP_TAG: ofs-2023.3-1
+  N6001_ONEAPI_ASP_REL_PATH: https://github.com/OFS/oneapi-asp/ofs-2023.3
   #N6001_OS
   N6001_HOST_OS_L: RedHatEnterprise Linux® (RHEL) 8.6
   N6001_HOST_OS_DL_LINK: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software
   N6001_HOST_OS_S: RHEL 8.6
   N6001_KERNEL_BRANCH: release/fpga-ofs-dev-6.1-lts
-  N6001_KERNEL_TAG: ofs-2023.2-6.1-1
+  N6001_KERNEL_TAG: ofs-2023.3-6.1-2
   N6001_KERNEL_VER_S: 6.1
   N6001_KERNEL_VER_L: 6.1-lts
   #N6001_OPAE
-  N6001_OPAE_TAG: 2.8.0-1
-  N6001_OPAE_BRANCH: release/2.8.0
-  N6001_OPAE_SIM_TAG: 2.8.0-1
-  N6001_OPAE_SIM_BRANCH: release/2.8.0
+  N6001_OPAE_TAG: 2.10.0-1
+  N6001_OPAE_BRANCH: release/2.10.0
+  N6001_OPAE_SIM_TAG: 2.10.0-1
+  N6001_OPAE_SIM_BRANCH: release/2.10.0
   N6001_PYTHON_VER: 3.6.8
   N6001_CMAKE_VER: 3.15
   N6001_GIT_VER: 1.8.3.1
@@ -292,7 +285,7 @@ env:
   N6001_DESIGNWARE_VER: vip_Q-2020.03A
   N6001_VCS_VER: S-2021.09-SP1
   #N6001_Other Release Paths
-  N6001_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/2023.2
+  N6001_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/releases/tag/2023.2
   N6001_AFU_EX_REL_PATH: https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1
   N6001_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
   N6001_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
@@ -301,31 +294,31 @@ env:
   N6001_SIM_UVM_VCS: S-2021.09-SP1
   N6001_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
   N6001_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
-  N6001_SIM_UVM_QS: 2021.4
+  N6001_SIM_UVM_QS: 2023.2
    #FTILE_DK_REPO
-  FTILE_DK_OFS_VER: 2023.2
+  FTILE_DK_OFS_VER: 2023.3
   FTILE_DK: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
   FTILE_DK_DESIGN: Agilex PCIe Attach
   FTILE_DK_MPN: AGFB027R24C2E2VR2
   FTILE_DK_MODEL: fseries-dk
-  FTILE_DK_ARTIFACTS: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.2-1/fseries-dk-images.tar.gz
+  FTILE_DK_ARTIFACTS: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.3-1/fseries-dk-images.tar.gz
   FTILE_DK_MODEL_FULL: F-tile Development Kit
-  FTILE_DK_RELEASE: ofs-2023.2-1
-  FTILE_DK_BRANCH: release/ofs2023.2-1
-  FTILE_DK_TAG: ofs-2023.2-1
+  FTILE_DK_RELEASE: ofs-2023.3-1
+  FTILE_DK_BRANCH: release/ofs2023.3-1
+  FTILE_DK_TAG: ofs-2023.3-1
   FTILE_DK_FIM_REPO: ofs-agx7-pcie-attach
   FTILE_DK_REPO: https://github.com/OFS/ofs-agx7-pcie-attach
-  FTILE_DK_RELEASE_PATH: https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2
-  FTILE_DK_OFS_TAG_DIRECT: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1
-  FTILE_DK_DOC_REPO: https://ofs.github.io/hw/ftile_devkit/user_guides/ug_eval_ofs_ftile_devkit/ug_eval_script_ofs_ftile_devkit
+  FTILE_DK_RELEASE_PATH: https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3
+  FTILE_DK_OFS_TAG_DIRECT: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1
+  FTILE_DK_DOC_REPO: https://ofs.github.io/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach
   FTILE_DK_OPAE_REPO_GENERIC: https://github.com/OFS/opae-sdk
-  FTILE_DK_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1
+  FTILE_DK_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1
   FTILE_DK_LINUX_DFL_REPO_GENERIC: https://github.com/OFS/linux-dfl
-  FTILE_DK_LINUX_DFL_TAG_DIRECT: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.2-6.1-1
-  FTILE_DK_LINUX_DFL_TAG: ofs-2023.2-6.1-1
+  FTILE_DK_LINUX_DFL_TAG_DIRECT: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2
+  FTILE_DK_LINUX_DFL_TAG: ofs-2023.3-6.1-2
   FTILE_DK_KERNEL_RELEASE_BASE: 6.1.41
-  FTILE_DK_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.2-1
-  FTILE_DK_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.2-1
+  FTILE_DK_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-1
+  FTILE_DK_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-1
   FTILE_DK_REDHAT_MAJOR_VERSION: 8
   FTILE_DK_REDHAT_MINOR_VERSION: 6
   #FTILE_DK_FIM
@@ -334,27 +327,27 @@ env:
   #FTILE_DK_Server_Platform
   FTILE_DK_BIOS_VERSION: American Megatrends International, LLC(1.4)
   #FTILE_DK_Quartus
-  FTILE_DK_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.2
-  FTILE_DK_QUARTUS_PP_VER_S: 23.2
-  FTILE_DK_QUARTUS_LINK: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
-  FTILE_DK_QUARTUS_PATCHES: 0.11 patch (PCIe), and 0.19 patch (Ethernet Subsystem) 
+  FTILE_DK_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.3
+  FTILE_DK_QUARTUS_PP_VER_S: 23.3
+  FTILE_DK_QUARTUS_LINK: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-3-for-linux.html
+  FTILE_DK_QUARTUS_PATCHES: 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe)
   #FTILE_DK_ONEAPI
   FTILE_DK_ONEAPI_ASP_PATCHES: 0.02 
-  FTILE_DK_ONEAPI_ASP_TAG: ofs-2023.2-1
-  FTILE_DK_ONEAPI_ASP_REL_PATH: https://github.com/OFS/oneapi-asp/ofs-2023.2
+  FTILE_DK_ONEAPI_ASP_TAG: ofs-2023.3-1
+  FTILE_DK_ONEAPI_ASP_REL_PATH: https://github.com/OFS/oneapi-asp/ofs-2023.3
   #FTILE_DK_OS
   FTILE_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.6
   FTILE_DK_HOST_OS_DL_LINK: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software
   FTILE_DK_HOST_OS_S: RHEL 8.6
   FTILE_DK_KERNEL_BRANCH: release/fpga-ofs-dev-6.1-lts
-  FTILE_DK_KERNEL_TAG: ofs-2023.1-6.1-1
+  FTILE_DK_KERNEL_TAG: ofs-2023.3-6.1-2
   FTILE_DK_KERNEL_VER_S: 6.1
   FTILE_DK_KERNEL_VER_L: 6.1-lts
   #FTILE_DK_OPAE
-  FTILE_DK_OPAE_TAG: 2.8.0-1
-  FTILE_DK_OPAE_BRANCH: release/2.8.0
-  FTILE_DK_OPAE_SIM_TAG: 2.8.0-1
-  FTILE_DK_OPAE_SIM_BRANCH: release/2.8.0-1
+  FTILE_DK_OPAE_TAG: 2.10.0-1
+  FTILE_DK_OPAE_BRANCH: release/2.10.0
+  FTILE_DK_OPAE_SIM_TAG: 2.10.0-1
+  FTILE_DK_OPAE_SIM_BRANCH: release/2.10.0-1
   FTILE_DK_BITSTREAM_ID: 0x5010202BE8C93B9
   FTILE_DK_PR_ID: 5bcd682f-5093-5fc7-8cd2-ae8073e19452
   FTILE_DK_PYTHON_VER: 3.6.8
@@ -366,8 +359,8 @@ env:
   FTILE_DK_DESIGNWARE_VER: vip_Q-2020.03A
   FTILE_DK_VCS_VER: S-2021.09-SP1
   #FTILE_DK_Other Release Paths
-  FTILE_DK_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/2023.2
-  FTILE_DK_AFU_EX_REL_PATH: https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1
+  FTILE_DK_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/releases/tag/2023.3
+  FTILE_DK_AFU_EX_REL_PATH: https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-1
   FTILE_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
   FTILE_DK_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
   FTILE_DK_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
@@ -375,36 +368,109 @@ env:
   FTILE_DK_SIM_UVM_VCS: S-2021.09-SP1
   FTILE_DK_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
   FTILE_DK_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
-  FTILE_DK_SIM_UVM_QS: 2021.4
+  FTILE_DK_SIM_UVM_QS: 2023.2
+   #ISERIES
+  ISERIES_DK_OFS_VER: 2023.3
+  ISERIES_DK: Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
+  ISERIES_DK_DESIGN: Agilex PCIe Attach
+  ISERIES_DK_MPN: AGIB027R29A1E2VR3
+  ISERIES_DK_MODEL: iseries-dk
+  ISERIES_DK_ARTIFACTS: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.3-1/iseries-dk-images.tar.gz
+  ISERIES_DK_MODEL_FULL: I-Series Development Kit
+  ISERIES_DK_RELEASE: ofs-2023.3-1
+  ISERIES_DK_BRANCH: release/ofs2023.3-1
+  ISERIES_DK_TAG: ofs-2023.3-1
+  ISERIES_DK_FIM_REPO: ofs-agx7-pcie-attach
+  ISERIES_DK_REPO: https://github.com/OFS/ofs-agx7-pcie-attach
+  ISERIES_DK_RELEASE_PATH: https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3
+  ISERIES_DK_OFS_TAG_DIRECT: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1
+  ISERIES_DK_DOC_REPO: https://ofs.github.io/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach
+  ISERIES_DK_OPAE_REPO_GENERIC: https://github.com/OFS/opae-sdk
+  ISERIES_DK_OPAE_REPO_TAG_DIRECT: https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1
+  ISERIES_DK_LINUX_DFL_REPO_GENERIC: https://github.com/OFS/linux-dfl
+  ISERIES_DK_LINUX_DFL_TAG_DIRECT: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2
+  ISERIES_DK_LINUX_DFL_TAG: ofs-2023.3-6.1-2
+  ISERIES_DK_KERNEL_RELEASE_BASE: 6.1.41
+  ISERIES_DK_HLD_ONEAPI_ASP_TAG_DIRECT: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-1
+  ISERIES_DK_OFS_PLATFORM_AFU_BBB_TAG_DIRECT: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-1
+  ISERIES_DK_REDHAT_MAJOR_VERSION: 8
+  ISERIES_DK_REDHAT_MINOR_VERSION: 6
+  #ISERIES_DK_FIM
+  ISERIES_DK_BITSTREAM_ID: TBD
+  ISERIES_DK_PR_INTERFACE_ID: TBD
+  ISERIES_DK_PR_ID: 5bcd682f-5093-5fc7-8cd2-ae8073e19452
+  #ISERIES_DK_Server_Platform
+  ISERIES_DK_BIOS_VERSION: American Megatrends International, LLC(1.4)
+  #ISERIES_DK_Quartus
+  ISERIES_DK_QUARTUS_PP_VER_L: Quartus Prime Pro Version 23.3
+  ISERIES_DK_QUARTUS_PP_VER_S: 23.3
+  ISERIES_DK_QUARTUS_LINK: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-3-for-linux.html
+  ISERIES_DK_QUARTUS_PATCHES: 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe)
+  #ISERIES_DK_ONEAPI
+  ISERIES_DK_ONEAPI_ASP_PATCHES: 0.02 
+  ISERIES_DK_ONEAPI_ASP_TAG: ofs-2023.3-1
+  ISERIES_DK_ONEAPI_ASP_REL_PATH: https://github.com/OFS/oneapi-asp/ofs-2023.3
+  #ISERIES_DK_OS
+  ISERIES_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.6
+  ISERIES_DK_HOST_OS_DL_LINK: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software
+  ISERIES_DK_HOST_OS_S: RHEL 8.6
+  ISERIES_DK_KERNEL_BRANCH: release/fpga-ofs-dev-6.1-lts
+  ISERIES_DK_KERNEL_TAG: ofs-2023.3-6.1-2
+  ISERIES_DK_KERNEL_VER_S: 6.1
+  ISERIES_DK_KERNEL_VER_L: 6.1-lts
+  #ISERIES_DK_OPAE
+  ISERIES_DK_OPAE_TAG: 2.10.0-1
+  ISERIES_DK_OPAE_BRANCH: release/2.10.0
+  ISERIES_DK_OPAE_SIM_TAG: 2.10.0-1
+  ISERIES_DK_OPAE_SIM_BRANCH: release/2.10.0-1
+  ISERIES_DK_PYTHON_VER: 3.6.8
+  ISERIES_DK_CMAKE_VER: 3.15
+  ISERIES_DK_GIT_VER: 1.8.3.1
+  ISERIES_DK_GCC_VER: 7.4.0
+  ISERIES_DK_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
+  ISERIES_DK_PERL_VER: 5.8.8
+  ISERIES_DK_DESIGNWARE_VER: vip_Q-2020.03A
+  ISERIES_DK_VCS_VER: S-2021.09-SP1
+  #ISERIES_DK_Other Release Paths
+  ISERIES_DK_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/releases/tag/2023.3
+  ISERIES_DK_AFU_EX_REL_PATH: https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-1
+  ISERIES_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  ISERIES_DK_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
+  ISERIES_DK_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
+  ISERIES_DK_SIM_UVM_LIC_VCSMX: VCS R-2020.12-SP2 License
+  ISERIES_DK_SIM_UVM_VCS: S-2021.09-SP1
+  ISERIES_DK_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
+  ISERIES_DK_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
+  ISERIES_DK_SIM_UVM_QS: 2023.2
   #F2000X
-  F2000X_HOST_OD: Ubuntu 22.04 LTS
+  F2000X_HOST_OS: Ubuntu 22.04 LTS
   F2000X_OS_DOWNLOAD_LINK: https://ubuntu.com/download/desktop
   F2000X_L: Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL 
   F2000X_S: Intel IPU Platform F2000X-PL
   #do not change to uppercase, this is used for console commands too
   F2000X_MODEL: f2000x
   F2000X_MPN: AGFC023R25A2E2VR0 
-  F2000X_RELEASE: release/ofs-2023.2
-  F2000X_TAG: ofs-2023.2-1
+  F2000X_RELEASE: release/ofs-2023.3
+  F2000X_TAG: ofs-2023.3-2
   F2000X_REPO: https://github.com/OFS/ofs-f2000x-pl 
   F2000X_FIM_REPO: ofs-f2000x-pl 
-  F2000X_BMC_FW_VER: 1.2.3
-  F2000X_BMC_RTL_VER: 1.2.3
+  F2000X_BMC_FW_VER: 1.2.4
+  F2000X_BMC_RTL_VER: 1.2.4
   F2000X_BMC_QUARTUS_VER: Quartus Standard Version v20.1
-  F2000X_QUARTUS_PP_VER_L: Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.2
-  F2000X_QUARTUS_PP_VER_S: 23.2
+  F2000X_QUARTUS_PP_VER_L: Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.3
+  F2000X_QUARTUS_PP_VER_S: 23.3
   F2000X_HOST_OS_L: Ubuntu 22.04
   F2000X_HOST_OS_S: Ubuntu 22.04
   F2000X_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.6
-  F2000X_KERNEL_BRANCH: release/fpga-ofs-dev-5.15.92-lts
-  F2000X_KERNEL_TAG: ofs-2023.1-5.15-1
-  F2000X_KERNEL_VER_S: 5.15-lts
-  F2000X_KERNEL_VER_L: 5.15.92-dfl
-  F2000X_OPAE_TAG: 2.5.0-3
-  F2000X_OPAE_RELEASE: release/2.5.0
-  F2000X_OPAE_BRANCH: release/2.5.0
-  F2000X_OPAE_SIM_TAG: 2.8.0-1
-  F2000X_OPAE_SIM_BRANCH: release/2.8.0
+  F2000X_KERNEL_BRANCH: release/fpga-ofs-dev-6.1-lts
+  F2000X_KERNEL_TAG: ofs-2023.3-6.1-2
+  F2000X_KERNEL_VER_S: 6.1-lts
+  F2000X_KERNEL_VER_L: 6.1.41-dfl
+  F2000X_OPAE_TAG: 2.10.0-1
+  F2000X_OPAE_RELEASE: release/2.10.0
+  F2000X_OPAE_BRANCH: release/2.10.0
+  F2000X_OPAE_SIM_TAG: 2.10.0-1
+  F2000X_OPAE_SIM_BRANCH: release/2.10.0
   F2000X_SIMULATOR: Synopsys VCS P-2019.06-SP2-5
   F2000X_SIMULATOR_VER: S-2021.09-SP1
   F2000X_DESIGNWARE: vip_Q-2020.03A
@@ -417,18 +483,18 @@ env:
   F2000X_PERL_VER: 5.8.8
   F2000X_DESIGNWARE_VER: vip_Q-2020.03A
   F2000X_VCS_VER: S-2021.09-SP1  
-  F2000X_RELEASE_NAME: 2023.2 OFS SoC Attach Release for Intel IPU Platform F2000X-PL
-  F2000X_RELEASE_NAME_SHORTENED: 2023.2
-  F2000X_YOCTO_WIC_LINK_DIRECT: https://github.com/OFS/meta-ofs/releases/download/ofs-2023.1-4/core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz
-  F2000X_YOCTO_WIC_NAME: core-image-full-cmdline-intel-corei7-64-20230428022313.rootfs.wic.gz
-  F2000X_YOCTO_WIC_NAME_UNCOMPRESSED: core-image-full-cmdline-intel-corei7-64-20230512215350.rootfs.wic
+  F2000X_RELEASE_NAME: 2023.3 OFS SoC Attach Release for Intel IPU Platform F2000X-PL
+  F2000X_RELEASE_NAME_SHORTENED: 2023.3
+  F2000X_YOCTO_WIC_LINK_DIRECT: https://github.com/OFS/meta-ofs/releases/download/ofs-2023.3-2/core-image-full-cmdline-intel-corei7-64-20231129215057.rootfs.wic.gz
+  F2000X_YOCTO_WIC_NAME: core-image-full-cmdline-intel-corei7-64-20231129215057.rootfs.wic.gz
+  F2000X_YOCTO_WIC_NAME_UNCOMPRESSED: core-image-full-cmdline-intel-corei7-64-20231129215057.rootfs.wic
   F2000X_GBS_PR_INTERFACE_ID: bf2a9e1a-b05d-5130-b47c-776055c0d67e
   F2000X_BIOS_FILE_NAME: 0ACRH608_REL.bin 
-  F2000X_GBS_DOWNLOAD_LINK: https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.2-1/ofs_pr_afu.green_region_unsigned.gbs
-  F2000X_DOWNLOAD_RELEASE_PAGE: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.2-1
-  F2000X_GITHUB_RELEASE_PAGE_NAME: 2023.2 OFS Release for Intel Agilex 7 SoC Attach Reference Shell
+  F2000X_GBS_DOWNLOAD_LINK: https://github.com/OFS/ofs-n6001/releases/download/ofs-2023.3-1/ofs_pr_afu.green_region_unsigned.gbs
+  F2000X_DOWNLOAD_RELEASE_PAGE: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.3-1
+  F2000X_GITHUB_RELEASE_PAGE_NAME: 2023.3 OFS Release for Intel Agilex 7 SoC Attach Reference Shell
   F2000X_MET_OFS_TAG_LINK: https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2
-  F2000X_HOST_KERNEL: 5.15-lts
+  F2000X_HOST_KERNEL: 6.1-lts
   F2000X_LINUX_DFL_TAG_LINK: https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.1-5.15-1
   F2000X_OPAE_SDK_TAG_LINK: https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3
   F2000X_SOC_OS: meta-intel-ese Reference Distro 1.0-ESE (kirkstone)
@@ -441,11 +507,11 @@ env:
   F2000X_ONEAPI-ASP_TAG: NA
   F2000X_AFU_EXAMPLES_TAG: ofs-2023.2-1
   F2000X_AFU_EX_REL_PATH: https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1
-  F2000X_OFS_PLATFORM_BBB_TAG: ofs-2023.2-1
-  F2000X_OFS_F2000X_TAG: ofs-2023.2-1
-  F2000X_FIM_COMMON_TAG: ofs-2023.2-1
-  F2000X_LINUX_DFL_TAG: ofs-2023.1-5.15-1
-  F2000X_OPAE_SDK_TAG: 2.8.0-1
+  F2000X_OFS_PLATFORM_BBB_TAG: ofs-2023.3-1
+  F2000X_OFS_F2000X_TAG: ofs-2023.3-1
+  F2000X_FIM_COMMON_TAG: ofs-2023.3-1
+  F2000X_LINUX_DFL_TAG: ofs-2023.1-6.15-1
+  F2000X_OPAE_SDK_TAG: 2.10.0-1
   F2000X_META_OFS_REPO: https://github.com/OFS/meta-ofs
   F2000X_KERNEL_VER_COMPLETE: 5.15.92-dfl-66b0076c2c-lts
   F2000X_KERNEL_VER: 5.15
@@ -457,11 +523,11 @@ env:
   F2000X_SIM_UVM_VCS: S-2021.09-SP1
   F2000X_SIM_UVM_VCS_VER: Synopsys VCS P-2019.06-SP2-5
   F2000X_SIM_UVM_DESIGNWARE: vip_Q-2020.03A
-  F2000X_SIM_UVM_QS: 2021.4
-  F2000X_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/2023.2
+  F2000X_SIM_UVM_QS: 2023.2
+  F2000X_OFS_COMMON_REL_PATH: https://github.com/OFS/ofs-fim-common/2023.3
   #COMMON TERMS
-  OFS_RELEASE: 2023.2
-  OPAE_SIM_TAG: 2.8.0-1
+  OFS_RELEASE: 2023.3
+  OPAE_SIM_TAG: 2.10.0-1
   QUARTUS_PRO: Intel® Quartus® Prime Pro Edition Software
   QUARTUS_SW: Intel® Quartus® Prime Design Software
   QUARTUS_SIMPLE: Intel® Quartus® software
@@ -486,5 +552,5 @@ env:
   url_intel-fpga-bbb: https://github.com/OPAE/intel-fpga-bbb.git
   url_examples-afu: https://github.com/OFS/examples-afu.git
   #ONEAPI
-  EXAMPLES-AFU_TAG: ofs-2023.2-1
+  EXAMPLES-AFU_TAG: ofs-2023.3-1
 

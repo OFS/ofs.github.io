@@ -1,6 +1,6 @@
-**Intel Quartus Prime Pro Version 23.2** is verified to work with the latest OFS release 2023.2.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
+**Intel ${{ env.QUARTUS_PP_VER_L }}** is verified to work with the latest OFS release ${{ env.RELEASE }}.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
 
-Use RedHatEnterprise Linux® (RHEL) 8.6 for compatibility with your development flow and also testing your FIM design in your platform. 
+Use ${{ env.HOST_OS_L }} for compatibility with your development flow and also testing your FIM design in your platform. 
 
 Prior to installing Quartus:
 
@@ -33,24 +33,26 @@ Prior to installing Quartus:
 
 4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
-5. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](${{ env.RELEASE_PATH }}). The patches for this release are ${{ env.QUARTUS_PATCHES }}.
+
+6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
   ```bash
   export PATH=<Quartus install directory>/quartus/bin:$PATH
   export PATH=<Quartus install directory>/qsys/bin:$PATH
   ```
 
-  For example, if the Quartus install directory is /home/intelFPGA_pro/23.2 then the new line is:
+  For example, if the Quartus install directory is /home/intelFPGA_pro/${{ env.QUARTUS_PP_VER_S } then the new line is:
 
   ```bash
-  export PATH=/home/intelFPGA_pro/23.2/quartus/bin:$PATH
-  export PATH=/home/intelFPGA_pro/23.2/qsys/bin:$PATH
+  export PATH=/home/intelFPGA_pro/${{env.QUARTUS_PP_VER_S }}/quartus/bin:$PATH
+  export PATH=/home/intelFPGA_pro/${ env.QUARTUS_PP_VER_S }}/qsys/bin:$PATH
   ```
 
-3. Verify, Quartus is discoverable by opening a new shell:
+7. Verify, Quartus is discoverable by opening a new shell:
 
   ```
   $ which quartus
-  /home/intelFPGA_pro/23.2/quartus/bin/quartus
+  /home/intelFPGA_pro/${{ env.QUARTUS_PP_VER_S }/quartus/bin/quartus
   ```
 

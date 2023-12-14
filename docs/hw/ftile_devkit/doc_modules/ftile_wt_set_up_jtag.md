@@ -6,7 +6,7 @@ Pre-requisites:
 
 * This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [OFS Agilex PCIe Attach Getting Started Guide] for instructions on setting up a deployment environment.
 
-* This walkthrough requires a workstation with Quartus Prime Pro Version 23.2 tools installed, specifically the `jtagconfig` tool.
+* This walkthrough requires a workstation with Quartus Prime Pro Version 23.3 tools installed, specifically the `jtagconfig` tool.
 
 Steps:
 
@@ -21,7 +21,7 @@ Steps:
 4. Use the `jtagconfig` tool to check that the JTAG chain contains the AGFB027R24C2E2VR2 device.
 
     ```bash
-    <QUARTUS_INSTALL_DIR>/23.2/quartus/bin/jtagconfig
+    <QUARTUS_INSTALL_DIR>/23.3/quartus/bin/jtagconfig
     ```
 
     Example expected output:

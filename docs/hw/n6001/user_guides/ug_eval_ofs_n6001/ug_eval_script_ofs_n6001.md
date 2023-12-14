@@ -8,7 +8,7 @@
 |Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
 |Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel Max10 or Intel Cyclone10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
 |Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
-|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implemented on Intel hardware.
 |Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
 |FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
 |FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
@@ -16,11 +16,13 @@
 |Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
 |Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
 |Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Management Component Transport Protocol	|MCTP|	A standardized model for communication with management controllers. Defines the transport protocol carrying PLDM messages through the BMC.|
 |Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
 |oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
 |Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
 |Open Programmable Acceleration Engine Software Development Kit|	OPAE-SDK|	The OPAE-SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
 |Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Level Data Model |PLDM|	A specification for reporting telemetry data to the host, such as board temperature, voltage, and current.|
 |Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
 |Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
 |Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
@@ -42,7 +44,7 @@
 
 This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL development platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
 
-* Set-up and modify the script to the your environment
+* Set-up and modify the script to your environment
 
 * Compile and simulate an OFS reference design
 
@@ -54,16 +56,16 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | Component | Version |  Description |
 | --------- | ------- | -------|
 | FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html)| Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2023.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
-| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.2](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.2](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.2) | Common RTL across all OFS-based platforms |
+| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2023.3-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
+| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/releases/tag/2023.2](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/releases/tag/2023.2](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/releases/tag/2023.2) | Common RTL across all OFS-based platforms |
 | AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.8.0-1](https://github.com/OFS/opae-sdk/tree/2.8.0-1), [Tag: 2.8.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1) | Open Programmable Acceleration Engine Software Development Kit |
-| Kernel Drivers | [Branch: ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/tree/ofs-2023.2-6.1-1), [Tag: ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.2-6.1-1) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.8.0-1](https://github.com/OFS/opae-sim/releases/tag/2.8.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Intel Quartus Prime Pro Edition Design Software | 23.2 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
+| OPAE SDK | [Branch: 2.10.0-1](https://github.com/OFS/opae-sdk/tree/2.10.0-1), [Tag: 2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1) | Open Programmable Acceleration Engine Software Development Kit |
+| Kernel Drivers | [Branch: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-2), [Tag: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2) | OFS specific kernel drivers|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.10.0-1](https://github.com/OFS/opae-sim/releases/tag/2.10.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Intel Quartus Prime Pro Edition Design Software | 23.3 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.2-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.2-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.3-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1) official release drop on GitHub.
 
 <br>
 
@@ -84,7 +86,7 @@ This script uses the following set of software tools which should be installed u
 
 ![](images/ofs_n6001_tools_menu.png)
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.2-1. 
+1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.3-1. 
 
 2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table for locations. When cloning the FIM repository, please follow the instructions in section 4.1 and 4.2 of the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].  Additionally, please go [OFS Getting Started User Guide] for the instructions for the BKC software installation.
 
@@ -93,7 +95,7 @@ This script uses the following set of software tools which should be installed u
 **Figure 2-2 Directory Structure for OFS Project**
 
 ```sh
-## ofs-2023.2-1
+## ofs-2023.3-1
 ##  -> examples-afu
 ##  -> linux-dfl
 ##  -> ofs-n6001
@@ -115,9 +117,9 @@ To adapt this script to the user environment please follow the instructions belo
 
 The user must create the top-level source directory and then clone the OFS repositories
     
-    mkdir ofs-2023.2-1
+    mkdir ofs-2023.3-1
 
-In the example above we have used ofs-2023.2-1 as the directory name
+In the example above we have used ofs-2023.3-1 as the directory name
 
 ### **Set-Up Proxy Server (lines 65-67)**
 
@@ -150,17 +152,17 @@ Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
 
 Set version of Quartus
 
-    export QUARTUS_VERSION=23.2
+    export QUARTUS_VERSION=23.3
 
-In the example above "23.2" is used as the Quartus tools version
+In the example above "23.3" is used as the Quartus tools version
 
 ### **OPAE Tools (line 106)**
 
 change OPAE SDK VERSION<br>
 
-    export OPAE_SDK_VERSION=2.8.0-1
+    export OPAE_SDK_VERSION=2.10.0-1
 
-In the example above "2.8.0-1" is used as the OPAE SDK tools version
+In the example above "2.10.0-1" is used as the OPAE SDK tools version
 
 ### **PCIe (Bus Number) (lines 231 and 238)**
 
@@ -258,14 +260,14 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
                 SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number<br>
                 <br>
                 Checking Tool versions<br>
-                QUARTUS_HOME is set to /home/intelFPGA_pro/23.2/quartus<br>
-                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus<br>
-                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus/../ip<br>
-                QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus/../qsys/bin<br>
+                QUARTUS_HOME is set to /home/intelFPGA_pro/23.3/quartus<br>
+                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus<br>
+                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus/../ip<br>
+                QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus/../qsys/bin<br>
                 <br>
                 Checking QPDS Patches<br>
                 Quartus Prime Shell<br>
-                Version 23.2 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
+                Version 23.3 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
                 Copyright (C) XXXX  Intel Corporation. All rights reserved.<br>
                 <br>
                </td>

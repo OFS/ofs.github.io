@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) PCIe Attach
 
-Last updated: **October 26, 2023** 
+Last updated: **December 14, 2023** 
 
 ## **1. Introduction**
 
@@ -19,37 +19,37 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 
 | Section | Walkthrough Name | Category |
 | --- | --- | --- |
-| 1.3.1.1 | [Walkthrough: Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
-| 1.3.1.2 | [Walkthrough: Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1312-walkthrough-install-git-large-file-storage-extension) | Setup |
-| 1.3.2.1 | [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) | Setup |
-| 1.3.3.1 | [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) | Setup |
-| 1.3.4 | [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) | Setup |
-| 2.2.5 | [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) | Compilation |
-| 2.2.6 | [Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) | Compilation |
-| 2.2.7.1 | [Walkthrough: Change the Compilation Seed](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed) | Compilation |
-| 3.2.1 | [Walkthrough: Running Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#321-walkthrough-running-individual-unit-level-simulation) | Simulation |
-| 3.3.1 | [Walkthrough: Running Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#331-walkthrough-running-regression-unit-level-simulation) | Simulation |
-| 4.1.2 | [Walkthrough: Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
-| 4.1.3 | [Walkthrough: Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
-| 4.1.5 | [Walkthrough: Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
-| 4.1.6 | [Walkthrough: Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
-| 4.2.1 | [Walkthrough: Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
-| 4.3.1 | [Walkthrough: Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
-| 4.4.1 | [Walkthrough: Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) | Customization |
-| 4.5.1 | [Walkthrough: Create a Minimal FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) | Customization |
-| 4.6.1 | [Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) | Customization |
-|4.7.1 | [Walkthrough: Migrating to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrating-to-a-different-agilex-device-number) | Customization |
-| 4.9.1 | [Walkthrough: Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) | Customization |
-| 4.9.2 | [Walkthrough: Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) | Customization |
-| 5.1 | [Walkthrough: Set up JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag) | Configuration |
-| 5.2 | [Walkthrough: Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
+| 1.3.1.1 | [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
+| 1.3.1.2 | [Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1312-walkthrough-install-git-large-file-storage-extension) | Setup |
+| 1.3.2.1 | [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) | Setup |
+| 1.3.3.1 | [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) | Setup |
+| 1.3.4 | [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) | Setup |
+| 2.2.5 | [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) | Compilation |
+| 2.2.6 | [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) | Compilation |
+| 2.2.7.1 | [Change the Compilation Seed](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed) | Compilation |
+| 3.2.1 | [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#321-walkthrough-run-individual-unit-level-simulation) | Simulation |
+| 3.3.1 | [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#331-walkthrough-run-regression-unit-level-simulation) | Simulation |
+| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
+| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
+| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
+| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
+| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
+| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
+| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) | Customization |
+| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) | Customization |
+| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) | Customization |
+|4.7.1 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrate-to-a-different-agilex-device-number) | Customization |
+| 4.9.1 | [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) | Customization |
+| 4.9.2 | [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) | Customization |
+| 5.1 | [Set up JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag) | Configuration |
+| 5.2 | [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
 
 #### **1.1.1 Knowledge Pre-Requisites**
 
 It is recommended that you have the following knowledge and skills before using this developer guide.
 
-* Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2023.2/).
-* Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) for the Intel Agilex 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
+* Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2023.3/).
+* Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) for the Intel Agilex 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
 * Review of [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))].
 * FPGA compilation flows using Intel® Quartus® Prime Pro Edition.
 * Static Timing closure, including familiarity with the Timing Analyzer tool in Intel® Quartus® Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
@@ -61,9 +61,9 @@ It is recommended that you have the following knowledge and skills before using 
 
 This section will help you understand how the OFS Agilex PCIe Attach FIM can be developed to fit your design goals.
 
-The [Default FIM Features](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#121-default-fim-features) section provides general information about the default features of the OFS Agilex PCIe Attach FIM so you can become familiar with the default design. For more detailed information about the FIM architecture, refer to the [OFS Agilex PCIe Attach FIM Technical Reference Manual](https://ofs.github.io/ofs-2023.2/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+The [Default FIM Features](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#121-default-fim-features) section provides general information about the default features of the OFS Agilex PCIe Attach FIM so you can become familiar with the default design. For more detailed information about the FIM architecture, refer to the [OFS Agilex PCIe Attach FIM Technical Reference Manual](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
-The [Customization Options](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#122-customization-options) section then gives suggestions of how this default design can be customized. Step-by-step walkthroughs for many of the suggested customizations are later described in the [FIM Customization](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4-fim-customization) section.
+The [Customization Options](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#122-customization-options) section then gives suggestions of how this default design can be customized. Step-by-step walkthroughs for many of the suggested customizations are later described in the [FIM Customization](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4-fim-customization) section.
 
 FIM development for a new acceleration card generally consists of the following steps:
 
@@ -131,7 +131,7 @@ The *FIM Subsystems* Table  describes the Platform Designer IP subsystems used i
 
 | Subsystem | User Guide | Document ID |
 | --- | --- | --- |
-| PCIe Subsystem | [PCIe Subsystem Intel FPGA IP User Guide for Intel Agilex OFS](https://ofs.github.io/ofs-2023.2/hw/common/user_guides/ug_qs_pcie_ss.pdf) | N/A |
+| PCIe Subsystem | [PCIe Subsystem Intel FPGA IP User Guide for Intel Agilex OFS](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/ug_qs_pcie_ss.pdf) | N/A |
 | Memory Subsystem | [Memory Subsystem Intel FPGA IP User Guide for Intel Agilex OFS](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148) | 686148<sup>**[1]**</sup> |
 | Ethernet Subsystem | [Ethernet Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148) | 773413<sup>**[1]**</sup> |
 
@@ -188,18 +188,18 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 
 | Section | Customization Walkthrough |
 | --- | --- |
-| 4.1.2 | [Walkthrough: Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
-| 4.1.3 | [Walkthrough: Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
-| 4.1.5 | [Walkthrough: Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
-| 4.1.6 | [Walkthrough: Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
-| 4.2.1 | [Walkthrough: Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
-| 4.3.1 | [Walkthrough: Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
-| 4.4.1 | [Walkthrough: Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) | Customization |
-| 4.5.1 | [Walkthrough: Create a Minimal FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) | Customization |
-| 4.6.1 | [Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) | Customization |
-| 4.7.1 | [Walkthrough: Migrating to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrating-to-a-different-agilex-device-number) | Customization |
-| 4.9.1 | [Walkthrough: Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) | Customization |
-| 4.9.2 | [Walkthrough: Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) | Customization |
+| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
+| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
+| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
+| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
+| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
+| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
+| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) | Customization |
+| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) | Customization |
+| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) | Customization |
+| 4.7.1 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrate-to-a-different-agilex-device-number) | Customization |
+| 4.9.1 | [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) | Customization |
+| 4.9.2 | [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) | Customization |
 
 
 
@@ -218,18 +218,18 @@ The *Development Environment Table* describes the Best Known Configuration (BKC)
 | Component | Version | Installation Walkthrough |
 | --- | --- | --- |
 | Operating System | RedHat® Enterprise Linux® (RHEL) 8.6 | N/A |
-| Intel Quartus Prime Software | Quartus Prime Pro Version 23.2 for Linux + Patches 0.11 patch (PCIe), and 0.19 patch (Ethernet Subsystem) | Section 1.3.1.1 |
+| Intel Quartus Prime Software | Quartus Prime Pro Version 23.3 for Linux + Patches 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe) | Section 1.3.1.1 |
 | Python | 3.6.8 or later | N/A |
 | GCC | 7.4.0 or later | N/A |
 | cmake | 3.15 or later | N/A |
 | git with git-lfs | 1.8.3.1 or later | Section 1.3.1.2 |
-| FIM Source Files | ofs-2023.2-1 | Section 1.3.2.1 |
+| FIM Source Files | ofs-2023.3-1 | Section 1.3.2.1 |
 
 ##### **1.3.1.1 Walkthrough: Install Quartus Prime Pro Software**
 
-**Intel Quartus Prime Pro Version 23.2** is verified to work with the latest OFS release 2023.2.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
+**Intel Quartus Prime Pro Version 23.3** is verified to work with the latest OFS release ofs-2023.3-1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
 
-Use RedHatEnterprise Linux® (RHEL) 8.6 for compatibility with your development flow and also testing your FIM design in your platform. 
+Use RedHat® Enterprise Linux® (RHEL) 8.6 for compatibility with your development flow and also testing your FIM design in your platform. 
 
 Prior to installing Quartus:
 
@@ -262,25 +262,27 @@ Prior to installing Quartus:
 
 4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
-5. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3). The patches for this release are 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe).
+
+6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
   ```bash
   export PATH=<Quartus install directory>/quartus/bin:$PATH
   export PATH=<Quartus install directory>/qsys/bin:$PATH
   ```
 
-  For example, if the Quartus install directory is /home/intelFPGA_pro/23.2 then the new line is:
+  For example, if the Quartus install directory is /home/intelFPGA_pro/23.3 then the new line is:
 
   ```bash
-  export PATH=/home/intelFPGA_pro/23.2/quartus/bin:$PATH
-  export PATH=/home/intelFPGA_pro/23.2/qsys/bin:$PATH
+  export PATH=/home/intelFPGA_pro/23.3/quartus/bin:$PATH
+  export PATH=/home/intelFPGA_pro/23.3/qsys/bin:$PATH
   ```
 
-3. Verify, Quartus is discoverable by opening a new shell:
+7. Verify, Quartus is discoverable by opening a new shell:
 
   ```
   $ which quartus
-  /home/intelFPGA_pro/23.2/quartus/bin/quartus
+  /home/intelFPGA_pro/23.3/quartus/bin/quartus
   ```
 
 
@@ -304,7 +306,7 @@ To install the Git Large File Storage (LFS) extension, execute the following com
 
 #### **1.3.2 FIM Source Files**
 
-The source files for the OFS Agilex PCIe Attach FIM are provided in the following repository: [https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2)
+The source files for the OFS Agilex PCIe Attach FIM are provided in the following repository: [https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3)
 
 Some essential directories in the repository are described as follows:
 
@@ -368,7 +370,7 @@ Perform the following steps to clone the OFS Agilex PCIe Attach FIM Repository:
 3. Check out the correct tag of the repository
     ```bash
     cd ofs-agx7-pcie-attach
-    git checkout --recurse-submodules tags/ofs-2023.2-1
+    git checkout --recurse-submodules tags/ofs-2023.3-1
     ```
 
 #### **1.3.3 Environment Variables**
@@ -446,7 +448,7 @@ Perform the following steps to set the required environment variables. These env
 
 This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
 
-1. Ensure that Quartus Prime Pro Version 23.2 for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Walkthrough: Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
+1. Ensure that Quartus Prime Pro Version 23.3 for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
 
   1. Verify version number
 
@@ -458,7 +460,7 @@ This walkthrough guides you through the process of setting up your development e
 
       ```bash
       Quartus Prime Shell
-      Version 23.2 Build 94 06/14/2023 SC Pro Edition
+      Version 23.3 Build 94 06/14/2023 SC Pro Edition
       Copyright (C) 2023  Intel Corporation. All rights reserved.
       ```
 
@@ -504,7 +506,7 @@ This walkthrough guides you through the process of setting up your development e
       cmake version 3.15
       ```
 
-  4. git with git-lfs 1.8.3.1 or later. Refer to the [Walkthrough: Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1312-walkthrough-install-git-large-file-storage-extension) section for step-by-step instructions on installing the Git Large File Storage (LFS) extension.
+  4. git with git-lfs 1.8.3.1 or later. Refer to the [Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1312-walkthrough-install-git-large-file-storage-extension) section for step-by-step instructions on installing the Git Large File Storage (LFS) extension.
 
     1. Verify version number
 
@@ -518,7 +520,7 @@ This walkthrough guides you through the process of setting up your development e
       git version 1.8.3.1
       ```
 
-3. Clone the ofs-agx7-pcie-attach repository. Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+3. Clone the ofs-agx7-pcie-attach repository. Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
 4. Install UART IP license patch `.02`.
 
@@ -534,7 +536,7 @@ This walkthrough guides you through the process of setting up your development e
     sudo ./quartus-0.0-0.02iofs-linux.run
     ```
 
-5. Install Quartus Patches 0.11 patch (PCIe), and 0.19 patch (Ethernet Subsystem). All required patches are provided in the **Assets** of the OFS FIM Release Tag: [https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1)
+5. Install Quartus Patches 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe). All required patches are provided in the **Assets** of the OFS FIM Release Tag: [https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1)
 
 6. Verify that patches have been installed correctly. They should be listed in the output of the following command.
 
@@ -542,7 +544,7 @@ This walkthrough guides you through the process of setting up your development e
   quartus_sh --version
   ```
 
-5. Set required environment variables. Refer to the [Walkthrough: Set Environment Variables] section for step-by-step instructions.
+5. Set required environment variables. Refer to the [Set Environment Variables] section for step-by-step instructions.
 
 This concludes the walkthrough for setting up your development environment. At this point you are ready to begin FIM development.
 
@@ -550,14 +552,14 @@ This concludes the walkthrough for setting up your development environment. At t
 
 This section describes the process of compiling OFS FIM designs using the provided build scripts. It contains two main sections:
 
-* [Compilation Theory](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#21-compilation-theory) - Describes the theory behind FIM compilation
-* [Compilation Flows](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#22-compilation-flows) - Describes the process of compiling a FIM
+* [Compilation Theory](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#21-compilation-theory) - Describes the theory behind FIM compilation
+* [Compilation Flows](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#22-compilation-flows) - Describes the process of compiling a FIM
 
 The walkthroughs provided in this section are:
 
-* [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim)
-* [Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim)
-* [Walkthrough: Change the Compilation Seed](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed)
+* [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim)
+* [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim)
+* [Change the Compilation Seed](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed)
 
 ### **2.1 Compilation Theory**
 
@@ -584,8 +586,8 @@ build_top.sh [-k] [-p] [-e] [--stage=<action>] [--ofss=<ip_config>] <build_targe
 | `-e` | None | Run only Quartus analysis and elaboration. It completes the `setup` stage, passes `-end synthesis` to the Quartus compilation flow and exits without running the `finish` stage. | Optional |
 | `--stage` | `all` \| `setup` \| `compile` \| `finish` | Controls which portion of the OFS build is run.</br>&nbsp;&nbsp;- `all`: Run all build stages (default)</br>&nbsp;&nbsp;- `setup`: Initialize a project in the work directory</br>&nbsp;&nbsp;- `compile`: Run the Quartus compilation flow on a project that was already initialized with `setup`</br>&nbsp;&nbsp;- `finish`: Complete OFS post-compilation tasks, such as generating flash images and, if `-p` is set, generating a release. | Optional |
 | `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. This parameter is consumed during the setup stage and IP is updated only inside the work tree. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | Optional |
-| `<build_target>` | `fseries-dk` \| `n6001` \| `f2000x` | Specifies which board is being targeted. | Required |
-| `<fim_options>` | `flat` \| `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` | Used to change how the FIM is built.</br>&nbsp;&nbsp;- `flat` - Compiles a flat design (no PR assignments). This is useful for bringing up the design on a new board without dealing with PR complexity.</br>&nbsp;&nbsp;- `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;- `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:flat,null_he_lb,null_he_hssi` | Optional | 
+| `<build_target>` | `fseries-dk` | Specifies which board is being targeted. | Required |
+| `<fim_options>` | `flat` \| `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` \| `no_hssi` | Used to change how the FIM is built.</br>&nbsp;&nbsp;&bull; `flat` - Compiles a flat design (no PR assignments). This is useful for bringing up the design on a new board without dealing with PR complexity.</br>&nbsp;&nbsp;&bull; `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`.</br>&nbsp;&nbsp;&bull; `no_hssi` - Removes the HSSI-SS from the design. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:flat,null_he_lb,null_he_hssi` | Optional | 
 | `<work_dir_name>` | String | Specifies the name of the work directory in which the FIM will be built. If not specified, the default target is `$OFS_ROOTDIR/work` | Optional |
 
 > **Note:** The `he_null` is a minimal block with CSRs that responds to PCIe MMIO requests in order to keep PCIe alive.
@@ -594,11 +596,27 @@ The build script copies source files from the existing cloned repository into th
 
 
 
-Refer to [Compile OFS FIM] which provides step-by-step instructions for running the `build_top.sh` script with some of the different available options.
+Refer to [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) which provides step-by-step instructions for running the `build_top.sh` script with some of the different available options.
 
 #### **2.1.2 OFSS File Usage**
 
-The OFS FIM build script can use OFSS files to easily customize design IP prior to compilation using preset configurations. The OFSS files specify certain parameters for different IPs. Pre-made OFSS files can be found in the `$OFS_ROOTDIR/tools/ofss_config` directory. Using OFSS is provided as a convenience tool for building pre-defined FIMs.
+The OFS FIM build script can use OFSS files to easily customize design IP prior to compilation using preset configurations. The OFSS files specify certain parameters for different IPs. Using OFSS is provided as a convenience feature for building FIMs. The *Provided OFSS Files* table below describes the pre-made OFSS files for the fseries-dk that can be found in the `$OFS_ROOTDIR/tools/ofss_config` directory. Only the OFSS files listed in this table are compatible with the fseries-dk In order to compile an fseries-dk FIM, you must supply OFSS files corresponding to each IP that is present in your design.
+
+*Table: Provided OFSS Files*
+
+| OFSS File Name | Location | Type | Description |
+| --- | --- | --- | --- |
+| `fseries-dk.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files <sup>**[1]**</sup>:</br> &nbsp;&nbsp;&bull; `fseries-dk_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_host.ofss`</br> &nbsp;&nbsp;&bull; `iopll.ofss`</br> &nbsp;&nbsp;&bull; `memory_ftile.ofss` |
+| `fseries-dk_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | ofs | Defines certain attributes of the design, including the platform name, device family, fim type, part number, and device ID. |
+| `pcie_host.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (3 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs)</br>&nbsp;&nbsp;&bull; PF2 (0 VFs)</br>&nbsp;&nbsp;&bull; PF3 (0 VFs)</br>&nbsp;&nbsp;&bull; PF4 (0 VFs) |
+| `pcie_1pf_1vf.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (1 VF) |
+| `iopll.ofss` | `$OFS_ROOTDIR/tools/ofss_config/iopll` | iopll | Sets the IOPLL frequency to `470 MHz` |
+| `memory_ftile.ofss` | `$OFS_ROOTDIR/tools/ofss_config/memory` | memory | Defines the memory IP preset file to be used during the build as `fseries-dk` |
+| `hssi_8x25_ftile.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP preset file to be used during the build as `fseries-dk` |
+
+
+
+<sup>**[1]**</sup> The `fseries-dk.ofss` file does not include an HSSI OFSS file by default. If you are using the `fseries-dk.ofss` file when building the FIM, you must also specify an HSSI OFSS file for F-tile. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for examples of this flow.
 
 >**Note:** Using OFSS is required for FIM builds targeting the F-tile Development Kit.
 
@@ -606,7 +624,7 @@ There can typically be three sections contained within an OFSS file.
 
 * **`[include]`**
 
-  * This section of an OFSS file contains elements separated by a newline, where each element is the path to an OFSS file that is to be included for configuration by the OFSS Configuration Tool. Ensure that any environment variables (e.g. `$OFS_ROOTDIR`) is set correctly. The OFSS Config tool uses breadth first search to include all of the specified OFSS files; the ordering of OFSS files does not matter
+  * This section of an OFSS file contains elements separated by a newline, where each element is the path to an OFSS file that is to be included for configuration by the OFSS Configuration Tool. Ensure that any environment variables (e.g. `$OFS_ROOTDIR`) are set correctly. The OFSS Config tool uses breadth first search to include all of the specified OFSS files; the ordering of OFSS files does not matter
 
 * **`[ip]`**
 
@@ -614,13 +632,13 @@ There can typically be three sections contained within an OFSS file.
 
 * **`[settings]`**
 
-  * This section of an OFSS file contains IP specific settings. Refer to an existing IP OFSS file to see what IP settings are set. For the IP type `ofss``, the settings will be information of the OFS device (platform, family, fim, part #, device_id)
+  * This section of an OFSS file contains IP specific settings. Refer to existing IP OFSS file of different types to see what IP settings are set. For the IP type `ofss`, the settings will be information of the OFS device (platform, family, fim, part #, device_id)
 
 ##### **2.1.2.1 Platform OFSS File**
 
 The `<platform>.ofss` file (e.g. `$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss`) is the platform level OFSS wrapper file. This is typically the OFSS file that is provided to the build script. It only contains an `include` section which lists all other OFSS files that are to be used when the `<platform>.ofss` file is passed to the build script.
 
-The generic structure of a `<platform>.ofss` file is as follows:
+An example structure of a `<platform>.ofss` file is as follows:
 
 ```bash
 [include]
@@ -667,17 +685,27 @@ Currently supported configuration options for an OFSS file with IP type `pcie` a
 
 *Table: PCIe IP OFSS File Options*
 
-| Section | Parameter | Options | Description |
-| --- | --- | --- | --- |
-| `[ip]` | `type` | `pcie` | Specifies that this OFSS file configures the PCIe-SS |
-| `[settings]` | `output_name` | `pcie_ss` | Specifies the output name of the PCIe-SS IP |
-| `[pf*]` | `num_vfs` | Integer | Specifies the number of Virtual Functions in the current PF |
-| | `bar0_address_width` | Integer | |
-| | `bar4_address_width` | Integer | |
-| | `vf_bar0_address_width` | Integer | |
-| | `ats_cap_enable` | `0` \| `1` | |
-| | `prs_ext_cap_enable` | `0` \| `1` | |
-| | `pasid_cap_enable` | `0` \| `1` | |
+| Section | Parameter | Options | Default | Description |
+| --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `pcie` | N/A | Specifies that this OFSS file configures the PCIe-SS |
+| `[settings]` | `output_name` | `pcie_ss` | N/A | Specifies the output name of the PCIe-SS IP |
+| | `preset` | *String* | N/A | OPTIONAL - Specifies the name of a PCIe-SS IP presets file to use when building the FIM. When used, a presets file will take priority over any other parameters set in this OFSS file. |
+| `[pf*]` | `num_vfs` | Integer | `0` | Specifies the number of Virtual Functions in the current PF |
+| | `bar0_address_width` | Integer | `12` | |
+| | `bar4_address_width` | Integer | `14` | |
+| | `vf_bar0_address_width` | Integer | `12` | |
+| | `ats_cap_enable` | `0` \| `1` | `0` | |
+| | `vf_ats_cap_enable` | `0` \| `1` | `0` | |
+| | `prs_ext_cap_enable` | `0` \| `1` | `0` | |
+| | `pasid_cap_enable` | `0` \| `1` | `0` | |
+| | `pci_type0_vendor_id` | 32'h Value | `0x00008086` | |
+| | `pci_type0_device_id` | 32'h Value | `0x0000bcce` | |
+| | `revision_id` | 32'h Value | `0x00000001` | |
+| | `class_code` | 32'h Value | `0x00120000` | |
+| | `subsys_vendor_id` | 32'h Value | `0x00008086` | |
+| | `subsys_dev_id` | 32'h Value | `0x00001771` | |
+| | `sriov_vf_device_id` | 32'h Value | `0x0000bccf` | |
+| | `exvf_subsysid` | 32'h Value | `0x00001771` | |
 
 The default values for all PCIe-SS parameters (that are not defined in the PCIe IP OFSS file) are defined in `$OFS_ROOTDIR/ofs-common/tools/ofss_config/ip_params/pcie_ss_component_parameters.py`. When using a PCIe IP OFSS file during compilation, the PCIe-SS IP that is used will be defined based on the values in the PCIe IP OFSS file plus the parameters defined in `pcie_ss_component_parameters.py`.
 
@@ -714,9 +742,11 @@ Currently supported configuration options for an OFSS file with IP type `memory`
 | --- | --- | --- | --- |
 | `[ip]` | `type` | `memory` | Specifies that this OFSS file configures the Memory-SS |
 | `[settings]` | `output_name` | `mem_ss_fm` | Specifies the output name of the Memory-SS. |
-| | `preset` | `n6001` \| `ftile-dev` \| `f2000x` | Selects the platform whose preset `.qprs` file will be used to build the Memory-SS. |
+| | `preset` | `fseries-dk` \| *String*<sup>**[1]**</sup> | Specifies the name of the `.qprs` presets file that will be used to build the Memory-SS. |
 
-Memory-SS presets files are stored in the `$OFS_ROOTDIR/ipss/mem/qip/presets` directory.
+<sup>**[1]**</sup> You may generate your own `.qprs` presets file with a unique name using Quartus. 
+
+Pre-provided Memory-SS presets files are located in the `$OFS_ROOTDIR/ipss/mem/qip/presets` directory.
 
 ##### **2.1.2.6 HSSI IP OFSS File**
 
@@ -731,10 +761,14 @@ Currently supported configuration options for an OFSS file with IP type `hssi` a
 | `[ip]` | `type` | `hssi` | Specifies that this OFSS file configures the Ethernet-SS |
 | `[settings]` | `output_name` | `hssi_ss` | Specifies the output name of the Ethernet-SS |
 | | `num_channels` | Integer | Specifies the number of channels. |
-| | `data_rate` | `10GbE` \| `25GbE` \| `100GCAUI-4` \| `100GAUI-4` | Specifies the data rate |
-| | `preset` | None \| `fseries-dk` | OPTIONAL - Selects the platform whose preset `.qprs` file will be used to build the Ethernet-SS. When used, this will overwrite the other settings in this OFSS file. This is currently only used for the F-Tile Development Kit |
+| | `data_rate` | `10GbE` \| `25GbE` | Specifies the data rate<sup>**[1]**</sup> |
+| | `preset` | `fseries-dk` \| *String*<sup>**[2]**</sup> | Specifies the name of the `.qprs` preset file that will be used to build the Ethernet-SS. This will overwrite the other settings in this OFSS file. |
 
-Ethernet-SS presets are stored in  `$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/presets` directory.
+<sup>**[1]**</sup> The presets file will take priority over the `data_rate` parameter, so this value will not take effect when using a presets file.
+
+<sup>**[2]**</sup> You may generate your own `.qprs` presets file with a unique name using Quartus. 
+
+Pre-provided Ethernet-SS presets are located in the  `$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/presets` directory.
 
 #### **2.1.3 OFS Build Script Outputs**
 
@@ -751,22 +785,22 @@ The output files include programmable images and compilation reports. The *OFS B
 
 ### **2.2 Compilation Flows**
 
-This section provides information for using the build script to generate different FIM types. Walkthroughs are provided for each compilation flow. These walkthroughs require that the development environment has been set up as described in the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) section.
+This section provides information for using the build script to generate different FIM types. Walkthroughs are provided for each compilation flow. These walkthroughs require that the development environment has been set up as described in the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) section.
 
 #### **2.2.1 Flat FIM**
 
-A flat FIM is compiled such that there is no partial reconfiguration region, and the entire design is built as a flat design. This is useful for compiling new designs without worrying about the complexity introduced by partial reconfiguration. The flat compile removes the PR region and PR IP; thus, you cannot use the `-p` build flag when using the `flat` compile setting. Refer to the [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+A flat FIM is compiled such that there is no partial reconfiguration region, and the entire design is built as a flat design. This is useful for compiling new designs without worrying about the complexity introduced by partial reconfiguration. The flat compile removes the PR region and PR IP; thus, you cannot use the `-p` build flag when using the `flat` compile setting. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
 
 #### **2.2.2 In-Tree PR FIM**
 
-An In-Tree PR FIM is the default compilation if no compile flags or compile settings are used. This flow will compile the design with the partial reconfiguration region, but it will not create a relocatable PR directory tree to aid in AFU development. Refer to the [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+An In-Tree PR FIM is the default compilation if no compile flags or compile settings are used. This flow will compile the design with the partial reconfiguration region, but it will not create a relocatable PR directory tree to aid in AFU development. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
 
 #### **2.2.3 Out-of-Tree PR FIM**
 
 An Out-of-Tree PR FIM will compile the design with the partial reconfiguration region, and will create a relocatable PR directory tree to aid in AFU workload development. This is especially useful if you are developing a FIM to be used by another team developing AFU workloads. This is the recommended build flow in most cases. There are two ways to create the relocatable PR directory tree:
 
-* Run the FIM build script with the `-p` option. Refer to the [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
-* Run the `generate_pr_release.sh` script after running the FIM build script. Refer to the [Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) Section step-by-step instructions for this flow.
+* Run the FIM build script with the `-p` option. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+* Run the `generate_pr_release.sh` script after running the FIM build script. Refer to the [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) Section step-by-step instructions for this flow.
 
 In both cases, the `generate_pr_release.sh` is run to create the relocatable build tree. This script is located at `$OFS_ROOTDIR/ofs-common/scripts/common/syn/generate_pr_release.sh`. Usage for this script is as follows:
 
@@ -781,7 +815,7 @@ The *Generate PR Release Script Options* table describes the options for the `ge
 | Parameter | Options | Description |
 | --- | --- | --- |
 | `<PATH_OF_RELOCATABLE_PR_TREE>` | String | Specifies the location of the relocatable PR directory tree to be created. |
-| `<BOARD_TARGET>` | `n6001` \| `fseries-dk` \| `f2000x` | Specifies the name of the board target. |
+| `<BOARD_TARGET>` | `fseries-dk` | Specifies the name of the board target. |
 | `<WORK_DIRECTORY>` | String | Specifies the existing work directory from which the relocatable PR directory tree will be created from. |
 
 After generating the relocatable build tree, it is located in the `$OFS_ROOTDIR/<WORK_DIRECTORY>/pr_build_template` directory (or the directory you specified if generated separately). The contents of this directory have the following structure:
@@ -814,7 +848,7 @@ An HE_NULL FIM refers to a design with one, some, or all of the Host Exercisers 
 * `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`
 * `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`
 
-The [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) section gives step-by-step instructions for this flow.
+The [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) section gives step-by-step instructions for this flow.
 
 #### **2.2.5 Walkthrough: Compile OFS FIM**
 
@@ -822,13 +856,13 @@ Perform the following steps to compile the OFS Agilex PCIe Attach FIM for fserie
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the root directory.
 
@@ -836,23 +870,23 @@ Steps:
     cd $OFS_ROOTDIR
     ```
 
-4. Run the `build_top.sh` script with the desired compile options using the fseries-dk OFSS presets.
+4. Run the `build_top.sh` script with the desired compile options using the fseries-dk OFSS presets. In this case you must use the `fseries-dk.ofss` file, and then specify the 8x25G HSSI configuration using the `hssi_8x25_ftile.ofss` (this is not necessary if using the `no_hssi` compile option).
   * Flat FIM
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss fseries-dk:flat work_fseries-dk_flat
+    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk:flat work_fseries-dk_flat
     ```
 
   * In-Tree PR FIM
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_in_tree_pr
+    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_in_tree_pr
     ```
 
   * Out-of-Tree PR FIM
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_oot_pr
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_oot_pr
     ```
 
   * HE_NULL Flat FIM
@@ -866,7 +900,7 @@ Steps:
     ```bash
     ***********************************
     ***
-    ***        OFS_PROJECT: n6001
+    ***        OFS_PROJECT: ofs-agx7-pcie-attach
     ***        OFS_BOARD: fseries-dk
     ***        Q_PROJECT:  ofs_top
     ***        Q_REVISION: ofs_top
@@ -881,13 +915,13 @@ Steps:
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the root directory.
 
@@ -898,7 +932,7 @@ Steps:
 4. Run the `build_top.sh` script with the desired compile options using the fseries-dk OFSS presets. In order to create the relocatable PR tree, you may not compile with the `flat` option. For example:
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk
   ```
 
 5. Run the `generate_pr_release.sh` script to create the relocatable PR tree.
@@ -917,13 +951,13 @@ Perform the following steps to change the compilation seed for the FIM build.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Edit the `SEED` assignment in the `$OFS_ROOTDIR/syn/board/fseries-dk/syn_top/ofs_top.qsf` file to your desired seed value. The value can be any non-negative integer value.
 
@@ -931,7 +965,7 @@ Steps:
   set_global_assignment -name SEED 1
   ```
 
-4. Build the FIM. Refer to the [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) section for instructions.
+4. Build the FIM. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) section for instructions.
 
 ## **3. FIM Simulation**
 
@@ -986,16 +1020,16 @@ The *Gen Sim Files Script Options* table describes the options for the `gen_sim_
 | Field | Options | Description | Requirement |
 | --- | --- | --- | --- |
 | `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | Platform Dependent<sup>**[1]**</sup> |
-| `<build_target>` | `fseries-dk` \| `n6001` \| `f2000x` | Specifies which board is being targeted. | Required |
+| `<build_target>` | `fseries-dk` \| `n6001` | Specifies which board is being targeted. | Required |
 | `<fim_options>` | `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` | Used to change how the FIM is built.</br>&nbsp;&nbsp;- `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;- `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:null_he_lb,null_he_hssi` | Optional | 
 | `<device>` | string | Specifies the device ID for the target FPGA. If not specified, the default device is parsed from the `QSF` file for the project. | Optional |
 | `<family>` | string | Specifies the family for the target FPGA. If not specified, the default family is parsed from the `QSF` file for the project. | Optional |
 
 <sup>**[1]**</sup> Using OFSS is required for the F-Tile Development Kit.
 
-Refer to the [Walkthrough: Running Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#321-walkthrough-running-individual-unit-level-simulation) section for an example of the simulation files generation flow.
+Refer to the [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#321-walkthrough-run-individual-unit-level-simulation) section for an example of the simulation files generation flow.
 
-When running regression tests, you may use the `-g` command line argument to generate simulation files; refer to the [Walkthrough: Running Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#331-walkthrough-running-regression-unit-level-simulation) section for step-by-step instructions.
+When running regression tests, you may use the `-g` command line argument to generate simulation files; refer to the [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#331-walkthrough-run-regression-unit-level-simulation) section for step-by-step instructions.
 
 ### **3.2 Individual Unit Tests**
 
@@ -1037,26 +1071,26 @@ $OFS_ROOTDIR/sim/unit_test/dfh_walker/sim_vcsmx/transcript
 
 The simulation waveform database is saved as vcdplus.vpd for post simulation review.
 
-#### **3.2.1 Walkthrough: Running Individual Unit Level Simulation**
+#### **3.2.1 Walkthrough: Run Individual Unit Level Simulation**
 
 Perform the following steps to run an individual unit test.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Generate the simulation files for the ${{ env.MODEL }}
 
   ```bash
   cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
 
-  ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss ${{ env.FTLE_DK_MODEL }}
+  ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss ${{ env.FTLE_DK_MODEL }}
   ```
 
 4. Navigate to the common simulation directory
@@ -1154,17 +1188,17 @@ $OFS_ROOTDIR/sim/unit_test/dfh_walker/sim_vcsmx/transcript
 
 The simulation waveform database is saved as vcdplus.vpd for post simulation review.
 
-#### **3.3.1 Walkthrough: Running Regression Unit Level Simulation**
+#### **3.3.1 Walkthrough: Run Regression Unit Level Simulation**
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Create a test list file to only run the unit level simulations that are supported for the fseries-dk FIM.
 
@@ -1200,7 +1234,7 @@ Steps:
   ```bash
   cd $OFS_ROOTDIR/sim/unit_test/scripts
 
-  python regress_run.py --ofss $OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss -g -l -n 8 -k list -s vcsmx -b fseries-dk
+  python regress_run.py --ofss $OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss -g -l -n 8 -k list -s vcsmx -b fseries-dk
   ```
 
 5. Once all tests are complete, check that the tests have passed.
@@ -1231,24 +1265,24 @@ Steps:
 
 ## **4. FIM Customization**
 
-This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
 
 *Table: FIM Customization Walkthroughs*
 
 | Section | Customization Walkthrough |
 | --- | --- |
-| 4.1.2 | [Walkthrough: Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
-| 4.1.3 | [Walkthrough: Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
-| 4.1.5 | [Walkthrough: Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
-| 4.1.6 | [Walkthrough: Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) |
-| 4.2.1 | [Walkthrough: Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
-| 4.3.1 | [Walkthrough: Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) |
-| 4.4.1 | [Walkthrough: Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) |
-| 4.5.1 | [Walkthrough: Create a Minimal FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) |
-| 4.6.1 | [Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) |
-| 4.7.1 | [Walkthrough: Migrating to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrating-to-a-different-agilex-device-number) |
-| 4.9.1 | [Walkthrough: Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) |
-| 4.9.2 | [Walkthrough: Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) |
+| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) |
+| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) |
+| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) |
+| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) |
+| 4.7.1 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrate-to-a-different-agilex-device-number) |
+| 4.9.1 | [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) |
+| 4.9.2 | [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) |
 
 ### **4.1 Adding a new module to the FIM**
 
@@ -1306,13 +1340,13 @@ Perform the following steps to add a new module to the OFS FIM that can be acces
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Make hello_fim source directory
 
@@ -1639,7 +1673,7 @@ Steps:
   ...
   # Subsystems
   ...
-  set_global_assignment -name SOURCE_TCL_SCRIPT_FILE $::env(BUILD_ROOT_REL)/src/hello_fim/hello_fim_design_files.tclset_global_assignment -name SOURCE_TCL_SCRIPT_FILE ../setup/hello_fim_design_files.tcl
+  set_global_assignment -name SOURCE_TCL_SCRIPT_FILE $::env(BUILD_ROOT_REL)/src/hello_fim/hello_fim_design_files.tcl
   ```
 
 9. Modify `$OFS_ROOTDIR/src/pd_qsys/fabric/fabric_design_files.tcl` to include BPF Hello FIM Slave IP.
@@ -1770,7 +1804,7 @@ Steps:
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_hello_fim
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_hello_fim
   ```
 
 #### **4.1.3 Walkthrough: Modify and run unit tests for a FIM that has a new module**
@@ -1779,13 +1813,13 @@ Perform the following steps to modify the unit test files to support a FIM that 
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Walkthrough: Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
+* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
 
 Steps:
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 2. Modify `$OFS_ROOTDIR/sim/unit_test/dfh_walker/test_csr_defs.sv`
   1. Add `HELLO_FIM_IDX` entry to `t_dfh_idx` enumeration.
@@ -1853,7 +1887,7 @@ Steps:
   ```bash
   cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
 
-  ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss fseries-dk
+  ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk
   ```
 
 4. Run DFH Walker Simulation
@@ -1931,7 +1965,7 @@ Pre-requisites:
 
 * This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
 
-* This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Walkthrough: Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
+* This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
 
 Steps:
 
@@ -1951,7 +1985,7 @@ Steps:
 
 2. Switch to your deployment environment.
 
-3. Program the FPGA with the Hello FIM image. Refer to the [Walkthrough: Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
+3. Program the FPGA with the Hello FIM image. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
 
 4. Run `fpgainfo` to determine the PCIe B:D.F of your board, and to verify the PR Interface ID matches the ID you found in Step 1.
 
@@ -2065,13 +2099,13 @@ Steps:
   1. Write to Scratchpad register
 
     ```bash
-    opae.io -d 0000:15:00.0 -r 0 poke 0x16030 0x123456789abcdef
+    opae.io -d b1:00.0 -r 0 poke 0x16030 0x123456789abcdef
     ```
 
   2. Read from Scratchpad register
 
     ```bash
-    opae.io -d 15:00.0 -r 0 peek 0x16030
+    opae.io -d b1:00.0 -r 0 peek 0x16030
     ```
 
     Expected output:
@@ -2083,13 +2117,13 @@ Steps:
   3. Write to Scratchpad register
 
     ```bash
-    opae.io -d 15:00.0 -r 0 poke 0x16030 0xfedcba9876543210
+    opae.io -d b1:00.0 -r 0 poke 0x16030 0xfedcba9876543210
     ```
 
   4. Read from Scratchpad register
 
     ```bash
-    opae.io -d 15:00.0 -r 0 peek 0x16030
+    opae.io -d b1:00.0 -r 0 peek 0x16030
     ```
 
     Expected output:
@@ -2101,7 +2135,7 @@ Steps:
 9. Release the opae.io tool
 
   ```bash
-  opae.io release -d 15:00.0
+  opae.io release -d b1:00.0
   ```
 
 10. Confirm the driver has been set back to `dfl-pci`
@@ -2122,24 +2156,24 @@ The following steps guide you through the process of adding a Signal Tap instanc
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 * This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
 
-* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Walkthrough: Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
+* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
 
 Perform the following steps in your development environment:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Synthesize the design using the `-e` build script option. You may skip this step if you are using a pre-synthesized design.
 
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh -e --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_hello_fim_with_stp
+  ./ofs-common/scripts/common/syn/build_top.sh -e --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_hello_fim_with_stp
   ```
 
 4. Open the design in Quartus. The **Compilation Dashboard** should show that the `Analysis & Synthesis` step has completed.
@@ -2179,7 +2213,7 @@ Perform the following steps in your development environment:
     ![](images/stp_traced_signals_hello_fim.png)
 
 
-  6. To provide a unique name for your Signal Tap instance, select "auto_signaltap_0", right-click, and select **Rename Instance (F2)**. Provide a descriptive name for your instance, for example, `STP_For_Hello_FIM`.
+  6. To provide a unique name for your Signal Tap instance, select "auto_signaltap_0", right-click, and select **Rename Instance (F2)**. Provide a descriptive name for your instance, for example, `stp_for_hello_fim`.
   
     ![](images/stp_rename_instance_hello_fim.png)
 
@@ -2196,8 +2230,8 @@ Perform the following steps in your development environment:
 
     ```tcl
     set_global_assignment -name ENABLE_SIGNALTAP ON
-    set_global_assignment -name USE_SIGNALTAP_FILE STP_For_Hello_FIM.stp
-    set_global_assignment -name SIGNALTAP_FILE STP_For_Hello_FIM.stp
+    set_global_assignment -name USE_SIGNALTAP_FILE stp_for_hello_fim.stp
+    set_global_assignment -name SIGNALTAP_FILE stp_for_hello_fim.stp
     ```
 
 6. Close all Quartus GUIs.
@@ -2205,10 +2239,10 @@ Perform the following steps in your development environment:
 7. Compile the project with the Signal Tap file added to the project. Use the **-k** switch to perform the compilation using the files in a specified working directory and not the original ones from the cloned repository. 
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh -p -k --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_hello_fim_with_stp
+  ./ofs-common/scripts/common/syn/build_top.sh -p -k --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_hello_fim_with_stp
   ```
 
-  Alternatively, you can copy the **ofs_top.qsf** and **STP_For_Hello_FIM.stp** files from the Hello FIM with STP work directory to replace the original files in the cloned OFS repository. In this scenario, all further FIM compilation projects will include the Signal Tap instance integrated into the design. Execute the following commands for this alternative flow:
+  Alternatively, you can copy the **ofs_top.qsf** and **stp_for_hello_fim.stp** files from the Hello FIM with STP work directory to replace the original files in the cloned OFS repository. In this scenario, all further FIM compilation projects will include the Signal Tap instance integrated into the design. Execute the following commands for this alternative flow:
 
   Copy the modified file `work_hello_fim_with_stp/syn/board/fseries-dk/syn_top/ofs_top.qsf` to the source OFS repository, into `syn/board/fseries-dk/syn_top/`.
 
@@ -2217,7 +2251,7 @@ Perform the following steps in your development environment:
 
   cp ofs_top.qsf $OFS_ROOTDIR/syn/board/fseries-dk/syn_top
 
-  cp STP_For_Hello_FIM.stp $OFS_ROOTDIR/syn/board/fseries-dk/syn_top
+  cp stp_for_hello_fim.stp $OFS_ROOTDIR/syn/board/fseries-dk/syn_top
   ```
 
   Compile the FIM to create a new work directory.
@@ -2225,7 +2259,7 @@ Perform the following steps in your development environment:
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_hello_fim_with_stp_src_repo
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_hello_fim_with_stp_src_repo
   ```
 
 8. Ensure that the compile completes successfully and meets timing:
@@ -2244,11 +2278,11 @@ Perform the following steps in your development environment:
   ***********************************
   ```
 
-9. Set up a JTAG connection to the fseries-dk. Refer to [Walkthrough: Set up JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
+9. Set up a JTAG connection to the fseries-dk. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
-10. Copy the `ofs_top.sof` and `STP_For_Hello_FIM.stp` files to the machine which is connected to the fseries-dk via JTAG.
+10. Copy the `ofs_top.sof` and `stp_for_hello_fim.stp` files to the machine which is connected to the fseries-dk via JTAG.
 
-11. From the JTAG connected machine, program the `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Walkthrough: Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) section for step-by-step programming instructions.
+11. From the JTAG connected machine, program the `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) section for step-by-step programming instructions.
 
 
 12. Open the Quartus Signal Tap GUI
@@ -2257,7 +2291,7 @@ Perform the following steps in your development environment:
   $QUARTUS_ROOTDIR/bin/quartus_stpw
   ```
 
-13. In the Signal Tap Logic Analyzer window, select **File -> Open**, and choose the `STP_For_Hello_FIM.stp` file.
+13. In the Signal Tap Logic Analyzer window, select **File -> Open**, and choose the `stp_for_hello_fim.stp` file.
 
   ![](images/stp_open_STP_For_Hello_FIM.stp.png)
    
@@ -2271,7 +2305,7 @@ Perform the following steps in your development environment:
    
   ![](images/stp_set_trigger_conditions.png)
    
-17. Start analysis by selecting the **'STP_For_Hello_FIM'** instance and pressing **'F5'** or clicking the **Run Analysis** icon in the toolbar. You should see a green message indicating the Acquisition is in progress. Then, move to the **Data** Tab to observe the signals captured.
+17. Start analysis by selecting the **'stp_for_hello_fim'** instance and pressing **'F5'** or clicking the **Run Analysis** icon in the toolbar. You should see a green message indicating the Acquisition is in progress. Then, move to the **Data** Tab to observe the signals captured.
 
   ![](images/stp_start_signal_capture.png)
 
@@ -2374,13 +2408,13 @@ Perform the following steps to first analyze the PR logic lock regions in a defa
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. The OFS flow provides the TCL file `$OFS_ROOTDIR/syn/board/fseries-dk/setup/pr_assignments.tcl` which defines the PR partition where the AFU is allocated. Each region is a rectangle defined by the origin coordinate (X0, Y0) and the top right corner coordinate (X1, Y1).
 
@@ -2405,7 +2439,7 @@ Steps:
     ```bash
     cd $OFS_ROOTDIR
 
-    ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_resize_pr
+    ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_resize_pr
     ```
 
   2. Open the project in the Quartus GUI
@@ -2431,7 +2465,7 @@ Steps:
   ```bash
   cd $OFS_ROOTDIR    
 
-  ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_resize_pr
+  ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_resize_pr
   ```
 
 6. Analyze the resource utilization report `$OFS_ROOTDIR/work_fseries-dk/syn/board/fseries-dk/syn_top/output_files/ofs_top.fit.rpt` produced after recompiling the FIM.
@@ -2445,6 +2479,8 @@ For more information on how to optimize the floor plan of your Partial Reconfigu
 * [Partial Reconfiguration Design Flow - Step 3 - Floorplan the Design](https://www.intel.com/content/www/us/en/docs/programmable/683834/21-4/step-3-floorplan-the-design.html)
 
 ### **4.4 PF/VF MUX Configuration**
+
+The PF/VF MUX is configured 
 
 The default PF/VF MUX configuration for OFS PCIe Attach FIM for the fseries-dk can support up to 8 PFs and 2000 VFs distributed accross all PFs.
 
@@ -2467,15 +2503,15 @@ Perform the following steps to modify the PF/VF MUX configuration.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 * This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. View the default OFS PCIe Attach FIM for the fseries-dk PF/VF configuration in the the `$OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host.ofss` file.
 
@@ -2542,7 +2578,6 @@ Steps:
   "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_pfvf_mod.ofss
   "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
   "$OFS_ROOTDIR"/tools/ofss_config/memory/memory_ftile.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x25_ftile.ofss
   ```
 
 7. Compile the FIM. 
@@ -2550,14 +2585,14 @@ Steps:
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_pfvf_mod
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pfvf_mod
   ```
 
 8. Copy the resulting `$OFS_ROOTDIR/work_fseries-dk_pfvf_mod/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
 
 9. Switch to your deployment environment.
 
-10. Program the `ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Walkthrough: Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
+10. Program the `ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
 
 11. Verify the number of VFs on the newly added PF5. In this example, we defined 2 VFs on PF5 in Step 5.
 
@@ -2614,15 +2649,15 @@ Perform the following steps to create a Minimal FIM.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 * This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Create a new platform OFSS file that will use a 1PF/1VF PCIe configuration.
 
@@ -2638,7 +2673,6 @@ Steps:
   "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_1pf_1vf.ofss
   "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
   "$OFS_ROOTDIR"/tools/ofss_config/memory/memory_ftile.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x25_ftile.ofss
   ```
 
 5. Compile the FIM with Null HEs compile option, the No HSSI compile option, and 1PF/1VF configuration OFSS file.
@@ -2646,16 +2680,16 @@ Steps:
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk_1pf_1vf.ofss fseries-dk:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_fseries-dk_minimal_fim
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk_1pf_1vf.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_fseries-dk_minimal_fim
   ```
 
-6. Review the `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-a-resource-utilizatio-tables) Table A-4 for the expected utilization for this Minimal FIM.
+6. Review the `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-a-resource-utilizatio-tables) Table A-4 for the expected utilization for this Minimal FIM.
 
 7. Copy the resulting `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
 
 8. Switch to your deployment environment, if different than your development environment.
 
-9. Program the `ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Walkthrough: Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
+9. Program the `ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
 
 10. Use `lspci` to verify that the PCIe changes have been implemented.
 
@@ -2670,7 +2704,9 @@ Steps:
   VF Migration: offset: 00000000, BIR: 0
   ```
 
-11. You may wish to adjust the PR logic lock regions to maximize the resources available for the AFU. Refer to the [Walkthrough: Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) section for instructions.
+11. You may wish to adjust the PR logic lock regions to maximize the resources available for the AFU. Refer to the [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) section for instructions.
+
+
 
 ### **4.6 PCIe-SS Configuration Registers**
 
@@ -2680,11 +2716,11 @@ The Vendor ID is assigned to your company by the PCI-SIG (Special Interest Group
 
 #### **4.6.1 Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point**
 
-Perform the following steps to customize the PCIe Device ID and Revision number using an PCIe OFSS configuration as a starting point. While this walkthrough only changes the PCIe Device ID and Revsision number, the general modificaton flow is required to make any modifications not natively supported by OFSS.
+Perform the following steps to customize the PCIe Device ID and Revision number using an PCIe OFSS configuration as a starting point. While this walkthrough only changes the PCIe Device ID and Revsision number, the general modificaton flow can be used to make any modifications not natively supported by OFSS.
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 * This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
 
@@ -2713,22 +2749,20 @@ Steps:
 
 2. Switch to your development environment.
 
-3. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+3. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-4. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+4. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 5. Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the fseries-dk design.
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_pcie_mod
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod
   ```
 
 6. Open the PCIe-SS in the work directory using Quartus Parameter Editor.
 
   ```bash
-  cd $OFS_ROOTDIR/work_fseries-dk_pcie_mod/ipss/pcie/qip
-
-  qsys-edit pcie_ss.ip
+  qsys-edit $OFS_ROOTDIR/work_fseries-dk_pcie_mod/ipss/pcie/qip/pcie_ss.ip
   ```
 
 7. Scroll down to the **PCIe Interfaces 0 Ports Settings** tab and select the **PCIe0 Device identification registers** tab. Modify the settings as desired. In this case, we are changing the **Device ID** to `0xbccf` and the **Revision ID** to `0x2`.
@@ -2745,21 +2779,21 @@ Steps:
 
   ```bash
   cd $OFS_ROOTDIR
-  ./ofs-common/scripts/common/syn/build_top.sh --stage compile --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_pcie_mod
+  ./ofs-common/scripts/common/syn/build_top.sh --stage compile --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod
   ```
 
 12. Run the `finish` stage of the build script.
 
   ```bash
   cd $OFS_ROOTDIR
-  ./ofs-common/scripts/common/syn/build_top.sh -p --stage finish --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_pcie_mod
+  ./ofs-common/scripts/common/syn/build_top.sh -p --stage finish --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod
   ```
 
 13. Copy the resulting `$OFS_ROOTDIR/work_fseries-dk_pcie_mod/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
 
 14. Switch to your deployment environment.
 
-15. Program the `ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Walkthrough: Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
+15. Program the `ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
 
 16. Use `lspci` to verify that the PCIe changes have been implemented.
 
@@ -2801,7 +2835,7 @@ Steps:
     ```bash
     cd $OFS_ROOTDIR
   
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk_pcie_mod.ofss fseries-dk work_fseries-dk_pcie_mod_2
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk_pcie_mod.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod_2
     ```
 
   * Without OFSS
@@ -2825,19 +2859,19 @@ You may wish to change the device part number for the following reasons
 
 The default device for the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) is AGFB027R24C2E2VR2
 
-#### **4.7.1 Walkthrough: Migrating to a Different Agilex Device Number**
+#### **4.7.1 Walkthrough: Migrate to a Different Agilex Device Number**
 
 Perform the following steps to migrate to a different Agilex Device. In this example, we will migrate from the default AGFB027R24C2E2VR2 device to AGFB027R31C2E2V. The package will change from R24C to R31C.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Modify the `part` field in the `$OFS_ROOTDIR/tools/ofss_config/fseries-dk_base.ofss` file to use `AGFB027R31C2E2V`.
 
@@ -2917,17 +2951,17 @@ Steps:
 
   ```bash
   cd $OFS_ROOTDIR
-  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss fseries-dk:flat work_fseries-dk
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk:flat work_fseries-dk
   ```
 
-8. Verify that the build completes successfuly. If there are timing violation, try building with a different seed. Refer to the [Walkthrough: Change the Compilation Seed](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed) section for instructions on changing the build seed.
+8. Verify that the build completes successfuly. If there are timing violation, try building with a different seed. Refer to the [Change the Compilation Seed](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed) section for instructions on changing the build seed.
 
 9. When you are satisfied with the pinout, preserve it by hard-coding the desired pinout to followig files:
   * `$OFS_ROOTDIR/syn/board/fseries-dk/setup/emif_loc.tcl`
   * `$OFS_ROOTDIR/syn/board/fseries-dk/setup/hps_loc.tcl`
   * `$OFS_ROOTDIR/syn/board/fseries-dk/setup/top_loc.tcl`
 
-10. When you are ready to re-incorporate PR into the design, modify the PR region to be compatible with the new device. Refer to the [Walkthrough: Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) section for instructions.
+10. When you are ready to re-incorporate PR into the design, modify the PR region to be compatible with the new device. Refer to the [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) section for instructions.
 
 
 
@@ -2937,94 +2971,75 @@ This section describes the flows for modifying the Ethernet Sub-System.
 
 >**Note:** The default HSSI-SS configuration for the fseries-dk is 2x4x25GbE.
 
+>**Note:** The fseries-dk does not support 2x200GbE or 1x400GbE configurations.
+
 #### **4.9.1 Walkthrough: Modify the Ethernet Sub-System to 2x4x10GbE**
 
 Perform the following steps to modify the Ethernet Sub-System to 2x4x10GbE. In this walkthrough, we will create a new IP presets file that will be used during the build flow.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Run the `setup` stage of the build script to create a work directry for the ${{ env.FTLE_DK_MODEL }} design.
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_eth_mod
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk
   ```
 
 4. Open the HSSI-SS IP in the work directory using `qsys-edit`
 
   ```bash
-  qsys-edit $OFS_ROOTDIR/work_fseries-dk_eth_mod/ipss/hssi/qip/hssi_ss/hssi_ss.ip
+  qsys-edit $OFS_ROOTDIR/work_fseries-dk/ipss/hssi/qip/hssi_ss/hssi_ss.ip
   ```
 
-5. Change the **PORT\*_PROFILE** parameter from `25GbE` to `10GbE` for Ports 0 through 7.
+5. Change the **PORT_PROFILE** parameter from `25GbE` to `10GbE` for Ports 0 through 7.
 
   ![eth_mod_8x10_parameter_editor](images/eth_mod_8x10_parameter_editor.png)
 
-6. Click **Generate HDL** at the bottom right of the Parameter Editor to verify that this configuration can be compiled. This will overwrite the IP in the work directory.
-
-7. To preserve this HSSI-SS configuration in the source dirctory, you must generate a presets file. In the current release, only one presets file for the fseries-dk may exist in the source directory; future releases will allow for multiple presets files which may be switched between at build-time.
+6. Create an IP Presets file for this Ethernet Subsystem IP configuration.
 
   1. Click **New** in the bottom right corner of the **Presets** window.
 
       ![eth_mod_8x10_new_preset](images/eth_mod_8x10_new_preset.png)
 
-  2. In the **New Preset** window, set the **Preset name** to `fseries-dk`.
-
-      >**Note:** In the current release, the OFSS script requires that preset files be named `n6001`, `fseries-dk`, or `f2000x`. Future releases will allow for any preset name.
+  2. In the **New Preset** window, set the **Preset name**. In this example, we will name it `2x4x10g-fseries-dk`.
 
       ![eth_mod_8x10_new_preset_window](images/eth_mod_8x10_new_preset_window.png)
 
   3. Click the **...** button to select the save location of the **Preset file**.
 
-  4. In the **Save As** window, navigate to the `$OFS_ROODIR/ipss/hssi/qip/hssi_ss/presets` directory. Select the existing `hssi_preset.qprs` file to overwrite it. Then click **OK**.
+  4. In the **Save As** window, navigate to the `$OFS_ROODIR/ipss/hssi/qip/hssi_ss/presets` directory. Set the **File Name** to `2x4x10g-fseries-dk.qprs`. Then click **OK**.
 
       ![eth_mod_8x10_save_preset](images/eth_mod_8x10_save_preset.png)
 
-  5. In the **New Preset** window, click **Save**. Approve any requests to overwrite existing presets. Click **No** when prompted to add the file to the IP search path.
+  5. In the **New Preset** window, click **Save**. Click **No** when prompted to add the file to the IP search path.
 
-8. Close out of the **IP Parameter Editor** GUI. You may save the IP when prompted if desired; this will update the IP configuration in the work directory, however we will not use this work directory to compile.
+7. Close out of the **IP Parameter Editor** GUI. Do not save or generate the IP.
 
-9. Create a generic HSSI OFSS file named `hssi_ftile.ofss` based on the existing `hssi_8x25_ftile.ofss`.
+8. Create a new HSSI OFSS file named `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_2x4x10_ftile.ofss` with the following contents. This will call the IP Presets file generated in Step 6.
 
   ```bash
-  cp $OFS_ROOTDIR/tools/ofss_config/hssi/hssi_8x25_ftile.ofss $OFS_ROOTDIR/tools/ofss_config/hssi/hssi_ftile.ofss
-  ```
-
-10. View the contents of the newly created `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_ftile.ofss` file. The `num_channels` and `data_rate` settings will be overwritten by the `preset` file at build time; thus, no changes are required in this file.
-
-  ```
   [ip]
-  type = hssi
-
-  [settings]
-  output_name = hssi_ss
-  num_channels = 8
-  data_rate = 25GbE
-  preset = fseries-dk
+	type = hssi
+	
+	[settings]
+	output_name = hssi_ss
+	num_channels = 8
+	data_rate = 10GbE
+	preset = 2x4x10g-fseries-dk
   ```
 
-11. Modify the top level OFSS file `$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss` to use the new generic HSSI OFSS file `hssi_ftile.ofss`.
+9. Run the FIM build script with the new HSSI OFSS file created in Step 8.
 
   ```bash
-  [include]
-  "$OFS_ROOTDIR"/tools/ofss_config/fseries-dk_base.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory_ftile.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_ftile.ofss
-  ```
-
-12. Build the FIM. 
-
-  ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_eth_8x10
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_2x4x10_ftile.ofss fseries-dk work_fseries-dk_eth_2x4x10
   ```
 
 #### **4.9.2 Walkthrough: Modify the Ethernet Sub-System to 3x4x10GbE**
@@ -3033,93 +3048,72 @@ Perform the following steps to modify the Ethernet Sub-System to 3x4x10GbE. In t
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Run the `setup` stage of the build script to create a work directry for the ${{ env.FTLE_DK_MODEL }} design.
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_eth_mod
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk
   ```
 
 4. Open the HSSI-SS IP in the work directory using `qsys-edit`
 
   ```bash
-  qsys-edit $OFS_ROOTDIR/work_fseries-dk_eth_mod/ipss/hssi/qip/hssi_ss/hssi_ss.ip
+  qsys-edit $OFS_ROOTDIR/work_fseries-dk/ipss/hssi/qip/hssi_ss/hssi_ss.ip
   ```
 
 5. Change the **NUM_ENABLED_PORTS** parameter from `8` to `12`.
 
-6. Change the **PORT\*_PROFILE** parameter from `25GbE` to `10GbE` for Ports 0 through 11.
+6. Change the **PORT_PROFILE** parameter from `25GbE` to `10GbE` for Ports 0 through 11.
 
   ![eth_mod_12x10_parameter_editor](images/eth_mod_12x10_parameter_editor.png)
 
-7. Click **Generate HDL** at the bottom right of the Parameter Editor to verify that this configuration can be compiled. This will overwrite the IP in the work directory.
-
-8. To preserve this HSSI-SS configuration in the source dirctory, you must generate a presets file. In the current release, only one presets file for the fseries-dk may exist in the source directory; future releases will allow for multiple presets files which may be switched between at build-time.
+6. Create an IP Presets file for this Ethernet Subsystem IP configuration.
 
   1. Click **New** in the bottom right corner of the **Presets** window.
 
-      ![eth_mod_8x10_new_preset](images/eth_mod_8x10_new_preset.png)
+      ![eth_mod_12x10_new_preset](images/eth_mod_12x10_new_preset.png)
 
-  2. In the **New Preset** window, set the **Preset name** to `fseries-dk`.
-
-      >**Note:** In the current release, the OFSS script requires that preset files be named `n6001`, `fseries-dk`, or `f2000x`. Future releases will allow for any preset name.
+  2. In the **New Preset** window, set the **Preset name**. In this example, we will name it `3x4x10g-fseries-dk`.
 
       ![eth_mod_12x10_new_preset_window](images/eth_mod_12x10_new_preset_window.png)
 
   3. Click the **...** button to select the save location of the **Preset file**.
 
-  4. In the **Save As** window, navigate to the `$OFS_ROODIR/ipss/hssi/qip/hssi_ss/presets` directory. Select the existing `hssi_preset.qprs` file to overwrite it. Then click **OK**.
+  4. In the **Save As** window, navigate to the `$OFS_ROODIR/ipss/hssi/qip/hssi_ss/presets` directory. Set the **File Name** to `3x4x10g-fseries-dk.qprs`. Then click **OK**.
 
-      ![eth_mod_8x10_save_preset](images/eth_mod_8x10_save_preset.png)
+      ![eth_mod_12x10_save_preset](images/eth_mod_12x10_save_preset.png)
 
-  5. In the **New Preset** window, click **Save**. Approve any requests to overwrite existing presets. Click **No** when prompted to add the file to the IP search path.
+  5. In the **New Preset** window, click **Save**. Click **No** when prompted to add the file to the IP search path.
 
-9. Close out of the **IP Parameter Editor** GUI. You may save the IP when prompted if desired; this will update the IP configuration in the work directory, however we will not use this work directory to compile.
+7. Close out of the **IP Parameter Editor** GUI. Do not save or generate the IP.
 
-10. Create a generic HSSI OFSS file named `hssi_ftile.ofss` based on the existing `hssi_8x25_ftile.ofss`.
+8. Create a new HSSI OFSS file named `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_3x4x10_ftile.ofss` with the following contents. This will call the IP Presets file generated in Step 6.
 
   ```bash
-  cp $OFS_ROOTDIR/tools/ofss_config/hssi/hssi_8x25_ftile.ofss $OFS_ROOTDIR/tools/ofss_config/hssi/hssi_ftile.ofss
-  ```
-
-11. View the contents of the newly created `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_ftile.ofss` file. The `num_channels` and `data_rate` settings will be overwritten by the `preset` file at build time; thus, no changes are required in this file.
-
-  ```
   [ip]
-  type = hssi
-
-  [settings]
-  output_name = hssi_ss
-  num_channels = 8
-  data_rate = 25GbE
-  preset = fseries-dk
+	type = hssi
+	
+	[settings]
+	output_name = hssi_ss
+	num_channels = 12
+	data_rate = 10GbE
+	preset = 3x4x10g-fseries-dk
   ```
 
-12. Modify the top level OFSS file `$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss` to use the new generic HSSI OFSS file `hssi_ftile.ofss`.
-
-  ```bash
-  [include]
-  "$OFS_ROOTDIR"/tools/ofss_config/fseries-dk_base.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory_ftile.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_ftile.ofss
-  ```
-
-13. Change the number of QSFP ports from `2` to `3` in the `$OFS_ROOTDIR/ipss/hssi/rtl/inc/ofs_fim_eth_plat_if_pkg.sv` file.
+9. Change the number of QSFP ports from `2` to `3` in the `$OFS_ROOTDIR/ipss/hssi/rtl/inc/ofs_fim_eth_plat_if_pkg.sv` file.
 
   ```verilog
   localparam NUM_QSFP_PORTS = 3; // QSFP cage on board
   ```
 
-14. Add the pin location assignments for the new QSFP channels in the `$OFS_ROOTDIR/syn/board/fseries-dk/setup/top_loc.tcl` file. In this example we will use channels 4 through 7 of the QSFPDD-56.
+10. Add the pin location assignments for the new QSFP channels in the `$OFS_ROOTDIR/syn/board/fseries-dk/setup/top_loc.tcl` file. In this example we will use channels 4 through 7 of the QSFPDD-56.
 
   ```tcl
   set_location_assignment PIN_AC55 -to qsfp_serial[2].rx_p[0]
@@ -3143,10 +3137,10 @@ Steps:
   set_location_assignment PIN_AA51  -to qsfp_serial[2].tx_n[3]
   ```
 
-15. Build the FIM. 
+11. Build the FIM. 
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss fseries-dk work_fseries-dk_eth_8x10
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_3x4x10_ftile.ofss fseries-dk work_fseries-dk_eth_12x10g
   ```
 
 ## **5. FPGA Configuration**
@@ -3161,9 +3155,9 @@ Perform the following steps to establish a JTAG connection with the fseries-dk.
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [OFS Agilex PCIe Attach Getting Started Guide](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a workstation with Quartus Prime Pro Version 23.2 tools installed, specifically the `jtagconfig` tool.
+* This walkthrough requires a workstation with Quartus Prime Pro Version 23.3 tools installed, specifically the `jtagconfig` tool.
 
 Steps:
 
@@ -3178,7 +3172,7 @@ Steps:
 4. Use the `jtagconfig` tool to check that the JTAG chain contains the AGFB027R24C2E2VR2 device.
 
     ```bash
-    <QUARTUS_INSTALL_DIR>/23.2/quartus/bin/jtagconfig
+    <QUARTUS_INSTALL_DIR>/23.3/quartus/bin/jtagconfig
     ```
 
     Example expected output:
@@ -3199,9 +3193,9 @@ Pre-Requisites:
 
 * This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
 
-* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
+* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
 
-* This walkthrough requires a JTAG connection to the fseries-dk. Refer to the [Walkthrough: Set up JTAG](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
+* This walkthrough requires a JTAG connection to the fseries-dk. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
 * This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) is connected via JTAG.
 

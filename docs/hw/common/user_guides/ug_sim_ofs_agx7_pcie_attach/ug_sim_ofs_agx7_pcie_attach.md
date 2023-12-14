@@ -8,7 +8,7 @@
 |Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
 |Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel Max10 or Intel Cyclone10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
 |Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
-|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implemented on Intel hardware.
 |Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
 |FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
 |FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
@@ -16,11 +16,13 @@
 |Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
 |Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
 |Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Management Component Transport Protocol	|MCTP|	A standardized model for communication with management controllers. Defines the transport protocol carrying PLDM messages through the BMC.|
 |Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
 |oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
 |Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
 |Open Programmable Acceleration Engine Software Development Kit|	OPAE-SDK|	The OPAE-SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
 |Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Level Data Model |PLDM|	A specification for reporting telemetry data to the host, such as board temperature, voltage, and current.|
 |Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
 |Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
 |Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
@@ -216,9 +218,9 @@ To run the tutorial steps in this guide requires the following development envir
 
 | Item                      | Version|
 | ------------------------- | ----------|
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.2|
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.3|
 | Simulator                 | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
-| Simulator (Questasim)     | Questasim 2021.4 or newer for UVM simulation of top level FIM |
+| Simulator (Questasim)     | Questasim 2023.2 or newer for UVM simulation of top level FIM |
 
 
 ## **5.1 UVM Prerequisite**
@@ -230,8 +232,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir ofs-2023.2-1
-    $ cd ofs-2023.2-1
+    $ mkdir ofs-2023.3-1
+    $ cd ofs-2023.3-1
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
     
@@ -244,13 +246,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-agx7-pcie-attach
-    $ git checkout tags/ofs-2023.2-1
+    $ git checkout tags/ofs-2023.3-1
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2023.2-1
+    $ ofs-2023.3-1
 
 ## **5.2 License Requirements**
 
@@ -303,7 +305,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export WORKDIR=$OFS_ROOTDIR
 
 ## Quartus Tools
-    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.2/quartus
+    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.3/quartus
     export QUARTUS_ROOTDIR=$QUARTUS_HOME
     export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
     export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
@@ -321,7 +323,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export VIPDIR=$VERDIR
 
 ## QuestaSIM Verification Tools
-    export MTI_HOME=<user_path>/mentor/questasim/2021.4/linux64
+    export MTI_HOME=<user_path>/mentor/questasim/2023.2/linux64
     export PATH=$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$PATH
     export QUESTA_HOME=$MTI_HOME
 

@@ -58,19 +58,19 @@ Figure 1-1 shows how OFS components can be used with Intel HLD tool.
 
 For high level description and setup details for OFS components shown in figure above, please refer to the Getting Started guide for your target device.
 
--   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
+-   [OFS Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
 
--   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+-   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 For a more detailed diagram and more information about the FPGA Interface Manager(FIM) shown in figure above, please refer to the FIM developer guides for your target device.
 
--   [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach].
+-   [Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
--   [Open FPGA Stack Technical Reference Manual].
+-   [FIM Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
 
--   [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
+-   [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
--   [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®].
+-   [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
 The oneAPI ASP is required for compiling and running HLD application kernel on OFS platforms using Intel oneAPI. It is a collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with other OFS components. The hardware components of the oneAPI ASP along with the kernel lie in the AFU region shown in the figure above. For more details about the components of the oneAPI ASP, please refer to [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
@@ -93,8 +93,8 @@ As a first step, the server or host machine being used for developing HLD applic
 
 Please follow steps in Getting started guides for your target devices to setup Linux DFL kernel driver and install OPAE SDK.
 
--   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
--   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+-   [OFS Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
+-   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 
 ### **2.2 Clone and Compile FIM**
@@ -104,15 +104,15 @@ As shown in Figure 1-1, OFS components in the FPGA include the FIM and Accelerat
 
 Once the server is setup with OPAE SDK and DFL kernel driver, the next step is to clone and compile the static region of the design, i.e. FIM. You can use the default configuration of the FIM for both target platforms. Additionaly for Intel® FPGA SmartNIC N6001-PL for ofs_n6001 and ofs_n6001_usm board variants you have the option to create a minimal FIM which removes additional VFs, HSSI and host exercisers in the design. Please follow steps in the *Intel® FPGA Interface Manager Developer Guides* for your target device to compile FIM supporting PR release.
 
--   [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
+-   [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
--   [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®].
+-   [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
 For more details on minimal FIM for Intel® Agilex® 7 FPGA for ofs_n6001 and ofs_n6001_usm board variants and how to create it, refer to Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs.
 
 A `pr_build_template` directory will be generated in the work directory specified as part of the FIM compile command (using `OFS/ofs-common/scripts/common/syn/build_top.sh` script with the '-p' option enable to create an out-of-tree PR release). The `pr_build_template` directory is required for successful setup of the oneAPI ASP.
 
-Once the FIM compile is complete, please program FIM using `fpgasupdate` and Remote System Update(`rsu`) command. Use of these commands has been demonstrated in section named `Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim` in [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs] refer to `Test the hello_fim on a D5005` section in [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®] for Intel® Stratix 10® FPGA.
+Once the FIM compile is complete, please program FIM using `fpgasupdate` and Remote System Update(`rsu`) command. Use of these commands has been demonstrated in section named `Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim` in [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/) refer to `Test the hello_fim on a D5005` section in [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/) for Intel® Stratix 10® FPGA.
 
 ### **2.3 Prerequisites**
 <a name="prerequisites"></a>
@@ -128,14 +128,14 @@ In addition to server setup and FIM compilation, a few linux packages are needed
 
 2) Ensure that IOMMU is turned on as explained in section `Building and Installing the OFS DFL Kernel Drivers from Source` in Getting started guides for your target devices:
 
--   [OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
+-   [OFS Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
 
--   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+-   [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
 
 You can verify this setting using `cat /proc/cmdline` command. The output must have `intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200`.
 
     $ cat /proc/cmdline
-    BOOT_IMAGE=(hd1,gpt2)/vmlinuz-5.15.52-dfl root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200
+    BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.41-dfl root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200
 
 
 3) Install HLD development software. Please see Table 2-1 below for download link. Install the latest version. Use sudo privileges to do the installation. 
@@ -153,7 +153,7 @@ Tool installation guide for your reference:
 
 4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version.
 
-> **Note:** For Intel® Agilex® 7 FPGA ensure Quartus patch 0.02 and 0.02iofs are installed. You can find it in under assets in the following link [0.02](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) and [0.02iofs](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2/license). For Intel® Stratix 10® FPGA ensure Quartus patch 0.01iofs is installed. You can find it in the following link [0.01iofs](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.2/license).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. 
+> **Note:** For Intel® Agilex® 7 FPGA ensure Quartus patch 0.13, 0.21 and 0.02iofs are installed. You can find them in a tar file under assets in the following link [patch-agx7-ofs-2023-3.tar.gz](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1). For Intel® Stratix 10® FPGA ensure Quartus patch 0.23 and 0.01iofs are installed. You can find them in a tar file under assets in the following link [patch-s10-ofs-2023-3.tar.gz](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. 
 
 Use following command to check Quartus version and installed patches.
 
@@ -210,11 +210,11 @@ Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(BKC).
 | --------- | --------- |
 | FPGA Platform | Intel® FPGA SmartNIC N6001-PL |
 | Operating System | RHEL 8.6 , Kernel : 6.1.41-dfl |
-| linux-dfl (DFL Kernel Driver) | Tag: ofs-2023.2-6.1-1 |
-| opae-sdk | Branch: release/2.8.0, Tag: 2.8.0-1 |
-| ofs-fim | Tag: ofs-2023.2-1|
-| oneapi-asp | Tag: ofs-2023.2-1 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)*|
-| Quartus Prime Pro Edition | Version 23.2 Pro Edition with patches under assets on this link [0.02](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) and [0.02iofs](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.2/license) |
+| linux-dfl (DFL Kernel Driver) | Tag: ofs-2023.3-6.1-2 |
+| opae-sdk | Branch: release/2.10.0, Tag: 2.10.0-1 |
+| ofs-fim | Tag: ofs-2023.3-1|
+| oneapi-asp | Tag: ofs-2023.3-1 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)*|
+| Quartus Prime Pro Edition | Version 23.3 Pro Edition with patches (0.13, 0.21 and 0.02iofs) under assets on this link [patch-agx7-ofs-2023-3.tar.gz]](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) |
 | Intel® oneAPI Base Toolkit (Base Kit) | Latest version |
 | GCC | 7.4.0 |
 | cmake | 3.15 |
@@ -225,11 +225,11 @@ Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(BKC).
 | --------- | --------- |
 | FPGA Platform | Intel® FPGA PAC D5005 |
 | Operating System | RHEL 8.6 , Kernel : 6.1.41-dfl |
-| linux-dfl (DFL Kernel Driver) | Tag: ofs-2023.2-6.1-1 |
-| opae-sdk | Branch: release/2.8.0, Tag: 2.8.0-1 |
-| ofs-fim | Tag: ofs-2023.2-1 |
-| oneapi-asp | Tag: ofs-2023.2-1 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)* |
-| Quartus Prime Pro Edition | Version 23.2 Pro Edition  with patch [0.01iofs](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.1/license) |
+| linux-dfl (DFL Kernel Driver) | Tag: ofs-2023.3-6.1-1 |
+| opae-sdk | Branch: release/2.10.0, Tag: 2.10.0-1 |
+| ofs-fim | Tag: ofs-2023.3-1 |
+| oneapi-asp | Tag: ofs-2023.3-1 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)* |
+| Quartus Prime Pro Edition | Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link [patch-s10-ofs-2023-3.tar.gz](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) |
 | Intel® oneAPI Base Toolkit (Base Kit) | Latest version |
 | GCC | 7.4.0 |
 | cmake | 3.15 |
@@ -247,7 +247,7 @@ Once all pre-requisites are installed and the environment variables are set, nex
 
         git clone https://github.com/OFS/oneapi-asp.git
         cd oneapi-asp
-        git checkout tags/ofs-2023.2-1
+        git checkout tags/ofs-2023.3-1
 </pre>
 
 Ensure the correct tag has ben checked out:
@@ -260,7 +260,7 @@ Ensure the correct tag has ben checked out:
 
 </pre>
 
-        ofs-2023.2-1
+        ofs-2023.3-1
 </pre>
 
 
@@ -283,8 +283,8 @@ oneapi-asp/platform-name
 |  |--run-ase.sh
 |  |--setup.sh
 |  |--simulate-aocx.sh
-|--bringup/source/
-|  |--hello_world/
+|--bringup/source/simple-add-buffers/
+|  |--simple-add-buffers.cpp
 |--hardware/
 |  |--ofs_platform-name/
 |  |--ofs_platform-name_iopipes/
@@ -300,7 +300,7 @@ oneapi-asp/platform-name
 |  |--README.txt
 |  |--build-bsp-sw.sh
 |  |--build-bsp.sh
-|  |--build-default-aocx.sh
+|  |--build-default-binaries.sh
 |  |--build-mmd.sh
 |  |--build-opae.sh
 |  |--create-tarball.sh
@@ -335,11 +335,10 @@ A sample output when a oneAPI ASP FCD is installed is shown below:
     
     Physical Dev Name   Status            Information
     
-    ofs_ee00000         Uninitialized     OpenCL BSP not loaded. Must load BSP using command:
-                                          'aocl program <device_name> <aocx_file>'
-                                          before running OpenCL programs using this device
+    ofs_ee00000         Uninitialized     PR slot function not configured 
+                                          Need to follow instructions to bind vfio-pci driver to PR slot function
     
-    DIAGNOSTIC_PASSED
+    BSP DIAGNOSTIC_PASSED
     --------------------------------------------------------------------
 
 </pre>
@@ -386,21 +385,21 @@ Sample output `aocl install` command in  Intel® oneAPI Base Toolkit (Base Kit) 
     Setting access permisions of /dev/uio to 666
     Finished setup_permissions.sh script. All configuration settings are persistent.
     Intel OFS oneAPI ASP install complete.
-    Run 'aocl diagnose' to list devices or 'aocl initialize <dev_name> to load default aocx
+    Run 'aocl diagnose' to list devices or 'aocl initialize <dev_name> <board_variant> to load default image
 </pre>
 
 ### **2.5 Board Initialization**
 <a name="init_board"></a>
 
-OFS software stack expects boards to be initialized with a bitstream for the board variant intended to be used for development. OpenCL sample applications have been provided for generating initialization bitstreams for included board variants for both target devices.
+OFS software stack expects boards to be initialized with a bitstream for the board variant intended to be used for development. An oneAPI sample application, named `simple-add-buffers`, has been provided in the oneapi-asp repository for generating initialization bitstreams for included board variants. The sample is located in `oneapi-asp/platform-name/bringup/source`.
 
-`oneapi-asp` has four board variants for Intel® Agilex® 7 FPGA and two board variants for Intel® Stratix 10® FPGA (`oneapi-asp/platform-name/hardware` has the hardware design files for these).One OpenCL sample application has been provided in the `oneapi-asp` repository named `hello_world`, for all board variants. For more details on the architecture of the board variants, please refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
+`oneapi-asp` has four board variants for Intel® Agilex® 7 FPGA and two board variants for Intel® Stratix 10® FPGA (`oneapi-asp/platform-name/hardware` has the hardware design files for these). For more details on the architecture of the board variants, please refer to the [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/).
 
-**Table 2-5 OpenCL Sample Applications**
+**Table 2-5 oneAPI Sample Applications**
 
 | Board Variants | Sample Application|
 | --------- | --------- |
-| <ul><li>ofs_platform-name</li></ul> <ul><li>ofs_platform-name_usm</li></ul><ul><li>ofs_n6001_iopipes</li></ul> <ul><li>ofs_n6001_usm_iopipes</li></ul> | hello_world | 
+| <ul><li>ofs_platform-name</li></ul> <ul><li>ofs_platform-name_usm</li></ul><ul><li>ofs_n6001_iopipes</li></ul> <ul><li>ofs_n6001_usm_iopipes</li></ul> | simple-add-buffers | 
 
 >**Note:** platform-name is n6001 for Intel® Agilex® 7 FPGA OFS and d5005 for Intel® Stratix 10® FPGA OFS
 
@@ -409,17 +408,17 @@ All samples are located in `oneapi-asp/platform-name/bringup/source`.
 #### **2.5.1 Compile Initialization Bitstreams**
 <a name="compile_run_ocl_sample"></a>
 
-A script is provided in repo to compile OpenCL sample application. The script is `oneapi-asp/platform-name/scripts/build-default-aocx.sh`.
+A script is provided in repo to compile `simple-add-buffers` oneAPI sample application. The script is `oneapi-asp/platform-name/scripts/build-default-binaries.sh`.
 
 Script usage is as follows:
 
 </pre>
 
-        ./build-default-aocx.sh -b name-of-board-variant
+        ./build-default-binaries.sh -b name-of-board-variant
 </pre>
 > **Note:** `name-of-board-variant` can be ofs_`platform-name`, ofs_`platform-name`_usm, ofs_n6001_iopipes or ofs_n6001_usm_iopipes where `platform-name` is `n6001` for Intel® Agilex® 7 FPGA OFS and `d5005` for Intel® Stratix 10® FPGA OFS. Refer to Table 2-5 for board variants available for each target platform. Compilation will take a few hours to complete.
 
-The output directory of the sample application is written to `oneapi-asp/platform-name/build/bringup`. The generated bitstreams are also copied to `oneapi-asp/platform-name/bringup/aocxs/`. These are used in the initialization of the platform.
+The output directory of the sample application is written to `oneapi-asp/platform-name/build/bringup`. The generated bitstreams are also copied to `oneapi-asp/platform-name/bringup/binaries/`. These are used in the initialization of the platform.
 
 Once the bitstreams are generated, create a VF and initialize the board as explained in following section. Ensure that the FIM has been programmed on the board as explained in *[section 2.2 Clone and Compile FIM](#22-clone-and-compile-fim)*
 
@@ -427,9 +426,9 @@ Once the bitstreams are generated, create a VF and initialize the board as expla
 
 The oneAPI ASP is located in the PR region of the FIM and is accessed through PF/VF Mux. Refer to the FIM Reference Manual for your target platforms for more details about PF/VF mapping.
 
-* Reference FIM for Intel® Agilex® 7 FPGA OFS: VF0 is mapped to PR region and you can create 1 VF when using this FIM. Base_x16 FIM has 5 PF's and minimal FIM just 1 PF. See [Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach] for diagram showing PF/VF mapping.
+* Reference FIM for Intel® Agilex® 7 FPGA OFS: VF0 is mapped to PR region and you can create 1 VF when using this FIM. Base_x16 FIM has 5 PF's and minimal FIM just 1 PF. See [Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for diagram showing PF/VF mapping.
 
-* Reference FIM for Intel® Stratix 10® FPGA OFS: VF1 is mapped to PR region and you must create 2 VFs when using this FIM. This FIM has 1 PF. See [Open FPGA Stack Technical Reference Manual] for diagram showing PF/VF mapping.
+* Reference FIM for Intel® Stratix 10® FPGA OFS: VF1 is mapped to PR region and you must create 2 VFs when using this FIM. This FIM has 1 PF. See [FIM Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/) for diagram showing PF/VF mapping.
 
 
 - Create a VF using PCIe ID obtained from the output of `fpgainfo fme` (PCIe s\:b\:d.f output)
@@ -472,6 +471,7 @@ Sample output for Intel® Stratix 10® FPGA is shown below.
 </pre>
 
         $ sudo opae.io init -d 0000:b1:00.1 $USER
+        Unbinding (0x8086,0xbccf) at 0000:b1:00.1 from dfl-pci
         Binding (0x8086,0xbccf) at 0000:b1:00.1 to vfio-pci
         iommu group for (0x8086,0xbccf) at 0000:b1:00.1 is 319
         Assigning /dev/vfio/319 to ofsuser
@@ -483,8 +483,8 @@ Sample output for Intel® Stratix 10® FPGA is shown below.
 
         $ ls -lt /dev/vfio
         total 0
-        crw-rw----. 1 ofsuser root 509,   0 Jul 20 20:41 319
-        crw-rw-rw-. 1 root    root  10, 196 Jul 20 20:41 vfio
+        crw-rw----. 1 ofsuser root 509,   0 Dec 3 20:41 319
+        crw-rw-rw-. 1 root    root  10, 196 Dec 3 20:41 vfio
 </pre>
 
 * Sample output for Intel® Stratix 10® FPGA OFS target platform:
@@ -492,12 +492,14 @@ Sample output for Intel® Stratix 10® FPGA is shown below.
 </pre>
 
     $sudo opae.io init -d 0000:12:00.1 $USER
+    Unbinding (0x8086,0xbccf) at 0000:12:00.1 from dfl-pci
     Binding (0x8086,0xbccf) at 0000:12:00.1 to vfio-pci
     iommu group for (0x8086,0xbccf) at 0000:12:00.1 is 149
     Assigning /dev/vfio/149 to ofsuser
     Changing permissions for /dev/vfio/149 to rw-rw----
 
     $sudo opae.io init -d 0000:12:00.2 $USER
+    Unbinding (0x8086,0xbccf) at 0000:12:00.2 from dfl-pci
     Binding (0x8086,0xbccf) at 0000:12:00.2 to vfio-pci
     iommu group for (0x8086,0xbccf) at 0000:12:00.2 is 152
     Assigning /dev/vfio/152 to ofsuser
@@ -510,9 +512,9 @@ Sample output for Intel® Stratix 10® FPGA is shown below.
 
     $ls -lt /dev/vfio
     total 0
-    crw-rw----. 1 ofsuser  root  235,   3 May 10 16:25 149
-    crw-rw----. 1 ofsuser  root  235,   0 May 10 16:22 152
-    crw-rw-rw-. 1 root     root   10, 196 May  3 07:28 vfio
+    crw-rw----. 1 ofsuser  root  235,   3 Dec 3 16:25 149
+    crw-rw----. 1 ofsuser  root  235,   0 Dec 3 16:22 152
+    crw-rw-rw-. 1 root     root   10, 196 Dec 1 07:28 vfio
 </pre>
 
 
@@ -531,7 +533,7 @@ If the driver fails to bind due to an error related to `iommu_group` (e.g. `No s
         aocl initialize device-name name-of-board-variant
 </pre>
 
-> **Note:** `device-name` in `aocl initialize` command is from the `BSP Diagnostics` section in the output of `aocl list-devices` (sample output is shown in *[Section 2.4](#24-build-and-install-oneapi-asp)*). `device-name` is `acl0` if there is only 1 board connected to the server. `name-of-the-board-variant` can be one of the supported board variants listed in [Table 2-5](#25-board-initialization) provided the sample application bitstream of hello-world targeting that board variant that has been generated.
+> **Note:** `device-name` in `aocl initialize` command is from the `BSP Diagnostics` section in the output of `aocl list-devices` (sample output is shown in *[Section 2.4](#24-build-and-install-oneapi-asp)*). `device-name` is `acl0` if there is only 1 board connected to the server. `name-of-the-board-variant` can be one of the supported board variants listed in [Table 2-5](#25-board-initialization) provided the sample application bitstream using steps in section above.
 
 Sample output for `aocl initialize acl0 ofs_n6001` is shown below. Output for Intel® Stratix 10® FPGA and other board variants should be similar.
 
@@ -539,6 +541,8 @@ Sample output for `aocl initialize acl0 ofs_n6001` is shown below. Output for In
 
     $ aocl initialize acl0 ofs_n6001
     aocl initialize: Running initialize from path-to-oneapi-asp/n6001/linux64/libexec
+    Initializing with default ASP binary ofs_n6001.fpga
+    Saving target image to "ofs_n6001.aocx.0"
     Configuring locked memory setting
     [sudo] password for $USER:
     Configuring udev rules for DFL FPGA device permission
@@ -567,15 +571,13 @@ platform-name in command output below is n6001 for Intel® Agilex® 7 FPGA OFS a
 
     Found 3 icd entry at that location:
             /etc/OpenCL/vendors/intel64.icd
-            /etc/OpenCL/vendors/Altera.icd
-            /etc/OpenCL/vendors/Intel_FPGA_SSG_Emulator.icd
 
     The following OpenCL libraries are referenced in the icd files:
-            /opt/intel/oneapi/compiler/latest/linux/lib/x64/libintelocl.so
+            /opt/intel/oneapi/compiler/latest/lib/libintelocl.so
 
     Checking LD_LIBRARY_PATH for registered libraries:
-            /opt/intel/oneapi/compiler/latest/linux/lib/x64/libintelocl.so was registered on the system.
-            /opt/intel/oneapi/compiler/latest/linux/lib/oclfpga/host/linux64/lib/libalteracl.so
+            /opt/intel/oneapi/compiler/latest/lib/libintelocl.so was registered on the system.
+            
 
     Checking LD_LIBRARY_PATH for registered libraries:
             /opt/intel/oneapi/compiler/latest/linux/lib/oclfpga/host/linux64/lib/libalteracl.so was registered on the system.
@@ -584,12 +586,14 @@ platform-name in command output below is n6001 for Intel® Agilex® 7 FPGA OFS a
     Checking LD_LIBRARY_PATH for registered libraries:
             /opt/intel/oneapi/compiler/latest/linux/lib/x64/libintelocl_emu.so was registered on the system.
 
-    Using OCL_ICD_FILENAMES to search for ICD clients, it is set to libintelocl_emu.so:libalteracl.so:/opt/intel/oneapi/compiler/2023.2.0/linux/lib/x64/libintelocl.so
+    Using OCL_ICD_FILENAMES to search for ICD clients, it is set to libintelocl_emu.so:libalteracl.so:/opt/intel/oneapi/compiler/2024.0/lib/libintelocl.so
 
     Checking LD_LIBRARY_PATH for registered libraries specified by OCL_ICD_FILENAMES
-            libintelocl_emu.so was registered on the system at /opt/intel/oneapi/compiler/2023.2.0/linux/lib/x64
-            libalteracl.so was registered on the system at /opt/intel/oneapi/compiler/2023.2.0/linux/lib/oclfpga/linux64/lib
-            /opt/intel/oneapi/compiler/2023.2.0/linux/lib/x64/libintelocl.so was registered on the system.
+        libintelocl_emu.so was registered on the system at 
+        /opt/intel/oneapi/compiler/2024.0/lib
+        libalteracl.so was registered on the system at 
+        /opt/intel/oneapi/compiler/2024.0/opt/oclfpga/host/linux64/lib
+        /opt/intel/oneapi/compiler/2024.0/lib/libintelocl.so was registered on the system.
 
     Using the following location for fcd installations:
             /opt/Intel/OpenCLFPGA/oneAPI/Boards
@@ -609,9 +613,9 @@ platform-name in command output below is n6001 for Intel® Agilex® 7 FPGA OFS a
 
     Number of Platforms = 4
             1. Intel(R) FPGA Emulation Platform for OpenCL(TM)    | Intel(R) Corporation           | OpenCL 1.2 Intel(R) FPGA SDK for OpenCL(TM), Version 20.3
-            2. Intel(R) FPGA SDK for OpenCL(TM)                   | Intel(R) Corporation           | OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 2023.2
+            2. Intel(R) FPGA SDK for OpenCL(TM)                   | Intel(R) Corporation           | OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 2024.0
             3. Intel(R) OpenCL                                    | Intel(R) Corporation           | OpenCL 3.0 LINUX
-            4. Intel(R) FPGA SDK for OpenCL(TM)                   | Intel(R) Corporation           | OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 2023.2
+            4. Intel(R) FPGA SDK for OpenCL(TM)                   | Intel(R) Corporation           | OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 2024.0
     --------------------------------------------------------------------
     ICD diagnostics PASSED
     --------------------------------------------------------------------
@@ -633,7 +637,7 @@ platform-name in command output below is n6001 for Intel® Agilex® 7 FPGA OFS a
                                         PCIe b1:00.0
                                         FPGA temperature = 59 degrees C.
 
-    DIAGNOSTIC_PASSED
+    BSP DIAGNOSTIC_PASSED
     --------------------------------------------------------------------
 
     Call "aocl diagnose <device-names>" to run diagnose for specified devices
@@ -641,7 +645,7 @@ platform-name in command output below is n6001 for Intel® Agilex® 7 FPGA OFS a
 </pre>
 
 
-Run complete diagnostic using `aocl diagnose device-name` command. `device-name` is `acl0` if you have only 1 board in the server. The test reads and write data to the board to check the interfaces function correctly and report the measured bandwidth. The test must show `DIAGNOSTIC_PASSED` message at the end.
+Run complete diagnostic using `aocl diagnose device-name` command. `device-name` is `acl0` if you have only 1 board in the server. The test reads and write data to the board to check the interfaces function correctly and report the measured bandwidth. The test must show `BSP DIAGNOSTIC_PASSED` message at the end.
 
 </pre>
 
@@ -661,8 +665,8 @@ Different code samples are provided for testing different board interfaces. Plea
 
 | Board Variants | Sample Application | Description | Link to Samples Repository | Location of the Sample | Samples Repository Tag |
 | --------- | --------- | --------- | --------- | --------- | --------- |
-| <ul><li>ofs_platform-name</li></ul> | board_test | This sample measures kernel clock frequency, kernel launch latency and tests the different interfaces required by the oneAPI kernel to function correctly (e.g. host to kernel interface, kernel to EMIF as well as host to EMIF).| [oneAPI-samples](https://github.com/oneapi-src/oneAPI-samples.git)| path-to-oneAPI-samples/oneAPI-samples/DirectProgramming/C++SYCL_FPGA/ReferenceDesigns/board_test | oneAPI compiler version you are using |
-| <ul><li>ofs_n6001_iopipes</li></ul> <ul><li>ofs_n6001_usm_iopipes</li></ul>  | io_streaming_one_pipe | An FPGA code sample to perform a loopback test using SYCL* input/output (I/O) pipes to stream data through the FPGA I/O.| [examples-afu](https://github.com/OFS/examples-afu.git) | path-to-examples-afu/examples-afu/oneapi-samples/io_streaming_one_pipe | ofs-2023.2-1 |
+| <ul><li>ofs_platform-name</li></ul> <ul><li>ofs_platform-name_usm</li></ul> | board_test | This sample measures kernel clock frequency, kernel launch latency and tests the different interfaces required by the oneAPI kernel to function correctly (e.g. host to kernel interface, kernel to EMIF as well as host to EMIF).| [oneAPI-samples](https://github.com/oneapi-src/oneAPI-samples.git)| path-to-oneAPI-samples/oneAPI-samples/DirectProgramming/C++SYCL_FPGA/ReferenceDesigns/board_test | oneAPI compiler version you are using, this sample supports usm board variant from 2024.0 oneAPI version. |
+| <ul><li>ofs_n6001_iopipes</li></ul> <ul><li>ofs_n6001_usm_iopipes</li></ul>  | io_streaming_one_pipe | An FPGA code sample to perform a loopback test using SYCL* input/output (I/O) pipes to stream data through the FPGA I/O.| [examples-afu](https://github.com/OFS/examples-afu.git) | path-to-examples-afu/examples-afu/oneapi-samples/io_streaming_one_pipe | ofs-2023.3-1 |
 |
 
 First clone the repository and then checkout to the corresponding tag. 
@@ -681,7 +685,7 @@ To check your oneAPI compiler version use the command:
     icpx --version
 </pre>
 
-Follow steps below to compile and run oneAPI `board_test` and `io_streaming_one_pipe` binaries. Use `-DFPGA_DEVICE` in `cmake` command to provide path to the oneAPI ASP and name of board variant being compiled.
+Follow steps below to compile and run oneAPI `board_test` and `io_streaming_one_pipe` binaries. Use `-DFPGA_DEVICE` in `cmake` command to provide path to the oneAPI ASP and name of board variant being compiled. For `board_test` when targeting USM board variant add `-DSUPPORTS_USM=1` flag in `cmake` command, for more information about this flag see the README file in the location of the sample, for this location refer to the table 2-6. 
 
 Ensure you have sourced `setvars.sh` script located in the root of your oneAPI installation as explained in *[Table 2-2 Initialization Script for HLD tool](#23-prerequisites)*.
 
@@ -690,8 +694,20 @@ Ensure you have sourced `setvars.sh` script located in the root of your oneAPI i
         cd path-to-sample-location
         mkdir build
         cd build
-        
-        cmake -DFPGA_DEVICE=full-path-to-oneapi-asp/platform-name:board_variant ..
+</pre>
+
+Cmake for compiling `board_test` when targeting USM board variant.
+
+</pre>
+
+        cmake -DFPGA_DEVICE=full-path-to-oneapi-asp/platform-name:board_variant -DSUPPORTS_USM=1 ..
+</pre>
+
+Cmake for compiling the rest of the board variants.  
+
+</pre>
+
+        cmake -DFPGA_DEVICE=full-path-to-oneapi-asp/platform-name:board_variant ..       
 </pre>
 
 Compile the design using the generated `Makefile`. The following build targets are provided:

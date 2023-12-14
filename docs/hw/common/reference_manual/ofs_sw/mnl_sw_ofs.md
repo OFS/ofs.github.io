@@ -44,11 +44,16 @@ The information presented in this document is intended to be used by software de
 
 ### **1.3 OPAE Software Development Kit (SDK)**
 
-The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE SDK repository](https://github.com/OFS/opae-sdk), under the opae-sdk tag.
+The OPAE C library is a lightweight user-space library that provides abstraction for FPGA resources in a compute environment. Built on top of the OPAE Intel® FPGA driver stack that supports Intel® FPGA platforms, the library abstracts away hardware specific and OS specific details and exposes the underlying FPGA resources as a set of features accessible from within software programs running on the host. The OPAE source code is available on the [OPAE SDK repository](https://github.com/OFS/opae-sdk).
 
-These features include the acceleration logic configured on the device, as well as functions to manage and reconfigure the device. The library enables user applications to transparently and seamlessly leverage FPGA-based acceleration.
+By providing a unified C API, the library supports different FPGA
+integration and deployment models, ranging from single-node systems with one or a few FPGA devices to large-scale FPGA deployments in a data center. At one end of the spectrum, the API supports a simple application using a PCIe link to reconfigure the FPGA with different accelerator functions. At the other end of the spectrum, resource
+management and orchestration services in a data center can use this API to discover and select FPGA resources and then allocate them for use by acceleration workloads.
 
-Most of the information related to OPAE can be found on the official [OFS Site](https://ofs.github.io) page. The following is a summary of the information present on this web page:
+The OPAE provides consistent interfaces to crucial components of the platform. OPAE does not constrain frameworks and applications by making optimizations with limited applicability. When the OPAE does
+provide convenience functions or optimizations, they are optional. For example, the OPAE provides an interface to allocate physically contiguous buffers in system memory that user-space software and an accelerator can share. This interface enables the most basic feature set of allocating and sharing a large page of memory in one API call. However, it does *not* provide a `malloc()`-like interface backed by a memory pool or slab allocator. Higher layers of the software stack can make such domain-specific optimizations.
+
+Most of the information related to OPAE can be found on the official [OFS Site](https://ofs.github.io/ofs-2023.2/) and in the [OPAE SDK repository](https://github.com/OFS/opae-sdk). The following is a summary of the information present on this web page:
 
 - Configuration options present in the OPAE SDK build and installation flow
 - The steps required to build a sample OPAE application
@@ -60,7 +65,7 @@ Most of the information related to OPAE can be found on the official [OFS Site](
 The remaining sections on OPAE in this document are unique and build on basic principles explained in opae.github.io.
 
 
-#### Table : Additional Websites and Links
+#### Table 1: Additional Websites and Links
 
 | Document | Link |
 | -------------------- | ------------------------------------------------------ |
@@ -70,16 +75,171 @@ The remaining sections on OPAE in this document are unique and build on basic pr
 | CLI11                | https://github.com/CLIUtils/CLI11                      |
 | spdlog               | https://github.com/gabime/spdlog                       |
 
+#### Table 2: OFS Hardware Terminology
 
+|Term|Description|
+|-----|-----|
+|**FPGA: [Field Programmable Gate Array](https://en.wikipedia.org/wiki/Field-programmable_gate_array)**| a discrete or integrated device connecting to a host CPU via PCIe or other type of interconnects.|
+|**Accelerator Function Unit (AFU)**| The AFU is the supplied implementation of an accelerator, typically in HDL. AFUs implement a function such as compression, encryption, or mathematical operations.The Quartus Prime Pro software synthesizes the RTL logic into a bitstream. |
+| **Accelerator Function (AF)**| The AF is the compiled binary for an AFU. An AF is a raw binary file (.rbf) bitstream. A tool (_fpgaconf_) reconfigures the FPGA using an AF bitstream.|
+|**Reconfiguration**|The process of reprogramming the FPGA with a different AF.|
 
 ## **2.0 OPAE C API**
 
+The following OPAE data structures and functions integrate AFUs into the OPAE environment. 
+The OPAE C API models these data structures and functions. For more information on the object 
+models refer to the [Object model](#object-models) section.
 
+* Accelerator: An accelerator is an allocable accelerator function implemented in an FPGA. 
+An accelerator tracks the  _ownership_ of an AFU (or part of it) for a process that uses it.
+Multiple processes can share an accelerator.
+* Device: The OPAE enumerates and models two device types: the FPGA and the AFU.
+* Events: Events are asynchronous notifications. The FPGA driver
+triggers particular events to indicate error conditions. Accelerator logic can also
+define its own events. User applications can choose to be
+notified when particular events occur and respond appropriately.
+* Shared memory buffers: Software allocates shared memory buffers in user process memory
+on the host. Shared memory buffers facilitate data transfers between the user process and the 
+accelerator that it owns.
 
 ### **2.1 libopae-c**
 
+Linking with this library is straightforward.
+Code using the  OPAE library should include the header file `fpga.h`. Taking the GCC
+compiler on Linux as an example, here is the simplest compile and link command:
 
+`gcc myprog.c -I</path/to/fpga.h> -L</path/to/libopae-c.so> -lopae-c -luuid -ljson-c -lpthread`
 
+.. note::
+
+```
+The OPAE library uses the third-party `libuuid` and `libjson-c` libraries that are not distributed with 
+the OPAE library. Make sure to install these libraries.
+```
+
+### Sample Code
+The library source includes two code samples. Use these samples
+to learn how to call functions in the library. Build and run these samples
+to determine if your installation and environment are set up properly. 
+
+Refer to the [Running the Hello FPGA Example](https://www.altera.com/content/altera-www/global/en_us/index/documentation/dnv1485190478614.html#vks1498593668425) chapter in the _Intel&reg; Acceleration Stack
+Quick Start Guide for for Intel Programmable Acceleration Card with Intel Arria&reg; 10 GX FPGA_ for more information about using the sample code.  
+
+### High-Level Directory Structure
+Building and installing the OPAE library results in the following directory structure on the Linux OS.
+Windows and MacOS have similar directories and files.
+
+|Directory & Files |Contents |
+|------------------|---------|
+|include/opae      |Directory containing all header files|
+|include/opae/fpga.h |Top-level header for user code to include|
+|include/opae/access.h |Header file for accelerator acquire/release, MMIO, memory management, event handling, and so on |
+|include/opae/bitstream.h |Header file for bitstream manipulation functions |
+|include/opae/common.h |Header file for error reporting functions |
+|include/opae/enum.h |Header file for AFU enumeration functions |
+|include/opae/manage.h |Header file for FPGA management functions |
+|include/opae/types.h |Various type definitions |
+|lib               |Directory containing shared library files |
+|lib/libopae-c.so    |The shared dynamic library for linking with the user application |
+|doc               |Directory containing API documentation |
+|doc/html          |Directory for documentation of HTML format
+|doc/latex         |Directory for documentation of LaTex format
+|doc/man           |Directory for documentation of Unix man page format
+
+### Object Models 
+* `fpga_objtype`: An enum type that represents the type of an FPGA resource, either `FPGA_DEVICE` or `FPGA_ACCELERATOR`. 
+An `FPGA_DEVICE` object corresponds to a physical FPGA device. Only `FPGA_DEVICE` objects can invoke management functions.
+The `FPGA_ACCELERATOR` represents an instance of an AFU. 
+* `fpga_token`: An opaque type that represents a resource known to, but not
+necessarily owned by, the calling process. The calling process must own a
+resource before it can invoke functions of the resource.
+* `fpga_handle`: An opaque type that represents a resource owned by the
+calling process. The API functions `fpgaOpen()` and `fpgaClose()` acquire and release ownership of a resource that an `fpga_handle` represents. (Refer to the [Functions](#functions) section for more information.)
+* `fpga_properties`: An opaque type for a properties object. Your
+applications use these properties to query and search for appropriate resources. The 
+[FPGA Resource Properties](#fpga-resource-properties) section documents properties visible to your
+applications.
+* `fpga_event_handle`: An opaque handle the FPGA driver uses to notify your
+application about an event. 
+* `fpga_event_type`: An enum type that represents the types of events. The following are valid values: 
+`FPGA_EVENT_INTERRUPT`, `FPGA_EVENT_ERROR`, and `FPGA_EVENT_POWER_THERMAL`. (The Intel Programmable Acceleration Card (PAC) with
+Intel Arria 10 GX FPGA does not handle thermal and power events.)
+* `fpga_result`: An enum type to represent the result of an API function. If the
+function returns successfully the result is `FPGA_OK`. Otherwise, the result is
+the appropriate error codes. Function `fpgaErrStr()` translates an error code
+into human-readable strings.
+
+### Functions 
+The table below groups important API calls by their functionality. For more information about each of the functions, refer to the 
+[OPAE C API reference manual](https://opae.github.io/0.13.0/docs/fpga_api/fpga_api.html).
+
+|Functionality |API Call |FPGA |Accelerator|Description |
+|:--------|:----------|:-----:|:-----:|:-----------------------|
+|Enumeration | ```fpgaEnumerate()``` |Yes| Yes| Query FPGA resources that match certain properties |
+|Enumeration: Properties | ```fpga[Get, Update, Clear, Clone, Destroy Properties]()``` |Yes| Yes| Manage ```fpga_properties``` life cycle |
+|           | ```fpgaPropertiesGet[Prop]()``` | Yes| Yes|Get the specified property *Prop*, from the [FPGA Resource Properties](#fpga-resource-properties) table |
+|           | ```fpgaPropertiesSet[Prop]()``` | Yes| Yes|Set the specified property *Prop*, from the [FPGA Resource Properties](#fpga-resource-properties) table |
+|Access: Ownership  | ```fpga[Open, Close]()``` | Yes| Yes|Acquire/release ownership |
+|Access: Reset      | ```fpgaReset()``` |Yes| Yes| Reset an accelerator |
+|Access: Event handling | ```fpga[Register, Unregister]Event()``` |Yes| Yes| Register/unregister an event to be notified about |
+|               | ```fpga[Create, Destroy]EventHandle()```|Yes| Yes| Manage ```fpga_event_handle``` life cycle |
+|Access: MMIO       | ```fpgaMapMMIO()```, ```fpgaUnMapMMIO()``` |Yes| Yes| Map/unmap MMIO space |
+|           | ```fpgaGetMMIOInfo()``` |Yes| Yes| Get information about the specified MMIO space |
+|           | ```fpgaReadMMIO[32, 64]()``` | Yes| Yes|Read a 32-bit or 64-bit value from MMIO space |
+|           | ```fpgaWriteMMIO[32, 64]()``` |Yes| Yes| Write a 32-bit or 64-bit value to MMIO space |
+|Memory management: Shared memory | ```fpga[Prepare, Release]Buffer()``` |Yes| Yes| Manage memory buffer shared between the calling process and an accelerator |
+|              | ```fpgaGetIOAddress()``` | Yes| Yes|Return the device I/O address of a shared memory buffer |
+|              | ```fpgaBindSVA()``` | Yes| Yes|Bind IOMMU shared virtual addressing |
+|Management: Reconfiguration | ```fpgaReconfigureSlot()``` | Yes | No | Replace an existing AFU with a new one |
+|Error report | ```fpgaErrStr()``` | Yes| Yes|Map an error code to a human readable string |
+
+.. note::
+
+```
+The UMsg APIs are not supported for the Intel(R) PAC cards. They will be deprecated in a future release.
+```
+
+### FPGA Resource Propertie
+Applications query resource properties by specifying the property name for `Prop` in the 
+`fpgaPropertiesGet[Prop]()` and `fpgaPropertiesSet[Prop]()` functions. The FPGA and Accelerator
+columns state whether or not the Property is available for the FPGA or Accelerator objects.
+
+|Property |FPGA |Accelerator |Description |
+|:---------|:-----:|:----:|:-----|
+|Parent |No |Yes |`fpga_token` of the parent object |
+|ObjectType |Yes |Yes |The type of the resource: either `FPGA_DEVICE` or `FPGA_ACCELERATOR` |
+|Bus |Yes |Yes |The bus number |
+|Device |Yes |Yes |The PCI device number |
+|Function |Yes |Yes |The PCI function number |
+|SocketId |Yes |Yes |The socket ID |
+|DeviceId |Yes |Yes |The device ID |
+|NumSlots |Yes |No |Number of AFU slots available on an `FPGA_DEVICE` resource |
+|BBSID |Yes |No |The FPGA Interface Manager (FIM) ID of an `FPGA_DEVICE` resource |
+|BBSVersion |Yes |No |The FIM version of an `FPGA_DEVICE` resource |
+|VendorId |Yes |No |The vendor ID of an `FPGA_DEVICE` resource |
+|GUID |Yes |Yes |The GUID of an `FPGA_DEVICE` or `FPGA_ACCELERATOR` resource |
+|NumMMIO |No |Yes |The number of MMIO space of an `FPGA_ACCELERATOR` resource |
+|NumInterrupts |No |Yes |The number of interrupts of an `FPGA_ACCELERATOR` resource |
+|AcceleratorState |No |Yes |The state of an `FPGA_ACCELERATOR` resource: either `FPGA_ACCELERATOR_ASSIGNED` or `FPGA_ACCELERATOR_UNASSIGNED`|
+
+### OPAE C API Return Codes ##
+The OPAE C library returns a code for every exported public API function.  `FPGA_OK` indicates successful completion
+of the requested operation. Any return code other than `FPGA_OK` indicates an error or unexpected
+behavior. When using the OPAE C API, always check the API return codes. 
+
+|Error Code|Description|
+|----------|-----------|
+|`FPGA_OK`|Operation completed successfully|
+|`FPGA_INVALID_PARAM`|Invalid parameter supplied|
+|`FPGA_BUSY`|Resource is busy|
+|`FPGA_EXCEPTION`|An exception occurred|
+|`FPGA_NOT_FOUND`|A required resource was not found|
+|`FPGA_NO_MEMORY`|Not enough memory to complete operation|
+|`FPGA_NOT_SUPPORTED`|Requested operation is not supported|
+|`FPGA_NO_DRIVER`|Driver is not loaded|
+|`FPGA_NO_DAEMON`|FPGA Daemon (`fpgad`) is not running|
+|`FPGA_NO_ACCESS`|Insufficient privileges or permissions|
+|`FPGA_RECONF_ERROR`|Error while reconfiguring FPGA|
 
 #### **2.1.1 Device Abstraction**
 
@@ -91,8 +251,6 @@ accelerator contains the user-defined logic in its reconfigurable
 region. Most OPAE end-user applications are concerned with querying and
 opening the accelerator device, then interacting with the AFU via MMIO
 and shared memory.
-
-
 
 ##### **2.1.1.1 Device types**
 
@@ -2143,11 +2301,16 @@ member functions allow reading a sysobject’s value as a raw byte stream.
 
 ### **4.0 OPAE Python API**
 
-The OPAE Python API refers to a Python layer that sits on top of the
-OPAE C++ API, providing Python implementations of the OPAE C++ API
-abstractions: properties, tokens, handles, dma buffers, etc.
+The OPAE Python API is built on top of the OPAE C++ Core API and its object model. Because of this, developing OPAE applications in Python is very similar to developing OPAE applications in C++ which significantly reduces the learning curve required to adapt to the Python API. While the object model remains the same, some static factory functions in the OPAE C++ Core API have been moved to module level methods in the OPAE Python API with the exception of the properties class. The goal of the OPAE Python API is to enable fast prototyping, test automation, infrastructure managment, and an easy to use framework for FPGA resource interactions that don’t rely on software algorithms with a high runtime complexity.
 
+The major benefits of using pybind11 for developing the OPAE Python API include, but are not limited to, the following features of pybind11:
 
+- Uses C++ 11 standard library although it can use C++ 14 or C++17.
+- Automatic conversions of shared_ptr types
+- Built-in support for numpy and Eigen numerical libraries
+- Interoperable with the Python C API
+
+Currently, the only Python package that is part of OPAE is `opae.fpga`. Because `opae.fpga` is built on top of the `opae-cxx-core` API, it does require that the runtime libraries for both `opae-cxx-core` and `opae-c` be installed on the system (as well as any other libraries they depend on). Those libraries can be installed using the `opae-libs` package (from either RPM or DEB format - depending on your Linux distribution). Installation for the Python OPAE bindings are included in the Getting Started Guide for your platform. 
 
 #### **4.1 opae**
 
@@ -2566,6 +2729,59 @@ errs = tok['errors']
 first = errs['first_error']
 assert first
 print(f'first 0x{first.read64():0x}')
+```
+
+### **4.1.8 Python Example Application**
+
+The following example is an implementation of the sample, hello_fpga.c, which is designed to configure the NLB0 diagnostic accelerator for a simple loopback.
+
+```python
+import time
+from opae import fpga
+
+NLB0 = "d8424dc4-a4a3-c413-f89e-433683f9040b"
+CTL = 0x138
+CFG = 0x140
+NUM_LINES = 0x130
+SRC_ADDR = 0x0120
+DST_ADDR = 0x0128
+DSM_ADDR = 0x0110
+DSM_STATUS = 0x40
+
+def cl_align(addr):
+    return addr >> 6
+
+tokens = fpga.enumerate(type=fpga.ACCELERATOR, guid=NLB0)
+assert tokens, "Could not enumerate accelerator: {}".format(NlB0)
+
+with fpga.open(tokens[0], fpga.OPEN_SHARED) as handle:
+    src = fpga.allocate_shared_buffer(handle, 4096)
+    dst = fpga.allocate_shared_buffer(handle, 4096)
+    dsm = fpga.allocate_shared_buffer(handle, 4096)
+    handle.write_csr32(CTL, 0)
+    handle.write_csr32(CTL, 1)
+    handle.write_csr64(DSM_ADDR, dsm.io_address())
+    handle.write_csr64(SRC_ADDR, cl_align(src.io_address())) # cacheline-aligned
+    handle.write_csr64(DST_ADDR, cl_align(dst.io_address())) # cacheline-aligned
+    handle.write_csr32(CFG, 0x42000)
+    handle.write_csr32(NUM_LINES, 4096/64)
+    handle.write_csr32(CTL, 3)
+    while dsm[DSM_STATUS] & 0x1 == 0:
+        time.sleep(0.001)
+    handle.write_csr32(CTL, 7)
+```
+
+This example shows how one might reprogram (Partial Reconfiguration) an accelerator on a given bus, 0x5e, using a bitstream file, m0.gbs.
+
+```python
+from opae import fpga
+
+BUS = 0x5e
+GBS = 'm0.gbs'
+tokens = fpga.enumerate(type=fpga.DEVICE, bus=BUS)
+assert tokens, "Could not enumerate device on bus: {}".format(BUS)
+with open(GBS, 'rb') as fd, fpga.open(tokens[0]) as device:
+    device.reconfigure(0, fd)
 ```
 
 
@@ -3802,6 +4018,784 @@ The OFS driver software can be found in the [OFS repository - linux-dfl](https:/
 - Descriptions for all currently available driver modules that support FPGA DFL board solutions
 - Steps to create a new DFL driver
 - Steps to port a DFL driver patch
+
+### **11.1 Hardware Architecture**
+
+The Linux Operating System treats the FPGA hardware as a PCIe\* device. A predefined data structure,
+Device Feature List (DFL), allows for dynamic feature discovery in an Intel
+FPGA solution.
+
+![FPGA PCIe Device](FPGA_PCIe_Device.png "FPGA PCIe Device")
+
+The Linux Device Driver implements PCIe Single Root I/O Virtualization (SR-IOV) for the creation of
+Virtual Functions (VFs). The device driver can release individual accelerators
+for assignment to virtual machines (VMs).
+
+![Virtualized FPGA PCIe Device](FPGA_PCIe_Device_SRIOV.png "Virtualized FPGA PCIe Device")
+
+### **11.2 FPGA Management Engine (FME)**
+
+The FPGA Management Engine provides error reporting, reconfiguration, performance reporting, and other
+infrastructure functions. Each FPGA has one FME which is always accessed through the Physical
+Function (PF). The Intel Xeon&reg; Processor with Integrated FPGA also performs power and thermal management.
+These functions are not available on the Intel Programmable Acceleration Card (PAC).
+
+User-space applications can acquire exclusive access to the FME using `open()`,
+and release it using `close()`. Device access may be managed by standard Linux
+interfaces and tools.
+
+> If an application terminates without freeing the FME or Port resources, Linux closes all file descriptors owned by the terminating process, freeing those resources.
+
+### **11.3 Port**
+
+A Port represents the interface between two components:
+* The FPGA Interface Manager (FIM) which is part of the static FPGA fabric
+* The Accelerator Function Unit (AFU) which is the partially reconfigurable region
+
+The Port controls the communication from software to the AFU and makes features such as reset and debug available.
+
+### **11.4 Accelerator Function Unit (AFU)**
+
+An AFU attaches to a Port. The AFU provides a 256 KB memory mapped I/O (MMIO) region for accelerator-specific control registers.
+
+* Use `open()` on the Port device to acquire access to an AFU associated with the Port device.
+* Use `close()`on the Port device to release the AFU associated with the Port device.
+* Use `mmap()` on the Port device to map accelerator MMIO regions.
+
+### **11.5 Partial Reconfiguration (PR)**
+
+Use PR to reconfigure an AFU from a bitstream file. Successful reconfiguration has the following requirement:
+
+* You must generate the reconfiguration AFU for the exact FIM. The AFU and FIM are compatible if their interface IDs match.
+You can verify this match by comparing the interface ID in the bitstream header against the interface ID that is
+exported by the driver in sysfs.
+
+In all other cases PR fails and may cause system instability.
+
+> Platforms that support 512-bit Partial Reconfiguration require binutils >= version 2.25.
+
+Close any software programs accessing the FPGA, including those running in a virtualized host before
+initiating PR. For virtualized environments, the recommended sequence is as
+follows:
+
+1. Unload the driver from the guest
+2. Release the VF from the guest
+
+> Releasing the VF from the guest while an application on the guest is still accessing its resources may lead to VM instabilities. We recommend closing all applications accessing the VF in the guest before releasing the VF.
+
+3. Disable SR-IOV
+4. Perform PR
+5. Enable SR-IOV
+6. Assign the VF to the guest
+7. Load the driver in the guest
+
+### **11.6 FPGA Virtualization**
+
+To enable accelerator access from applications running on a VM, create a VF for
+the port using the following process:
+
+1. Release the Port from the PF using the associated ioctl on the FME device.
+
+2. Use the following command to enable SR-IOV and VFs. Each VF can own a single Port with an AFU. In the following command,
+N is the number of Port released from the PF.
+
+```console
+    echo N > $PCI_DEVICE_PATH/sriov_numvfs
+```
+
+> The number, 'N', cannot be greater than the number of supported VFs. This can be read from $PCI_DEVICE_PATH/sriov_totalvfs.
+
+3. Pass the VFs through to VMs using hypervisor interfaces.
+
+4. Access the AFU on a VF from applications running on the VM using the same driver inside the VM.
+
+> Creating VFs is only supported for port devices. Consequently, PR and other management functions are only available through the PF.    
+
+<br>
+
+> If assigning multiple devices to the same VM on a guest IOMMU, you may need to increase the [hard_limit option](https://libvirt.org/formatdomain.html#memory-tuning) in order to avoid hitting a limit of pinned memory. The hard limit should be more than (VM memory size x Number of PCIe devices).
+
+
+### **11.7 Driver Organization**
+
+#### **11.7.1 PCIe Module Device Driver**
+
+![Driver Organization](Driver_Organization.png "Driver Organization")
+
+
+
+
+FPGA devices appear as a PCIe devices. Once enumeration detects a PCIe PF or VF, the Linux OS loads the FPGA PCIe
+device driver. The device driver performs the following functions:
+
+1. Walks through the Device Feature List in PCIe device base address register (BAR) memory to discover features
+and their sub-features and creates necessary platform devices.
+2. Enables SR-IOV.
+3. Introduces the feature device infrastructure, which abstracts operations for sub-features and provides common functions
+to feature device drivers.
+
+#### **11.7.2 PCIe Module Device Driver Functions**
+
+The PCIe Module Device Driver performs the following functions:
+
+1. PCIe discovery, device enumeration, and feature discovery.
+2. Creates sysfs directories for the device, FME, and Port.
+3. Creates the platform driver instances, causing the Linux kernel to load their respective drivers.
+
+#### **11.7.3 FME Platform Module Device Driver**
+
+The FME Platform Module Device Driver loads automatically after the PCIe driver creates the
+FME Platform Module. It provides the following features for FPGA management:
+
+1. Power and thermal management, error reporting, performance reporting, and other infrastructure functions. You can access
+these functions via sysfs interfaces the FME driver provides.
+
+2. Partial Reconfiguration. During PR sub-feature initialization, the FME driver registers the FPGA Manager framework
+to support PR. When the FME receives the relevant ioctl request from user-space, it invokes the common interface
+function from the FPGA Manager to reconfigure the AFU using PR.
+
+3. Port management for virtualization (releasing/assigning port device).
+
+After a port device is released, you can use the PCIe driver SR-IOV interfaces to create/destroy VFs.
+
+For more information, refer to "FPGA Virtualization".
+
+#### **11.7.4 FME Platform Module Device Driver Functions**
+
+The FME Platform Module Device Driver performs the the following functions:
+
+* Creates the FME character device node.
+* Creates the FME sysfs files and implements the FME sysfs file accessors.
+* Implements the FME private feature sub-drivers.
+* FME private feature sub-drivers:
+    * FME Header
+    * Partial Reconfiguration
+    * Global Error
+    * Global Performance
+
+#### **11.7.5 Port Platform Module Device Driver**
+
+After the PCIe Module Device Driver creates the Port Platform Module device,
+the FPGA Port and AFU driver are loaded.  This module provides an
+interface for user-space applications to access the individual
+accelerators, including basic reset control on the Port, AFU MMIO region
+export, DMA buffer mapping service, and remote debug functions.
+
+#### **11.7.6 Port Platform Module Device Driver Functions**
+
+The Port Platform Module Device Driver performs the the following functions:
+
+* Creates the Port character device node.
+* Creates the Port sysfs files and implements the Port sysfs file accessors.
+* Implements the following Port private feature sub-drivers.
+    * Port Header
+    * AFU
+    * Port Error
+    * Signal Tap
+
+#### **11.7.7 OPAE FPGA Driver Interface**
+The user-space interface consists of a sysfs hierarchy and ioctl requests. Most
+kernel attributes can be accessed/modified via sysfs nodes in this hierarchy.
+More complex I/O operations are controlled via ioctl requests. The OPAE API
+implementation, libopae-c, has been designed to use this interface to
+interact with the OPAE FPGA kernel drivers.
+
+## **12.0 Plugin Development**
+
+### **12.1 Overview**
+
+Beginning with OPAE C library version 1.2.0, OPAE implements a plugin-centric
+model. This guide serves as a reference to define the makeup of an OPAE C API
+plugin and to describe a sequence of steps that one may follow when constructing
+an OPAE C API plugin.
+
+### **12.2 Plugin Required Functions** 
+
+An OPAE C API plugin is a runtime-loadable shared object library, also known as
+a module. On Linux systems, the *dl* family of APIs from libdl are used to
+interact with shared objects. Refer to "man dlopen" and "man dlsym" for examples
+of using the libdl API.
+
+An OPAE C API plugin implements one required function. This function is required
+to have C linkage, so that its name is not mangled.
+
+```c
+    int opae_plugin_configure(opae_api_adapter_table *table, const char *config);
+```
+
+During initialization, the OPAE plugin manager component loads each plugin,
+searching for its `opae_plugin_configure` function. If none is found, then
+the plugin manager rejects that plugin. When it is found, `opae_plugin_configure`
+is called passing a pointer to a freshly-created `opae_api_adapter_table` and
+a buffer consisting of configuration data for the plugin.
+
+The job of the `opae_plugin_configure` function is to populate the given adapter
+table with each of the plugin's API entry points and to consume and comprehend
+the given configuration data in preparation for initialization.
+
+### **12.3 OPAE API Adapter Table**
+
+The adapter table is a data structure that contains function pointer entry points
+for each of the OPAE APIs implemented by a plugin. In this way, it adapts the
+plugin-specific behavior to the more general case of a flat C API. Note that
+OPAE applications are only required to link with opae-c. In other words, the
+name of the plugin library should not appear on the linker command line. In this
+way, plugins are truly decoupled from the OPAE C API, and they are required to
+adapt to the strict API specification by populating the adapter table only. No
+other linkage is required nor recommended.
+
+`adapter.h` contains the definition of the `opae_api_adapter_table`. An abbreviated
+version is depicted below, along with supporting type `opae_plugin`:
+
+```c
+    typedef struct _opae_plugin {
+        char *path;
+        void *dl_handle;
+    } opae_plugin;
+
+    typedef struct _opae_api_adapter_table {
+
+        struct _opae_api_adapater_table *next;
+        opae_plugin plugin;
+
+        fpga_result (*fpgaOpen)(fpga_token token, fpga_handle *handle,
+                                int flags);
+
+        fpga_result (*fpgaClose)(fpga_handle handle);
+
+        ...
+
+        fpga_result (*fpgaEnumerate)(const fpga_properties *filters,
+                                     uint32_t num_filters, fpga_token *tokens,
+                                     uint32_t max_tokens,
+                                     uint32_t *num_matches);
+
+        ...
+
+        // configuration functions
+        int (*initialize)(void);
+        int (*finalize)(void);
+
+        // first-level query
+        bool (*supports_device)(const char *device_type);
+        bool (*supports_host)(const char *hostname);
+
+    } opae_api_adapter_table;
+```
+
+Some points worth noting are that the adapter tables are organized in memory by
+adding them to a linked list data structure. This is the use of the `next`
+structure member. (The list management is handled by the plugin manager.)
+The `plugin` structure member contains the handle to the shared object instance,
+as created by `dlopen`. This handle is used in the plugin's `opae_plugin_configure`
+to load plugin entry points. A plugin need only implement the portion of the
+OPAE C API that a target application needs. Any API entry points that are not
+supported should be left as NULL pointers (the default) in the adapter table.
+When an OPAE API that has no associated entry point in the adapter table is
+called, the result for objects associated with that plugin will be
+`FPGA_NOT_SUPPORTED`.
+
+The following code illustrates a portion of the `opae_plugin_configure` for
+a theoretical OPAE C API plugin libfoo.so:
+
+```c
+    /* foo_plugin.c */
+
+    int opae_plugin_configure(opae_api_adapter_table *table, const char *config)
+    {
+        adapter->fpgaOpen = dlsym(adapter->plugin.dl_handle, "foo_fpgaOpen");
+        adapter->fpgaClose =
+                dlsym(adapter->plugin.dl_handle, "foo_fpgaClose");
+
+        ...
+
+        adapter->fpgaEnumerate =
+                dlsym(adapter->plugin.dl_handle, "foo_fpgaEnumerate");
+
+        ...
+
+        return 0;
+    }
+```
+
+Notice that the implementations of the API entry points for plugin libfoo.so
+are prefixed with `foo_`. This is the recommended practice to avoid name
+collisions and to enhance the debugability of the application. Upon successful
+configuration, `opae_plugin_configure` returns 0 to indicate success. A
+non-zero return value indicates failure and causes the plugin manager to
+reject the plugin from futher consideration.
+
+### **12.4 Plugin Optional Functions**
+
+Once the plugin manager loads and configures each plugin, it uses the adapter
+table to call back into the plugin so that it can be made ready for runtime.
+This is the job of the `opae_plugin_initialize` entry point, whose signature
+is defined as:
+
+```c
+    int opae_plugin_initialize(void);
+```
+
+The function takes no parameters, as the configuration data was already given
+to the plugin by `opae_plugin_configure`. `opae_plugin_initialize` returns 0
+if no errors were encountered during initialization. A non-zero return code
+indicates that plugin initialization failed. A plugin makes its
+`opae_plugin_initialize` available to the plugin manager by populating the
+adapter table's `initialize` entry point as shown:
+
+```c
+    /* foo_plugin.c */
+
+    int foo_plugin_initialize(void)
+    {
+        ...
+
+        return 0; /* success */
+    }
+
+    int opae_plugin_configure(opae_api_adapter_table *table, const char *config)
+    {
+        ... 
+
+        adapter->initialize =
+                dlsym(adapter->plugin.dl_handle, "foo_plugin_initialize");
+
+        ...
+
+        return 0;
+    }
+```
+
+If a plugin does not implement an `opae_plugin_initialize` entry point, then
+the `initialize` member of the adapter table should be left uninitialized.
+During plugin initialization, if a plugin has no `opae_plugin_initialize`
+entry in its adapter table, the plugin initialization step will be skipped,
+and the plugin will be considered to have initialized successfully.
+
+Once plugin initialization is complete for all loaded plugins, the system
+is considered to be running and fully functional.
+
+During teardown, the plugin manager uses the adapter table to call into each
+plugin's `opae_plugin_finalize` entry point, whose signature is defined as:
+
+```c
+    int opae_plugin_finalize(void);
+```
+
+`opae_plugin_finalize` returns 0 if no errors were encountered during teardown.
+A non-zero return code indicates that plugin teardown failed. A plugin makes
+its `opae_plugin_finalize` available to the plugin manager by populating the
+adapter table's `finalize` entry point as shown:
+
+```c
+    /* foo_plugin.c */
+
+    int foo_plugin_finalize(void)
+    {
+        ...
+
+        return 0; /* success */
+    }
+
+    int opae_plugin_configure(opae_api_adapter_table *table, const char *config)
+    {
+        ... 
+
+        adapter->finalize =
+                dlsym(adapter->plugin.dl_handle, "foo_plugin_finalize");
+
+        ...
+
+        return 0;
+    }
+```
+
+If a plugin does not implement an `opae_plugin_finalize` entry point, then
+the `finalize` member of the adapter table should be left uninitialized.
+During plugin cleanup, if a plugin has no `opae_plugin_finalize` entry
+point in its adapter table, the plugin finalize step will be skipped, and
+the plugin will be considered to have finalized successfully.
+
+In addition to `initialize` and `finalize`, an OPAE C API plugin has two
+further optional entry points that relate to device enumeration. During
+enumeration, when a plugin is being considered for a type of device, the
+plugin may provide input on that decision by exporting an
+`opae_plugin_supports_device` entry point in the adapter table:
+
+```c
+    bool opae_plugin_supports_device(const char *device_type);
+```
+
+`opae_plugin_supports_device` returns true if the given device type is
+supported and false if it is not. A false return value from
+`opae_plugin_supports_device` causes device enumeration to skip the
+plugin.
+
+Populating the `opae_plugin_supports_device` is done as:
+
+```c
+    /* foo_plugin.c */
+
+    bool foo_plugin_supports_device(const char *device_type)
+    {
+        if (/* device_type is supported */)
+            return true;
+
+        ...
+
+        return false;
+    }
+
+    int opae_plugin_configure(opae_api_adapter_table *table, const char *config)
+    {
+        ... 
+
+        adapter->supports_device =
+                dlsym(adapter->plugin.dl_handle, "foo_plugin_supports_device");
+
+        ...
+
+        return 0;
+    }
+```
+
+```eval_rst
+.. note::
+    The `opae_plugin_supports_device` mechanism serves as a placeholder only.
+    It is not implemented in the current version of the OPAE C API.
+```
+
+Similarly to determining whether a plugin supports a type of device, a plugin
+may also answer questions about network host support by populating an
+`opae_plugin_supports_host` entry point in the adapter table:
+
+```c
+    bool opae_plugin_supports_host(const char *hostname);
+```
+
+`opae_plugin_supports_host` returns true if the given hostname is supported
+and false if it is not. A false return value from `opae_plugin_supports_host`
+causes device enumeration to skip the plugin.
+
+Populating the `opae_plugin_supports_host` is done as:
+
+```c
+    /* foo_plugin.c */
+
+    bool foo_plugin_supports_host(const char *hostname)
+    {
+        if (/* hostname is supported */)
+            return true;
+
+        ...
+
+        return false;
+    }
+
+    int opae_plugin_configure(opae_api_adapter_table *table, const char *config)
+    {
+        ... 
+
+        adapter->supports_host =
+                dlsym(adapter->plugin.dl_handle, "foo_plugin_supports_host");
+
+        ...
+
+        return 0;
+    }
+```
+
+```eval_rst
+.. note::
+    The `opae_plugin_supports_host` mechanism serves as a placeholder only.
+    It is not implemented in the current version of the OPAE C API.
+```
+
+### **12.5 Plugin Construction**
+
+The steps required to implement an OPAE C API plugin, libfoo.so, are:
+
+* Create foo\_plugin.c: implements `opae_plugin_configure`,
+`opae_plugin_initialize`, `opae_plugin_finalize`, `opae_plugin_supports_device`,
+and `opae_plugin_supports_host` as described in the previous sections.
+* Create foo\_plugin.h: implements function prototypes for each of the
+plugin-specific OPAE C APIs.
+
+```c
+    /* foo_plugin.h */
+
+    fpga_result foo_fpgaOpen(fpga_token token, fpga_handle *handle,
+                             int flags);
+
+    fpga_result foo_fpgaClose(fpga_handle handle);
+
+    ...
+
+    fpga_result foo_fpgaEnumerate(const fpga_properties *filters,
+                                  uint32_t num_filters, fpga_token *tokens,
+                                  uint32_t max_tokens,
+                                  uint32_t *num_matches);
+    ...
+```
+
+* Create foo\_types.h: implements plugin-specific types for opaque data
+structures.
+
+```c
+    /* foo_types.h */
+
+    struct _foo_token {
+        ...
+    };
+
+    struct _foo_handle {
+        ...
+    };
+
+    struct _foo_event_handle {
+        ...
+    };
+
+    struct _foo_object {
+        ...
+    };
+```
+
+* Create foo\_enum.c: implements `foo_fpgaEnumerate`,
+`foo_fpgaCloneToken`, and `foo_fpgaDestroyToken`.
+* Create foo\_open.c: implements `foo_fpgaOpen`.
+* Create foo\_close.c: implements `foo_fpgaClose`.
+* Create foo\_props.c: implements `foo_fpgaGetProperties`,
+`foo_fpgaGetPropertiesFromHandle`, `foo_fpgaUpdateProperties`
+* Create foo\_mmio.c: implements `foo_fpgaMapMMIO`, `foo_fpgaUnmapMMIO`
+`foo_fpgaWriteMMIO64`, `foo_fpgaReadMMIO64`, `foo_fpgaWriteMMIO32`,
+`foo_fpgaReadMMIO32`.
+* Create foo\_buff.c: implements `foo_fpgaPrepareBuffer`,
+`foo_fpgaReleaseBuffer`, `foo_fpgaGetIOAddress`.
+* Create foo\_error.c: implements `foo_fpgaReadError`, `foo_fpgaClearError`,
+`foo_fpgaClearAllErrors`, `foo_fpgaGetErrorInfo`.
+* Create foo\_event.c: implements `foo_fpgaCreateEventHandle`,
+`foo_fpgaDestroyEventHandle`, `foo_fpgaGetOSObjectFromEventHandle`,
+`foo_fpgaRegisterEvent`, `foo_fpgaUnregisterEvent`.
+* Create foo\_reconf.c: implements `foo_fpgaReconfigureSlot`.
+* Create foo\_obj.c: implements `foo_fpgaTokenGetObject`,
+`foo_fpgaHandleGetObject`, `foo_fpgaObjectGetObject`,
+`foo_fpgaDestroyObject`, `foo_fpgaObjectGetSize`, `foo_fpgaObjectRead`,
+`foo_fpgaObjectRead64`, `foo_fpgaObjectWrite64`.
+* Create foo\_clk.c: implements `foo_fpgaSetUserClock`,
+`foo_fpgaGetUserClock`.
+
+## **13.0 Building a Sample Application**
+
+Building a sample application
+The library source includes code samples. Use these samples to learn how to call functions in the library. Build and run these samples as quick sanity checks to determine if your installation and environment are set up properly.
+
+In this guide, we will build `hello_fpga.c`. This is the "Hello World!" example of using the library. This code searches for a predefined and known AFU called "Native Loopback Adapter" on the FPGA. If found, it acquires ownership and then interacts with the AFU by sending it a 2MB message and waiting for the message to be echoed back. This code exercises all major components of the API except for AFU reconfiguration: AFU search, enumeration, access, MMIO, and memory management.
+
+You can also find the source for `hello_fpga` in the **samples** directory of the OPAE SDK repository on GitHub.
+
+```c
+    int main(int argc, char *argv[])
+    {
+        fpga_properties    filter = NULL;
+        fpga_token         afu_token;
+        fpga_handle        afu_handle;
+        fpga_guid          guid;
+        uint32_t           num_matches;
+
+        volatile uint64_t *dsm_ptr    = NULL;
+        volatile uint64_t *status_ptr = NULL;
+        volatile uint64_t *input_ptr  = NULL;
+        volatile uint64_t *output_ptr = NULL;
+
+        uint64_t        dsm_wsid;
+        uint64_t        input_wsid;
+        uint64_t        output_wsid;
+        fpga_result     res = FPGA_OK;
+
+        if (uuid_parse(NLB0_AFUID, guid) < 0) {
+            fprintf(stderr, "Error parsing guid '%s'\n", NLB0_AFUID);
+            goto out_exit;
+        }
+
+        /* Look for accelerator by its "afu_id" */
+        res = fpgaGetProperties(NULL, &filter);
+        ON_ERR_GOTO(res, out_exit, "creating properties object");
+
+        res = fpgaPropertiesSetObjectType(filter, FPGA_ACCELERATOR);
+        ON_ERR_GOTO(res, out_destroy_prop, "setting object type");
+
+        res = fpgaPropertiesSetGuid(filter, guid);
+        ON_ERR_GOTO(res, out_destroy_prop, "setting GUID");
+
+        /* TODO: Add selection via BDF / device ID */
+
+        res = fpgaEnumerate(&filter, 1, &afu_token, 1, &num_matches);
+        ON_ERR_GOTO(res, out_destroy_prop, "enumerating accelerators");
+
+        if (num_matches < 1) {
+            fprintf(stderr, "accelerator not found.\n");
+            res = fpgaDestroyProperties(&filter);
+            return FPGA_INVALID_PARAM;
+        }
+
+        /* Open accelerator and map MMIO */
+        res = fpgaOpen(afu_token, &afu_handle, 0);
+        ON_ERR_GOTO(res, out_destroy_tok, "opening accelerator");
+
+        res = fpgaMapMMIO(afu_handle, 0, NULL);
+        ON_ERR_GOTO(res, out_close, "mapping MMIO space");
+
+        /* Allocate buffers */
+        res = fpgaPrepareBuffer(afu_handle, LPBK1_DSM_SIZE,
+                    (void **)&dsm_ptr, &dsm_wsid, 0);
+        ON_ERR_GOTO(res, out_close, "allocating DSM buffer");
+
+        res = fpgaPrepareBuffer(afu_handle, LPBK1_BUFFER_ALLOCATION_SIZE,
+                   (void **)&input_ptr, &input_wsid, 0);
+        ON_ERR_GOTO(res, out_free_dsm, "allocating input buffer");
+
+        res = fpgaPrepareBuffer(afu_handle, LPBK1_BUFFER_ALLOCATION_SIZE,
+                   (void **)&output_ptr, &output_wsid, 0);
+        ON_ERR_GOTO(res, out_free_input, "allocating output buffer");
+
+        printf("Running Test\n");
+
+        /* Initialize buffers */
+        memset((void *)dsm_ptr,    0,    LPBK1_DSM_SIZE);
+        memset((void *)input_ptr,  0xAF, LPBK1_BUFFER_SIZE);
+        memset((void *)output_ptr, 0xBE, LPBK1_BUFFER_SIZE);
+
+        cache_line *cl_ptr = (cache_line *)input_ptr;
+        for (uint32_t i = 0; i < LPBK1_BUFFER_SIZE / CL(1); ++i) {
+            cl_ptr[i].uint[15] = i+1; /* set the last uint in every cacheline */
+        }
+
+        /* Reset accelerator */
+        res = fpgaReset(afu_handle);
+        ON_ERR_GOTO(res, out_free_output, "resetting accelerator");
+
+        /* Program DMA addresses */
+        uint64_t iova;
+        res = fpgaGetIOAddress(afu_handle, dsm_wsid, &iova);
+        ON_ERR_GOTO(res, out_free_output, "getting DSM IOVA");
+
+        res = fpgaWriteMMIO64(afu_handle, 0, CSR_AFU_DSM_BASEL, iova);
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_AFU_DSM_BASEL");
+
+        res = fpgaWriteMMIO32(afu_handle, 0, CSR_CTL, 0);
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_CFG");
+        res = fpgaWriteMMIO32(afu_handle, 0, CSR_CTL, 1);
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_CFG");
+
+        res = fpgaGetIOAddress(afu_handle, input_wsid, &iova);
+        ON_ERR_GOTO(res, out_free_output, "getting input IOVA");
+        res = fpgaWriteMMIO64(afu_handle, 0, CSR_SRC_ADDR, CACHELINE_ALIGNED_ADDR(iova));
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_SRC_ADDR");
+
+        res = fpgaGetIOAddress(afu_handle, output_wsid, &iova);
+        ON_ERR_GOTO(res, out_free_output, "getting output IOVA");
+        res = fpgaWriteMMIO64(afu_handle, 0, CSR_DST_ADDR, CACHELINE_ALIGNED_ADDR(iova));
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_DST_ADDR");
+
+        res = fpgaWriteMMIO32(afu_handle, 0, CSR_NUM_LINES, LPBK1_BUFFER_SIZE / CL(1));
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_NUM_LINES");
+        res = fpgaWriteMMIO32(afu_handle, 0, CSR_CFG, 0x42000);
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_CFG");
+
+        status_ptr = dsm_ptr + DSM_STATUS_TEST_COMPLETE/8;
+
+        /* Start the test */
+        res = fpgaWriteMMIO32(afu_handle, 0, CSR_CTL, 3);
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_CFG");
+
+        /* Wait for test completion */
+        while (0 == ((*status_ptr) & 0x1)) {
+            usleep(100);
+        }
+
+        /* Stop the device */
+        res = fpgaWriteMMIO32(afu_handle, 0, CSR_CTL, 7);
+        ON_ERR_GOTO(res, out_free_output, "writing CSR_CFG");
+
+        /* Check output buffer contents */
+        for (uint32_t i = 0; i < LPBK1_BUFFER_SIZE; i++) {
+            if (((uint8_t*)output_ptr)[i] != ((uint8_t*)input_ptr)[i]) {
+                fprintf(stderr, "Output does NOT match input "
+                    "at offset %i!\n", i);
+                break;
+            }
+        }
+
+        printf("Done Running Test\n");
+
+        /* Release buffers */
+    out_free_output:
+        res = fpgaReleaseBuffer(afu_handle, output_wsid);
+        ON_ERR_GOTO(res, out_free_input, "releasing output buffer");
+    out_free_input:
+        res = fpgaReleaseBuffer(afu_handle, input_wsid);
+        ON_ERR_GOTO(res, out_free_dsm, "releasing input buffer");
+    out_free_dsm:
+        res = fpgaReleaseBuffer(afu_handle, dsm_wsid);
+        ON_ERR_GOTO(res, out_unmap, "releasing DSM buffer");
+
+        /* Unmap MMIO space */
+    out_unmap:
+        res = fpgaUnmapMMIO(afu_handle, 0);
+        ON_ERR_GOTO(res, out_close, "unmapping MMIO space");
+
+        /* Release accelerator */
+    out_close:
+        res = fpgaClose(afu_handle);
+        ON_ERR_GOTO(res, out_destroy_tok, "closing accelerator");
+
+        /* Destroy token */
+    out_destroy_tok:
+        res = fpgaDestroyToken(&afu_token);
+        ON_ERR_GOTO(res, out_destroy_prop, "destroying token");
+
+        /* Destroy properties object */
+    out_destroy_prop:
+        res = fpgaDestroyProperties(&filter);
+        ON_ERR_GOTO(res, out_exit, "destroying properties object");
+
+    out_exit:
+        return res;
+
+    }
+```
+
+Linking with the OPAE library is straightforward. Code using this library should include the header file fpga.h. Taking the GCC compiler on Linux as an example, the minimalist compile and link line should look like:
+
+```bash
+gcc -std=c99 hello_fpga.c -I/usr/local/include -L/usr/local/lib -lopae-c -luuid -ljson-c -lpthread -o hello_fpga
+```
+
+The API uses some features from the C99 language standard. The
+`-std=c99` switch is required if the compiler does not support C99 by
+default.
+
+Third-party library dependency: The library internally uses
+`libuuid` and `libjson-c`. But they are not distributed as part of the
+library. Make sure you have these libraries properly installed. The `-c` flag may not be necessary depending on 
+the platform being used. 
+
+
+```bash
+sudo ./hello_fpga -c
+Running Test
+Running on bus 0x08.
+AFU NLB0 found @ 28000
+Done Running Test
+```
+To run the hello_fpga application:
+
+```bash
+sudo ./hello_fpga
+Running Test
+Done
+```
 
 ## **Appendix A - Integrating an N6001 Based Custom Platform with DFL and OPAE**
 

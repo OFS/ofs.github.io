@@ -21,15 +21,15 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | Component | Version |  Description |
 | --------- | ------- | -------|
 | FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html), [Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html) | Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2023.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
+| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2023.3-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
 | AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.8.0-1](https://github.com/OFS/opae-sdk/tree/2.8.0-1), [Tag: 2.8.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.8.0-1) | Open Programmable Acceleration Engine Software Development Kit |
-| Kernel Drivers | [Branch: ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/tree/ofs-2023.2-6.1-1), [Tag: ofs-2023.2-6.1-1](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.2-6.1-1) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.8.0-1](https://github.com/OFS/opae-sim/releases/tag/2.8.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Intel Quartus Prime Pro Edition Design Software | 23.2 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
+| OPAE SDK | [Branch: 2.10.0-1](https://github.com/OFS/opae-sdk/tree/2.10.0-1), [Tag: 2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1) | Open Programmable Acceleration Engine Software Development Kit |
+| Kernel Drivers | [Branch: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-2), [Tag: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2) | OFS specific kernel drivers|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.10.0-1](https://github.com/OFS/opae-sim/releases/tag/2.10.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Intel Quartus Prime Pro Edition Design Software | 23.3 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.2-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.3-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) official release drop on GitHub.
 
 <br>
 
@@ -55,7 +55,7 @@ This script uses the following set of software tools which should be installed u
 
 ![](images/ofs_n6001_tools_menu.png)
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.2-1. 
+1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.3-1. 
 
 2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table 1-2 for locations. When cloning the FIM repository, please follow the instructions in the following guides
    
@@ -67,12 +67,12 @@ Additionally, please follow the instructions in the following guides for the BKC
 * [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
 * [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs (Intel Agilx 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) 
 
-3. Once the repositories are cloned, The scripts that go with each user guide are found in the assets tab of the corresponding FIM RTL repository. Download the evaluation script (ofs-agx7-pcie-attach_eval.sh) and copy it to the $IOFS_BUILD_ROOT directory location as shown in the example below:
+3. Once the repositories are cloned, The scripts that go with each user guide are found in the assets tab of the corresponding FIM RTL repository. Download the evaluation script (ofs-agx7-pcie-attach_eval.sh) and copy it to the ofs-2023.3-1 directory location as shown in the example below:
 
 **Figure 2-2 Directory Structure for OFS Project**
 
 ```sh
-## ofs-2023.2-1
+## ofs-2023.3-1
 ##  -> examples-afu
 ##  -> linux-dfl
 ##  -> ofs-agx7-pcie-attach
@@ -83,7 +83,7 @@ Additionally, please follow the instructions in the following guides for the BKC
 ##  -> ofs-agx7-pcie-attach_eval.sh
 ```
 
-4. The README file that accompanies each user guide are found in the assets tab of the corresponding FIM RTL repository. Download the README file (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the $IOFS_BUILD_ROOT directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
+4. The README file that accompanies each user guide are found in the assets tab of the corresponding FIM RTL repository. Download the README file (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the ofs-2023.3-1 directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
 
 ### **2.2 Intel® Agilex® 7 PCIe Attach Evaluation Script modification**
 
@@ -94,9 +94,9 @@ To adapt this script to the user environment please follow the instructions belo
 
 The user must create the top-level source directory and then clone the OFS repositories
     
-    mkdir ofs-2023.2-1
+    mkdir ofs-2023.3-1
 
-In the example above we have used ofs-2023.2-1 as the directory name
+In the example above we have used ofs-2023.3-1 as the directory name
 
 ### **Set-Up Proxy Server (lines 67-69)**
 
@@ -131,17 +131,17 @@ In the example above /home is used as the base location of Quartus, Synopsys and
 
 Set version of Quartus
 
-    export QUARTUS_VERSION=23.2
+    export QUARTUS_VERSION=23.3
 
-In the example above "23.2" is used as the Quartus tools version
+In the example above "23.3" is used as the Quartus tools version
 
-### **OPAE Tools (line 106)**
+### **OPAE Tools (line 108)**
 
 change OPAE SDK VERSION<br>
 
-    export OPAE_SDK_VERSION=2.8.0-1
+    export OPAE_SDK_VERSION=2.10.0-1
 
-In the example above "2.8.0-1" is used as the OPAE SDK tools version
+In the example above "2.10.0-1" is used as the OPAE SDK tools version
 
 ### **PCIe (Bus Number)**
 
@@ -179,8 +179,17 @@ the command to change to 85 in the evaluation script would be
 
 grep -rli 'b1' * | xargs -i@ sed -i '85' @
 
-The ofs-agx7-pcie-attach_eval.sh script has now been modified to the server set-up and the user can proceed to build, compile and simulate the OFS stack
+### **OFS Platform (Example:= n6000, n6001, fseries-dk, iseries-dk, custom_board) choice (line 173)**
 
+The script is designed to accomodate many OFS platform choices eg, n6000, n6001, fseries-dk, iseries-dk or a custom_board of your choice. By default the script defaults to n6001 as shown below and is set by a variable on line 173 of the ofs-agx7-pcie-attach_eval.sh script.
+
+      export OFS_PLATFORM=n6001
+
+but the user can switch platform by changing the OFS_PLATFORM variable, so for example if the user wants to switch to the i-series development kit the command would be
+
+      export OFS_PLATFORM=iseries-dk
+
+The ofs-agx7-pcie-attach_eval.sh script has now been modified to the server set-up and the user can proceed to build, compile and simulate the OFS stack
 <br>
 
 ## **3 ofs-agx7-pcie-attach Evaluation Script**
@@ -239,14 +248,14 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
                 SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number<br>
                 <br>
                 Checking Tool versions<br>
-                QUARTUS_HOME is set to /home/intelFPGA_pro/23.2/quartus<br>
-                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus<br>
-                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus/../ip<br>
-                QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.2/quartus/../qsys/bin<br>
+                QUARTUS_HOME is set to /home/intelFPGA_pro/23.3/quartus<br>
+                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus<br>
+                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus/../ip<br>
+                QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus/../qsys/bin<br>
                 <br>
                 Checking QPDS Patches<br>
                 Quartus Prime Shell<br>
-                Version 23.2 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
+                Version 23.3 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
                 Copyright (C) XXXX  Intel Corporation. All rights reserved.<br>
                 <br>
                </td>
@@ -564,7 +573,6 @@ This menu reports the number of PF/VF functions in the reference example and als
             bar0_address_width = 20
             vf_bar0_address_width = 20
             
-            <br>
 </td>        
         </tr>
         <tr>
@@ -618,7 +626,7 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
         </tr>
         <tr>
             <td>14 - Check FIM Identification of FIM for Hardware</td>
-            <td>The FIM is identified by the following file fme-ifc-id.txt located at $OFS_ROOTDIR/$FIM_WORKDIR/syn/syn_top/<br>
+            <td>The FIM is identified by the following file fme-ifc-id.txt located at $OFS_ROOTDIR/$FIM_WORKDIR/syn/board/$OFS_PLATFORM/syn_top/<br>
             <br>
         </tr>
 </td>        
@@ -927,7 +935,7 @@ Builds oneAPI kernel, executes sw from host and runs diagnostic tests
 </td>        
         <tr>
             <td>44 - Build oneAPI BSP Default Kernel (hello_world)</td>
-            <td>This option Builds the oneAPI BSP using hello_world kernel<br>
+            <td>This option Builds the oneAPI BSP using simple-add_buffers kernel<br>
             <br>
         </tr>
 </td>        

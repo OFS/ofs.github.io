@@ -6,12 +6,12 @@
 
 ## DESCRIPTION ##
 
-The ```hssi``` application provides a means of interacting with the 10G and
-with the 100G HE-HSSI AFUs. In both 10G and 100G operating modes, the application
+The ```hssi``` application provides a means of interacting with the 10G, 100G, and
+200G/400F HE-HSSI AFUs. In all operating modes, the application
 initializes the AFU and completes the desired transfer as described by the mode-
 specific options.
 
-COMMON_OPTIONS - application options common to both 10G and 100G modes.
+COMMON_OPTIONS - application options common to the 10G, 100g, and 200G/400G modes.
 
 `-h, --help`
 
@@ -29,7 +29,7 @@ COMMON_OPTIONS - application options common to both 10G and 100G modes.
 
     The application timeout value in milliseconds. The default timeout is 60000 msec.
 
-MODE - select AFU. Valid values are hssi_10g and hssi_100g.
+MODE - select AFU. Valid values are hssi_10g, hssi_100g, hssi_200g_400g.
 
 MODE_OPTIONS [hssi_10g] - application options specific to the 10G AFU.
 
@@ -140,9 +140,17 @@ MODE_OPTIONS [pkt_filt_100g] - application options specific to the Packet Filter
 
     Packet Filter DFL device, eg --dfl-dev dfl_dev.1
 
+MODE_OPTIONS [hssi_200g_400g] - application options specific to the 200G/400G AFU.
+
+`--num-packets PACKETS`
+
+    The number of packets to transfer. Must be a multiple of 32. Default value is 32. Increasing the timeout (--timeout) may be necessary if specifying a large number of packets.
+
+
 ## EXAMPLES ##
 
 `hssi -h`<br>
 `hssi hssi_10g -h`<br>
 `sudo hssi --pci-address=0000:3b:00.0 hssi_10g --eth-loopback=on --num-packets=500`<br>
-`sudo hssi --pci-address=0000:3b:00.0 hssi_100g --pattern=increment`
+`sudo hssi --pci-address=0000:3b:00.0 hssi_100g --pattern=increment`<br>
+`sudo hssi --pci-address=0000:0d:00.6 hssi_200g_400g --num-packets=640000`

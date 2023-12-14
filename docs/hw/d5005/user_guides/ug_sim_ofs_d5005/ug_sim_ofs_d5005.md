@@ -228,9 +228,9 @@ To run the tutorial steps in this guide requires the following development envir
 
 | Item                    | Version                                                      |
 | ----------------------- | ------------------------------------------------------------ |
-| Intel Quartus Prime Pro | Intel Quartus Prime Pro 23.2 |
+| Intel Quartus Prime Pro | Intel Quartus Prime Pro 23.3 |
 | Simulator (VCS)         | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
-| Simulator (Questasim)   | Questasim 2021.4 or newer for UVM simulation of top level FIM |
+| Simulator (Questasim)   | Questasim 2023.2 or newer for UVM simulation of top level FIM |
 
 ## **7.1 UVM Prerequisite**
 
@@ -243,8 +243,8 @@ The OFS FIM source code is included in the GitHub repository. Create a new direc
 Navigate to the location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
 ```sh
-$ mkdir ofs-2023.2
-$ cd ofs-2023.2
+$ mkdir ofs-2023.3
+$ cd ofs-2023.3
 $ export OFS_BUILD_ROOT=$PWD
 $ git clone --recurse-submodules https://github.com/OFS/ofs-d5005.git
 
@@ -257,7 +257,7 @@ remote: Enumerating objects:  ....
 Resolving deltas  ..., done.
 
 $ cd ofs-d5005
-$ git checkout tags/release/ofs-2023.1
+$ git checkout tags/release/ofs-2023.3
 ```
 
 Verify that the correct tag/branch have been checked out        
@@ -265,7 +265,7 @@ Verify that the correct tag/branch have been checked out
 ```sh
 $ git describe --tags
 
-$ release/ofs-2023.1
+$ release/ofs-2023.3
 ```
 
 ## **7.2 License Requirements**
@@ -323,7 +323,7 @@ export WORKDIR=$OFS_ROOTDIR
 
 ## Quartus Tools
 ```sh
-export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.2/quartus
+export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.3/quartus
 export QUARTUS_ROOTDIR=$QUARTUS_HOME
 export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
 export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
@@ -345,7 +345,7 @@ export VIPDIR=$VERDIR
 
 ## QuestaSIM Verification Tools
 ```sh
-export MTI_HOME=<user_path>/mentor/questasim/2021.4/linux64
+export MTI_HOME=<user_path>/mentor/questasim/2023.2/linux64
 export PATH=$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$PATH
 export QUESTA_HOME=$MTI_HOME
 ```

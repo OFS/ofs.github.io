@@ -1,6 +1,6 @@
 # Docker User Guide: Intel® Open FPGA Stack
 
-Last updated: **October 26, 2023** 
+Last updated: **December 14, 2023** 
 
 ## 1 Introduction
 
@@ -334,7 +334,7 @@ Now you are ready to start the container, and you should be prepared to run it:
 
 2. Using the previous example now, you can execute the docker run command.
    ```sh
-   docker run --rm -itd --name myOFS -v=/home/intelFPGA_pro/23.2:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm -itd --name myOFS -v=/home/intelFPGA_pro/23.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    bdc1289fb0813bb325b55dd11df4eeec252143d6745a6e5772638fbc107d0949
    ```
 3. Now the docker container should be available.
@@ -370,7 +370,7 @@ The OFS container has two possible ways to interact with the container:
      quartus_syn --version
      
      Quartus Prime Synthesis
-     Version Quartus Prime Pro Version 23.2
+     Version Quartus Prime Pro Version 23.3
      ```
      
   4. Everything is set up correctly. Please go to the following link for more information related to the [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
@@ -443,10 +443,10 @@ Now you are ready to start the container, and should be prepared to run it (Note
    docker run --rm --privileged -itd --name myOFS -v=<yourintallationfolder>:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    ```
 
-   Example, my Quartus installation is located at "/home/intelFPGA_pro/23.2" as a result, my  command should be 
+   Example, my Quartus installation is located at "/home/intelFPGA_pro/23.3" as a result, my  command should be 
 
    ```sh
-   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.2:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    bdc1289fb0813bb325b55dd11df4eeec252143d6745a6e5772638fbc107d0949
    ```
 
@@ -459,7 +459,7 @@ Now you are ready to start the container, and should be prepared to run it (Note
 2. Execute the docker run command.
 
    ```sh
-   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.2:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    25b41eb4d232de9c750b52ddc6b92a3db612200e5993f55733b59068898623d7
    ```
 
@@ -496,7 +496,7 @@ The OFS container has two possible ways to interact with the container:
      quartus_syn --version
      
      Quartus Prime Synthesis
-     Version 23.2
+     Version 23.3
      ```
      
   4. Everything is set up correctly. Please go to the following link for more information related to the [OFS Site](https://ofs.github.io) select your desired platform and select User Guide,  Technical Reference Manual, Developer Guide, or Getting Started Guide.

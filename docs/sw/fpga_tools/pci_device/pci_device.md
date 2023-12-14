@@ -66,7 +66,7 @@ drivers.
     Print the PCIe topology from the root port to the PCIe device.
     This shows the PCIe tree rooted at the PCIe root port.
     Each line shows the the PCIe address, vendor ID, and device ID along with
-    the driver bound to the device. The indentnation is used to show
+    the driver bound to the device. The indentation is used to show
     parent/child relationship of devices.
 
     The line listing the target PCIe device as identified by the given PCIe
