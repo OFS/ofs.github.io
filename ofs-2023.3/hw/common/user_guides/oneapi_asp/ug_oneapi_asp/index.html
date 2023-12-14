@@ -1,0 +1,2778 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../ug_kvm/ug_kvm/">
+      
+      
+        <link rel="next" href="../../../reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>oneAPI ASP Getting Started User Guide - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#oneapi-accelerator-support-package-asp-getting-started-user-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              oneAPI ASP Getting Started User Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-tabs__link">
+        Stratix 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link">
+        Agilex PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-tabs__link">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Quick Start Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        FPGA Interface Manager Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_docker/ug_docker/" class="md-nav__link">
+        Docker User guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_kvm/ug_kvm/" class="md-nav__link">
+        KVM User guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Quick Start Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        Getting Started (Intel Agilex 7 FPGA I-Series Development Kit 2xR-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        Getting Started (Intel Agilex 7 FPGA F-Series Development Kit 2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        Getting Started (Intel FPGA SmartNIC N6001-PL)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide for PCIe Attach F-Series (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide for PCIe Attach F-Series (P-Tile/E-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_docker/ug_docker/" class="md-nav__link">
+        Docker User guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_kvm/ug_kvm/" class="md-nav__link">
+        KVM User guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Quick Start Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        FPGA Interface Manager Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        FPGA Interface Manager Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_docker/ug_docker/" class="md-nav__link">
+        Docker User guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_kvm/ug_kvm/" class="md-nav__link">
+        KVM User guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          oneAPI ASP Getting Started User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        oneAPI ASP Getting Started User Guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-introduction" class="md-nav__link">
+    1.0 Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-about-this-document" class="md-nav__link">
+    1.1 About This Document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-terminology" class="md-nav__link">
+    1.2 Terminology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-introduction-to-high-level-design-on-ofs" class="md-nav__link">
+    1.3 Introduction to High Level Design on OFS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-setup-flow-for-using-hld-tool-on-ofs" class="md-nav__link">
+    2.0 Setup Flow for Using HLD Tool on OFS
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Setup Flow for Using HLD Tool on OFS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-setup-server-for-ofs" class="md-nav__link">
+    2.1 Setup Server for OFS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-clone-and-compile-fim" class="md-nav__link">
+    2.2 Clone and Compile FIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-prerequisites" class="md-nav__link">
+    2.3 Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-build-and-install-oneapi-asp" class="md-nav__link">
+    2.4 Build and Install oneapi-asp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-board-initialization" class="md-nav__link">
+    2.5 Board Initialization
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Board Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-compile-initialization-bitstreams" class="md-nav__link">
+    2.5.1 Compile Initialization Bitstreams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-create-vf" class="md-nav__link">
+    2.5.2 Create VF
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-initialize-board-and-run-diagnostic-test" class="md-nav__link">
+    2.5.3 Initialize Board and Run Diagnostic Test
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-compile-and-run-oneapi-sample-applications" class="md-nav__link">
+    2.6 Compile and Run oneAPI Sample Applications
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-release-vf" class="md-nav__link">
+    2.7 Release VF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-further-development" class="md-nav__link">
+    3.0 Further Development
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+      
+      
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+          OPAE SOFTWARE REFERENCE
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_1">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE SOFTWARE REFERENCE
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+          OPAE FPGA TOOLS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA TOOLS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-introduction" class="md-nav__link">
+    1.0 Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-about-this-document" class="md-nav__link">
+    1.1 About This Document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-terminology" class="md-nav__link">
+    1.2 Terminology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-introduction-to-high-level-design-on-ofs" class="md-nav__link">
+    1.3 Introduction to High Level Design on OFS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-setup-flow-for-using-hld-tool-on-ofs" class="md-nav__link">
+    2.0 Setup Flow for Using HLD Tool on OFS
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Setup Flow for Using HLD Tool on OFS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-setup-server-for-ofs" class="md-nav__link">
+    2.1 Setup Server for OFS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-clone-and-compile-fim" class="md-nav__link">
+    2.2 Clone and Compile FIM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-prerequisites" class="md-nav__link">
+    2.3 Prerequisites
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-build-and-install-oneapi-asp" class="md-nav__link">
+    2.4 Build and Install oneapi-asp
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#25-board-initialization" class="md-nav__link">
+    2.5 Board Initialization
+  </a>
+  
+    <nav class="md-nav" aria-label="2.5 Board Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#251-compile-initialization-bitstreams" class="md-nav__link">
+    2.5.1 Compile Initialization Bitstreams
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#252-create-vf" class="md-nav__link">
+    2.5.2 Create VF
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#253-initialize-board-and-run-diagnostic-test" class="md-nav__link">
+    2.5.3 Initialize Board and Run Diagnostic Test
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#26-compile-and-run-oneapi-sample-applications" class="md-nav__link">
+    2.6 Compile and Run oneAPI Sample Applications
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#27-release-vf" class="md-nav__link">
+    2.7 Release VF
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-further-development" class="md-nav__link">
+    3.0 Further Development
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="oneapi-accelerator-support-package-asp-getting-started-user-guide">oneAPI Accelerator Support Package (ASP): Getting Started User Guide<a class="headerlink" href="#oneapi-accelerator-support-package-asp-getting-started-user-guide" title="Permanent link">&para;</a></h1>
+<h2 id="10-introduction"><strong>1.0 Introduction</strong><a class="headerlink" href="#10-introduction" title="Permanent link">&para;</a></h2>
+<p><a name="introduction"></a></p>
+<h3 id="11-about-this-document"><strong>1.1 About This Document</strong><a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
+<p><a name="about_this_document"></a></p>
+<p>This document serves as a quick start guide for setting up <a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html">Intel® oneAPI Base Toolkit (Base Kit)</a> on Open FPGA Stack (<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>) using <code>oneapi-asp</code> repository. Please see Table 1-1 for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> reference platforms targeted in this guide.</p>
+<p><strong>Table 1-1 HLD Tools</strong></p>
+<table>
+<thead>
+<tr>
+<th>Target Device for the oneAPI ASP</th>
+<th>Target Platform for the oneAPI ASP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intel® Agilex® 7 FPGA</td>
+<td>Intel® FPGA SmartNIC N6001-PL</td>
+</tr>
+<tr>
+<td>Intel® Stratix 10® FPGA</td>
+<td>Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Attention:</strong> Intel is discontinuing the Intel FPGA SDK for OpenCL software product. Refer to the <a href="https://cdrdv2.intel.com/v1/dl/getContent/738067?explicitVersion=true">Product Discontinuation Notice PDN2219</a>. Alternatively, Intel recommends using the Intel® oneAPI Base Toolkit (Base Kit), which provides core tools and libraries for developing high-performance data-centric applications across diverse architectures. It features an industry-leading C++ compiler that implements SYCL*, an evolution of C++ for heterogeneous computing. For more information, refer to the <a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html">Intel® oneAPI Base Toolkit (Base Kit)</a> web page. To migrate your OpenCL FPGA designs to SYCL, review <a href="https://www.intel.com/content/www/us/en/develop/documentation/migrate-opencl-fpga-designs-to-dpcpp/top.html"><em>Migrating OpenCL FPGA Designs to SYCL* guide</em></a> that demonstrates important differences between OpenCL and SYCL for FPGA and provides steps to migrate your OpenCL designs.</p>
+</blockquote>
+<p>After reviewing the document you will be able to:</p>
+<ul>
+<li>Setup your host machine to develop HLD AFUs </li>
+</ul>
+<ul>
+<li>Compile and run sample HLD applications on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></li>
+</ul>
+<h3 id="12-terminology"><strong>1.2 Terminology</strong><a class="headerlink" href="#12-terminology" title="Permanent link">&para;</a></h3>
+<p><a name="terminology"></a></p>
+<p>This table defines some of the common terms used when discussing <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</p>
+<p><strong>Table 1-2: Terminology</strong></p>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Abbreviation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Open FPGA Stack</td>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td>A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and software developers to optimize and reuse their designs.</td>
+</tr>
+<tr>
+<td>Accelerator Functional Unit</td>
+<td><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td>Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. <em>Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside.  This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region.</em></td>
+</tr>
+<tr>
+<td>FPGA Interface Manager</td>
+<td><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs.  The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
+</tr>
+<tr>
+<td>High Level Design</td>
+<td>HLD</td>
+<td>For the purpose of this guide, this term refers to designing with Intel® oneAPI Base Toolkit (Base Kit).</td>
+</tr>
+<tr>
+<td>oneAPI Accelerator Support Package</td>
+<td>oneAPI ASP OR oneapi-asp</td>
+<td>A collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> components. The hardware components of the oneAPI ASP along with the kernels lie in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region.</td>
+</tr>
+<tr>
+<td>Open Programmable Acceleration Engine Software Development Kit</td>
+<td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.</td>
+</tr>
+<tr>
+<td>Platform Interface Manager</td>
+<td><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
+<td>An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
+</tr>
+<tr>
+<td>Device Feature List</td>
+<td><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>A concept inherited from <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers provide support for FPGA devices that are designed to support the Device Feature List. The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration.</td>
+</tr>
+<tr>
+<td>Best Known Configuration</td>
+<td><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
+<td>The exact hardware configuration Intel has optimized and validated the solution against.</td>
+</tr>
+<tr>
+<td>SYCL</td>
+<td>-</td>
+<td><a href="https://www.khronos.org/sycl/">SYCL</a> (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL™) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.</td>
+</tr>
+<tr>
+<td>Data Parallel C++</td>
+<td>DPC++</td>
+<td><a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/data-parallel-c-plus-plus.html#gs.5sqn4j">DPC++</a> is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.</td>
+</tr>
+<tr>
+<td>Installable Client Driver</td>
+<td>ICD</td>
+<td><a href="https://github.com/intel/fpga-runtime-for-opencl">Intel® FPGA Runtime for OpenCL™ Software Technology</a> supports the OpenCL ICD extension from the Khronos Group™. The OpenCL ICD extension allows you to have multiple OpenCL implementations on your system. With the OpenCL ICD Loader Library, you may choose from a list of installed platforms and execute OpenCL API calls that are specific to your OpenCL implementation of choice.</td>
+</tr>
+<tr>
+<td>FPGA Client Driver</td>
+<td>FCD</td>
+<td><a href="https://github.com/intel/fpga-runtime-for-opencl">Intel® FPGA Runtime for OpenCL™ Software Technology</a> supports FPGA Client Driver(FCD) extension. FCD allows the runtime to automatically find and load the oneAPI ASP libraries at host run time</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-introduction-to-high-level-design-on-ofs"><strong>1.3 Introduction to High Level Design on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></strong><a class="headerlink" href="#13-introduction-to-high-level-design-on-ofs" title="Permanent link">&para;</a></h3>
+<p><a name="intrduction_hld_ofs"></a></p>
+<p>Intel currently provides Intel® oneAPI Base Toolkit (Base Kit) for FPGA application development using high level languages like Data Parallel C++(DPC++).</p>
+<p>Figure 1-1 shows how <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> components can be used with Intel HLD tool.</p>
+<p><strong>Figure 1-1 HLD Tool on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Platforms</strong>
+<a class="glightbox" href="../images/HLD_IntelOFS_Model.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="hld-tool-on-ofs-platforms" src="../images/HLD_IntelOFS_Model.PNG" /></a></p>
+<p>For high level description and setup details for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> components shown in figure above, please refer to the Getting Started guide for your target device.</p>
+<ul>
+<li><a href="https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a>.</li>
+</ul>
+<ul>
+<li><a href="https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs</a>.</li>
+</ul>
+<p>For a more detailed diagram and more information about the FPGA Interface Manager(<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>) shown in figure above, please refer to the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> developer guides for your target device.</p>
+<ul>
+<li><a href="https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/">Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a>.</li>
+</ul>
+<ul>
+<li><a href="https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a>.</li>
+</ul>
+<ul>
+<li><a href="https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a>.</li>
+</ul>
+<ul>
+<li><a href="https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/">FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a>.</li>
+</ul>
+<p>The oneAPI ASP is required for compiling and running HLD application kernel on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platforms using Intel oneAPI. It is a collection of hardware and software components that enable oneAPI kernels to communicate with oneAPI runtime as well as with other <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> components. The hardware components of the oneAPI ASP along with the kernel lie in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region shown in the figure above. For more details about the components of the oneAPI ASP, please refer to <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<p>Figure 1-2 shows the setup steps to use oneAPI base toolkit on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platforms.</p>
+<p><strong>Figure 1-2 Setup Steps for oneAPI base toolkit on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Platforms</strong>
+<a class="glightbox" href="../images/HLD_Development_Flow.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="setup-steps-for-oneapi-base-toolkit-on-ofs-platforms" src="../images/HLD_Development_Flow.PNG" /></a></p>
+<p>The next section covers the setup steps in detail.</p>
+<blockquote>
+<p><strong>Note:</strong> Administrative privileges are needed for multiple setup steps, ensure you have administrative/sudo privileges before proceeding.</p>
+</blockquote>
+<h2 id="20-setup-flow-for-using-hld-tool-on-ofs"><strong>2.0 Setup Flow for Using HLD Tool on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></strong><a class="headerlink" href="#20-setup-flow-for-using-hld-tool-on-ofs" title="Permanent link">&para;</a></h2>
+<p><a name="setup_flow"></a></p>
+<h3 id="21-setup-server-for-ofs"><strong>2.1 Setup Server for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></strong><a class="headerlink" href="#21-setup-server-for-ofs" title="Permanent link">&para;</a></h3>
+<p><a name="server_setup_ofs"></a></p>
+<p>As a first step, the server or host machine being used for developing HLD application needs to be setup for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. This involves setting up the FPGA card as well as installing <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software stack including <a href="https://ofs.github.io/ofs-2023.2/sw/fpga_api/quick_start/readme/"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></a> and <a href="https://ofs.github.io/ofs-2023.2/sw/fpga_api/quick_start/readme/#build-the-opae-linux-device-drivers-from-the-source"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel driver</a>.</p>
+<p>Please follow steps in Getting started guides for your target devices to setup Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel driver and install <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr>.</p>
+<ul>
+<li><a href="https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a></li>
+<li><a href="https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs</a>.</li>
+</ul>
+<h3 id="22-clone-and-compile-fim"><strong>2.2 Clone and Compile <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></strong><a class="headerlink" href="#22-clone-and-compile-fim" title="Permanent link">&para;</a></h3>
+<p><a name="clone_compile_fim"></a></p>
+<p>As shown in Figure 1-1, <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> components in the FPGA include the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and Accelerator Functional Unit(<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>). The oneAPI ASP is in the Partial Reconfiguration(<abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>) region of the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and relies on the compiled database of the static region(<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>) to interface with the host and board peripherals(e.g. on-board memory).</p>
+<p>Once the server is setup with <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel driver, the next step is to clone and compile the static region of the design, i.e. <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. You can use the default configuration of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for both target platforms. Additionaly for Intel® FPGA SmartNIC N6001-PL for ofs_n6001 and ofs_n6001_usm board variants you have the option to create a minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> which removes additional VFs, HSSI and host exercisers in the design. Please follow steps in the <em>Intel® FPGA Interface Manager Developer Guides</em> for your target device to compile <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> supporting <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> release.</p>
+<ul>
+<li><a href="https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a>.</li>
+</ul>
+<ul>
+<li><a href="https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/">FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a>.</li>
+</ul>
+<p>For more details on minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Agilex® 7 FPGA for ofs_n6001 and ofs_n6001_usm board variants and how to create it, refer to Intel® FPGA Interface Manager Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® PCIe Attach FPGAs.</p>
+<p>A <code>pr_build_template</code> directory will be generated in the work directory specified as part of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compile command (using <code>OFS/ofs-common/scripts/common/syn/build_top.sh</code> script with the '-p' option enable to create an out-of-tree <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> release). The <code>pr_build_template</code> directory is required for successful setup of the oneAPI ASP.</p>
+<p>Once the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compile is complete, please program <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> using <code>fpgasupdate</code> and Remote System Update(<code>rsu</code>) command. Use of these commands has been demonstrated in section named <code>Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim</code> in <a href="https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a> refer to <code>Test the hello_fim on a D5005</code> section in <a href="https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/">FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a> for Intel® Stratix 10® FPGA.</p>
+<h3 id="23-prerequisites"><strong>2.3 Prerequisites</strong><a class="headerlink" href="#23-prerequisites" title="Permanent link">&para;</a></h3>
+<p><a name="prerequisites"></a></p>
+<p>In addition to server setup and <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compilation, a few linux packages are needed to setup the oneAPI ASP and develop HLD applications.</p>
+<p>1) Install the following packages:</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    sudo dnf install numactl-devel ncurses-compat-libs
+</code></pre></div>
+</pre>
+<p>2) Ensure that IOMMU is turned on as explained in section <code>Building and Installing the OFS DFL Kernel Drivers from Source</code> in Getting started guides for your target devices:</p>
+<ul>
+<li><a href="https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a>.</li>
+</ul>
+<ul>
+<li><a href="https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs</a>.</li>
+</ul>
+<p>You can verify this setting using <code>cat /proc/cmdline</code> command. The output must have <code>intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200</code>.</p>
+<div class="highlight"><pre><span></span><code>$ cat /proc/cmdline
+BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.41-dfl root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200
+</code></pre></div>
+<p>3) Install HLD development software. Please see Table 2-1 below for download link. Install the latest version. Use sudo privileges to do the installation. </p>
+<p><strong>Table 2-1 Intel HLD Tool and Download Information</strong></p>
+<table>
+<thead>
+<tr>
+<th>HLD Tool</th>
+<th>Target Platform for the oneAPI ASP</th>
+<th>Tool Download Information</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intel® oneAPI Base Toolkit (Base Kit)</td>
+<td><ul><li>Intel® FPGA SmartNIC N6001-PL</li><li>Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005</li></td>
+<td>Download <a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit-download.html">here</a></td>
+</tr>
+</tbody>
+</table>
+<p>Tool installation guide for your reference:</p>
+<ul>
+<li><a href="https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top.html">Intel® oneAPI Toolkits Installation Guide for Linux* OS</a></li>
+</ul>
+<p>4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version.</p>
+<blockquote>
+<p><strong>Note:</strong> For Intel® Agilex® 7 FPGA ensure Quartus patch 0.13, 0.21 and 0.02iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1">patch-agx7-ofs-2023-3.tar.gz</a>. For Intel® Stratix 10® FPGA ensure Quartus patch 0.23 and 0.01iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1">patch-s10-ofs-2023-3.tar.gz</a>.For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. </p>
+</blockquote>
+<p>Use following command to check Quartus version and installed patches.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    quartus_sh -v
+</code></pre></div>
+</pre>
+<p>5) After completing the tool installation, set the following environment variables required to execute build scripts successfully:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">    </span><span class="c1"># Adding Quartus to PATH</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:path-to-quartus-installation-dir/bin
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR</span><span class="o">=</span>path-to-quartus-installation-dir/quartus
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR_OVERRIDE</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span><span class="c1"># Other OFS environment variables</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">OFS_ROOTDIR</span><span class="o">=</span>path-to-directory-containing-cloned-ofs-fim-repo/#ofs-agx7-pcie-attach<span class="w"> </span><span class="k">for</span><span class="w"> </span>Intel®<span class="w"> </span>Agilex®<span class="w"> </span><span class="m">7</span><span class="w"> </span>FPGA<span class="w"> </span>or<span class="w"> </span>ofs-d5005<span class="w"> </span><span class="k">for</span><span class="w"> </span>Intel®<span class="w"> </span>Stratix<span class="w"> </span><span class="m">10</span>®<span class="w"> </span>FPGA
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">WORKDIR</span><span class="o">=</span><span class="nv">$OFS_ROOTDIR</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_HOME</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_INSTALL_DIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">IMPORT_IP_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../ip
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_SDK_REPO_BRANCH</span><span class="o">=</span>release/branch-tag<span class="w"> </span><span class="c1"># Refer to Table 2-3, for OPAE SDK branch tag</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">OFS_PLATFORM_AFU_BBB</span><span class="o">=</span>path-to-cloned-ofs-platform-afu-bbb-repo
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_PLATFORM_ROOT</span><span class="o">=</span>path-to-ofs-fim-pr_build_template-directory<span class="w"> </span><span class="c1"># (see section 2.2 for more details)</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="w">    </span><span class="nb">export</span><span class="w">  </span><span class="nv">OFS_ASP_ROOT</span><span class="o">=</span>path-to-directory-containing-oneapi-asp/oneapi-asp/platform-name<span class="w"> </span><span class="c1">#platform-name is n6001 for Intel® FPGA SmartNIC N6001-PL and d5005 for Intel® FPGA PAC D5005 </span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="w">    </span><span class="nb">export</span><span class="w"> </span><span class="nv">LIBOPAE_C_ROOT</span><span class="o">=</span>/usr<span class="w"> </span><span class="c1"># (OPAE libraries are installed in /usr/lib64 by default if you followed the OPAE SDK steps covered in section 2.1 as is and installed OPAE rpm packages. If you have a different OPAE installation path, please point LIBOPAE_C_ROOT to your OPAE installation location that you specified using -DCMAKE_INSTALL_PREFIX=installation-path in cmake command for building OPAE)</span>
+</code></pre></div>
+<blockquote>
+<p><strong>Note:</strong> To re-use this environment setting, you can copy the above export statements to a shell script, update the paths to match your tool installations and source this script each time a new shell is started.</p>
+</blockquote>
+<p>6) Source initialization script for oneAPI, path is shown in table below.</p>
+<p><strong>Table 2-2 Initialization Script for HLD tool</strong></p>
+<table>
+<thead>
+<tr>
+<th>Tool</th>
+<th>Command to source initialization script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intel® oneAPI Base Toolkit (Base Kit)</td>
+<td>source path-to-intel-oneapi-toolkit-installation-directory/<strong>setvars.sh</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Once the environment variables are set, you can check the tool version using the following commands:</p>
+</pre>
+<div class="highlight"><pre><span></span><code># Printing all (Quartus, OpenCL SDK, GCC) versions for user info
+quartus_sh -v
+icpx --version (for Intel® oneAPI Base Toolkit (Base Kit))
+gcc --version
+</code></pre></div>
+</pre>
+<p>Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(<abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr>).</p>
+<p><strong>Table 2-3 Best Known Configuration(<abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr>) for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></strong></p>
+<table>
+<thead>
+<tr>
+<th>Component/Tool</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FPGA Platform</td>
+<td>Intel® FPGA SmartNIC N6001-PL</td>
+</tr>
+<tr>
+<td>Operating System</td>
+<td>RHEL 8.6 , Kernel : 6.1.41-dfl</td>
+</tr>
+<tr>
+<td>linux-dfl (<abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Driver)</td>
+<td>Tag: ofs-2023.3-6.1-2</td>
+</tr>
+<tr>
+<td>opae-sdk</td>
+<td>Branch: release/2.10.0, Tag: 2.10.0-1</td>
+</tr>
+<tr>
+<td>ofs-fim</td>
+<td>Tag: ofs-2023.3-1</td>
+</tr>
+<tr>
+<td>oneapi-asp</td>
+<td>Tag: ofs-2023.3-1 <br> &gt; <strong>Note:</strong> Cloning and build of this repo is discussed in the <em><a href="#24-build-and-install-oneapi-asp">section 2.4</a></em></td>
+</tr>
+<tr>
+<td>Quartus Prime Pro Edition</td>
+<td>Version 23.3 Pro Edition with patches (0.13, 0.21 and 0.02iofs) under assets on this link [patch-agx7-ofs-2023-3.tar.gz]](https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1)</td>
+</tr>
+<tr>
+<td>Intel® oneAPI Base Toolkit (Base Kit)</td>
+<td>Latest version</td>
+</tr>
+<tr>
+<td>GCC</td>
+<td>7.4.0</td>
+</tr>
+<tr>
+<td>cmake</td>
+<td>3.15</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 2-4 Best Known Configuration(<abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr>) for Intel® Stratix 10® FPGA</strong></p>
+<table>
+<thead>
+<tr>
+<th>Component/Tool</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FPGA Platform</td>
+<td>Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005</td>
+</tr>
+<tr>
+<td>Operating System</td>
+<td>RHEL 8.6 , Kernel : 6.1.41-dfl</td>
+</tr>
+<tr>
+<td>linux-dfl (<abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Driver)</td>
+<td>Tag: ofs-2023.3-6.1-1</td>
+</tr>
+<tr>
+<td>opae-sdk</td>
+<td>Branch: release/2.10.0, Tag: 2.10.0-1</td>
+</tr>
+<tr>
+<td>ofs-fim</td>
+<td>Tag: ofs-2023.3-1</td>
+</tr>
+<tr>
+<td>oneapi-asp</td>
+<td>Tag: ofs-2023.3-1 <br> &gt; <strong>Note:</strong> Cloning and build of this repo is discussed in the <em><a href="#24-build-and-install-oneapi-asp">section 2.4</a></em></td>
+</tr>
+<tr>
+<td>Quartus Prime Pro Edition</td>
+<td>Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1">patch-s10-ofs-2023-3.tar.gz</a></td>
+</tr>
+<tr>
+<td>Intel® oneAPI Base Toolkit (Base Kit)</td>
+<td>Latest version</td>
+</tr>
+<tr>
+<td>GCC</td>
+<td>7.4.0</td>
+</tr>
+<tr>
+<td>cmake</td>
+<td>3.15</td>
+</tr>
+</tbody>
+</table>
+<h3 id="24-build-and-install-oneapi-asp"><strong>2.4 Build and Install <code>oneapi-asp</code></strong><a class="headerlink" href="#24-build-and-install-oneapi-asp" title="Permanent link">&para;</a></h3>
+<p><a name="clone_build_oneapi-asp"></a></p>
+<p>Once all pre-requisites are installed and the environment variables are set, next step is to clone and build <code>oneapi-asp</code>.</p>
+<p>1) Clone <code>oneapi-asp</code> repository and checkout tag matching the <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr> for your target platform (see Tables 2-3 and 2-4 for the BKCs).</p>
+<blockquote>
+<p><strong>Note:</strong> You will need a <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token">personal access token</a> (use the classic mode) to be used as the password to clone successfully. Please see more information about token authentication requirements for Git operations <a href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">here</a>.</p>
+</blockquote>
+</pre>
+<div class="highlight"><pre><span></span><code>    git clone https://github.com/OFS/oneapi-asp.git
+    cd oneapi-asp
+    git checkout tags/ofs-2023.3-1
+</code></pre></div>
+</pre>
+<p>Ensure the correct tag has ben checked out:
+</pre></p>
+<div class="highlight"><pre><span></span><code>    git describe --tags
+</code></pre></div>
+</pre>
+<ul>
+<li>Output:</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    ofs-2023.3-1
+</code></pre></div>
+</pre>
+<p>2) Ensure that <code>OPAE_PLATFORM_ROOT</code> and <code>LIBOPAE_C_ROOT</code> have been set as described in <em><a href="#23-prerequisites">section 2.3</a></em>. Generate the oneAPI ASP hardware and software using provided <code>build-bsp.sh</code> script. This script clones required repositories and builds the oneAPI ASP libraries required by HLD host application to run successfully.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    cd path-to-directory-containing-cloned-oneapi-asp-repo/oneapi-asp/platform-name
+    ./scripts/build-bsp.sh
+</code></pre></div>
+</pre>
+<p>The generated directory structure is shown below. For more details refer to the <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<pre>
+oneapi-asp/platform-name
+|--ase/
+|  |--base/
+|  |--hack_ip_files/
+|  |--compile-kernel.sh
+|  |--run-ase.sh
+|  |--setup.sh
+|  |--simulate-aocx.sh
+|--bringup/source/simple-add-buffers/
+|  |--simple-add-buffers.cpp
+|--hardware/
+|  |--ofs_platform-name/
+|  |--ofs_platform-name_iopipes/
+|  |--ofs_platform-name_usm/
+|  |--ofs_platform-name_usm_iopipes/
+|--linux64/libexec/
+|  |--flash
+|  |--initialize
+|  |--install
+|  |--setup_permissions.sh
+|  |--uninstall
+|--scripts/
+|  |--README.txt
+|  |--build-bsp-sw.sh
+|  |--build-bsp.sh
+|  |--build-default-binaries.sh
+|  |--build-mmd.sh
+|  |--build-opae.sh
+|  |--create-tarball.sh
+|  |--dedup-hardware.sh
+|  |--setup-bsp.py
+|--board_env.xml
+|--README.md
+</pre>
+
+<p>3) Once the oneAPI ASP is generated, add the following to <code>LD_LIBRARY_PATH</code>. You can add it to your script for setting environment variables (if you created one as noted in step 5 in <a href="#23-prerequisites">section 2.3</a>)</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:path-to-oneapi-asp/platform-name/linux64/lib
+</code></pre></div>
+</pre>
+<p>4) Check if FPGA Client Driver(FCD) exists for any other version of oneAPI ASP or for any other board. You can check with  <code>aocl list-devices</code> command. It is recommended to run aocl list-devices as root user (login with sudo su) to see all installed ASPs on the host.</p>
+<p>A sample output when a oneAPI ASP FCD is installed is shown below:</p>
+</pre>
+<div class="highlight"><pre><span></span><code>--------------------------------------------------------------------
+Device Name:
+acl0
+
+BSP Install Location:
+/home/ofsuser/oneapi-asp/platform-name
+
+Vendor: Intel Corp
+
+Physical Dev Name   Status            Information
+
+ofs_ee00000         Uninitialized     PR slot function not configured 
+                                      Need to follow instructions to bind vfio-pci driver to PR slot function
+
+BSP DIAGNOSTIC_PASSED
+--------------------------------------------------------------------
+</code></pre></div>
+</pre>
+<p>If a oneAPI ASP/BSP is installed, uninstall using <code>aocl uninstall path-to-oneapi-asp-install-location</code>, where <code>path-to-oneapi-asp-install-location</code> is provided under <code>BSP Install Location:</code> in the output of <code>aocl list-devices</code>. If you are prompted with a question to unset the FCD, type <code>Y</code>. If you are prompted with a question to remove OpenCL BSP configuration settings, type <code>Y</code>.</p>
+<p>Sample output for <code>aocl uninstall</code> command:</p>
+</pre>
+<div class="highlight"><pre><span></span><code>$ aocl uninstall /home/ofsuser/oneapi-asp/platform-name
+aocl uninstall: Removing the FPGA Client Driver (FCD) from the system
+[sudo] password for ofsuser:
+aocl uninstall: Removing the board package /home/ofsuser/oneapi-asp/platform-name from the list of installed packages. This process may require admin privilege
+aocl uninstall: Running uninstall from /home/ofsuser/oneapi-asp/platform-name/linux64/libexec
+Do you want to remove oneAPI-ASP configuration settings [Y/n] Y
+Deleting OPAE config files
+Removing configuration files
+OFS oneAPI-ASP uninstall complete
+</code></pre></div>
+</pre>
+<p>5) Install FPGA Client Driver(FCD) file for the oneAPI ASP using <code>aocl install path-to-oneapi-asp/platform-name</code> command as shown below. The host program uses FCD to find and link to the platform Memory Mapped Device (MMD) library. For more information about MMD library, refer to <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    aocl install path-to-directory-containing-oneapi-asp/oneapi-asp/platform-name
+</code></pre></div>
+</pre>
+<blockquote>
+<p><strong>Notes:</strong> <br> 1. Type <code>Y</code> when prompted to setup FCD at <code>/opt/Intel/OpenCLFPGA/oneAPI/Boards</code> (default location for Intel oneAPI). <br></p>
+</blockquote>
+<p>Sample output <code>aocl install</code> command in  Intel® oneAPI Base Toolkit (Base Kit) environment is shown below.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>aocl install: Setting up the FPGA Client Driver (FCD) to the system. This process may require admin privilege
+Install the FCD file to /opt/Intel/OpenCLFPGA/oneAPI/Boards
+[sudo] password for ofsuser:
+aocl install: Adding the board package path-to-oneapi-asp/platform-name to the list of installed packages
+Installing the board package driver to the system.
+aocl install: Running install from path-to-oneapi-asp/platform-name/linux64/libexec
+Configuring locked memory setting
+Configuring udev rules for DFL FPGA device permission
+Configuring system with 1024 2M hugepages
+Setting access permisions of /dev/uio to 666
+Finished setup_permissions.sh script. All configuration settings are persistent.
+Intel OFS oneAPI ASP install complete.
+Run &#39;aocl diagnose&#39; to list devices or &#39;aocl initialize &lt;dev_name&gt; &lt;board_variant&gt; to load default image
+</code></pre></div>
+</pre>
+<h3 id="25-board-initialization"><strong>2.5 Board Initialization</strong><a class="headerlink" href="#25-board-initialization" title="Permanent link">&para;</a></h3>
+<p><a name="init_board"></a></p>
+<p><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software stack expects boards to be initialized with a bitstream for the board variant intended to be used for development. An oneAPI sample application, named <code>simple-add-buffers</code>, has been provided in the oneapi-asp repository for generating initialization bitstreams for included board variants. The sample is located in <code>oneapi-asp/platform-name/bringup/source</code>.</p>
+<p><code>oneapi-asp</code> has four board variants for Intel® Agilex® 7 FPGA and two board variants for Intel® Stratix 10® FPGA (<code>oneapi-asp/platform-name/hardware</code> has the hardware design files for these). For more details on the architecture of the board variants, please refer to the <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<p><strong>Table 2-5 oneAPI Sample Applications</strong></p>
+<table>
+<thead>
+<tr>
+<th>Board Variants</th>
+<th>Sample Application</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ul><li>ofs_platform-name</li></ul> <ul><li>ofs_platform-name_usm</li></ul><ul><li>ofs_n6001_iopipes</li></ul> <ul><li>ofs_n6001_usm_iopipes</li></ul></td>
+<td>simple-add-buffers</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><strong>Note:</strong> platform-name is n6001 for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> and d5005 for Intel® Stratix 10® FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></p>
+</blockquote>
+<p>All samples are located in <code>oneapi-asp/platform-name/bringup/source</code>.</p>
+<h4 id="251-compile-initialization-bitstreams"><strong>2.5.1 Compile Initialization Bitstreams</strong><a class="headerlink" href="#251-compile-initialization-bitstreams" title="Permanent link">&para;</a></h4>
+<p><a name="compile_run_ocl_sample"></a></p>
+<p>A script is provided in repo to compile <code>simple-add-buffers</code> oneAPI sample application. The script is <code>oneapi-asp/platform-name/scripts/build-default-binaries.sh</code>.</p>
+<p>Script usage is as follows:</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    ./build-default-binaries.sh -b name-of-board-variant
+</code></pre></div>
+</pre>
+<blockquote>
+<p><strong>Note:</strong> <code>name-of-board-variant</code> can be ofs_<code>platform-name</code>, ofs_<code>platform-name</code>_usm, ofs_n6001_iopipes or ofs_n6001_usm_iopipes where <code>platform-name</code> is <code>n6001</code> for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> and <code>d5005</code> for Intel® Stratix 10® FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. Refer to Table 2-5 for board variants available for each target platform. Compilation will take a few hours to complete.</p>
+</blockquote>
+<p>The output directory of the sample application is written to <code>oneapi-asp/platform-name/build/bringup</code>. The generated bitstreams are also copied to <code>oneapi-asp/platform-name/bringup/binaries/</code>. These are used in the initialization of the platform.</p>
+<p>Once the bitstreams are generated, create a VF and initialize the board as explained in following section. Ensure that the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> has been programmed on the board as explained in <em><a href="#22-clone-and-compile-fim">section 2.2 Clone and Compile <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></a></em></p>
+<h4 id="252-create-vf"><strong>2.5.2 Create VF</strong><a class="headerlink" href="#252-create-vf" title="Permanent link">&para;</a></h4>
+<p>The oneAPI ASP is located in the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and is accessed through PF/VF Mux. Refer to the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Reference Manual for your target platforms for more details about PF/VF mapping.</p>
+<ul>
+<li>Reference <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>: VF0 is mapped to <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region and you can create 1 VF when using this <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. Base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> has 5 PF's and minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> just 1 PF. See <a href="https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/">Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a> for diagram showing PF/VF mapping.</li>
+</ul>
+<ul>
+<li>Reference <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Stratix 10® FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>: VF1 is mapped to <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region and you must create 2 VFs when using this <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. This <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> has 1 PF. See <a href="https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a> for diagram showing PF/VF mapping.</li>
+</ul>
+<ul>
+<li>Create a VF using PCIe ID obtained from the output of <code>fpgainfo fme</code> (PCIe s\:b\:d.f output)</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    sudo pci_device s:b:d.f vf num_vf  #num_vf is 1 for Intel® Agilex® 7 FPGA and 2 for Intel® Stratix 10® FPGA
+</code></pre></div>
+</pre>
+<ul>
+<li>Check that the VF is created using <code>sudo opae.io ls</code> command and note the PCIe ID for the VF(s) (the function number in s\:b\:d.<strong>f</strong> will be different for the VF). Sample output for Intel® Agilex® 7 FPGA minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> is shown below. Output for base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should display 5 PF's and the PCIe ID for VF0 will be s:b:d.5.</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    $ sudo opae.io ls
+    [0000:b1:00.0] (0x8086, 0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+    [0000:b1:00.1] (0x8086, 0xbccf) Intel Acceleration Development Platform N6001 (Driver: None)
+</code></pre></div>
+<p></pre>
+Sample output for Intel® Stratix 10® FPGA is shown below.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    $ sudo opae.io ls
+    [0000:d8:00.0] (0x8086, 0xbcce)  Intel FPGA Programmable Acceleration Card D5005 (Driver: dfl-pci)
+    [0000:d8:00.1] (0x8086, 0xbccf)  Intel FPGA Programmable Acceleration Card D5005 (Driver: dfl-pci)
+    [0000:d8:00.2] (0x8086, 0xbccf)  Intel FPGA Programmable Acceleration Card D5005 (Driver: dfl-pci)
+</code></pre></div>
+</pre>
+<blockquote>
+<p><strong>Note:</strong><code>sudo opae.io ls</code> will list the accelerators, respective PCIe ID as well as the driver it is currently bound to.</p>
+</blockquote>
+<ul>
+<li>Bind the created VF(s) to vfio-pci driver, use the PCIe ID for the VF(s) for this step. Verify you are using the PCIe ID of the VFs you have created. For example:</li>
+<li>From sample output for Agilex <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform having minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> programmed shown above, <code>s:b:d.vf</code> will be <code>0000:b1:00.1</code> in command below. For base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should be s:b:d.5.</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    sudo opae.io init -d s:b:d.vf $USER
+</code></pre></div>
+</pre>
+<ul>
+<li>Sample output for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. Output for base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should be similar.</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    $ sudo opae.io init -d 0000:b1:00.1 $USER
+    Unbinding (0x8086,0xbccf) at 0000:b1:00.1 from dfl-pci
+    Binding (0x8086,0xbccf) at 0000:b1:00.1 to vfio-pci
+    iommu group for (0x8086,0xbccf) at 0000:b1:00.1 is 319
+    Assigning /dev/vfio/319 to ofsuser
+    Changing permissions for /dev/vfio/319 to rw-rw----
+
+    $ sudo opae.io ls
+    [0000:b1:00.0] (0x8086, 0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+    [0000:b1:00.1] (0x8086, 0xbccf) Intel Acceleration Development Platform N6001 (Driver: vfio-pci)
+
+    $ ls -lt /dev/vfio
+    total 0
+    crw-rw----. 1 ofsuser root 509,   0 Dec 3 20:41 319
+    crw-rw-rw-. 1 root    root  10, 196 Dec 3 20:41 vfio
+</code></pre></div>
+</pre>
+<ul>
+<li>Sample output for Intel® Stratix 10® FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform:</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>$sudo opae.io init -d 0000:12:00.1 $USER
+Unbinding (0x8086,0xbccf) at 0000:12:00.1 from dfl-pci
+Binding (0x8086,0xbccf) at 0000:12:00.1 to vfio-pci
+iommu group for (0x8086,0xbccf) at 0000:12:00.1 is 149
+Assigning /dev/vfio/149 to ofsuser
+Changing permissions for /dev/vfio/149 to rw-rw----
+
+$sudo opae.io init -d 0000:12:00.2 $USER
+Unbinding (0x8086,0xbccf) at 0000:12:00.2 from dfl-pci
+Binding (0x8086,0xbccf) at 0000:12:00.2 to vfio-pci
+iommu group for (0x8086,0xbccf) at 0000:12:00.2 is 152
+Assigning /dev/vfio/152 to ofsuser
+Changing permissions for /dev/vfio/152 to rw-rw----
+
+$ sudo opae.io ls
+[0000:12:00.0] (0x8086:0xbcce) Intel FPGA Programmable Acceleration Card D5005 (Driver: dfl-pci)
+[0000:12:00.1] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
+[0000:12:00.2] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
+
+$ls -lt /dev/vfio
+total 0
+crw-rw----. 1 ofsuser  root  235,   3 Dec 3 16:25 149
+crw-rw----. 1 ofsuser  root  235,   0 Dec 3 16:22 152
+crw-rw-rw-. 1 root     root   10, 196 Dec 1 07:28 vfio
+</code></pre></div>
+</pre>
+<p>If the driver fails to bind due to an error related to <code>iommu_group</code> (e.g. `No such file or directory: '/sys/bus/pci/devices/0000:b1:00.5/iommu_group'), ensure IOMMU is turned on as explained in step 2 in <em><a href="#23-prerequisites">Section 2.3 Prerequisites</a></em>.</p>
+<blockquote>
+<p><strong>Note:</strong> For more information about <code>pci_device</code> and <code>opae.io</code> utilities, refer to the OPAE FPGA tools page <a href="https://github.com/OPAE/opae-sdk/tree/master/doc/src/fpga_tools">here</a>.</p>
+</blockquote>
+<h4 id="253-initialize-board-and-run-diagnostic-test"><strong>2.5.3 Initialize Board and Run Diagnostic Test</strong><a class="headerlink" href="#253-initialize-board-and-run-diagnostic-test" title="Permanent link">&para;</a></h4>
+</pre>
+<ul>
+<li>Initialize the board with default bitstream using <code>aocl initialize</code> command</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    aocl initialize device-name name-of-board-variant
+</code></pre></div>
+</pre>
+<blockquote>
+<p><strong>Note:</strong> <code>device-name</code> in <code>aocl initialize</code> command is from the <code>BSP Diagnostics</code> section in the output of <code>aocl list-devices</code> (sample output is shown in <em><a href="#24-build-and-install-oneapi-asp">Section 2.4</a></em>). <code>device-name</code> is <code>acl0</code> if there is only 1 board connected to the server. <code>name-of-the-board-variant</code> can be one of the supported board variants listed in <a href="#25-board-initialization">Table 2-5</a> provided the sample application bitstream using steps in section above.</p>
+</blockquote>
+<p>Sample output for <code>aocl initialize acl0 ofs_n6001</code> is shown below. Output for Intel® Stratix 10® FPGA and other board variants should be similar.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>$ aocl initialize acl0 ofs_n6001
+aocl initialize: Running initialize from path-to-oneapi-asp/n6001/linux64/libexec
+Initializing with default ASP binary ofs_n6001.fpga
+Saving target image to &quot;ofs_n6001.aocx.0&quot;
+Configuring locked memory setting
+[sudo] password for $USER:
+Configuring udev rules for DFL FPGA device permission
+Configuring system with 1024 2M hugepages
+Setting access permisions of /dev/uio to 666
+Finished setup_permissions.sh script. All configuration settings are persistent.
+Program succeed.
+</code></pre></div>
+</pre>
+<blockquote>
+<p><strong>Notes:</strong> <br> 1. <code>aocl initialize</code> command needs to be executed only one time unless you reboot the server. <br></p>
+</blockquote>
+<p>Run aocl diagnose to check that the board <code>Status</code> under <code>BSP Diagnostics</code> is equal to <code>Passed</code>.</p>
+<p>platform-name in command output below is n6001 for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> and d5005 for Intel® Stratix 10® FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>$ aocl diagnose
+--------------------------------------------------------------------
+ICD System Diagnostics
+--------------------------------------------------------------------
+
+Using the following location for ICD installation:
+        /etc/OpenCL/vendors
+
+Found 3 icd entry at that location:
+        /etc/OpenCL/vendors/intel64.icd
+
+The following OpenCL libraries are referenced in the icd files:
+        /opt/intel/oneapi/compiler/latest/lib/libintelocl.so
+
+Checking LD_LIBRARY_PATH for registered libraries:
+        /opt/intel/oneapi/compiler/latest/lib/libintelocl.so was registered on the system.
+
+
+Checking LD_LIBRARY_PATH for registered libraries:
+        /opt/intel/oneapi/compiler/latest/linux/lib/oclfpga/host/linux64/lib/libalteracl.so was registered on the system.
+        /opt/intel/oneapi/compiler/latest/linux/lib/x64/libintelocl_emu.so
+
+Checking LD_LIBRARY_PATH for registered libraries:
+        /opt/intel/oneapi/compiler/latest/linux/lib/x64/libintelocl_emu.so was registered on the system.
+
+Using OCL_ICD_FILENAMES to search for ICD clients, it is set to libintelocl_emu.so:libalteracl.so:/opt/intel/oneapi/compiler/2024.0/lib/libintelocl.so
+
+Checking LD_LIBRARY_PATH for registered libraries specified by OCL_ICD_FILENAMES
+    libintelocl_emu.so was registered on the system at 
+    /opt/intel/oneapi/compiler/2024.0/lib
+    libalteracl.so was registered on the system at 
+    /opt/intel/oneapi/compiler/2024.0/opt/oclfpga/host/linux64/lib
+    /opt/intel/oneapi/compiler/2024.0/lib/libintelocl.so was registered on the system.
+
+Using the following location for fcd installations:
+        /opt/Intel/OpenCLFPGA/oneAPI/Boards
+
+Found 1 fcd entry at that location:
+        /opt/Intel/OpenCLFPGA/oneAPI/Boards/ofs_platform-name_shim.fcd
+
+The following OpenCL libraries are referenced in the fcd files:
+        libopae-c.so
+/home/ofsuser/oneapi-asp/platform-name/linux64/lib/libMPF.so
+/home/ofsuser/oneapi-asp/platform-name/linux64/lib/libintel_opae_mmd.so
+
+Checking LD_LIBRARY_PATH for registered libraries:
+        libopae-c.so was registered on the system at /usr/lib64
+        /home/ofsuser/oneapi-asp/platform-name/linux64/lib/libMPF.so was registered on the system.
+        /home/ofsuser/oneapi-asp/platform-name/linux64/lib/libintel_opae_mmd.so was registered on the system.
+
+Number of Platforms = 4
+        1. Intel(R) FPGA Emulation Platform for OpenCL(TM)    | Intel(R) Corporation           | OpenCL 1.2 Intel(R) FPGA SDK for OpenCL(TM), Version 20.3
+        2. Intel(R) FPGA SDK for OpenCL(TM)                   | Intel(R) Corporation           | OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 2024.0
+        3. Intel(R) OpenCL                                    | Intel(R) Corporation           | OpenCL 3.0 LINUX
+        4. Intel(R) FPGA SDK for OpenCL(TM)                   | Intel(R) Corporation           | OpenCL 1.0 Intel(R) FPGA SDK for OpenCL(TM), Version 2024.0
+--------------------------------------------------------------------
+ICD diagnostics PASSED
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+BSP Diagnostics
+--------------------------------------------------------------------
+--------------------------------------------------------------------
+Device Name:
+acl0
+
+BSP Install Location:
+/home/ofsuser/oneapi-asp/platform-name
+
+Vendor: Intel Corp
+
+Physical Dev Name   Status            Information
+
+ofs_ee00001         Passed            Intel OFS Platform (ofs_ee00001)
+                                    PCIe b1:00.0
+                                    FPGA temperature = 59 degrees C.
+
+BSP DIAGNOSTIC_PASSED
+--------------------------------------------------------------------
+
+Call &quot;aocl diagnose &lt;device-names&gt;&quot; to run diagnose for specified devices
+Call &quot;aocl diagnose all&quot; to run diagnose for all devices
+</code></pre></div>
+</pre>
+<p>Run complete diagnostic using <code>aocl diagnose device-name</code> command. <code>device-name</code> is <code>acl0</code> if you have only 1 board in the server. The test reads and write data to the board to check the interfaces function correctly and report the measured bandwidth. The test must show <code>BSP DIAGNOSTIC_PASSED</code> message at the end.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    aocl diagnose acl0
+</code></pre></div>
+</pre>
+<p>Next section you will build and run oneAPI host applications.</p>
+<p>Once you are done with your application testing, you can release the device from vfio-pci driver, the steps for this are provided in <em><a href="#28-release-vf">Section 2.7 Release VF</a></em>.</p>
+<h3 id="26-compile-and-run-oneapi-sample-applications"><strong>2.6 Compile and Run oneAPI Sample Applications</strong><a class="headerlink" href="#26-compile-and-run-oneapi-sample-applications" title="Permanent link">&para;</a></h3>
+<p><a name="run_oneapi_hw"></a></p>
+<p>Different code samples are provided for testing different board interfaces. Please refer to table below for more information.</p>
+<p><strong>Table 2-6 DPC++ Sample Application</strong></p>
+<table>
+<thead>
+<tr>
+<th>Board Variants</th>
+<th>Sample Application</th>
+<th>Description</th>
+<th>Link to Samples Repository</th>
+<th>Location of the Sample</th>
+<th>Samples Repository Tag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><ul><li>ofs_platform-name</li></ul> <ul><li>ofs_platform-name_usm</li></ul></td>
+<td>board_test</td>
+<td>This sample measures kernel clock frequency, kernel launch latency and tests the different interfaces required by the oneAPI kernel to function correctly (e.g. host to kernel interface, kernel to EMIF as well as host to EMIF).</td>
+<td><a href="https://github.com/oneapi-src/oneAPI-samples.git">oneAPI-samples</a></td>
+<td>path-to-oneAPI-samples/oneAPI-samples/DirectProgramming/C++SYCL_FPGA/ReferenceDesigns/board_test</td>
+<td>oneAPI compiler version you are using, this sample supports usm board variant from 2024.0 oneAPI version.</td>
+</tr>
+<tr>
+<td><ul><li>ofs_n6001_iopipes</li></ul> <ul><li>ofs_n6001_usm_iopipes</li></ul></td>
+<td>io_streaming_one_pipe</td>
+<td>An FPGA code sample to perform a loopback test using SYCL* input/output (I/O) pipes to stream data through the FPGA I/O.</td>
+<td><a href="https://github.com/OFS/examples-afu.git">examples-afu</a></td>
+<td>path-to-examples-afu/examples-afu/oneapi-samples/io_streaming_one_pipe</td>
+<td>ofs-2023.3-1</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>First clone the repository and then checkout to the corresponding tag. </p>
+</pre>
+<div class="highlight"><pre><span></span><code>    git clone link-to-samples-repository
+    cd oneAPI-samples # (oneapi-samples for examples-afu repository)
+    git checkout tags/samples-repository-tag
+</code></pre></div>
+</pre>
+<blockquote>
+<p><strong>Note:</strong> For <code>link-to-samples-repository</code> and <code>samples-repository-tag</code> refer to the table 2-6.
+To check your oneAPI compiler version use the command:</p>
+</blockquote>
+<pre>
+    icpx --version
+</pre>
+
+<p>Follow steps below to compile and run oneAPI <code>board_test</code> and <code>io_streaming_one_pipe</code> binaries. Use <code>-DFPGA_DEVICE</code> in <code>cmake</code> command to provide path to the oneAPI ASP and name of board variant being compiled. For <code>board_test</code> when targeting USM board variant add <code>-DSUPPORTS_USM=1</code> flag in <code>cmake</code> command, for more information about this flag see the README file in the location of the sample, for this location refer to the table 2-6. </p>
+<p>Ensure you have sourced <code>setvars.sh</code> script located in the root of your oneAPI installation as explained in <em><a href="#23-prerequisites">Table 2-2 Initialization Script for HLD tool</a></em>.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    cd path-to-sample-location
+    mkdir build
+    cd build
+</code></pre></div>
+</pre>
+<p>Cmake for compiling <code>board_test</code> when targeting USM board variant.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    cmake -DFPGA_DEVICE=full-path-to-oneapi-asp/platform-name:board_variant -DSUPPORTS_USM=1 ..
+</code></pre></div>
+</pre>
+<p>Cmake for compiling the rest of the board variants.  </p>
+</pre>
+<div class="highlight"><pre><span></span><code>    cmake -DFPGA_DEVICE=full-path-to-oneapi-asp/platform-name:board_variant ..
+</code></pre></div>
+</pre>
+<p>Compile the design using the generated <code>Makefile</code>. The following build targets are provided:</p>
+<ul>
+<li>Generate the optimization report:</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    make report
+</code></pre></div>
+</pre>
+<ul>
+<li>Compile for FPGA hardware (takes longer to compile, targets FPGA device):</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    make fpga
+</code></pre></div>
+</pre>
+<p>Hardware compilation takes several hours to complete. Once complete, you should see <code>sample-name.fpga</code> executable generated, where sample-name could be <code>board_test</code> or <code>io_streaming_one_pipe</code>.</p>
+<p>For more information on additional environment settings required for running <code>io_streaming_one_pipe</code> sample see the README file in the location of the sample, for this location refer to the table 2-6 .</p>
+<p>Run the generated hardware executable as follows:</p>
+</pre>
+<div class="highlight"><pre><span></span><code>   ./sample-name.fpga
+</code></pre></div>
+</pre>
+<blockquote>
+<p><strong>Note:</strong> If your FPGA compile fails to meet timing requirements, the Intel oneAPI compiler prints an error message, returns an error code and deletes the generated binary. In case of timing failure, <code>*.failing_clocks.rpt</code> and <code>*.failing_paths.rpt</code> files are generated in compiled output directory <code>sample-name.fpga.prj</code>, where sample-name could be <code>board_test</code> or <code>io_streaming_one_pipe</code>. You can recompile with a different seed using <code>-Xsseed</code> option. You can pass this option using <code>USER_HARDWARE_FLAGS=-Xsseed=seed_value</code> in the <code>cmake</code> command above and recompile hardware image.</p>
+</blockquote>
+<p>To view test details and usage information using the binary, use the -help option.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    ./sample-name.fpga -help # sample-name could be board_test or io_streaming_one_pipe.
+</code></pre></div>
+</pre>
+<h3 id="27-release-vf"><strong>2.7 Release VF</strong><a class="headerlink" href="#27-release-vf" title="Permanent link">&para;</a></h3>
+<p>Once you are done with your application testing, you can release the device from vfio-pci driver using following command.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    $ sudo opae.io release -d s:b:d.vf
+</code></pre></div>
+<p></pre>
+Sample output for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform having programmed minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> is shown below.The output for Intel® Stratix 10® FPGA target platform and base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should be similar. For Intel® Stratix 10® FPGA you will need to release an extra VF as for this target 2 Vfs were created.
+</pre></p>
+<div class="highlight"><pre><span></span><code>$ sudo opae.io release -d 0000:b1:00.1
+Releasing (0x8086,0xbccf) at 0000:b1:00.1 from vfio-pci
+Rebinding (0x8086,0xbccf) at 0000:b1:00.1 to dfl-pci
+
+$ sudo opae.io ls
+[0000:b1:00.0] (0x8086, 0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+[0000:b1:00.1] (0x8086, 0xbccf) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+</code></pre></div>
+</pre>
+<h2 id="30-further-development"><strong>3.0 Further Development</strong><a class="headerlink" href="#30-further-development" title="Permanent link">&para;</a></h2>
+<p><a name="next_step_customer"></a></p>
+<p>Once you have completed running the oneAPI sample application, you can start developing your own applications.</p>
+<p>For more information about developing FPGA applications with Intel oneAPI, refer to <a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top.html">Intel® oneAPI Programming Guide</a> and <a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top.html">FPGA Optimization Guide for Intel® oneAPI Toolkits</a>.</p>
+<p>If you want to customize the oneAPI ASP, you can refer to <a href="https://ofs.github.io/ofs-2023.2/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
+<h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
+<p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
+<p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
