@@ -3444,8 +3444,8 @@
 </tbody>
 </table>
 <h5 id="1311-walkthrough-install-quartus-prime-pro-software"><strong>1.3.1.1 Walkthrough: Install Quartus Prime Pro Software</strong><a class="headerlink" href="#1311-walkthrough-install-quartus-prime-pro-software" title="Permanent link">&para;</a></h5>
-<p><strong>Intel ${{ env.QUARTUS_PP_VER_L }}</strong> is verified to work with the latest <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> release ${{ env.RELEASE }}.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.</p>
-<p>Use ${{ env.HOST_OS_L }} for compatibility with your development flow and also testing your <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> design in your platform. </p>
+<p><strong>Intel Quartus Prime Pro Version 23.3</strong> is verified to work with the latest <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> release ofs-2023.3-1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.</p>
+<p>Use RedHat® Enterprise Linux® (RHEL) 8.6 for compatibility with your development flow and also testing your <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> design in your platform. </p>
 <p>Prior to installing Quartus:</p>
 <ol>
 <li>
@@ -3479,22 +3479,22 @@
 <p>Download your required Quartus Prime Pro Linux version <a href="https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html">here</a>.</p>
 </li>
 <li>
-<p>Install required Quartus patches. The Quartus patch <code>.run</code> files can be found in the <strong>Assets</strong> tab on the <a href="${{ env.RELEASE_PATH }}"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Release GitHub page</a>. The patches for this release are ${{ env.QUARTUS_PATCHES }}.</p>
+<p>Install required Quartus patches. The Quartus patch <code>.run</code> files can be found in the <strong>Assets</strong> tab on the <a href="https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Release GitHub page</a>. The patches for this release are 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe).</p>
 </li>
 <li>
 <p>After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities <code>quartus</code>, <code>jtagconfig</code>, and <code>quartus_pgm</code> discoverable. Edit your bashrc file <code>~/.bashrc</code> to add the following line:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;Quartus<span class="w"> </span>install<span class="w"> </span>directory&gt;/quartus/bin:<span class="nv">$PATH</span>
 <a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>&lt;Quartus<span class="w"> </span>install<span class="w"> </span>directory&gt;/qsys/bin:<span class="nv">$PATH</span>
 </code></pre></div>
-<p>For example, if the Quartus install directory is /home/intelFPGA_pro/${{ env.QUARTUS_PP_VER_S } then the new line is:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/intelFPGA_pro/<span class="si">${</span><span class="p">{env.QUARTUS_PP_VER_S </span><span class="si">}</span><span class="o">}</span>/quartus/bin:<span class="nv">$PATH</span>
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/intelFPGA_pro/<span class="si">${</span><span class="p"> env.QUARTUS_PP_VER_S </span><span class="si">}</span><span class="o">}</span>/qsys/bin:<span class="nv">$PATH</span>
+<p>For example, if the Quartus install directory is /home/intelFPGA_pro/23.3 then the new line is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/intelFPGA_pro/23.3/quartus/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/home/intelFPGA_pro/23.3/qsys/bin:<span class="nv">$PATH</span>
 </code></pre></div>
 </li>
 <li>
 <p>Verify, Quartus is discoverable by opening a new shell:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>$ which quartus
-<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/home/intelFPGA_pro/${{ env.QUARTUS_PP_VER_S }/quartus/bin/quartus
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>/home/intelFPGA_pro/23.3/quartus/bin/quartus
 </code></pre></div>
 </li>
 </ol>
@@ -4942,11 +4942,7 @@
 </tr>
 <tr>
 <td>4.9.1</td>
-<td>[Modify the Ethernet Sub-System to 2x4x10GbE]</td>
-</tr>
-<tr>
-<td>4.9.2</td>
-<td>[Modify the Ethernet Sub-System to 3x4x10GbE]</td>
+<td><a href="https://ofs.github.io/ofs-2023.3/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-1x400gbe">Modify the Ethernet Sub-System to 1x400GbE</a></td>
 </tr>
 </tbody>
 </table>
