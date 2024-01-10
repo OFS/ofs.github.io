@@ -2,7 +2,7 @@
 
 [Quartus Prime Pro Version: 23.1](https://www.intel.com/content/www/us/en/search.html?ws=text#q=quartus%20prime%20pro%2023.1&sort=relevancy)
 
-Last updated: Last updated: **December 14, 2023** 
+Last updated: Last updated: **January 10, 2024** 
 
 ## Glossary
 

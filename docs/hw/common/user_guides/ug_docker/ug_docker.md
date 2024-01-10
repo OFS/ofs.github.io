@@ -1,6 +1,6 @@
 # Docker User Guide: Intel® Open FPGA Stack
 
-Last updated: **December 14, 2023** 
+Last updated: **January 10, 2024** 
 
 ## 1 Introduction
 
