@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) PCIe Attach
 
-Last updated: **December 14, 2023** 
+Last updated: **January 10, 2024** 
 
 ## **1. Introduction**
 
@@ -17,32 +17,33 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 
 *Table: FIM Development Walkthroughs*
 
-| Section | Walkthrough Name | Category |
-| --- | --- | --- |
-| 1.3.1.1 | [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
-| 1.3.1.2 | [Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1312-walkthrough-install-git-large-file-storage-extension) | Setup |
-| 1.3.2.1 | [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) | Setup |
-| 1.3.3.1 | [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) | Setup |
-| 1.3.4 | [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) | Setup |
-| 2.2.5 | [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) | Compilation |
-| 2.2.6 | [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) | Compilation |
-| 2.2.7.1 | [Change the Compilation Seed](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed) | Compilation |
-| 3.2.1 | [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#321-walkthrough-run-individual-unit-level-simulation) | Simulation |
-| 3.3.1 | [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#331-walkthrough-run-regression-unit-level-simulation) | Simulation |
-| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
-| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
-| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
-| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
-| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
-| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
-| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) | Customization |
-| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) | Customization |
-| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) | Customization |
-|4.7.1 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrate-to-a-different-agilex-device-number) | Customization |
-| 4.9.1 | [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) | Customization |
-| 4.9.2 | [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) | Customization |
-| 5.1 | [Set up JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag) | Configuration |
-| 5.2 | [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
+| Walkthrough Name | Category |
+| --- | --- |
+| [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
+| [Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1312-walkthrough-install-git-large-file-storage-extension) | Setup |
+| [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) | Setup |
+| [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) | Setup |
+| [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) | Setup |
+| [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) | Compilation |
+| [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) | Compilation |
+| [Change the Compilation Seed](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#2271-walkthrough-change-the-compilation-seed) | Compilation |
+| [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#321-walkthrough-run-individual-unit-level-simulation) | Simulation |
+| [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#331-walkthrough-run-regression-unit-level-simulation) | Simulation |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#414-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-debug-the-fim-with-signal-tap) | Customization |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
+| [Modify PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4431-walkthrough-modify-pcie-configuration-using-ofss) | Customization |
+| [Modify PCIe Configuration Using IP Preset] | Customization |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) | Customization |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-migrate-to-a-different-agilex-device-number) | Customization |
+| [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) | Customization |
+| [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#472-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) | Customization |
+| [Remove the HPS](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#481-walkthrough-remove-the-hps) | Customization |
+| [Set up JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag) | Configuration |
+| [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
 
 #### **1.1.1 Knowledge Pre-Requisites**
 
@@ -50,7 +51,7 @@ It is recommended that you have the following knowledge and skills before using 
 
 * Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2023.3/).
 * Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) for the Intel Agilex 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
-* Review of [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))].
+* Review of [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/).
 * FPGA compilation flows using Intel® Quartus® Prime Pro Edition.
 * Static Timing closure, including familiarity with the Timing Analyzer tool in Intel® Quartus® Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 * RTL (System Verilog) and coding practices to create synthesized logic.
@@ -186,20 +187,21 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 
 *Table: OFS FIM Customizations*
 
-| Section | Customization Walkthrough |
-| --- | --- |
-| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
-| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
-| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
-| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
-| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
-| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
-| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) | Customization |
-| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) | Customization |
-| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) | Customization |
-| 4.7.1 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrate-to-a-different-agilex-device-number) | Customization |
-| 4.9.1 | [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) | Customization |
-| 4.9.2 | [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) | Customization |
+| Customization Walkthrough Name |
+| --- |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#414-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-debug-the-fim-with-signal-tap) |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| [Modify PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4431-walkthrough-modify-pcie-configuration-using-ofss) |
+| [Modify PCIe Configuration Using IP Preset] |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
+| [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) |
+| [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#472-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) |
+| [Remove the HPS](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#481-walkthrough-remove-the-hps) |
 
 
 
@@ -207,7 +209,7 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 
 This section describes the components required for OFS FIM development, and provides a walkthrough for setting up the environment on your development machine.
 
-Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up the environment for deployment machines.
+Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up the environment for deployment machines.
 
 #### **1.3.1 Development Tools**
 
@@ -1265,24 +1267,25 @@ Steps:
 
 ## **4. FIM Customization**
 
-This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 *Table: FIM Customization Walkthroughs*
 
-| Section | Customization Walkthrough |
-| --- | --- |
-| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
-| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
-| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
-| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap) |
-| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
-| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) |
-| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration) |
-| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) |
-| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) |
-| 4.7.1 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrate-to-a-different-agilex-device-number) |
-| 4.9.1 | [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) |
-| 4.9.2 | [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) |
+| Customization Walkthrough Name |
+| --- |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#414-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-debug-the-fim-with-signal-tap) |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| [Modify PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4431-walkthrough-modify-pcie-configuration-using-ofss) |
+| [Modify PCIe Configuration Using IP Preset] |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim) |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
+| [Modify the Ethernet Sub-System to 2x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe) |
+| [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#472-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) |
+| [Remove the HPS](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#481-walkthrough-remove-the-hps) |
 
 ### **4.1 Adding a new module to the FIM**
 
@@ -1957,13 +1960,13 @@ Steps:
 
  
 
-#### **4.1.5 Walkthrough: Hardware test a FIM that has a new module**
+#### **4.1.4 Walkthrough: Hardware test a FIM that has a new module**
 
 Perform the following steps to program and hardware test a FIM that has had a new module added to it.
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 * This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
 
@@ -2150,7 +2153,7 @@ Steps:
   [0000:b1:00.0] (0x8086:0xbcce 0x8086:0x1771) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
   ```
 
-#### **4.1.6 Walkthrough: Debug the FIM with Signal Tap**
+#### **4.1.5 Walkthrough: Debug the FIM with Signal Tap**
 
 The following steps guide you through the process of adding a Signal Tap instance to your design. The added Signal Tap instance provides hardware to capture the desired internal signals and connect the stored trace information via JTAG. Please be aware that the added Signal Tap hardware will consume FPGA resources and may require additional floorplanning steps to accommodate these resources. Some areas of the FIM use logic lock regions and these regions may need to be re-sized.
 
@@ -2158,7 +2161,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 * This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
 
@@ -2478,9 +2481,14 @@ For more information on how to optimize the floor plan of your Partial Reconfigu
 
 * [Partial Reconfiguration Design Flow - Step 3 - Floorplan the Design](https://www.intel.com/content/www/us/en/docs/programmable/683834/21-4/step-3-floorplan-the-design.html)
 
-### **4.4 PF/VF MUX Configuration**
+### **4.4 PCIe Configuration**
 
-The PF/VF MUX is configured 
+The PCIe sub-system IP and PF/VF MUX can be modified either using the OFSS flow or the IP Presets flow. The OFSS flow supports a subset of all available PCIe Sub-system settings, while the IP Preset flow can make any available PCIe Sub-system settings change. With PCIe-SS modifcations related to the PFs and VFs, the PF/VF MUX logic is automatically configured based on the PCIe-SS configuration. The sections below describe each flow.
+
+* [PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#443-pcie-configuration-using-ofss)
+* [PCIe Configuration Using IP Presets](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#444-pcie-configuration-using-ip-presets)
+
+#### **4.4.1 PF/VF MUX Configuration**
 
 The default PF/VF MUX configuration for OFS PCIe Attach FIM for the fseries-dk can support up to 8 PFs and 2000 VFs distributed accross all PFs.
 
@@ -2495,17 +2503,56 @@ For reference FIM configurations, 0 VFs on PF0 is not supported. This is because
 | Min # of VFs | 1 on PF0 |
 | Max # of VFs | 2000 distributed across all PFs |
 
-The OFSS methodology allows you to easily reconfigure the default number of PFs and VFs on your design. 
+New PF or VF instances will automatically have a null_afu module instantiated and connected to the new PF or VF.
 
-#### **4.4.1 Walkthrough: Modify the PF/VF MUX Configuration**
+#### **4.4.2 PCIe-SS Configuration Registers**
 
-Perform the following steps to modify the PF/VF MUX configuration.
+The PCIe-SS configuration registers contain the Vendor, Device and Subsystem Vendor ID registers which are used in PCIe add-in cards to uniquely identify the card for assignment to software drivers. OFS has these registers set with Intel values for out of the box usage. If you are using OFS for a PCIe add in card that your company manufactures, then update the PCIe Subsytem Subsystem ID and Vendor ID registers as described below and change OPAE provided software code to properly operate with your company's register values.
+
+The Vendor ID is assigned to your company by the PCI-SIG (Special Interest Group). The PCI-SIG is the only body officially licensed to give out IDs. You must be a member of PCI-SIG to request your own ID. Information about joining PCI-SIG is available here: PCI-SIG. You select the Subsystem Device ID for your PCIe add in card.
+
+#### **4.4.3 PCIe Configuration Using OFSS**
+
+The general flow for using OFSS to modify the PCIe Sub-system and PF/VF MUX is as follows:
+
+1. Create or modify a PCIe OFSS file with the desired PCIe configuration. 
+2. Call this PCIe OFSS file when running the FIM build script.
+
+The *PCIe IP OFSS File Options* table lists all of the configuration options supported by the OFSS flow. Any other customizations to the PCIe sub-system must be done with the IP Presets Flow.
+
+*Table: PCIe IP OFSS File Options*
+
+| Section | Parameter | Options | Default | Description |
+| --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `pcie` | N/A | Specifies that this OFSS file configures the PCIe-SS |
+| `[settings]` | `output_name` | `pcie_ss` | N/A | Specifies the output name of the PCIe-SS IP |
+| | `preset` | *String* | N/A | OPTIONAL - Specifies the name of a PCIe-SS IP presets file to use when building the FIM. When used, a presets file will take priority over any other parameters set in this OFSS file. |
+| `[pf*]` | `num_vfs` | Integer | `0` | Specifies the number of Virtual Functions in the current PF |
+| | `bar0_address_width` | Integer | `12` | |
+| | `bar4_address_width` | Integer | `14` | |
+| | `vf_bar0_address_width` | Integer | `12` | |
+| | `ats_cap_enable` | `0` \| `1` | `0` | |
+| | `vf_ats_cap_enable` | `0` \| `1` | `0` | |
+| | `prs_ext_cap_enable` | `0` \| `1` | `0` | |
+| | `pasid_cap_enable` | `0` \| `1` | `0` | |
+| | `pci_type0_vendor_id` | 32'h Value | `0x00008086` | |
+| | `pci_type0_device_id` | 32'h Value | `0x0000bcce` | |
+| | `revision_id` | 32'h Value | `0x00000001` | |
+| | `class_code` | 32'h Value | `0x00120000` | |
+| | `subsys_vendor_id` | 32'h Value | `0x00008086` | |
+| | `subsys_dev_id` | 32'h Value | `0x00001771` | |
+| | `sriov_vf_device_id` | 32'h Value | `0x0000bccf` | |
+| | `exvf_subsysid` | 32'h Value | `0x00001771` | |
+
+##### **4.4.3.1 Walkthrough: Modify PCIe Configuration Using OFSS**
+
+Perform the following steps to use OFSS files to configure the PCIe Sub-system and PF/VF MUX. In this example, we will add a PF with 2 VFs to the default configuration.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment to test the design. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -2543,7 +2590,7 @@ Steps:
   cp $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host.ofss $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_pfvf_mod.ofss
   ```
 
-5. Configure the new `pcie_pfvf_mod.ofss` with your desired PF/VF settings. In this example we will add PF5 with 2 VFs.
+5. Configure the new `pcie_pfvf_mod.ofss` with your desired PCIe settings. In this example we will add PF5 with 2 VFs.
 
   ```bash
   [ip]
@@ -2637,6 +2684,130 @@ Steps:
     0x3e7b60a0df2d4850
     ```
 
+#### **4.4.4 PCIe Configuration Using IP Presets**
+
+The general flow for using IP Presets to modify he PCIe Sub-system is as follows:
+
+1. [OPTIONAL] Create a work directory using OFSS files if you wish to use OFSS configuration settings.
+2. Open the PCIe-SS IP and make desired modifications.
+3. Create an IP Presets file.
+4. Create an PCIe OFSS file that uses the IP Presets file.
+5. Build the FIM with the PCIe OFSS file from Step 4.
+
+##### **4.4.4.1 Walkthrough: Modify PCIe Configuration Using IP Presets**
+
+Perform the following steps to use an IP Preset file to configure the PCIe Sub-system and PF/VF MUX. In this example, we will change the Revision ID of PF0. While this modification can be done with the OFSS flow, this walkthrough is intended to show the procedure for making any PCIe configuration change using IP presets.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment to test the design. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
+
+Steps:
+
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the fseries-dk design.
+
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk
+  ```
+
+4. Open the PCIe-SS in the work directory using Quartus Parameter Editor.
+
+  ```bash
+  qsys-edit $OFS_ROOTDIR/work_fseries-dk/ipss/pcie/qip/pcie_ss.ip
+  ```
+
+5. In the **IP Parameter Editor** window, scroll down and select the **PCIe Interfaces Port Settings -> Port 0 -> PCIe0 Device Identification Registers -> PCIe0 PF0 IDs** tab. Modify the settings as desired. In this case, we are changing the **Revision ID** to `0x00000002`. You may make any desired modifications.
+
+  ![pcie_ss_mod](images/pcie_ss_mod.png)
+
+6. Once you are satisfied with your modifcations, create a new IP Preset file.
+
+  1. click **New...** in the **Presets** window.
+
+    ![](images/pcie_ss_mod_preset_new.png)
+
+  2. In the **New Preset** window, set a unique **Name** for the preset; for example, `fseries-dk-rev2`.
+
+    ![](images/pcie_ss_mod_new_preset.png)
+
+  3. Click the **...** button to set the save location for the IP Preset file to `$OFS_ROOTDIR/ipss/pcie/presets`. Set the **File Name** to match the name selected in Step 9. Click **OK**.
+
+    ![](images/pcie_ss_mod_preset_save_as.png)
+
+  4. In the **New Preset** window, click **Save**. Click **No** when prompted to add the file to the IP search path.
+
+    ![](images/remove_hps_mem_ss_ip_path.png)
+
+7. Close **IP Parameter Editor** without saving or generating HDL.
+
+8. Create a new PCIe OFSS file in the `$OFS_ROOTDIR/tools/ofss_config/pcie` directory. For example:
+
+  ```bash
+  touch $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host_mod_preset.ofss
+  ```
+
+  Insert the following into the OFSS file to specify the IP Preset file created in Step 6. 
+
+  ```
+  [ip]
+  type = pcie
+  
+  [settings]
+  output_name = pcie_ss
+  preset = fseries-dk-rev2
+  ```
+
+9. Edit the `$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss` file to call new OFSS file created in the previous step.
+
+  ```
+  [include]
+ "$OFS_ROOTDIR"/tools/ofss_config/fseries-dk_base.ofss
+ "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host_mod_preset.ofss
+ "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
+ "$OFS_ROOTDIR"/tools/ofss_config/memory/memory_ftile.ofss
+  ```
+
+10. Compile the design with the modified fseries-dk.ofss file.
+
+  ```bash
+  cd $OFS_ROOTDIR
+  
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod
+  ```
+
+11. Copy the resulting `$OFS_ROOTDIR/work_fseries-dk_pcie_mod/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
+
+12. Switch to your deployment environment.
+
+13. Program the `ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
+
+14. Use `lspci` to verify that the PCIe changes have been implemented. In this example, the **Rev** for PF0 is `02`.
+
+  ```bash
+  lspci -nvmms 98:00.0
+  ```
+
+  Example output:
+
+  ```bash
+  Slot:   98:00.0
+  Class:  1200
+  Vendor: 8086
+  Device: bcce
+  SVendor:        8086
+  SDevice:        1771
+  PhySlot:        1-1
+  Rev:    02
+  NUMANode:       1
+  IOMMUGroup:     8
+  ```
+
 ### **4.5 Minimal FIM**
 
 In a minimal FIM, the exercisers are removed. This minimal FIM is useful for HDL applications.
@@ -2651,7 +2822,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -2683,7 +2854,7 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk_1pf_1vf.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_fseries-dk_minimal_fim
   ```
 
-6. Review the `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-a-resource-utilizatio-tables) Table A-4 for the expected utilization for this Minimal FIM.
+6. Review the `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A] Table A-4 for the expected utilization for this Minimal FIM.
 
 7. Copy the resulting `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
 
@@ -2706,149 +2877,7 @@ Steps:
 
 11. You may wish to adjust the PR logic lock regions to maximize the resources available for the AFU. Refer to the [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region) section for instructions.
 
-
-
-### **4.6 PCIe-SS Configuration Registers**
-
-The PCIe-SS configuration registers contain the Vendor, Device and Subsystem Vendor ID registers which are used in PCIe add-in cards to uniquely identify the card for assignment to software drivers. OFS has these registers set with Intel values for out of the box usage. If you are using OFS for a PCIe add in card that your company manufactures, then update the PCIe Subsytem Subsystem ID and Vendor ID registers as described below and change OPAE provided software code to properly operate with your company's register values.
-
-The Vendor ID is assigned to your company by the PCI-SIG (Special Interest Group). The PCI-SIG is the only body officially licensed to give out IDs. You must be a member of PCI-SIG to request your own ID. Information about joining PCI-SIG is available here: PCI-SIG. You select the Subsystem Device ID for your PCIe add in card.
-
-#### **4.6.1 Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point**
-
-Perform the following steps to customize the PCIe Device ID and Revision number using an PCIe OFSS configuration as a starting point. While this walkthrough only changes the PCIe Device ID and Revsision number, the general modificaton flow can be used to make any modifications not natively supported by OFSS.
-
-Pre-Requisites:
-
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
-
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
-
-Steps:
-
-1. [OPTIONAL] In your deployment environment, check the current PCIe device information using `lspci` and your board `<B:D.F>`
-
-  ```bash
-  lspci -vmms
-  ```
-
-  Example output:
-
-  ```bash
-  Slot:   98:00.0
-  Class:  1200
-  Vendor: 8086
-  Device: bcce
-  SVendor:        8086
-  SDevice:        1771
-  PhySlot:        1-1
-  Rev:    01
-  NUMANode:       1
-  IOMMUGroup:     8
-  ```
-
-2. Switch to your development environment.
-
-3. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
-
-4. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
-
-5. Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the fseries-dk design.
-
-  ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod
-  ```
-
-6. Open the PCIe-SS in the work directory using Quartus Parameter Editor.
-
-  ```bash
-  qsys-edit $OFS_ROOTDIR/work_fseries-dk_pcie_mod/ipss/pcie/qip/pcie_ss.ip
-  ```
-
-7. Scroll down to the **PCIe Interfaces 0 Ports Settings** tab and select the **PCIe0 Device identification registers** tab. Modify the settings as desired. In this case, we are changing the **Device ID** to `0xbccf` and the **Revision ID** to `0x2`.
-
-  ![pcie_ss_mod](images/pcie_ss_mod.png)
-
-8. Make any other desired modifications.
-
-9. Click **Generate HDL** and save.
-
-10. Close the Quartus Parameter Editor
-
-11. Run the `compile` stage of the build script.
-
-  ```bash
-  cd $OFS_ROOTDIR
-  ./ofs-common/scripts/common/syn/build_top.sh --stage compile --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod
-  ```
-
-12. Run the `finish` stage of the build script.
-
-  ```bash
-  cd $OFS_ROOTDIR
-  ./ofs-common/scripts/common/syn/build_top.sh -p --stage finish --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod
-  ```
-
-13. Copy the resulting `$OFS_ROOTDIR/work_fseries-dk_pcie_mod/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
-
-14. Switch to your deployment environment.
-
-15. Program the `ofs_top.sof` image to the fseries-dk FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
-
-16. Use `lspci` to verify that the PCIe changes have been implemented.
-
-  ```bash
-  lspci -nvmms 98:00.0
-  ```
-
-  Example output:
-
-  ```bash
-  Slot:   98:00.0
-  Class:  1200
-  Vendor: 8086
-  Device: bccf
-  SVendor:        8086
-  SDevice:        1771
-  PhySlot:        1-1
-  Rev:    02
-  NUMANode:       1
-  IOMMUGroup:     8
-  ```
-
-  At this point in the walkthrough, the PCIe modifications are contained within the work directory. The remaining steps give instructions for copying the PCIe IP file generated in Step 8 to the source directory so that future compiles outside of this work directory will implement the modifications. Note that this will change the default IP in the source files to now target the fseries-dk.
-
-17. Switch back to your development environment.
-
-18. Copy the `pcie_ss.ip` file from the work directory and save it over the existing `pcie_ss.ip` in the source directory.
-
-  ```bash
-  cp $OFS_ROOTDIR/work_fseries-dk_pcie_mod/ipss/pcie/qip/pcie_ss.ip $OFS_ROOTDIR/ipss/pcie/qip/pcie_ss.ip
-  ```
-
-19. If you are using OFSS files for other IPs in your design, you must remove the PCIe OFSS file from the list of included OFSS files in `$OFS_ROOTDIR/tools/ofss_config/fseries-dk.ofss`
-
-20. Compile the design.
-
-  * With OFSS
-  
-    ```bash
-    cd $OFS_ROOTDIR
-  
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk_pcie_mod.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_pcie_mod_2
-    ```
-
-  * Without OFSS
-
-    ```bash
-    cd $OFS_ROOTDIR
-  
-    ./ofs-common/scripts/common/syn/build_top.sh -p fseries-dk work_fseries-dk_pcie_mod_2
-    ```
-
-21. [OPTIONAL] Repeat Steps 13 through 16 to program the generated image and verify the PCIe changes.
-
-### **4.7 Migrating to a Different Agilex Device Number**
+### **4.6 Migrating to a Different Agilex Device Number**
 
 The following instructions enable a user to change the device part number of the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile). Please be aware that this release works with Intel® Agilex® 7 FPGA devices that have F-tile for PCIe and Ethernet.  Other tiles will take further work.
 
@@ -2859,7 +2888,7 @@ You may wish to change the device part number for the following reasons
 
 The default device for the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) is AGFB027R24C2E2VR2
 
-#### **4.7.1 Walkthrough: Migrate to a Different Agilex Device Number**
+#### **4.6.1 Walkthrough: Migrate to a Different Agilex Device Number**
 
 Perform the following steps to migrate to a different Agilex Device. In this example, we will migrate from the default AGFB027R24C2E2VR2 device to AGFB027R31C2E2V. The package will change from R24C to R31C.
 
@@ -2965,7 +2994,7 @@ Steps:
 
 
 
-### **4.9 Modify the Ethernet Sub-System**
+### **4.7 Modify the Ethernet Sub-System**
 
 This section describes the flows for modifying the Ethernet Sub-System.
 
@@ -2973,7 +3002,7 @@ This section describes the flows for modifying the Ethernet Sub-System.
 
 >**Note:** The fseries-dk does not support 2x200GbE or 1x400GbE configurations.
 
-#### **4.9.1 Walkthrough: Modify the Ethernet Sub-System to 2x4x10GbE**
+#### **4.7.1 Walkthrough: Modify the Ethernet Sub-System to 2x4x10GbE**
 
 Perform the following steps to modify the Ethernet Sub-System to 2x4x10GbE. In this walkthrough, we will create a new IP presets file that will be used during the build flow.
 
@@ -3042,7 +3071,7 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_2x4x10_ftile.ofss fseries-dk work_fseries-dk_eth_2x4x10
   ```
 
-#### **4.9.2 Walkthrough: Modify the Ethernet Sub-System to 3x4x10GbE**
+#### **4.7.2 Walkthrough: Modify the Ethernet Sub-System to 3x4x10GbE**
 
 Perform the following steps to modify the Ethernet Sub-System to 3x4x10GbE. In this walkthrough, we will create a new IP presets file that will be used during the build flow.
 
@@ -3143,6 +3172,83 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_3x4x10_ftile.ofss fseries-dk work_fseries-dk_eth_12x10g
   ```
 
+### **4.8 Modifying the HPS**
+
+This section describes ways to modify the HPS.
+
+#### **4.8.1 Walkthrough: Remove the HPS**
+
+Perform the following steps to remove the HPS from the FIM design.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Run the `setup` stage of the build script to create a work directry for the ${{ env.FTLE_DK_MODEL }} design.
+
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/${{ env.FTLE_DK_MODEL }}.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss ${{ env.FTLE_DK_MODEL }} work_${{ env.FTLE_DK_MODEL }}
+  ```
+
+4. Create a Memory Sub-system IP presets file with the connection to the HPS removed.
+
+  1. In the work directory created in Step 3, open the `mem_ss.ip`
+
+    ```bash
+    qsys-edit $OFS_ROOTDIR/work_fseries-dk/ipss/mem/qip/mem_ss/mem_ss.ip
+    ```
+
+  2. In the IP Parameter Editor window that opens, remove the entries corresponding to the HPS (row #2) in the **Memory Interfaces** and **Application Interfaces** sections. To do this, click the row to be removed, then click the minus (`-`) button.
+
+    ![](images/remove_hps_mem_ss.png)
+
+  3. In the **Presets** pane, click **New...** to create a new IP presets file.
+
+    ![](images/remove_hps_mem_ss_new_preset.png)
+
+  4. In the **New Preset** window, create a unique preset name. For example, `fseries-dk-mem-no-hps`.
+
+    ![](images/remove_hps_mem_ss_new_preset_window.png)
+
+  5. Click the **...** button to select the save location of the IP presets file. In the **Save As** window, set the **Look In** field to the memory IP presets directory `$OFS_ROOTDIR/ipss/mem/qip/presets`. Set the **File Name** field to match the name selected in Step 4. Click **OK**.
+
+    ![](images/remove_hps_mem_ss_save_as.png)
+
+  6. Click **Save** in the **New Preset** window. Click **No** when prompted to add the file to the IP search path.
+
+    ![](images/remove_hps_mem_ss_ip_path.png)
+
+  7. Close **IP Parameter Editor** without saving or generating HDL.
+
+5. Edit the Memory OFSS file `$OFS_ROOTDIR/tools/ofss_config/memory/memory_ftile.ofss` to use the IP presets file generated in Step 4.
+
+  ```
+  [ip]
+  type = memory
+
+  [settings]
+  output_name = mem_ss
+  preset = fseries-dk-mem-no-hps
+  ```
+
+6. Edit `$OFS_ROOTDIR/syn/board/fseries-dk/syn_top/ofs_top.qsf` to comment out the `INCLUDE_HPS` macro definition.
+
+  ```
+  #set_global_assignment -name VERILOG_MACRO "INCLUDE_HPS"
+  ```
+
+7. Build the FIM.
+
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk work_fseries-dk_no_hps
+  ```
+
 ## **5. FPGA Configuration**
 
 Configuring the Agilex FPGA on the fseries-dk is done by programming a `SOF` image to the FPGA via JTAG using Quartus Programer.
@@ -3155,7 +3261,7 @@ Perform the following steps to establish a JTAG connection with the fseries-dk.
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [OFS Agilex PCIe Attach Getting Started Guide](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a workstation with Quartus Prime Pro Version 23.3 tools installed, specifically the `jtagconfig` tool.
 
@@ -3191,7 +3297,7 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel Agi
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
 

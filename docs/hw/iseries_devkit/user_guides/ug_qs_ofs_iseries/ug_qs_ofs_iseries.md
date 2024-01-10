@@ -1,6 +1,6 @@
 # Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
 
-Last updated: **December 14, 2023** 
+Last updated: **January 10, 2024** 
 
 ## 1.0 About This Document
 

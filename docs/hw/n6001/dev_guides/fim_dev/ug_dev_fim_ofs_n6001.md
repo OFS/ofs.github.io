@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6001-PL PCIe Attach
 
-Last updated: **December 14, 2023** 
+Last updated: **January 10, 2024** 
 
 ## **1. Introduction**
 
@@ -17,38 +17,37 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 
 *Table: FIM Development Walkthroughs*
 
-| Section | Walkthrough Name | Category |
-| --- | --- | --- |
-| 1.3.1.1 | [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
-| 1.3.1.2 | [Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1312-walkthrough-install-git-large-file-storage-extension) | Setup |
-| 1.3.2.1 | [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) | Setup |
-| 1.3.3.1 | [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) | Setup |
-| 1.3.4 | [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) | Setup |
-| 2.2.5 | [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) | Compilation |
-| 2.2.6 | [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) | Compilation |
-| 2.2.7.1 | [Change the Compilation Seed](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2271-walkthrough-change-the-compilation-seed) | Compilation |
-| 3.2.1 | [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#321-walkthrough-running-individual-unit-level-simulation) | Simulation |
-| 3.3.1 | [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#331-walkthrough-running-regression-unit-level-simulation) | Simulation |
-| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
-| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
-| 4.1.4 | [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) | Customization |
-| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
-| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
-| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
-| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
-| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#441-walkthrough-modify-the-pf/vf-mux-configuration) | Customization |
-| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) | Customization |
-| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) | Customization |
-| 4.6.2 | [Modify the PCIe IDs Without Using OFSS Flow](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#462-walkthrough-modify-the-pcie-ids-without-using-ofss-flow) | Customization |
-| 4.7.2 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-migrating-to-a-different-agilex-device-number) | Customization |
-| 4.8.1 | [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) | Customization |
-| 4.9.1 | [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) | Customization |
-| 4.9.2 | [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#492-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) | Customization |
-| 4.9.3 | [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#493-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) | Customization |
-| 4.9.4 | [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#494-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) | Customization |
-| 5.1 | [Set up JTAG](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) | Configuration |
-| 5.2 | [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
-| 5.3.1 | [Program the FPGA via RSU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) | Configuration |
+| Walkthrough Name | Category |
+| --- | --- |
+| [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
+| [Install Git Large File Storage Extension](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1312-walkthrough-install-git-large-file-storage-extension) | Setup |
+| [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) | Setup |
+| [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) | Setup |
+| [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) | Setup |
+| [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) | Compilation |
+| [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) | Compilation |
+| [Change the Compilation Seed](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2271-walkthrough-change-the-compilation-seed) | Compilation |
+| [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#321-walkthrough-run-individual-unit-level-simulation) | Simulation |
+| [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#331-walkthrough-run-regression-unit-level-simulation) | Simulation |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
+| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) | Customization |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
+| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) | Customization |
+| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) | Customization |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) | Customization |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) | Customization |
+| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) | Customization |
+| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) | Customization |
+| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) | Customization |
+| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) | Customization |
+| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) | Customization |
+| [Set up JTAG](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) | Configuration |
+| [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
+| [Program the FPGA via RSU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) | Configuration |
 
 #### **1.1.1 Knowledge Pre-Requisites**
 
@@ -56,7 +55,7 @@ It is recommended that you have the following knowledge and skills before using 
 
 * Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2023.3/).
 * Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) for the Intel Agilex 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
-* Review of [OFS Getting Started User Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
+* Review of [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
 * FPGA compilation flows using Intel® Quartus® Prime Pro Edition.
 * Static Timing closure, including familiarity with the Timing Analyzer tool in Intel® Quartus® Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 * RTL (System Verilog) and coding practices to create synthesized logic.
@@ -191,25 +190,24 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 
 *Table: OFS FIM Customization Examples*
 
-| Section | Customization Walkthrough |
-| --- | --- |
-| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
-| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
-| 4.1.4 | [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
-| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
-| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) |
-| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
-| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) |
-| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#441-walkthrough-modify-the-pf/vf-mux-configuration) |
-| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) |
-| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) |
-| 4.6.2 | [Modify the PCIe IDs Without Using OFSS Flow](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#462-walkthrough-modify-the-pcie-ids-without-using-ofss-flow) |
-| 4.7.2 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-migrating-to-a-different-agilex-device-number) |
-| 4.8.1 | [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
-| 4.9.1 | [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
-| 4.9.2 | [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#492-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
-| 4.9.3 | [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#493-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
-| 4.9.4 | [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#494-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
+| Walkthrough Name |
+| --- |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) |
+| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
+| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
+| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
+| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
+| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
+| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
 
 
 
@@ -222,7 +220,7 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 
 This section describes the components required for OFS FIM development, and provides a walkthrough for setting up the environment on your development machine.
 
-Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up the environment for deployment machines.
+Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up the environment for deployment machines.
 
 #### **1.3.1 Development Tools**
 
@@ -600,7 +598,7 @@ build_top.sh [-k] [-p] [-e] [--stage=<action>] [--ofss=<ip_config>] <build_targe
 | `-e` | None | Run only Quartus analysis and elaboration. It completes the `setup` stage, passes `-end synthesis` to the Quartus compilation flow and exits without running the `finish` stage. | Optional |
 | `--stage` | `all` \| `setup` \| `compile` \| `finish` | Controls which portion of the OFS build is run.</br>&nbsp;&nbsp;- `all`: Run all build stages (default)</br>&nbsp;&nbsp;- `setup`: Initialize a project in the work directory</br>&nbsp;&nbsp;- `compile`: Run the Quartus compilation flow on a project that was already initialized with `setup`</br>&nbsp;&nbsp;- `finish`: Complete OFS post-compilation tasks, such as generating flash images and, if `-p` is set, generating a release. | Optional |
 | `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. This parameter is consumed during the setup stage and IP is updated only inside the work tree. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | Optional |
-| `<build_target>` | `fseries-dk` \| `n6001` \| `f2000x` | Specifies which board is being targeted. | Required |
+| `<build_target>` | `n6001` | Specifies which board is being targeted. | Required |
 | `<fim_options>` | `flat` \| `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` | Used to change how the FIM is built.</br>&nbsp;&nbsp;- `flat` - Compiles a flat design (no PR assignments). This is useful for bringing up the design on a new board without dealing with PR complexity.</br>&nbsp;&nbsp;- `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;- `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:flat,null_he_lb,null_he_hssi` | Optional | 
 | `<work_dir_name>` | String | Specifies the name of the work directory in which the FIM will be built. If not specified, the default target is `$OFS_ROOTDIR/work` | Optional |
 
@@ -620,8 +618,8 @@ The OFS FIM build script can use OFSS files to easily customize design IP prior 
 
 | OFSS File Name | Location | Type | Description |
 | --- | --- | --- | --- |
-| `n6001.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `fseries-dk_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_host.ofss`</br> &nbsp;&nbsp;&bull; `iopll.ofss`</br> &nbsp;&nbsp;&bull; `memory_ftile.ofss` |
-| `n6001_1pf_1vf.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `fseries-dk_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_1pf_1vf.ofss`</br> &nbsp;&nbsp;&bull; `iopll.ofss`</br> &nbsp;&nbsp;&bull; `memory_ftile.ofss` |
+| `n6001.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `n6001_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_host.ofss`</br> &nbsp;&nbsp;&bull; `iopll.ofss`</br> &nbsp;&nbsp;&bull; `memory.ofss` |
+| `n6001_1pf_1vf.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `n6001_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_1pf_1vf.ofss`</br> &nbsp;&nbsp;&bull; `iopll.ofss`</br> &nbsp;&nbsp;&bull; `memory.ofss` |
 | `n6001_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | ofs | Defines certain attributes of the design, including the platform name, device family, fim type, part number, and device ID. |
 | `pcie_host.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (3 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs)</br>&nbsp;&nbsp;&bull; PF2 (0 VFs)</br>&nbsp;&nbsp;&bull; PF3 (0 VFs)</br>&nbsp;&nbsp;&bull; PF4 (0 VFs) |
 | `pcie_1pf_1vf.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (1 VF) |
@@ -761,7 +759,7 @@ Memory-SS presets files are stored in the `$OFS_ROOTDIR/ipss/mem/qip/presets` di
 
 ##### **2.1.2.6 HSSI IP OFSS File**
 
-An OFSS file with IP type `hssi` (e.g. `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_8x25_ftile.ofss`) is used to configure the Ethernet-SS in the FIM.
+An OFSS file with IP type `hssi` (e.g. `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_8x25.ofss`) is used to configure the Ethernet-SS in the FIM.
 
 Currently supported configuration options for an OFSS file with IP type `hssi` are described in the *HSSI OFSS File Options* table.
 
@@ -831,7 +829,7 @@ The *Generate PR Release Script Options* table describes the options for the `ge
 | Parameter | Options | Description |
 | --- | --- | --- |
 | `<PATH_OF_RELOCATABLE_PR_TREE>` | String | Specifies the location of the relocatable PR directory tree to be created. |
-| `<BOARD_TARGET>` | `n6001` \| `fseries-dk` \| `f2000x` | Specifies the name of the board target. |
+| `<BOARD_TARGET>` | `n6001` | Specifies the name of the board target. |
 | `<WORK_DIRECTORY>` | String | Specifies the existing work directory from which the relocatable PR directory tree will be created from. |
 
 After generating the relocatable build tree, it is located in the `$OFS_ROOTDIR/<WORK_DIRECTORY>/pr_build_template` directory (or the directory you specified if generated separately). The contents of this directory have the following structure:
@@ -1024,16 +1022,16 @@ The *Gen Sim Files Script Options* table describes the options for the `gen_sim_
 | Field | Options | Description | Requirement |
 | --- | --- | --- | --- |
 | `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | Platform Dependent<sup>**[1]**</sup> |
-| `<build_target>` | `fseries-dk` \| `n6001` \| `f2000x` | Specifies which board is being targeted. | Required |
+| `<build_target>` | `n6001` | Specifies which board is being targeted. | Required |
 | `<fim_options>` | `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` | Used to change how the FIM is built.</br>&nbsp;&nbsp;- `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;- `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:null_he_lb,null_he_hssi` | Optional | 
 | `<device>` | string | Specifies the device ID for the target FPGA. If not specified, the default device is parsed from the `QSF` file for the project. | Optional |
 | `<family>` | string | Specifies the family for the target FPGA. If not specified, the default family is parsed from the `QSF` file for the project. | Optional |
 
 <sup>**[1]**</sup> Using OFSS is required for the F-Tile Development Kit.
 
-Refer to the [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#321-walkthrough-running-individual-unit-level-simulation) section for an example of the simulation files generation flow.
+Refer to the [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#321-walkthrough-run-individual-unit-level-simulation) section for an example of the simulation files generation flow.
 
-When running regression tests, you may use the `-g` command line argument to generate simulation files; refer to the [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#331-walkthrough-running-regression-unit-level-simulation) section for step-by-step instructions.
+When running regression tests, you may use the `-g` command line argument to generate simulation files; refer to the [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#331-walkthrough-run-regression-unit-level-simulation) section for step-by-step instructions.
 
 ### **3.2 Individual Unit Tests**
 
@@ -1175,7 +1173,7 @@ The *Regression Unit Test Script Options* table describes the options for the `r
 | `-s` \| `--sim` | `vcs` \| `vcsmx` \| `msim` | Specifies the simulator used for the regression tests. The default simulator is `vcs` |
 | `-g` \| `--gen_sim_files` | N/A | Generate simulation files. This only needs to be done once per repo update. This is the equivalent of running the `gen_sim_files.sh` script. |
 | `-o` \| `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | 
-| `-b` \| `--board_name` | `n6000` \| `n6001` \| `fseries-dk` | Specifies the board target |
+| `-b` \| `--board_name` | `n6001` | Specifies the board target |
 | `-e` \| `--email_list` | String | Specifies email list to send results to multiple recipients |
 
 The log for each unit test that is run by the regression script is stored in a transcript file in the simulation directory of the test that was run.
@@ -1218,29 +1216,28 @@ Steps:
 
 ## **4. FIM Customization**
 
-This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
-*Table: FIM Customization Walkthroughs*
+*Table: OFS FIM Customization Examples*
 
-| Section | Walkthrough |
-| --- | --- |
-| 4.1.2 | [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
-| 4.1.3 | [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
-| 4.1.4 | [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
-| 4.1.5 | [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
-| 4.1.6 | [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) |
-| 4.2.1 | [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
-| 4.3.1 | [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) |
-| 4.4.1 | [Modify the PF/VF MUX Configuration](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs/#441-walkthrough-modify-the-pf/vf-mux-configuration) |
-| 4.5.1 | [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) |
-| 4.6.1 | [Modify the PCIe IDs using OFSS Configuration Starting Point](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point) |
-| 4.6.2 | [Modify the PCIe IDs Without Using OFSS Flow](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#462-walkthrough-modify-the-pcie-ids-without-using-ofss-flow) |
-| 4.7.2 | [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-migrating-to-a-different-agilex-device-number) |
-| 4.8.1 | [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
-| 4.9.1 | [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
-| 4.9.2 | [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#492-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
-| 4.9.3 | [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#493-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
-| 4.9.4 | [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#494-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
+| Walkthrough Name |
+| --- |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) |
+| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
+| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
+| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
+| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
+| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
+| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
 
 ### **4.1 Adding a new module to the FIM**
 
@@ -2097,7 +2094,7 @@ Perform the following steps to program and hardware test a FIM that has had a ne
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
 
@@ -2292,7 +2289,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
 
@@ -2542,8 +2539,14 @@ For more information on how to optimize the floor plan of your Partial Reconfigu
 
 * [Partial Reconfiguration Design Flow - Step 3 - Floorplan the Design](https://www.intel.com/content/www/us/en/docs/programmable/683834/21-4/step-3-floorplan-the-design.html)
 
+### **4.4 PCIe Configuration**
 
-### **4.4 PF/VF MUX Configuration**
+The PCIe sub-system IP and PF/VF MUX can be modified either using the OFSS flow or the IP Presets flow. The OFSS flow supports a subset of all available PCIe Sub-system settings, while the IP Preset flow can make any available PCIe Sub-system settings change. With PCIe-SS modifcations related to the PFs and VFs, the PF/VF MUX logic is automatically configured based on the PCIe-SS configuration. The sections below describe each flow.
+
+* [PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#443-pcie-configuration-using-ofss)
+* [PCIe Configuration Using IP Presets]
+
+#### **4.4.1 PF/VF MUX Configuration**
 
 The default PF/VF MUX configuration for OFS PCIe Attach FIM for the n6001 can support up to 8 PFs and 2000 VFs distributed accross all PFs.
 
@@ -2558,9 +2561,48 @@ For reference FIM configurations, 0 VFs on PF0 is not supported. This is because
 | Min # of VFs | 1 on PF0 |
 | Max # of VFs | 2000 distributed across all PFs |
 
-The OFSS methodology allows you to easily reconfigure the default number of PFs and VFs on your design. 
+New PF or VF instances will automatically have a null_afu module instantiated and connected to the new PF or VF.
 
-#### **4.4.1 Walkthrough: Modify the PF/VF MUX Configuration**
+#### **4.4.2 PCIe-SS Configuration Registers**
+
+The PCIe-SS configuration registers contain the Vendor, Device and Subsystem Vendor ID registers which are used in PCIe add-in cards to uniquely identify the card for assignment to software drivers. OFS has these registers set with Intel values for out of the box usage. If you are using OFS for a PCIe add in card that your company manufactures, then update the PCIe Subsytem Subsystem ID and Vendor ID registers as described below and change OPAE provided software code to properly operate with your company's register values.
+
+The Vendor ID is assigned to your company by the PCI-SIG (Special Interest Group). The PCI-SIG is the only body officially licensed to give out IDs. You must be a member of PCI-SIG to request your own ID. Information about joining PCI-SIG is available here: PCI-SIG. You select the Subsystem Device ID for your PCIe add in card.
+
+#### **4.4.3 PCIe Configuration Using OFSS**
+
+The general flow for using OFSS to modify the PCIe Sub-system and PF/VF MUX is as follows:
+
+1. Create or modify a PCIe OFSS file with the desired PCIe configuration. 
+2. Call this PCIe OFSS file when running the FIM build script.
+
+The *PCIe IP OFSS File Options* table lists all of the configuration options supported by the OFSS flow. Any other customizations to the PCIe sub-system must be done with the IP Presets Flow.
+
+*Table: PCIe IP OFSS File Options*
+
+| Section | Parameter | Options | Default | Description |
+| --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `pcie` | N/A | Specifies that this OFSS file configures the PCIe-SS |
+| `[settings]` | `output_name` | `pcie_ss` | N/A | Specifies the output name of the PCIe-SS IP |
+| | `preset` | *String* | N/A | OPTIONAL - Specifies the name of a PCIe-SS IP presets file to use when building the FIM. When used, a presets file will take priority over any other parameters set in this OFSS file. |
+| `[pf*]` | `num_vfs` | Integer | `0` | Specifies the number of Virtual Functions in the current PF |
+| | `bar0_address_width` | Integer | `12` | |
+| | `bar4_address_width` | Integer | `14` | |
+| | `vf_bar0_address_width` | Integer | `12` | |
+| | `ats_cap_enable` | `0` \| `1` | `0` | |
+| | `vf_ats_cap_enable` | `0` \| `1` | `0` | |
+| | `prs_ext_cap_enable` | `0` \| `1` | `0` | |
+| | `pasid_cap_enable` | `0` \| `1` | `0` | |
+| | `pci_type0_vendor_id` | 32'h Value | `0x00008086` | |
+| | `pci_type0_device_id` | 32'h Value | `0x0000bcce` | |
+| | `revision_id` | 32'h Value | `0x00000001` | |
+| | `class_code` | 32'h Value | `0x00120000` | |
+| | `subsys_vendor_id` | 32'h Value | `0x00008086` | |
+| | `subsys_dev_id` | 32'h Value | `0x00001771` | |
+| | `sriov_vf_device_id` | 32'h Value | `0x0000bccf` | |
+| | `exvf_subsysid` | 32'h Value | `0x00001771` | |
+
+##### **4.4.3.1 Walkthrough: Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS**
 
 Perform the following steps to modify the PF/VF MUX configuration.
 
@@ -2568,7 +2610,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -2606,7 +2648,7 @@ Steps:
   cp $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host.ofss $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_pfvf_mod.ofss
   ```
 
-5. Configure the new `pcie_pfvf_mod.ofss` with your desired PF/VF settings. In this example we will add PF5 with 2 VFs.
+5. Configure the new `pcie_pfvf_mod.ofss` with your desired settings. In this example we will add PF5 with 2 VFs.
 
   ```bash
   [ip]
@@ -2657,7 +2699,7 @@ Steps:
 
 10. Program the `.bin` image to the n6001 FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
 
-11. Verify the number of VFs on the newly added PF5. In this example, we defined 2 VFs on PF5 in Step 5.
+11. Verify the number of VFs on the newly added PF8. In this example, we defined 2 VFs on PF5 in Step 5.
 
   ```bash
   sudo lspci -vvv -s 98:00.5 | grep VF
@@ -2700,6 +2742,133 @@ The GUID for every new PF/VF CSR stub is the same.
     0x3e7b60a0df2d4850
     ```
 
+#### **4.4.4 PCIe Sub-System configuration Using IP Presets**
+
+The general flow for using IP Presets to modify he PCIe Sub-system is as follows:
+
+1. [OPTIONAL] Create a work directory using OFSS files if you wish to use OFSS configuration settings as a starting point.
+2. Open the PCIe-SS IP and make desired modifications.
+3. Create an IP Presets file.
+4. Create an PCIe OFSS file that uses the IP Presets file.
+5. Build the FIM with the PCIe OFSS file from Step 4.
+
+##### **4.4.4.1 Walkthrough: Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets**
+
+Perform the following steps to use an IP preset file to configure the PCIe Sub-system and PF/VF MUX. In this example, we will change the Revision ID of PF0. While this modification can be done with the OFSS flow, this walkthrough is intended to show the procedure for making any PCIe configuration change using IP presets.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment to test the design. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+
+Steps:
+
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. [OPTIONAL] Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the n6001 design.
+
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/n6001.ofss n6001 work_n6001
+  ```
+
+4. Open the PCIe-SS in the work directory using Quartus Parameter Editor. If you performed Step 3, open the PCIe-SS IP from the work directory; otherwise, open the PCIe-SS IP from the source files.
+
+  ```bash
+  qsys-edit $OFS_ROOTDIR/work_n6001/ipss/pcie/qip/pcie_ss.ip
+  ```
+
+5. Modify the settings as desired. In this example we are changing the **Device ID** to `0xbccf` and the **Revision ID** to `0x2`. In the **IP Parameter Editor**, scroll down and expand the **PCIe Interfaces Ports Settings -> Port 0 -> PCIe0 Device Identification Registers -> PCIe0 PF0 IDs** tab and make these changes.
+
+  ![pcie_ss_mod](images/pcie_ss_mod.png)
+
+6. Once you are satisfied with your modifcations, create a new IP Preset file.
+
+  1. click **New...** in the **Presets** window.
+
+    ![](images/pcie_ss_mod_preset_new.png)
+
+  2. In the **New Preset** window, set a unique **Name** for the preset; for example, `n6001-rev2`.
+
+    ![](images/pcie_ss_mod_new_preset.png)
+
+  3. Click the **...** button to set the save location for the IP Preset file to `$OFS_ROOTDIR/ipss/pcie/presets`. Set the **File Name** to match the name selected in Step 9. Click **OK**.
+
+    ![](images/pcie_ss_mod_preset_save_as.png)
+
+  4. In the **New Preset** window, click **Save**. Click **No** when prompted to add the file to the IP search path.
+
+    ![](images/preset_ip_path_no.png)
+
+9. Close **IP Parameter Editor** without saving or generating HDL.
+
+10. Create a new PCIe OFSS file in the `$OFS_ROOTDIR/tools/ofss_config/pcie` directory. For example:
+
+  ```bash
+  touch $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host_mod_preset.ofss
+  ```
+
+  Insert the following into the OFSS file to specify the IP Preset file created in Step 6. 
+
+  ```
+  [ip]
+  type = pcie
+  
+  [settings]
+  output_name = pcie_ss
+  preset = n6001-rev2
+  ```
+
+11. Edit the `$OFS_ROOTDIR/tools/ofss_config/n6001.ofss` file to call new OFSS file created in Step 10.
+
+  ```
+  [include]
+ "$OFS_ROOTDIR"/tools/ofss_config/n6001_base.ofss
+ "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host_mod_preset.ofss
+ "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
+ "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
+  ```
+
+12. Compile the design with the modified n6001.ofss file.
+
+  ```bash
+  cd $OFS_ROOTDIR
+  
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss,tools/ofss_config/hssi/hssi_8x25.ofss n6001 work_n6001_pcie_mod
+  ```
+
+
+9. Copy the resulting `$OFS_ROOTDIR/work_n6001_pcie_mod/syn/board/n6001/syn_top/output_files/ofs_top_hps.sof` image to your deployment environmenment for JTAG programming, or copy a `bin` file (e.g. `ofs_top_page1_unsigned_user1.bin`) for RSU programming.
+
+  >**Note:** OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to program the FPGA via JTAG to load the test FPGA image.  If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command `fpgasupdate`.
+
+10. Switch to your deployment environment.
+
+11. Program the image to the n6001 FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step JTAG programming instructions, or the [Program the FPGA via RSU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step RSU programming instructions.
+
+16. Use `lspci` to verify that the PCIe changes have been implemented.
+
+  ```bash
+  lspci -nvmms 98:00.0
+  ```
+
+  Example output:
+
+  ```bash
+  Slot:   98:00.0
+  Class:  1200
+  Vendor: 8086
+  Device: bcce
+  SVendor:        8086
+  SDevice:        1771
+  PhySlot:        1-1
+  Rev:    02
+  NUMANode:       1
+  IOMMUGroup:     8
+  ```
+
 ### **4.5 Minimal FIM**
 
 In a minimal FIM, the exercisers and Ethernet subsystem are removed and a new AFU PR area is used to make use of the added area from the removed components. This minimal FIM is useful for HDL applications.
@@ -2712,7 +2881,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -2744,7 +2913,7 @@ Steps:
 
   >**Note:** The `n6001_1pf_1vf.ofss` file has already been created for you in the default repository.
 
-5. Review the `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#appendix-a-resource-utilizatio-tables) *Table A-4* for the expected utilization for this Minimal FIM.
+5. Review the `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A] *Table A-4* for the expected utilization for this Minimal FIM.
 
 6. Copy the resulting `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
 
@@ -2765,239 +2934,7 @@ Steps:
   VF Migration: offset: 00000000, BIR: 0
   ```
 
-### **4.6 PCIe-SS Configuration Registers**
-
-The PCIe-SS configuration registers contain the Vendor, Device and Subsystem Vendor ID registers which are used in PCIe add-in cards to uniquely identify the card for assignment to software drivers. OFS has these registers set with Intel values for out of the box usage. If you are using OFS for a PCIe add in card that your company manufactures, then update the PCIe Subsytem Subsystem ID and Vendor ID registers as described below and change OPAE provided software code to properly operate with your company's register values. The changes to software required to work with new PCIe settings are described in [Software Reference Manual: Open FPGA Stack]
-
-The Vendor ID is assigned to your company by the PCI-SIG (Special Interest Group). The PCI-SIG is the only body officially licensed to give out IDs. You must be a member of PCI-SIG to request your own ID. Information about joining PCI-SIG is available here: PCI-SIG. You select the Subsystem Device ID for your PCIe add in card.
-
-The two walkthroughs in this section make the same modifications, however one flow uses a PCIe OFSS configuration as a starting point, while the other does not.
-
-#### **4.6.1 Walkthrough: Modify the PCIe IDs using OFSS Configuration Starting Point**
-
-Perform the following steps to customize the PCIe Device ID and Revision number using an PCIe OFSS configuration as a starting point. This is useful if you would like to leverage PCIe OFSS to make natively supported modifications (e.g. modify the PF/VF MUX), then manually make additional modifications not natively supported by OFSS.
-
-Pre-Requisites:
-
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
-
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
-
-Steps:
-
-1. [OPTIONAL] In your deployment environment, check the current PCIe device information using `lspci` and your board `<B:D.F>`
-
-  ```bash
-  lspci -vmms
-  ```
-
-  Example output:
-
-  ```bash
-  Slot:   98:00.0
-  Class:  1200
-  Vendor: 8086
-  Device: bcce
-  SVendor:        8086
-  SDevice:        1771
-  PhySlot:        1-1
-  Rev:    01
-  NUMANode:       1
-  IOMMUGroup:     8
-  ```
-
-2. Switch to your development environment.
-
-3. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
-
-4. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
-
-5. Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the n6001 design.
-
-  ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/n6001.ofss n6001 work_n6001_pcie_mod
-  ```
-
-6. Open the PCIe-SS in the work directory using Quartus Parameter Editor.
-
-  ```bash
-  cd $OFS_ROOTDIR/work_n6001_pcie_mod/ipss/pcie/qip
-
-  qsys-edit pcie_ss.ip
-  ```
-
-7. Scroll down to the **PCIe Interfaces 0 Ports Settings** tab and select the **PCIe0 Device identification registers** tab. Modify the settings as desired. In this case, we are changing the **Device ID** to `0xbccf` and the **Revision ID** to `0x2`.
-
-  ![pcie_ss_mod](images/pcie_ss_mod.png)
-
-8. Make any other desired modifications.
-
-9. Click **Generate HDL** and save.
-
-10. Close the Quartus Parameter Editor
-
-11. Run the `compile` stage of the build script.
-
-  ```bash
-  cd $OFS_ROOTDIR
-  ./ofs-common/scripts/common/syn/build_top.sh --stage compile --ofss tools/ofss_config/n6001.ofss n6001 work_n6001_pcie_mod
-  ```
-
-12. Run the `finish` stage of the build script.
-
-  ```bash
-  cd $OFS_ROOTDIR
-  ./ofs-common/scripts/common/syn/build_top.sh -p --stage finish --ofss tools/ofss_config/n6001.ofss n6001 work_n6001_pcie_mod
-  ```
-
-13. Copy the resulting `$OFS_ROOTDIR/work_n6001_pcie_mod/syn/board/n6001/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
-
-14. Switch to your deployment environment.
-
-15. Program the `.bin` image to the n6001 FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
-
-16. Use `lspci` to verify that the PCIe changes have been implemented.
-
-  ```bash
-  lspci -nvmms 98:00.0
-  ```
-
-  Example output:
-
-  ```bash
-  Slot:   98:00.0
-  Class:  1200
-  Vendor: 8086
-  Device: bccf
-  SVendor:        8086
-  SDevice:        1771
-  PhySlot:        1-1
-  Rev:    02
-  NUMANode:       1
-  IOMMUGroup:     8
-  ```
-
-At this point in the walkthrough, the PCIe modifications are contained within the work directory. The remaining steps give instructions for copying the PCIe IP file generated in Step 8 to the source directory so that future compiles outside of this work directory will implement the modifications.
-
-17. Switch back to your development environment.
-
-18. Copy the `pcie_ss.ip` file from the work directory and save it over the existing `pcie_ss.ip` in the source directory.
-
-  ```bash
-  cp $OFS_ROOTDIR/work_n6001_pcie_mod/ipss/pcie/qip/pcie_ss.ip $OFS_ROOTDIR/ipss/pcie/qip/pcie_ss.ip
-  ```
-
-19. If you are using OFSS files for other IPs in your design, you must remove the PCIe OFSS file from the list of included OFSS files in `$OFS_ROOTDIR/tools/ofss_config/n6001.ofss`
-
-20. Compile the design.
-
-  * With OFSS
-  
-    ```bash
-    cd $OFS_ROOTDIR
-  
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001_pcie_mod.ofss n6001 work_n6001_pcie_mod_2
-    ```
-
-  * Without OFSS
-
-    ```bash
-    cd $OFS_ROOTDIR
-  
-    ./ofs-common/scripts/common/syn/build_top.sh -p n6001 work_n6001_pcie_mod_2
-    ```
-
-21. [OPTIONAL] Repeat Steps 13 through 16 to program the generated image and verify the PCIe changes.
-
-#### **4.6.2 Walkthrough: Modify the PCIe IDs Without Using OFSS Flow**
-
-Perform the following steps to customize the PCIe Device ID and Revision number without using the OFSS flow.
-
-Pre-Requisites:
-
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
-
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
-
-Steps:
-
-1. [OPTIONAL] In your deployment environment, check the current PCIe device information using `lspci` and your board `<B:D.F>`
-
-  ```bash
-  lspci -vmms
-  ```
-
-  Example output:
-
-  ```bash
-  Slot:   98:00.0
-  Class:  1200
-  Vendor: 8086
-  Device: bcce
-  SVendor:        8086
-  SDevice:        1771
-  PhySlot:        1-1
-  Rev:    01
-  NUMANode:       1
-  IOMMUGroup:     8
-  ```
-
-2. Switch to your development environment.
-
-3. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
-
-4. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
-
-5. Open the PCIe-SS IP in Quartus Parameter Editor.
-
-  ```bash
-  qsys-edit $OFS_ROOTDIR/ipss/pcie/qip/pcie_ss.ip
-  ```
-
-6. Scroll down to the **PCIe Interfaces 0 Ports Settings** tab and select the **PCIe0 Device identification registers** tab. Modify the settings as desired. In this case, we are changing the **Device ID** to `0xbccf` and the **Revision ID** to `0x2`.
-
-  ![pcie_ss_mod](images/pcie_ss_mod.png)
-
-7. Click Generate HDL and save. 
-
-8. Build your new FPGA image with build_top.sh script
-
-  ```bash
-  cd $OFS_ROOTDIR
-
-  ./ofs-common/scripts/common/syn/build_top.sh -p n6001 work_n6001_pcie_mod
-  ```
-
->**Note:** OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to program the FPGA via JTAG to load the test FPGA image.  If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command `fpgasupdate`.
-
-9. Copy the resulting `$OFS_ROOTDIR/work_n6001_pcie_mod/syn/board/n6001/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
-
-10. Switch to your deployment environment.
-
-11. Program the `ofs_top.sof` image to the n6001 FPGA via JTAG. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step programming instructions.
-
-12. Use `lspci` to verify that the PCIe changes have been implemented.
-
-  ```bash
-  lspci -nvmms 98:00.0
-  ```
-
-  Example output:
-
-  ```bash
-  Slot:   98:00.0
-  Class:  1200
-  Vendor: 8086
-  Device: bccf
-  SVendor:        8086
-  SDevice:        1771
-  PhySlot:        1-1
-  Rev:    02
-  NUMANode:       1
-  IOMMUGroup:     8
-  ```
-
-### **4.7 Migrate to a Different Agilex Device Number**
+### **4.6 Migrate to a Different Agilex Device Number**
 
 The following instructions enable a user to change the device part number of the Intel® FPGA SmartNIC N6001-PL. Please be aware that this release works with Intel® Agilex® 7 FPGA devices that have P tile for PCIe and E tile for Ethernet.  Other tiles will take further work.
 
@@ -3008,7 +2945,7 @@ You may wish to change the device part number for the following reasons
 
 The default device for the Intel® FPGA SmartNIC N6001-PL is AGFB014R24A2E2V
 
-#### **4.7.1 Walkthrough: Migrate to a Different Agilex Device Number**
+#### **4.6.1 Walkthrough: Migrate to a Different Agilex Device Number**
 
 Perform the following steps to migrate your design to target a different Agilex device using the OFSS build flow. In this example we will change the device from the default `AGFB014R24A2E2V` to a new device `AGFB022R25A2E2V`.
 
@@ -3204,11 +3141,11 @@ Steps:
   $OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl
   ```
 
-### **4.8 Modify the Memory Sub-System**
+### **4.7 Modify the Memory Sub-System**
 
 OFS allows modifications on the Memory Sub-System in the FIM. This section provides examples walkthroughs for modifiying the Memory-SS.
 
-#### **4.8.1 Walkthrough: Modify the Memory Sub-System Using IP Presets With OFSS**
+#### **4.7.1 Walkthrough: Modify the Memory Sub-System Using IP Presets With OFSS**
 
 This walkthrough will go through the flow of modifying the Memory-SS in the OFS FIM. In this example, we will enable ECC on memory channels 0-3. Note that routes for the ECC pins on Channels 0 and 1 are not physiclly present on standard n6001 board hardware; the purpose of this walkthrough is only to show an example of how to make modifications to the IP.
 
@@ -3346,7 +3283,7 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss,tools/ofss_config/hssi/hssi_8x25.ofss n6001 work_n6001_mem_ecc_preset
   ```
 
-### **4.9 Modify the Ethernet Sub-System**
+### **4.8 Modify the Ethernet Sub-System**
 
 This section describes the flows for modifying the Ethernet Sub-System. There are three flows you may use to make modifications.
 
@@ -3354,9 +3291,9 @@ This section describes the flows for modifying the Ethernet Sub-System. There ar
 * Modify the Ethernet Sub-System with OFSS supported changes, then make additional custom modifications not covered by OFSS. These modifications will be captured in a presets file which can be used in future compiles. This flow is useful for users who whish to leverage pre-made HSSI OFSS settings, but make additional modifications not natively supported by HSSI OFSS.
 * Modify the Ethernet Sub-System without HSSI OFSS. These modification will be made directly in the source files.
 
-#### **4.9.1 Walkthrough: Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS**
+#### **4.8.1 Walkthrough: Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS**
 
-This walkthrough describes how to use OFSS to configure the Ethernet-SS. Refer to section [HSSI IP OFSS File] for detailed information about modifications supported by Ethernet-SS OFSS files. This walkthrough is useful for users who only need to leverage the pre-made, natively supported HSSI OFSS settings.
+This walkthrough describes how to use OFSS to configure the Ethernet-SS. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This walkthrough is useful for users who only need to leverage the pre-made, natively supported HSSI OFSS settings.
 
 Pre-Requisites:
 
@@ -3398,7 +3335,7 @@ Steps:
 
 5. The resulting FIM will contain the Ethernet-SS configuration specified in Step 3. The Ethernet-SS IP in the resulting work directory shows the parameter settings that are used.
 
-#### **4.9.2 Walkthrough: Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS**
+#### **4.8.2 Walkthrough: Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS**
 
 This walkthrough describes how to create an use a custom OFSS file to add channels to the Ethernet-SS and compile a design with a 3x4x10GbE Ethernet-SS configuration. This walkthrough is useful for users who wish to leverage the natively supported HSSI OFSS settings.
 
@@ -3467,9 +3404,9 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001:flat work_n6001_12x10
   ```
 
-#### **4.9.3 Walkthrough: Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications**
+#### **4.8.3 Walkthrough: Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications**
 
-This walkthrough describes how to use OFSS to first modify the Ethernet-SS, then make additional modifications on top. Refer to section [HSSI IP OFSS File] for detailed information about modifications supported by Ethernet-SS OFSS files. This flow is useful for users who whish to leverage pre-made OFSS settings, but make additional modifications not natively supported by OFSS.
+This walkthrough describes how to use OFSS to first modify the Ethernet-SS, then make additional modifications on top. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This flow is useful for users who whish to leverage pre-made OFSS settings, but make additional modifications not natively supported by OFSS.
 
 Pre-Requisites:
 
@@ -3563,7 +3500,7 @@ Steps:
 
 14. The resulting FIM will contain the Ethernet-SS configuration specified by the presets file. The Ethernet-SS IP in the resulting work directory shows the parameter settings that are used.
 
-#### **4.9.4 Walkthrough: Modify the Ethernet Sub-System Without HSSI OFSS**
+#### **4.8.4 Walkthrough: Modify the Ethernet Sub-System Without HSSI OFSS**
 
 This walkthrough describes how to modify the Ethernet-SS wihout using OFSS. This flow will edit the Ethernet-SS IP source directly. This walkthrough is useful for users who wish to make all Ethernet-SS modifications manually, without leveraging HSSI OFSS.
 
@@ -3613,7 +3550,7 @@ Perform the following steps to set up a JTAG connection to the Intel® FPGA Smar
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a workstation with Quartus Prime Pro Version 23.3 tools installed, specifically the `jtagconfig` tool.
 
@@ -3680,7 +3617,7 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® F
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
 
@@ -3817,7 +3754,7 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® F
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
 

@@ -11,16 +11,17 @@
 
 [Partial Reconfiguration Design Flow - Step 3 - Floorplan the Design]: https://www.intel.com/content/www/us/en/docs/programmable/683834/21-4/step-3-floorplan-the-design.html
 
+
 [Introduction]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1-introduction
-[About This Document]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#11-about-this-document
+[About This Document]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim/dev/#11-about-this-document
 [Knowledge Pre-Requisites]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#111-knowledge-pre-requisites
-[FIM Development Theory]:https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#12-fim-development-theory
+[FIM Development Theory]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#12-fim-development-theory
 [Default FIM Features]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#121-default-fim-features
 [Top Level]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1211-top-level
 [Interfaces]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1212-interfaces
 [Subsystems]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1213-subsystems
 [Host Exercisers]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1214-host-exercisers
-[Module Access via APF/BPF]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1215-module-access-via-apf/bpf
+[Module Access via APF/BPF]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1215-module-access-via-apf-bpf
 [Customization Options]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#122-customization-options
 [Development Environment]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#13-development-environment
 [Development Tools]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#131-development-tools
@@ -60,31 +61,35 @@
 [FIM Customization]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4-fim-customization
 [Adding a new module to the FIM]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#41-adding-a-new-module-to-the-fim
 [Hello FIM Theory of Operation]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#411-hello-fim-theory-of-operation
-[Hello FIM Board Peripheral Fabric (BPF)]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4111-hello-fim-board-peripheral-fabric-(bpf)
+[Hello FIM Board Peripheral Fabric (BPF)]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4111-hello-fim-board-peripheral-fabric-bpf
 [Hello FIM CSR]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4112-hello-fim-csr
 [Add a new module to the OFS FIM]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#412-walkthrough-add-a-new-module-to-the-ofs-fim
 [Modify and run unit tests for a FIM that has a new module]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module
-[Hardware test a FIM that has a new module]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module
-[Debug the FIM with Signal Tap]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#416-walkthrough-debug-the-fim-with-signal-tap
+[Hardware test a FIM that has a new module]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#414-walkthrough-hardware-test-a-fim-that-has-a-new-module
+[Debug the FIM with Signal Tap]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#415-walkthrough-debug-the-fim-with-signal-tap
 [Preparing FIM for AFU Development]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#42-preparing-fim-for-afu-development
 [Compile the FIM in preparation for designing your AFU]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu
 [Partial Reconfiguration Region]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#43-partial-reconfiguration-region
 [Resize the Partial Reconfiguration Region]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#431-walkthrough-resize-the-partial-reconfiguration-region
-[PF/VF MUX Configuration]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#44-pf/vf-mux-configuration
-[Modify the PF/VF MUX Configuration]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-walkthrough-modify-the-pfvf-mux-configuration
+[PCIe Configuration]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#44-pcie-configuration
+[PF/VF MUX Configuration]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#441-pfvf-mux-configuration
+[PCIe-SS Configuration Registers]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#442-pcie-ss-configuration-registers
+[PCIe Configuration Using OFSS]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#443-pcie-configuration-using-ofss
+[Modify PCIe Configuration Using OFSS]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4431-walkthrough-modify-pcie-configuration-using-ofss
+[PCIe Configuration Using IP Presets]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#444-pcie-configuration-using-ip-presets
+[Modify PCIe Configuration Using IP Presets]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#4441-walkthrough-modify-pcie-configuration-using-ip-presets
 [Minimal FIM]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#45-minimal-fim
 [Create a Minimal FIM]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#451-walkthrough-create-a-minimal-fim
-[PCIe-SS Configuration Registers]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#46-pcie-ss-configuration-registers
-[Modify the PCIe IDs using OFSS Configuration Starting Point]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-modify-the-pcie-ids-using-ofss-configuration-starting-point
-[Migrating to a Different Agilex Device Number]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#47-migrating-to-a-different-agilex-device-number
-[Migrate to a Different Agilex Device Number]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-migrate-to-a-different-agilex-device-number
-[Modify the Memory Sub-System]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#48-modify-the-memory-sub-system
-[Modify the Ethernet Sub-System]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#49-modify-the-ethernet-sub-system
-[Modify the Ethernet Sub-System to 2x4x10GbE]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#491-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe
-[Modify the Ethernet Sub-System to 3x4x10GbE]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#492-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe
+[Migrating to a Different Agilex Device Number]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#46-migrating-to-a-different-agilex-device-number
+[Migrate to a Different Agilex Device Number]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#461-walkthrough-migrate-to-a-different-agilex-device-number
+[Modify the Ethernet Sub-System]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#47-modify-the-ethernet-sub-system
+[Modify the Ethernet Sub-System to 2x4x10GbE]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#471-walkthrough-modify-the-ethernet-sub-system-to-2x4x10gbe
+[Modify the Ethernet Sub-System to 3x4x10GbE]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#472-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe
+[Modifying the HPS]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#48-modifying-the-hps
+[Remove the HPS]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#481-walkthrough-remove-the-hps
 [FPGA Configuration]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#5-fpga-configuration
 [Set up JTAG]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#51-walkthrough-set-up-jtag
 [Program the FPGA via JTAG]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#52-walkthrough-program-the-fpga-via-jtag
-
-[Appendix A]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-a-resource-utilizatio-tables
-[Appendix B]: https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-b-glossary
+[Appendix]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#0-appendix
+[Appendix A: Resource Utilization Tables]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-a-resource-utilization-tables
+[Appendix B: Glossary]: https://ofs.github.io/ofs-2023.3/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-b-glossary

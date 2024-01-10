@@ -1,6 +1,6 @@
 # **FPGA Developer Journey Guide: Open FPGA Stack**
 
-Last updated: **December 14, 2023** 
+Last updated: **January 10, 2024** 
 ## **1 Introduction**
 
 This document is intended to help you understand the FPGA developer flow using OFS as well as considerations you should take when creating your custom platform.  
