@@ -4,7 +4,7 @@
 
 ### 1.1 About This Document
 
-The purpose of this document is to help users get started in evaluating the 2023.3
+The purpose of this document is to help users get started in evaluating the 2023.3-2
  version of the Open FPGA Stack (OFS) for the Intel Agilex FPGA targeting the Intel N6001-PL FPGA SmartNIC Platform. After reviewing the document a user shall be able to:
 
 - Set up their server environment according to the Best Known Configuration (BKC)
@@ -78,7 +78,7 @@ The information in this document is intended for customers evaluating the Intel�
 
 ### 1.5 Reference Documents
 
-Documentation for N6001 is collected [on GitHub](https://ofs.github.io/hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/). The document list is as follows:
+Documentation for N6001 is collected [on GitHub](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/). The document list is as follows:
 
 #### Table 2: Reference Documents
 
@@ -98,9 +98,9 @@ Documentation for N6001 is collected [on GitHub](https://ofs.github.io/hw/n6001/
 
 ### 1.6 Component Version Summary
 
-The OFS 2023.3 Release targeting the Intel® FPGA SmartNIC N6001-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
+The OFS 2023.3-2 Release targeting the Intel® FPGA SmartNIC N6001-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
 
-The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2023.3 release.
+The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2023.3-2 release.
 
 #### Table 3: Hardware BKC
 
@@ -117,13 +117,13 @@ The following table highlights the versions of the software which compose the OF
 
 | Component | Version |
 | --------- | ------- |
-| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1> under "Known Issues"|
+| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2> under "Known Issues"|
 | OPAE SDK | [2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1)|
-| Kernel Drivers |[ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2)|
-| OneAPI-ASP | [ofs-2023.3-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-1)  |
-| OFS FIM Source Code for N6001| [ofs-2023.3-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1) |
+| Kernel Drivers |[ofs-2023.3-6.1-3](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-3)|
+| OneAPI-ASP | [ofs-2023.3-2](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-2)  |
+| OFS FIM Source Code for N6001| [ofs-2023.3-2](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2) |
 | OFS FIM Common Resources| [Tag: ofs-fim-common-1.1.0-rc2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-fim-common-1.1.0-rc2) |
-|OFS Platform AFU BBB | [ofs-2023.3-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-1) |
+|OFS Platform AFU BBB | [ofs-2023.3-2](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-2) |
 | Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.3 for Linux](https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html)  |
 | Operating System | [RedHatEnterprise Linux® (RHEL) 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software) |
 
@@ -136,7 +136,7 @@ The following table highlights the differences between N6000/1 PL FPGA SmartNIC 
 |N6000| Q1613314XXXXX | PCIe Gen 4 1x16 mechanical bifurcated 2x8 logical to host, with one PCIe Gen 4x8 endpoint reserved for Intel E810-C-CAM2 NIC, the other reserved for FIM| "Intel Acceleration Development Platform N6000"|
 |N6001| Q0216514XXXXX | PCIe Gen 4 1x16 mechanical and logical connection between host and FIM| "Intel Acceleration Development Platform N6001"|
 
-The following table highlights the programmable firmware versions that are supported on the Intel N6001-PL FPGA SmartNIC Platform in the [OFS 2023.3 release](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1). Programming and verifying these components is discussed in their respective sections.
+The following table highlights the programmable firmware versions that are supported on the Intel N6001-PL FPGA SmartNIC Platform in the [OFS 2023.3-2 release](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2). Programming and verifying these components is discussed in their respective sections.
 
 #### Table 6: Intel® FPGA SmartNIC N6001-PL Programmable Component Version Summary
 
@@ -366,6 +366,8 @@ OFS DFL driver software provides the bottom-most API to FPGA platforms. Librarie
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
+The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2).
+
 ### 3.1 OFS DFL Kernel Driver Environment Setup
 
 All OFS DFL kernel driver code resides in the [Linux DFL](https://github.com/OPAE/linux-dfl) GitHub repository. This repository is open source and should not require any permissions to access. It includes a snapshot of the Linux kernel with the OFS driver included in /drivers/fpga/*. Downloading, configuration, and compilation will be discussed in this section. The only operating systems supported out of the box by the Linux DFL kernel drivers is RHEL 8.6.
@@ -379,7 +381,7 @@ $ subscription-manager release --set=8.6
 $ sudo dnf update
 ```
 
-If you wish to install the pre-built linux-dfl package available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1) skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages).
+If you wish to install the pre-built linux-dfl package available on the [OFS 2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2) skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages).
 
 **2.** You must satisfy the following package dependencies if building and installing the drivers from source. Double check that all packages have been found and installed. The following section assumes you require use of a proxy to download from remote repositories. If you do not, then you may safely ignore all references to proxies in the following code block.
 
@@ -387,7 +389,7 @@ If you wish to install the pre-built linux-dfl package available on the [OFS 202
 # If you require the use of a proxy, add it to DNF using by editing the following file
 $ sudo nano /etc/dnf/dnf.conf
 # Include your proxy by adding the following line, replacing the URL with your proxy's URL
-# proxy=http://proxy.server.com:port
+# proxy=http://proxy.server.com:port``
 $ sudo dnf update
 $ subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 $ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
@@ -423,14 +425,14 @@ $ cd /home/OFS/
 $ git init
 $ git clone https://github.com/OFS/linux-dfl
 $ cd /home/OFS/linux-dfl
-$ git checkout tags/ofs-2023.3-6.1-2
+$ git checkout tags/ofs-2023.3-6.1-3
 ```
 
 **4.** Verify that the correct tag/branch have been checkout out.
 
 ```bash
 $ git describe --tags
-ofs-2023.3-6.1-2
+ofs-2023.3-6.1-3
 ```
 
 *Note: If two different tagged releases are tied to the same commit, running git describe tags may report the other release's tag. This is why the match is made explicit.*
@@ -595,7 +597,7 @@ $ subscription-manager release --set=8.6
 $ sudo dnf update
 ```
 
-**2.** To use the pre-built Linux DFL packages, the user will need to download the files from the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
+**2.** To use the pre-built Linux DFL packages, the user will need to download the files from the [OFS 2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
 
 ```bash
 $ tar xf kernel-6.1.41_dfl-1.x86_64-<<version>>.tar.gz
@@ -609,13 +611,14 @@ $ sudo dnf localinstall kernel-6.1.41_dfl_<<version>>.src.rpm
 **3.** After installation has completed you should continue with steps 4-9 in previous section [3.2 Building and Installing the OFS DFL Kernel Drivers from Source](#32-building-and-installing-the-ofs-dfl-kernel-drivers-from-source).
 
 
-
 ## 4.0 OPAE Software Development Kit
 
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit the [opae reference](https://opae.github.io/2.3.0/index.html) page.
 
 The OPAE SDK source code is contained within a single GitHub repository
 hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
+
+The OPAE SDK can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2).
 
 ### 4.1 OPAE SDK Build Environment Setup
 
@@ -657,7 +660,7 @@ $ git describe --tags
 
 ### 4.2 Installing the OPAE SDK with Pre-Built Packages
 
-You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS ofs-2023.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/ofs-2023.3) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
+You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS ofs-2023.3-2 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
 
 ```bash
 $ dnf install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel
@@ -689,7 +692,7 @@ $ podman run -ti -v "$PWD":/src:Z -w /src registry.access.redhat.com/ubi8:8.6
 # Enable EPEL
 $ dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 
-$ dnf install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-$ devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel
+$ dnf install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel numactl-devel
 
 $ pip3 install --upgrade --prefix=/usr pip setuptools pybind11
 
@@ -987,16 +990,16 @@ The Intel® FPGA SmartNIC N6001-PL ships with a factory, user1, and user2 progra
 
 Use the following chart for information on the Bitstream ID and Pr Interface ID, two unique values reported by `fpgainfo` which can be used to identify the loaded FIM.
 
-##### Table 13: FIM Version Summary for OFS 2023.3 Release
+##### Table 13: FIM Version Summary for OFS 2023.3-2 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| ofs-2023.3| 00x50102023508A422| 1d6beb4e-86d7-5442-a763-043701fb75b7| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2023.3 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1)|
+| ofs-2023.3-2| 00x50102023508A422| 1d6beb4e-86d7-5442-a763-043701fb75b7| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2)|
 | ofs-n6001-0.9.0-rc2 |  0x50102025AD3DD11| 92ec8960-2f2f-5544-9804-075d2e8a71a1 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-n6001/releases/tag/ofs-n6001-0.9.1)|
 | OFS-2.3.0 |  0x50102022267A9ED| f59830f7-e716-5369-a8b0-e7ea897cbf82 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.3.0)|
 | OFS-2.2.0 | 0x501020295B081F0 | 8c157a52-1cf2-5d37-9514-944af0a060da | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.2.0-beta Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.2.0-beta)|
 
-##### Table 14: BMC Version Summary for OFS 2023.3 Release
+##### Table 14: BMC Version Summary for OFS 2023.3-2 Release
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
 | 3.15.0 | AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu | n/a|
@@ -1520,17 +1523,17 @@ The `hssi_loopback` utility works in conjunction with a packet generator acceler
 
 The `hssistats` tool provides the MAC statistics.
 
-## 5.0 Upgrading the Intel® FPGA SmartNIC N6001-PL with 2023.3 Version of the BMC and FIM
+## 5.0 Upgrading the Intel® FPGA SmartNIC N6001-PL with 2023.3-2 Version of the BMC and FIM
 
 If your Intel® FPGA SmartNIC N6001-PL does not have the 2022.3.1 version of the FIM and BMC, use this section to begin your upgrade process. The upgrade process depends on both the OPAE SDK and kernel drivers, which were installed in sections [3.0 Intel OFS DFL Kernel Drivers](#30-ofs-dfl-kernel-drivers) and [4.0 OPAE Software Development Kit](#40-opae-software-development-kit). Use the output of **fpgainfo** and compare against the table below to determine if an upgade is necessary.
 
-### Table 17: FIM Version Summary for Intel OFS 2023.3 Release
+### Table 17: FIM Version Summary for Intel OFS 2023.3-2 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| 1 | 00x50102023508A422 | 1d6beb4e-86d7-5442-a763-043701fb75b7 | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2023.3 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1)|
+| 1 | 00x50102023508A422 | 1d6beb4e-86d7-5442-a763-043701fb75b7 | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2)|
 
-### Table 18: BMC Version Summary for Intel OFS 2023.3 Release
+### Table 18: BMC Version Summary for Intel OFS 2023.3-2 Release
 
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
@@ -1560,7 +1563,7 @@ User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
 User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
 ```
 
-1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2023.3 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
+1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2023.3-2 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
 
 ```bash
 $ sudo fpgasupdate AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu

@@ -1,6 +1,6 @@
 # Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) 
 
-Last updated: **January 10, 2024** 
+Last updated: **February 03, 2024** 
 
 ## 1.0 About This Document
 
@@ -55,16 +55,16 @@ The information in this document is intended for customers evaluating the PCIe A
 
 #### Table 2: Software and Component Version Summary for OFS PCIe Attach targeting the F-tile Development Kit
 
-The OFS 2023.3 PCIe Attach release targeting the F-tile Development Kit is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents. 
+The OFS 2023.3 PCIe Attach release targeting the F-tile Development Kit is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents.
 
 | Component | Version | Download Link |
 | ----- | ----- | ----- |
 | Quartus | Quartus Prime Pro Version 23.3 | https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-3-for-linux.html, patches: 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe) |
 | Host Operating System |  RedHat® Enterprise Linux® (RHEL) 8.6 | https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software|
-| OneAPI-ASP| ofs-2023.3-1 | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-1, patches: 0.02 |
-| OFS Platform AFU BBB| ofs-2023.3-1 | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-1 |
-| OFS FIM Common Resources| 2023.3| https://github.com/OFS/ofs-fim-common/releases/tag/2023.3 |
-| AFU Examples| tag: ofs-2023.3-1| https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-1|
+| OneAPI-ASP| ofs-2023.3-2 | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-2, patches: 0.02 |
+| OFS Platform AFU BBB| ofs-2023.3-2 | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-2 |
+| OFS FIM Common Resources| 2023.3| https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2 |
+| AFU Examples| tag: ofs-2023.3-2| https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-2|
 | OPAE-SIM | tag: 2.10.0-1 | https://github.com/OPAE/opae-sim |
 
 #### Table 3: Programmable Firmware Version Summary for OFS PCIe Attach targeting the F-tile Development Kit
@@ -73,9 +73,9 @@ OFS releases include pre-built binaries for the FPGA, OPAE SDK and Linux DFL whi
 
 | Component | Version|  Link|
 | ----- | ----- | ----- |
-| FIM (shell) | Pr Interface ID: 5bcd682f-5093-5fc7-8cd2-ae8073e19452  | https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3 |
+| FIM (shell) | Pr Interface ID: 5bcd682f-5093-5fc7-8cd2-ae8073e19452  | https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2 |
 | Host OPAE SDK| https://github.com/OPAE/opae-sdk, tag: 2.10.0-1| https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1|
-| Host Linux DFL Drivers| https://github.com/OPAE/linux-dfl, tag: ofs-2023.3-6.1-2 | https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2|
+| Host Linux DFL Drivers| https://github.com/OPAE/linux-dfl, tag: ofs-2023.3-6.1-3 | https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-3|
 
 #### Table 4: Hardware BKC for OFS PCIe Attach targeting the F-tile Development Kit
 
@@ -194,7 +194,7 @@ This concludes the walkthrough for establishing a JTAG connection on the fseries
 
 ### 1.5 Upgrading the F-tile Development Kit FIM via JTAG
 
-Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3). After programming the shell and installing both the OPAE SDK and Linux DFL kernel drivers (as shown in sections [3.0 OFS DFL Kernel Drivers](#30-ofs-dfl-kernel-drivers) and [4.0 OPAE Software Development Kit](#4-opae-software-development-kit)), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
+Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2). After programming the shell and installing both the OPAE SDK and Linux DFL kernel drivers (as shown in sections [3.0 OFS DFL Kernel Drivers](#30-ofs-dfl-kernel-drivers) and [4.0 OPAE Software Development Kit](#4-opae-software-development-kit)), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
 
 #### Table 5: FIM Version
 
@@ -206,7 +206,7 @@ Intel provides a pre-built FIM that can be used out-of-box for platform bring-up
 You will need to download and unpack the artifact images for this release before upgrading your device. The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage, therefore if the server is power cycled, you will need to reload the FPGA .sof file.
 
 ```bash
-wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.3-1/fseries-dk-images.tar.gz
+wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.3-2/fseries-images_ofs-2023-3-2.tar.gz
 tar xf fseries-dk-images.tar.gz
 cd fseries-dk-images/
 
@@ -430,11 +430,13 @@ OFS DFL driver software provides the bottom-most API to FPGA platforms. Librarie
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
+The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2).
+
 ### 3.1 OFS DFL Kernel Driver Installation Environment Setup
 
 All OFS DFL kernel driver primary release code resides in the [Linux DFL GitHub repository](https://github.com/OFS/linux-dfl). This repository is open source and should not require any permissions to access. It includes a snapshot of the Linux kernel with the OFS driver included in `/drivers/fpga/*`. Downloading, configuration, and compilation will be discussed in this section. Refer back to section [1.2.3 Host Server Kernel and GRUB Configuration](#123-host-server-kernel-and-grub-configuration) for a list of supported Operating System(s).
 
-You can choose to install the DFL kernel drivers by either using pre-built binaries created for the BKC OS, or by building them on your local server. If you decide to use the pre-built packages available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3), skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages). Regardless of your choice you will need to follow the steps in this section to prepare your server for installation.
+You can choose to install the DFL kernel drivers by either using pre-built binaries created for the BKC OS, or by building them on your local server. If you decide to use the pre-built packages available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2), skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages). Regardless of your choice you will need to follow the steps in this section to prepare your server for installation.
 
 This installation process assumes the user has access to an internet connection to clone specific GitHub repositories, and to satisfy package dependencies.
 
@@ -476,7 +478,7 @@ It is recommended you create an empty top level directory for your OFS related r
     git init
     git clone https://github.com/OFS/linux-dfl
     cd /home/OFS/linux-dfl
-    git checkout tags/ofs-2023.3-6.1-2
+    git checkout tags/ofs-2023.3-6.1-3
     ```
 
     *Note: The linux-dfl repository is roughly 5 GB in size.*
@@ -485,7 +487,7 @@ It is recommended you create an empty top level directory for your OFS related r
     
     ```bash
     git describe --tags
-    ofs-2023.3-6.1-2
+    ofs-2023.3-6.1-3
     ```
     
     *Note: If two different tagged releases are tied to the same commit, running git describe tags may report the other release's tag. This is why the match is made explicit.*
@@ -632,7 +634,7 @@ It is recommended you create an empty top level directory for your OFS related r
 
 ### 3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages
 
-To use the pre-built Linux DFL packages, you first need to download the files from the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
+To use the pre-built Linux DFL packages, you first need to download the files from the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
 
 ```bash
 tar xf kernel-6.1.41_dfl-1.x86_64-<<version>>.tar.gz
@@ -652,7 +654,9 @@ The OPAE SDK software stack sits in user space on top of the OFS kernel drivers.
 
 The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1). This repository is open source and does not require any permissions to access.
 
-You can choose to install the OPAE SDK by either using pre-built binaries created for the BKC OS, or by building them on your local server. If you decide to use the pre-built packages available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3), skip to section [4.3 Installing the OPAE SDK with Pre-built Packages](#44-installing-the-opae-sdk-with-pre-built-packages). Regardless of your choice you will need to follow the steps in this section to prepare your server for installation.
+You can choose to install the OPAE SDK by either using pre-built binaries created for the BKC OS, or by building them on your local server. If you decide to use the pre-built packages available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2), skip to section [4.3 Installing the OPAE SDK with Pre-built Packages](#44-installing-the-opae-sdk-with-pre-built-packages). Regardless of your choice you will need to follow the steps in this section to prepare your server for installation.
+
+You may also choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2).
 
 ### 4.1 OPAE SDK Installation Environment Setup
 
@@ -741,7 +745,7 @@ This installation process assumes you have access to an internet connection in o
 
 ### 4.2 Installing the OPAE SDK with Pre-Built Packages
 
-You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2023.3) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
+You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
 
 ```bash
 tar xf opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz

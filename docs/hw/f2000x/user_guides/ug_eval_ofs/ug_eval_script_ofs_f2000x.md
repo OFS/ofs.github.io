@@ -47,16 +47,16 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | Component | Version |  Description |
 | --------- | ------- | -------|
 | FPGA Platform | [Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL]()| Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-f2000x-pl](https://github.com/OFS/ofs-f2000x-pl), [Tag: ofs-2023.3-2](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.3-2) | OFS Shell RTL for Intel Agilex 7 FPGA (targeting https://github.com/OFS/ofs-f2000x-pl) |
-| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/2023.3](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/2023.3](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/2023.3) | Common RTL across all OFS-based platforms |
-| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
+| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-f2000x-pl](https://github.com/OFS/ofs-f2000x-pl), [Tag: ofs-2023.3-1](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.3-1) | OFS Shell RTL for Intel Agilex 7 FPGA (targeting https://github.com/OFS/ofs-f2000x-pl) |
+| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2) | Common RTL across all OFS-based platforms |
+| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-2](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-2) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
 | OPAE SDK | [Branch: 2.10.0-1](https://github.com/OFS/opae-sdk/tree/2.10.0-1), [Tag: 2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1) | Open Programmable Acceleration Engine Software Development Kit |
-| Kernel Drivers | [Branch: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-2), [Tag: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2) | OFS specific kernel drivers|
+| Kernel Drivers | [Branch: ofs-2023.3-6.1-3](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-3), [Tag: ofs-2023.3-6.1-3](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-3) | OFS specific kernel drivers|
 | OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.10.0-1](https://github.com/OFS/opae-sim/releases/tag/2.10.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
 | Intel Quartus Prime Pro Edition Design Software | 23.3 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html) | Software tool for Intel FPGA Development|
 | Operating System | [Ubuntu 22.04](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL can be found on the [OFS ofs-2023.3-2](https://github.com/OFS/ofs-f2000x/releases/tag/ofs-2023.3-2) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL can be found on the [OFS ofs-2023.3-1](https://github.com/OFS/ofs-f2000x/releases/tag/ofs-2023.3-1) official release drop on GitHub.
 
 <br>
 
@@ -115,16 +115,16 @@ This script uses the following set of software tools which should be installed u
 
 ![](images/ofs_f2000x_tools_menu.png)
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.3-2. 
+1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.3-1. 
 
 2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table for locations. Please go [OFS Getting Started User Guide] for the instructions for the BKC installation.
 
-3. Once the repositories are cloned, contact your intel representative to receive the eval script evaluation script (ofs_f2000x_eval.sh) and copy it to the ofs-2023.3-2 directory location as shown in the example below:
+3. Once the repositories are cloned, contact your intel representative to receive the eval script evaluation script (ofs_f2000x_eval.sh) and copy it to the ofs-2023.3-1 directory location as shown in the example below:
 
 **Figure 2-2 Directory Structure for OFS Project**
 
 ```sh
-## ofs-2023.3-2
+## ofs-2023.3-1
 ##  -> examples-afu
 ##  -> linux-dfl
 ##  -> ofs-f2000x-pl
@@ -133,7 +133,7 @@ This script uses the following set of software tools which should be installed u
 ##  -> ofs_f2000x_eval.sh
 ```
 
-4. Contact your intel representative to receive the README file named (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the ofs-2023.3-2 directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
+4. Contact your intel representative to receive the README file named (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the ofs-2023.3-1 directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
 
 ### **2.2 f2000x Evaluation Script modification**
 
@@ -144,9 +144,9 @@ To adapt this script to the user environment please follow the instructions belo
 
 The user must create the top-level source directory and then clone the OFS repositories
     
-    mkdir ofs-2023.3-2
+    mkdir ofs-2023.3-1
 
-In the example above we have used ofs-2023.3-2 as the directory name
+In the example above we have used ofs-2023.3-1 as the directory name
 
 ### **Set-Up Proxy Server (lines 67-69)**
 

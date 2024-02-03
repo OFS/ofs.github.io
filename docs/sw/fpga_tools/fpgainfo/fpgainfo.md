@@ -24,6 +24,16 @@ the given command.
 Show/clear errors of an FPGA resource that the first argument specifies.
 `fpgainfo` displays information in human readable form.
 
+
+|Error|Description|
+|---|---|
+|Catfatal Errors|Bit 8 indicates an Injected Fatal error, bit 11 indicates an Injected Catastrophic Error.|
+|Inject Errors|[2:0] are mainly writeable bits. Can read back values.|
+|(FME) Next Error|[59:0] 60 LSBs are taken from the given error register that was triggered second, [60:61] 0 = FME0 Error, 1 = PCIe0 Error.|
+|(FME) First Error|[59:0] 60 LSBs are taken from the given error register that was triggered first, [60:61] 0 = FME0 Error, 1 = PCIe0 Error.|
+|FME Errors|Error from Partial Reconfiguration Block reporting a FIFO Parity Error has occurred.|
+|Non-fatal Errors|Bit 6 is used to advertise an Injected Warning Error.|
+
 `power`
 
 Show total the power in watts that the FPGA hardware consumes.

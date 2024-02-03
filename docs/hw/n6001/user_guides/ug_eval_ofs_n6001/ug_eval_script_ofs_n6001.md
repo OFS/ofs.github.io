@@ -56,16 +56,16 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | Component | Version |  Description |
 | --------- | ------- | -------|
 | FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html)| Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2023.3-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
-| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/releases/tag/2023.2](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/releases/tag/2023.2](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/releases/tag/2023.2) | Common RTL across all OFS-based platforms |
-| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.2-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
+| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2023.3-2](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
+| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2) | Common RTL across all OFS-based platforms |
+| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-2](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-2) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
 | OPAE SDK | [Branch: 2.10.0-1](https://github.com/OFS/opae-sdk/tree/2.10.0-1), [Tag: 2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1) | Open Programmable Acceleration Engine Software Development Kit |
-| Kernel Drivers | [Branch: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-2), [Tag: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2) | OFS specific kernel drivers|
+| Kernel Drivers | [Branch: ofs-2023.3-6.1-3](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-3), [Tag: ofs-2023.3-6.1-3](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-3) | OFS specific kernel drivers|
 | OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.10.0-1](https://github.com/OFS/opae-sim/releases/tag/2.10.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
 | Intel Quartus Prime Pro Edition Design Software | 23.3 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.3-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2023.3-2](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2) official release drop on GitHub.
 
 <br>
 
@@ -86,16 +86,16 @@ This script uses the following set of software tools which should be installed u
 
 ![](images/ofs_n6001_tools_menu.png)
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.3-1. 
+1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.3-2. 
 
-2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table for locations. When cloning the FIM repository, please follow the instructions in section 4.1 and 4.2 of the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].  Additionally, please go [OFS Getting Started User Guide] for the instructions for the BKC software installation.
+2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the [BKC table](#table-1-2-software-version-summary) for locations. When cloning the FIM repository, please follow the instructions in section 1.3.2 of the [FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6001-PL PCIe Attach](https://ofs.github.io/ofs-2023.3/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).  Additionally, please go to [FPGA Developer Journey Guide: Open FPGA Stack](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/#2-evaluate-ofs) for the instructions for the BKC installation.
 
-3. Once the repositories are cloned, copy the evaluation script (ofs_n6001_eval.sh) which is located at [eval_scripts] beneath the $IOFS_BUILD_ROOT directory location as shown in the example below:
+3. Once the repositories are cloned, download the evaluation script folder (ofs-agx7-pcie-attach_eval.tar.gz) which is available in the [OFS release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) and copy the evaluation script ofs-agx7-pcie-attach_eval.sh in the location as shown in the example below:
 
 **Figure 2-2 Directory Structure for OFS Project**
 
 ```sh
-## ofs-2023.3-1
+## ofs-2023.3-2
 ##  -> examples-afu
 ##  -> linux-dfl
 ##  -> ofs-n6001
@@ -106,22 +106,22 @@ This script uses the following set of software tools which should be installed u
 ##  -> ofs_n6001_eval.sh
 ```
 
-4. Open the README file named (README_ofs_n6001_eval.txt) which is located at [eval_scripts] which informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
+4. Open the README file named (README_ofs-agx7-pcie-attach_eval.txt) which is in  the evaluation script folder(ofs-agx7-pcie-attach_eval.tar.gz) which informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
 
 ### **2.2 n6001 Evaluation Script modification**
 
 
-To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the ofs_n6001_eval.sh script 
+To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the ofs-agx7-pcie-attach_eval.sh script 
 
 ### **User Directory Creation**
 
 The user must create the top-level source directory and then clone the OFS repositories
     
-    mkdir ofs-2023.3-1
+    mkdir ofs-2023.3-2
 
-In the example above we have used ofs-2023.3-1 as the directory name
+In the example above we have used ofs-2023.3-2 as the directory name
 
-### **Set-Up Proxy Server (lines 65-67)**
+### **Set-Up Proxy Server (lines 67-69)**
 
 Please enter the location of your proxy server to allow access to external internet to build software packages.
 
@@ -131,7 +131,7 @@ Note: Failing to add proxy server will prevent cloning of repositories and the u
     export https_proxy=<user_proxy>
     export no_proxy=<user_proxy>
 
-### **License Files (lines 70-72)**
+### **License Files (lines 72-74)**
 
 Please enter the the license file locations for the following tool variables
 
@@ -139,7 +139,7 @@ Please enter the the license file locations for the following tool variables
     export DW_LICENSE_FILE=<user_license>
     export SNPSLMD_LICENSE_FILE=<user_license>
 
-### **Tools Location (line 85, 86, 87, 88)**
+### **Tools Location (line 87, 88, 89, 90)**
 
 Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
 
@@ -148,7 +148,7 @@ Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
     export QUESTASIM_TOOLS_LOCATION=/home
     export ONEAPI_TOOLS_LOCATION=/opt
 
-### **Quartus Tools Version (line 93)**
+### **Quartus Tools Version (line 95)**
 
 Set version of Quartus
 
@@ -156,7 +156,7 @@ Set version of Quartus
 
 In the example above "23.3" is used as the Quartus tools version
 
-### **OPAE Tools (line 106)**
+### **OPAE Tools (line 108)**
 
 change OPAE SDK VERSION<br>
 
@@ -164,11 +164,19 @@ change OPAE SDK VERSION<br>
 
 In the example above "2.10.0-1" is used as the OPAE SDK tools version
 
-### **PCIe (Bus Number) (lines 231 and 238)**
+### **OFS Platform (line 173)**
+
+Select the oFS platform the evaluation script needs to be run on. It could be one of these : n6000, n6001, fseries-dk, iseries-dk, custom_board.
+
+    export OFS_PLATFORM=n6001
+
+In the example above, n6001 is the platform selected to be tested.
+
+### **PCIe (Bus Number)**
 
 The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
 
-    export ADP_CARD0_BUS_NUMBER=b1
+    export OFS_CARD0_BUS_NUMBER=b1
 
  The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerater card plugged into a server. 
 
@@ -182,9 +190,9 @@ The Bus number must be entered by the user after installing the hardware in the 
 
 The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
 
-    export ADP_CARD0_BUS_NUMBER=b1
+    export OFS_CARD0_BUS_NUMBER=b1
 
-The user can also run the following command on the ofs_n6001_eval.sh script to automatically change the bus number to b1 in the ofs_n6001_eval.sh script.
+The user can also run the following command on the ofs-agx7-pcie-attach_eval.sh script to automatically change the bus number to b1 in the ofs-agx7-pcie-attach_eval.sh script.
 
 grep -rli 'b1' * | xargs -i@ sed -i 'b1' @
 
@@ -200,7 +208,7 @@ the command to change to 85 in the evaluation script would be
 
 grep -rli 'b1' * | xargs -i@ sed -i '85' @
 
-The ofs_n6001_eval.sh script has now been modified to the server set-up and the user can proceed to build, compile and simulate the OFS stack
+The ofs-agx7-pcie-attach_eval.sh script has now been modified to the server set-up and the user can proceed to build, compile and simulate the OFS stack
 
 <br>
 
@@ -212,7 +220,7 @@ The ofs_n6001_eval.sh script has now been modified to the server set-up and the 
 
 The figure below shows a snapshot of the full evaluation script menu showing all 62 options and each one one of 11 sub-menus which focus on different areas of evaluation. Each of these menu options are described in the next section.
 
-**Figure 3-1 ofs_n6001_eval.sh Evaluation Menu**
+**Figure 3-1 ofs-agx7-pcie-attach_eval.sh Evaluation Menu**
 
 ![](images/ofs_n6001_adp_eval_menu.png)
 
@@ -305,8 +313,8 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
         <tr>
             <td>4 - Identify the Board Management Controller (BMC) Version and check BMC sensors</td>
             <td>Intel Acceleration Development Platform N6001<br>
-                Board Management Controller NIOS FW version: 3.2.0<br>
-                Board Management Controller Build version: 3.2.0<br>
+                Board Management Controller NIOS FW version: 3.15.0<br>
+                Board Management Controller Build version: 3.15.0<br>
                 //****** BMC SENSORS ******//<br>
                 Object Id                        : 0xEE00000<br>
                 PCIe s:b:d.f                     : 0000:B1:00.0<br>
@@ -327,8 +335,8 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
         <tr>
             <td>5 - Identify the FPGA Management Engine (FME) Version</td>
             <td>Intel Acceleration Development Platform N6001<br>
-                Board Management Controller NIOS FW version: 3.2.0<br>
-                Management Controller Build version: 3.2.0<br>
+                Board Management Controller NIOS FW version: 3.15.0<br>
+                Management Controller Build version: 3.15.0<br>
                 //****** FME ******//<br>
                 Object Id                        : 0xEE00000<br>
                 PCIe s:b:d.f                     : 0000:B1:00.0<br>
@@ -352,8 +360,8 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
         <tr>
             <td>6 - Check Board Power and Temperature</td>
             <td>Intel Acceleration Development Platform N6001<br>
-                Board Management Controller NIOS FW version: 3.2.0<br>
-                Board Management Controller Build version: 3.2.0<br>
+                Board Management Controller NIOS FW version: 3.15.0<br>
+                Board Management Controller Build version: 3.15.0<br>
                 //****** POWER ******//<br>
                 Object Id                        : 0xEE00000<br>
                 PCIe s:b:d.f                     : 0000:B1:00.0<br>
@@ -370,8 +378,8 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
                 etc ......................<br>
             <br>
                 Intel Acceleration Development Platform N6001<br>
-                Board Management Controller NIOS FW version: 3.2.0<br>
-                Board Management Controller Build version: 3.2.0<br>
+                Board Management Controller NIOS FW version: 3.15.0<br>
+                Board Management Controller Build version: 3.15.0<br>
                 //****** TEMP ******//<br>
                 Object Id                        : 0xEE00000<br>
                 PCIe s:b:d.f                     : 0000:B1:00.0<br>
@@ -408,8 +416,8 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
         <tr>
             <td>8 - Check MAC and PHY status</td>
             <td>Intel Acceleration Development Platform N6001<br>
-                Board Management Controller NIOS FW version: 3.2.0<br>
-                Board Management Controller Build version: 3.2.0<br>
+                Board Management Controller NIOS FW version: 3.15.0<br>
+                Board Management Controller Build version: 3.15.0<br>
                 //****** MAC ******//<br>
                 Object Id                        : 0xEE00000<br>
                 PCIe s:b:d.f                     : 0000:B1:00.0<br>

@@ -159,7 +159,7 @@ Run all host exerciser tests.
 
  `--clock-mhz`
 
-pcie clock frequency, default value 350Mhz.
+pcie clock frequency, default value 350Mhz. When specified by the user, will not check value against AFU clock before calculating performance metrics.
 
 
 

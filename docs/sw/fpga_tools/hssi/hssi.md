@@ -41,11 +41,6 @@ MODE_OPTIONS [hssi_10g] - application options specific to the 10G AFU.
 
     Select the QSFP port in the range 0-7. The default is port 0.
 
-`--eth-loopback on|off`
-
-    Whether to enable loopback on the ethernet interface. Valid values are
-    on and off. The default is on.
-
 `--num-packets PACKETS`
 
     The number of packets to transfer. The default is 1 packet.

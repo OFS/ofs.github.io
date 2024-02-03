@@ -232,8 +232,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir ofs-2023.3-1
-    $ cd ofs-2023.3-1
+    $ mkdir ofs-2023.3-2
+    $ cd ofs-2023.3-2
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
     
@@ -246,13 +246,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-agx7-pcie-attach
-    $ git checkout tags/ofs-2023.3-1
+    $ git checkout tags/ofs-2023.3-2
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2023.3-1
+    $ ofs-2023.3-2
 
 ## **5.2 License Requirements**
 

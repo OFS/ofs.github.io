@@ -6,6 +6,15 @@
 
 The information presented in this document is intended to be used by software developers looking to increase their knowledge of the OPAE SDK user-space software stack and the kernel-space linux-dfl drivers. This information is intended as a starting point, with links to where users can deep dive on specific topics.
 
+Former OPAE and DFL software documents were combined with the Software Reference Manual to reduce clutter and more cleanly document OFS software capabilities. The following documents are no longer available as standalone as of ofs-2023.3:
+
+- Quick Start Guide
+- OPAE Installation Guide
+- OPAE C API Programming Guide
+- OPAE Python Bindings
+- OPAE Plugin Developers Guide
+- Open Programmable Accelerator Engine (OPAE) Linux Device Driver Architecture
+
 ### **1.2 Terminology**
 
 | Term                      | Abbreviation | Description                                                  |

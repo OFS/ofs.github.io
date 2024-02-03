@@ -1,6 +1,6 @@
 # Docker User Guide: Intel® Open FPGA Stack
 
-Last updated: **January 10, 2024** 
+Last updated: **February 03, 2024** 
 
 ## 1 Introduction
 
@@ -51,7 +51,7 @@ The following table highlights the hardware that comprises the Best-Known Config
 
 ## 3.0 Development Installation
 
-Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the ${{ env.COMMON_QUARTUS_VER }} requires a specific version. For this guide, [Red Hat Linux ](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) is used for general instructions. 
+Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.3 requires a specific version. For this guide, [Red Hat Linux ](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) is used for general instructions. 
 
 The OFS Docker image includes all the libraries and tools required by the OFS and OPAE SDK (Python, Perl, CMake, and so on).
 
@@ -61,7 +61,7 @@ The OFS Docker image includes all the libraries and tools required by the OFS an
 
 Building AFUs with OFS for Intel Agilex FPGA requires the build machine to have at least 64 GB of RAM.
 
-Go to [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide for a list of detailed steps for the ${{ env.COMMON_QUARTUS_VER }} installation.  
+Go to [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide for a list of detailed steps for the Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.3 installation.  
 
 ### 3.2 Docker Engine installation
 ## RHEL 8.6
