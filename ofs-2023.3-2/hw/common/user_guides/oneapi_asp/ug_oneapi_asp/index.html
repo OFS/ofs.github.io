@@ -1500,11 +1500,35 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#252-create-vf" class="md-nav__link">
+  <a href="#252-pfvf-mapping" class="md-nav__link">
     <span class="md-ellipsis">
-      2.5.2 Create VF
+      2.5.2 PF/VF mapping
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="2.5.2 PF/VF mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2521-create-vf" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2.1 Create VF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2522-bind-pf-and-vf" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2.2 Bind PF and VF
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -1546,9 +1570,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#30-further-development" class="md-nav__link">
+  <a href="#30-oneapi-on-ofs-running-in-a-virtual-machine" class="md-nav__link">
     <span class="md-ellipsis">
-      3.0 Further Development
+      3.0 OneAPI on OFS Running in a Virtual Machine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-further-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Further Development
     </span>
   </a>
   
@@ -2318,11 +2351,35 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#252-create-vf" class="md-nav__link">
+  <a href="#252-pfvf-mapping" class="md-nav__link">
     <span class="md-ellipsis">
-      2.5.2 Create VF
+      2.5.2 PF/VF mapping
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="2.5.2 PF/VF mapping">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#2521-create-vf" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2.1 Create VF
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2522-bind-pf-and-vf" class="md-nav__link">
+    <span class="md-ellipsis">
+      2.5.2.2 Bind PF and VF
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -2364,9 +2421,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#30-further-development" class="md-nav__link">
+  <a href="#30-oneapi-on-ofs-running-in-a-virtual-machine" class="md-nav__link">
     <span class="md-ellipsis">
-      3.0 Further Development
+      3.0 OneAPI on OFS Running in a Virtual Machine
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#31-further-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      3.1 Further Development
     </span>
   </a>
   
@@ -2561,16 +2627,16 @@
 <h3 id="22-clone-and-compile-fim"><strong>2.2 Clone and Compile <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></strong><a class="headerlink" href="#22-clone-and-compile-fim" title="Permanent link">&para;</a></h3>
 <p><a name="clone_compile_fim"></a></p>
 <p>As shown in Figure 1-1, <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> components in the FPGA include the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and Accelerator Functional Unit(<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>). The oneAPI ASP is in the Partial Reconfiguration(<abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>) region of the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and relies on the compiled database of the static region(<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>) to interface with the host and board peripherals(e.g. on-board memory).</p>
-<p>Once the server is setup with <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel driver, the next step is to clone and compile the static region of the design, i.e. <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. You can use the default configuration of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for both target platforms. Additionaly for Intel® FPGA SmartNIC N6001-PL for ofs_n6001 and ofs_n6001_usm board variants you have the option to create a minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> which removes additional VFs, HSSI and host exercisers in the design. Please follow steps in the <em>Intel® FPGA Interface Manager Developer Guides</em> for your target device to compile <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> supporting <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> release.</p>
+<p>Once the server is setup with <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel driver, the next step is to clone and compile the static region of the design, i.e. <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. You can use the default configuration of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for both target platforms. Additionaly for Intel® FPGA SmartNIC N6001-PL for ofs_n6001 and ofs_n6001_usm board variants you have the option to create 2 different types of minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> which removes the HSSI subsystem and host exercisers in the design. The difference between this two minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s, are the amount of VFs that must be created, in case of 1PF/1VF (built using n6001_1pf_1vf.ofss), only 1 VF is needed. In case of 2PF <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> (built using n6001_2pf.ofss) no VF creation is required. 2PF <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> could be used in FPGA development in virtual machines, see <em><a href="#30-oneapi-on-ofs-running-in-a-virtual-machine">Section 3.0 OneAPI on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Running in a Virtual Machine</a></em>. Please follow steps in the <em>Intel® FPGA Interface Manager Developer Guides</em> for your target device to compile <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> supporting <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> release.</p>
 <ul>
 <li><a href="https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a>.</li>
 </ul>
 <ul>
 <li><a href="https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/">FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a>.</li>
 </ul>
-<p>For more details on minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Agilex® 7 FPGA for ofs_n6001 and ofs_n6001_usm board variants and how to create it, refer to Intel® FPGA Interface Manager Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® PCIe Attach FPGAs.</p>
+<p>For more details on minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s for Intel® Agilex® 7 FPGA for ofs_n6001 and ofs_n6001_usm board variants and how to create them, refer to Intel® FPGA Interface Manager Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® PCIe Attach FPGAs.</p>
 <p>A <code>pr_build_template</code> directory will be generated in the work directory specified as part of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compile command (using <code>OFS/ofs-common/scripts/common/syn/build_top.sh</code> script with the '-p' option enable to create an out-of-tree <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> release). The <code>pr_build_template</code> directory is required for successful setup of the oneAPI ASP.</p>
-<p>Once the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compile is complete, please program <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> using <code>fpgasupdate</code> and Remote System Update(<code>rsu</code>) command. Use of these commands has been demonstrated in section named <code>Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim</code> in <a href="https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a> refer to <code>Test the hello_fim on a D5005</code> section in <a href="https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/">FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a> for Intel® Stratix 10® FPGA.</p>
+<p>Once the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compile is complete, please program <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> using <code>fpgasupdate</code> and Remote System Update(<code>rsu</code>) command. Use of these commands has been demonstrated in section named <code>5.3 Remote System Update</code> in <a href="https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a> refer to <code>Test the hello_fim on a D5005</code> section in <a href="https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/">FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a> for Intel® Stratix 10® FPGA.</p>
 <h3 id="23-prerequisites"><strong>2.3 Prerequisites</strong><a class="headerlink" href="#23-prerequisites" title="Permanent link">&para;</a></h3>
 <p><a name="prerequisites"></a></p>
 <p>In addition to server setup and <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compilation, a few linux packages are needed to setup the oneAPI ASP and develop HLD applications.</p>
@@ -2614,7 +2680,7 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.41-dfl root=/dev/mapper/rhel-root ro crashkern
 </ul>
 <p>4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version.</p>
 <blockquote>
-<p><strong>Note:</strong> For Intel® Agilex® 7 FPGA ensure Quartus patch 0.13, 0.21 and 0.02iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1">patch-agx7-ofs-2023-3.tar.gz</a>. For Intel® Stratix 10® FPGA ensure Quartus patch 0.23 and 0.01iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1">patch-s10-ofs-2023-3.tar.gz</a>.For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. </p>
+<p><strong>Note:</strong> For Intel® Agilex® 7 FPGA ensure Quartus patch 0.13, 0.21 and 0.02iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2">patch-agx7-2023-3.tar.gz</a>. For Intel® Stratix 10® FPGA ensure Quartus patch 0.23 and 0.01iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1">patch-s10-2023-3.tar.gz</a>.For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. </p>
 </blockquote>
 <p>Use following command to check Quartus version and installed patches.</p>
 </pre>
@@ -2701,7 +2767,7 @@ gcc --version
 </tr>
 <tr>
 <td>Quartus Prime Pro Edition</td>
-<td>Version 23.3 Pro Edition with patches (0.13, 0.21 and 0.02iofs) under assets on this link [patch-agx7-ofs-2023-3.tar.gz]](https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1)</td>
+<td>Version 23.3 Pro Edition with patches (0.13, 0.21 and 0.02iofs) under assets on this link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2">patch-agx7-2023-3.tar.gz</a></td>
 </tr>
 <tr>
 <td>Intel® oneAPI Base Toolkit (Base Kit)</td>
@@ -2752,7 +2818,11 @@ gcc --version
 </tr>
 <tr>
 <td>Quartus Prime Pro Edition</td>
-<td>Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1">patch-s10-ofs-2023-3.tar.gz</a></td>
+<td>Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link [patch-s10-2023-3.tar.gz</td>
+</tr>
+<tr>
+<td>](https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-d5005/releases/tag/ofs-2023.3-1)</td>
+<td></td>
 </tr>
 <tr>
 <td>Intel® oneAPI Base Toolkit (Base Kit)</td>
@@ -2778,7 +2848,7 @@ gcc --version
 </pre>
 <div class="highlight"><pre><span></span><code>    git clone https://github.com/OFS/oneapi-asp.git
     cd oneapi-asp
-    git checkout tags/ofs-2023.3-1
+    git checkout tags/ofs-2023.3-2
 </code></pre></div>
 </pre>
 <p>Ensure the correct tag has ben checked out:
@@ -2790,7 +2860,7 @@ gcc --version
 <li>Output:</li>
 </ul>
 </pre>
-<div class="highlight"><pre><span></span><code>    ofs-2023.3-1
+<div class="highlight"><pre><span></span><code>    ofs-2023.3-2
 </code></pre></div>
 </pre>
 <p>2) Ensure that <code>OPAE_PLATFORM_ROOT</code> and <code>LIBOPAE_C_ROOT</code> have been set as described in <em><a href="#23-prerequisites">section 2.3</a></em>. Generate the oneAPI ASP hardware and software using provided <code>build-bsp.sh</code> script. This script clones required repositories and builds the oneAPI ASP libraries required by HLD host application to run successfully.</p>
@@ -2937,14 +3007,23 @@ Run &#39;aocl diagnose&#39; to list devices or &#39;aocl initialize &lt;dev_name
 </blockquote>
 <p>The output directory of the sample application is written to <code>oneapi-asp/platform-name/build/bringup</code>. The generated bitstreams are also copied to <code>oneapi-asp/platform-name/bringup/binaries/</code>. These are used in the initialization of the platform.</p>
 <p>Once the bitstreams are generated, create a VF and initialize the board as explained in following section. Ensure that the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> has been programmed on the board as explained in <em><a href="#22-clone-and-compile-fim">section 2.2 Clone and Compile <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></a></em></p>
-<h4 id="252-create-vf"><strong>2.5.2 Create VF</strong><a class="headerlink" href="#252-create-vf" title="Permanent link">&para;</a></h4>
+<h4 id="252-pfvf-mapping"><strong>2.5.2 PF/VF mapping</strong><a class="headerlink" href="#252-pfvf-mapping" title="Permanent link">&para;</a></h4>
 <p>The oneAPI ASP is located in the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and is accessed through PF/VF Mux. Refer to the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Reference Manual for your target platforms for more details about PF/VF mapping.</p>
 <ul>
-<li>Reference <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>: VF0 is mapped to <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region and you can create 1 VF when using this <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. Base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> has 5 PF's and minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> just 1 PF. See <a href="https://ofs.github.io/ofs-2023.3-2/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/">Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a> for diagram showing PF/VF mapping.</li>
+<li>Reference <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>: </li>
 </ul>
+<p>For Base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> (default) and 1PF/1VF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> (built using n6001_1pf_1vf.ofss), VF0 is mapped to <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region and you can create 1 VF when using this <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. Base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> has 5 PF's and minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> just 1 PF. </p>
+<p>For 2PF <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> (built using n6001_2pf.ofss) PF1 is mapped to <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region and no VF creation is required.</p>
+<p>See <a href="https://ofs.github.io/ofs-2023.3-2/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/">Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a> for diagram showing PF/VF mapping.</p>
 <ul>
-<li>Reference <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Stratix 10® FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>: VF1 is mapped to <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region and you must create 2 VFs when using this <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. This <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> has 1 PF. See <a href="https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a> for diagram showing PF/VF mapping.</li>
+<li>Reference <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Stratix 10® FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>: </li>
 </ul>
+<p>VF1 is mapped to <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region and you must create 2 VFs when using this <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. This <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> has 1 PF. See <a href="https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs</a> for diagram showing PF/VF mapping.</p>
+<h5 id="2521-create-vf"><strong>2.5.2.1 Create VF</strong><a class="headerlink" href="#2521-create-vf" title="Permanent link">&para;</a></h5>
+<p><a name="create-vf"></a></p>
+<blockquote>
+<p>**Note:**This section only applies for Base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and 1PF/1VF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Agilex® 7 FPGA and default <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Stratix 10® FPGA. </p>
+</blockquote>
 <ul>
 <li>Create a VF using PCIe ID obtained from the output of <code>fpgainfo fme</code> (PCIe s\:b\:d.f output)</li>
 </ul>
@@ -2953,7 +3032,7 @@ Run &#39;aocl diagnose&#39; to list devices or &#39;aocl initialize &lt;dev_name
 </code></pre></div>
 </pre>
 <ul>
-<li>Check that the VF is created using <code>sudo opae.io ls</code> command and note the PCIe ID for the VF(s) (the function number in s\:b\:d.<strong>f</strong> will be different for the VF). Sample output for Intel® Agilex® 7 FPGA minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> is shown below. Output for base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should display 5 PF's and the PCIe ID for VF0 will be s:b:d.5.</li>
+<li>Check that the VF is created using <code>sudo opae.io ls</code> command and note the PCIe ID for the VF(s) (the function number in s\:b\:d.<strong>f</strong> will be different for the VF). Sample output for Intel® Agilex® 7 FPGA 1PF/1VF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> is shown below. Output for base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should display 5 PF's and the PCIe ID for VF0 will be s:b:d.5.</li>
 </ul>
 </pre>
 <div class="highlight"><pre><span></span><code>    $ sudo opae.io ls
@@ -2971,17 +3050,20 @@ Sample output for Intel® Stratix 10® FPGA is shown below.</p>
 </pre>
 <blockquote>
 <p><strong>Note:</strong><code>sudo opae.io ls</code> will list the accelerators, respective PCIe ID as well as the driver it is currently bound to.</p>
+<p><strong>Note:</strong> For more information about <code>pci_device</code> and <code>opae.io</code> utilities, refer to the OPAE FPGA tools page <a href="https://github.com/OPAE/opae-sdk/tree/master/doc/src/fpga_tools">here</a>.</p>
 </blockquote>
+<h5 id="2522-bind-pf-and-vf"><strong>2.5.2.2 Bind PF and VF</strong><a class="headerlink" href="#2522-bind-pf-and-vf" title="Permanent link">&para;</a></h5>
+<p>For Base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and 1PF/1VF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Agilex® 7 FPGA and default <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Stratix 10® FPGA :</p>
 <ul>
 <li>Bind the created VF(s) to vfio-pci driver, use the PCIe ID for the VF(s) for this step. Verify you are using the PCIe ID of the VFs you have created. For example:</li>
-<li>From sample output for Agilex <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform having minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> programmed shown above, <code>s:b:d.vf</code> will be <code>0000:b1:00.1</code> in command below. For base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should be s:b:d.5.</li>
+<li>From sample output for Agilex <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform having 1PF/1VF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> programmed shown in <em><a href="#2521-create-vf">Section 2.5.2.1 Create VF</a></em>, <code>s:b:d.vf</code> will be <code>0000:b1:00.1</code> in command below. For base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should be s:b:d.5.</li>
 </ul>
 </pre>
 <div class="highlight"><pre><span></span><code>    sudo opae.io init -d s:b:d.vf $USER
 </code></pre></div>
 </pre>
 <ul>
-<li>Sample output for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. Output for base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should be similar.</li>
+<li>Sample output for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform 1PF/1VF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. Output for base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should be similar.</li>
 </ul>
 </pre>
 <div class="highlight"><pre><span></span><code>    $ sudo opae.io init -d 0000:b1:00.1 $USER
@@ -3005,35 +3087,69 @@ Sample output for Intel® Stratix 10® FPGA is shown below.</p>
 <li>Sample output for Intel® Stratix 10® FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform:</li>
 </ul>
 </pre>
-<div class="highlight"><pre><span></span><code>$sudo opae.io init -d 0000:12:00.1 $USER
-Unbinding (0x8086,0xbccf) at 0000:12:00.1 from dfl-pci
-Binding (0x8086,0xbccf) at 0000:12:00.1 to vfio-pci
-iommu group for (0x8086,0xbccf) at 0000:12:00.1 is 149
-Assigning /dev/vfio/149 to ofsuser
-Changing permissions for /dev/vfio/149 to rw-rw----
+<div class="highlight"><pre><span></span><code>    $sudo opae.io init -d 0000:12:00.1 $USER
+    Unbinding (0x8086,0xbccf) at 0000:12:00.1 from dfl-pci
+    Binding (0x8086,0xbccf) at 0000:12:00.1 to vfio-pci
+    iommu group for (0x8086,0xbccf) at 0000:12:00.1 is 149
+    Assigning /dev/vfio/149 to ofsuser
+    Changing permissions for /dev/vfio/149 to rw-rw----
 
-$sudo opae.io init -d 0000:12:00.2 $USER
-Unbinding (0x8086,0xbccf) at 0000:12:00.2 from dfl-pci
-Binding (0x8086,0xbccf) at 0000:12:00.2 to vfio-pci
-iommu group for (0x8086,0xbccf) at 0000:12:00.2 is 152
-Assigning /dev/vfio/152 to ofsuser
-Changing permissions for /dev/vfio/152 to rw-rw----
+    $sudo opae.io init -d 0000:12:00.2 $USER
+    Unbinding (0x8086,0xbccf) at 0000:12:00.2 from dfl-pci
+    Binding (0x8086,0xbccf) at 0000:12:00.2 to vfio-pci
+    iommu group for (0x8086,0xbccf) at 0000:12:00.2 is 152
+    Assigning /dev/vfio/152 to ofsuser
+    Changing permissions for /dev/vfio/152 to rw-rw----
 
-$ sudo opae.io ls
-[0000:12:00.0] (0x8086:0xbcce) Intel FPGA Programmable Acceleration Card D5005 (Driver: dfl-pci)
-[0000:12:00.1] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
-[0000:12:00.2] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
+    $ sudo opae.io ls
+    [0000:12:00.0] (0x8086:0xbcce) Intel FPGA Programmable Acceleration Card D5005 (Driver: dfl-pci)
+    [0000:12:00.1] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
+    [0000:12:00.2] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
 
-$ls -lt /dev/vfio
-total 0
-crw-rw----. 1 ofsuser  root  235,   3 Dec 3 16:25 149
-crw-rw----. 1 ofsuser  root  235,   0 Dec 3 16:22 152
-crw-rw-rw-. 1 root     root   10, 196 Dec 1 07:28 vfio
+    $ls -lt /dev/vfio
+    total 0
+    crw-rw----. 1 ofsuser  root  235,   3 Dec 3 16:25 149
+    crw-rw----. 1 ofsuser  root  235,   0 Dec 3 16:22 152
+    crw-rw-rw-. 1 root     root   10, 196 Dec 1 07:28 vfio
+</code></pre></div>
+</pre>
+<p>For 2PF <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Agilex® 7 FPGA :</p>
+<p>Bind the PF1 to vfio-pci driver, use <code>sudo opae.io ls</code> command and note the PCIe ID (s\:b\:d.f) for the PF(s). Verify you are using the PCIe ID of the PF1. 
+</pre></p>
+<div class="highlight"><pre><span></span><code>    $ sudo opae.io ls
+    [0000:b1:00.0] (0x8086:0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+    [0000:b1:00.1] (0x8086:0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+</code></pre></div>
+</pre>
+<p>Output below shows the command to bind PF1, in this case <code>s:b:d.f</code> will be <code>0000:b1:00.1</code>.</p>
+</pre>
+<div class="highlight"><pre><span></span><code>    sudo opae.io init -d s:b:d.f $USER
+</code></pre></div>
+</pre>
+<ul>
+<li>Sample output for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform 2PF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>.</li>
+</ul>
+</pre>
+<div class="highlight"><pre><span></span><code>    $ sudo opae.io init -d 0000:b1:00.1 $USER
+    Unbinding (0x8086,0xbcce) at 0000:b1:00.1 from dfl-pci
+    Binding (0x8086,0xbcce) at 0000:b1:00.1 to vfio-pci
+    iommu group for (0x8086,0xbcce) at 0000:b1:00.1 is 13
+    Assigning /dev/vfio/13 to ofsuser
+    Changing permissions for /dev/vfio/13 to rw-rw----
+
+    $ sudo opae.io ls
+    [0000:b1:00.0] (0x8086:0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+    [0000:b1:00.1] (0x8086:0xbcce) Intel Acceleration Development Platform N6001 (Driver: vfio-pci)
+
+    $ ls -lt /dev/vfio
+    total 0
+    crw-rw----. 1 ofsuser  root 511,   0 Feb  2 22:47 13
+    crw-rw-rw-. 1 root     root  10, 196 Feb  2 16:56 vfio
 </code></pre></div>
 </pre>
 <p>If the driver fails to bind due to an error related to <code>iommu_group</code> (e.g. `No such file or directory: '/sys/bus/pci/devices/0000:b1:00.5/iommu_group'), ensure IOMMU is turned on as explained in step 2 in <em><a href="#23-prerequisites">Section 2.3 Prerequisites</a></em>.</p>
 <blockquote>
-<p><strong>Note:</strong> For more information about <code>pci_device</code> and <code>opae.io</code> utilities, refer to the OPAE FPGA tools page <a href="https://github.com/OPAE/opae-sdk/tree/master/doc/src/fpga_tools">here</a>.</p>
+<p><strong>Note:</strong> For more information about <code>opae.io</code> utilities, refer to the OPAE FPGA tools page <a href="https://github.com/OPAE/opae-sdk/tree/master/doc/src/fpga_tools">here</a>.</p>
 </blockquote>
 <h4 id="253-initialize-board-and-run-diagnostic-test"><strong>2.5.3 Initialize Board and Run Diagnostic Test</strong><a class="headerlink" href="#253-initialize-board-and-run-diagnostic-test" title="Permanent link">&para;</a></h4>
 </pre>
@@ -3269,8 +3385,11 @@ To check your oneAPI compiler version use the command:</p>
 <div class="highlight"><pre><span></span><code>    $ sudo opae.io release -d s:b:d.vf
 </code></pre></div>
 <p></pre>
-Sample output for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform having programmed minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> is shown below.The output for Intel® Stratix 10® FPGA target platform and base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> should be similar. For Intel® Stratix 10® FPGA you will need to release an extra VF as for this target 2 Vfs were created.
-</pre></p>
+Sample output for Intel® Agilex® 7 FPGA <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> target platform having programmed 1PF/1VF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> is shown below. The output for 2PF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>, base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for  Intel® Agilex® 7 FPGA and base_x16 <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® Stratix 10® FPGA should be similar. </p>
+<blockquote>
+<p><strong>Note:</strong> For Intel® Stratix 10® FPGA you will need to release an extra VF as for this target 2 Vfs were created.</p>
+</blockquote>
+</pre>
 <div class="highlight"><pre><span></span><code>$ sudo opae.io release -d 0000:b1:00.1
 Releasing (0x8086,0xbccf) at 0000:b1:00.1 from vfio-pci
 Rebinding (0x8086,0xbccf) at 0000:b1:00.1 to dfl-pci
@@ -3280,7 +3399,27 @@ $ sudo opae.io ls
 [0000:b1:00.1] (0x8086, 0xbccf) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
 </code></pre></div>
 </pre>
-<h2 id="30-further-development"><strong>3.0 Further Development</strong><a class="headerlink" href="#30-further-development" title="Permanent link">&para;</a></h2>
+<h2 id="30-oneapi-on-ofs-running-in-a-virtual-machine"><strong>3.0 OneAPI on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Running in a Virtual Machine</strong><a class="headerlink" href="#30-oneapi-on-ofs-running-in-a-virtual-machine" title="Permanent link">&para;</a></h2>
+<p><a name="oneapi-on-ofs-running-in-a-virtual-machine"></a></p>
+<p>Virtual machines (VM's) can be used for FPGA development, 2PF minimal <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> (built using n6001_2pf.ofss) is provided to use oneAPI on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Intel® FPGA SmartNIC N6001-PL reference platform in a VM. For more information about 2PF <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> configuration refer to <a href="https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs</a>. </p>
+<p>The setup flow for your virtual machine could be found in the <a href="https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_kvm/ug_kvm/">KVM User Guide: Open FPGA Stack</a>, there are additional things for oneAPI flow listed below which you should ensure while configuring your VM:</p>
+<ul>
+<li>Assign the enough memory to the VM for running your oneAPI workloads.</li>
+</ul>
+<ul>
+<li>In section <code>5.1 Passing Devices to the VM</code> when adding the PCIe Host Devices to the VM, ensure to have PF0 and PF1 BDF adjacent (<code>s\:b\:d.f</code>, <code>s\:b\:d.f+1</code>). The following example shows the address element of the PCIe Host Device XML file of PF0 and PF1, keeping the same value for domain, bus and slot attributes and only changing the function attribute (increasing its value by one):</li>
+</ul>
+<p><a class="glightbox" href="../images/PF0.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="PFO-XML" src="../images/PF0.png" /></a> </p>
+<p><a class="glightbox" href="../images/PF1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="PF1-XML" src="../images/PF1.png" /></a></p>
+<ul>
+<li>Install libnsl.so.1 library with the following command: 
+</pre><div class="highlight"><pre><span></span><code>  $sudo yum install libnsl.so.1
+</code></pre></div>
+</pre>
+</li>
+</ul>
+<p>Once this setup is done, follow <em><a href="#20-setup-flow-for-using-hld-tool-on-ofs">Section 2.0 Setup Flow for Using HLD Tool on <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></a></em> to finish the configuration of the VM for oneAPI .</p>
+<h2 id="31-further-development"><strong>3.1 Further Development</strong><a class="headerlink" href="#31-further-development" title="Permanent link">&para;</a></h2>
 <p><a name="next_step_customer"></a></p>
 <p>Once you have completed running the oneAPI sample application, you can start developing your own applications.</p>
 <p>For more information about developing FPGA applications with Intel oneAPI, refer to <a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top.html">Intel® oneAPI Programming Guide</a> and <a href="https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top.html">FPGA Optimization Guide for Intel® oneAPI Toolkits</a>.</p>
