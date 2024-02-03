@@ -277,7 +277,7 @@ The following is a summary of the steps to set up for AFU development:
 |  Intel® Quartus® Prime Pro Edition   |  23.3  |
 | Operating System   | RHEL 8.6 |
 | OPAE SDK   |  [2.10.0-1](https://github.com/OFS/opae-sdk/tree/2.10.0-1 )  |
-| OFS Release | [ofs-2023.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3) |
+| OFS Release | [ofs-2023.3-2](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-2) |
 | Python    | 3.6.8 |
 | cmake     | 3.15 |
 | GCC       | 7.4.0 |
@@ -322,7 +322,7 @@ Prior to installing Quartus:
 
 4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-d5005/ofs-2023.3). The patches for this release are 0.23.
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.3). The patches for this release are 0.23.
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -390,7 +390,7 @@ cd ofs-d5005
 
 Select the latest [OFS Release](https://github.com/OFS/ofs-d5005/releases/)
 ```sh
-git checkout tags/ofs-2023.3
+git checkout tags/ofs-2023.3-2
 ```
 
 > **_Console Output:_**  
@@ -400,7 +400,7 @@ git checkout tags/ofs-2023.3
 >If you want to create a new branch to retain commits you create, you may do so (now or later) by using -b with the checkout command again. Example:
 >
 > git checkout -b <new-branch-name>
->HEAD is now at 7e4dc70 ofs-2023.3
+>HEAD is now at 7e4dc70 ofs-2023.3-2
 
 #### 2.1.1.3. Directory Structure of OFS
 
@@ -810,7 +810,7 @@ sudo fpgainfo fme
 
 # 3.0 OPAE Software Development Kit
 
-The OPAE SDK software stack sits in user space on top of the Intel® OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines the integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and re-configure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [OPAE.io](https://ofs.github.io/ofs-2023.2/sw/fpga_api/quick_start/readme/) page.
+The OPAE SDK software stack sits in user space on top of the Intel® OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines the integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and re-configure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [OPAE.io](https://ofs.github.io/ofs-2023.3-2/sw/fpga_api/quick_start/readme/) page.
 
 The OPAE SDK source code is contained within a single GitHub repository
 hosted at the [OPAE GitHub](https://github.com/OFS/opae-sdk). This repository is open source and should not require any permissions to access.

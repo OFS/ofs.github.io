@@ -243,8 +243,8 @@ The OFS FIM source code is included in the GitHub repository. Create a new direc
 Navigate to the location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
 ```sh
-$ mkdir ofs-2023.3
-$ cd ofs-2023.3
+$ mkdir ofs-2023.3-2
+$ cd ofs-2023.3-2
 $ export OFS_BUILD_ROOT=$PWD
 $ git clone --recurse-submodules https://github.com/OFS/ofs-d5005.git
 

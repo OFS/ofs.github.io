@@ -267,13 +267,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-f2000x-pl
-    $ git checkout tags/ofs-2023.3-2
+    $ git checkout tags/ofs-2023.3-1
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2023.3-2
+    $ ofs-2023.3-1
 
 ## **5.2 License Requirements**
 

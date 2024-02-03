@@ -229,8 +229,6 @@ In addition, refer to sections 2.1-2.3 of the [Intel Acceleration Stack Quick St
 
 \* For more information on the required auxiliary power supply, refer to section 2.2.2 of the [Intel FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/programmable/documentation/cvl1520030638800.html).
 
-
-
 ### **3.1 Supported Processors for Intel D5005**
 
 OFS requires that the deployment machine's Xeon processor must support the following technologies. These options must also be enabled in the BIOS and as kernel parameters. The process to enable these parameters will be discussed in the section on driver installation:
@@ -239,21 +237,16 @@ OFS requires that the deployment machine's Xeon processor must support the follo
 - Intel VT-x (Intel Virtualization Technology for Directed I/O)
 - Intel IOMMU
 
-
-
 ### **3.2 Cooling Requirements for the Intel FPGA PAC D5005**
 
 Please refer to sections 8.1 and 8.2 of the [Intel FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/docs/programmable/683568/current/thermal-and-airflow-requirements.html) for guidance on cooling specifications that must be met when using the D5005 card. Failure to adhere to these guidelines may result in thermal runaway and/or performance degradation.
-
-
-
 ## **4.0 OFS DFL Kernel Drivers**
-
-
 
 ### **4.1 OFS DFL Kernel Driver Environment Setup**
 
 All OFS DFL kernel driver code resides in the [Linux DFL](https://github.com/OFS/linux-dfl) GitHub repository. This repository is open source and does not require any permissions to access. It includes a snapshot of the latest best-known configuration (BKC) Linux kernel with the OFS driver included in the `drivers/fpga/*` directory. Downloading, configuration, and compilation will be discussed in this section. Please refer to [Table 1-3](#table-1-3-software-version-summary) for the latest supported OS.
+
+The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1).
 
 It is recommended you boot into your operating system's native *4.18.x* kernel before attempting to upgrade to the dfl enabled *6.1.41* You may experience issues when moving between two dfl enabled *6.1.41* kernels.
 
@@ -453,14 +446,13 @@ $ cat /proc/cmdline
 BOOT_IMAGE=(hd0,gpt2)/vmlinuz-6.1.41-dfl root=/dev/mapper/rhel_bapvedell028-root ro crashkernel=auto resume=/dev/mapper/rhel_bapvedell028-swap rd.lvm.lv=rhel_bapvedell028/root rd.lvm.lv=rhel_bapvedell028/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200
 ```
 
-
-
-
 ## **5.0 OPAE Software Development Kit**
 
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices.
 
 The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE GitHub](https://github.com/OFS/opae-sdk). This repository is open source.
+
+You may choose to use the supplied Python 3 installation script to handle OPAE SDK installation. This script ships with a README detailing execution instructions on the [OFS 2023.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1).
 
 ### **5.1 OPAE SDK Build Environment Setup**
 

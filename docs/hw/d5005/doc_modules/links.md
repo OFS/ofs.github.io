@@ -34,7 +34,7 @@
 
 [Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs]: https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/ug-pac-security.md
 [Board Management User Guide]: https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/bmc/ug_dev_bmc_ofs_n600x.md
-[OPAE.io]: https://ofs.github.io/ofs-2023.2/sw/fpga_api/quick_start/readme/
+[OPAE.io]: https://ofs.github.io/ofs-2023.3-2/sw/fpga_api/quick_start/readme/
 [OPAE GitHub]: https://github.com/OFS/opae-sdk
 
 [5.0 OPAE Software Development Kit]: https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit

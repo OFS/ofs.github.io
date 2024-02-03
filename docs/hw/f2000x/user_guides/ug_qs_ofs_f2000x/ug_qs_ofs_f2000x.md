@@ -1,6 +1,6 @@
 # OFS Getting Started Guide for Intel Agilex 7 SoC Attach FPGAs
 
-Last updated: **January 10, 2024** 
+Last updated: **February 03, 2024** 
 
 ## 1.0 About this Document
 
