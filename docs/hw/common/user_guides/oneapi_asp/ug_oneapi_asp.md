@@ -45,7 +45,7 @@ This table defines some of the common terms used when discussing OFS.
 | Data Parallel C++ | DPC++ | [DPC++](https://www.intel.com/content/www/us/en/developer/tools/oneapi/data-parallel-c-plus-plus.html#gs.5sqn4j) is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware. |
 | Installable Client Driver | ICD | [Intel® FPGA Runtime for OpenCL™ Software Technology](https://github.com/intel/fpga-runtime-for-opencl) supports the OpenCL ICD extension from the Khronos Group™. The OpenCL ICD extension allows you to have multiple OpenCL implementations on your system. With the OpenCL ICD Loader Library, you may choose from a list of installed platforms and execute OpenCL API calls that are specific to your OpenCL implementation of choice. |
 | FPGA Client Driver | FCD | [Intel® FPGA Runtime for OpenCL™ Software Technology](https://github.com/intel/fpga-runtime-for-opencl) supports FPGA Client Driver(FCD) extension. FCD allows the runtime to automatically find and load the oneAPI ASP libraries at host run time |
- 
+
 ### **1.3 Introduction to High Level Design on OFS**
 <a name="intrduction_hld_ofs"></a>
 
@@ -102,17 +102,17 @@ Please follow steps in Getting started guides for your target devices to setup L
 
 As shown in Figure 1-1, OFS components in the FPGA include the FIM and Accelerator Functional Unit(AFU). The oneAPI ASP is in the Partial Reconfiguration(PR) region of the AFU and relies on the compiled database of the static region(FIM) to interface with the host and board peripherals(e.g. on-board memory).
 
-Once the server is setup with OPAE SDK and DFL kernel driver, the next step is to clone and compile the static region of the design, i.e. FIM. You can use the default configuration of the FIM for both target platforms. Additionaly for Intel® FPGA SmartNIC N6001-PL for ofs_n6001 and ofs_n6001_usm board variants you have the option to create a minimal FIM which removes additional VFs, HSSI and host exercisers in the design. Please follow steps in the *Intel® FPGA Interface Manager Developer Guides* for your target device to compile FIM supporting PR release.
+Once the server is setup with OPAE SDK and DFL kernel driver, the next step is to clone and compile the static region of the design, i.e. FIM. You can use the default configuration of the FIM for both target platforms. Additionaly for Intel® FPGA SmartNIC N6001-PL for ofs_n6001 and ofs_n6001_usm board variants you have the option to create 2 different types of minimal FIM which removes the HSSI subsystem and host exercisers in the design. The difference between this two minimal FIM's, are the amount of VFs that must be created, in case of 1PF/1VF (built using n6001_1pf_1vf.ofss), only 1 VF is needed. In case of 2PF FIM (built using n6001_2pf.ofss) no VF creation is required. 2PF FIM could be used in FPGA development in virtual machines, see *[Section 3.0 OneAPI on OFS Running in a Virtual Machine](#30-oneapi-on-ofs-running-in-a-virtual-machine)*. Please follow steps in the *Intel® FPGA Interface Manager Developer Guides* for your target device to compile FIM supporting PR release.
 
 -   [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 -   [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
-For more details on minimal FIM for Intel® Agilex® 7 FPGA for ofs_n6001 and ofs_n6001_usm board variants and how to create it, refer to Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs.
+For more details on minimal FIM's for Intel® Agilex® 7 FPGA for ofs_n6001 and ofs_n6001_usm board variants and how to create them, refer to Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs.
 
 A `pr_build_template` directory will be generated in the work directory specified as part of the FIM compile command (using `OFS/ofs-common/scripts/common/syn/build_top.sh` script with the '-p' option enable to create an out-of-tree PR release). The `pr_build_template` directory is required for successful setup of the oneAPI ASP.
 
-Once the FIM compile is complete, please program FIM using `fpgasupdate` and Remote System Update(`rsu`) command. Use of these commands has been demonstrated in section named `Program the Intel® FPGA SmartNIC N6001-PL with the hello_fim` in [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/) refer to `Test the hello_fim on a D5005` section in [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/) for Intel® Stratix 10® FPGA.
+Once the FIM compile is complete, please program FIM using `fpgasupdate` and Remote System Update(`rsu`) command. Use of these commands has been demonstrated in section named `5.3 Remote System Update` in [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/) refer to `Test the hello_fim on a D5005` section in [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/) for Intel® Stratix 10® FPGA.
 
 ### **2.3 Prerequisites**
 <a name="prerequisites"></a>
@@ -153,7 +153,7 @@ Tool installation guide for your reference:
 
 4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version.
 
-> **Note:** For Intel® Agilex® 7 FPGA ensure Quartus patch 0.13, 0.21 and 0.02iofs are installed. You can find them in a tar file under assets in the following link [patch-agx7-ofs-2023-3.tar.gz](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1). For Intel® Stratix 10® FPGA ensure Quartus patch 0.23 and 0.01iofs are installed. You can find them in a tar file under assets in the following link [patch-s10-ofs-2023-3.tar.gz](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. 
+> **Note:** For Intel® Agilex® 7 FPGA ensure Quartus patch 0.13, 0.21 and 0.02iofs are installed. You can find them in a tar file under assets in the following link [patch-agx7-2023-3.tar.gz](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2). For Intel® Stratix 10® FPGA ensure Quartus patch 0.23 and 0.01iofs are installed. You can find them in a tar file under assets in the following link [patch-s10-2023-3.tar.gz](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1).For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. 
 
 Use following command to check Quartus version and installed patches.
 
@@ -214,7 +214,7 @@ Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(BKC).
 | opae-sdk | Branch: release/2.10.0, Tag: 2.10.0-1 |
 | ofs-fim | Tag: ofs-2023.3-2|
 | oneapi-asp | Tag: ofs-2023.3-2 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)*|
-| Quartus Prime Pro Edition | Version 23.3 Pro Edition with patches (0.13, 0.21 and 0.02iofs) under assets on this link [patch-agx7-ofs-2023-3.tar.gz]](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) |
+| Quartus Prime Pro Edition | Version 23.3 Pro Edition with patches (0.13, 0.21 and 0.02iofs) under assets on this link [patch-agx7-2023-3.tar.gz](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2) |
 | Intel® oneAPI Base Toolkit (Base Kit) | Latest version |
 | GCC | 7.4.0 |
 | cmake | 3.15 |
@@ -229,7 +229,8 @@ Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(BKC).
 | opae-sdk | Branch: release/2.10.0, Tag: 2.10.0-1 |
 | ofs-fim | Tag: ofs-2023.3-1 |
 | oneapi-asp | Tag: ofs-2023.3-2 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)* |
-| Quartus Prime Pro Edition | Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link [patch-s10-ofs-2023-3.tar.gz](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) |
+| Quartus Prime Pro Edition | Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link [patch-s10-2023-3.tar.gz
+](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) |
 | Intel® oneAPI Base Toolkit (Base Kit) | Latest version |
 | GCC | 7.4.0 |
 | cmake | 3.15 |
@@ -247,7 +248,7 @@ Once all pre-requisites are installed and the environment variables are set, nex
 
         git clone https://github.com/OFS/oneapi-asp.git
         cd oneapi-asp
-        git checkout tags/ofs-2023.3-1
+        git checkout tags/ofs-2023.3-2
 </pre>
 
 Ensure the correct tag has ben checked out:
@@ -260,7 +261,7 @@ Ensure the correct tag has ben checked out:
 
 </pre>
 
-        ofs-2023.3-1
+        ofs-2023.3-2
 </pre>
 
 
@@ -422,14 +423,25 @@ The output directory of the sample application is written to `oneapi-asp/platfor
 
 Once the bitstreams are generated, create a VF and initialize the board as explained in following section. Ensure that the FIM has been programmed on the board as explained in *[section 2.2 Clone and Compile FIM](#22-clone-and-compile-fim)*
 
-#### **2.5.2 Create VF**
-
+#### **2.5.2 PF/VF mapping**
 The oneAPI ASP is located in the PR region of the FIM and is accessed through PF/VF Mux. Refer to the FIM Reference Manual for your target platforms for more details about PF/VF mapping.
 
-* Reference FIM for Intel® Agilex® 7 FPGA OFS: VF0 is mapped to PR region and you can create 1 VF when using this FIM. Base_x16 FIM has 5 PF's and minimal FIM just 1 PF. See [Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3-2/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for diagram showing PF/VF mapping.
+* Reference FIM for Intel® Agilex® 7 FPGA OFS: 
 
-* Reference FIM for Intel® Stratix 10® FPGA OFS: VF1 is mapped to PR region and you must create 2 VFs when using this FIM. This FIM has 1 PF. See [FIM Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/) for diagram showing PF/VF mapping.
+For Base_x16 FIM (default) and 1PF/1VF minimal FIM (built using n6001_1pf_1vf.ofss), VF0 is mapped to PR region and you can create 1 VF when using this FIM. Base_x16 FIM has 5 PF's and minimal FIM just 1 PF. 
 
+For 2PF FIM (built using n6001_2pf.ofss) PF1 is mapped to PR region and no VF creation is required.
+
+See [Technical Reference Manual: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3-2/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for diagram showing PF/VF mapping.
+
+* Reference FIM for Intel® Stratix 10® FPGA OFS: 
+
+VF1 is mapped to PR region and you must create 2 VFs when using this FIM. This FIM has 1 PF. See [FIM Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/) for diagram showing PF/VF mapping.
+
+##### **2.5.2.1 Create VF**
+<a name="create-vf"></a>
+
+> **Note:**This section only applies for Base_x16 FIM and 1PF/1VF minimal FIM for Intel® Agilex® 7 FPGA and default FIM for Intel® Stratix 10® FPGA. 
 
 - Create a VF using PCIe ID obtained from the output of `fpgainfo fme` (PCIe s\:b\:d.f output)
 
@@ -438,7 +450,7 @@ The oneAPI ASP is located in the PR region of the FIM and is accessed through PF
         sudo pci_device s:b:d.f vf num_vf  #num_vf is 1 for Intel® Agilex® 7 FPGA and 2 for Intel® Stratix 10® FPGA
 </pre>
 
-* Check that the VF is created using `sudo opae.io ls` command and note the PCIe ID for the VF(s) (the function number in s\:b\:d.**f** will be different for the VF). Sample output for Intel® Agilex® 7 FPGA minimal FIM is shown below. Output for base_x16 FIM should display 5 PF's and the PCIe ID for VF0 will be s:b:d.5.
+* Check that the VF is created using `sudo opae.io ls` command and note the PCIe ID for the VF(s) (the function number in s\:b\:d.**f** will be different for the VF). Sample output for Intel® Agilex® 7 FPGA 1PF/1VF minimal FIM is shown below. Output for base_x16 FIM should display 5 PF's and the PCIe ID for VF0 will be s:b:d.5.
 
 </pre>
 
@@ -458,15 +470,21 @@ Sample output for Intel® Stratix 10® FPGA is shown below.
 
 > **Note:**`sudo opae.io ls` will list the accelerators, respective PCIe ID as well as the driver it is currently bound to.
 
+> **Note:** For more information about `pci_device` and `opae.io` utilities, refer to the OPAE FPGA tools page [here](https://github.com/OPAE/opae-sdk/tree/master/doc/src/fpga_tools).
+
+##### **2.5.2.2 Bind PF and VF**
+
+For Base_x16 FIM and 1PF/1VF minimal FIM for Intel® Agilex® 7 FPGA and default FIM for Intel® Stratix 10® FPGA :
+
 - Bind the created VF(s) to vfio-pci driver, use the PCIe ID for the VF(s) for this step. Verify you are using the PCIe ID of the VFs you have created. For example:
-* From sample output for Agilex OFS target platform having minimal FIM programmed shown above, `s:b:d.vf` will be `0000:b1:00.1` in command below. For base_x16 FIM should be s:b:d.5.
+* From sample output for Agilex OFS target platform having 1PF/1VF minimal FIM programmed shown in *[Section 2.5.2.1 Create VF](#2521-create-vf)*, `s:b:d.vf` will be `0000:b1:00.1` in command below. For base_x16 FIM should be s:b:d.5.
 
 </pre>
 
         sudo opae.io init -d s:b:d.vf $USER
 </pre>
 
-* Sample output for Intel® Agilex® 7 FPGA OFS target platform minimal FIM. Output for base_x16 FIM should be similar.
+* Sample output for Intel® Agilex® 7 FPGA OFS target platform 1PF/1VF minimal FIM. Output for base_x16 FIM should be similar.
 
 </pre>
 
@@ -491,36 +509,75 @@ Sample output for Intel® Stratix 10® FPGA is shown below.
 
 </pre>
 
-    $sudo opae.io init -d 0000:12:00.1 $USER
-    Unbinding (0x8086,0xbccf) at 0000:12:00.1 from dfl-pci
-    Binding (0x8086,0xbccf) at 0000:12:00.1 to vfio-pci
-    iommu group for (0x8086,0xbccf) at 0000:12:00.1 is 149
-    Assigning /dev/vfio/149 to ofsuser
-    Changing permissions for /dev/vfio/149 to rw-rw----
+        $sudo opae.io init -d 0000:12:00.1 $USER
+        Unbinding (0x8086,0xbccf) at 0000:12:00.1 from dfl-pci
+        Binding (0x8086,0xbccf) at 0000:12:00.1 to vfio-pci
+        iommu group for (0x8086,0xbccf) at 0000:12:00.1 is 149
+        Assigning /dev/vfio/149 to ofsuser
+        Changing permissions for /dev/vfio/149 to rw-rw----
 
-    $sudo opae.io init -d 0000:12:00.2 $USER
-    Unbinding (0x8086,0xbccf) at 0000:12:00.2 from dfl-pci
-    Binding (0x8086,0xbccf) at 0000:12:00.2 to vfio-pci
-    iommu group for (0x8086,0xbccf) at 0000:12:00.2 is 152
-    Assigning /dev/vfio/152 to ofsuser
-    Changing permissions for /dev/vfio/152 to rw-rw----
+        $sudo opae.io init -d 0000:12:00.2 $USER
+        Unbinding (0x8086,0xbccf) at 0000:12:00.2 from dfl-pci
+        Binding (0x8086,0xbccf) at 0000:12:00.2 to vfio-pci
+        iommu group for (0x8086,0xbccf) at 0000:12:00.2 is 152
+        Assigning /dev/vfio/152 to ofsuser
+        Changing permissions for /dev/vfio/152 to rw-rw----
 
-    $ sudo opae.io ls
-    [0000:12:00.0] (0x8086:0xbcce) Intel FPGA Programmable Acceleration Card D5005 (Driver: dfl-pci)
-    [0000:12:00.1] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
-    [0000:12:00.2] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
+        $ sudo opae.io ls
+        [0000:12:00.0] (0x8086:0xbcce) Intel FPGA Programmable Acceleration Card D5005 (Driver: dfl-pci)
+        [0000:12:00.1] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
+        [0000:12:00.2] (0x8086:0xbccf) Intel FPGA Programmable Acceleration Card D5005 (Driver: vfio-pci)
 
-    $ls -lt /dev/vfio
-    total 0
-    crw-rw----. 1 ofsuser  root  235,   3 Dec 3 16:25 149
-    crw-rw----. 1 ofsuser  root  235,   0 Dec 3 16:22 152
-    crw-rw-rw-. 1 root     root   10, 196 Dec 1 07:28 vfio
+        $ls -lt /dev/vfio
+        total 0
+        crw-rw----. 1 ofsuser  root  235,   3 Dec 3 16:25 149
+        crw-rw----. 1 ofsuser  root  235,   0 Dec 3 16:22 152
+        crw-rw-rw-. 1 root     root   10, 196 Dec 1 07:28 vfio
 </pre>
 
+For 2PF FIM for Intel® Agilex® 7 FPGA :
+
+Bind the PF1 to vfio-pci driver, use `sudo opae.io ls` command and note the PCIe ID (s\:b\:d.f) for the PF(s). Verify you are using the PCIe ID of the PF1. 
+</pre>
+
+        $ sudo opae.io ls
+        [0000:b1:00.0] (0x8086:0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+        [0000:b1:00.1] (0x8086:0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+
+</pre>
+
+Output below shows the command to bind PF1, in this case `s:b:d.f` will be `0000:b1:00.1`.
+
+</pre>
+
+        sudo opae.io init -d s:b:d.f $USER
+</pre>
+
+* Sample output for Intel® Agilex® 7 FPGA OFS target platform 2PF minimal FIM.
+
+</pre>
+
+        $ sudo opae.io init -d 0000:b1:00.1 $USER
+        Unbinding (0x8086,0xbcce) at 0000:b1:00.1 from dfl-pci
+        Binding (0x8086,0xbcce) at 0000:b1:00.1 to vfio-pci
+        iommu group for (0x8086,0xbcce) at 0000:b1:00.1 is 13
+        Assigning /dev/vfio/13 to ofsuser
+        Changing permissions for /dev/vfio/13 to rw-rw----
+
+        $ sudo opae.io ls
+        [0000:b1:00.0] (0x8086:0xbcce) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
+        [0000:b1:00.1] (0x8086:0xbcce) Intel Acceleration Development Platform N6001 (Driver: vfio-pci)
+
+        $ ls -lt /dev/vfio
+        total 0
+        crw-rw----. 1 ofsuser  root 511,   0 Feb  2 22:47 13
+        crw-rw-rw-. 1 root     root  10, 196 Feb  2 16:56 vfio
+
+</pre>
 
 If the driver fails to bind due to an error related to `iommu_group` (e.g. `No such file or directory: '/sys/bus/pci/devices/0000:b1:00.5/iommu_group'), ensure IOMMU is turned on as explained in step 2 in *[Section 2.3 Prerequisites](#23-prerequisites)*.
 
-> **Note:** For more information about `pci_device` and `opae.io` utilities, refer to the OPAE FPGA tools page [here](https://github.com/OPAE/opae-sdk/tree/master/doc/src/fpga_tools).
+> **Note:** For more information about `opae.io` utilities, refer to the OPAE FPGA tools page [here](https://github.com/OPAE/opae-sdk/tree/master/doc/src/fpga_tools).
 
 #### **2.5.3 Initialize Board and Run Diagnostic Test**
 
@@ -754,7 +811,10 @@ Once you are done with your application testing, you can release the device from
 
         $ sudo opae.io release -d s:b:d.vf
 </pre>
-Sample output for Intel® Agilex® 7 FPGA OFS target platform having programmed minimal FIM is shown below.The output for Intel® Stratix 10® FPGA target platform and base_x16 FIM should be similar. For Intel® Stratix 10® FPGA you will need to release an extra VF as for this target 2 Vfs were created.
+Sample output for Intel® Agilex® 7 FPGA OFS target platform having programmed 1PF/1VF minimal FIM is shown below. The output for 2PF minimal FIM, base_x16 FIM for  Intel® Agilex® 7 FPGA and base_x16 FIM for Intel® Stratix 10® FPGA should be similar. 
+
+> **Note:** For Intel® Stratix 10® FPGA you will need to release an extra VF as for this target 2 Vfs were created.
+
 </pre>
 
     $ sudo opae.io release -d 0000:b1:00.1
@@ -766,7 +826,32 @@ Sample output for Intel® Agilex® 7 FPGA OFS target platform having programmed 
     [0000:b1:00.1] (0x8086, 0xbccf) Intel Acceleration Development Platform N6001 (Driver: dfl-pci)
 </pre>
 
-## **3.0 Further Development**
+## **3.0 OneAPI on OFS Running in a Virtual Machine**
+<a name="oneapi-on-ofs-running-in-a-virtual-machine"></a>
+
+Virtual machines (VM's) can be used for FPGA development, 2PF minimal FIM (built using n6001_2pf.ofss) is provided to use oneAPI on OFS Intel® FPGA SmartNIC N6001-PL reference platform in a VM. For more information about 2PF FIM configuration refer to [Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/). 
+
+The setup flow for your virtual machine could be found in the [KVM User Guide: Open FPGA Stack](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_kvm/ug_kvm/), there are additional things for oneAPI flow listed below which you should ensure while configuring your VM:
+
+- Assign the enough memory to the VM for running your oneAPI workloads.
+
+- In section `5.1 Passing Devices to the VM` when adding the PCIe Host Devices to the VM, ensure to have PF0 and PF1 BDF adjacent (`s\:b\:d.f`, `s\:b\:d.f+1`). The following example shows the address element of the PCIe Host Device XML file of PF0 and PF1, keeping the same value for domain, bus and slot attributes and only changing the function attribute (increasing its value by one):
+
+
+![PFO-XML](images/PF0.png) 
+
+![PF1-XML](images/PF1.png)
+
+- Install libnsl.so.1 library with the following command: 
+</pre>
+
+        $sudo yum install libnsl.so.1
+</pre>
+
+Once this setup is done, follow *[Section 2.0 Setup Flow for Using HLD Tool on OFS](#20-setup-flow-for-using-hld-tool-on-ofs)* to finish the configuration of the VM for oneAPI .
+
+
+## **3.1 Further Development**
 <a name="next_step_customer"></a>
 
 Once you have completed running the oneAPI sample application, you can start developing your own applications.
@@ -788,5 +873,6 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
+
 
 
