@@ -1,0 +1,2404 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
+    
+    
+      
+        <title>OPAE Installation Guide - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#opae-installation-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OPAE Installation Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+    
+  
+  Welcome
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+          
+  
+    
+  
+  Start Here
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-tabs__link">
+          
+  
+    
+  
+  Stratix 10 PCIe Attach OFS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link">
+          
+  
+    
+  
+  Agilex PCIe Attach OFS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-tabs__link">
+          
+  
+    
+  
+  Agilex SoC Attach OFS
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../hw/common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+          
+  
+    
+  
+  oneAPI
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../../hw/common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
+          
+  
+    
+  
+  OFS Software
+
+        </a>
+      </li>
+    
+  
+
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Start Here
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Start Here
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Developer Journey Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/doc_modules/Glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Stratix 10 PCIe Attach OFS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Stratix 10 PCIe Attach OFS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start Evaluation Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Interface Manager Technical Reference Manual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Interface Manager Developer Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AFU Developer Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simulation User Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_docker/ug_docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker User guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_kvm/ug_kvm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KVM User guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Agilex PCIe Attach OFS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Agilex PCIe Attach OFS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start Evaluation Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started (Intel Agilex 7 FPGA I-Series Development Kit 2xR-Tile)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started (Intel Agilex 7 FPGA F-Series Development Kit 2xF-Tile)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started (Intel FPGA SmartNIC N6001-PL)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Interface Manager Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Interface Manager Developer Guide for PCIe Attach F-Series (2xF-Tile)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Interface Manager Developer Guide for PCIe Attach F-Series (P-Tile/E-Tile)
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AFU Developer Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HPS Developer Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simulation User Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_docker/ug_docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker User guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_kvm/ug_kvm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KVM User guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Agilex SoC Attach OFS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Agilex SoC Attach OFS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Quick Start Evaluation Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Getting Started
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Interface Manager Technical Reference Manual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    FPGA Interface Manager Developer Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    AFU Developer Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Simulation User Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_docker/ug_docker/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Docker User guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/ug_kvm/ug_kvm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    KVM User guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    oneAPI
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            oneAPI
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oneAPI ASP Getting Started User Guide
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    oneAPI Accelerator Support Package(ASP) Reference Manual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      
+      
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    OFS Software
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            OFS Software
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OPAE SOFTWARE REFERENCE
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_1">
+            <span class="md-nav__icon md-icon"></span>
+            OPAE SOFTWARE REFERENCE
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../hw/common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Software Reference Manual
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    OPAE FPGA TOOLS
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            OPAE FPGA TOOLS
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fpgainfo
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fpgasupdate
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mmlink
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/packager/packager/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    packager
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/userclk/userclk/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    userclk
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/hssi/hssi/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    hssi
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    pci_device
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    opae.io
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/rsu/rsu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    rsu
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    host_exerciser
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HSSI ethernet statistics
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    HSSI ethernet mac
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    mem_tg
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    vabtool
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    opaevfio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    ofs.uio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    opaeuio
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    fpgad
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#how-to-download-the-opae-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      How to download the OPAE SDK
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#install-the-fedora" class="md-nav__link">
+    <span class="md-ellipsis">
+      Install the Fedora
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-the-kernel-and-dfl-drivers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build the kernel and DFL drivers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-the-opae-sdk" class="md-nav__link">
+    <span class="md-ellipsis">
+      Build the OPAE-SDK
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Build the OPAE-SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rocky-linux-85" class="md-nav__link">
+    <span class="md-ellipsis">
+      Rocky Linux 8.5
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fedora" class="md-nav__link">
+    <span class="md-ellipsis">
+      Fedora
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ubuntu-2204" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ubuntu 22.04
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rhel-82" class="md-nav__link">
+    <span class="md-ellipsis">
+      RHEL 8.2
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-opae-sdk-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create opae-sdk packages
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opae-sdk-installation-with-rpmdeb-packages" class="md-nav__link">
+    <span class="md-ellipsis">
+      OPAE SDK installation with rpm/deb packages
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fpga-device-access-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      FPGA Device Access Permissions
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memlock-limit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Memlock limit
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hugepage-settings" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hugepage Settings
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="opae-installation-guide">OPAE Installation Guide<a class="headerlink" href="#opae-installation-guide" title="Permanent link">&para;</a></h1>
+<h2 id="how-to-download-the-opae-sdk">How to download the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr><a class="headerlink" href="#how-to-download-the-opae-sdk" title="Permanent link">&para;</a></h2>
+<p><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> releases are available on <a href="https://github.com/OPAE/opae-sdk/releases">GitHub</a>.
+Source code for the OPAE <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> device driver for Linux is also available on <a href="https://github.com/OPAE/linux-dfl">GitHub</a>.</p>
+<h2 id="install-the-fedora">Install the Fedora<a class="headerlink" href="#install-the-fedora" title="Permanent link">&para;</a></h2>
+<p>Download the Fedora  (x86_64 version) installation file in <a href="https://getfedora.org/en/workstation/download/">fedora</a>, and install the Fedora  in yourserver. You can choose Fedora Workstation or Fedora server.</p>
+<h2 id="build-the-kernel-and-dfl-drivers">Build the kernel and <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers<a class="headerlink" href="#build-the-kernel-and-dfl-drivers" title="Permanent link">&para;</a></h2>
+<p>For building the OPAE kernel and kernel driver, the kernel development environment is required. So before you build the kernel, you must install the required packages. Run the following commands:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>make<span class="w"> </span>kernel-headers<span class="w"> </span>kernel-devel<span class="w"> </span>elfutils-libelf-devel<span class="w"> </span>ncurses-devel<span class="w"> </span>openssl-devel<span class="w"> </span>bison<span class="w"> </span>flex
+</code></pre></div>
+<p>Download the OPAE upstream kernel tree from github, for example download from fpga-ofs-dev-5.15-lts branch.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OPAE/linux-dfl.git<span class="w"> </span>-b<span class="w"> </span>fpga-ofs-dev-5.15-lts
+</code></pre></div></p>
+<p>Configure the kernel.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>linux-dfl
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="gp">$ </span>cp<span class="w"> </span>/boot/config-<span class="sb">`</span>uname<span class="w"> </span>-r<span class="sb">`</span><span class="w"> </span>.config
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="gp">$ </span>cat<span class="w"> </span>configs/dfl-config<span class="w"> </span>&gt;&gt;<span class="w"> </span>.config
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;CONFIG_LOCALVERSION=&quot;-dfl&quot;&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.config
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;CONFIG_LOCALVERSION_AUTO=y&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.config
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="gp">$ </span>sed<span class="w"> </span>-i<span class="w"> </span>-r<span class="w"> </span><span class="s1">&#39;s/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=&quot;&quot;/&#39;</span><span class="w"> </span>.config
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="gp">$ </span>sed<span class="w"> </span>-i<span class="w"> </span><span class="s1">&#39;/^CONFIG_DEBUG_INFO_BTF/ s/./#&amp;/&#39;</span><span class="w"> </span>.config
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="gp">$ </span><span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;CONFIG_DEBUG_ATOMIC_SLEEP=y&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.config
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="gp">$ </span>make<span class="w"> </span>olddefconfig
+</code></pre></div></p>
+<p>Compile and install the new kernel.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="gp">$ </span>make<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="gp">$ </span>sudo<span class="w"> </span>make<span class="w"> </span>modules_install<span class="w"> </span>-j<span class="w"> </span><span class="k">$(</span>nproc<span class="k">)</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="gp">$ </span>sudo<span class="w"> </span>make<span class="w"> </span>install
+</code></pre></div></p>
+<p>Build linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel instructions please also refer to: https://github.com/OPAE/linux-dfl/wiki/Build-the-linux-dfl-kernel</p>
+<p>When install finished, reboot your system.
+When the system login again, verify the kernel version is correct. For example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="gp">[figo@localhost linux-dfl]$ </span>uname<span class="w"> </span>-a
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="go">Linux localhost.localdomain 5.15.lts-dfl-g73e16386cda0 #6 SMP Mon Jun 13 21:21:31 -04 2022 x86_64 x86_64 x86_64</span>
+</code></pre></div></p>
+<p>And also you can check the OPAE dfl drivers have auto-loaded.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="gp">[figo@localhost linux-dfl]$ </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>fpga
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="go">ifpga_sec_mgr          20480  1 intel_m10_bmc_secure</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="go">fpga_region            20480  3 dfl_fme_region,dfl_fme,dfl</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="go">fpga_bridge            24576  4 dfl_fme_region,fpga_region,dfl_fme,dfl_fme_br</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="go">fpga_mgr               16384  4 dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="gp">[figo@localhost linux-dfl]$ </span>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>dfl
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="go">dfl_eth_group          36864  0</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="go">dfl_fme_region         20480  0</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="go">dfl_emif               16384  0</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="go">dfl_n3000_nios         20480  0</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="go">dfl_fme_br             16384  0</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="go">dfl_fme_mgr            20480  1</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="go">dfl_fme                49152  0</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="go">dfl_afu                36864  0</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="go">dfl_pci                20480  0</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="go">dfl                    40960  7 dfl_pci,dfl_fme,dfl_fme_br,dfl_eth_group,dfl_n3000_nios,dfl_afu,dfl_emif</span>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="go">fpga_region            20480  3 dfl_fme_region,dfl_fme,dfl</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="go">fpga_bridge            24576  4 dfl_fme_region,fpga_region,dfl_fme,dfl_fme_br</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="go">fpga_mgr               16384  4 dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme</span>
+</code></pre></div></p>
+<h2 id="build-the-opae-sdk">Build the OPAE-SDK<a class="headerlink" href="#build-the-opae-sdk" title="Permanent link">&para;</a></h2>
+<p>Before you build the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr>, you must install the required packages. Run the following commands:</p>
+<h3 id="rocky-linux-85">Rocky Linux 8.5<a class="headerlink" href="#rocky-linux-85" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span><span class="s1">&#39;dnf-command(config-manager)&#39;</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="gp"># </span>dnf<span class="w"> </span>config-manager<span class="w"> </span>--set-enabled<span class="w"> </span>powertools
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>epel-release
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="gp"># </span>dnf<span class="w"> </span>check-update
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="gp"># </span>dnf<span class="w"> </span>upgrade<span class="w"> </span>-y
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-devel<span class="w"> </span>python3-jsonschema<span class="w"> </span>python3-pyyaml<span class="w"> </span>python3-pybind11<span class="w"> </span>git<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>make<span class="w"> </span>cmake<span class="w"> </span>libuuid-devel<span class="w"> </span>json-c-devel<span class="w"> </span>hwloc-devel<span class="w"> </span>tbb-devel<span class="w"> </span>cli11-devel<span class="w"> </span>spdlog-devel<span class="w"> </span>libedit-devel<span class="w"> </span>systemd-devel<span class="w"> </span>rpm-build<span class="w"> </span>rpmdevtools<span class="w"> </span>pybind11-devel<span class="w"> </span>yaml-cpp-devel<span class="w"> </span>libudev-devel<span class="w"> </span>linuxptp<span class="w"> </span>numactl-devel
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="gp"># </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>jsonschema<span class="w"> </span>virtualenv<span class="w"> </span>pyyaml
+</code></pre></div>
+<h3 id="fedora">Fedora<a class="headerlink" href="#fedora" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gp"># </span>dnf<span class="w"> </span>check-update
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="gp"># </span>dnf<span class="w"> </span>upgrade<span class="w"> </span>-y
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-devel<span class="w"> </span>python3-jsonschema<span class="w"> </span>python3-pyyaml<span class="w"> </span>python3-pybind11<span class="w"> </span>git<span class="w"> </span>gcc<span class="w"> </span>g++<span class="w"> </span>make<span class="w"> </span>cmake<span class="w"> </span>libuuid-devel<span class="w"> </span>json-c-devel<span class="w"> </span>hwloc-devel<span class="w"> </span>tbb-devel<span class="w"> </span>libedit-devel<span class="w"> </span>rpm-build<span class="w"> </span>rpmdevtools<span class="w"> </span>pybind11-devel<span class="w"> </span>yaml-cpp-devel<span class="w"> </span>libudev-devel<span class="w"> </span>cli11-devel<span class="w"> </span>spdlog-devel<span class="w"> </span>linuxptp<span class="w"> </span>numactl-devel
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="gp"># </span>pip3<span class="w"> </span>install<span class="w"> </span>jsonschema<span class="w"> </span>virtualenv<span class="w"> </span>pyyaml
+</code></pre></div>
+<h3 id="ubuntu-2204">Ubuntu 22.04<a class="headerlink" href="#ubuntu-2204" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="gp"># </span>apt-get<span class="w"> </span>update
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="gp"># </span>apt-get<span class="w"> </span>upgrade<span class="w"> </span>-y
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="gp"># </span>apt-get<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-dev<span class="w"> </span>git<span class="w"> </span>gcc<span class="w"> </span>g++<span class="w"> </span>make<span class="w"> </span>cmake<span class="w"> </span>uuid-dev<span class="w"> </span>libjson-c-dev<span class="w"> </span>libhwloc-dev<span class="w"> </span>libtbb-dev<span class="w"> </span>libedit-dev<span class="w"> </span>libudev-dev<span class="w"> </span>linuxptp<span class="w"> </span>pandoc<span class="w"> </span>devscripts<span class="w"> </span>debhelper<span class="w"> </span>doxygen<span class="w"> </span>libnuma-dev
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="gp"># </span>pip3<span class="w"> </span>install<span class="w"> </span>jsonschema<span class="w"> </span>virtualenv<span class="w"> </span>pyyaml<span class="w"> </span>pybind11
+</code></pre></div>
+<h3 id="rhel-82">RHEL 8.2<a class="headerlink" href="#rhel-82" title="Permanent link">&para;</a></h3>
+<p>Register and enable Red Hat subscription to install any packages on the system.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="gp"># </span>subscription-manager<span class="w"> </span>register<span class="w"> </span>--proxy<span class="o">=</span>PROXY<span class="w"> </span>--username<span class="o">=</span>USER<span class="w"> </span>--password<span class="o">=</span>PASSWORD<span class="w"> </span>--auto-attach
+</code></pre></div>
+<p>Set the RHEL version and install packages. Set proxy name and port number.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="gp"># </span>subscription-manager<span class="w"> </span>release<span class="w"> </span>--set<span class="o">=</span><span class="m">8</span>.2<span class="w"> </span>--proxy<span class="w"> </span>proxy-name.com:port<span class="w"> </span>number
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="gp"># </span>subscription-manager<span class="w"> </span>repos<span class="w"> </span>--enable<span class="w"> </span>codeready-builder-for-rhel-8-x86_64-rpms
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="gp"># </span>dnf<span class="w"> </span>upgrade<span class="w"> </span>-y
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-devel<span class="w"> </span>gdb<span class="w"> </span>vim<span class="w"> </span>git<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>make<span class="w"> </span>cmake<span class="w"> </span>libuuid-devel<span class="w"> </span>rpm-build<span class="w"> </span>systemd-devel<span class="w">  </span>nmap
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>python3-jsonschema<span class="w"> </span>json-c-devel<span class="w"> </span>tbb-devel<span class="w"> </span>rpmdevtools<span class="w"> </span>libcap-devel<span class="w"> </span>numactl-devel
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="gp"># </span>dnf<span class="w"> </span>check-update<span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nb">true</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="gp"># </span>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>spdlog-devel<span class="w"> </span>cli11-devel<span class="w"> </span>python3-pyyaml<span class="w"> </span>python3-pybind11<span class="w"> </span>hwloc-devel<span class="w"> </span>libedit-devel
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="gp"># </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>jsonschema<span class="w"> </span>virtualenv<span class="w"> </span>pudb<span class="w"> </span>pyyaml
+</code></pre></div>
+<p>Install the latest version of <a href="https://github.com/Kitware">cmake</a> on top of the outdated cmake package from the package manager.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gp"># </span><span class="nb">cd</span><span class="w"> </span>cmake-3.25.1/
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="gp"># </span>./bootstrap<span class="w"> </span>--prefix<span class="o">=</span>/usr
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="gp"># </span>make
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="gp"># </span>make<span class="w"> </span>install
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="gp"># </span>which<span class="w"> </span>cmake
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="go">/usr/bin/cmake</span>
+</code></pre></div>
+<h3 id="create-opae-sdk-packages">Create opae-sdk packages<a class="headerlink" href="#create-opae-sdk-packages" title="Permanent link">&para;</a></h3>
+<p>Download the OPAE-SDK source code from github. For example, download from Master branch.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="gp">$ </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OPAE/opae-sdk.git
+</code></pre></div>
+<p>Compile and build the OPAE-SDK RPMs (Fedora, Rocky, RHEL 8.2).
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>opae-sdk/packaging/opae/rpm
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="gp">$ </span>./create<span class="w"> </span>fedora
+</code></pre></div></p>
+<p>Note that if you find that your distribution has changed package names such that there is a conflict
+when building RPMs, you can install all of the build dependencies so that the SDK compiles and then
+build the RPMs in unrestricted mode:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>opae-sdk/packaging/opae/rpm
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="gp">$ </span>./create<span class="w"> </span>unrestricted
+</code></pre></div></p>
+<p>After a successful compile, there are 3 rpm packages generated (Fedora, Rocky, RHEL8.2). For example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="go">opae-2.1.0-1.fc34.x86_64.rpm</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="go">opae-devel-2.1.0-1.fc34.x86_64.rpm</span>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="go">opae-extra-tools-2.1.0-1.fc34.x86_64.rpm</span>
+</code></pre></div></p>
+<p>Compile and build the OPAE-SDK deb packages (Ubuntu 22.04).
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="gp">$ </span><span class="nb">cd</span><span class="w"> </span>opae-sdk/packaging/opae/deb
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="gp">$ </span>./create
+</code></pre></div></p>
+<p>After a successful compile, there are 3 deb packages generated (Ubuntu 22.04). For example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="go">opae_2.1.1-1_amd64.deb  </span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="go">opae-devel_2.1.1-1_amd64.deb  </span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="go">opae-extra-tools_2.1.1-1_amd64.deb</span>
+</code></pre></div></p>
+<h2 id="opae-sdk-installation-with-rpmdeb-packages"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> installation with rpm/deb packages<a class="headerlink" href="#opae-sdk-installation-with-rpmdeb-packages" title="Permanent link">&para;</a></h2>
+<p>The rpm packages generated in the previous step can be installed using these commands:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>./*.rpm
+</code></pre></div>
+<p>The deb packages generated in the previous step can be installed using these commands:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>dpkg<span class="w"> </span>-i<span class="w">  </span>./*.deb
+</code></pre></div>
+<p>When you installed the rpms, you can run fpgainfo command to check the FPGA <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> infomation. For example:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="gp">[figo@localhost install_guide]$ </span>fpgainfo<span class="w"> </span>fme
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="go">Board Management Controller, MAX10 NIOS FW version: D.2.1.24</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="go">Board Management Controller, MAX10 Build version: D.2.0.7</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="go">//****** FME ******//</span>
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="go">Object Id                        : 0xEF00000</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a><span class="go">PCIe s:b:d.f                     : 0000:08:00.0</span>
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="go">Device Id                        : 0x0B30</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="go">Socket Id                        : 0x00</span>
+<a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a><span class="go">Ports Num                        : 01</span>
+<a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a><span class="go">Bitstream Id                     : 0x2300011001030F</span>
+<a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a><span class="go">Bitstream Version                : 0.2.3</span>
+<a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a><span class="go">Pr Interface Id                  : f3c99413-5081-4aad-bced-07eb84a6d0bb</span>
+<a id="__codelineno-20-13" name="__codelineno-20-13" href="#__codelineno-20-13"></a><span class="go">Boot Page                        : user</span>
+</code></pre></div></p>
+<p>To uninstall the OPAE rpms, you can use this commands
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="gp">$ </span>dnf<span class="w"> </span>list<span class="w"> </span>installed<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="gp">$ </span>sudo<span class="w"> </span>dnf<span class="w"> </span>remove<span class="w"> </span>opae*.x86_64
+</code></pre></div></p>
+<p>To uninstall the OPAE deb, you can use this commands
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="gp">$ </span>dpkg<span class="w"> </span>-l<span class="w">  </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="gp">$ </span>dpkg<span class="w"> </span>-r<span class="w"> </span>opae-extra-tools:amd64
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a><span class="gp">$ </span>dpkg<span class="w"> </span>-r<span class="w"> </span>opae-devel:amd64
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a><span class="gp">$ </span>dpkg<span class="w"> </span>-r<span class="w"> </span>opae
+</code></pre></div></p>
+<h2 id="fpga-device-access-permissions">FPGA Device Access Permissions<a class="headerlink" href="#fpga-device-access-permissions" title="Permanent link">&para;</a></h2>
+<p>Access to FPGA accelerators and devices is controlled using file access permissions on the
+Intel&reg; FPGA device files, <code>/dev/dfl-fme.*</code> and <code>/dev/dfl-port.*</code>, as well as to the files reachable through <code>/sys/class/fpga_region/</code>.</p>
+<p>In order to allow regular (non-root) users to access accelerators, you need to grant them read and write permissions on <code>/dev/dfl-port.*</code> (with <code>*</code> denoting the respective socket, i.e. 0 or 1). E.g.:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>chmod<span class="w"> </span>a+rw<span class="w"> </span>/dev/dfl-port.0
+</code></pre></div>
+<h2 id="memlock-limit">Memlock limit<a class="headerlink" href="#memlock-limit" title="Permanent link">&para;</a></h2>
+<p>Depending on the requirements of your application, you may also want to
+increase the maximum amount of memory a user process is allowed to lock. The
+exact way to do this depends on your Linux distribution.</p>
+<p>You can check the current memlock limit using</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="gp">$ </span><span class="nb">ulimit</span><span class="w"> </span>-l
+</code></pre></div>
+<p>A way to permanently remove the limit for locked memory for a regular user is
+to add the following lines to your /etc/security/limits.conf:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="go">user1    hard   memlock           unlimited</span>
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a><span class="go">user1    soft   memlock           unlimited</span>
+</code></pre></div>
+<p>This removes the limit on locked memory for user <code>user1</code>. To remove it for
+all users, you can replace <code>user1</code> with <code>*</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="go">*    hard   memlock           unlimited</span>
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="go">*    soft   memlock           unlimited</span>
+</code></pre></div>
+<p>Note that settings in the /etc/security/limits.conf file don't apply to
+services.  To increase the locked memory limit for a service you need to
+modify the application's systemd service file and add the line:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="go">[Service]</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="go">LimitMEMLOCK=infinity</span>
+</code></pre></div>
+<h2 id="hugepage-settings">Hugepage Settings<a class="headerlink" href="#hugepage-settings" title="Permanent link">&para;</a></h2>
+<p>Users need to configure system hugepages to reserve 2MB-hugepages or
+1GB-hugepages. For example, the 'hello_fpga' sample requires several
+2MB-hugepages. And the <em>fpgadiag</em> tool requires several 1GB-hugepages.</p>
+<p>The command below reserves 20 2M-hugepages:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;echo 20 &gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages&#39;</span>
+</code></pre></div>
+<p>The command below reserves 4 1GB-hugepages:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="gp">$ </span>sudo<span class="w"> </span>sh<span class="w"> </span>-c<span class="w"> </span><span class="s1">&#39;echo 4 &gt; /sys/kernel/mm/hugepages/hugepages-1048576kB/nr_hugepages&#39;</span>
+</code></pre></div>
+<p>For x86_64 architecture processors, user can use following command to find out avaiable hugepage sizes:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="gp">$ </span>grep<span class="w"> </span>pse<span class="w"> </span>/proc/cpuinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="go">flags : ... pse ...</span>
+</code></pre></div>
+<p>If this commands returns a non-empty string, 2MB pages are supported.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="gp">$ </span>grep<span class="w"> </span>pse<span class="w"> </span>/proc/cpuinfo<span class="w"> </span><span class="p">|</span><span class="w"> </span>uniq
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a><span class="go">flags : ... pdpe1gb ...</span>
+</code></pre></div>
+<p>If this commands returns a non-empty string, 1GB pages are supported.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.7389ff0e.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
