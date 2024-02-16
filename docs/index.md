@@ -22,13 +22,13 @@ To find out more about Intel FPGAs, visit the [Intel Stratix 10](https://www.int
 
  2. If you are an FPGA developer, refer to our [FPGA Developer Journey Guide] to understand the OFS development flow as well as the reference shells, tools and development boards you can use to gest started.  FPGA Developers interested in oneAPI should reference this guide as well.
  
- 3. If you are a software developer, refer to our [Software Tab](https://ofs.github.io/ofs-ofs-2023.3/sw/fpga_api/quick_start/readme/) for driver and user space tool development resources.
+ 3. If you are a software developer, refer to our [Software Tab](https://ofs.github.io/ofs-2023.3-2/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for driver and user space tool development resources.
 
  4. If you are an application developer, preview our overview [video](https://www.youtube.com/watch?v=i-z7Oyyg_l8) on how OFS can help you develop FPGA-based workloads and review one of the AFU Developer Guides to find the OFS resources available for creating your own application workload.
 
-* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/afu_dev/ug_dev_%20afu_ofs_agx7_pcie_attach)
-* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2023.3/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)
-* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Stratix® 10 FPGA PCIe Attach](https://ofs.github.io/ofs-2023.3/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
+* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/)
+* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2023.3-2/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)
+* [Accelerator Functional Unit (AFU) Developer Guide: OFS for Intel® Stratix® 10 FPGA PCIe Attach](https://ofs.github.io/ofs-2023.3-2/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
 
 Beyond the resources we have on this [site](https://ofs.github.io), you can navigate to the OFS GitHub repos by clicking the GitHub repository icon at the top left corner of this site page.
 
@@ -56,10 +56,10 @@ Below summarizes the five current reference designs (aka FIMs) you can choose fr
 | Partial Reconfiguration               | Supported |
 | OneAPI                                | OneAPI Acceleration Support Package (ASP) provided with compiled FIM to support OneAPI Runtime |
 | Software Support                      | * Linux DFL drivers targeting OFS FIMs<br>* OPAE Software Development Kit* OPAE Tools |
-| Target Board                          | [Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) |
+| Target Board                          | [Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html) |
 
 
-Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach Reference FIM](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/) documentation collection.
+Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach Reference FIM](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/) documentation collection.
 
 <br>
 
@@ -84,7 +84,7 @@ Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</s
 | Target Board                          | [Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) |
 
 
-Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach Reference FIM](https://ofs.github.io/ofs-ofs-2023.3/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/) documentation collection.
+Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach Reference FIM](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/) documentation collection.
 
 <br>
 
@@ -110,7 +110,7 @@ Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</s
 | Software Support                      | * Linux DFL drivers targeting OFS FIMs<br>* OPAE Software Development Kit* OPAE Tools |
 | Target Board                          | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/content-details/779620/a-smartnic-for-accelerating-communications-and-networking-workloads.html) |
 
-Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach Reference FIM](https://ofs.github.io/ofs-ofs-2023.3/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/) documentation collection.
+Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> PCIe Attach Reference FIM](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/) documentation collection.
 
 <br>
 
@@ -134,7 +134,7 @@ Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</s
 
 Note: Source code for BMC RTL/Firmware that works with this reference FIM can be obtained by contacting your Intel Sales Representative.
 
-Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> SoC Attach Reference FIM](https://ofs.github.io/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/) documentation collection.
+Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> SoC Attach Reference FIM](https://ofs.github.io/ofs-2023.3-2/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/) documentation collection.
 
 
 <br>
@@ -159,7 +159,7 @@ Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Agilex<sup>&reg;</s
 |Target Board  | [Intel® FPGA Programmable Acceleration Card D5005](https://www.intel.com/content/www/us/en/docs/programmable/683568/current/introduction.html)|
 
 
-Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Stratix<sup>&reg;</sup> 10 FPGA PCIe Attach Reference FIM](https://ofs.github.io/hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/) documentation.
+Click here for the [OFS Collateral for Intel<sup>&reg;</sup> Stratix<sup>&reg;</sup> 10 FPGA PCIe Attach Reference FIM](https://ofs.github.io/ofs-2023.3-2/hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/) documentation.
 
 
 To find information on the latest releases, go to the [Discussions Tab](https://github.com/orgs/OFS/discussions) in the OFS GitHub repository.
@@ -173,7 +173,7 @@ Accessing OFS ingredients to use within the development framework is easy.  The 
 
 |Development Focus|Repository Folder | Description |
 |:----------------:|:------------------:|:--------------------|
-|Hardware | [ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach) | Provides RTL, unit tests, and build scripts to create an Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> 7 FIM and is leveraged as a starting point for a custom PCIe Attach design.  The reference FIM targets an [Intel® FPGA SmartNIC N6001-PL Platform](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html) or the [Intel Agilex 7 FPGA F-Series Development Kit (2x F-Tile) User Guide](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html). |
+|Hardware | [ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach) | Provides RTL, unit tests, and build scripts to create an Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> 7 FIM and is leveraged as a starting point for a custom PCIe Attach design.  The provided reference FIM can target the following boards:</br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; [Intel® FPGA SmartNIC N6001-PL Platform](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html) </br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; [Intel Agilex 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html)</br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; [Intel Agilex 7 FPGA I-Series Development Kit (2 x R-Tile, 1 x F-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html) |
 |Hardware | [ofs-f2000x-pl](https://github.com/OFS/ofs-f2000x-pl) | Provides RTL, unit tests, and build scripts to create Intel<sup>&reg;</sup>Agilex<sup>&reg;</sup> FIM and is leveraged as a starting point for a custom SoC Attach design.  The reference FIM targets an [Intel® FPGA IPU F2000X-PL Platform](https://www.intel.com/content/www/us/en/products/details/network-io/ipu/f2000x-pl-platform.html). |
 |Hardware | [ofs-d5005](https://github.com/OFS/ofs-d5005) | Provides RTL, unit tests, and build scripts to create Intel<sup>&reg;</sup> Stratix 10<sup>&reg;</sup> FIM and is leveraged as a starting point for a custom PCIe Attach design.  The reference FIM targets an Intel® FPGA PAC D5005 development board. |
 | Hardware| [oneapi-asp](https://github.com/OFS/oneapi-asp) | Contains the files to generate the support package that works with the reference shells and allows you to use OneAPI. This is an optional repository for developers interested in OneAPI|

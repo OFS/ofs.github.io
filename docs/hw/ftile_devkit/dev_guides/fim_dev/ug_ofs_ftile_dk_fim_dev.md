@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) PCIe Attach
 
-Last updated: **February 03, 2024** 
+Last updated: **February 16, 2024** 
 
 ## **1. Introduction**
 
@@ -1670,9 +1670,9 @@ Steps:
 8. Modify `$OFS_ROOTDIR/syn/board/fseries-dk/syn_top/ofs_top_sources.tcl` to include Hello FIM design files
 
   ```tcl
-  ############################################
+  ###########################################
   # Design Files
-  ############################################
+  ###########################################
   ...
   # Subsystems
   ...

@@ -50,12 +50,14 @@
 [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA I-Series Development Kit (2xR-Tile, F-Tile))]: https://ofs.github.io/ofs-2023.3-2/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/
 [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)]: https://ofs.github.io/ofs-2023.3-2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
 [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA F-Series Development Kit (2xF-Tile))]: https://ofs.github.io/ofs-2023.3-2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/
-[Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs]: /hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/
-[Getting Started Guide: Open FPGA Stack for Intel® Stratix® 10 PCIe Attach FPGAs]: /hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/
+[Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel Agilex 7 FPGA I-Series Development Kit (2xR-Tile, 1xF-Tile))]: https://ofs.github.io/ofs-2023.3-2/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/
+[Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2023.3-2/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/
+[Getting Started Guide: Open FPGA Stack for Intel® Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2023.3-2/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/
 [Token authentication requirements for Git operations]: https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations
 [4.0 OPAE Software Development Kit]: /hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit
 [6.2 Installing the OPAE SDK On the Host]: /hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host
 
+[FPGA Developer Journey Guide: Intel Open FPGA Stack]: https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/
 
 [Signal Tap Logic Analyzer: Introduction & Getting Started]: https://www.intel.com/content/www/us/en/programmable/support/training/course/odsw1164.html
 [Quartus Pro Prime Download]: https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-1-for-linux.html

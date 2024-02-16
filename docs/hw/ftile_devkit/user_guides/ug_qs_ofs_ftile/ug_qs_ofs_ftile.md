@@ -1,6 +1,6 @@
 # Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) 
 
-Last updated: **February 03, 2024** 
+Last updated: **February 16, 2024** 
 
 ## 1.0 About This Document
 
@@ -457,13 +457,13 @@ This installation process assumes the user has access to an internet connection 
     # Include your proxy by adding the following line, replacing the URL with your proxy's URL
     # proxy=http://proxy.server.com:port
     
-    sudo dnf install  python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel python3-pybind11 numactl-devel
+    sudo dnf install python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel numactl-devel
     
     python3 -m pip install --user jsonschema virtualenv pudb pyyaml setuptools pybind11
 
     # If setuptools and pybind11 were already installed
 
-    python3 -m pip upgrade pybind11 setuptools
+    python3 -m pip install --upgrade --user pybind11 setuptools
     ```
 
 ### 3.2 Building and Installing the OFS DFL Kernel Drivers from Source
@@ -701,6 +701,7 @@ This installation process assumes you have access to an internet connection in o
 4. Set up a temporary `podman` container to build OPAE, which will allow you to customize the python installation without affecting system packages.
     
     ```bash
+    sudo dnf install podman
     cd /home/OFS
     podman pull registry.access.redhat.com/ubi8:8.6
     podman run -ti -v "$PWD":/src:Z -w /src registry.access.redhat.com/ubi8:8.6
