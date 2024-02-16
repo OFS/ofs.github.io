@@ -9,29 +9,25 @@
       
       
       
-        <link rel="prev" href="../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/">
+        <link rel="prev" href="../../../../n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/">
       
       
         <link rel="next" href="../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/">
       
-      
       <link rel="icon" href="../../../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.4">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
     
     
       
-        <title>FPGA Interface Manager Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile) - OFS</title>
+        <title>FIM Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile) - OFS</title>
       
     
     
-      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.85bb2934.min.css">
       
       
 
-
     
-    
-      
     
     
       
@@ -69,6 +65,9 @@
     <body dir="ltr">
   
     
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
@@ -102,7 +101,6 @@
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
-      
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
     </label>
     <div class="md-header__title" data-md-component="header-title">
@@ -115,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              FPGA Interface Manager Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile)
+              FIM Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile)
             
           </span>
         </div>
@@ -123,12 +121,8 @@
     </div>
     
     
-      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
-    
-    
     
       <label class="md-header__button md-icon" for="__search">
-        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
       </label>
       <div class="md-search" data-md-component="search" role="dialog">
@@ -137,15 +131,12 @@
     <form class="md-search__form" name="search">
       <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
       <label class="md-search__icon md-icon" for="__search">
-        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
       </label>
       <nav class="md-search__options" aria-label="Search">
         
         <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
         </button>
       </nav>
@@ -171,7 +162,7 @@
         <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     ofs
@@ -190,15 +181,26 @@
         
   
   
-  
-    <li class="md-tabs__item">
-      <a href="../../../../.." class="md-tabs__link">
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
         
   
-    
   
-  Welcome
 
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
       </a>
     </li>
   
@@ -207,40 +209,16 @@
         
   
   
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
-          
-  
-    
-  
-  Start Here
 
-        </a>
-      </li>
-    
-  
 
-      
-        
   
   
   
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-tabs__link">
-          
-  
-    
-  
-  Stratix 10 PCIe Attach OFS
-
-        </a>
-      </li>
-    
+    <li class="md-tabs__item">
+      <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-tabs__link">
+        Stratix 10 PCIe Attach OFS
+      </a>
+    </li>
   
 
       
@@ -249,89 +227,64 @@
   
     
   
-  
-    
-    
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../../../../common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link">
-          
-  
-    
-  
-  Agilex PCIe Attach OFS
 
-        </a>
-      </li>
-    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-tabs__link md-tabs__link--active">
+        Agilex PCIe Attach OFS
+      </a>
+    </li>
   
 
       
         
   
   
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-tabs__link">
-          
-  
-    
-  
-  Agilex SoC Attach OFS
 
-        </a>
-      </li>
-    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-tabs__link">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
   
 
       
         
   
   
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../../common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
-          
-  
-    
-  
-  oneAPI
 
-        </a>
-      </li>
-    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
   
 
       
         
   
   
-  
-    
-    
-      
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
-          
-  
-    
-  
-  OFS Software
 
-        </a>
-      </li>
-    
-  
 
-    
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
   
 
       
@@ -357,7 +310,6 @@
                   <div class="md-sidebar__inner">
                     
 
-
   
 
 
@@ -376,7 +328,7 @@
       <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
   <div class="md-source__icon md-icon">
     
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
   </div>
   <div class="md-source__repository">
     ofs
@@ -388,19 +340,14 @@
     
       
       
-  
+      
+
   
   
   
     <li class="md-nav__item">
       <a href="../../../../.." class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Welcome
-  </span>
-  
-
+        Welcome
       </a>
     </li>
   
@@ -408,490 +355,443 @@
     
       
       
+      
+
   
   
   
-  
     
-    
-      
-        
-      
-        
-      
-    
-    
-    
-    
+    <li class="md-nav__item md-nav__item--nested">
       
       
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
         
           
-          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    Start Here
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_2">
-            <span class="md-nav__icon md-icon"></span>
-            Start Here
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    FPGA Developer Journey Guide
-  </span>
-  
-
+        FPGA Developer Journey Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Glossary
-  </span>
-  
-
+        Glossary
       </a>
     </li>
   
 
-              
             
-          </ul>
-        </nav>
-      
+          
+        </ul>
+      </nav>
     </li>
   
 
     
       
       
+      
+
   
   
   
-  
     
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
+    <li class="md-nav__item md-nav__item--nested">
       
       
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    Stratix 10 PCIe Attach OFS
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
-            <span class="md-nav__icon md-icon"></span>
-            Stratix 10 PCIe Attach OFS
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Quick Start Evaluation Guide
-  </span>
-  
-
+        Quick Start Evaluation Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Getting Started
-  </span>
-  
-
+        Getting Started
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    FPGA Interface Manager Technical Reference Manual
-  </span>
-  
-
+        FPGA Interface Manager Technical Reference Manual
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    FPGA Interface Manager Developer Guide
-  </span>
-  
-
+        FPGA Interface Manager Developer Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    AFU Developer Guide
-  </span>
-  
-
+        AFU Developer Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Simulation User Guide
-  </span>
-  
-
+        Simulation User Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_docker/ug_docker/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Docker User guide
-  </span>
-  
-
+        Docker User guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_kvm/ug_kvm/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    KVM User guide
-  </span>
-  
-
+        KVM User guide
       </a>
     </li>
   
 
-              
             
-          </ul>
-        </nav>
-      
+          
+        </ul>
+      </nav>
     </li>
   
 
     
       
       
+      
+
   
   
     
   
   
-  
     
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
         
           
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    Agilex PCIe Attach OFS
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            Agilex PCIe Attach OFS
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Quick Start Evaluation Guide
-  </span>
-  
-
+        Quick Start Evaluation Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
   
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Getting Started Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
   
   
   
     <li class="md-nav__item">
       <a href="../../../user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Getting Started (Intel Agilex 7 FPGA I-Series Development Kit 2xR-Tile)
-  </span>
-  
-
+        Getting Started (Intel Agilex 7 FPGA I-Series Development Kit 2xR-Tile)
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Getting Started (Intel Agilex 7 FPGA F-Series Development Kit 2xF-Tile)
-  </span>
-  
-
+        Getting Started (Intel Agilex 7 FPGA F-Series Development Kit 2xF-Tile)
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Getting Started (Intel FPGA SmartNIC N6001-PL)
-  </span>
-  
-
+        Getting Started (Intel FPGA SmartNIC N6001-PL)
       </a>
     </li>
   
 
-              
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
             
               
-                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/" class="md-nav__link">
+        FPGA Interface Manager Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
   
   
     
   
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          FPGA Interface Manager (FIM) Developer Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          FPGA Interface Manager (FIM) Developer Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
   
   
     <li class="md-nav__item md-nav__item--active">
@@ -903,24 +803,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    FPGA Interface Manager Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile)
-  </span>
-  
-
+          FIM Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile)
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  <span class="md-ellipsis">
-    FPGA Interface Manager Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile)
-  </span>
-  
-
+        FIM Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile)
       </a>
       
         
@@ -940,9 +828,7 @@
       
         <li class="md-nav__item">
   <a href="#1-introduction" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Introduction
-    </span>
+    1. Introduction
   </a>
   
     <nav class="md-nav" aria-label="1. Introduction">
@@ -950,9 +836,7 @@
         
           <li class="md-nav__item">
   <a href="#11-about-this-document" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.1. About This Document
-    </span>
+    1.1. About This Document
   </a>
   
     <nav class="md-nav" aria-label="1.1. About This Document">
@@ -960,9 +844,7 @@
         
           <li class="md-nav__item">
   <a href="#111-knowledge-pre-requisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.1.1 Knowledge Pre-Requisites
-    </span>
+    1.1.1 Knowledge Pre-Requisites
   </a>
   
 </li>
@@ -974,18 +856,14 @@
         
           <li class="md-nav__item">
   <a href="#12-fim-development-theory" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2. FIM Development Theory
-    </span>
+    1.2. FIM Development Theory
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#121-default-fim-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1 Default FIM Features
-    </span>
+    1.2.1 Default FIM Features
   </a>
   
     <nav class="md-nav" aria-label="1.2.1 Default FIM Features">
@@ -993,45 +871,35 @@
         
           <li class="md-nav__item">
   <a href="#1211-top-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.1 Top Level
-    </span>
+    1.2.1.1 Top Level
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1212-interfaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.2 Interfaces
-    </span>
+    1.2.1.2 Interfaces
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1213-subsystems" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.3 Subsystems
-    </span>
+    1.2.1.3 Subsystems
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1214-host-exercisers" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.4 Host Exercisers
-    </span>
+    1.2.1.4 Host Exercisers
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1215-module-access-via-apfbpf" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.5 Module Access via APF/BPF
-    </span>
+    1.2.1.5 Module Access via APF/BPF
   </a>
   
 </li>
@@ -1043,18 +911,14 @@
         
           <li class="md-nav__item">
   <a href="#122-customization-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.2 Customization Options
-    </span>
+    1.2.2 Customization Options
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#13-development-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3 Development Environment
-    </span>
+    1.3 Development Environment
   </a>
   
     <nav class="md-nav" aria-label="1.3 Development Environment">
@@ -1062,9 +926,7 @@
         
           <li class="md-nav__item">
   <a href="#131-development-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.1 Development Tools
-    </span>
+    1.3.1 Development Tools
   </a>
   
     <nav class="md-nav" aria-label="1.3.1 Development Tools">
@@ -1072,18 +934,14 @@
         
           <li class="md-nav__item">
   <a href="#1311-walkthrough-install-quartus-prime-pro-software" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.1.1 Walkthrough: Install Quartus Prime Pro Software
-    </span>
+    1.3.1.1 Walkthrough: Install Quartus Prime Pro Software
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1312-walkthrough-install-git-large-file-storage-extension" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.1.2 Walkthrough: Install Git Large File Storage Extension
-    </span>
+    1.3.1.2 Walkthrough: Install Git Large File Storage Extension
   </a>
   
 </li>
@@ -1095,9 +953,7 @@
         
           <li class="md-nav__item">
   <a href="#132-fim-source-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.2 FIM Source Files
-    </span>
+    1.3.2 FIM Source Files
   </a>
   
     <nav class="md-nav" aria-label="1.3.2 FIM Source Files">
@@ -1105,9 +961,7 @@
         
           <li class="md-nav__item">
   <a href="#1321-walkthrough-clone-fim-repository" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.2.1 Walkthrough: Clone FIM Repository
-    </span>
+    1.3.2.1 Walkthrough: Clone FIM Repository
   </a>
   
 </li>
@@ -1119,9 +973,7 @@
         
           <li class="md-nav__item">
   <a href="#133-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.3 Environment Variables
-    </span>
+    1.3.3 Environment Variables
   </a>
   
     <nav class="md-nav" aria-label="1.3.3 Environment Variables">
@@ -1129,9 +981,7 @@
         
           <li class="md-nav__item">
   <a href="#1331-walkthrough-set-development-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.3.1 Walkthrough: Set Development Environment Variables
-    </span>
+    1.3.3.1 Walkthrough: Set Development Environment Variables
   </a>
   
 </li>
@@ -1143,9 +993,7 @@
         
           <li class="md-nav__item">
   <a href="#134-walkthrough-set-up-development-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.4 Walkthrough: Set Up Development Environment
-    </span>
+    1.3.4 Walkthrough: Set Up Development Environment
   </a>
   
 </li>
@@ -1162,9 +1010,7 @@
       
         <li class="md-nav__item">
   <a href="#2-fim-compilation" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. FIM Compilation
-    </span>
+    2. FIM Compilation
   </a>
   
     <nav class="md-nav" aria-label="2. FIM Compilation">
@@ -1172,9 +1018,7 @@
         
           <li class="md-nav__item">
   <a href="#21-compilation-theory" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1 Compilation Theory
-    </span>
+    2.1 Compilation Theory
   </a>
   
     <nav class="md-nav" aria-label="2.1 Compilation Theory">
@@ -1182,18 +1026,14 @@
         
           <li class="md-nav__item">
   <a href="#211-fim-build-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.1 FIM Build Script
-    </span>
+    2.1.1 FIM Build Script
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#212-ofss-file-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2 OFSS File Usage
-    </span>
+    2.1.2 OFSS File Usage
   </a>
   
     <nav class="md-nav" aria-label="2.1.2 OFSS File Usage">
@@ -1201,54 +1041,42 @@
         
           <li class="md-nav__item">
   <a href="#2121-platform-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.1 Platform OFSS File
-    </span>
+    2.1.2.1 Platform OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2122-ofs-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.2 OFS IP OFSS File
-    </span>
+    2.1.2.2 OFS IP OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2123-pcie-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.3 PCIe IP OFSS File
-    </span>
+    2.1.2.3 PCIe IP OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2124-iopll-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.4 IOPLL IP OFSS File
-    </span>
+    2.1.2.4 IOPLL IP OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2125-memory-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.5 Memory IP OFSS File
-    </span>
+    2.1.2.5 Memory IP OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2126-hssi-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.6 HSSI IP OFSS File
-    </span>
+    2.1.2.6 HSSI IP OFSS File
   </a>
   
 </li>
@@ -1260,9 +1088,7 @@
         
           <li class="md-nav__item">
   <a href="#213-ofs-build-script-outputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.3 OFS Build Script Outputs
-    </span>
+    2.1.3 OFS Build Script Outputs
   </a>
   
 </li>
@@ -1274,9 +1100,7 @@
         
           <li class="md-nav__item">
   <a href="#22-compilation-flows" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2 Compilation Flows
-    </span>
+    2.2 Compilation Flows
   </a>
   
     <nav class="md-nav" aria-label="2.2 Compilation Flows">
@@ -1284,63 +1108,49 @@
         
           <li class="md-nav__item">
   <a href="#221-flat-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.1 Flat FIM
-    </span>
+    2.2.1 Flat FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#222-in-tree-pr-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.2 In-Tree PR FIM
-    </span>
+    2.2.2 In-Tree PR FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#223-out-of-tree-pr-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.3 Out-of-Tree PR FIM
-    </span>
+    2.2.3 Out-of-Tree PR FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#224-he_null-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.4 HE_NULL FIM
-    </span>
+    2.2.4 HE_NULL FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#225-walkthrough-compile-ofs-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.5 Walkthrough: Compile OFS FIM
-    </span>
+    2.2.5 Walkthrough: Compile OFS FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.6 Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM
-    </span>
+    2.2.6 Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#227-compilation-seed" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.7 Compilation Seed
-    </span>
+    2.2.7 Compilation Seed
   </a>
   
     <nav class="md-nav" aria-label="2.2.7 Compilation Seed">
@@ -1348,9 +1158,7 @@
         
           <li class="md-nav__item">
   <a href="#2271-walkthrough-change-the-compilation-seed" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.7.1 Walkthrough: Change the Compilation Seed
-    </span>
+    2.2.7.1 Walkthrough: Change the Compilation Seed
   </a>
   
 </li>
@@ -1372,9 +1180,7 @@
       
         <li class="md-nav__item">
   <a href="#3-fim-simulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. FIM Simulation
-    </span>
+    3. FIM Simulation
   </a>
   
     <nav class="md-nav" aria-label="3. FIM Simulation">
@@ -1382,18 +1188,14 @@
         
           <li class="md-nav__item">
   <a href="#31-simulation-file-generation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 Simulation File Generation
-    </span>
+    3.1 Simulation File Generation
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#32-individual-unit-tests" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 Individual Unit Tests
-    </span>
+    3.2 Individual Unit Tests
   </a>
   
     <nav class="md-nav" aria-label="3.2 Individual Unit Tests">
@@ -1401,9 +1203,7 @@
         
           <li class="md-nav__item">
   <a href="#321-walkthrough-running-individual-unit-level-simulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.1 Walkthrough: Running Individual Unit Level Simulation
-    </span>
+    3.2.1 Walkthrough: Running Individual Unit Level Simulation
   </a>
   
 </li>
@@ -1415,9 +1215,7 @@
         
           <li class="md-nav__item">
   <a href="#33-regression-unit-tests" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 Regression Unit Tests
-    </span>
+    3.3 Regression Unit Tests
   </a>
   
     <nav class="md-nav" aria-label="3.3 Regression Unit Tests">
@@ -1425,9 +1223,7 @@
         
           <li class="md-nav__item">
   <a href="#331-walkthrough-running-regression-unit-level-simulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3.1 Walkthrough: Running Regression Unit Level Simulation
-    </span>
+    3.3.1 Walkthrough: Running Regression Unit Level Simulation
   </a>
   
 </li>
@@ -1444,9 +1240,7 @@
       
         <li class="md-nav__item">
   <a href="#4-fim-customization" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. FIM Customization
-    </span>
+    4. FIM Customization
   </a>
   
     <nav class="md-nav" aria-label="4. FIM Customization">
@@ -1454,9 +1248,7 @@
         
           <li class="md-nav__item">
   <a href="#41-adding-a-new-module-to-the-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 Adding a new module to the FIM
-    </span>
+    4.1 Adding a new module to the FIM
   </a>
   
     <nav class="md-nav" aria-label="4.1 Adding a new module to the FIM">
@@ -1464,9 +1256,7 @@
         
           <li class="md-nav__item">
   <a href="#411-hello-fim-theory-of-operation" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.1 Hello FIM Theory of Operation
-    </span>
+    4.1.1 Hello FIM Theory of Operation
   </a>
   
     <nav class="md-nav" aria-label="4.1.1 Hello FIM Theory of Operation">
@@ -1474,18 +1264,14 @@
         
           <li class="md-nav__item">
   <a href="#4111-hello-fim-board-peripheral-fabric-bpf" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.1.1 Hello FIM Board Peripheral Fabric (BPF)
-    </span>
+    4.1.1.1 Hello FIM Board Peripheral Fabric (BPF)
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#4112-hello-fim-csr" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.1.2 Hello FIM CSR
-    </span>
+    4.1.1.2 Hello FIM CSR
   </a>
   
 </li>
@@ -1497,36 +1283,28 @@
         
           <li class="md-nav__item">
   <a href="#412-walkthrough-add-a-new-module-to-the-ofs-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.2 Walkthrough: Add a new module to the OFS FIM
-    </span>
+    4.1.2 Walkthrough: Add a new module to the OFS FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.3 Walkthrough: Modify and run unit tests for a FIM that has a new module
-    </span>
+    4.1.3 Walkthrough: Modify and run unit tests for a FIM that has a new module
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#414-walkthrough-hardware-test-a-fim-that-has-a-new-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.4 Walkthrough: Hardware test a FIM that has a new module
-    </span>
+    4.1.4 Walkthrough: Hardware test a FIM that has a new module
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#415-walkthrough-debug-the-fim-with-signal-tap" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.5 Walkthrough: Debug the FIM with Signal Tap
-    </span>
+    4.1.5 Walkthrough: Debug the FIM with Signal Tap
   </a>
   
 </li>
@@ -1538,9 +1316,7 @@
         
           <li class="md-nav__item">
   <a href="#42-preparing-fim-for-afu-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2 Preparing FIM for AFU Development
-    </span>
+    4.2 Preparing FIM for AFU Development
   </a>
   
     <nav class="md-nav" aria-label="4.2 Preparing FIM for AFU Development">
@@ -1548,9 +1324,7 @@
         
           <li class="md-nav__item">
   <a href="#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2.1 Walkthrough: Compile the FIM in preparation for designing your AFU
-    </span>
+    4.2.1 Walkthrough: Compile the FIM in preparation for designing your AFU
   </a>
   
 </li>
@@ -1562,9 +1336,7 @@
         
           <li class="md-nav__item">
   <a href="#43-partial-reconfiguration-region" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3 Partial Reconfiguration Region
-    </span>
+    4.3 Partial Reconfiguration Region
   </a>
   
     <nav class="md-nav" aria-label="4.3 Partial Reconfiguration Region">
@@ -1572,9 +1344,7 @@
         
           <li class="md-nav__item">
   <a href="#431-walkthrough-resize-the-partial-reconfiguration-region" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3.1 Walkthrough: Resize the Partial Reconfiguration Region
-    </span>
+    4.3.1 Walkthrough: Resize the Partial Reconfiguration Region
   </a>
   
 </li>
@@ -1586,9 +1356,7 @@
         
           <li class="md-nav__item">
   <a href="#44-pcie-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4 PCIe Configuration
-    </span>
+    4.4 PCIe Configuration
   </a>
   
     <nav class="md-nav" aria-label="4.4 PCIe Configuration">
@@ -1596,27 +1364,21 @@
         
           <li class="md-nav__item">
   <a href="#441-pcie-ss-configuration-registers" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.1 PCIe-SS Configuration Registers
-    </span>
+    4.4.1 PCIe-SS Configuration Registers
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#442-pfvf-mux-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.2 PF/VF MUX Configuration
-    </span>
+    4.4.2 PF/VF MUX Configuration
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#443-pcie-configuration-using-ofss" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.3 PCIe Configuration Using OFSS
-    </span>
+    4.4.3 PCIe Configuration Using OFSS
   </a>
   
     <nav class="md-nav" aria-label="4.4.3 PCIe Configuration Using OFSS">
@@ -1624,9 +1386,7 @@
         
           <li class="md-nav__item">
   <a href="#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.3.1 Walkthrough: Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS
-    </span>
+    4.4.3.1 Walkthrough: Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS
   </a>
   
 </li>
@@ -1638,9 +1398,7 @@
         
           <li class="md-nav__item">
   <a href="#444-pcie-configuration-using-ip-presets" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.4 PCIe Configuration Using IP Presets
-    </span>
+    4.4.4 PCIe Configuration Using IP Presets
   </a>
   
     <nav class="md-nav" aria-label="4.4.4 PCIe Configuration Using IP Presets">
@@ -1648,9 +1406,7 @@
         
           <li class="md-nav__item">
   <a href="#4441-walkthrough-modify-pcie-configuration-using-ip-presets" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.4.1 Walkthrough: Modify PCIe Configuration Using IP Presets
-    </span>
+    4.4.4.1 Walkthrough: Modify PCIe Configuration Using IP Presets
   </a>
   
 </li>
@@ -1667,9 +1423,7 @@
         
           <li class="md-nav__item">
   <a href="#45-minimal-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.5 Minimal FIM
-    </span>
+    4.5 Minimal FIM
   </a>
   
     <nav class="md-nav" aria-label="4.5 Minimal FIM">
@@ -1677,9 +1431,7 @@
         
           <li class="md-nav__item">
   <a href="#451-create-a-minimal-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.5.1 Create a Minimal FIM
-    </span>
+    4.5.1 Create a Minimal FIM
   </a>
   
 </li>
@@ -1691,9 +1443,7 @@
         
           <li class="md-nav__item">
   <a href="#46-migrating-to-a-different-agilex-device-number" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.6 Migrating to a Different Agilex Device Number
-    </span>
+    4.6 Migrating to a Different Agilex Device Number
   </a>
   
     <nav class="md-nav" aria-label="4.6 Migrating to a Different Agilex Device Number">
@@ -1701,9 +1451,7 @@
         
           <li class="md-nav__item">
   <a href="#461-walkthrough-migrate-to-a-different-agilex-device-number" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.6.1 Walkthrough: Migrate to a Different Agilex Device Number
-    </span>
+    4.6.1 Walkthrough: Migrate to a Different Agilex Device Number
   </a>
   
 </li>
@@ -1715,9 +1463,7 @@
         
           <li class="md-nav__item">
   <a href="#47-modify-the-ethernet-sub-system" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.7 Modify the Ethernet Sub-System
-    </span>
+    4.7 Modify the Ethernet Sub-System
   </a>
   
     <nav class="md-nav" aria-label="4.7 Modify the Ethernet Sub-System">
@@ -1725,9 +1471,7 @@
         
           <li class="md-nav__item">
   <a href="#471-walkthrough-modify-the-ethernet-sub-system-to-1x400gbe" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.7.1 Walkthrough: Modify the Ethernet Sub-System to 1x400GbE
-    </span>
+    4.7.1 Walkthrough: Modify the Ethernet Sub-System to 1x400GbE
   </a>
   
 </li>
@@ -1744,9 +1488,7 @@
       
         <li class="md-nav__item">
   <a href="#5-fpga-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. FPGA Configuration
-    </span>
+    5. FPGA Configuration
   </a>
   
     <nav class="md-nav" aria-label="5. FPGA Configuration">
@@ -1754,18 +1496,14 @@
         
           <li class="md-nav__item">
   <a href="#51-walkthrough-set-up-jtag" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.1 Walkthrough: Set up JTAG
-    </span>
+    5.1 Walkthrough: Set up JTAG
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#52-walkthrough-program-the-fpga-via-jtag" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2 Walkthrough: Program the FPGA via JTAG
-    </span>
+    5.2 Walkthrough: Program the FPGA via JTAG
   </a>
   
 </li>
@@ -1777,9 +1515,7 @@
       
         <li class="md-nav__item">
   <a href="#appendix" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix
-    </span>
+    Appendix
   </a>
   
     <nav class="md-nav" aria-label="Appendix">
@@ -1787,18 +1523,14 @@
         
           <li class="md-nav__item">
   <a href="#appendix-a-resource-utilization-tables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix A: Resource Utilization Tables
-    </span>
+    Appendix A: Resource Utilization Tables
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#appendix-b-glossary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix B: Glossary
-    </span>
+    Appendix B: Glossary
   </a>
   
 </li>
@@ -1810,9 +1542,7 @@
       
         <li class="md-nav__item">
   <a href="#notices-disclaimers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notices &amp; Disclaimers
-    </span>
+    Notices &amp; Disclaimers
   </a>
   
 </li>
@@ -1824,1070 +1554,728 @@
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    FPGA Interface Manager Developer Guide for PCIe Attach F-Series (2xF-Tile)
-  </span>
-  
-
+        FIM Developer Guide for PCIe Attach F-Series (2xF-Tile)
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    FPGA Interface Manager Developer Guide for PCIe Attach F-Series (P-Tile/E-Tile)
-  </span>
-  
-
+        FIM Developer Guide for PCIe Attach F-Series (P-Tile/E-Tile)
       </a>
     </li>
   
 
-              
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    AFU Developer Guide
-  </span>
-  
-
+        AFU Developer Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    HPS Developer Guide
-  </span>
-  
-
+        HPS Developer Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Simulation User Guide
-  </span>
-  
-
+        Simulation User Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_docker/ug_docker/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Docker User guide
-  </span>
-  
-
+        Docker User guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_kvm/ug_kvm/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    KVM User guide
-  </span>
-  
-
+        KVM User guide
       </a>
     </li>
   
 
-              
             
-          </ul>
-        </nav>
-      
+          
+        </ul>
+      </nav>
     </li>
   
 
     
       
       
+      
+
   
   
   
-  
     
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-    
+    <li class="md-nav__item md-nav__item--nested">
       
       
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
         
           
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    Agilex SoC Attach OFS
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            Agilex SoC Attach OFS
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Quick Start Evaluation Guide
-  </span>
-  
-
+        Quick Start Evaluation Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Getting Started
-  </span>
-  
-
+        Getting Started
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    FPGA Interface Manager Technical Reference Manual
-  </span>
-  
-
+        FPGA Interface Manager Technical Reference Manual
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    FPGA Interface Manager Developer Guide
-  </span>
-  
-
+        FPGA Interface Manager Developer Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    AFU Developer Guide
-  </span>
-  
-
+        AFU Developer Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Simulation User Guide
-  </span>
-  
-
+        Simulation User Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_docker/ug_docker/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Docker User guide
-  </span>
-  
-
+        Docker User guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/ug_kvm/ug_kvm/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    KVM User guide
-  </span>
-  
-
+        KVM User guide
       </a>
     </li>
   
 
-              
             
-          </ul>
-        </nav>
-      
+          
+        </ul>
+      </nav>
     </li>
   
 
     
       
       
+      
+
   
   
   
-  
     
-    
-      
-        
-      
-        
-      
-    
-    
-    
-    
+    <li class="md-nav__item md-nav__item--nested">
       
       
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
         
           
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    oneAPI
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            oneAPI
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    oneAPI ASP Getting Started User Guide
-  </span>
-  
-
+        oneAPI ASP Getting Started User Guide
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    oneAPI Accelerator Support Package(ASP) Reference Manual
-  </span>
-  
-
+        oneAPI Accelerator Support Package(ASP) Reference Manual
       </a>
     </li>
   
 
-              
             
-          </ul>
-        </nav>
-      
+          
+        </ul>
+      </nav>
     </li>
   
 
     
       
       
-  
-  
-  
-  
-    
-    
       
-        
-      
-        
-      
-    
-    
-    
-    
-      
-      
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
-            
-  
-  <span class="md-ellipsis">
-    OFS Software
-  </span>
-  
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
-            <span class="md-nav__icon md-icon"></span>
-            OFS Software
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
   
   
   
-  
-    
-    
-      
-        
-      
-    
-    
-    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_1" >
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
         
           
-          <label class="md-nav__link" for="__nav_7_1" id="__nav_7_1_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    OPAE SOFTWARE REFERENCE
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_1_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_1">
-            <span class="md-nav__icon md-icon"></span>
-            OPAE SOFTWARE REFERENCE
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    Software Reference Manual
-  </span>
-  
-
+        Software Reference Manual
       </a>
     </li>
   
 
-              
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
+          
             
               
-                
   
   
   
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
     
     <li class="md-nav__item md-nav__item--nested">
       
-        
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+      
+      
         
           
-          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
-            
-  
-  <span class="md-ellipsis">
-    OPAE FPGA TOOLS
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7_2">
-            <span class="md-nav__icon md-icon"></span>
-            OPAE FPGA TOOLS
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+          OPAE FPGA Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_2">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    fpgainfo
-  </span>
-  
-
+        fpgainfo
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    fpgasupdate
-  </span>
-  
-
+        fpgasupdate
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    mmlink
-  </span>
-  
-
+        mmlink
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/packager/packager/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    packager
-  </span>
-  
-
+        packager
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    userclk
-  </span>
-  
-
+        userclk
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    hssi
-  </span>
-  
-
+        hssi
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    pci_device
-  </span>
-  
-
+        pci_device
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    opae.io
-  </span>
-  
-
+        opae.io
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    rsu
-  </span>
-  
-
+        rsu
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    host_exerciser
-  </span>
-  
-
+        host_exerciser
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    HSSI ethernet statistics
-  </span>
-  
-
+        HSSI ethernet statistics
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    HSSI ethernet mac
-  </span>
-  
-
+        HSSI ethernet mac
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    mem_tg
-  </span>
-  
-
+        mem_tg
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    vabtool
-  </span>
-  
-
+        vabtool
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    opaevfio
-  </span>
-  
-
+        opaevfio
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    ofs.uio
-  </span>
-  
-
+        ofs.uio
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    opaeuio
-  </span>
-  
-
+        opaeuio
       </a>
     </li>
   
 
-              
+            
+          
             
               
-                
-  
   
   
   
     <li class="md-nav__item">
       <a href="../../../../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    fpgad
-  </span>
-  
-
+        fpgad
       </a>
     </li>
   
 
-              
             
-          </ul>
-        </nav>
-      
+          
+        </ul>
+      </nav>
     </li>
   
 
-              
             
-          </ul>
-        </nav>
-      
+          
+        </ul>
+      </nav>
     </li>
   
 
@@ -2920,9 +2308,7 @@
       
         <li class="md-nav__item">
   <a href="#1-introduction" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. Introduction
-    </span>
+    1. Introduction
   </a>
   
     <nav class="md-nav" aria-label="1. Introduction">
@@ -2930,9 +2316,7 @@
         
           <li class="md-nav__item">
   <a href="#11-about-this-document" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.1. About This Document
-    </span>
+    1.1. About This Document
   </a>
   
     <nav class="md-nav" aria-label="1.1. About This Document">
@@ -2940,9 +2324,7 @@
         
           <li class="md-nav__item">
   <a href="#111-knowledge-pre-requisites" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.1.1 Knowledge Pre-Requisites
-    </span>
+    1.1.1 Knowledge Pre-Requisites
   </a>
   
 </li>
@@ -2954,18 +2336,14 @@
         
           <li class="md-nav__item">
   <a href="#12-fim-development-theory" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2. FIM Development Theory
-    </span>
+    1.2. FIM Development Theory
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#121-default-fim-features" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1 Default FIM Features
-    </span>
+    1.2.1 Default FIM Features
   </a>
   
     <nav class="md-nav" aria-label="1.2.1 Default FIM Features">
@@ -2973,45 +2351,35 @@
         
           <li class="md-nav__item">
   <a href="#1211-top-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.1 Top Level
-    </span>
+    1.2.1.1 Top Level
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1212-interfaces" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.2 Interfaces
-    </span>
+    1.2.1.2 Interfaces
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1213-subsystems" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.3 Subsystems
-    </span>
+    1.2.1.3 Subsystems
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1214-host-exercisers" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.4 Host Exercisers
-    </span>
+    1.2.1.4 Host Exercisers
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1215-module-access-via-apfbpf" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.1.5 Module Access via APF/BPF
-    </span>
+    1.2.1.5 Module Access via APF/BPF
   </a>
   
 </li>
@@ -3023,18 +2391,14 @@
         
           <li class="md-nav__item">
   <a href="#122-customization-options" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.2.2 Customization Options
-    </span>
+    1.2.2 Customization Options
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#13-development-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3 Development Environment
-    </span>
+    1.3 Development Environment
   </a>
   
     <nav class="md-nav" aria-label="1.3 Development Environment">
@@ -3042,9 +2406,7 @@
         
           <li class="md-nav__item">
   <a href="#131-development-tools" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.1 Development Tools
-    </span>
+    1.3.1 Development Tools
   </a>
   
     <nav class="md-nav" aria-label="1.3.1 Development Tools">
@@ -3052,18 +2414,14 @@
         
           <li class="md-nav__item">
   <a href="#1311-walkthrough-install-quartus-prime-pro-software" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.1.1 Walkthrough: Install Quartus Prime Pro Software
-    </span>
+    1.3.1.1 Walkthrough: Install Quartus Prime Pro Software
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#1312-walkthrough-install-git-large-file-storage-extension" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.1.2 Walkthrough: Install Git Large File Storage Extension
-    </span>
+    1.3.1.2 Walkthrough: Install Git Large File Storage Extension
   </a>
   
 </li>
@@ -3075,9 +2433,7 @@
         
           <li class="md-nav__item">
   <a href="#132-fim-source-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.2 FIM Source Files
-    </span>
+    1.3.2 FIM Source Files
   </a>
   
     <nav class="md-nav" aria-label="1.3.2 FIM Source Files">
@@ -3085,9 +2441,7 @@
         
           <li class="md-nav__item">
   <a href="#1321-walkthrough-clone-fim-repository" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.2.1 Walkthrough: Clone FIM Repository
-    </span>
+    1.3.2.1 Walkthrough: Clone FIM Repository
   </a>
   
 </li>
@@ -3099,9 +2453,7 @@
         
           <li class="md-nav__item">
   <a href="#133-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.3 Environment Variables
-    </span>
+    1.3.3 Environment Variables
   </a>
   
     <nav class="md-nav" aria-label="1.3.3 Environment Variables">
@@ -3109,9 +2461,7 @@
         
           <li class="md-nav__item">
   <a href="#1331-walkthrough-set-development-environment-variables" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.3.1 Walkthrough: Set Development Environment Variables
-    </span>
+    1.3.3.1 Walkthrough: Set Development Environment Variables
   </a>
   
 </li>
@@ -3123,9 +2473,7 @@
         
           <li class="md-nav__item">
   <a href="#134-walkthrough-set-up-development-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      1.3.4 Walkthrough: Set Up Development Environment
-    </span>
+    1.3.4 Walkthrough: Set Up Development Environment
   </a>
   
 </li>
@@ -3142,9 +2490,7 @@
       
         <li class="md-nav__item">
   <a href="#2-fim-compilation" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. FIM Compilation
-    </span>
+    2. FIM Compilation
   </a>
   
     <nav class="md-nav" aria-label="2. FIM Compilation">
@@ -3152,9 +2498,7 @@
         
           <li class="md-nav__item">
   <a href="#21-compilation-theory" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1 Compilation Theory
-    </span>
+    2.1 Compilation Theory
   </a>
   
     <nav class="md-nav" aria-label="2.1 Compilation Theory">
@@ -3162,18 +2506,14 @@
         
           <li class="md-nav__item">
   <a href="#211-fim-build-script" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.1 FIM Build Script
-    </span>
+    2.1.1 FIM Build Script
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#212-ofss-file-usage" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2 OFSS File Usage
-    </span>
+    2.1.2 OFSS File Usage
   </a>
   
     <nav class="md-nav" aria-label="2.1.2 OFSS File Usage">
@@ -3181,54 +2521,42 @@
         
           <li class="md-nav__item">
   <a href="#2121-platform-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.1 Platform OFSS File
-    </span>
+    2.1.2.1 Platform OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2122-ofs-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.2 OFS IP OFSS File
-    </span>
+    2.1.2.2 OFS IP OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2123-pcie-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.3 PCIe IP OFSS File
-    </span>
+    2.1.2.3 PCIe IP OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2124-iopll-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.4 IOPLL IP OFSS File
-    </span>
+    2.1.2.4 IOPLL IP OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2125-memory-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.5 Memory IP OFSS File
-    </span>
+    2.1.2.5 Memory IP OFSS File
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#2126-hssi-ip-ofss-file" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.2.6 HSSI IP OFSS File
-    </span>
+    2.1.2.6 HSSI IP OFSS File
   </a>
   
 </li>
@@ -3240,9 +2568,7 @@
         
           <li class="md-nav__item">
   <a href="#213-ofs-build-script-outputs" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.1.3 OFS Build Script Outputs
-    </span>
+    2.1.3 OFS Build Script Outputs
   </a>
   
 </li>
@@ -3254,9 +2580,7 @@
         
           <li class="md-nav__item">
   <a href="#22-compilation-flows" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2 Compilation Flows
-    </span>
+    2.2 Compilation Flows
   </a>
   
     <nav class="md-nav" aria-label="2.2 Compilation Flows">
@@ -3264,63 +2588,49 @@
         
           <li class="md-nav__item">
   <a href="#221-flat-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.1 Flat FIM
-    </span>
+    2.2.1 Flat FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#222-in-tree-pr-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.2 In-Tree PR FIM
-    </span>
+    2.2.2 In-Tree PR FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#223-out-of-tree-pr-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.3 Out-of-Tree PR FIM
-    </span>
+    2.2.3 Out-of-Tree PR FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#224-he_null-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.4 HE_NULL FIM
-    </span>
+    2.2.4 HE_NULL FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#225-walkthrough-compile-ofs-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.5 Walkthrough: Compile OFS FIM
-    </span>
+    2.2.5 Walkthrough: Compile OFS FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.6 Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM
-    </span>
+    2.2.6 Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#227-compilation-seed" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.7 Compilation Seed
-    </span>
+    2.2.7 Compilation Seed
   </a>
   
     <nav class="md-nav" aria-label="2.2.7 Compilation Seed">
@@ -3328,9 +2638,7 @@
         
           <li class="md-nav__item">
   <a href="#2271-walkthrough-change-the-compilation-seed" class="md-nav__link">
-    <span class="md-ellipsis">
-      2.2.7.1 Walkthrough: Change the Compilation Seed
-    </span>
+    2.2.7.1 Walkthrough: Change the Compilation Seed
   </a>
   
 </li>
@@ -3352,9 +2660,7 @@
       
         <li class="md-nav__item">
   <a href="#3-fim-simulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. FIM Simulation
-    </span>
+    3. FIM Simulation
   </a>
   
     <nav class="md-nav" aria-label="3. FIM Simulation">
@@ -3362,18 +2668,14 @@
         
           <li class="md-nav__item">
   <a href="#31-simulation-file-generation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.1 Simulation File Generation
-    </span>
+    3.1 Simulation File Generation
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#32-individual-unit-tests" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2 Individual Unit Tests
-    </span>
+    3.2 Individual Unit Tests
   </a>
   
     <nav class="md-nav" aria-label="3.2 Individual Unit Tests">
@@ -3381,9 +2683,7 @@
         
           <li class="md-nav__item">
   <a href="#321-walkthrough-running-individual-unit-level-simulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.2.1 Walkthrough: Running Individual Unit Level Simulation
-    </span>
+    3.2.1 Walkthrough: Running Individual Unit Level Simulation
   </a>
   
 </li>
@@ -3395,9 +2695,7 @@
         
           <li class="md-nav__item">
   <a href="#33-regression-unit-tests" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3 Regression Unit Tests
-    </span>
+    3.3 Regression Unit Tests
   </a>
   
     <nav class="md-nav" aria-label="3.3 Regression Unit Tests">
@@ -3405,9 +2703,7 @@
         
           <li class="md-nav__item">
   <a href="#331-walkthrough-running-regression-unit-level-simulation" class="md-nav__link">
-    <span class="md-ellipsis">
-      3.3.1 Walkthrough: Running Regression Unit Level Simulation
-    </span>
+    3.3.1 Walkthrough: Running Regression Unit Level Simulation
   </a>
   
 </li>
@@ -3424,9 +2720,7 @@
       
         <li class="md-nav__item">
   <a href="#4-fim-customization" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. FIM Customization
-    </span>
+    4. FIM Customization
   </a>
   
     <nav class="md-nav" aria-label="4. FIM Customization">
@@ -3434,9 +2728,7 @@
         
           <li class="md-nav__item">
   <a href="#41-adding-a-new-module-to-the-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1 Adding a new module to the FIM
-    </span>
+    4.1 Adding a new module to the FIM
   </a>
   
     <nav class="md-nav" aria-label="4.1 Adding a new module to the FIM">
@@ -3444,9 +2736,7 @@
         
           <li class="md-nav__item">
   <a href="#411-hello-fim-theory-of-operation" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.1 Hello FIM Theory of Operation
-    </span>
+    4.1.1 Hello FIM Theory of Operation
   </a>
   
     <nav class="md-nav" aria-label="4.1.1 Hello FIM Theory of Operation">
@@ -3454,18 +2744,14 @@
         
           <li class="md-nav__item">
   <a href="#4111-hello-fim-board-peripheral-fabric-bpf" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.1.1 Hello FIM Board Peripheral Fabric (BPF)
-    </span>
+    4.1.1.1 Hello FIM Board Peripheral Fabric (BPF)
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#4112-hello-fim-csr" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.1.2 Hello FIM CSR
-    </span>
+    4.1.1.2 Hello FIM CSR
   </a>
   
 </li>
@@ -3477,36 +2763,28 @@
         
           <li class="md-nav__item">
   <a href="#412-walkthrough-add-a-new-module-to-the-ofs-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.2 Walkthrough: Add a new module to the OFS FIM
-    </span>
+    4.1.2 Walkthrough: Add a new module to the OFS FIM
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.3 Walkthrough: Modify and run unit tests for a FIM that has a new module
-    </span>
+    4.1.3 Walkthrough: Modify and run unit tests for a FIM that has a new module
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#414-walkthrough-hardware-test-a-fim-that-has-a-new-module" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.4 Walkthrough: Hardware test a FIM that has a new module
-    </span>
+    4.1.4 Walkthrough: Hardware test a FIM that has a new module
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#415-walkthrough-debug-the-fim-with-signal-tap" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.1.5 Walkthrough: Debug the FIM with Signal Tap
-    </span>
+    4.1.5 Walkthrough: Debug the FIM with Signal Tap
   </a>
   
 </li>
@@ -3518,9 +2796,7 @@
         
           <li class="md-nav__item">
   <a href="#42-preparing-fim-for-afu-development" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2 Preparing FIM for AFU Development
-    </span>
+    4.2 Preparing FIM for AFU Development
   </a>
   
     <nav class="md-nav" aria-label="4.2 Preparing FIM for AFU Development">
@@ -3528,9 +2804,7 @@
         
           <li class="md-nav__item">
   <a href="#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.2.1 Walkthrough: Compile the FIM in preparation for designing your AFU
-    </span>
+    4.2.1 Walkthrough: Compile the FIM in preparation for designing your AFU
   </a>
   
 </li>
@@ -3542,9 +2816,7 @@
         
           <li class="md-nav__item">
   <a href="#43-partial-reconfiguration-region" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3 Partial Reconfiguration Region
-    </span>
+    4.3 Partial Reconfiguration Region
   </a>
   
     <nav class="md-nav" aria-label="4.3 Partial Reconfiguration Region">
@@ -3552,9 +2824,7 @@
         
           <li class="md-nav__item">
   <a href="#431-walkthrough-resize-the-partial-reconfiguration-region" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.3.1 Walkthrough: Resize the Partial Reconfiguration Region
-    </span>
+    4.3.1 Walkthrough: Resize the Partial Reconfiguration Region
   </a>
   
 </li>
@@ -3566,9 +2836,7 @@
         
           <li class="md-nav__item">
   <a href="#44-pcie-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4 PCIe Configuration
-    </span>
+    4.4 PCIe Configuration
   </a>
   
     <nav class="md-nav" aria-label="4.4 PCIe Configuration">
@@ -3576,27 +2844,21 @@
         
           <li class="md-nav__item">
   <a href="#441-pcie-ss-configuration-registers" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.1 PCIe-SS Configuration Registers
-    </span>
+    4.4.1 PCIe-SS Configuration Registers
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#442-pfvf-mux-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.2 PF/VF MUX Configuration
-    </span>
+    4.4.2 PF/VF MUX Configuration
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#443-pcie-configuration-using-ofss" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.3 PCIe Configuration Using OFSS
-    </span>
+    4.4.3 PCIe Configuration Using OFSS
   </a>
   
     <nav class="md-nav" aria-label="4.4.3 PCIe Configuration Using OFSS">
@@ -3604,9 +2866,7 @@
         
           <li class="md-nav__item">
   <a href="#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.3.1 Walkthrough: Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS
-    </span>
+    4.4.3.1 Walkthrough: Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS
   </a>
   
 </li>
@@ -3618,9 +2878,7 @@
         
           <li class="md-nav__item">
   <a href="#444-pcie-configuration-using-ip-presets" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.4 PCIe Configuration Using IP Presets
-    </span>
+    4.4.4 PCIe Configuration Using IP Presets
   </a>
   
     <nav class="md-nav" aria-label="4.4.4 PCIe Configuration Using IP Presets">
@@ -3628,9 +2886,7 @@
         
           <li class="md-nav__item">
   <a href="#4441-walkthrough-modify-pcie-configuration-using-ip-presets" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.4.4.1 Walkthrough: Modify PCIe Configuration Using IP Presets
-    </span>
+    4.4.4.1 Walkthrough: Modify PCIe Configuration Using IP Presets
   </a>
   
 </li>
@@ -3647,9 +2903,7 @@
         
           <li class="md-nav__item">
   <a href="#45-minimal-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.5 Minimal FIM
-    </span>
+    4.5 Minimal FIM
   </a>
   
     <nav class="md-nav" aria-label="4.5 Minimal FIM">
@@ -3657,9 +2911,7 @@
         
           <li class="md-nav__item">
   <a href="#451-create-a-minimal-fim" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.5.1 Create a Minimal FIM
-    </span>
+    4.5.1 Create a Minimal FIM
   </a>
   
 </li>
@@ -3671,9 +2923,7 @@
         
           <li class="md-nav__item">
   <a href="#46-migrating-to-a-different-agilex-device-number" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.6 Migrating to a Different Agilex Device Number
-    </span>
+    4.6 Migrating to a Different Agilex Device Number
   </a>
   
     <nav class="md-nav" aria-label="4.6 Migrating to a Different Agilex Device Number">
@@ -3681,9 +2931,7 @@
         
           <li class="md-nav__item">
   <a href="#461-walkthrough-migrate-to-a-different-agilex-device-number" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.6.1 Walkthrough: Migrate to a Different Agilex Device Number
-    </span>
+    4.6.1 Walkthrough: Migrate to a Different Agilex Device Number
   </a>
   
 </li>
@@ -3695,9 +2943,7 @@
         
           <li class="md-nav__item">
   <a href="#47-modify-the-ethernet-sub-system" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.7 Modify the Ethernet Sub-System
-    </span>
+    4.7 Modify the Ethernet Sub-System
   </a>
   
     <nav class="md-nav" aria-label="4.7 Modify the Ethernet Sub-System">
@@ -3705,9 +2951,7 @@
         
           <li class="md-nav__item">
   <a href="#471-walkthrough-modify-the-ethernet-sub-system-to-1x400gbe" class="md-nav__link">
-    <span class="md-ellipsis">
-      4.7.1 Walkthrough: Modify the Ethernet Sub-System to 1x400GbE
-    </span>
+    4.7.1 Walkthrough: Modify the Ethernet Sub-System to 1x400GbE
   </a>
   
 </li>
@@ -3724,9 +2968,7 @@
       
         <li class="md-nav__item">
   <a href="#5-fpga-configuration" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. FPGA Configuration
-    </span>
+    5. FPGA Configuration
   </a>
   
     <nav class="md-nav" aria-label="5. FPGA Configuration">
@@ -3734,18 +2976,14 @@
         
           <li class="md-nav__item">
   <a href="#51-walkthrough-set-up-jtag" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.1 Walkthrough: Set up JTAG
-    </span>
+    5.1 Walkthrough: Set up JTAG
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#52-walkthrough-program-the-fpga-via-jtag" class="md-nav__link">
-    <span class="md-ellipsis">
-      5.2 Walkthrough: Program the FPGA via JTAG
-    </span>
+    5.2 Walkthrough: Program the FPGA via JTAG
   </a>
   
 </li>
@@ -3757,9 +2995,7 @@
       
         <li class="md-nav__item">
   <a href="#appendix" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix
-    </span>
+    Appendix
   </a>
   
     <nav class="md-nav" aria-label="Appendix">
@@ -3767,18 +3003,14 @@
         
           <li class="md-nav__item">
   <a href="#appendix-a-resource-utilization-tables" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix A: Resource Utilization Tables
-    </span>
+    Appendix A: Resource Utilization Tables
   </a>
   
 </li>
         
           <li class="md-nav__item">
   <a href="#appendix-b-glossary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Appendix B: Glossary
-    </span>
+    Appendix B: Glossary
   </a>
   
 </li>
@@ -3790,9 +3022,7 @@
       
         <li class="md-nav__item">
   <a href="#notices-disclaimers" class="md-nav__link">
-    <span class="md-ellipsis">
-      Notices &amp; Disclaimers
-    </span>
+    Notices &amp; Disclaimers
   </a>
   
 </li>
@@ -3816,7 +3046,7 @@
 
 
 <h1 id="fpga-interface-manager-developer-guide-for-open-fpga-stack-intel-agilex-7-fpga-i-series-development-kit-2x-r-tile-and-1xf-tile-pcie-attach">FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) PCIe Attach<a class="headerlink" href="#fpga-interface-manager-developer-guide-for-open-fpga-stack-intel-agilex-7-fpga-i-series-development-kit-2x-r-tile-and-1xf-tile-pcie-attach" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>February 03, 2024</strong> </p>
+<p>Last updated: <strong>February 16, 2024</strong> </p>
 <h2 id="1-introduction"><strong>1. Introduction</strong><a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
 <h3 id="11-about-this-document"><strong>1.1. About This Document</strong><a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
 <p>This document serves as a guide for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Agilex PCIe Attach developers targeting the Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile). The following topics are covered in this guide:</p>
@@ -5799,38 +5029,38 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Offset</th>
-<th style="text-align: left;">Feature CSR set</th>
+<th align="left">Offset</th>
+<th align="left">Feature CSR set</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">0x00000</td>
-<td style="text-align: left;"><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td align="left">0x00000</td>
+<td align="left"><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
 </tr>
 <tr>
-<td style="text-align: left;">0x10000</td>
-<td style="text-align: left;">PCIe Interface</td>
+<td align="left">0x10000</td>
+<td align="left">PCIe Interface</td>
 </tr>
 <tr>
-<td style="text-align: left;">0x12000</td>
-<td style="text-align: left;">QSFP Controller 0</td>
+<td align="left">0x12000</td>
+<td align="left">QSFP Controller 0</td>
 </tr>
 <tr>
-<td style="text-align: left;">0x13000</td>
-<td style="text-align: left;">QSFP Controller 1</td>
+<td align="left">0x13000</td>
+<td align="left">QSFP Controller 1</td>
 </tr>
 <tr>
-<td style="text-align: left;">0x14000</td>
-<td style="text-align: left;">HSSI Interface</td>
+<td align="left">0x14000</td>
+<td align="left">HSSI Interface</td>
 </tr>
 <tr>
-<td style="text-align: left;">0x15000</td>
-<td style="text-align: left;">EMIF Interface</td>
+<td align="left">0x15000</td>
+<td align="left">EMIF Interface</td>
 </tr>
 <tr>
-<td style="text-align: left;"><strong>0x16000</strong></td>
-<td style="text-align: left;"><strong>Hello <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></strong></td>
+<td align="left"><strong>0x16000</strong></td>
+<td align="left"><strong>Hello <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></strong></td>
 </tr>
 </tbody>
 </table>
@@ -5840,30 +5070,30 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: left;">Offset</th>
-<th style="text-align: left;">Attribute</th>
-<th style="text-align: left;">Description</th>
-<th style="text-align: left;">Default Value</th>
+<th align="left">Offset</th>
+<th align="left">Attribute</th>
+<th align="left">Description</th>
+<th align="left">Default Value</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: left;">0x016000</td>
-<td style="text-align: left;">RO</td>
-<td style="text-align: left;">DFH(Device Feature Headers) register</td>
-<td style="text-align: left;">0x30000006a0000100</td>
+<td align="left">0x016000</td>
+<td align="left">RO</td>
+<td align="left">DFH(Device Feature Headers) register</td>
+<td align="left">0x30000006a0000100</td>
 </tr>
 <tr>
-<td style="text-align: left;">0x016030</td>
-<td style="text-align: left;">RW</td>
-<td style="text-align: left;">Scrachpad register</td>
-<td style="text-align: left;">0x0</td>
+<td align="left">0x016030</td>
+<td align="left">RW</td>
+<td align="left">Scrachpad register</td>
+<td align="left">0x0</td>
 </tr>
 <tr>
-<td style="text-align: left;">0x016038</td>
-<td style="text-align: left;">RO</td>
-<td style="text-align: left;">Hello <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> ID register</td>
-<td style="text-align: left;">0x6626070150000034</td>
+<td align="left">0x016038</td>
+<td align="left">RO</td>
+<td align="left">Hello <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> ID register</td>
+<td align="left">0x6626070150000034</td>
 </tr>
 </tbody>
 </table>
@@ -6191,7 +5421,7 @@
 <a id="__codelineno-73-4" name="__codelineno-73-4" href="#__codelineno-73-4"></a><span class="nv">...</span>
 <a id="__codelineno-73-5" name="__codelineno-73-5" href="#__codelineno-73-5"></a><span class="c"># Subsystems</span>
 <a id="__codelineno-73-6" name="__codelineno-73-6" href="#__codelineno-73-6"></a><span class="nv">...</span>
-<a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="nv">set_global_assignment</span><span class="w"> </span><span class="o">-</span>name<span class="w"> </span>SOURCE_TCL_SCRIPT_FILE<span class="w"> </span><span class="nv">$::env</span><span class="k">(</span><span class="nv">BUILD_ROOT_REL</span><span class="k">)</span><span class="o">/</span>src<span class="o">/</span>hello_fim<span class="o">/</span>hello_fim_design_files.tclset_global_assignment<span class="w"> </span><span class="o">-</span>name<span class="w"> </span>SOURCE_TCL_SCRIPT_FILE<span class="w"> </span>..<span class="o">/</span>setup<span class="o">/</span>hello_fim_design_files.tcl
+<a id="__codelineno-73-7" name="__codelineno-73-7" href="#__codelineno-73-7"></a><span class="nv">set_global_assignment</span><span class="w"> </span><span class="o">-</span>name<span class="w"> </span>SOURCE_TCL_SCRIPT_FILE<span class="w"> </span><span class="nv">$::env</span><span class="k">(</span><span class="nv">BUILD_ROOT_REL</span><span class="k">)</span><span class="o">/</span>src<span class="o">/</span>hello_fim<span class="o">/</span>hello_fim_design_files.tcl
 </code></pre></div>
 </li>
 <li>
@@ -8328,160 +7558,160 @@
 <table>
 <thead>
 <tr>
-<th style="text-align: center;">Term</th>
-<th style="text-align: center;">Abbreviation</th>
+<th align="center">Term</th>
+<th align="center">Abbreviation</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td style="text-align: center;">Advanced Error Reporting</td>
-<td style="text-align: center;"><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
+<td align="center">Advanced Error Reporting</td>
+<td align="center"><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
 <td>The PCIe <abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr> driver is the extended PCI Express error reporting capability providing more robust error reporting. <a href="https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer">(link)</a></td>
 </tr>
 <tr>
-<td style="text-align: center;">Accelerator Functional Unit</td>
-<td style="text-align: center;"><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td align="center">Accelerator Functional Unit</td>
+<td align="center"><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
 <td>Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside. This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Basic Building Block</td>
-<td style="text-align: center;"><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td align="center">Basic Building Block</td>
+<td align="center"><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
 <td>Features within an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and host interface requires. All BBBs must have a (globally unique identifier) GUID.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Best Known Configuration</td>
-<td style="text-align: center;"><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
+<td align="center">Best Known Configuration</td>
+<td align="center"><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
 <td>The software and hardware configuration Intel uses to verify the solution.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Board Management Controller</td>
-<td style="text-align: center;"><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
+<td align="center">Board Management Controller</td>
+<td align="center"><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
 <td>Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> known as the PMCI resides in the main Agilex FPGA.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Configuration and Status Register</td>
-<td style="text-align: center;">CSR</td>
+<td align="center">Configuration and Status Register</td>
+<td align="center">CSR</td>
 <td>The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>, various sub-systems and modules).</td>
 </tr>
 <tr>
-<td style="text-align: center;">Data Parallel C++</td>
-<td style="text-align: center;">DPC++</td>
+<td align="center">Data Parallel C++</td>
+<td align="center">DPC++</td>
 <td>DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Device Feature List</td>
-<td style="text-align: center;"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td align="center">Device Feature List</td>
+<td align="center"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
 <td>The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software framework. <a href="https://docs.kernel.org/fpga/dfl.html">(link)</a></td>
 </tr>
 <tr>
-<td style="text-align: center;">FPGA Interface Manager</td>
-<td style="text-align: center;"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td align="center">FPGA Interface Manager</td>
+<td align="center"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
 <td>Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
 </tr>
 <tr>
-<td style="text-align: center;">FPGA Management Engine</td>
-<td style="text-align: center;"><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
+<td align="center">FPGA Management Engine</td>
+<td align="center"><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
 <td>Performs reconfiguration and other FPGA management functions. Each FPGA device only has one <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> which is accessed through PF0.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Host Exerciser Module</td>
-<td style="text-align: center;"><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
+<td align="center">Host Exerciser Module</td>
+<td align="center"><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
 <td>Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Input/Output Control</td>
-<td style="text-align: center;"><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
+<td align="center">Input/Output Control</td>
+<td align="center"><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
 <td>System calls used to manipulate underlying device parameters of special files.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Intel Virtualization Technology for Directed I/O</td>
-<td style="text-align: center;"><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
+<td align="center">Intel Virtualization Technology for Directed I/O</td>
+<td align="center"><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
 <td>Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Joint Test Action Group</td>
-<td style="text-align: center;"><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
+<td align="center">Joint Test Action Group</td>
+<td align="center"><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
 <td>Refers to the IEEE 1149.1 <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> standard; Another FPGA configuration methodology.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Memory Mapped Input/Output</td>
-<td style="text-align: center;"><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td align="center">Memory Mapped Input/Output</td>
+<td align="center"><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
 <td>The memory space users may map and access both control registers and system memory buffers with accelerators.</td>
 </tr>
 <tr>
-<td style="text-align: center;">oneAPI Accelerator Support Package</td>
-<td style="text-align: center;">oneAPI-asp</td>
+<td align="center">oneAPI Accelerator Support Package</td>
+<td align="center">oneAPI-asp</td>
 <td>A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> shell components. oneAPI ASP hardware components and oneAPI kernel form the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region of a oneAPI system in <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Open FPGA Stack</td>
-<td style="text-align: center;"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td align="center">Open FPGA Stack</td>
+<td align="center"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
 <td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3<sup>rd</sup> party, or custom board.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Open Programmable Acceleration Engine Software Development Kit</td>
-<td style="text-align: center;"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td align="center">Open Programmable Acceleration Engine Software Development Kit</td>
+<td align="center"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
 <td>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> resides exclusively in user-space.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Platform Interface Manager</td>
-<td style="text-align: center;"><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
+<td align="center">Platform Interface Manager</td>
+<td align="center"><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
 <td>An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Platform Management Controller Interface</td>
-<td style="text-align: center;">PMCI</td>
+<td align="center">Platform Management Controller Interface</td>
+<td align="center">PMCI</td>
 <td>The portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> that resides in the Agilex FPGA and allows the FPGA to communicate with the primary <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> component on the board.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Partial Reconfiguration</td>
-<td style="text-align: center;"><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
+<td align="center">Partial Reconfiguration</td>
+<td align="center"><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
 <td>The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> designs, the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region is referred to as the pr_slot.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Port</td>
-<td style="text-align: center;">N/A</td>
+<td align="center">Port</td>
+<td align="center">N/A</td>
 <td>When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region containing the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Remote System Update</td>
-<td style="text-align: center;"><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
+<td align="center">Remote System Update</td>
+<td align="center"><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
 <td>The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".</td>
 </tr>
 <tr>
-<td style="text-align: center;">Secure Device Manager</td>
-<td style="text-align: center;">SDM</td>
+<td align="center">Secure Device Manager</td>
+<td align="center">SDM</td>
 <td>The SDM is the point of entry to the FPGA for <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).</td>
 </tr>
 <tr>
-<td style="text-align: center;">Static Region</td>
-<td style="text-align: center;">SR</td>
+<td align="center">Static Region</td>
+<td align="center">SR</td>
 <td>The portion of the FPGA design that cannot be dynamically reconfigured during run-time.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Single-Root Input-Output Virtualization</td>
-<td style="text-align: center;"><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
+<td align="center">Single-Root Input-Output Virtualization</td>
+<td align="center"><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
 <td>Allows the isolation of PCI Express resources for manageability and performance.</td>
 </tr>
 <tr>
-<td style="text-align: center;">SYCL</td>
-<td style="text-align: center;">SYCL</td>
+<td align="center">SYCL</td>
+<td align="center">SYCL</td>
 <td>SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Test Bench</td>
-<td style="text-align: center;"><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
+<td align="center">Test Bench</td>
+<td align="center"><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
 <td>Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Universal Verification Methodology</td>
-<td style="text-align: center;"><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
+<td align="center">Universal Verification Methodology</td>
+<td align="center"><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
 <td>A modular, reusable, and scalable testbench structure via an API framework.  In the context of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>, the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> enviroment provides a system level simulation environment for your design.</td>
 </tr>
 <tr>
-<td style="text-align: center;">Virtual Function Input/Output</td>
-<td style="text-align: center;"><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
+<td align="center">Virtual Function Input/Output</td>
+<td align="center"><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
 <td>An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)</td>
 </tr>
 </tbody>
@@ -8503,26 +7733,17 @@ You are responsible for safety of the overall system, including compliance with 
 
 
 
-
-
-
-
-
-
-
                 
               </article>
             </div>
           
           
-<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
         
           <button type="button" class="md-top md-icon" data-md-component="top" hidden>
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
-  Back to top
-</button>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
         
       </main>
       
@@ -8549,11 +7770,10 @@ You are responsible for safety of the overall system, including compliance with 
       <div class="md-dialog__inner md-typeset"></div>
     </div>
     
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
-    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.c011b7c0.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
     
-    
-      <script src="../../../../../assets/javascripts/bundle.7389ff0e.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
       
     
   <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
