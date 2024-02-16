@@ -57,17 +57,14 @@ This script uses the following set of software tools which should be installed u
 
 1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.3-2. 
 
-2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table 1-2 for locations. When cloning the FIM repository, please follow the instructions in the following guides
-   
-* [FPGA Interface Manager (FIM) Developer Guide: OFS for Intel® Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2023.3-2/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)
-* [FPGA Interface Manager (FIM) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach (2xF-tile)](https://ofs.github.io/ofs-2023.3-2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/).
+2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the [BKC table](#table-1-2-software-version-summary) for locations. When cloning the FIM repository, please follow the instructions in the following guides
+ * [FPGA Interface Manager (FIM) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach (2xR-tile, F-tile)]
+ * [FPGA Interface Manager (FIM) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach (2xF-tile)](https://ofs.github.io/ofs-2023.3-2/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
+ * [FPGA Interface Manager (FIM) Developer Guide: OFS for Intel® Agilex® 7 PCIe Attach (P-tile, E-tile)]
+  
+ Additionally, please go to [FPGA Developer Journey Guide: Intel Open FPGA Stack] for the instructions for the BKC software installation.
 
-Additionally, please follow the instructions in the following guides for the BKC software installation.
-
-* [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 PCIe Attach FPGAs (Intel FPGA SmartNIC N6001-PL)](https://ofs.github.io/ofs-2023.3-2/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
-* [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs (Intel Agilx 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.3-2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) 
-
-3. Once the repositories are cloned, The scripts that go with each user guide are found in the assets tab of the corresponding FIM RTL repository. Download the evaluation script (ofs-agx7-pcie-attach_eval.sh) and copy it to the ofs-2023.3-2 directory location as shown in the example below:
+3. Once the repositories are cloned, download the evaluation script folder (ofs-agx7-pcie-attach_eval.tar.gz) which is available in the [OFS release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1) and copy the evaluation script ofs-agx7-pcie-attach_eval.sh in the location as shown in the example below:
 
 **Figure 2-2 Directory Structure for OFS Project**
 
@@ -83,12 +80,12 @@ Additionally, please follow the instructions in the following guides for the BKC
 ##  -> ofs-agx7-pcie-attach_eval.sh
 ```
 
-4. The README file that accompanies each user guide are found in the assets tab of the corresponding FIM RTL repository. Download the README file (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the ofs-2023.3-2 directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
+4. Open the README file named (README_ofs-agx7-pcie-attach_eval.txt) which is in  the evaluation script folder(ofs-agx7-pcie-attach_eval.tar.gz) which informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
 
 ### **2.2 Intel® Agilex® 7 PCIe Attach Evaluation Script modification**
 
 
-To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the ofs-agx7-pcie-attach.sh script 
+To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the ofs-agx7-pcie-attach_eval.sh script 
 
 ### **User Directory Creation**
 
@@ -202,7 +199,7 @@ The figure below shows a snapshot of the full evaluation script menu showing all
 
 **Figure 3-1 ofs-agx7-pcie-attach_eval.sh Evaluation Menu**
 
-![](images/ofs_n6001_adp_eval_menu.png)
+![](images/ofs_eval_menu.png)
 
 ### **3.1.1 OFS TOOLS MENU**
 
@@ -211,7 +208,7 @@ By selecting "List of Documentation for OFS Project," a list of links to the lat
 
 By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.
 
-![](images/ofs_n6001_adp_tools_menu.png)
+![](images/ofs_tools_menu.png)
 
 <table>
     <thead>
@@ -269,7 +266,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
 
 Identifies card by PCIe number, checks power, temperature and current firmware configuration. 
 
-![](images/ofs_n6001_adp_hardware_menu.png)
+![](images/ofs_hardware_menu.png)
 
 <table>
     <thead>
@@ -455,7 +452,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
 
 This menu reports the number of PF/VF functions in the reference example and also allows you to reduce the number to 1PF and 1VF to reduce resource utilisation and create a larger area for your workload development. This selection is optional and if the user wants to implement the default number of PF's and VF's then option 9, 10 and 11 should not be used.  Additionally the code used to make the PF/VF modification can be leveraged to increase or modify the number of PF/VFs in the existing design within the limits that the PCIe Subsystem supports (8PF/2K VFs)
 
-![](images/ofs_n6001_adp_pf_vf_mux_menu.png)
+![](images/ofs_pf_vf_mux_menu.png)
 
 <table>
     <thead>
@@ -469,11 +466,11 @@ This menu reports the number of PF/VF functions in the reference example and als
             <td>9 - Check PF/VF Mux Configuration</td>
             <td> This menu selection displays the current configuration of all n6001 ofss files located in the following directory $OFS_ROOTDIR/tools/ofss_config<br>
             <br>
-                
-            Check n6001 base config OFSS set up
+         
+            Check n6001 base config OFSS set up 
             [ip]
             type = ofs
-
+            
             [settings]
             platform = n6001
             family = agilex
@@ -578,7 +575,7 @@ This menu reports the number of PF/VF functions in the reference example and als
         <tr>
             <td>10 - Modify PF/VF Mux Configuration</td>
             <td>As an example this menu selection modifies the pcie_host.ofss file to 1 PF located in the following directory $OFS_ROOTDIR/tools/ofss_config<br>
-            This option also displays the the modified pcie_host.ofss file<br>
+            This option also displays the modified pcie_host.ofss file<br>
         </tr>
 </td>        
         </tr>
@@ -597,7 +594,7 @@ This menu reports the number of PF/VF functions in the reference example and als
 
 Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
 
-![](images/ofs_n6001_adp_fim_pr_build_menu.png)
+![](images/ofs_fim_pr_build_menu.png)
 
 <table>
     <thead>
@@ -671,7 +668,7 @@ The following submenu allows you to:
 * Run host exerciser (HE) commands such as loopback to test interfaces VFIO PCI driver binding
 * Read the control and status registers (CSRs) for bound modules that are part of the OFS reference design.
 
-![](images/ofs_n6001_adp_hardware_programming_diagnostic_menu.png)
+![](images/ofs_hardware_programming_diagnostic_menu.png)
 
 <table>
     <thead>
@@ -893,7 +890,7 @@ This submenu tests partial reconfiguration using a hello_world example AFU/workl
 
 Builds oneAPI kernel, executes sw from host and runs diagnostic tests
 
-![](images/ofs_n6001_adp_oneapi_project_menu.png)
+![](images/ofs_oneapi_project_menu.png)
 
 <table>
     <thead>
@@ -1039,7 +1036,7 @@ Builds, compiles and runs standalone simulation block tests.  More unit test exa
 
 Builds, compiles and runs full chip simulation tests.  The user should execute the options sequentially ie 68,69, 70 and 71
 
-![](images/ofs_n6001_adp_uvm_project_menu.png)
+![](images/ofs_uvm_project_menu.png)
 
 <table>
     <thead>
@@ -1092,7 +1089,7 @@ For this menu a user can run a sequence of tests (compilation, build and simulat
 
 A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 62 from the main menu the script will execute 24 tests ie (main menu options 2, 9, 12, 13, 14, 15, 16, 17, 18, 32, 34, 35, 37, 39, 40, 44, 45, 53, 55, 56, 57, 58, 59 and 60. These 24 menu options are chosen to build the complete OFS flow covering build, compile and simulation.
 
-![](images/ofs_n6001_adp_build_all_project_menu.png)
+![](images/ofs_build_all_project_menu.png)
 
 <table>
     <thead>
@@ -1103,7 +1100,7 @@ A user can run a sequence of tests and execute them sequentially. In the example
     </thead>
     <tbody>
         <tr>
-            <td>62 - Build and Simulate Complete n6001 Project</td>
+            <td>62 - Build and Simulate Complete Project</td>
             <td>Generating Log File with date and timestamp<br>
                 Log file written to /home/guest/ofs-2.3.1/log_files/ofs-agx7-pcie-attach_log_2022_11_10-093649/ofs-agx7-pcie-attach_eval.log<br>
             <br>

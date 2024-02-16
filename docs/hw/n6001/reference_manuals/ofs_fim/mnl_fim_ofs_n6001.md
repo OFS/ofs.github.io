@@ -139,7 +139,7 @@ Note that the BMC RTL and firmware that works with this OFS design provided in a
 **Figure 1-2 OFS for OFS FIM for Agilex OFS Block Diagram**
 
 
-![](images/Agilex_Fabric_Features.svg)
+![](images/Agilex_Fabric_Features.png)
 
 The table provides an overview of the OFS features targeting the Intel® Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex devices.
 
@@ -227,7 +227,7 @@ For this design the PF/VF Mux provides the following mappings (found in src/afu_
 | HPS Copy Engine Module                      |      PF4      |
 
 **Figure 1-3 AFU Diagram**
-![](images/PR_Gasket_Agilex.svg)
+![](images/PR_Gasket_Agilex.png)
 
 
 #### **1.4.3 Platform Interface Manager**

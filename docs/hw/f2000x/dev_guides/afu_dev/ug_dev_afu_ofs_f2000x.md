@@ -1,6 +1,6 @@
 # **AFU Development Guide: OFS for Intel® Intel® Agilex® 7 FPGA SoC Attach FPGAs**
 
-Last updated: **February 03, 2024** 
+Last updated: **February 16, 2024** 
 
 ## **1. Introduction**
 

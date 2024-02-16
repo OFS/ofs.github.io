@@ -74,12 +74,15 @@ nav:
       - KVM User guide: 'hw/common/user_guides/ug_kvm/ug_kvm.md'
   - Agilex PCIe Attach OFS:
       - Quick Start Evaluation Guide: 'hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach.md'
-      - Getting Started (Intel Agilex 7 FPGA I-Series Development Kit 2xR-Tile): 'hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries.md'
-      - Getting Started (Intel Agilex 7 FPGA F-Series Development Kit 2xF-Tile): 'hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile.md'
-      - Getting Started (Intel FPGA SmartNIC N6001-PL): 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
-      - FPGA Interface Manager Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile): 'hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev.md'
-      - FPGA Interface Manager Developer Guide for PCIe Attach F-Series (2xF-Tile): 'hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev.md'
-      - FPGA Interface Manager Developer Guide for PCIe Attach F-Series (P-Tile/E-Tile): 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
+      - Getting Started Guides:
+          - Getting Started (Intel Agilex 7 FPGA I-Series Development Kit 2xR-Tile): 'hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries.md'
+          - Getting Started (Intel Agilex 7 FPGA F-Series Development Kit 2xF-Tile): 'hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile.md'
+          - Getting Started (Intel FPGA SmartNIC N6001-PL): 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
+      - FPGA Interface Manager Technical Reference Manual: 'hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001.md'
+      - FPGA Interface Manager (FIM) Developer Guides:
+          - FIM Developer Guide for PCIe Attach I-Series (2xR-Tile, F-Tile): 'hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev.md'
+          - FIM Developer Guide for PCIe Attach F-Series (2xF-Tile): 'hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev.md'
+          - FIM Developer Guide for PCIe Attach F-Series (P-Tile/E-Tile): 'hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md'
       - AFU Developer Guide: 'hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach.md'
       - HPS Developer Guide: 'hw/n6001/dev_guides/hps_dev/hps_developer_ug.md'
       - Simulation User Guide: 'hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach.md'  
@@ -100,9 +103,8 @@ nav:
       - oneAPI Accelerator Support Package(ASP) Reference Manual: hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md
 
   - OFS Software:
-    - OPAE SOFTWARE REFERENCE:
-       - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
-    - OPAE FPGA TOOLS:
+    - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
+    - OPAE FPGA Tools:
        - fpgainfo: sw/fpga_tools/fpgainfo/fpgainfo.md
        - fpgasupdate: sw/fpga_tools/fpgasupdate/fpgasupdate.md
        - mmlink: sw/fpga_tools/mmlink/mmlink.md
@@ -172,7 +174,7 @@ env:
   D5005_OFS_RELEASE: ofs-2023.3-2
   D5005_RELEASE: ofs-2023.3
   D5005_OFS_TAG: ofs-2023.3-1
-  D5005_OFS_COMMON_RELEASE: ofs-2023.3-2
+  D5005_OFS_COMMON_RELEASE: ofs-2023.3-1
   D5005_OFS_AFU_EXAMPLE_TAG: ofs-2023.3-1
   D5005_OFS_AFU_BBB_TAG: ofs-2023.3-1
   D5005_FIM_REPO: ofs-d5005

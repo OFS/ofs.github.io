@@ -229,8 +229,7 @@ Table 2-3 and 2-4 summarize the tool version/Best Known Configurations(BKC).
 | opae-sdk | Branch: release/2.10.0, Tag: 2.10.0-1 |
 | ofs-fim | Tag: ofs-2023.3-1 |
 | oneapi-asp | Tag: ofs-2023.3-2 <br> > **Note:** Cloning and build of this repo is discussed in the *[section 2.4](#24-build-and-install-oneapi-asp)* |
-| Quartus Prime Pro Edition | Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link [patch-s10-2023-3.tar.gz
-](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) |
+| Quartus Prime Pro Edition | Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link [patch-s10-2023-3.tar.gz](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) |
 | Intel® oneAPI Base Toolkit (Base Kit) | Latest version |
 | GCC | 7.4.0 |
 | cmake | 3.15 |
@@ -441,7 +440,7 @@ VF1 is mapped to PR region and you must create 2 VFs when using this FIM. This F
 ##### **2.5.2.1 Create VF**
 <a name="create-vf"></a>
 
-> **Note:**This section only applies for Base_x16 FIM and 1PF/1VF minimal FIM for Intel® Agilex® 7 FPGA and default FIM for Intel® Stratix 10® FPGA. 
+> **Note:** This section only applies for Base_x16 FIM and 1PF/1VF minimal FIM for Intel® Agilex® 7 FPGA and default FIM for Intel® Stratix 10® FPGA. 
 
 - Create a VF using PCIe ID obtained from the output of `fpgainfo fme` (PCIe s\:b\:d.f output)
 

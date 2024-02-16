@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6001-PL PCIe Attach
 
-Last updated: **February 03, 2024** 
+Last updated: **February 16, 2024** 
 
 ## **1. Introduction**
 
@@ -45,7 +45,7 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 | [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) | Customization |
 | [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) | Customization |
 | [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) | Customization |
-| [Remove the HPS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-removing-the-hps) | Customization |
+| [Remove the HPS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) | Customization |
 | [Set up JTAG](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) | Configuration |
 | [Program the FPGA via JTAG](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
 | [Program the FPGA via RSU](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) | Configuration |
@@ -209,7 +209,7 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 | [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
 | [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
 | [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
-| [Remove the HPS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-removing-the-hps) |
+| [Remove the HPS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) |
 
 
 
@@ -1290,7 +1290,7 @@ This section describes how to perform specific customizations of the FIM, and pr
 | [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
 | [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
 | [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
-| [Remove the HPS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-removing-the-hps) |
+| [Remove the HPS](https://ofs.github.io/ofs-2023.3-2/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) |
 
 ### **4.1 Adding a new module to the FIM**
 
@@ -1689,7 +1689,7 @@ Steps:
   ...
   # Subsystems
   ...
-  set_global_assignment -name SOURCE_TCL_SCRIPT_FILE $::env(BUILD_ROOT_REL)/src/hello_fim/hello_fim_design_files.tclset_global_assignment -name SOURCE_TCL_SCRIPT_FILE ../setup/hello_fim_design_files.tcl
+  set_global_assignment -name SOURCE_TCL_SCRIPT_FILE $::env(BUILD_ROOT_REL)/src/hello_fim/hello_fim_design_files.tcl
   ```
 
 9. Modify `$OFS_ROOTDIR/src/pd_qsys/fabric/fabric_design_files.tcl` to include BPF Hello FIM Slave IP.

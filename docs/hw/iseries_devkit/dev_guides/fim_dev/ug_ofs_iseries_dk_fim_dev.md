@@ -1,6 +1,6 @@
 # FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) PCIe Attach
 
-Last updated: **February 03, 2024** 
+Last updated: **February 16, 2024** 
 
 ## **1. Introduction**
 
@@ -1665,7 +1665,7 @@ Steps:
   ...
   # Subsystems
   ...
-  set_global_assignment -name SOURCE_TCL_SCRIPT_FILE $::env(BUILD_ROOT_REL)/src/hello_fim/hello_fim_design_files.tclset_global_assignment -name SOURCE_TCL_SCRIPT_FILE ../setup/hello_fim_design_files.tcl
+  set_global_assignment -name SOURCE_TCL_SCRIPT_FILE $::env(BUILD_ROOT_REL)/src/hello_fim/hello_fim_design_files.tcl
   ```
 
 9. Modify `$OFS_ROOTDIR/src/pd_qsys/fabric/fabric_design_files.tcl` to include BPF Hello FIM Slave IP.

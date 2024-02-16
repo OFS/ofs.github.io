@@ -403,9 +403,9 @@ $ python3 -m pip install --user jsonschema virtualenv pudb pyyaml
 
 $ sudo pip3 uninstall setuptools
 
-$ sudo pip3 install Pybind11==2.10.0 --proxy http://yourproxy:xxx
+$ sudo pip3 install --proxy http://yourproxy:xxx Pybind11==2.10.0 
 
-$ sudo pip3 install setuptools==59.6.0 --prefix=/usr --proxy http://yourproxy:xxx
+$ sudo pip3 install --proxy http://yourproxy:xxx setuptools==59.6.0 --prefix=/usr 
 
 $ wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/pybind11-devel-2.4.3-2.el8.x86_64.rpm
 

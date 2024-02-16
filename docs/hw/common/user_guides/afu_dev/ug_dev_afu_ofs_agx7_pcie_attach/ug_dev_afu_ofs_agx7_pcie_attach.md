@@ -1,7 +1,7 @@
 
 # **AFU Development Guide: OFS for Intel® Intel® Agilex® 7 FPGA PCIe Attach FPGAs**
 
-Last updated: **February 03, 2024** 
+Last updated: **February 16, 2024** 
 
 ## **1. Introduction**
 
@@ -1287,7 +1287,7 @@ Run ```afu_sim_setup``` to create the ASE simulation environment for the ```host
 ```sh
 $ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio
 
-$ afu_sim_setup -s $./hw/rtl/test_mmio_axi1.txt -t VCS afu_sim
+$ afu_sim_setup -s ./hw/rtl/test_mmio_axi1.txt -t VCS afu_sim
 
 Copying ASE from /opae-sdk/install-opae-sdk/share/opae/ase...
 #################################################################

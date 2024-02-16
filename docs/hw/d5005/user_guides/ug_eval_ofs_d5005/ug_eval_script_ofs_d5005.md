@@ -48,7 +48,7 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | --------- | ------- | -------|
 | FPGA Platform | [Intel® FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html) | Intel platform you can use for your custom board development |
 | OFS FIM Source Code| [Branch: ofs-d5005](https://github.com/OFS/ofs-d5005), [Tag: release/ofs-2023.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-2) | OFS Shell RTL for Intel Stratix 10 FPGA (targeting Intel® FPGA PAC D5005) |
-| OFS FIM Common| [Branch: ofs-2023.3-2](https://github.com/OFS/ofs-fim-common), [Tag: ofs-2023.3-2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2) | Common RTL across all OFS-based platforms |
+| OFS FIM Common| [Branch: ofs-2023.3-1](https://github.com/OFS/ofs-fim-common), [Tag: ofs-2023.3-1](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-1) | Common RTL across all OFS-based platforms |
 | AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag: ofs-examples-ofs-2023.3-1](https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
 | OPAE SDK | [Branch: 2.10.0-1](https://github.com/OFS/opae-sdk/tree/2.10.0-1), [Tag: 2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1) | Open Programmable Acceleration Engine Software Development Kit |
 | Kernel Drivers | [Branch: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-2), [Tag: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2) | OFS specific kernel drivers|
