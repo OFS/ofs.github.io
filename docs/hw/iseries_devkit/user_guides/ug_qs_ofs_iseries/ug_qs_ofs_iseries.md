@@ -1,10 +1,10 @@
-# Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
+# Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
 
-Last updated: **February 16, 2024** 
+Last updated: **March 20, 2024** 
 
 ## 1.0 About This Document
 
-The purpose of this document is to help users get started in evaluating the 2023.3 version of the PCIe Attach release targeting the I-Series Development Kit. After reviewing this document, a user shall be able to:
+The purpose of this document is to help users get started in evaluating the 2024.1 version of the PCIe Attach release targeting the I-Series Development Kit. After reviewing this document, a user shall be able to:
 
 * Set up a server environment according to the Best Known Configuration (BKC)
 * Load and verify firmware targeting the FIM and AFU regions of the Agilex FPGA
@@ -13,7 +13,7 @@ The purpose of this document is to help users get started in evaluating the 2023
 
 ### 1.1 Audience
 
-The information in this document is intended for customers evaluating the PCIe Attach shell targeting Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile). This platform is a Development Kit intended to be used as a starting point for evaluation and development.
+The information in this document is intended for customers evaluating the PCIe Attach shell targeting Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile). This platform is a Development Kit intended to be used as a starting point for evaluation and development.
 
 *Note: Code command blocks are used throughout the document. Commands that are intended for you to run are preceded with the symbol '$', and comments with '#'. Full command output may not be shown.*
 
@@ -55,14 +55,14 @@ The information in this document is intended for customers evaluating the PCIe A
 
 #### Table 2: Software and Component Version Summary for OFS PCIe Attach targeting the I-Series Development Kit
 
-The OFS 2023.3 PCIe Attach release is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents.
+The OFS 2024.1 PCIe Attach release is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents.
 
 | Component | Version |
 | ----- | -----  |
-| Quartus | https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-3-for-linux.html, patches: 0.13 patch (Generic Serial Flash Interface IP), 0.21 patch (PCIe) |
+| Quartus | https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html, patches: 0.17 patch (PCIe) |
 | Host Operating System | https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software |
-| OneAPI-ASP | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-2, patches: 0.02 |
-| OFS Platform AFU BBB  | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-2|
+| OneAPI-ASP | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.1-1, patches: 0.02 |
+| OFS Platform AFU BBB  | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.1-1|
 | OFS FIM Common Resources| https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2 |
 | AFU Examples | https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-2 |
 | OPAE-SIM | https://github.com/OPAE/opae-sim |
@@ -74,59 +74,24 @@ OFS releases include pre-built binaries for the FPGA, OPAE SDK and Linux DFL whi
 
 | Component | Version| Link |
 | ----- | ----- | ----- |
-| FIM (shell) | Pr Interface ID: TBD  | https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2 |
-| Host OPAE SDK| https://github.com/OPAE/opae-sdk, tag: 2.10.0-1| https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1 |
-| Host Linux DFL Drivers| https://github.com/OPAE/linux-dfl, tag: ofs-2023.3-6.1-3 | https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-3|
+| FIM (shell) | Pr Interface ID: TBD  | https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1 |
+| Host OPAE SDK| https://github.com/OPAE/opae-sdk, tag: 2.12.0-4| https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4 |
+| Host Linux DFL Drivers| https://github.com/OPAE/linux-dfl, tag: ofs-2024.1-6.1-2 | https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2|
 
 #### Table 4: Hardware BKC for OFS PCIe Attach
 
-The following table highlights the hardware which composes the Best Known Configuation (BKC) for the OFS 2023.3 PCIe Attach release. The Intel FPGA Download Cable II is not required when using the I Series Dev Kit, as the device has an on-board blaster.
+The following table highlights the hardware which composes the Best Known Configuation (BKC) for the OFS 2024.1 PCIe Attach release. The Intel FPGA Download Cable II is not required when using the I Series Dev Kit, as the device has an on-board blaster.
 
 | Component | Link |
 | ----- | ----- |
-| Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html |
+| Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html |
 | (optional) Intel FPGA Download Cable II| https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html|
 
-### 1.2 Server Requirements
+### 1.2 Board Installation and Server Settings
 
-#### 1.2.1 Host Server Specifications
+Instructions detailing the board installation guidelines for an I-Series Dev Kit including server BIOS settings and regulatory information can be found in the [Board Installation Guidelines: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](../../../common/board_installation/devkit_board_installation/devkit_board_installation_guidelines.md). This document also covers the installation of a JTAG cable, which is required for shell programming.
 
-The host server must meet the following specifications:
-
-- The server platform should contain 128 GB of RAM to run certain demos, and to compile FIM Images
-- The server platform must be able to fit, power, and cool an Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) as described by the [product page](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html)
-- The server should be able to run PCIe at Gen 5 speeds to properly test designs and demos
-- The server must be able to properly power the I Series Dev Kit using an auxillary power cable as described in section 3.1 of the [Intel Agilex® 7 FPGA I-Series Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/applying-power-to-the-development-board.html)
-
-*Note: Be sure to double check that purchased servers support the proper PCIe aux power cables.*
-
-#### 1.2.2 Host BIOS
-
-These are the host BIOS settings known to work with the I-Series Development Kit. Information about the server's currently loaded firmware and BIOS settings can be found through its remote access controller, or by manually entering the BIOS by hitting a specific key during power on. Your specific server platform will include instructions on proper BIOS configuration and should be followed when altering settings.
-
-- PCIe slot must be bifurcated x8 / x8
-- PCIe slot speed must be set to Gen 5
-- PCIe slot must have iommu enabled
-- Intel VT for Directed I/O (VT-d) must be enabled
-
-Specific BIOS paths are not listed here as they can differ between BIOS vendors and versions.
-
-In addition to BIOS settings required to support the operation of an OFS PCIe Attach solution targeting the I-Series Development Kit, server fan speed may need to be adjusted in the BIOS settings depending on local air temperature and air flow. The OFS PCIe Attach design does not automatically communicate cooling curve information with the on-board server management interface. Increasing air flow will mitigate possible thermal runaway and thermal throttling that may occur as a result. Refer to [Board Thermal Requirements](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/board-thermal-requirements.html) for more information.
-
-#### 1.2.3 Host Server Kernel and GRUB Configuration
-
-While many host Linux kernel and OS distributions may work with this design, only the following configuration(s) have been tested:
-
-- OS: RedHat® Enterprise Linux® (RHEL) 8.6
-- Kernel: 6.1-lts
-
-### 1.3 Preparing the I-Series Development Kit for Installation into a Server
-
-Safety and Regulatory information can be found under the [product page](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html) for this development kit.
-
-Ensure your device's switch configuration matches the default found in the [Intel Agilex® 7 FPGA I-Series Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/default-setting.html). Physical installation of the board is covered in section [3.1 Applying Power to the Development Board](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/applying-power-to-the-development-board.html).
-
-### 1.4 I-Series Development Kit JTAG Setup
+### 1.3 I-Series Development Kit JTAG Setup
 
 A specific JTAG driver needs to be installed on the host OS. Follow the instructions under the driver setup for Red Hat 5+ on [Intel® FPGA Download Cable (formerly USB-Blaster) Driver for Linux*](https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-b-lnx.html).
 
@@ -157,19 +122,19 @@ cd ~/intelFPGA_pro/quartus/bin
 
 ### 1.5 Upgrading the I-Series Development Kit FIM via JTAG
 
-Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2). After programming the shell and installing both the OPAE SDK and Linux DFL kernel drivers (as shown in sections [3.0 OFS DFL Kernel Drivers](#30-ofs-dfl-kernel-drivers) and [4.0 OPAE Software Development Kit](#4-opae-software-development-kit)), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
+Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2024.1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1). After programming the shell and installing both the OPAE SDK and Linux DFL kernel drivers as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
 
 #### Table 5: FIM Version
 
 |Identifier|Value|
 |-----|-----|
-|Pr Interface ID|5bcd682f-5093-5fc7-8cd2-ae8073e19452|
+|Pr Interface ID|5bcd682f-5093-5fc7-8cd2-ae8073e19452 (TBD)|
 |Bitstream ID|TBD|
 
-1. Download and unpack the artifacts from [the 2023.3 release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.3-2/iseries-dk-images.tar.gz). The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage, therefore if the server is power cycled, you will need to reload the FPGA .sof file.
+1. Download and unpack the artifacts from [the 2024.1 release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.1-1/iseries-dk-images.tar.gz). The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage, therefore if the server is power cycled, you will need to reload the FPGA .sof file.
 
     ```bash
-    wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2023.3-2/iseries-dk-images.tar.gz
+    wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.1-1/iseries-dk-images.tar.gz
     tar xf iseries-dk-images.tar.gz
     cd iseries-dk-images/
     
@@ -205,7 +170,7 @@ Intel provides a pre-built FIM that can be used out-of-box for platform bring-up
 
 ### 2.1 Hardware Components
 
-The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [FPGA Interface Manager Technical Reference Manual for Intel Agilex PCIe Attach: Open FPGA Stack](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
 OFS is a hardware and software infrastructure that provides an efficient approach to developing a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board.
 
@@ -226,7 +191,7 @@ The FPGA Interface Manager (FIM), or shell of the FPGA provides platform managem
 
 The FPGA Management Engine (FME) provides management features for the platform and the loading/unloading of accelerators through partial reconfiguration. Each feature of the FME exposes itself to the kernel-level OFS drivers on the host through a Device Feature Header (DFH) register that is placed at the beginning of Control Status Register (CSR) space. Only one PCIe link can access the FME register space in a multi-host channel design architecture at a time.
 
-*Note: For more information on the FIM and its external connections, refer to the [FPGA Interface Manager Technical Reference Manual for Intel Agilex PCIe Attach: Open FPGA Stack](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
+*Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
 
 #### 2.1.2 AFU
 
@@ -252,19 +217,19 @@ In this design, the AFU region is comprised of:
 
 The AFU has the option to consume native packets from the host or interface channels or to instantiate a shim provided by the Platform Interface Manager (PIM) to translate between protocols.
 
-*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
+*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
 
 ### 2.2 OFS Software Overview
 
 The responsibility of the OFS kernel drivers is to act as the lowest software layer in the FPGA software stack, providing a minimalist driver implementation between the host software and functionality that has been implemented on the development platform. This leaves the implementation of IP-specific software in user-land, not the kernel. The OFS software stack also provides a mechanism for interface and feature discovery of FPGA platforms.
 
-The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space, and can be found on the [OPAE SDK Github](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1).
+The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space, and can be found on the [OPAE SDK Github](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4).
 
 The OFS drivers decompose implemented functionality, including external FIM features such as HSSI, EMIF and SPI, into sets of individual Device Features. Each Device Feature has its associated Device Feature Header (DFH), which enables a uniform discovery mechanism by software. A set of Device Features are exposed through the host interface in a Device Feature List (DFL). The OFS drivers discover and "walk" the Device Features in a Device Feature List and associate each Device Feature with its matching kernel driver.
 
 In this way the OFS software provides a clean and extensible framework for the creation and integration of additional functionalities and their features.
 
-*Note: A deeper dive on available SW APIs and programming model is available in the [Software Reference Manual: Intel® Open FPGA Stack](/hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md), on [kernel.org](https://docs.kernel.org/fpga/dfl.html?highlight=fpga), and through the [Linux DFL wiki pages](https://github.com/OFS/linux-dfl/wiki).*
+*Note: A deeper dive on available SW APIs and programming model is available in the [Software Reference Manual: Open FPGA Stack](/hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md), on [kernel.org](https://docs.kernel.org/fpga/dfl.html?highlight=fpga), and through the [Linux DFL wiki pages](https://github.com/OFS/linux-dfl/wiki).*
 
 ## 3.0 OFS DFL Kernel Drivers
 
@@ -272,333 +237,27 @@ OFS DFL driver software provides the bottom-most API to FPGA platforms. Librarie
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
-The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2).
+The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1).
 
-### 3.1 OFS DFL Kernel Driver Installation Environment Setup
-
-All OFS DFL kernel driver primary release code resides in the [Linux DFL GitHub repository](https://github.com/OFS/linux-dfl). This repository is open source and should not require any permissions to access. It includes a snapshot of the Linux kernel with the OFS driver included in `/drivers/fpga/*`. Downloading, configuration, and compilation will be discussed in this section. Refer back to section [1.2.3 Host Server Kernel and GRUB Configuration](#123-host-server-kernel-and-grub-configuration) for a list of supported Operating System(s).
-
-You can choose to install the DFL kernel drivers by either using pre-built binaries created for the BKC OS, or by building them on your local server. If you decide to use the pre-built packages available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2), skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages). Regardless of your choice you will need to follow the steps in this section to prepare your server for installation.
-
-This installation process assumes the user has access to an internet connection to clone specific GitHub repositories, and to satisfy package dependencies.
-
-1\. It is recommended you lock your Red Hat release version to 8.6 to prevent accidental upgrades. Update installed system packages to their latest versions.
-
-```bash
-subscription-manager release --set=8.6
-sudo dnf update
-subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-```
-
-2\. Install the following package dependencies if building and installing drivers from source. If you do not require the use of a proxy to pull in downloads using `dnf`, you can safely remove those parameters from the following commands:
-    
-```bash
-If you require the use of a proxy, add it to DNF using by editing the following file
-sudo nano /etc/dnf/dnf.conf
-# Include your proxy by adding the following line, replacing the URL with your proxy's URL
-# proxy=http://proxy.server.com:port
-
-sudo dnf install python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel numactl-devel
-
-python3 -m pip install --user jsonschema virtualenv pudb pyyaml setuptools pybind11
-
-# If setuptools and pybind11 were already installed
-
-python3 -m pip install --upgrade --user pybind11 setuptools
-```
-
-### 3.2 Building and Installing the OFS DFL Kernel Drivers from Source
-
-It is recommended you create an empty top level directory for your OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/OFS/`. If you have created a different top-level directory, replace this path with your custom path.
-
-1\. Initialize an empty git repository and clone the DFL driver source code:
-
-```bash
-mkdir /home/OFS/
-cd /home/OFS/
-git init
-git clone https://github.com/OFS/linux-dfl
-cd /home/OFS/linux-dfl
-git checkout tags/ofs-2023.3-6.1-3
-```
-
-*Note: The linux-dfl repository is roughly 5 GB in size.*
-
-2\. Verify that the correct tag/branch have been checked out.
-
-```bash
-git describe --tags
-ofs-2023.3-6.1-3
-```
-
-*Note: If two different tagged releases are tied to the same commit, running git describe tags may report the other release's tag. This is why the match is made explicit.*
-
-3\. Copy an existing kernel configuration file from `/boot` and apply the minimal required settings changes.
-    
-```bash
-cd /home/OFS/linux-dfl
-cp /boot/config-`uname -r` .config
-cat configs/dfl-config >> .config
-echo 'CONFIG_LOCALVERSION="-dfl"' >> .config
-echo 'CONFIG_LOCALVERSION_AUTO=y' >> .config
-sed -i -r 's/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=""/' .config
-sed -i '/^CONFIG_DEBUG_INFO_BTF/ s/./#&/' .config
-echo 'CONFIG_DEBUG_ATOMIC_SLEEP=y' >> .config
-export LOCALVERSION=
-make olddefconfig
-```
-
-*Note: You can add a unique identifier to the kernel name by changing CONFIG_LOCALVERSION in `.config`. By default this is set to '-dfl'. This is useful if needing to differentiate between multiple installs. For example, you can add -dfl-2023.3*
-
-4\. The above command may report errors resembling `symbol value 'm' invalid for CHELSIO_IPSEC_INLINE`. These errors indicate that the nature of the config has changed between the currently executing kernel and the kernel being built. The option "m" for a particular kernel module is no longer a valid option, and the default behavior is to simply turn the option off. However, the option can likely be turned back on by setting it to 'y'. If the user wants to turn the option back on, change it to 'y' and re-run "make olddefconfig":
-
-```bash
-cd /home/OFS/linux-dfl
-echo 'CONFIG_CHELSIO_IPSEC_INLINE=y' >> .config
-make olddefconfig
-```
-
-*Note: To use the built-in GUI menu for editing kernel configuration parameters, you can opt to run `make menuconfig`.*
-    
-5\. Linux kernel builds take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads is set to the number of processors in the system.
-
-```bash
-cd /home/OFS/linux-dfl
-make -j $(nproc)
-```
-
-6\. The DFL Makefile contains a few options for package creation:
-
-- rpm-pkg: Build both source and binary RPM kernel packages
-- binrpm-pkg: Build only the binary kernel RPM package
-- deb-pkg: Build both source and binary deb kernel packages
-- bindeb-pkg: Build only the binary kernel deb package
-
-If you are concerned about the size of the resulting package and binaries, they can significantly reduce the size of the package and object files by using the make variable INSTALL_MOD_STRIP. If this is not a concern, feel free to skip this step. The below instructions will build a set of binary RPM packages:
-
-```bash
-cd /home/OFS/linux-dfl
-make INSTALL_MOD_STRIP=1 binrpm-pkg
-```
-
-By default, a directory is created in your home directory called `rpmbuild`. This directory will house all the kernel packages which have been built. You need to navigate to the newly built kernel packages and install them. The following files were generated using the build command executed in the previous step:
-
-```bash
-cd ~/rpmbuild/RPMS/x86_64
-ls
-kernel-6.1.41_dfl.x86_64.rpm  kernel-headers-6.1.41_dfl.x86_64.rpm
-sudo dnf localinstall kernel*.rpm
-```
-
-7\. The system will need to be rebooted in order for changes to take effect. After a reboot, select the newly built kernel as the boot target. This can be done pre-boot using the command `grub2-reboot`, which removes the requirement for user intervention. After boot, verify that the currently running kernel matches expectation.
-    
-```bash
-uname -r
-6.1.41-dfl
-```
-
-8\. Verify the DFL drivers have been successfully installed by reading version information directly from `/lib/modules`. Recall that the name of the kernel built as a part of this section is 6.1.41-dfl. If the user set a different name for their kernel, change this path as needed:
-    
-```bash
-cd /usr/lib/modules/6.1.41-dfl/kernel/drivers/fpga
-ls
-dfl-afu.ko     dfl-fme.ko      dfl-fme-region.ko  dfl.ko             dfl-pci.ko      fpga-mgr.ko     intel-m10-bmc-sec-update.ko
-dfl-fme-br.ko  dfl-fme-mgr.ko  dfl-hssi.ko        dfl-n3000-nios.ko  fpga-bridge.ko  fpga-region.ko
-```
-
-If an OFS device that is compatible with these drivers is installed on the server, you can double check the driver versions by listing the currently loaded kernel modules with `lsmod`:
-
-
-```bash
-lsmod | grep dfl
-uio_dfl                20480  0
-dfl_emif               16384  0
-uio                    20480  1 uio_dfl
-ptp_dfl_tod            16384  0
-dfl_intel_s10_iopll    20480  0
-8250_dfl               20480  0
-dfl_fme_region         20480  0
-dfl_fme_br             16384  0
-dfl_fme_mgr            20480  2
-dfl_fme                49152  0
-dfl_afu                36864  0
-dfl_pci                20480  0
-dfl                    40960  11 dfl_pci,uio_dfl,dfl_fme,intel_m10_bmc_pmci,dfl_fme_br,8250_dfl,qsfp_mem,ptp_dfl_tod,dfl_afu,dfl_intel_s10_iopll,dfl_emif
-fpga_region            20480  3 dfl_fme_region,dfl_fme,dfl
-fpga_bridge            20480  4 dfl_fme_region,fpga_region,dfl_fme,dfl_fme_br
-fpga_mgr               20480  4 dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme
-```
-
-9\. Two kernel parameters must be added to the boot command line for the newly installed kernel. First, open the file `grub`:
-
-```bash
-sudo vim /etc/default/grub
-```
-
-10\.  In the variable *GRUB_CMDLINE_LINUX* add the following parameters in bold: GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet **intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200**".
-
-*Note: If you wish to instead set hugepages on a per session basis, you can perform the following steps. These settings will be lost on reboot.*
-
-```bash
-mkdir -p /mnt/huge 
-mount -t hugetlbfs nodev /mnt/huge 
-echo 2048 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages 
-echo 2048 > /sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepages 
-```
-    
-11\.  Save your edits, then apply them to the GRUB2 configuration file.
-    
-```bash
-sudo grub2-mkconfig
-```
-
-12\.  Warm reboot. Your kernel parameter changes should have taken affect.
-    
-```bash
-cat /proc/cmdline
-BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.41-dfl root=/dev/mapper/cl-root ro crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200 rhgb quiet
-```
-
-A list of all DFL drivers and their purpose is maintained on the [DFL Wiki](https://github.com/OFS/linux-dfl/wiki/FPGA-DFL-Driver-Modules#fpga-driver-modules).
-
-### 3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages
-
-To use the pre-built Linux DFL packages, you first need to download the files from the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2). You can choose to either install using the SRC or RPM packages.
-
-```bash
-tar xf kernel-6.1.41_dfl-1.x86_64-version.tar.gz
-
-sudo dnf localinstall kernel-6.1.41_dfl_*.x86_64.rpm \
-kernel-devel-6.1.41_dfl_*.x86_64.rpm \
-kernel-headers-6.1.41_dfl_*.x86_64.rpm
-
-### OR
-
-sudo dnf localinstall kernel-6.1.41_dfl_*.src.rpm
-```
+You can also build and install the software stack yourself from source as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 ## 4.0 OPAE Software Development Kit
 
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit [opae.github.io](https://opae.github.io/latest/index.html).
 
-The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1). This repository is open source and does not require any permissions to access.
+The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4). This repository is open source and does not require any permissions to access.
 
-You can choose to install the OPAE SDK by either using pre-built binaries created for the BKC OS, or by building them on your local server. If you decide to use the pre-built packages available on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2), skip to section [4.3 Installing the OPAE SDK with Pre-built Packages](#44-installing-the-opae-sdk-with-pre-built-packages). Regardless of your choice you will need to follow the steps in this section to prepare your server for installation.
+You may choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1).
 
-You may also choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2).
+Instructions on building and installing the OPAE SDK from source can be found in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
-### 4.1 OPAE SDK Installation Environment Setup
+### 4.1 OPAE Tools Overview
 
-This installation process assumes you have access to an internet connection in order to pull specific GitHub repositories, and to satisfy package dependencies.
-
-#### Table 6: OPAE Package Description
-        
-| Package Name| Description|
-| -----| -----|
-| opae | OPAE SDK is a collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. It provides a library implementing the OPAE C API for presenting a streamlined and easy-to-use interface for software applications to discover, access, and manage FPGA devices and accelerators using the OPAE software stack. |
-| opae-debuginfo| This package provides debug information for package opae. Debug information is useful when developing applications that use this package or when debugging this package.|
-| opae-debugsource| This package provides debug sources for package opae. Debug sources are useful when developing applications that use this package or when debugging this package.|
-| opae-devel| OPAE headers, tools, sample source, and documentation|
-| opae-devel-debuginfo|This package provides debug information for package opae-devel. Debug information is useful when developing applications that use this package or when debugging this package. |
-| opae-tools| This package contains OPAE base tools binaries|
-| opae-extra-tools| Additional OPAE tools|
-| opae-extra-tools-debuginfo| This package provides debug information for package opae-extra-tools. Debug information is useful when developing applications that use this package or when debugging this package.|
-
-1. Remove any currently installed OPAE packages.
-
-    ```bash
-    sudo dnf remove opae*
-    ```
-
-2. Initialize an empty git repository and clone the tagged OPAE SDK source code.
-
-    ```bash
-    cd /home/OFS/
-    git init
-    git clone https://github.com/OFS/opae-sdk opae-sdk
-    cd /home/OFS/opae-sdk
-    git checkout tags/2.10.0-1
-    ```
-
-3. Verify that the correct tag/branch have been checkout out.
-
-    ```bash
-    git describe --tags
-    2.10.0-1
-    ```
-
-4. Update your system, then set up a temporary `podman` container to build OPAE, which will allow you to customize the python installation without affecting system packages.
-    
-    ```bash
-    sudo subscription-manager release --set=8.6
-    sudo dnf update
-    sudo dnf install podman
-    
-    cd /home/OFS
-    podman pull registry.access.redhat.com/ubi8:8.6
-    podman run -ti -v "$PWD":/src:Z -w /src registry.access.redhat.com/ubi8:8.6
-    
-    # Everything after runs within container:
-    
-    # Enable EPEL
-    dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-    
-    dnf install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel make numactl-devel
-    
-    pip3 install --upgrade --prefix=/usr pip setuptools pybind11
-    
-    ./opae-sdk/packaging/opae/rpm/create unrestricted
-    
-    exit
-    ```
-    
-    The following packages will be built in the same directory as `create`:
-
-
-5. Install the packages you just created.
-    
-    ```bash
-    cd /home/OFS/opae-sdk/packaging/opae/rpm
-    rm -rf opae-2.10.0-1.el8.src.rpm 
-    sudo dnf localinstall -y opae*.rpm
-    ```
-
-6. Check that all packages have been installed and match expectation:
-    
-    ```bash
-    rpm -qa | grep opae
-    opae-2.10.0-1.el8.x86_64.rpm
-    opae-debuginfo-2.10.0-1.el8.x86_64.rpm
-    opae-debugsource-2.10.0-1.el8.x86_64.rpm
-    opae-devel-2.10.0-1.el8.x86_64.rpm
-    opae-devel-debuginfo-2.10.0-1.el8.x86_64.rpm
-    opae-extra-tools-2.10.0-1.el8.x86_64.rpm
-    opae-extra-tools-debuginfo-2.10.0-1.el8.x86_64.rpm
-    ```
-
-### 4.3 Installing the OPAE SDK with Pre-Built Packages
-
-You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS 2023.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.10.0-1.x86_64-\*_\*.tar.gz. Download this package and extract its contents:
-
-```bash
-tar xf opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz
-```
-
-For a fast installation you can delete the source RPM as it isn't necessary, and install all remaining OPAE RPMs:
-
-```bash
-rm opae-*.src.rpm
-sudo dnf localinstall opae*.rpm
-```
-
-### 4.4 OPAE Tools Overview
-
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.10.0-1/doc/src/fpga_tools/readme.md).
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.12.0-4/doc/src/fpga_tools/readme.md).
 
 A list of all tools included in the OPAE SDK release can be found on the [OPAE FPGA Tools](https://ofs.github.io/ofs-2023.3/sw/fpga_tools/fpgadiag/) tab of ofs.github.io.
 
-#### 4.4.1 Board Management with fpgainfo
+#### 4.1.1 Board Management with fpgainfo
 
 The **fpgainfo** utility displays FPGA information derived from sysfs files. As this release targets a development kit platform, it does not have access to an on-board BMC. Subcommands that target specific BMC functionality (such as reading temeletry) are not supported for this release.
 
@@ -634,7 +293,7 @@ Pr Interface Id                  : TBD
 Boot Page                        : N/A
 ```
 
-#### 4.4.3 Updating with fpgasupdate
+#### 4.1.2 Updating with fpgasupdate
 
 The **fpgasupdate** tool is used to program AFU workloads into an open slot in a FIM. The **fpgasupdate** tool only accepts images that have been formatted using PACsign.
 
@@ -657,7 +316,7 @@ sudo fpgasupdate ofs_pr_afu.gbs   <PCI ADDRESS>
 [2022-04-14 16:49:11.03] [INFO    ] Total time: 0:06:39.45
 ```
 
-#### 4.4.4 Verify FME Interrupts with hello_events
+#### 4.1.3 Verify FME Interrupts with hello_events
 
 The **hello_events** utility is used to verify FME interrupts. This tool injects FME errors and waits for error interrupts, then clears the errors.
 
@@ -672,12 +331,12 @@ Successfully tested Register/Unregister for FME events!
 clearing error
 ```
 
-#### 4.4.5 Host Exercisor Modules
+#### 4.1.4 Host Exercisor Modules
 
 The reference FIM and unchanged FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. There are three HEMs present in the Intel OFS Reference FIM - HE-LPBK, HE-MEM, and HE-HSSI. These exercisers are tied to three different VFs that must be enabled before they can be used.
 Execution of these exercisers requires you bind specific VF endpoint to **vfio-pci**. The host-side software looks for these endpoints to grab the correct FPGA resource.
 
-Refer to the Intel [FPGA Interface Manager Technical Reference Manual for Intel Agilex PCIe Attach: Open FPGA Stack](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
+Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
 
 ##### Table 7: Module PF/VF Mappings
 
@@ -692,7 +351,7 @@ Refer to the Intel [FPGA Interface Manager Technical Reference Manual for Intel 
 |VirtIO LB Stub|PF3|
 |HPS Copy Engine|PF4 |
 
-##### 4.4.5.1 HE-MEM / HE-LB
+##### 4.1.4.1 HE-MEM / HE-LB
 
 The host exerciser used to exercise and characterize the various host-FPGA interactions eg. MMIO, Data transfer from host to FPGA , PR, host to FPGA memory etc.
 **Host Exerciser Loopback (HE-LBK)** AFU can move data between host memory and FPGA.
@@ -769,7 +428,7 @@ Allocate DSM Buffer
 
 ```
 
-##### 4.4.5.2 Traffic Generator AFU Test Application
+##### 4.1.4.2 Traffic Generator AFU Test Application
 
 Beginning in OPAE version 2.0.11-1+ the TG AFU has an OPAE application to access & exercise traffic, targeting a specific bank. The supported arguments for test configuration are:
 
@@ -809,7 +468,7 @@ Write BW: 4.37232 GB/s
 Read BW: 4.37232 GB/s
 ```
 
-##### 4.4.5.3 HE-HSSI
+##### 4.1.4 HE-HSSI
 
 HE-HSSI is responsible for handling client-side ethernet traffic. It wraps the 10G and 100G HSSI AFUs and includes a traffic generator and checker. The user-space tool `hssi` exports a control interface to the HE-HSSI's AFU's packet generator logic.
 

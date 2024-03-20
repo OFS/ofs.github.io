@@ -2,15 +2,15 @@ Perform the following steps to set up a JTAG connection to the Intel® FPGA Smar
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [OFS Agilex PCIe Attach Getting Started Guide] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
 
-* This walkthrough requires a workstation with Quartus Prime Pro Version 23.3 tools installed, specifically the `jtagconfig` tool.
+* This walkthrough requires a workstation with Quartus Prime Pro Version 23.4 tools installed, specifically the `jtagconfig` tool.
 
 * This walkthrough requires an [Intel FPGA Download Cable II].
 
 Steps:
 
-1. Set the board switches to dynamically select either the Intel® Agilex® 7 FPGA or MAX® 10 device on the JTAG chain.
+1. Set the board switches to dynamically select either the Agilex® 7 FPGA or MAX® 10 device on the JTAG chain.
 
    1. Set SW1.1=ON as shown in the next image. The switches are located at the back of the Intel® FPGA SmartNIC N6001-PL.
 
@@ -22,7 +22,7 @@ Steps:
 
   >**Note:** If using the Intel FGPA download Cable on Linux, add the udev rule as described in [Intel FPGA Download Cable Driver for Linux].
 
-3. Set the JTAG chain to select the Intel® Agilex® 7 FPGA as the target by writing to the JTAG enable register in the BMC (Register `0x378`). This is done via PMCI registers `0x2040C` and `0x20400`.
+3. Set the JTAG chain to select the Agilex® 7 FPGA as the target by writing to the JTAG enable register in the BMC (Register `0x378`). This is done via PMCI registers `0x2040C` and `0x20400`.
 
   >**Note:** The commands below are targeted to a board with PCIe B:D.F of 98:00.0. Use the correct PCIe B:D.F of your card.
 
@@ -42,19 +42,19 @@ Steps:
   sudo opae.io release -d 0000:b1:00.0
   ```
 
-  Optionally, rather than dynamically commanding Intel® Agilex® 7 FPGA/MAX10 selection with the PMCI register settings, you can fix the selection with the following switch settings shown in the table below:
+  Optionally, rather than dynamically commanding Agilex® 7 FPGA/MAX10 selection with the PMCI register settings, you can fix the selection with the following switch settings shown in the table below:
 
   | SW1.1 | SW2  | JTAG Target                                                  |
   | ----- | ---- | ------------------------------------------------------------ |
-  | OFF   | OFF  | Intel® Agilex® 7 FPGA                                             |
+  | OFF   | OFF  | Agilex® 7 FPGA                                             |
   | OFF   | ON   | MAX® 10 FPGA                                                 |
-  | ON    | X    | Intel® Agilex® 7 FPGA if BMC register `0x378=0x1` |
+  | ON    | X    | Agilex® 7 FPGA if BMC register `0x378=0x1` |
   | ON    | X    | MAX® 10 FPGA if BMC register `0x378=0x0` |
 
 4. Use the `jtagconfig` tool to check that the JTAG chain contains the AGFB014R24A2E2V device.
 
   ```bash
-  <QUARTUS_INSTALL_DIR>/23.3/quartus/bin/jtagconfig
+  <QUARTUS_INSTALL_DIR>/23.4/quartus/bin/jtagconfig
   ```
 
   Example expected output:

@@ -1,6 +1,6 @@
 # **FPGA Interface Manager Technical Reference Manual for Intel Agilex 7 SoC Attach: Open FPGA Stack**
 
-Last updated: **February 16, 2024** 
+Last updated: **March 20, 2024** 
 
 ## 1 Overview
 
@@ -124,7 +124,7 @@ The AFU partition is provided for custom acceleration workloads and may contain 
 
 #### 1.4.1 FPGA Interface Manager (FIM)
 
-The updated OFS architecture for Intel® Agilex® 7 FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of this reference design are: 
+The updated OFS architecture for Agilex® 7 FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of this reference design are: 
 
 * P-tile PCIe Subsystem
 * E-Tile Ethernet Subsystem
@@ -143,9 +143,9 @@ Note that as discussed previously, the BMC RTL and firmware, the OFS OPAE softwa
 
 ![Agilex OFS Block Diagram](images/Agilex_Fabric_Features.svg)
 
-The table provides an overview of the OFS features targeting the Intel® Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Intel Agilex 7 devices.
+The table provides an overview of the OFS features targeting the Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Intel Agilex 7 devices.
 
-**Table 1-4 OFS FIM for Intel® Agilex® 7 FPGA Features**
+**Table 1-4 OFS FIM for Agilex® 7 FPGA Features**
 
 | Key Feature                           | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
@@ -269,7 +269,7 @@ The software must continue traversing the linked list until it sees the EOL (End
 
 OFS provides FIM designs you can use as a starting point for your own custom design. These designs target a specific programmable acceleration card or development kit and exercise key FPGA device interfaces. 
 
-The Intel Agilex<sup>&reg;</sup> 7 code line for OFS targets the Intel IPU Platform F2000X-PL.  [FIM designs](https://github.com/OFS/ofs-f2000x-pl) are released to for evaluation and use. 
+The Intel Agilex<sup>&reg;</sup> 7 code line for OFS targets the Intel® IPU Platform F2000X-PL.  [FIM designs](https://github.com/OFS/ofs-f2000x-pl) are released to for evaluation and use. 
 
 #### 1.4.6 FIM Simulation
 
@@ -287,7 +287,7 @@ Verification components include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found [here](https://github.com/OFS/ofs-f2000x-pl/verification) for evaluation and use. Please refer to the [Simulation User Guide]( https://ofs.github.io/ofs-2023.3-2/hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md) for more information.
+The verification infrastructure can be found [here](https://github.com/OFS/ofs-f2000x-pl/verification) for evaluation and use. Please refer to the [Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/) for more information.
 
 
 ## 2 OFS High Level Architecture
@@ -342,9 +342,9 @@ Some key features of the PCIe interface are:
 | Control Shadow Interface              |                           Enabled                            |
 | Completion Timeout Interface          |                           Enabled                            |
 
-The PCIe PF, VF and Base Address Register (BAR) configuration can be modified in the PCIe Subsystem Platform Designer GUI interface.  The current implementation for the OFS FIM for Intel IPU Platform F2000X-PL is as follows:
+The PCIe PF, VF and Base Address Register (BAR) configuration can be modified in the PCIe Subsystem Platform Designer GUI interface.  The current implementation for the OFS FIM for Intel® IPU Platform F2000X-PL is as follows:
 
-**Table 3-1 Function and BAR Table for OFS for Intel IPU Platform F2000X-PL**
+**Table 3-1 Function and BAR Table for OFS for Intel® IPU Platform F2000X-PL**
 
 **SoC (IceLake-D)**
 
@@ -1046,7 +1046,7 @@ The MSI-X vector tables are at BAR4, address 0x2000. The MSI-X PBA tables are at
 
 There are 4 EMIF channels (4 DDR4 banks) on the f2000x platform which is targeted OFS FIM  for Intel Agilex 7 FPGA. The HE-MEM exerciser module in AFU. ECC is not implemented in this design. Both memory subsystem and HE-MEM implement Arm® AMBA® 4 AXI4-MM interface.
 
-**Table 10-1 Memory Subsystem Configuration on the Intel IPU Platform F2000X-PL platform **
+**Table 10-1 Memory Subsystem Configuration on the Intel® IPU Platform F2000X-PL platform **
 
 | **EMIF  Channel #** | **Width** | **ECC** | **Size (GB)** | **Speed  (MT/s)** | **DDR4 Device** | **FPGA Bank** |
 | ------------------- | --------- | ------- | ------------- | ----------------- | --------------- | ------------- |
@@ -1529,13 +1529,13 @@ An AFU MMIO Response timeout functions in the same manner described in the [MMIO
 ## 15 OFS Design Hierarchy
 
 
-Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-f2000x-pl, release branch release/ofs-2023.3.  
+Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-f2000x-pl, release branch release/ofs-2024.1.  
 
 
 ### 15.1 Design Guidance
 
 
-The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/ofs-2023.3-2/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
+The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the [FPGA Interface Manager Developer's Guide]
 
 **Table 15-2 Features**
 
@@ -1545,9 +1545,9 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
 | 2    | Update Arm® AMBA® 4 AXI4-Stream PF/VF MUX-DEMUX configuration (if necessary) | * The PF/VF MUX-DEMUX is parameterized for flexibility. You can change, add or delete PF or VF functions by updating the top_cfg_pkg.sv file. * You also have the option of keeping the default configuration and tying off the unused VFs if needed. |
 | 3    | Update top level and AFU level as necessary                  | * If you integrating additional external interfaces, make the edits at the top level (ofs_top.sv) and propagate the interface down to the AFU level (afu_top.sv and soc_afu_top.sv) |
 | 4    | Add user implemented function(s) in AFU                      | * All of your implemented functions must have the required Arm® AMBA® 4 AXI4-Stream interface for both the data path and the MMIO control path to CSRs. <br />* All CSRs in the user-implemented function must have the required DFH layout. <br />* See host exerciser CSRs for reference. |
-| 5    | Update UVM testbench                                         | * The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory, and Ethernet. <br />* User must update the UVM testbench to reflect new RTL behavior for any customization changes. <br />See The [Simulation User Guide]( https://ofs.github.io/ofs-2023.3-2/hw//f2000x/user_guides/ug_sim_ofs/ug_sim_ofs.md) |
+| 5    | Update UVM testbench                                         | * The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory, and Ethernet. <br />* User must update the UVM testbench to reflect new RTL behavior for any customization changes. <br />See The [Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/) |
 
-For more information on modifying the FIM, refer to the [FPGA Interface Manager Developer's Guide](https://ofs.github.io/ofs-2023.3-2/hw//f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md)
+For more information on modifying the FIM, refer to the [FPGA Interface Manager Developer's Guide]
 
 
 
@@ -1566,4 +1566,5 @@ You are responsible for safety of the overall system, including compliance with 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
+
 

@@ -1,34 +1,26 @@
-Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Stratix 10®
-====
+# **AFU Developer Guide: OFS for Stratix 10® FPGA PCIe Attach FPGAs**
 
+## **1. Introduction**
 
-
-
-
-# 1. Introduction
-
-
-
-This document is a design guide for creating an Accelerator Functional Unit (AFU) using Open FPGA Stack (OFS) for Intel® Stratix 10® FPGA. The AFU concept consists of separating the FPGA design development process into two parts, the FIM and AFU, as shown in the diagram below:
-
+This document is a design guide for creating an Accelerator Functional Unit (AFU) using Open FPGA Stack (OFS) for Stratix 10® FPGA. The AFU concept consists of separating the FPGA design development process into two parts, the FIM and AFU, as shown in the diagram below:
 ![](./images/FIM_top_intro.png)
 </br></br>
 
-This diagram shows the FPGA board interface development separation from the internal FPGA workload creation. This separation starts with the FPGA Interface Manager (FIM), which consists of the external interfaces and board management functions. The FIM is the base system layer typically provided by board vendors. The FIM interface is specific to a particular physical platform. The AFU uses the external interfaces with user-defined logic to perform a specific application. Separating the lengthy and complicated process of developing and integrating external interfaces for an FPGA into a board allows the AFU developer to focus on their workload needs.  Intel® OFS for Intel® Stratix 10® FPGA provides the following tools for rapid AFU development:
+This diagram shows the FPGA board interface development separation from the internal FPGA workload creation. This separation starts with the FPGA Interface Manager (FIM), which consists of the external interfaces and board management functions. The FIM is the base system layer typically provided by board vendors. The FIM interface is specific to a particular physical platform. The AFU uses the external interfaces with user-defined logic to perform a specific application. Separating the lengthy and complicated process of developing and integrating external interfaces for an FPGA into a board allows the AFU developer to focus on their workload needs.  OFS for Stratix 10® FPGA provides the following tools for rapid AFU development:
 
 - Scripts for both compilation setup
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
 
-Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/). This guide covers logic in the AFU Main (PR) region.
+Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [Shell Developer Guide: Open FPGA Stack for Stratix 10® PCIe Attach FPGAs]. This guide covers logic in the AFU Main (PR) region.
 
 
-## 1.1 Document Organization
+### **1.1 Document Organization**
 
 This document is organized as follows:
 
 - Description of design flow
 - Interfaces and functionality provided in the Intel® FPGA PAC D5005 FIM
-- Downloading and installing Intel® OFSand OPAE SDK
+- Downloading and installing OFS and OPAE SDK
 - Hardware/Software co-simulation using ASE
 - Testing the AFU example in Intel® FPGA PAC D5005
 - Debugging an AFU with Remote Signal Tap
@@ -37,22 +29,22 @@ This guide provides theory followed by tutorial steps to solidify your AFU devel
 
 This guide uses the Intel® FPGA PAC D5005 as the platform for all tutorial steps. Additionally, this guide and the tutorial steps can be used with other platforms; However, please consult the **board** and FIM supplier of other platforms for specific instructions on the use of custom FIM to develop  AFU design.
 
-If you have worked with previous Intel® Programmable Acceleration products, you will find OFS for Intel® Stratix 10® FPGA is similar; however, there are differences, and you are advised to carefully read and follow the tutorial steps to understand the design tools and flow fully.
+If you have worked with previous Programmable Acceleration products, you will find OFS for Stratix 10® FPGA is similar; however, there are differences, and you are advised to carefully read and follow the tutorial steps to understand the design tools and flow fully.
 
 
 
-## 1.2 Prerequisite
+### **1.2 Prerequisite**
 
 This guide assumes you understand the following FPGA logic design-related knowledge and skills:
 
-- FPGA compilation flows, including the  Intel® Quartus® Prime Pro Edition design flow.
-- Static Timing closure, including familiarity with the Timing Analyzer tool in  Intel® Quartus® Prime Pro Edition software, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on critical timing paths.
+- FPGA compilation flows, including the Quartus® Prime Pro Edition design flow.
+- Static Timing closure, including familiarity with the Timing Analyzer tool in Quartus® Prime Pro Edition software, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on critical timing paths.
 - RTL and coding practices to create synthesized logic.
 - High-level synthesis (HLS) and Platform Designer design entry tools are supported.
 - RTL simulation tools.
-- Signal Tap Logic Analyzer tool in the  Intel® Quartus® Prime Pro Edition software.
+- Signal Tap Logic Analyzer tool in the Quartus® Prime Pro Edition software.
 
-### 1.2.1 Development Environment
+#### **1.2.1 Development Environment**
 
 To run the tutorial steps in this guide requires this **development** environment:
 
@@ -68,13 +60,13 @@ To run the tutorial steps in this guide requires this **development** environmen
 Verify your development has the above tools installed.
 
 
-The following server and Intel® PAC card are required to run the examples in this guide:
+The following server and PAC card are required to run the examples in this guide:
 
-1. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Intel® for root entry hash erase instructions). The standard Intel® FPGA PAC D5005 card is programmed only to allow the FIM binary files signed by Intel® to be loaded. The root entry hash erases process will allow unsigned FIM binary files to be loaded.
+1. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Altera® for root entry hash erase instructions). The standard Intel® FPGA PAC D5005 card is programmed only to allow the FIM binary files signed by Altera® to be loaded. The root entry hash erases process will allow unsigned FIM binary files to be loaded.
 2. Qualified Server Models see [Qualified Servers](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html).
-3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [Board Installation Guides: PCIe Attach N6000/N6001/D5005].
 
-## 1.3 Acceleration Functional Unit (AFU) Development Flow
+### **1.3 Acceleration Functional Unit (AFU) Development Flow**
 
 
 OFS Stack provides a rapid design methodology for creating complex FPGA applications. In addition, you are provided with the following:
@@ -84,9 +76,11 @@ OFS Stack provides a rapid design methodology for creating complex FPGA applicat
 - FPGA design flow  with full-stack simulation support
 - AFU code samples demonstrating all interfaces
 
-For any non-Intel® platform, contact your board vendor for the above components specific to the platform.
-To start with AFU development, the first step should be to understand your platform capabilities. For example, what interface is the FPGA connected to the Host machine over PCI-E, if it is AXI like the Intel® Stratix 10® FPGA Platform, or CCIP or CXL. Does the platform provide an External Memory Interface or the HSSI interface? Once you know what the platform offers, you can develop your AFU requirements and architecture as the next step. 
-This document will cover example AFU architecture and things that will help build AFU for Intel® Stratix 10® FPGA reference platform and others coming in the future. In addition, this knowledge can be relatively applied for AFU development on other vendor-provided platforms.
+For any non-Altera® platform, contact your board vendor for the above components specific to the platform.
+
+To start with AFU development, the first step should be to understand your platform capabilities. For example, what interface is the FPGA connected to the Host machine over PCI-E, if it is AXI like the Stratix 10® FPGA Platform, or CCIP or CXL. Does the platform provide an External Memory Interface or the HSSI interface? Once you know what the platform offers, you can develop your AFU requirements and architecture as the next step. 
+
+This document will cover example AFU architecture and things that will help build AFU for Stratix 10® FPGA reference platform and others coming in the future. In addition, this knowledge can be relatively applied for AFU development on other vendor-provided platforms.
 
 The figure below shows a typical AFU development process independent of the platform used. 
 
@@ -118,7 +112,7 @@ flowchart  TB;
     classDef if color:#0071c5,fill:#fff,stroke:#0071c5,stroke-width:2px
 ```
 
-### 1.3.1. High Level Data Flow
+#### **1.3.1. High Level Data Flow**
 
 
 The OFShigh-level data flow is shown below:
@@ -149,16 +143,16 @@ Peripherals are presented to software as:
 * OFS managed peripherals that implement DFH CSR structure.  
 * Native driver managed peripherals (i.e., Exposed via an independent PF, VF)
 
-The peripherals connected to the peripheral fabric are primarily OPAE managed resources, whereas the peripherals connected to the AFU are "primarily" driven by native OS drivers. The word "primarily" is used since the AFU is not mandated to expose all its peripherals to Intel® OPAE. Instead, it can be connected to the peripheral fabric but can choose to expose only a subset of its capability to OPAE.
+The peripherals connected to the peripheral fabric are primarily OPAE managed resources, whereas the peripherals connected to the AFU are "primarily" driven by native OS drivers. The word "primarily" is used since the AFU is not mandated to expose all its peripherals to OPAE. Instead, it can be connected to the peripheral fabric but can choose to expose only a subset of its capability to OPAE.
 
-OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software. These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software. These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/23-4/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
 
-If you make changes to the FIM that affect the software operation, Intel® OFS provides a mechanism to communicate that information to the proper software driver. The [Device Feature Header (DFH) structure](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software. Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, OFS provides a mechanism to communicate that information to the proper software driver. The [Device Feature Header (DFH) structure](https://ofs.github.io/23-4/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software. Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
 
 When planning your address space for your FIM updates, please be aware OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features, and 128kB of MMIO region is given for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at the 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of the external feature list. Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
 
-### 1.3.2. Considerations for PIM Usage
+#### **1.3.2. Considerations for PIM Usage**
 
 
 When creating an AFU, a designer needs to decide what type of interfaces the platform (FIM) should provide to the AFU.  The FIM can provide the native interfaces (i.e. PCIe TLP commands) or standard memory mapped interfaces (i.e. AXI-MM or AVMM) by using the PIM.  The PIM is an abstraction layer consisting of a collection of SystemVerilog interfaces and shims to enable partial AFU portability across hardware despite variations in hardware topology and native interfaces. The PIM adds a level of logic between the AFU and the FIM converting the native interfaces from the FIM to match the interfaces provided by the AFU.
@@ -169,23 +163,23 @@ The following resources are available to assist in creating an AFU:
 
 [PIM Core Concepts](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_core_concepts.md) provides details on using the PIM and its capabilities. 
 
-[Connecting an AFU to a Platform using PIM](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md) guides you through the steps needed to connect a PIM Based AFU to the FIM. 
+[PIM Based AFU Developer User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/) provides details on interfacing your AFU to the FIM using the PIM.
 
-The [AFU Tutorial](https://github.com/OFS/examples-afu/tree/main/tutorial) provides several AFU examples.  These examples can be run with the current OFS FIM package.  There are three [AFU types](https://github.com/OFS/examples-afu/tree/main/tutorial/afu_types) of examples provided (PIM based, hybrid and native).  Each example provides the following:
+The [examples AFU] repo provides several AFU examples.  These examples can be run with the current OFS FIM package.  There are three [AFU types](https://github.com/OFS/examples-afu/tree/main/tutorial/afu_types) of examples provided (PIM based, hybrid and native).  Each example provides the following:
 
 * RTL, which includes the following interfaces: 
    * [Host Channel](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_ifc_host_channel.md): 
      * Host memory, providing a DMA interface.
      * MMIO, providing a CSR interface.  
    * [Local Memory](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_ifc_local_mem.md)
-* Host software example interfacing to the CSR interface and host memory interface, using the [OPAE C API](https://ofs.github.io/23-3/sw/fpga_api/prog_guide/readme/#opae-c-api-programming-guide).
+* Host software example interfacing to the CSR interface and host memory interface, using the [OPAE C API](https://ofs.github.io/23-4/sw/fpga_api/prog_guide/readme/#opae-c-api-programming-guide).
 * Accelerator Description File .json file
 * Source file list
 
-### 1.3.3 AFU Interfaces Included with Intel® FPGA PAC D5005
+#### **1.3.3 AFU Interfaces Included with Intel® FPGA PAC D5005**
 
 
-The figure below shows the interfaces available to the AFU in this architecture. It also shows the design hierarchy with module names from the FIM (top.sv) to the PR  region AFU (afu_main.sv). One of the main differences from the previous Intel® Stratix 10® FPGA OFS architecture is a static port gasket region (port_gasket.sv) that has components to facilitate the AFU and also consists of the GBS region (afu_main.sv) via the PR  slot. The Port Gasket contains all the PR -specific modules and logic, e.g., PR  slot reset/freeze control, user clock, remote STP etc. Architecturally, a Port Gasket can have multiple PR  slots to which user workload can be programmed. However, only one PR  slot is supported for Intel® OFS Release for Intel® Stratix 10® FPGA. Therefore, everything in the Port Gasket until the PR  slot should be provided by the FIM developer. The task of the AFU developer is to add their desired application in the afu_main.sv module by stripping out unwanted logic and instantiating the target accelerator. As shown in the figure below, here are the interfaces connected to the AFU (highlighted in green) via Intel® FPGA PAC D5005 FIM:
+The figure below shows the interfaces available to the AFU in this architecture. It also shows the design hierarchy with module names from the FIM (top.sv) to the PR  region AFU (afu_main.sv). One of the main differences from the previous Stratix 10® FPGA OFS architecture is a static port gasket region (port_gasket.sv) that has components to facilitate the AFU and also consists of the GBS region (afu_main.sv) via the PR  slot. The Port Gasket contains all the PR -specific modules and logic, e.g., PR  slot reset/freeze control, user clock, remote STP etc. Architecturally, a Port Gasket can have multiple PR  slots to which user workload can be programmed. However, only one PR  slot is supported for OFS Release for Stratix 10® FPGA. Therefore, everything in the Port Gasket until the PR  slot should be provided by the FIM developer. The task of the AFU developer is to add their desired application in the afu_main.sv module by stripping out unwanted logic and instantiating the target accelerator. As shown in the figure below, here are the interfaces connected to the AFU (highlighted in green) via Intel® FPGA PAC D5005 FIM:
 
 * AXI Streaming (AXI-S) interface to the Host via PCIe Gen3x16
 * Avalon Memory-Mapped Channels (4) to the DDR4 EMIF interface
@@ -193,7 +187,7 @@ The figure below shows the interfaces available to the AFU in this architecture.
 
 ![AFU top and AFU ](images/rel1_afu.png)
 
-### 1.3.4. Platform Capabilities
+#### **1.3.4. Platform Capabilities**
 
 The FIM targets operation in the Intel® FPGA PAC D5005 card.  The block diagram of the Intel® FPGA PAC D5005 is shown below:
 ![](./images//d5005_Top.png)
@@ -212,14 +206,14 @@ The key Intel® FPGA PAC D5005 FPGA interfaces are:
   - SPI interface
   - FPGA configuration
   
-### 1.3.5. Top Level FPGA
+#### **1.3.5. Top Level FPGA**
 
 The internal FPGA architecture is shown below:
 
 ![](./images/Top_Rel1.png)
 
 
-# 2. Set Up AFU Development Environment
+## **2. Set Up AFU Development Environment**
 
 This section covers:
 
@@ -233,7 +227,7 @@ Additionally, this section includes steps to demonstrate loading and running the
 
 
 
-## 2.1. Prepare AFU development environment
+### **2.1. Prepare AFU development environment**
 
 
 
@@ -242,11 +236,11 @@ Typical development and hardware test environments consist of a development serv
 
 ![](./images/AFU_Dev_Deploy.png)
 
-Please refer to Unit Level Simulation if you would like to make any simulation [Unit Level Simulation](https://ofs.github.io/23-3/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation).
+Please refer to Unit Level Simulation if you would like to make any simulation [Unit Level Simulation](https://ofs.github.io/23-4/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/#412-unit-level-simulation).
 
 Note that both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
+This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [Board Installation Guides: PCIe Attach N6000/N6001/D5005]. If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
 
 
 > **_NOTE:_**  
@@ -258,26 +252,26 @@ This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe ca
 >
 >
 
-### 2.1.1. Installation of Quartus and OFS
+#### **2.1.1. Installation of Quartus and OFS**
 
-Building AFU with OFS forIntel® Stratix 10® FPGA requires the build machine to have at least 64 GB of RAM.  
+Building AFU with OFS forStratix 10® FPGA requires the build machine to have at least 64 GB of RAM.  
 
 The following is a summary of the steps to set up for AFU development:
 
-1. Install  Intel® Quartus® Prime Pro Edition  23.3 Linux with Intel® Stratix 10® FPGA device support.
+1. Install Quartus® Prime Pro Edition  23.4 Linux with Stratix 10® FPGA device support.
 2. Make sure support tools are installed and meet version requirements.
 3. Clone the repository.
 4. Review the files provided in the repository.
 5. Build a relocatable PR  tree - this will be the base FIM for your AFU.
 
- Intel® Quartus® Prime Pro Edition version  23.3 is the currently verified version of  Intel® Quartus® Prime Pro Edition 23.3 used for building the AFU images. The recommended Best Known Configuration (BKC) OFS Version 2023.3:
+Quartus® Prime Pro Edition version  23.4 is the currently verified version of Quartus® Prime Pro Edition 23.4 used for building the AFU images. The recommended Best Known Configuration (BKC) OFS Version 2024.1:
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
-|  Intel® Quartus® Prime Pro Edition   |  23.3  |
+|  Quartus® Prime Pro Edition   |  23.4  |
 | Operating System   | RHEL 8.6 |
-| OPAE SDK   |  [2.10.0-1](https://github.com/OFS/opae-sdk/tree/2.10.0-1 )  |
-| OFS Release | [ofs-2023.3-2](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-2) |
+| OPAE SDK   |  [2.12.0-4](https://github.com/OFS/opae-sdk/tree/2.12.0-4 )  |
+| OFS Release | [ofs-2024.1-1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1) |
 | Python    | 3.6.8 |
 | cmake     | 3.15 |
 | GCC       | 7.4.0 |
@@ -285,9 +279,9 @@ The following is a summary of the steps to set up for AFU development:
 | perl      | 5.8.8 |
 
 
-#### 2.1.1.1 Installation of Quartus
+##### **2.1.1.1 Installation of Quartus**
 
-**Intel Quartus Prime Pro Version 23.3** is verified to work with the latest OFS release ofs-2023.3.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
+**Intel Quartus Prime Pro Version 23.4** is verified to work with the latest OFS release ofs-2024.1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
 
 Use RedHatEnterprise Linux® (RHEL) for compatibility with your development flow and also testing your FIM design in your platform. 
 
@@ -322,7 +316,7 @@ Prior to installing Quartus:
 
 4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-d5005/tree/release/ofs-2023.3). The patches for this release are 0.23.
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-d5005/tree/release/ofs-2024.1). The patches for this release are N/A.
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -331,27 +325,27 @@ Prior to installing Quartus:
   export PATH=<Quartus install directory>/qsys/bin:$PATH
   ```
 
-  For example, if the Quartus install directory is /home/intelFPGA_pro/23.3 then the new line is:
+  For example, if the Quartus install directory is /home/intelFPGA_pro/23.4 then the new line is:
 
   ```bash
-  export PATH=/home/intelFPGA_pro/23.3/quartus/bin:$PATH
-  export PATH=/home/intelFPGA_pro/23.3/qsys/bin:$PATH
+  export PATH=/home/intelFPGA_pro/23.4/quartus/bin:$PATH
+  export PATH=/home/intelFPGA_pro/23.4/qsys/bin:$PATH
   ```
 
 7. Verify, Quartus is discoverable by opening a new shell:
 
   ```
   $ which quartus
-  /home/intelFPGA_pro/23.3/quartus/bin/quartus
+  /home/intelFPGA_pro/23.4/quartus/bin/quartus
   ```
 
 
 
-#### 2.1.1.2. Install OFS
+##### **2.1.1.2. Install OFS**
 
 1. Retrieve OFS repositories:
 
-    The Intel® OFS FIM source code is included in the OFS GitHub repository. First, create a new directory to store the retrieved files as a clean starting point. The following is a short description of each repository, followed by the git commands for cloning. The instructions section uses the HTTPS git method for cloning repositories.  
+    The OFS FIM source code is included in the OFS GitHub repository. First, create a new directory to store the retrieved files as a clean starting point. The following is a short description of each repository, followed by the git commands for cloning. The instructions section uses the HTTPS git method for cloning repositories.  
 
 2. Navigate to the location for storage of OFS source, create the top-level source directory, and clone OFS repositories.
 
@@ -390,7 +384,7 @@ cd ofs-d5005
 
 Select the latest [OFS Release](https://github.com/OFS/ofs-d5005/releases/)
 ```sh
-git checkout tags/ofs-2023.3-2
+git checkout tags/ofs-2024.1-1
 ```
 
 > **_Console Output:_**  
@@ -400,9 +394,9 @@ git checkout tags/ofs-2023.3-2
 >If you want to create a new branch to retain commits you create, you may do so (now or later) by using -b with the checkout command again. Example:
 >
 > git checkout -b <new-branch-name>
->HEAD is now at 7e4dc70 ofs-2023.3-2
+>HEAD is now at 7e4dc70 ofs-2024.1-1
 
-#### 2.1.1.3. Directory Structure of OFS
+##### **2.1.1.3. Directory Structure of OFS**
 
 Verify the following directories in the $OFS_BUILD_ROOT directory with the following command.  
 
@@ -468,9 +462,9 @@ The directories are arranged as shown below:
 ```
 
 
-#### 2.1.1.4 License Installation for OFS
+##### **2.1.1.4 License Installation for OFS**
 
-The required setup Intel® OFS [License quartus-0.0-0.01iofs-linux.run](https://github.com/OFS/ofs-d5005/blob/release/1.0.x/license/quartus-0.0-0.01iofs-linux.run), follow the following steps :
+The required setup OFS [License quartus-0.0-0.01iofs-linux.run](https://github.com/OFS/ofs-d5005/blob/release/1.0.x/license/quartus-0.0-0.01iofs-linux.run), follow the following steps :
 
 ```sh
 cd $OFS_ROOTDIR/license
@@ -480,7 +474,7 @@ sudo ./quartus-0.0-0.01iofs-linux.run
 quartus_syn --version
 ```
 
-#### 2.1.1.5. Retrieve PIM Files
+##### **2.1.1.5. Retrieve PIM Files**
 
 The ofs-platform-afu-bbb repository contains the PIM files and example AFU that can be used for testing and demonstration purposes. This guide will use the host_chan_mmio example in the remaining sections to demonstrate OFS capabilities.
 
@@ -509,10 +503,10 @@ ls
 >```
 > 
 
-### 2.1.2. Compiling the OFS FIM 
+#### **2.1.2. Compiling the OFS FIM** 
 
 
-Intel® OFS provides a build script with the following FPGA image creation options:
+OFS provides a build script with the following FPGA image creation options:
 
 - Flat compile, which combines the FIM and AFU into one FPGA image loaded into the entire FPGA device as a static image.
 - A PR  compile that creates an FPGA image consisting of the FIM that is loaded into the static region of the FPGA and a default AFU that is loaded into dynamic region. Additional AFU may be loaded into the dynamic region using partial reconfiguration.  
@@ -521,13 +515,13 @@ The build scripts included with OFS are verified to run in a bash shell. Other s
 
 The following sections describe how to set up the environment and build the provided FIM with a relocatable tree supporting PR . You will use this relocatable PR  tree for all example AFU simulation and compilation steps in this guide.
 
-#### 2.1.2.1. Setting Up Required Environment Variables
+##### 2.1.2.1. **Setting Up Required Environment Variables**
 
 Set required environment variables as shown below. These environment variables must be set before simulation or compilation tasks, so creating a simple script to set these variables saves time.
 
 Edit your bashrc file ~/.bashrc to add the following lines:
 ```sh
-export OPAE_SDK_REPO_BRANCH=release/2.10.0
+export OPAE_SDK_REPO_BRANCH=release/2.12.0
 ```
 > **_Check point :_**  
 >Ensure you file ~/.bashrc have all the following lines:
@@ -547,11 +541,11 @@ export OPAE_SDK_REPO_BRANCH=release/2.10.0
 >export WORKDIR=$OFS_ROOTDIR
 >export VERDIR=$OFS_ROOTDIR/verification
 >export OFS_PLATFORM_AFU_BBB=$OFS_BUILD_ROOT/ofs-platform-afu-bbb
->export OPAE_SDK_REPO_BRANCH=release/2.10.0
+>export OPAE_SDK_REPO_BRANCH=release/2.12.0
 >```
 > 
 
-#### 2.1.2.2. Compiling Your Base FIM
+##### **2.1.2.2. Compiling Your Base FIM**
 
 The usage of the compile build script is shown below:
 
@@ -579,7 +573,7 @@ ofs-common/scripts/common/syn/build_top.sh [-p] target_configuration work_dir
 ```
 In the following example, you will build the provided example design using a flat, non-PR  build flow. If you use the -p, you could avoid the section.
 
-#### 2.1.2.2.1. Relocatable PR Directory Tree.
+##### **2.1.2.2.1. Relocatable PR Directory Tree**
 
 Build the provided base example design:
 
@@ -641,9 +635,9 @@ $OFS_ROOTDIR/<work_dir "work_d5005">/syn/syn_top
 
 $OFS_ROOTDIR/<work_dir>/syn/syn_top/output_files == Directory with build reports and FPGA programming files.
 
-The programming files consist of the Quartus generated d5005.sof and d5005.pof. The Intel® FPGA PAC D5005 board hardware provides a 2 Gb flash device to store the FPGA programming files and a BMC CARD that reads this flash and programs the Intel® FPGA PAC D5005 Intel® Stratix 10® FPGA. The ./ofs-common/scripts/common/syn/build_top.sh script runs script file ./ofs-common/scripts/common/syn/build_top.sh which takes the Quartus generated d5005.sof and creates binary files in the proper format to be loaded into the 2 Gb flash device.  You can also run build_flash.sh by itself if needed. 
+The programming files consist of the Quartus generated d5005.sof and d5005.pof. The Intel® FPGA PAC D5005 board hardware provides a 2 Gb flash device to store the FPGA programming files and a BMC CARD that reads this flash and programs the Intel® FPGA PAC D5005 Stratix 10® FPGA. The ./ofs-common/scripts/common/syn/build_top.sh script runs script file ./ofs-common/scripts/common/syn/build_top.sh which takes the Quartus generated d5005.sof and creates binary files in the proper format to be loaded into the 2 Gb flash device.  You can also run build_flash.sh by itself if needed. 
 
-The build script will run PACSign and create an unsigned FPGA programming file for both user1 and user2 locations of the Intel® FPGA PAC D5005 flash. Please note, if the Intel® FPGA PAC D5005 has the root entry hash key loaded, then PACsign must be run to add the proper key to the FPGA binary file. Please see [Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® PCIe Attach FPGAs](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/ug-pac-security.md) for details on the security aspects of Intel® Open FPGA Stack and refer to [Board Management User Guide](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/bmc/ug_dev_bmc_ofs_n600x.md) for Flash partition.
+The build script will run PACSign and create an unsigned FPGA programming file for both user1 and user2 locations of the Intel® FPGA PAC D5005 flash. Please note, if the Intel® FPGA PAC D5005 has the root entry hash key loaded, then PACsign must be run to add the proper key to the FPGA binary file. Please see [Security User Guide: Open FPGA Stack for Stratix 10® PCIe Attach FPGAs] for details on the security aspects of Open FPGA Stack and refer to [Board Management User Guide](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/bmc/ug_dev_bmc_ofs_n600x.md) for Flash partition.
 
 The following table provides further detail on the generated bin files.
 
@@ -659,11 +653,11 @@ The following table provides further detail on the generated bin files.
 build/output_files/timing_report == Directory containing clocks report, failing paths and passing margin reports
 
 
-### 2.1.3. Relocatable PR Directory Tree
+#### **2.1.3. Relocatable PR Directory Tree**
 
 If you are developing FIM to be used by another team developing the AFU workload, scripts are provided that create a relocatable PR  directory tree. ODM and board developers will use this capability to enable a broad set of AFU to be loaded on a board using PR . The relocatable PR  directory contains the Quartus *.qdb file that goes the FIM.
 
-Creating the relocatable PR directory tree requires a clone of the Intel® Basic Building Blocks (BBB) repository. The OFS_PLATFORM_AFU_BBB environment variable must point to the repository.  If not done previously, clone the Intel® Basic Building Blocks repository and create OFS_PLATFORM_AFU_BBB environment variable.
+Creating the relocatable PR directory tree requires a clone of the Basic Building Blocks (BBB) repository. The OFS_PLATFORM_AFU_BBB environment variable must point to the repository.  If not done previously, clone the Basic Building Blocks repository and create OFS_PLATFORM_AFU_BBB environment variable.
 
 ```sh
 cd $OFS_BUILD_ROOT
@@ -743,7 +737,7 @@ Edit your bashrc file ~/.bashrc to add the following line:
 ```sh
 export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_d5005/build_tree
 ```
-### 2.1.4. Programing the FIM
+#### **2.1.4. Programing the FIM**
 
 1.  Run the following command to find the PCIe address for your card.
 
@@ -762,19 +756,19 @@ sudo fpgainfo fme
 >Device Id                        : 0xBCCE
 >Socket Id                        : 0x00
 >Ports Num                        : 01
->Bitstream Id                     : 288511863935352239
+>Bitstream Id                     : TBD
 >Bitstream Version                : 4.0.1
->Pr Interface Id                  : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98
+>Pr Interface Id                  : TBD
 >Boot Page                        : user
 >```
 > 
 
 
-#### 2.1.4.1. Load FIM into the Flash of the Intel® FPGA PAC D5005
+##### **2.1.4.1. Load FIM into the Flash of the Intel® FPGA PAC D5005**
 
 The base FIM used in AFU compilation must be loaded on the board. In this step, you will load the generated FIM binary into the Intel® FPGA PAC D5005 FPGA flash. By performing this step, subsequent AFU developed in this guide will use this base FIM and allow your newly created AFU to match the base FIM loaded on the board.
 
-More information related to fpgaupdate is located [OFS Getting Started User Guide: For Intel® Stratix 10® PCIe Attach FPGAs](https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/).
+More information related to fpgaupdate is located [Software Installation Guide: Open FPGA Stack for PCIe Attach FPGAs].
 
 Run fpgasupdate to load the image into the user location of the Intel® FPGA PAC D5005 FPGA flash and the <span title='Remote System Update, A Remote System Update operation sends an instruction to the Intel® FPGA PAC D5005 that triggers a power cycle of the card only, forcing reconfiguration.'>**RSU** </span> command to reboot the PCIE Card:
 
@@ -801,26 +795,26 @@ sudo fpgainfo fme
 >Device Id                        : 0xBCCE
 >Socket Id                        : 0x00
 >Ports Num                        : 01
->Bitstream Id                     : 288511863935352239
+>Bitstream Id                     : TBD
 >Bitstream Version                : 4.0.1
->Pr Interface Id                  : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98
+>Pr Interface Id                  : TBD
 >Boot Page                        : user
 >
 
 
-# 3.0 OPAE Software Development Kit
+## **3.0 OPAE Software Development Kit**
 
-The OPAE SDK software stack sits in user space on top of the Intel® OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines the integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and re-configure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [OPAE.io](https://ofs.github.io/ofs-2023.3-2/sw/fpga_api/quick_start/readme/) page.
+The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines the integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and re-configure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, please visit the [OPAE.io](https://ofs.github.io/ofs-2024.1-1/sw/fpga_api/quick_start/readme/) page.
 
 The OPAE SDK source code is contained within a single GitHub repository
 hosted at the [OPAE GitHub](https://github.com/OFS/opae-sdk). This repository is open source and should not require any permissions to access.
 
 
 
-### 3.1 OPAE SDK Build Environment Setup
+### **3.1 OPAE SDK Build Environment Setup**
 
 
-This installation process assumes the user has access to an internet connection to pull specific GitHub repositories and satisfy package dependencies. If an offline install process is required, please reach out to your Intel® representative.
+This installation process assumes the user has access to an internet connection to pull specific GitHub repositories and satisfy package dependencies. If an offline install process is required, please reach out to your Altera® representative.
 
 **1.** Before OPAE SDK installation, the user must remove any prior OPAE frameworks. To remove these packages:
 
@@ -850,7 +844,7 @@ All steps in this installation will use a generic top-level directory at `$OFS_B
 
 
 
-### 3.2 Install OPAE SDK
+### **3.2 Install OPAE SDK**
 
 Perform the following steps to install OPAE SDK:
 
@@ -858,17 +852,17 @@ Perform the following steps to install OPAE SDK:
 cd $OFS_BUILD_ROOT
 git clone https://github.com/OFS/opae-sdk.git
 cd opae-sdk
-git checkout tags/2.10.0-1 -b release/2.10.0
+git checkout tags/2.12.0-4 -b release/2.12.0
 ```
 Verify proper branch is selected
 
 ```sh
 git describe
-  2.10.0-1
+  2.12.0-4
     
 git branch
   master
-  * release/2.10.0
+  * release/2.12.0
 ```
 
 
@@ -895,15 +889,15 @@ The `install-opae-sdk` directory location was selected for ease of use. If the u
 ```sh
 cd $OFS_BUILD_ROOT/opae-sdk/install-opae-sdk
 ls | grep rpm
-opae-2.10.0-1.x86_64.rpm                                                                                                    
-opae-PACSign-2.10.0-1.x86_64.rpm                                                                                            
-opae-devel-2.10.0-1.x86_64.rpm                                                                                              
-opae-libs-2.10.0-1.x86_64.rpm                                                                                               
-opae-opae.admin-2.10.0-1.x86_64.rpm                                                                                         
-opae-packager-2.10.0-1.x86_64.rpm                                                                                           
-opae-tests-2.10.0-1.x86_64.rpm                                                                                              
-opae-tools-2.10.0-1.x86_64.rpm                                                                                              
-opae-tools-extra-2.10.0-1.x86_64.rpm
+opae-2.12.0-4.x86_64.rpm                                                                                                    
+opae-PACSign-2.12.0-4.x86_64.rpm                                                                                            
+opae-devel-2.12.0-4.x86_64.rpm                                                                                              
+opae-libs-2.12.0-4.x86_64.rpm                                                                                               
+opae-opae.admin-2.12.0-4.x86_64.rpm                                                                                         
+opae-packager-2.12.0-4.x86_64.rpm                                                                                           
+opae-tests-2.12.0-4.x86_64.rpm                                                                                              
+opae-tools-2.12.0-4.x86_64.rpm                                                                                              
+opae-tools-extra-2.12.0-4.x86_64.rpm
 ```
 
 **3.** Install the OPAE SDK packages:
@@ -917,15 +911,15 @@ sudo dnf localinstall -y opae*.rpm
 
 ```sh
 rpm -qa | grep opae
-opae-devel-2.10.0-1.x86_64                                                                                                  
-opae-packager-2.10.0-1.x86_64                                                                                               
-opae-2.10.0-1.x86_64                                                                                                        
-opae-tools-2.10.0-1.x86_64                                                                                                  
-opae-PACSign-2.10.0-1.x86_64                                                                                                
-opae-tools-extra-2.10.0-1.x86_64                                                                                            
-opae-opae.admin-2.10.0-1.x86_64                                                                                             
-opae-tests-2.10.0-1.x86_64                                                                                                  
-opae-libs-2.10.0-1.x86_64
+opae-devel-2.12.0-4.x86_64                                                                                                  
+opae-packager-2.12.0-4.x86_64                                                                                               
+opae-2.12.0-4.x86_64                                                                                                        
+opae-tools-2.12.0-4.x86_64                                                                                                  
+opae-PACSign-2.12.0-4.x86_64                                                                                                
+opae-tools-extra-2.12.0-4.x86_64                                                                                            
+opae-opae.admin-2.12.0-4.x86_64                                                                                             
+opae-tests-2.12.0-4.x86_64                                                                                                  
+opae-libs-2.12.0-4.x86_64
 ```
 
 **5.** Setup required environment variables
@@ -940,7 +934,8 @@ export LD_LIBRARY_PATH=$OFS_BUILD_ROOT/opae-sdk/install-opae-sdk/lib64
 cd ../lib/python*/site-packages
 export PYTHONPATH=$PWD
 ```
-# 4. Compiling An AFU
+
+## **4. Compiling An AFU**
 
 
 This section will use the FIM build tree created in the previous steps to compile an example AFU. This section will continue the work with the `host_chan_mmio` AFU.. You can perform the build steps listed below to demonstrate the ease in building and running a real example on the Intel® FPGA PAC D5005.
@@ -952,7 +947,7 @@ Ensure your bashrc file ~/.bashrc have the following line:
 export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_d5005/build_tree
 ```
 
-## 4.1. Set AFU Synthesis Environment
+### **4.1. Set AFU Synthesis Environment**
 
 
 Here, you will create the synthesis environment to build the `host_chan_mmio` example. The PIM flow includes the synthesis environment creation script `afu_synth_setup` for this task. The usage of afu_synth_setup is shown below:
@@ -1003,7 +998,7 @@ Wrote host_chan_mmio.gbs
 ===========================================================================
 ```
 
-### 4.1.1. Loading and Running the **host_chan_mmio** example AFU
+#### **4.1.1. Loading and Running the host_chan_mmio example AFU**
 
 Once the compilation completes successfully, load the new bitstream file, `host_chan_mmio.gbs`, into the partial reconfiguration region of the target Intel® FPGA PAC D5005. Keep in mind, that the loaded image is dynamic - this image is not stored in flash, and if the card is power cycled, then the PR  region is re-loaded with the default AFU.
 
@@ -1151,7 +1146,7 @@ make
 >
 >```
 
-### 4.1.2. Loading and running the **hello_world** example AFU
+#### **4.1.2. Loading and running the hello_world example AFU**
 
 
 The platform-independent [example AFUs](https://github.com/OFS/examples-afu.git) repository provides some interesting examples AFU's. In this section, you will compile and execute the PIM-based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory-mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
@@ -1327,7 +1322,7 @@ Accelerator GUID                 : 56e203e9-864f-49a7-b94b-12284c31e02b
    ./hello_world
    Hello world TLP!
 ```
-### 4.1.3. Modify the AFU user clocks frequency
+#### **4.1.3. Modify the AFU user clocks frequency**
 
 
 An OPAE compliant AFU specifies the frequency of the ```uclk_usr``` and ``` uclk_usr_div2 ``` clocks through the JSON file for AFU configuration located under the ```<afu_example>/hw/rtl``` directory of an AFU design. For instance, the AFU configuration file of the ```host_chan_mmio``` example is ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/hw/rtl/host_chan_mmio.json```.
@@ -1437,7 +1432,7 @@ iofs_pr_afu_MIN_fast_900mv_100c_setup.rpt
 
 > **Warning:** AFU developers must inform software developers of the maximum operating frequency (Fmax) of the user clocks to avoid any unexpected behavior of the accelerator and potentially of the overall system.
 
-# 5. Simulating an AFU using ASE
+## **5. Simulating an AFU using ASE**
 
 
 The AFU Simulation Environment (ASE) is a hardware/software co-simulation environment for your AFU. See diagram below illustrating ASE operation:
@@ -1457,24 +1452,21 @@ The following list describes ASE operation:
 
 The remainder of this section is a tutorial providing the steps on how to run ASE with either VCS or QuestaSim using an example AFU and the AFU build tree previously created in this guide.
 
-## 5.1. Set Up Steps to Run ASE
+### **5.1. Set Up Steps to Run ASE**
 
 
 In this section you will set up your server to support ASE by independently downloading and installing OPAE SDK and ASE. Then, set up the required environment variables.
 
-### 5.1.1. Install OPAE SDK
+#### **5.1.1. Install OPAE SDK**
 
-
-Follow the instructions documented in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005, section [5.0 OPAE Software Development Kit](https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit) to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card.
-
-The Intel® FPGA PAC D5005 PAC card requires **opae-2.10.0-1**. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA PAC D5005 section [5.0 OPAE Software Development Kit](https://ofs.github.io/23-3/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit). However, just make sure to check out the cloned repository to tag **2.10.0-1** and branch **release/2.10.0**.
+The Intel® FPGA PAC D5005 PAC card requires **opae-2.12.0-4**. Follow the instructions documented in the [Software Installation Guide: Open FPGA Stack for PCIe Attach FPGAs] to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card. Make sure to check out the cloned repository to tag **2.12.0-4** and branch **release/2.12.0**.
 
 ```bash
-git checkout tags/2.10.0-1 -b release/2.10.0
+git checkout tags/2.12.0-4 -b release/2.12.0
 ```
 
 
-### 5.1.2 Install ASE Tools
+#### **5.1.2 Install ASE Tools**
 
 
 ASE is an RTL simulator for OPAE-based AFUs. The simulator emulates both the OPAE SDK software user space API and the AFU RTL interface. The majority of the FIM as well as devices such as PCIe and local memory are emulated with simple functional models.
@@ -1494,7 +1486,7 @@ ASE must be installed separatedly from the OPAE-SDK. However, the recommendation
 2. Building ASE requires the include file ```mock/opae_std.h```. If the OPAE-SDK was installed under the default system directories, the **C_INCLUDE_PATH** variable must be set as follows. 
 
 ```bash
-export C_INCLUDE_PATH="/usr/src/debug/opae-2.10.0-1.el8.x86_64/tests/framework"
+export C_INCLUDE_PATH="/usr/src/debug/opae-2.12.0-4.el8.x86_64/tests/framework"
 ```
 
 3. Create a build directory and build ASE to be installed under the default system directories along with OPAE SDK.
@@ -1522,7 +1514,7 @@ Optionally, if the desire is to install ASE binaries in a different location to 
 
 
 
-### 5.1.3. Setup Required ASE Environment Variables
+#### **5.1.3. Setup Required ASE Environment Variables**
 
 
 
@@ -1552,7 +1544,7 @@ The values set to the following environment variables assume the OPAE SDK and AS
    export PATH=$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$PATH
 ```
 
-## 5.2. Simulating the **host_chan_mmio** AFU
+### **5.2. Simulating the host_chan_mmio AFU**
 
 
 The ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio``` is a simple example demonstrating both hardware and software access to an AFU. The ```host_chan_mmio``` example AFU consists of the following files:
@@ -1590,7 +1582,7 @@ This example AFU contains examples using both Avalon and AXI interface buses. Th
 
 ASE uses client-server application architecture to deliver hardware/software co-simulation.  You require one shell for the hardware based simulation and another shell where the software application is running. The hardware is started first with a simulation compilation and simulator startup script, once the simulator has loaded the design, it will wait until the software process starts. Once the software process starts, the simulator proceeds.  Transaction logging and waveform capture is performed.
 
-### 5.2.1 Set Up and Run the HW Simulation Process
+#### **5.2.1 Set Up and Run the HW Simulation Process**
 
 
 You will run the ```afu_sim_setup``` script to create the scripts for running the ASE environment.  The ```afu_sim_setup``` script has the following usage:
@@ -1679,7 +1671,7 @@ log_pf_vf_mux_A.tsv
 log_pf_vf_mux_B.tsv 
 ```
 
-### 5.2.2 Set Up and Run the SW Process
+#### **5.2.2 Set Up and Run the SW Process**
 
 
 Open an additional shell to build and run the host application that communicates with the actual AFU hardware. Set up the same environment variable you have set up in the shell you have been working on until this point. 
@@ -1726,7 +1718,7 @@ Right click on the ```afu (afu)``` entry to display the drop-down menu. Then, cl
 ![](./images/ASE_VCS_AFU_Waveforms.png)
 </br></br>
 
-### 5.3 Simulating the **hello_world** AFU
+### **5.3 Simulating the hello_world AFU**
 
 
 In this section, you will quickly simulate the PIM-based ```hello_world``` sample AFU accompanying the example_afu repository.
@@ -1824,11 +1816,11 @@ In this section, you will quickly simulate the PIM-based ```hello_world``` sampl
   </br></br>
 
 
-# 6. Adding Remote Signal Tap Logic Analyzer to debug the AFU
+## **6. Adding Remote Signal Tap Logic Analyzer to debug the AFU**
 
 
 
-The OPAE SDK provides a remote Signal Tap facility. It also supports the following in system debug tools included with the Intel®  Intel® Quartus® Prime Pro Edition:
+The OPAE SDK provides a remote Signal Tap facility. It also supports the following in system debug tools included with the Quartus® Prime Pro Edition:
 
 - In-system Sources and Probes
 - In-system Memory Content Editor
@@ -1845,7 +1837,7 @@ You will run with a Signal Tap GUI running locally on the server with the Intel�
 
  
 
-## 6.1. Adding RSTP to the host_chan_mmio AFU
+### **6.1. Adding RSTP to the host_chan_mmio AFU**
 
 RSTP is added to an AFU by:
 
@@ -1949,7 +1941,7 @@ Partial Reconfiguration OK
 [INFO    ] Total time: 0:00:01.87
 ```
 
-15. Use the OPAE SDK mmlink tool to create a TCP/IP connection to your Intel® Stratix 10® FPGA card under test. The mmlink command has the following format:
+15. Use the OPAE SDK mmlink tool to create a TCP/IP connection to your Stratix 10® FPGA card under test. The mmlink command has the following format:
 
 ```
 
@@ -1990,7 +1982,7 @@ Server socket is listening on port: 3333
 
 Leave this shell open with the mmlink connection.
 
-16. In this step, you will open a new shell and enable JTAG over protocol. You must have Quartus Prime Pro ®  23.3 Programmer loaded on the Intel® FPGA PAC D5005 server for local debugging.
+16. In this step, you will open a new shell and enable JTAG over protocol. You must have Quartus Prime Pro ®  23.4 Programmer loaded on the Intel® FPGA PAC D5005 server for local debugging.
 
 ```sh
 $ jtagconfig --add JTAG-over-protocol sti://localhost:0/intel/remote-debug/127.0.0.1:3333/0
@@ -1999,7 +1991,7 @@ Verify connectivity with jtagconfig --debug
 
 $ jtagconfig --debug
 1) JTAG-over-protocol [sti://localhost:0/intel/remote-debug/127.0.0.1:3333/0]
-   (JTAG Server Version 23.3.0 Build 104 09/14/2022 SC Pro Edition)
+   (JTAG Server Version 23.4.0 Build 104 09/14/2022 SC Pro Edition)
   020D10DD   VTAP10 (IR=10)
     Design hash    D41D8CD98F00B204E980
     + Node 00406E00  Virtual JTAG #0
@@ -2011,7 +2003,7 @@ $ jtagconfig --debug
 ```
 
 17. Start Quartus Signal Tap GUI, connect to target, load stp file by navigating to 
-$OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/ . The Quartus Signal Tap must be the same version of Quartus used to compile the host_chan_mmio.gbs. Quartus Prime Pro ®  23.3 Pro is used in the steps below:
+$OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/ . The Quartus Signal Tap must be the same version of Quartus used to compile the host_chan_mmio.gbs. Quartus Prime Pro ®  23.4 Pro is used in the steps below:
 
 ```sh
 cd $OPAE_PLATFORM_ROOT/hw/lib/build/syn/syn_top/
@@ -2050,4 +2042,6 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
+ 
+
  

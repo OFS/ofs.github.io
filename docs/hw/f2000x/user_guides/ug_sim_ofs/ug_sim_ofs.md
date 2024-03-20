@@ -239,9 +239,9 @@ To run the tutorial steps in this guide requires the following development envir
 
 | Item                      | Version|
 | ------------------------- | ----------|
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.3|
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.4|
 | Simulator                 | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
-| Simulator (Questasim)     | Questasim 2023.2 or newer for UVM simulation of top level FIM |
+| Simulator (Questasim)     | Questasim 2023.4 or newer for UVM simulation of top level FIM |
 
 
 ## **5.1 UVM Prerequisite**
@@ -253,8 +253,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir release/ofs-2023.3
-    $ cd release/ofs-2023.3
+    $ mkdir release/ofs-2024.1
+    $ cd release/ofs-2024.1
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --branch --recurse-submodules https://github.com/ofs-f2000x-pl.git
     
@@ -267,13 +267,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-f2000x-pl
-    $ git checkout tags/ofs-2023.3-1
+    $ git checkout tags/ofs-2024.1-1
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2023.3-1
+    $ ofs-2024.1-1
 
 ## **5.2 License Requirements**
 
@@ -326,7 +326,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export WORKDIR=$OFS_ROOTDIR
 
 ## Quartus Tools
-    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.3/quartus
+    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.4/quartus
     export QUARTUS_ROOTDIR=$QUARTUS_HOME
     export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
     export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
@@ -344,7 +344,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export VIPDIR=$VERDIR
 
 ## QuestaSIM Verification Tools
-    export MTI_HOME=<user_path>/mentor/questasim/2023.2/linux64
+    export MTI_HOME=<user_path>/mentor/questasim/2023.4/linux64
     export PATH=$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$PATH
     export QUESTA_HOME=$MTI_HOME
 
@@ -1557,3 +1557,4 @@ You are responsible for safety of the overall system, including compliance with 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
+

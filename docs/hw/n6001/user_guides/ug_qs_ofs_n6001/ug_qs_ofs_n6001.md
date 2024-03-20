@@ -1,11 +1,13 @@
-# Getting Started Guide: Open FPGA Stack for Intel<sup>&reg;</sup> Agilex FPGAs Targeting the Intel® FPGA SmartNIC N6001-PL
+# Getting Started Guide: Open FPGA Stack for Intel<sup>&reg;</sup> Agilex FPGAs Targeting the Intel® FPGA SmartNIC N6000/1-PL
+
+Last updated: **March 20, 2024** 
 
 ## 1.0 Introduction
 
 ### 1.1 About This Document
 
-The purpose of this document is to help users get started in evaluating the 2023.3-2
- version of the Open FPGA Stack (OFS) for the Intel Agilex FPGA targeting the Intel N6001-PL FPGA SmartNIC Platform. After reviewing the document a user shall be able to:
+The purpose of this document is to help users get started in evaluating the 2024.1-1
+ version of the Open FPGA Stack (OFS) for the Intel Agilex FPGA targeting the Intel N6000/1-PL FPGA SmartNIC Platform. After reviewing the document a user shall be able to:
 
 - Set up their server environment according to the Best Known Configuration (BKC)
 - Build and install the OFS Linux Kernel drivers
@@ -15,18 +17,6 @@ The purpose of this document is to help users get started in evaluating the 2023
 - Know where to find additional information on other OFS ingredients
 
 The following flow charts show a high level overview of the initial bring up process, split into three sequential diagrams. Detailed instructions for each installation process are shown in their respective sections.
-
-#### Diagram 1: Installing the OPAE SDK
-
-![UG_1](images/UG_DIAGRAM_1.png)
-
-#### Diagram 2: Installing the Linux DFL Drivers
-
-![UG_2](images/UG_DIAGRAM_2.png)
-
-#### Diagram 3: Bringing up the Intel® FPGA SmartNIC N6001-PL
-
-![UG_3](images/UG_DIAGRAM_3.png)
 
 ### 1.2 Terminology
 
@@ -70,37 +60,25 @@ The following flow charts show a high level overview of the initial bring up pro
 
 ### 1.3 Introduction to OFS
 
-Each OFS FIM targets a specific platform, but the modular hardware, software, simulation and test infrastructure allow users to modify each part of the design and test environment for their own custom acceleration platform card. This OFS release targets the Intel® FPGA SmartNIC N6001-PL.
+Each OFS FIM targets a specific platform, but the modular hardware, software, simulation and test infrastructure allow users to modify each part of the design and test environment for their own custom acceleration platform card. This OFS release targets the Intel® FPGA SmartNIC N6000/1-PL.
 
 ### 1.4 Intended Audience
 
-The information in this document is intended for customers evaluating the Intel® FPGA SmartNIC N6001-PL. The card is an acceleration development platform (ADP) intended to be used as a starting point for evaluation and development. This document will cover key topics related to initial bring up and development, with links for deeper dives on the topics discussed therein.
+The information in this document is intended for customers evaluating the Intel® FPGA SmartNIC N6000/1-PL. The card is an acceleration development platform (ADP) intended to be used as a starting point for evaluation and development. This document will cover key topics related to initial bring up and development, with links for deeper dives on the topics discussed therein.
 
 ### 1.5 Reference Documents
 
-Documentation for N6001 is collected [on GitHub](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/). The document list is as follows:
+Documentation for N6000/1 is collected [on GitHub](https://ofs.github.io/ofs-2024.1/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/). The document list is as follows:
 
 #### Table 2: Reference Documents
 
-| Document | Purpose |
-| ----- | ----- |
-| [Getting Started Guide: Intel Open FPGA Stack for Intel Agilex FPGA](https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) | Guides you through the setup and build steps to evaluate the OFS solution targeting an Intel N6001-PL FPGA SmartNIC Platform |
-| [FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Agilex FPGA](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/)| Describes the OFS FIM architecture and features.|
-|[Software Reference Manual: Intel Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)|Describes the Open Programmable Acceleration Engine (OPAE) Software Development Kit, the OPAE C++ and Python API and management interfaces.  This document also covers building the OPAE SDK, how to add a new PCIe device, and debugging the software stack. |
-| [FPGA Interface Manager Developer Guide: Intel Open Stack for Intel Agilex FPGA](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)| Provides guidance on developing an FPGA Interface Manager (FIM) for a custom FPGA acceleration board.|
-|[Hard Processor System Software Developer Guide: Intel OFS for Intel Agilex FPGAs](https://ofs.github.io/hw/n6001/dev_guides/hps_dev/hps_developer_ug/?h=)|Describes the HPS configuration and software package for the Intel OFS release targeting Intel Agilex OFS and guides you through the steps to build your own Yocto application image for HPS.|
-| [Accelerator Functional Unit Developer Guide: Intel Open FPGA Stack](https://ofs.github.io/hw/n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001/)| Provides guidance on how to build and test an AFU when designing to an OFS-based FPGA Interface Manager|
-| [Simulation User Guide: Intel Open FPGA Stack for Intel Agilex FPGA](https://ofs.github.io/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/)|Provides steps for setting up the UVM verification tool suite and running UVM unit tests |
-| [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) (request access by emailing [ofs.github@intel.com](ofs.github@intel.com)) | Describes how to create keys and sign bitstreams for your custom design; includes new VAB feature|
-| [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)| Describes how to get started using OneAPI with the OFS FIM BSP.|
-| [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/)| Describes how to use the provided shim for OFS for creating your custom OneAPI board support package.|
-| [Platform Evaluation Script: Open FPGA Stack for Intel Agilex FPGA](https://ofs.github.io/hw/n6001/user_guides/ug_eval_ofs_n6001/ug_eval_script_ofs_n6001/)| Serves as a set-up and user guide for the checkout and evaluation of an Intel FPGA SmartNIC N6001 Platform using Open FPGA Stack (OFS). |
+  
 
 ### 1.6 Component Version Summary
 
-The OFS 2023.3-2 Release targeting the Intel® FPGA SmartNIC N6001-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
+The OFS 2024.1-1 Release targeting the Intel® FPGA SmartNIC N6000/1-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
 
-The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2023.3-2 release.
+The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2024.1-1 release.
 
 #### Table 3: Hardware BKC
 
@@ -117,17 +95,17 @@ The following table highlights the versions of the software which compose the OF
 
 | Component | Version |
 | --------- | ------- |
-| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2> under "Known Issues"|
-| OPAE SDK | [2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1)|
-| Kernel Drivers |[ofs-2023.3-6.1-3](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-3)|
-| OneAPI-ASP | [ofs-2023.3-2](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2023.3-2)  |
-| OFS FIM Source Code for N6001| [ofs-2023.3-2](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2) |
+| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1> under "Known Issues"|
+| OPAE SDK | [2.12.0-4](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4)|
+| Kernel Drivers |[ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2)|
+| OneAPI-ASP | [ofs-2024.1-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.1-1)  |
+| OFS FIM Source Code for N6001| [ofs-2024.1-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1) |
 | OFS FIM Common Resources| [Tag: ofs-fim-common-1.1.0-rc2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-fim-common-1.1.0-rc2) |
-|OFS Platform AFU BBB | [ofs-2023.3-2](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2023.3-2) |
-| Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.3 for Linux](https://www.intel.com/content/www/us/en/software-kit/776241/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html)  |
+|OFS Platform AFU BBB | [ofs-2024.1-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.1-1) |
+| Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.4 for Linux](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html)  |
 | Operating System | [RedHatEnterprise Linux® (RHEL) 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software) |
 
-The following table highlights the differences between N6000/1 PL FPGA SmartNIC platforms (SKU1/SKU2). Use this table to identify which version of the N6000/1-PL FPGA SmartNIC platform you have. The board identification printed by the `fpgainfo fme` commands depends on both the OPAE SDK and Linux DFL drivers from sections [3.0 OFS DFL Kernel Drivers](#30-ofs-dfl-kernel-drivers) through [4.0 OPAE Software Development Kit](#40-opae-software-development-kit) to be installed before it can be run.
+The following table highlights the differences between N6000/1 PL FPGA SmartNIC platforms (SKU1/SKU2). Use this table to identify which version of the N6000/1-PL FPGA SmartNIC platform you have. The board identification printed by the `fpgainfo fme` commands depends on both the OPAE SDK and Linux DFL drivers to be installed as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 #### Table 5: Intel N6000/1-PL FPGA SmartNIC Platform SKU Mapping
 
@@ -136,142 +114,33 @@ The following table highlights the differences between N6000/1 PL FPGA SmartNIC 
 |N6000| Q1613314XXXXX | PCIe Gen 4 1x16 mechanical bifurcated 2x8 logical to host, with one PCIe Gen 4x8 endpoint reserved for Intel E810-C-CAM2 NIC, the other reserved for FIM| "Intel Acceleration Development Platform N6000"|
 |N6001| Q0216514XXXXX | PCIe Gen 4 1x16 mechanical and logical connection between host and FIM| "Intel Acceleration Development Platform N6001"|
 
-The following table highlights the programmable firmware versions that are supported on the Intel N6001-PL FPGA SmartNIC Platform in the [OFS 2023.3-2 release](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2). Programming and verifying these components is discussed in their respective sections.
+The following table highlights the programmable firmware versions that are supported on the Intel N6000/1-PL FPGA SmartNIC Platform in the [OFS 2024.1-1 release](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1). Programming and verifying these components is discussed in their respective sections.
 
-#### Table 6: Intel® FPGA SmartNIC N6001-PL Programmable Component Version Summary
+#### Table 6: Intel® FPGA SmartNIC N6000/1-PL Programmable Component Version Summary
 
 | Component | Version |
 | ----- | ----- |
-| PR Interface ID |  1d6beb4e-86d7-5442-a763-043701fb75b7  |
-| Bitstream ID | 00x50102023508A422 |
+| PR Interface ID |  1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)  |
+| Bitstream ID | 00x50102023508A422 (TBD) |
 | BMC RTL | 3.15.0 |
 | BMC NIOS FW| 3.15.0 |
 
-### 1.7 Initial Server Setup
+### 1.7 Board Installation and Server Setup
 
-#### 1.7.1 Server BMC and BIOS Updates
+Platform installation instructions, server BIOS settings and regulatory information can be found in the [Board Installation Guidelines: Intel® FPGA SmartNIC N6000/1-PL, Intel® FPGA PAC D5005](../../../common/board_installation/adp_board_installation/adp_board_installation_guidelines.md).
 
-Both the server BIOS and BMC need to match the versions listed below in [Table 7: Supermicro Server BMC BKC](#table-7-supermicro-server-bmc-bkc). These updates only apply for this specific Best Known Configuration (BKC) - other server manufacturers may require different BIOS updates. Please consult your server's user guide and release notes for update information.
-
-Information about the server’s currently loaded firmware can be found on the BMC
-web portal dashboard. Accessing this page requires an Ethernet cable to be attached
-to an open port on the server labelled “IPMI”. During boot the BMC’s login IP will be
-presented on the screen.
-
-Open this IP address in a browser and enter your login credentials. The default
-username is ADMIN, and the default password has been printed on the service tag
-that pulls out from the front of the server case. It is recommended the user change
-their BMC’s default username as soon as they are able
-
-After logging in you should be able to review information about the BMC and BIOS by
-referring to the System box, visible upon initial loading of the page. Double check that
-the values match those in [Table 7 Supermicro Server BMC BKC](#table-7-supermicro-server-bmc-bkc). If they do not, you
-may download the appropriate versions from the [Supermicro product page](https://www.supermicro.com/en/products/system/Hyper/2U/SYS-220HE-FTNR) by
-selecting the BIOS option and downloading the most recent “Bundled Software File
-Name”. Follow the BMC and BIOS update instructions included in the
-[Supermicro manuals page](https://www.supermicro.com/support/manuals/?mlg=0) in the document **X12/H12 BMC Manual** in **Appendix A.2 Updating Firmware Using BMC Web GUI**.
-
-If using a different server model, refer to that server’s user guide for
-instructions on remote system management.
-
-##### Table 7: Supermicro Server BMC BKC
+#### Table 7: SuperMicro Server BMC BKC
 
 | Component| Version|
 | -----| -----|
 | BIOS Version| American Megatrends International, LLC(1.4) |
-
-#### 1.7.2 Server Fan Speed
-
-The recommended fan speed setting is to use the 100% preset. If using a different
-server model, refer to that server’s user guide for instructions on changing fan
-speed. The following steps will help users on the Supermicro platform.
-
-1. Log in to the Supermicro server BMC.
-(This requires an Ethernet cable to be attached to an open port on the
-server labelled “IPMI”.)
-2. During boot the BMC’s login IP will be presented on the screen. Open this IP address in a browser and enter your login credentials. The default username is ADMIN, and the default password has been
-printed on the service tag that pulls out from the front of the server
-case.
-3. On the left menu select **System** -> **Component Info**, select the **Fan** tab, under **Advanced Settings** click the circle next to **Full Speed**.
-
-#### 1.7.3 Server BIOS Configuration Changes
-
-To enter the Supermicro server’s BIOS setup page, reboot, and press \<Delete\> when
-prompted. You can browse the tabs / options with a combination of arrow keys along with
-\<Escape\> and \<Enter\>.
-
-##### 1.7.3.1 Enabling Intel VT-d Technology
-
-Navigate right to the **Advanced** tab, then select the following menu options: **Chipset
-Configuration** -> **North Bridge** -> **IIO Configuration** -> **Intel VT for Directed I/O (VT-d)**.
-If not already, enable the option **Intel VT for Directed I/O (VT-d)**.
-
-##### 1.7.3.2 PCie Slot Mapping
-
-The Intel N6001-PL FPGA SmartNIC Platform is officially verified in the upper middle PCIe x16 slot (Slot 3). If using a different slot, refer to the information in [Table 8 PCIe Slot Mapping](#table-8-pcie-slot-mapping) for which port to manually change in the server BIOS.
-
-![SERVER_1](images/SERVER_1.png)
-
-###### Table 8: PCIe Slot Mapping
-| CPU Number| Port Number (in BIOS)| PCIe Slot|
-| -----| -----| -----|
-| CPU1| Port 2| 5 and 6|
-| CPU1| Port 4| 7 and 8|
-| CPU2| Port 2| 1 and 2|
-| CPU2| Port 4| 3 and 4|
-
-#### 1.7.4 Intel® FPGA SmartNIC N6001-PL Installation Procedure
-
-The following instructions will help to ensure safe installation of the Intel® FPGA SmartNIC N6001-PL into a supported server. Refer to [Table 8 PCIe Slot Mapping](#table-8-pcie-slot-mapping) for a breakdown of the available PCIe slots on a SuperMicro SYS-220HE.
-
-1. Position the board over the selected connector on the motherboard.
-2. Press down gently and firmly to seat the card in the PCIe slot, and then secure the bracket to the system chassis with the retention screw.
-
-![SERVER_2](images/SERVER_2.png)
-
-##### Table 9: Intel® FPGA SmartNIC N6001-PL Installation Procedure
-
-| Callout | Description |
-| -----| -----|
-| 1| Retention screw|
-| 2| Press down here gently|
-| 3| Press down here gently|
-| 4| Motherboard|
-
-Do not bend the card while inserting into a slot. Do not apply much pressure in regions 2 or 3 while inserting.
-
-![SERVER_3](images/SERVER_3.png)
-
-#### 1.7.5 Intel® FPGA SmartNIC N6001-PL Removal Procedure
-
-The following instructions will help to ensure safe removal of the platform from a supported server.
-
-1. Disconnect all power cords from the server power supply(s).
-2. Remove the retention bracket screw.
-3. Carefully lift the card out of the PCIe slot.
-
-![SERVER_4](images/SERVER_4.png)
-
-##### Table 10: Intel® FPGA SmartNIC N6001-PL Removal Procedure
-
-| Callout | Description |
-| -----| -----|
-| 1| Retention screw|
-| 2| Pull up here gently|
-| 3| Motherboard|
-
-Do not bend the card while removing it from the slot.
-
-![SERVER_5](images/SERVER_5.png)
-
-<a name="heading-2.0"> </a>
 
 ## 2.0 OFS Stack Architecture Overview for Reference Platform
 
 ### 2.1 Hardware Components
 
 The OFS hardware architecture decomposes all designs into a standard
-set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Agilex FPGA](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
 OFS is a hardware and software infrastructure that provides an efficient approach to developing a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board.
 
@@ -301,7 +170,7 @@ register that is placed at the beginning of Control Status Register
 (CSR) space. Only one PCIe link can access the FME register space in a
 multi-host channel design architecture at a time.
 
-*Note: For more information on the FIM and its external connections, refer to the [FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Agilex FPGA](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
+*Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
 
 #### 2.1.2 AFU
 
@@ -333,7 +202,7 @@ native packets from the host or interface channels or to instantiate a
 shim provided by the Platform Interface Manager (PIM) to translate
 between protocols.
 
-*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001/).*
+*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/hw/n6001/dev_guides/afu_dev/ug_dev_afu_ofs_n6001/).*
 
 ### 2.2 OFS Software Overview
 
@@ -358,7 +227,7 @@ In this way the OFS software provides a clean and extensible framework
 for the creation and integration of additional functionalities and their
 features.
 
-*Note: A deeper dive on available SW APIs and programming model is available in the [Software Reference Manual: Intel® Open FPGA Stack](https://ofs.github.io/ofs-2023.1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) and on [kernel.org](https://docs.kernel.org/fpga/dfl.html?highlight=fpga).
+*Note: A deeper dive on available SW APIs and programming model is available in the [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2023.1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) and on [kernel.org](https://docs.kernel.org/fpga/dfl.html?highlight=fpga).*
 
 ## 3.0 OFS DFL Kernel Drivers
 
@@ -366,380 +235,20 @@ OFS DFL driver software provides the bottom-most API to FPGA platforms. Librarie
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
-The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2).
+The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1-1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1).
 
-### 3.1 OFS DFL Kernel Driver Environment Setup
-
-All OFS DFL kernel driver code resides in the [Linux DFL](https://github.com/OPAE/linux-dfl) GitHub repository. This repository is open source and should not require any permissions to access. It includes a snapshot of the Linux kernel with the OFS driver included in /drivers/fpga/*. Downloading, configuration, and compilation will be discussed in this section. The only operating systems supported out of the box by the Linux DFL kernel drivers is RHEL 8.6.
-
-This installation process assumes the user has access to an internet connection in order to clone specific GitHub repositories, and to satisfy package dependencies.
-
-**1.** Make the following changes on your installation machine to satisfy all dependencies:
-
-```bash
-$ subscription-manager release --set=8.6
-$ sudo dnf update
-```
-
-If you wish to install the pre-built linux-dfl package available on the [OFS 2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2) skip to section [3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages](#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages).
-
-**2.** You must satisfy the following package dependencies if building and installing the drivers from source. Double check that all packages have been found and installed. The following section assumes you require use of a proxy to download from remote repositories. If you do not, then you may safely ignore all references to proxies in the following code block.
-
-```bash
-# If you require the use of a proxy, add it to DNF using by editing the following file
-$ sudo nano /etc/dnf/dnf.conf
-# Include your proxy by adding the following line, replacing the URL with your proxy's URL
-# proxy=http://proxy.server.com:port``
-$ sudo dnf update
-$ subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-$ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-
-$ sudo dnf install -y python3 python3-pip python3-devel \
-gdb vim git gcc gcc-c++ make cmake libuuid-devel rpm-build systemd-devel nmap \
-python3-jsonschema json-c-devel tbb-devel rpmdevtools libcap-devel \
-python3-pyyaml hwloc-devel libedit-devel git kernel-headers kernel-devel elfutils-libelf-devel ncurses-devel openssl-devel bison flex cli11-devel spdlog-devel numactl-devel
-
-$ python3 -m pip install --user jsonschema virtualenv pudb pyyaml
-
-$ sudo pip3 uninstall setuptools
-
-$ sudo pip3 install --proxy http://yourproxy:xxx Pybind11==2.10.0 
-
-$ sudo pip3 install --proxy http://yourproxy:xxx setuptools==59.6.0 --prefix=/usr 
-
-$ wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/pybind11-devel-2.4.3-2.el8.x86_64.rpm
-
-$ wget http://ftp.pbone.net/mirror/archive.fedoraproject.org/epel/8.4/Everything/x86_64/Packages/p/python3-pybind11-2.4.3-2.el8.x86_64.rpm
-
-$ sudo dnf localinstall ./python3-pybind11-2.4.3-2.el8.x86_64.rpm ./pybind11-devel-2.4.3-2.el8.x86_64.rpm -y
-
-```
-
-It is recommended you create an empty top level directory for your OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/OFS/`. If you have created a different top-level directory, replace this path with your custom path.
-
-**3.** Initialize an empty git repository and clone the LTS tagged DFL driver source code:
-
-```bash
-$ mkdir /home/OFS/
-$ cd /home/OFS/
-$ git init
-$ git clone https://github.com/OFS/linux-dfl
-$ cd /home/OFS/linux-dfl
-$ git checkout tags/ofs-2023.3-6.1-3
-```
-
-**4.** Verify that the correct tag/branch have been checkout out.
-
-```bash
-$ git describe --tags
-ofs-2023.3-6.1-3
-```
-
-*Note: If two different tagged releases are tied to the same commit, running git describe tags may report the other release's tag. This is why the match is made explicit.*
-
-*Note: The linux-dfl repository is roughly 5 GB in size.*
-
-### 3.2 Building and Installing the OFS DFL Kernel Drivers from Source
-
-**1.** The following set of instructions walk you through copying an existing kernel configuration file on your machine and changing the minimal required configuration settings.:
-
-```bash
-$ cd /home/OFS/linux-dfl
-$ cp /boot/config-`uname -r` .config
-$ cat configs/dfl-config >> .config
-$ echo 'CONFIG_LOCALVERSION="-dfl"' >> .config
-$ echo 'CONFIG_LOCALVERSION_AUTO=y' >> .config
-$ sed -i -r 's/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=""/' .config
-$ sed -i '/^CONFIG_DEBUG_INFO_BTF/ s/./#&/' .config
-$ echo 'CONFIG_DEBUG_ATOMIC_SLEEP=y' >> .config
-$ export LOCALVERSION=
-$ make olddefconfig
-```
-
-**1.1.** The above command may report errors resembling `symbol value 'm' invalid for CHELSIO_IPSEC_INLINE`. These errors indicate that the nature of the config has changed between the currently executing kernel and the kernel being built. The option "m" for a particular kernel module is no longer a valid option, and the default behavior is to simply turn the option off. However the option can likely be turned back on by setting it to 'y'. If the user wants to turn the option back on, change it to 'y' and re-run "make olddefconfig":
-
-```bash
-$ cd /home/OFS/linux-dfl
-$ echo 'CONFIG_CHELSIO_IPSEC_INLINE=y' >> .config
-$ make olddefconfig
-```
-
-(Optional) To use the built-in GUI menu for editing kernel configuration parameters, you can opt to run `make menuconfig`.
-
-**2.** Linux kernel builds take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `nproc` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
-
-```bash
-$ cd /home/OFS/linux-dfl
-$ make -j $(nproc)
-```
-
-**3.** The following options are available to build a set of packages. The package options for this flow as as follows:
-
-- rpm-pkg: Build both source and binary RPM kernel packages
-- binrpm-pkg: Build only the binary kernel RPM package
-- deb-pkg: Build both source and binary deb kernel packages
-- bindeb-pkg: Build only the binary kernel deb package
-
-If you are concerned about the size of the resulting package and binaries, they can significantly reduce the size of the package and object files by using the make variable INSTALL_MOD_STRIP. If this is not a concern, feel free to skip this step. The below instructions will build a set of binary RPM packages:
-
-```bash
-cd /home/OFS/linux-dfl
-make INSTALL_MOD_STRIP=1 binrpm-pkg
-```
-
-**4.** By default a directory is created in your `home` directory called `rpmbuild`. This directory will house all of the kernel packages which have been built. You need to navigate to the newly built kernel packages and install them. The following files were generated using the build command executed in the previous step:
-
-```bash
-$ cd ~/rpmbuild/RPMS/x86_64
-$ ls
-kernel-6.1.41_dfl.x86_64.rpm  kernel-headers-6.1.41_dfl.x86_64.rpm
-$ sudo dnf localinstall kernel*.rpm
-```
-
-**5.** The system will need to be rebooted in order for changes to take affect. After a reboot, select the newly built kernel as the boot target. This can be done pre-boot using the command `grub2-reboot`, which removes the requirement for user intervention. After boot, verify that the currently running kernel matches expectation.
-
-```bash
-$ uname -r
-6.1.41-dfl
-```
-
-**6.** Verify the DFL drivers have been successfully installed by reading version information directly from `/lib/modules`. Recall that the name of the kernel built as apart of this section is `6.1.41-dfl`. If the user set a different name for their kernel, change this path as needed:
-
-```bash
-$ cd /usr/lib/modules/6.1.41-dfl/kernel/drivers/fpga
-$ ls
-dfl-afu.ko     dfl-fme.ko      dfl-fme-region.ko  dfl.ko             dfl-pci.ko      fpga-mgr.ko     intel-m10-bmc-sec-update.ko
-dfl-fme-br.ko  dfl-fme-mgr.ko  dfl-hssi.ko        dfl-n3000-nios.ko  fpga-bridge.ko  fpga-region.ko
-```
-
-If an N6000/1-PL FPGA SmartNIC Platform is present on the server, you can also double check driver versions using the `lsmod` command:
-
-```bash
-$ lsmod | grep dfl
-uio_dfl                20480  0
-dfl_emif               16384  0
-uio                    20480  1 uio_dfl
-ptp_dfl_tod            16384  0
-dfl_intel_s10_iopll    20480  0
-8250_dfl               20480  0
-dfl_fme_region         20480  0
-dfl_fme_br             16384  0
-dfl_fme_mgr            20480  2
-dfl_fme                49152  0
-dfl_afu                36864  0
-dfl_pci                20480  0
-dfl                    40960  11 dfl_pci,uio_dfl,dfl_fme,intel_m10_bmc_pmci,dfl_fme_br,8250_dfl,qsfp_mem,ptp_dfl_tod,dfl_afu,dfl_intel_s10_iopll,dfl_emif
-fpga_region            20480  3 dfl_fme_region,dfl_fme,dfl
-fpga_bridge            20480  4 dfl_fme_region,fpga_region,dfl_fme,dfl_fme_br
-fpga_mgr               20480  4 dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme
-```
-
-Refer to the following table for a brief description of each driver:
-
-#### Table 11: DFL Driver Modules
-
-| Module Name| Short Description|
-| -----| -----|
-| uio_dfl| Generic DFL driver for Userspace I/O devices|
-| dfl_intel_s10_iopll| DFL Intel S10 IOPLL driver|
-| uio| UIO Driver|
-| dfl_fme_region| FPGA Region for DFL FPGA Management Engine|
-| ptp_dfl_tod| DFL ToD driver|
-| dfl_emif| DFL EMIF driver|
-| dfl_fme_br| FPGA Bridge for DFL FPGA Management Engine|
-| 8250_dfl| DFL Intel UART driver|
-| dfl_fme_mgr| FPGA Manager for DFL FPGA Management Engine|
-| dfl_fme|  FPGA Management Engine driver|
-| dfl_afu|  FPGA Accelerated Function Unit driver|
-| dfl_pci| FPGA DFL PCIe Device Driver|
-| dfl| FPGA Device Feature List (DFL) Support|
-| fpga_region| FPGA Region Driver|
-| fpga_bridge| FPGA Bridge Driver|
-| fpga_mgr| FPGA manager framework|
-
-**7.** Two kernel parameters must be added to the boot commandline for the newly installed kernel. First, open the file `grub`:
-
-```bash
-$ sudo vim /etc/default/grub
-```
-
-**8.** In the variable GRUB_CMDLINE_LINUX add the following parameters in bold:
-GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet **intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200**"
-
-*Note: If you wish to instead set hugepages on a per session bassis, you can perform the following steps. These settings will be lost on reboot.*
-
-```bash
-$ mkdir -p /mnt/huge 
-$ mount -t hugetlbfs nodev /mnt/huge 
-$ echo 2048 > /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages 
-$ echo 2048 > /sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepages 
-```
-
-**9.** Save your edits, then apply them to the GRUB2 configuration file.
-
-```bash
-$ sudo grub2-mkconfig
-```
-
-**10.** Warm reboot. Your kernel parameter changes should have taken affect.
-
-```bash
-$ cat /proc/cmdline
-BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.41-dfl root=/dev/mapper/cl-root ro crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200 rhgb quiet
-```
-
-### 3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages
-
-**1.** Make the following changes on your installation machine to satisfy all dependencies:
-
-```bash
-$ subscription-manager release --set=8.6
-$ sudo dnf update
-```
-
-**2.** To use the pre-built Linux DFL packages, the user will need to download the files from the [OFS 2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2). You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.
-
-```bash
-$ tar xf kernel-6.1.41_dfl-1.x86_64-<<version>>.tar.gz
-$ sudo dnf localinstall kernel-6.1.41_dfl_<<version>>.x86_64.rpm \
-kernel-devel-6.1.41_dfl_<<version>>.x86_64.rpm \
-kernel-headers-6.1.41_dfl_<<version>>.x86_64.rpm
-### OR
-$ sudo dnf localinstall kernel-6.1.41_dfl_<<version>>.src.rpm
-```
-
-**3.** After installation has completed you should continue with steps 4-9 in previous section [3.2 Building and Installing the OFS DFL Kernel Drivers from Source](#32-building-and-installing-the-ofs-dfl-kernel-drivers-from-source).
-
+Build and installation instructions are detailed in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 ## 4.0 OPAE Software Development Kit
 
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit the [opae reference](https://opae.github.io/2.3.0/index.html) page.
 
 The OPAE SDK source code is contained within a single GitHub repository
-hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
+hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
 
-The OPAE SDK can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2).
+The OPAE SDK can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1-1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1).
 
-### 4.1 OPAE SDK Build Environment Setup
-
-This installation process assumes the you have access to an internet connection in order to pull specific GitHub repositories, and to satisfy package dependencies.
-
-**1.** Before OPAE SDK installation you must remove any prior OPAE frameworks.  To remove these packages:
-
-```bash
-sudo dnf remove opae*
-```
-
-**2.** The following repository changes must be enabled in order to install all dependencies:
-
-```bash
-$ subscription-manager release --set=8.6
-$ sudo dnf update
-$ subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-$ sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-```
-
-It is recommended you create an empty top level directory for their OFS related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at `/home/OFS/`. If the you have created a different top-level directory, replace this path with your custom path.
-
-**3.** Initialize an empty git repository and clone the tagged OPAE SDK source code:
-
-```bash
-$ cd /home/OFS/
-$ git init
-$ git clone https://github.com/OFS/opae-sdk opae-sdk
-$ cd /home/OFS/opae-sdk
-$ git checkout tags/2.10.0-1
-```
-
-**5.** Verify that the correct tag/branch have been checkout out.
-
-```bash
-$ git describe --tags
-2.10.0-1
-```
-
-### 4.2 Installing the OPAE SDK with Pre-Built Packages
-
-You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit the [OFS ofs-2023.3-2 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2) and navigate to the bottom of the page, under the Assets tab you will see a file named opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz. Download this package and extract its contents:
-
-```bash
-$ dnf install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel
-
-$ pip3 install --upgrade --prefix=/usr pip setuptools pybind11
-
-$ tar xf opae-2.10.0-1.x86_64-<<date>>_<<build>>.tar.gz
-```
-
-For a fast installation you can delete the source RPM as it isn't necessary, and install all remaining OPAE RPMs:
-
-```bash
-$ rm opae-*.src.rpm
-$ sudo dnf localinstall opae*.rpm
-```
-
-### 4.3 Building and Installing the OPAE SDK by Script
-
-**1.** Build the OPAE SDK source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal. This build script can take advantage of multiple processors to parallelize the build process. Display how many processors are available with the `$(nproc)` command, and then specify how many make threads to utilize with the -j option. Note that number of threads can exceed the number of processors. In this case, the number of threads are set to the number of processors in the system.
-
-```bash
-cd /home/OFS/
-
-$ podman pull registry.access.redhat.com/ubi8:8.6
-$ podman run -ti -v "$PWD":/src:Z -w /src registry.access.redhat.com/ubi8:8.6
-
-# Everything after runs within container:
-
-# Enable EPEL
-$ dnf install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-
-$ dnf install --enablerepo=codeready-builder-for-rhel-8-x86_64-rpms -y python3 python3-pip python3-devel python3-jsonschema python3-pyyaml git gcc gcc-c++ make cmake libuuid-devel json-c-devel hwloc-devel tbb-devel cli11-devel spdlog-devel libedit-devel systemd-devel doxygen python3-sphinx pandoc rpm-build rpmdevtools python3-virtualenv yaml-cpp-devel libudev-devel libcap-devel numactl-devel
-
-$ pip3 install --upgrade --prefix=/usr pip setuptools pybind11
-
-$ ./opae-sdk/packaging/opae/rpm/create unrestricted
-
-$ exit
-```
-
-**2.** After a successful compile there should be packages generated:
-
-The below table lists a short description for each package:
-
-#### Table 12: OPAE Package Description
-
-| Package Name| Description|
-| -----| -----|
-| opae | OPAE SDK is a collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. It provides a library implementing the OPAE C API for presenting a streamlined and easy-to-use interface for software applications to discover, access, and manage FPGA devices and accelerators using the OPAE software stack. |
-| opae-debuginfo| This package provides debug information for package opae. Debug information is useful when developing applications that use this package or when debugging this package.|
-| opae-debugsource| This package provides debug sources for package opae. Debug sources are useful when developing applications that use this package or when debugging this package.|
-| opae-devel| OPAE headers, tools, sample source, and documentation|
-| opae-devel-debuginfo|This package provides debug information for package opae-devel. Debug information is useful when developing applications that use this package or when debugging this package. |
-| opae-tools| This package contains OPAE base tools binaries|
-| opae-extra-tools| Additional OPAE tools|
-| opae-extra-tools-debuginfo| This package provides debug information for package opae-extra-tools. Debug information is useful when developing applications that use this package or when debugging this package.|
-
-**3.** Install the OPAE SDK packages:
-
-```bash
-$ cd /home/OFS/opae-sdk/packaging/opae/rpm
-$ rm -rf opae-2.10.0-1.el8.src.rpm 
-$ sudo dnf localinstall -y opae*.rpm
-```
-
-**4.** Check that all packages have been installed:
-
-```bash
-$ rpm -qa | grep opae
-opae-packager-2.10.0-1.x86_64
-opae-devel-2.10.0-1.x86_64
-opae-PACSign-2.10.0-1.x86_64
-opae-tools-extra-2.10.0-1.x86_64
-opae-2.10.0-1.x86_64
-opae-tools-2.10.0-1.x86_64
-opae-libs-2.10.0-1.x86_64
-opae-opae.admin-2.10.0-1.x86_64
-opae-tests-2.10.0-1.x86_64
-```
+You can choose to build and install the OPAE SDK from source, which is detailed in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 ### 4.4 FPGA Device Access Permissions
 
@@ -751,7 +260,6 @@ In order to allow regular (non-root) users to access accelerators, you need to g
 ```bash
 sudo chmod a+rw /dev/dfl-port.0
 ```
-
 
 ### 4.5 Memlock limit
 
@@ -787,7 +295,7 @@ LimitMEMLOCK=infinity
 
 ### 4.6 OPAE Tools Overview
 
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.10.0-1/doc/src/fpga_tools/readme.md).
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.12.0-4/doc/src/fpga_tools/readme.md). The following command outputs were captured using an N6001 device.
 
 #### 4.6.1 Board Management with fpgainfo
 
@@ -816,13 +324,13 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 00x50102023508A422
+Bitstream Id                     : 00x50102023508A422 (TBD)
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
+Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
 Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
-User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
+User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
 
 ```
 
@@ -841,9 +349,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 00x50102023508A422
+Bitstream Id                     : 00x50102023508A422 (TBD)
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
+Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
 ( 1) VCCRT_GXER_0V9 Voltage                             : 0.91 Volts
 ( 2) FPGA VCCIO_1V2 Voltage                             : 1.21 Volts
 ( 3) Inlet 12V Aux Rail Current                         : 0.87 Amps
@@ -864,7 +372,7 @@ The **fpgad** is a service that can help you protect the server from crashing wh
 .
 *Note: Qualified OEM server systems should provide the required cooling for your workloads. Therefore, using **fpgad** may be optional.*
 
-When the opae-tools-extra-2.10.0-1.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
+When the opae-tools-extra-2.12.0-4.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
 The **fpgad** periodically reads the sensor values and if the values exceed the warning threshold stated in the fpgad.conf or the hardware defined warning threshold, it masks the PCIe Advanced Error Reporting (AER) registers for the Intel N6000/1-PL FPGA SmartNIC Platform to avoid system reset.
 Use the following command to start the **fpgad** service:
 
@@ -956,7 +464,7 @@ fpgad-vc: saving previous ECAP_AER+0x14 value 0x0000f1c1 for 0000:b0:02.0
 fpgad-vc: sensor 'CVL Core Voltage VR Temperature' still tripped.
 ```
 
-If the upper or lower fatal threshold limit is reached, then a power cycle of server is required to recover the Intel N6001-PL SmartNIC FPGA Platform. AER is unmasked by the **fpgad** after the sensor values are within the normal range which is above the lower warning or below the upper warning threshold.
+If the upper or lower fatal threshold limit is reached, then a power cycle of server is required to recover the Intel N6000/1-PL SmartNIC FPGA Platform. AER is unmasked by the **fpgad** after the sensor values are within the normal range which is above the lower warning or below the upper warning threshold.
 
 To stop **fpgad**:
 
@@ -986,20 +494,20 @@ $ systemctl -h
 
 The **fpgasupdate** tool updates the Intel Max10 Board Management Controller (BMC) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (PR). The **fpgasupdate** tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) for information on created signed images and on programming and managing the root entry hash.  
 
-The Intel® FPGA SmartNIC N6001-PL ships with a factory, user1, and user2 programmed image for both the FIM and BMC FW and RTL on all cards. The platform ships with a single FIM image that can be programmed into either user1 or user2, depending in the image selected.
+The Intel® FPGA SmartNIC N6000/1-PL ships with a factory, user1, and user2 programmed image for both the FIM and BMC FW and RTL on all cards. The platform ships with a single FIM image that can be programmed into either user1 or user2, depending in the image selected.
 
 Use the following chart for information on the Bitstream ID and Pr Interface ID, two unique values reported by `fpgainfo` which can be used to identify the loaded FIM.
 
-##### Table 13: FIM Version Summary for OFS 2023.3-2 Release
+##### Table 13: FIM Version Summary for OFS 2024.1-1 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| ofs-2023.3-2| 00x50102023508A422| 1d6beb4e-86d7-5442-a763-043701fb75b7| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2)|
+| ofs-2024.1-1| 00x50102023508A422 (TBD)| 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2024.1-1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1)|
 | ofs-n6001-0.9.0-rc2 |  0x50102025AD3DD11| 92ec8960-2f2f-5544-9804-075d2e8a71a1 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-n6001/releases/tag/ofs-n6001-0.9.1)|
 | OFS-2.3.0 |  0x50102022267A9ED| f59830f7-e716-5369-a8b0-e7ea897cbf82 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.3.0)|
 | OFS-2.2.0 | 0x501020295B081F0 | 8c157a52-1cf2-5d37-9514-944af0a060da | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.2.0-beta Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.2.0-beta)|
 
-##### Table 14: BMC Version Summary for OFS 2023.3-2 Release
+##### Table 14: BMC Version Summary for OFS 2024.1-1 Release
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
 | 3.15.0 | AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu | n/a|
@@ -1043,7 +551,7 @@ $ sudo fpgasupdate ofs_top_page1_unsigned_user1.bin <PCI ADDRESS>
 
 #### 4.6.4 Signing Images with PACSign
 
-PACSign is an OPAE utility which allows users to insert authentication markers into bitstreams targeted for the Intel® FPGA SmartNIC N6001-PL. PACSign also allows users updating their Static Region (SR) to designate which partition of flash (user1, user2, factory) to overwrite given a specific FIM binary image. All binary images must be signed using PACSign before fpgasupdate can use them for an update. Assuming no Root Entry Hash (REH) has been programmed on the device, the following examples demonstrate how to prepend the required secury authentication data, and specifiy which region of flash to update.
+PACSign is an OPAE utility which allows users to insert authentication markers into bitstreams targeted for the Intel® FPGA SmartNIC N6000/1-PL. PACSign also allows users updating their Static Region (SR) to designate which partition of flash (user1, user2, factory) to overwrite given a specific FIM binary image. All binary images must be signed using PACSign before fpgasupdate can use them for an update. Assuming no Root Entry Hash (REH) has been programmed on the device, the following examples demonstrate how to prepend the required secury authentication data, and specifiy which region of flash to update.
 More information, including charts detailing the different certification types and their required options, are fully described in the PACsign [README](https://github.com/OPAE/opae-sdk/blob/72b8b36bd31103dd24bf8ffee1b03c9623fb0d69/python/pacsign/PACSign.md) on GitHub.
 
 For more information on PACSign and on general security practices surrounding the Intel N6001-PL FPGA SmartNIC device, visit the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/).
@@ -1066,7 +574,7 @@ No root entry hash bitstream specified.  Verification will not be done.  Continu
 
 The **rsu** performs a Remote System Update operation on a N6000/1-PL device, given its PCIe address. An **rsu** operation sends an instruction to the device to trigger a power cycle of the card and forces reconfiguration from flash for either the BMC or FPGA image.
 
-The Intel® FPGA SmartNIC N6001-PL contains two regions of flash you may store FIM images. These locations are referred to as **user1** and **user2**. After an image has been programmed with fpgasupdate in either of these regions you may choose to perform an rsu to switch. This operation indicates to the BMC which region to configure the FPGA device from after power-on.
+The Intel® FPGA SmartNIC N6000/1-PL contains two regions of flash you may store FIM images. These locations are referred to as **user1** and **user2**. After an image has been programmed with fpgasupdate in either of these regions you may choose to perform an rsu to switch. This operation indicates to the BMC which region to configure the FPGA device from after power-on.
 
 If the **factory** image has been updated, Intel strongly recommends the user to immediately RSU to the factory image to ensure the image is functional.
 
@@ -1126,7 +634,7 @@ clearing error
 The reference FIM and unchanged FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. There are three HEMs present in the Intel OFS Reference FIM - HE-LPBK, HE-MEM, and HE-HSSI. These exercisers are tied to three different VFs that must be enabled before they can be used.
 Execution of these exercisers requires you bind specific VF endpoint to **vfio-pci**. The host-side software looks for these endpoints to grab the correct FPGA resource.
 
-Refer to the Intel [FPGA Interface Manager Technical Reference Manual: Intel Open FPGA Stack for Intel Agilex FPGA](../../../n6001/) for a full description of these modules.
+Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](../../../n6001/) for a full description of these modules.
 
 ##### Table 15: Module PF/VF Mappings
 
@@ -1381,7 +889,7 @@ The following table contains a mapping between each VF, Accelerator GUID, and co
 
 | Component| VF| Accelerator GUID|
 | -----| -----| -----|
-| Intel N6001-PL FPGA SmartNIC Platform base PF| XXXX:XX:XX.0| N/A|
+| Intel N6000/1-PL FPGA SmartNIC Platform base PF| XXXX:XX:XX.0| N/A|
 | VirtIO Stub| XXXX:XX:XX.1|3e7b60a0-df2d-4850-aa31-f54a3e403501|
 | HE-MEM Stub| XXXX:XX:XX.2| 56e203e9-864f-49a7-b94b-12284c31e02b|
 | Copy Engine| XXXX:XX:XX.4| 44bfc10d-b42a-44e5-bd42-57dc93ea7f91|
@@ -1405,9 +913,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 00x50102023508A422
+Bitstream Id                     : 00x50102023508A422 (TBD)
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
+Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
 //****** HSSI information ******//
 HSSI version                     : 1.0
 Number of ports                  : 8
@@ -1523,17 +1031,17 @@ The `hssi_loopback` utility works in conjunction with a packet generator acceler
 
 The `hssistats` tool provides the MAC statistics.
 
-## 5.0 Upgrading the Intel® FPGA SmartNIC N6001-PL with 2023.3-2 Version of the BMC and FIM
+## 5.0 Upgrading the Intel® FPGA SmartNIC N6000/1-PL with 2024.1-1 Version of the BMC and FIM
 
-If your Intel® FPGA SmartNIC N6001-PL does not have the 2022.3.1 version of the FIM and BMC, use this section to begin your upgrade process. The upgrade process depends on both the OPAE SDK and kernel drivers, which were installed in sections [3.0 Intel OFS DFL Kernel Drivers](#30-ofs-dfl-kernel-drivers) and [4.0 OPAE Software Development Kit](#40-opae-software-development-kit). Use the output of **fpgainfo** and compare against the table below to determine if an upgade is necessary.
+If your Intel® FPGA SmartNIC N6000/1-PL does not have the 2024.1 version of the FIM and BMC, use this section to begin your upgrade process. The upgrade process depends on both the OPAE SDK and kernel drivers, which were installed in the [Software Installation Guide: PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md). Use the output of **fpgainfo** and compare against the table below to determine if an upgade is necessary.
 
-### Table 17: FIM Version Summary for Intel OFS 2023.3-2 Release
+### Table 17: FIM Version Summary for Intel OFS 2024.1-1 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| 1 | 00x50102023508A422 | 1d6beb4e-86d7-5442-a763-043701fb75b7 | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2023.3-2 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2)|
+| 1 | 00x50102023508A422 (TBD) | 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD) | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2024.1-1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1)|
 
-### Table 18: BMC Version Summary for Intel OFS 2023.3-2 Release
+### Table 18: BMC Version Summary for Intel OFS 2024.1-1 Release
 
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
@@ -1554,16 +1062,16 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 00x50102023508A422
+Bitstream Id                     : 00x50102023508A422 (TBD)
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
+Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
 Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
-User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7
+User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
 ```
 
-1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2023.3-2 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
+1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2024.1-1 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
 
 ```bash
 $ sudo fpgasupdate AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu
@@ -1616,3 +1124,4 @@ You are responsible for safety of the overall system, including compliance with 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
   
+

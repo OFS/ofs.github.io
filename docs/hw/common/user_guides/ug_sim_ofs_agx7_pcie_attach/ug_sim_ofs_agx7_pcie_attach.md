@@ -44,7 +44,7 @@
 ### **1.1 About this Document**
 
 
-This document serves as a set-up and user guide for the UVM simulation tool using Open FPGA Stack (OFS) for Intel® Agilex® 7 FPGAs PCIe Attach and the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile). After reviewing the document, you will be able to:
+This document serves as a set-up and user guide for the UVM simulation tool using Open FPGA Stack (OFS) for Agilex® 7 FPGAs PCIe Attach and the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile). After reviewing the document, you will be able to:
 
 
 -   Set-up the UVM verification tool suite
@@ -55,7 +55,7 @@ This document serves as a set-up and user guide for the UVM simulation tool usin
 
 > **_NOTE:_**  
 >
->**This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all example steps. Additionally, this guide and the example steps can be used with other platforms, such as the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile).** 
+>**This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all example steps. Additionally, this guide and the example steps can be used with other platforms, such as the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile).** 
 >
 
 ## **2 Introduction to UVM**
@@ -218,9 +218,9 @@ To run the tutorial steps in this guide requires the following development envir
 
 | Item                      | Version|
 | ------------------------- | ----------|
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.3|
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.4|
 | Simulator                 | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
-| Simulator (Questasim)     | Questasim 2023.2 or newer for UVM simulation of top level FIM |
+| Simulator (Questasim)     | Questasim 2023.4 or newer for UVM simulation of top level FIM |
 
 
 ## **5.1 UVM Prerequisite**
@@ -232,8 +232,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir ofs-2023.3-2
-    $ cd ofs-2023.3-2
+    $ mkdir ofs-2024.1-1
+    $ cd ofs-2024.1-1
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
     
@@ -246,13 +246,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-agx7-pcie-attach
-    $ git checkout tags/ofs-2023.3-2
+    $ git checkout tags/ofs-2024.1-1
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2023.3-2
+    $ ofs-2024.1-1
 
 ## **5.2 License Requirements**
 
@@ -305,7 +305,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export WORKDIR=$OFS_ROOTDIR
 
 ## Quartus Tools
-    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.3/quartus
+    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.4/quartus
     export QUARTUS_ROOTDIR=$QUARTUS_HOME
     export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
     export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
@@ -323,7 +323,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export VIPDIR=$VERDIR
 
 ## QuestaSIM Verification Tools
-    export MTI_HOME=<user_path>/mentor/questasim/2023.2/linux64
+    export MTI_HOME=<user_path>/mentor/questasim/2023.4/linux64
     export PATH=$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$PATH
     export QUESTA_HOME=$MTI_HOME
 
@@ -1161,7 +1161,7 @@ To compile all IPs for the Synopsys VCS simulater targetting the Intel® FPGA Sm
     
         gmake -f Makefile_VCS.mk cmplib_adp
 
-To compile all IPs for the Synopsys VCS simulater targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To compile all IPs for the Synopsys VCS simulater targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1175,7 +1175,7 @@ To compile all IPs for the Questasim simulater targetting the Intel® FPGA Smart
     
         gmake -f Makefile_MSIM.mk cmplib_adp 
         
-To compile all IPs for the Questasim simulater targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To compile all IPs for the Questasim simulater targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1195,7 +1195,7 @@ To compile RTL and Testbench for the Synopsys VCS simulater targetting the Intel
     
         gmake -f Makefile_VCS.mk build_adp DUMP=1
 
-To compile RTL and Testbench for the Synopsys VCS simulater targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To compile RTL and Testbench for the Synopsys VCS simulater targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1208,7 +1208,7 @@ To compile RTL and Testbench for the Questasim simulater targetting the Intel® 
     
         gmake -f Makefile_MSIM.mk build_adp DUMP=1
 
-To compile RTL and Testbench for the Questasim simulater targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To compile RTL and Testbench for the Questasim simulater targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1224,7 +1224,7 @@ If the user wants to compile all IPs and RTL Testbench in one command for Synops
     
         gmake -f Makefile_VCS.mk build_all DUMP=1
 
-If the user wants to compile all IPs and RTL Testbench in one command for Synopsys VCS targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
+If the user wants to compile all IPs and RTL Testbench in one command for Synopsys VCS targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
 
         cd $VERDIR/scripts
     
@@ -1238,7 +1238,7 @@ If the user wants to compile all IPs and RTL Testbench in one command for Questa
     
         gmake -f Makefile_MSIM.mk build_all DUMP=1
 
-If the user wants to compile all IPs and RTL Testbench in one command for Questasim targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
+If the user wants to compile all IPs and RTL Testbench in one command for Questasim targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
 
         cd $VERDIR/scripts
     
@@ -1251,7 +1251,7 @@ To run a simulation for Synopsys VCS targetting the Intel® FPGA SmartNIC N6001-
     
         gmake -f Makefile_VCS.mk run TESTNAME=ofs_mmio_test DUMP=1
 
-To run a simulation for Synopsys VCS targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To run a simulation for Synopsys VCS targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1264,7 +1264,7 @@ To run a simulation for Questasim targetting the Intel® FPGA SmartNIC N6001-PL:
     
         gmake -f Makefile_MSIM.mk run TESTNAME=ofs_mmio_test DUMP=1 
 
-To run a simulation for Questasim targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To run a simulation for Questasim targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1281,7 +1281,7 @@ Or
 
         gmake -f Makefile_VCS.mk build_run TESTNAME=<test_case_name> DUMP=1
 
-To dump the waveform, "DUMP=1" must be added into the command line for Synopsys VCS build and simulation targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To dump the waveform, "DUMP=1" must be added into the command line for Synopsys VCS build and simulation targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         gmake -f Makefile_VCS.mk build_adp FTILE_SIM=1 DUMP=1
     
@@ -1300,7 +1300,7 @@ Or
 
         gmake -f Makefile_MSIM.mk build_run TESTNAME=<test_case_name> DUMP=1
 
-To dump the waveform, "DUMP=1" must be added into the command line for Questasim build and simulation targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To dump the waveform, "DUMP=1" must be added into the command line for Questasim build and simulation targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         gmake -f Makefile_MSIM.mk build_adp FTILE_SIM=1 DUMP=1
     
@@ -1372,7 +1372,7 @@ Results are created in a sim directory ($VERDIR/sim) with individual testcase lo
         
 Results are created in a sim directory ($VERDIR/sim_msim) with individual testcase log dir
 
-If the user wants to run the complete set of UVM tests in one command for VCS and Questasim targetting the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
+If the user wants to run the complete set of UVM tests in one command for VCS and Questasim targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
 
     TBC
 
@@ -1455,7 +1455,7 @@ The following commands shows how to launch DVE and check the coverage reports
     
         dve -full64 -cov -covdir <dirname.vdb> &
 
-Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
 
     TBC
 
@@ -1629,3 +1629,4 @@ You are responsible for safety of the overall system, including compliance with 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
+

@@ -47,16 +47,16 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | Component | Version |  Description |
 | --------- | ------- | -------|
 | FPGA Platform | [Intel® FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html) | Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: ofs-d5005](https://github.com/OFS/ofs-d5005), [Tag: release/ofs-2023.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-2) | OFS Shell RTL for Intel Stratix 10 FPGA (targeting Intel® FPGA PAC D5005) |
-| OFS FIM Common| [Branch: ofs-2023.3-1](https://github.com/OFS/ofs-fim-common), [Tag: ofs-2023.3-1](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-1) | Common RTL across all OFS-based platforms |
-| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag: ofs-examples-ofs-2023.3-1](https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.10.0-1](https://github.com/OFS/opae-sdk/tree/2.10.0-1), [Tag: 2.10.0-1](https://github.com/OFS/opae-sdk/releases/tag/2.10.0-1) | Open Programmable Acceleration Engine Software Development Kit |
-| Kernel Drivers | [Branch: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-2), [Tag: ofs-2023.3-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2023.3-6.1-2) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.10.0-1](https://github.com/OFS/opae-sim/releases/tag/2.10.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Intel Quartus Prime Pro Edition Design Software | 23.3 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-3-for-linux.html) | Software tool for Intel FPGA Development|
+| OFS FIM Source Code| [Branch: ofs-d5005](https://github.com/OFS/ofs-d5005), [Tag: release/ofs-2024.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1) | OFS Shell RTL for Intel Stratix 10 FPGA (targeting Intel® FPGA PAC D5005) |
+| OFS FIM Common| [Branch: ofs-2024.1-1](https://github.com/OFS/ofs-fim-common), [Tag: ofs-2024.1-1](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1) | Common RTL across all OFS-based platforms |
+| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag: ofs-examples-ofs-2024.1-1](https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
+| OPAE SDK | [Branch: 2.12.0-4](https://github.com/OFS/opae-sdk/tree/2.12.0-4), [Tag: 2.12.0-4](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4) | Open Programmable Acceleration Engine Software Development Kit |
+| Kernel Drivers | [Branch: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2024.1-6.1-2), [Tag: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2) | OFS specific kernel drivers|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.12.0-4](https://github.com/OFS/opae-sim/releases/tag/2.12.0-4) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Intel Quartus Prime Pro Edition Design Software | 23.4 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html) | Software tool for Intel FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2023.3](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2024.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1) official release drop on GitHub.
 
 <br>
 
@@ -108,16 +108,16 @@ This script uses the following set of software tools which should be installed u
 
 
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2023.3-2. 
+1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2024.1-1. 
 
 2. You must clone the required OFS repositories as per Figure 2-2 . Please refer to the BKC table for locations., Please go to [OFS Getting Started User Guide] for the instructions for the BKC installation.
 
-3. Once the repositories are cloned, copy the evaluation script (ofs_d5005_eval.sh) which is located at [eval_scripts] beneath the ofs-2023.3-2 directory location as shown in the example below:
+3. Once the repositories are cloned, copy the evaluation script (ofs_d5005_eval.sh) which is located at [eval_scripts] beneath the ofs-2024.1-1 directory location as shown in the example below:
 
 **Figure 2-2 Directory Structure for OFS Project**
 
 ```sh
-## ofs-2023.3-2
+## ofs-2024.1-1
 ##  -> examples-afu
 ##  -> linux-dfl
 ##  -> ofs-d5005
@@ -143,10 +143,10 @@ The user must create the top-level source directory and then clone the OFS repos
     
 
 ```sh
-mkdir ofs-2023.3-2
+mkdir ofs-2024.1-1
 ```
 
-In the example above we have used ofs-2023.3-2 as the directory name
+In the example above we have used ofs-2024.1-1 as the directory name
 
 
 ### **Set-Up Proxy Server (lines 65-67)**
@@ -191,10 +191,10 @@ Set version of Quartus
 
 
 ```sh
-export QUARTUS_VERSION=23.3
+export QUARTUS_VERSION=23.4
 ```
 
-In the example above "23.3" is used as the Quartus tools version
+In the example above "23.4" is used as the Quartus tools version
 
 
 ### **OPAE Tools (line 106)**
@@ -203,10 +203,10 @@ change OPAE SDK VERSION<br>
 
 
 ```sh
-export OPAE_SDK_VERSION=2.10.0-1
+export OPAE_SDK_VERSION=2.12.0-4
 ```
 
-In the example above "2.10.0-1" is used as the OPAE SDK tools version
+In the example above "2.12.0-4" is used as the OPAE SDK tools version
 
 
 ### **PCIe (Bus Number) (lines 231 and 238)**
@@ -277,7 +277,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
 | Menu Option                                                  | Example Output                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 1 - List of Documentation for ADP D5005 Project | Open FPGA Stack Overview Guides you through the setup and build steps to evaluate the OFS solution [https://ofs.github.io](https://ofs.github.io/) |
-| 2 - Check versions of Operating System and Quartus Premier Design Suite (QPDS) | Checking Linux release <br />Linux version 6.1.41-dfl <br /><br />Checking RedHat release <br />Red Hat Enterprise Linux release RHEL 8.6  <br /><br />Checking Ubuntu release cat: /etc/lsb-release: No such file or directory  <br /><br />Checking Kernel parameters <br />BOOT_IMAGE=(hd0,msdos1)/vmlinuz-6.1.41-dfl-2023.3-1 root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200  <br /><br />Checking Licenses LM_LICENSE_FILE is set to port@socket number:port@socket number DW_LICENSE_FILE is set to port@socket number:port@socket number SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number  <br /><br />Checking Tool versions QUARTUS_HOME is set to /home/intelFPGA_pro/23.3/quartus QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus/../ip QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.3/quartus/../qsys/bin  <br />Checking QPDS Patches Quartus Prime Shell Version 23.3 |
+| 2 - Check versions of Operating System and Quartus Premier Design Suite (QPDS) | Checking Linux release <br />Linux version 6.1.78-dfl <br /><br />Checking RedHat release <br />Red Hat Enterprise Linux release RHEL 8.6  <br /><br />Checking Ubuntu release cat: /etc/lsb-release: No such file or directory  <br /><br />Checking Kernel parameters <br />BOOT_IMAGE=(hd0,msdos1)/vmlinuz-6.1.78-dfl-2023.4-1 root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200  <br /><br />Checking Licenses LM_LICENSE_FILE is set to port@socket number:port@socket number DW_LICENSE_FILE is set to port@socket number:port@socket number SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number  <br /><br />Checking Tool versions QUARTUS_HOME is set to /home/intelFPGA_pro/23.4/quartus QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.4/quartus IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.4/quartus/../ip QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.4/quartus/../qsys/bin  <br />Checking QPDS Patches Quartus Prime Shell Version 23.4 |
 
 
 ### **3.1.2 HARDWARE MENU**
@@ -291,11 +291,11 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
 | Menu Option                                                  | Example Output                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 3 - Identify Acceleration Development Platform (ADP) D5005 Hardware via PCIe | PCIe card detected as 86:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01) Host Server is connected to SINGLE card configuration |
-| 4 - Identify the Board Management Controller (BMC) Version and check BMC sensors | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** BMC SENSORS ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511863935352239<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98 |
-| 5 - Identify the FPGA Management Engine (FME) Version        | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** FME ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511863935352239<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98<br/>Boot Page : user |
-| 6 - Check Board Power and Temperature                        | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** POWER ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511863935352239<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98<br/>( 1) VCCERAM Voltage : 0.90 Volts<br/>etc ......................<br/><br/>Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** TEMP ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511863935352239<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98<br/>( 1) VCCT Temperature : 57.00 Celsius<br/>etc ...................... |
+| 4 - Identify the Board Management Controller (BMC) Version and check BMC sensors | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** BMC SENSORS ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD |
+| 5 - Identify the FPGA Management Engine (FME) Version        | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** FME ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD<br/>Boot Page : user |
+| 6 - Check Board Power and Temperature                        | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** POWER ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD<br/>( 1) VCCERAM Voltage : 0.90 Volts<br/>etc ......................<br/><br/>Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** TEMP ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD<br/>( 1) VCCT Temperature : 57.00 Celsius<br/>etc ...................... |
 | 7 - Check Accelerator Port status                            | //****** PORT ******// Object Id : 0xEF00000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00 |
-| 8 - Check MAC and PHY status                                 | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** MAC ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511863935352239<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98<br/>MAC address : 64:4c:36:f:44:1f<br/><br/>Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** PHY ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511863935352239<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : b2d7971b-dd7e-53c4-a4d0-34e6c9391a98 |
+| 8 - Check MAC and PHY status                                 | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** MAC ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD<br/>MAC address : 64:4c:36:f:44:1f<br/><br/>Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** PHY ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD |
 
 ### **3.1.3 FIM/PR BUILD MENU**
 
@@ -308,7 +308,7 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
 
 | Menu Option                                                  | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 9 - Check ADP software versions for ADP Intel® FPGA PAC D5005 Project | OFS_ROOTDIR is set to /home/user_area/ofs-2023.3-2/ofs-d5005<br />OPAE_SDK_REPO_BRANCH is set to release/2.10.0-1 <br />OPAE_SDK_ROOT is set to /home/user_area/ofs-2023.3-2/ofs-d5005/../opae-sdk <br />LD_LIBRARY_PATH is set to /home/user_area/ofs-2023.3-2/ofs-d5005/../opae-sdk/lib64: |
+| 9 - Check ADP software versions for ADP Intel® FPGA PAC D5005 Project | OFS_ROOTDIR is set to /home/user_area/ofs-2024.1-1/ofs-d5005<br />OPAE_SDK_REPO_BRANCH is set to release/2.12.0-4 <br />OPAE_SDK_ROOT is set to /home/user_area/ofs-2024.1-1/ofs-d5005/../opae-sdk <br />LD_LIBRARY_PATH is set to /home/user_area/ofs-2024.1-1/ofs-d5005/../opae-sdk/lib64: |
 | 10 - Build FIM for Intel® FPGA PAC D5005 Hardware           | This option builds the FIM based on the setting for the $ADP_PLATFORM, $FIM_SHELL environment variable. <br />Check these variables in the following file ofs_d5005_eval.sh |
 | 11 - Check FIM Identification of FIM for Intel® FPGA PAC D5005 Hardware | The FIM is identified by the following file fme-ifc-id.txt located at $OFS_ROOTDIR/$FIM_WORKDIR/syn/syn_top/ |
 | 12 - Build Partial Reconfiguration Tree for Intel® FPGA PAC D5005 Hardware | This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the OneAPI build flow |
@@ -440,7 +440,7 @@ Builds, compiles and runs full chip simulation tests. The user should execute th
 
 | Menu Option                                                  | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 52 - Check UVM software versions for Intel® FPGA PAC D5005 Project | DESIGNWARE_HOME is set to /home/synopsys/vip_common/vip_Q-2020.03A UVM_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm VCS_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel VERDIR is set to /home/user_area/ofs-2023.3-2/ofs-d5005/verification VIPDIR is set to /home/user_area/ofs-2023.3-2/ofs-d5005/verification |
+| 52 - Check UVM software versions for Intel® FPGA PAC D5005 Project | DESIGNWARE_HOME is set to /home/synopsys/vip_common/vip_Q-2020.03A UVM_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm VCS_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel VERDIR is set to /home/user_area/ofs-2024.1-1/ofs-d5005/verification VIPDIR is set to /home/user_area/ofs-2024.1-1/ofs-d5005/verification |
 | 53 - Compile UVM IP                                          | This option compiles the UVM IP                              |
 | 54 - Compile UVM RTL and Testbench                           | This option compiles the UVM RTL and Testbench               |
 | 55 - Simulate UVM ofs_mmio_test and log waveform             | This option runs the dfh_walking test based on the environment variable "UVM_TEST_NAME=dfh_walking_test" in the evaluation script. A user can change the test being run by modifying this variable |
@@ -464,7 +464,7 @@ For this menu, a user can run a sequence of tests (compilation, build and simula
 
 | Menu Option                                                  | Result                                                       |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 57 - Build and Simulate Complete Intel® FPGA PAC D5005  Project | Generating Log File with date and timestamp Log file written to /home/user_area/ofs-2023.3-2/log_files/D5005_log_2022_11_10-093649/ofs-d5005_eval.log |
+| 57 - Build and Simulate Complete Intel® FPGA PAC D5005  Project | Generating Log File with date and timestamp Log file written to /home/user_area/ofs-2024.1-1/log_files/D5005_log_2022_11_10-093649/ofs-d5005_eval.log |
 
 **Definition of Multi-Test Set-up**
 
@@ -547,3 +547,4 @@ You are responsible for safety of the overall system, including compliance with 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
+

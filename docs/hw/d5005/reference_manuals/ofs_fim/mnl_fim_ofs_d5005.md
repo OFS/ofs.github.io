@@ -117,7 +117,7 @@ The AFU partition is provided for custom acceleration workloads and may contain 
 
 #### **1.3.1 FPGA Interface Manager (FIM)**
 
-The updated OFS architecture for Intel® Stratix 10® FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are: 
+The updated OFS architecture for Stratix 10® FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are: 
 
 * PCIe Subsystem
 * HSSI Subsystem
@@ -136,7 +136,7 @@ Note that as discussed previously, the BMC RTL and firmware, the OFS OPAE softwa
 
 ![base-shell](images/BaseShell.png)
 
-The table below details the features of the OFS release targeting the Intel® Stratix 10® FPGA .
+The table below details the features of the OFS release targeting the Stratix 10® FPGA .
 
 **Table 1-4 Features**
 <table>
@@ -217,7 +217,7 @@ Each FME feature exposes its capability to host software drivers through
 a device feature header (DFH) register found at the beginning of its control
 status register (CSR) space. The FME CSR maps to physical function 0
 (PF0) Base address register 0 (BAR0) so that software can access it
-through a single PCIe link.  For more information about DFHs, refer to the [Device Feature Header (DFH) structure](https://ofs.github.io/23-3/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure).
+through a single PCIe link.  For more information about DFHs, refer to the [Device Feature Header (DFH) structure](https://ofs.github.io/23-4/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure).
 
 ##### **Streaming Datapath**
 
@@ -1462,7 +1462,7 @@ There are two pieces of software related to running the HSSI Subsystem and the H
 #### **12.3.1 HSSI Linux Driver**
 
 
-The HSSI subystem is exposed as a feature in the PCIe PF BAR0 region.  It has a Device Feature Header (DFH) indicating the HSSI interface. The feature ID in the DFH causes the following driver to be instantiated for the HSSI interface: drivers/net/ethernet/intel/s10hssi.c [Kernel Driver Branch](https://github.com/OFS/linux-dfl/tree/ofs-2023.3-6.1-2)
+The HSSI subystem is exposed as a feature in the PCIe PF BAR0 region.  It has a Device Feature Header (DFH) indicating the HSSI interface. The feature ID in the DFH causes the following driver to be instantiated for the HSSI interface: drivers/net/ethernet/intel/s10hssi.c [Kernel Driver Branch](https://github.com/OFS/linux-dfl/tree/ofs-2024.1-6.1-2)
 
 The primary functionality of the driver is to interact with the ethernet MAC and PHY through an indirect register access mailbox implemented by the HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers described above. To aid in RTL bringup, the driver provides a debugfs interface directly to the indirect register access mailbox. For each HSSI interface in the system there would be a directory with the following form containing two files, regaddr and regval:
 /sys/kernel/debug/dfl-fme.X.Y
@@ -1473,7 +1473,7 @@ To read a register offset in the MAC/PHY write the offset to the regaddr file as
 #### **12.3.2	HSSI User Space Tool**
 
 
-The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  [OPAE SDK Branch](https://github.com/OFS/opae-sdk/tree/2.10.0-1).
+The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  [OPAE SDK Branch](https://github.com/OFS/opae-sdk/tree/2.12.0-4).
 <pre><code>$ hssi --help
 </pre></code>
 
@@ -1705,7 +1705,7 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
         </tr>
 
 
-For more information on modifying the FIM, refer to the [Open FPGA Stack Technical Reference Manual].
+For more information on modifying the FIM, refer to the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs].
 
 
 
@@ -1724,6 +1724,7 @@ You are responsible for safety of the overall system, including compliance with 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
  
+
 
 
 

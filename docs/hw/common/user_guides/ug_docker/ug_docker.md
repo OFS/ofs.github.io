@@ -1,6 +1,6 @@
-# Docker User Guide: Intel® Open FPGA Stack
+# Docker User Guide: Open FPGA Stack: Intel® Open FPGA Stack
 
-Last updated: **February 16, 2024** 
+Last updated: **March 20, 2024** 
 
 ## 1 Introduction
 
@@ -45,13 +45,13 @@ The OFS provides the flexibility to support various orchestration or management 
 
 The OFS release targeting the compatible OFS Platform's is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions in this release.
 
-The following table highlights the hardware that comprises the Best-Known Configuration (BKC) for the OFS release. For a detailed explanation and safety information regarding the setup go to [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide. This site walks you through the BIOS configuration changes needed to enable the OFS Platform's.
+The following table highlights the hardware that comprises the Best-Known Configuration (BKC) for the OFS release. For a detailed explanation and safety information regarding the setup go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select Getting stated guide. This site walks you through the BIOS configuration changes needed to enable the OFS Platform's.
 
 
 
 ## 3.0 Development Installation
 
-Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.3 requires a specific version. For this guide, [Red Hat Linux ](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) is used for general instructions. 
+Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4 requires a specific version. For this guide, [Red Hat Linux ](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) is used for general instructions. 
 
 The OFS Docker image includes all the libraries and tools required by the OFS and OPAE SDK (Python, Perl, CMake, and so on).
 
@@ -61,7 +61,7 @@ The OFS Docker image includes all the libraries and tools required by the OFS an
 
 Building AFUs with OFS for Intel Agilex FPGA requires the build machine to have at least 64 GB of RAM.
 
-Go to [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide for a list of detailed steps for the Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.3 installation.  
+Go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select Getting stated guide for a list of detailed steps for the Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4 installation.  
 
 ### 3.2 Docker Engine installation
 ## RHEL 8.6
@@ -334,7 +334,7 @@ Now you are ready to start the container, and you should be prepared to run it:
 
 2. Using the previous example now, you can execute the docker run command.
    ```sh
-   docker run --rm -itd --name myOFS -v=/home/intelFPGA_pro/23.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm -itd --name myOFS -v=/home/intelFPGA_pro/23.4:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    bdc1289fb0813bb325b55dd11df4eeec252143d6745a6e5772638fbc107d0949
    ```
 3. Now the docker container should be available.
@@ -370,10 +370,10 @@ The OFS container has two possible ways to interact with the container:
      quartus_syn --version
      
      Quartus Prime Synthesis
-     Version Quartus Prime Pro Version 23.3
+     Version Quartus Prime Pro Version 23.4
      ```
      
-  4. Everything is set up correctly. Please go to the following link for more information related to the [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
+  4. Everything is set up correctly. Please go to the following link for more information related to the [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select Getting stated guide.
   
      **Tip:** If you need to de-attach without stopping the container, you can use Ctrl+P or Ctrl+Q. For custom combinations, for example, `docker attach --detach-keys="ctrl-a"  myOFS` and if you press CTRL+A you will exit the container without killing it.
   
@@ -394,7 +394,7 @@ The OFS container has two possible ways to interact with the container:
      ###########################################################################################
      
      Checking Linux release
-     Linux version 6.1.41-dfl .....
+     Linux version 6.1.78-dfl .....
      
      ....
          
@@ -419,7 +419,7 @@ The OFS container has two possible ways to interact with the container:
 
 The OFS docker image allows you to connect with your FPGA Platform. The main difference from the development installation process is that you are able to test with real hardware, but you must have a specific requirement to have a fully compatible system. 
 
-Information related to host setup please go to [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
+Information related to host setup please go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select Getting stated guide.
 
 ### 4.1 Installation of Deployment server
 
@@ -429,7 +429,7 @@ Once you ensure the DFL drivers are installed, follow the below steps:
    * [2.1 Quartus installation](#21-quartus-installation)
    * [2.2 Docker Engine installation](#22-docker-engine-installation)
    * [2.3 Load Docker Image installation](#23-load-docker-image-installation)
-2. The steps required for DFL driver installation are documented [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
+2. The steps required for DFL driver installation are documented [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select Getting stated guide.
 
 Now you should have all the steps required, and you can run the docker image directly.
 
@@ -443,10 +443,10 @@ Now you are ready to start the container, and should be prepared to run it (Note
    docker run --rm --privileged -itd --name myOFS -v=<yourintallationfolder>:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    ```
 
-   Example, my Quartus installation is located at "/home/intelFPGA_pro/23.3" as a result, my  command should be 
+   Example, my Quartus installation is located at "/home/intelFPGA_pro/23.4" as a result, my  command should be 
 
    ```sh
-   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.4:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    bdc1289fb0813bb325b55dd11df4eeec252143d6745a6e5772638fbc107d0949
    ```
 
@@ -459,7 +459,7 @@ Now you are ready to start the container, and should be prepared to run it (Note
 2. Execute the docker run command.
 
    ```sh
-   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/23.4:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    25b41eb4d232de9c750b52ddc6b92a3db612200e5993f55733b59068898623d7
    ```
 
@@ -496,10 +496,10 @@ The OFS container has two possible ways to interact with the container:
      quartus_syn --version
      
      Quartus Prime Synthesis
-     Version 23.3
+     Version 23.4
      ```
      
-  4. Everything is set up correctly. Please go to the following link for more information related to the [OFS Site](https://ofs.github.io) select your desired platform and select User Guide,  Technical Reference Manual, Developer Guide, or Getting Started Guide.
+  4. Everything is set up correctly. Please go to the following link for more information related to the [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select User Guide,  Technical Reference Manual, Developer Guide, or Getting Started Guide.
   
      **Tip:** If you need to de-attach without stopping the container you can use Ctrl+P or Ctrl+Q. For custom, combinations use for example `docker attach --detach-keys="ctrl-a"  myOFS` and if you press CTRL+A you will exit the container, without killing it.
   
