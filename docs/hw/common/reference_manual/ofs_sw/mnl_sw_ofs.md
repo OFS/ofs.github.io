@@ -62,7 +62,7 @@ management and orchestration services in a data center can use this API to disco
 The OPAE provides consistent interfaces to crucial components of the platform. OPAE does not constrain frameworks and applications by making optimizations with limited applicability. When the OPAE does
 provide convenience functions or optimizations, they are optional. For example, the OPAE provides an interface to allocate physically contiguous buffers in system memory that user-space software and an accelerator can share. This interface enables the most basic feature set of allocating and sharing a large page of memory in one API call. However, it does *not* provide a `malloc()`-like interface backed by a memory pool or slab allocator. Higher layers of the software stack can make such domain-specific optimizations.
 
-Most of the information related to OPAE can be found on the official [OFS Site](https://ofs.github.io/ofs-2023.2/) and in the [OPAE SDK repository](https://github.com/OFS/opae-sdk). The following is a summary of the information present on this web page:
+Most of the information related to OPAE can be found on the official [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2023.2/) and in the [OPAE SDK repository](https://github.com/OFS/opae-sdk). The following is a summary of the information present on this web page:
 
 - Configuration options present in the OPAE SDK build and installation flow
 - The steps required to build a sample OPAE application
@@ -79,7 +79,7 @@ The remaining sections on OPAE in this document are unique and build on basic pr
 | Document | Link |
 | -------------------- | ------------------------------------------------------ |
 | OPAE SDK on github   | [OPAE SDK repository](https://github.com/OFS/opae-sdk) |
-| OPAE Documents | [OFS Site](https://ofs.github.io/) |
+| OPAE Documents | [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/) |
 | pybind11             | https://pybind11.readthedocs.io/en/stable/             |
 | CLI11                | https://github.com/CLIUtils/CLI11                      |
 | spdlog               | https://github.com/gabime/spdlog                       |
@@ -3318,49 +3318,13 @@ markdown document.
 
 
 
-##  **8.0 Building OPAE**
+##  **8.0 OPAE Build Configurations**
 
-The OPAE SDK uses the cmake build and configuration system, version >=
-3.10. The basic steps required to build the SDK from source are:
-
-
-Install prerequisite packages.
-
-```bash
-$ git clone <https://github.com/OFS/opae-sdk.git>
-$ cd opae-sdk
-$ mkdir build
-$ cd build
-$ cmake .. <cmake options>
-$ make
-
-```
+Refer to the software installation guides on this website for detailed instructions and building and installing both the OPAE SDK and Linux DFL driver set for any given release. The following section has been included to provide more information on the build targets for the DFL drivers.
 
 
+### **8.1 CMake Options**
 
-### **8.1 Installing Prerequisite Packages**
-
-The OPAE SDK is intended to build and run on modern Linux distributions.
-The SDK contains a set of system configuration scripts to aid the system
-configuration process.
-
-| Script| Target Operating System|
-| ------------------------------------------------------------------------- | ---------------- |
-| [centos.sh](https://github.com/OFS/opae-sdk/blob/master/setup/centos.sh) | CentOS 8.x       |
-| [fedora.sh](https://github.com/OFS/opae-sdk/blob/master/setup/fedora.sh) | Fedora 33/34     |
-| [ubuntu.sh](https://github.com/OFS/opae-sdk/blob/master/setup/ubuntu.sh) | Ubuntu 20.04 LTS |
-
-<p align = "center">Table 11 System Configuration Scripts</p>
-
-For more information on the environment setup instructions for your exact platform, please visit [https://ofs.github.io/](https://ofs.github.io/) and refer to your platform's User Guide.
-
-### **8.2 Cloning the SDK repository**
-
-```bash
-$ git clone https://github.com/OFS/opae-sdk.git
-```
-
-### **8.3 CMake Options**
 
 <table>
 <thead>
@@ -3522,11 +3486,12 @@ $ git clone https://github.com/OFS/opae-sdk.git
 </tbody>
 </table>
 
+
 <p align = "center">Table 12 CMake Options</p>
 
 
 
-### **8.4 Building OPAE for Debug**
+### **8.2 Building OPAE for Debug:**
 
 ```bash
 $ cmake .. -DCMAKE_BUILD_TYPE=Debug
@@ -3534,12 +3499,11 @@ $ cmake .. -DCMAKE_BUILD_TYPE=Debug
 
 
 
-### **8.5 Creating RPMs**
+### **8.3 Creating OPAE Packages**
 
 To ease the RPM creation process, the OPAE SDK provides a simple RPM
-creation script. The parameters to the RPM create script are fedora or
-rhel, depending on which distribution is targeted. For rhel, the build
-flag -DOPAE\_MINIMAL\_BUILD is set to ON, omitting the binaries which
+creation script. The parameter to the RPM create script for either Fedora or RHEL is `unrestricted` 
+For rhel, the build flag -DOPAE\_MINIMAL\_BUILD is set to ON, omitting the binaries which
 have dependencies on external components that RHEL does not include in
 its base repositories.
 
@@ -3555,27 +3519,15 @@ missing, the create script will complain until they are resolved.
 
 ```bash
 $ cd opae-sdk
-$ ./packaging/opae/rpm/create fedora
--OR-
-$ ./packaging/opae/rpm/create rhel
+$ ./packaging/opae/rpm/create unrestriected
 ```
 
-
-
-<p align = "center"> Figure 102 RPM Creation</p>
-
-After running the create script, the RPM files will be located in the
-packaging/opae/rpm directory.
-
-
-
-#### **8.5.1 Updating the RPM Version Information**
+### **8.4 Updating the RPM Version Information**
 
 The RPMs will be versioned according to the information found in the
 file
 [packaging/opae/version](https://github.com/OFS/opae-sdk/blob/master/packaging/opae/version#L27-L28).
-Edit this file to update the version information, then re-run the create
-script to create the RPMs.
+If you edit this file to update the version information, then re-run the create script to create the RPMs.
 
 
 ## **9.0 Debugging OPAE**

@@ -1,4 +1,4 @@
-# **FPGA Interface Manager Technical Reference Manual for Intel Agilex PCIe Attach: Open FPGA Stack**
+# **Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs**
 
 ## **1 Overview**
 
@@ -141,9 +141,9 @@ Note that the BMC RTL and firmware that works with this OFS design provided in a
 
 ![](images/Agilex_Fabric_Features.png)
 
-The table provides an overview of the OFS features targeting the Intel® Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex devices.
+The table provides an overview of the OFS features targeting the Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex devices.
 
-**Table 1-4 OFS FIM for Intel® Agilex® 7 FPGA Features**
+**Table 1-4 OFS FIM for Agilex® 7 FPGA Features**
 
 | Key Feature                           | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
@@ -161,7 +161,7 @@ The table provides an overview of the OFS features targeting the Intel® Agilex�
 ##### **Subsystem Interfaces**
 
 The PCIe, Memory and Ethernet interfaces in this design use a new flexible subsystem design that provides a standard Arm® AMBA® 4 AXI4 interface.  To access these Intel FPGA IP Subsystem documents. Please go to the links below:
-* [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf)
+* [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_qs_pcie_ss.pdf)
 * [Memory Subsystem Intel FPGA IP User Guide](https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_mem_ss.pdf)
 * [Ethernet Subsystem Intel FPGA IP User Guide](https://cdrdv2-public.intel.com/773414/intelofs-773413-773414.pdf) (public document)
 
@@ -237,7 +237,7 @@ packet into other protocols such as AXI4 memory-mapped, Avalon<sup>&reg;</sup> s
 
 The FPGA or AFU developer implements these interface abstractions in the AFU region (afu_main) of the design.  
 
-For more information, refer to [AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
+For more information, refer to [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).
 
 #### **1.4.4 Platform Feature Discovery** 
 
@@ -829,7 +829,7 @@ THe following table lists the reset outputs from the `rst_ctrl.sv` block.
 The OFS platform supports interrupts through MSI-X feature. The MSI-X Interrupt feature handles FME and AFU interrupts. FME interrupts are primarily used to notify the host of error events happened in the FIM. When any of the bit in the FME error status registers is set, an interrupt request is sent to the MSI-X module. There are FME error status registers for OFS for Agilex FPGA features. 
 An AFU sends interrupt to the MSI-X module in the PCIE SS on the AXI interrupt request channel. The MSI-X table entries and PBA vectors are implemented in the PCIE SS. The PCIE SS supports upto 4096 vectors in "Static MSI-X mode.
 
-Please refer to the [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf) for more information.
+Please refer to the [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_qs_pcie_ss.pdf) for more information.
 
 
 ## **10 External Memory Interface (EMIF)**

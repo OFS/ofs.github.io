@@ -1,14 +1,14 @@
-This walkthrough describes the steps to program the Agilex FPGA on the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) with a `SOF` image via JTAG.
+This walkthrough describes the steps to program the Agilex FPGA on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) with a `SOF` image via JTAG.
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: Open FPGA Stack for Intel® Agilex® 7 SoC Attach FPGAs (Intel Agilx 7 FPGA F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))))](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM] Section for step-by-step instructions for generating a `SOF` image.
 
 * This walkthrough requires a JTAG connection to the fseries-dk. Refer to the [Walkthrough: Set up JTAG] section for step-by-step instructions.
 
-* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) is connected via JTAG.
+* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) is connected via JTAG.
 
 Steps:
 
@@ -120,9 +120,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 360571655976424377
+  Bitstream Id                     : 0x5010202BE8C93B9 (TBD)
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed
+  Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed (TBD)
   Boot Page                        : N/A
   ```
 

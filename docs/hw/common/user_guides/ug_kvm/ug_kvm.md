@@ -1,7 +1,7 @@
 Virtual machine User Guide: Open FPGA Stack + KVM 
 ===
 
-Last updated: **February 16, 2024** 
+Last updated: **March 20, 2024** 
 
 ## Document scope 
 
@@ -137,7 +137,7 @@ After completing these steps, you should be able to use the virt-manager GUI app
 
 ## 5. Create a VM Using Virt-Manager
 
-Before creating the virtual machine, ensure the DFL drivers are installed in your host machine; the instructions are located here, [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
+Before creating the virtual machine, ensure the DFL drivers are installed in your host machine; the instructions are located here, [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select Getting stated guide.
 
 To create a Red Hat 8.2 or Ubuntu 22.04  virtual machine (VM) using `virt-manager` and share PCI devices with the VM, you will need to perform the following steps:
 
@@ -513,7 +513,7 @@ For FIMs that support the dual PF architecture, you have the option to pass thro
    * Ubuntu [Define proxy settings](https://help.ubuntu.com/stable/ubuntu-help/net-proxy.html.en)
    * [Configure Git to use a proxy](https://gist.github.com/evantoli/f8c23a37eb3558ab8765)
 
-7. To include OPAE in your virtual machine, follow the instructions from the following link  [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide. To install the DFL drivers, please follow the instructions from the following link  [OFS Site](https://ofs.github.io) select your desired platform and select Getting stated guide.
+7. To include OPAE in your virtual machine, follow the instructions from the following link  [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select Getting stated guide. To install the DFL drivers, please follow the instructions from the following link  [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.1-1) select your desired platform and select Getting stated guide.
 
 8. Use the OPAE SDK tool opae.io (under your virtual machine) to check default driver binding using your card under test PCIe B:D.F (Management mode).
 

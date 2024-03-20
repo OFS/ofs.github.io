@@ -2,7 +2,7 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® F
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [OFS Agilex PCIe Attach Getting Started Guide] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM] Section for step-by-step instructions for generating a `SOF` image.
 
@@ -39,9 +39,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422
+  Bitstream Id                     : 00x50102023508A422 (TBD)
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
+  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -117,9 +117,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422
+  Bitstream Id                     : 00x50102023508A422 (TBD)
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7
+  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b

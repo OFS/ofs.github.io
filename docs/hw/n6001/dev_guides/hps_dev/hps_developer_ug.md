@@ -2,7 +2,7 @@
 
 [Quartus Prime Pro Version: 23.1](https://www.intel.com/content/www/us/en/search.html?ws=text#q=quartus%20prime%20pro%2023.1&sort=relevancy)
 
-Last updated: Last updated: **February 16, 2024** 
+Last updated: Last updated: **March 20, 2024** 
 
 ## Glossary
 
@@ -91,7 +91,7 @@ This document pulls much of its information from related Agilex FPGA documentati
 
 Intel has provided a set of two pre-compiled ITB images that can be used for exploration and evaluation of the HPS bring-up flow. These images contain the complete SSBL package specific to the board and can be copied to the N6000/1-PL SmartNIC Platform with an HPS enabled FIM loaded. Refer to [**Section 4.1 Example Boot**](#41-example-boot) for an example on how to use the built-in copy engine IP in tandem with the host-side `cpeng` software to transfer an SSBL.
 
-The package is found on the official [OFS 2023.3-2 Release on GitHub](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2). Two ITB artifacts are included at the bottom of the page under *Assets* - one with the Vendor Authorized Boot (VAB) certificate included, and one without. Which you choose to load depends on whether the currently loaded FIM requires VAB authentication. [**Section 4.3 Example Boot**](#43-example-boot) contains instructions on the boot flow using these files for platform bring up.
+The package is found on the official [OFS 2024.1-1 Release on GitHub](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1). Two ITB artifacts are included at the bottom of the page under *Assets* - one with the Vendor Authorized Boot (VAB) certificate included, and one without. Which you choose to load depends on whether the currently loaded FIM requires VAB authentication. [**Section 4.3 Example Boot**](#43-example-boot) contains instructions on the boot flow using these files for platform bring up.
 
 The default username for these two images is `root` and the password is empty. A good place to start after loading the ITB is to set up SSH for file transfers and the remote console, as seen in [**8.0 Connecting remotely to the HPS using `ssh`**](8.0-connecting-remotely-to-the-hps-using-`ssh`).
 
@@ -167,7 +167,7 @@ The software in HPS can access the Clock generator through SPI to enable write a
 
 A host with OPAE SDK and Linux DFL installed will provide the `hps` OPAE command with related options to transfer images from host to the HPS image. The module in the OFS FIM and HPS software that performs this transfer is called the Copy Engine (CPE), which is included by default within the HPS image.
 
-Refer to the [Getting Started Guide: <sup>&reg;</sup> Open FPGA Stack for Intel Agilex FPGAs](../../user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md) for platform and software installation instructions.
+Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](../../user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md) for platform and software installation instructions.
 
 The CPE software is patched into Linux on the HPS in Yocto through the *meta-intel-fpga-refdes* layer. This service is *daemonized* and requires `systemd` in order to operate. This service will communicate with the HPS IP integrated in the FIM in order to coordinate and monitor file transfers from the host CPE software to DDR connected the HPS. The CPE HPS-side software takes advantage of the built-in I/O lightweight kernel module to communicate with the FIM's HPS IP. It can restart the transfer if the initial transfer of the image is not successful. The CPE can also serve as reference on how to integrate your own *systemd* service in the Linux build running on the HPS.
 
@@ -1333,7 +1333,7 @@ Below are the Frequently Asked Questions:
 |OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/|
 |Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/|
 |Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach| https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/|
-|AFU Development Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/|
+|Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs| https://ofs.github.io/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/|
 |Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/|
 |FPGA Device Feature List (DFL) Framework Overview| https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview|
 |ofs-platform-afu-bbb| https://github.com/OFS/ofs-platform-afu-bbb|
