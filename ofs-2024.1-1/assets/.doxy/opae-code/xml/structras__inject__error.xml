@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="structras__inject__error" kind="struct" language="C++" prot="public">
+    <compoundname>ras_inject_error</compoundname>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="structras__inject__error_1a5699e68224ac45906b604c68c090451d" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ras_inject_error::csr</definition>
+        <argsstring></argsstring>
+        <name>csr</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/samples/hello_events/hello_events.c" line="78" column="10" bodyfile="docs/sw/samples/hello_events/hello_events.c" bodystart="78" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structras__inject__error_1ac538a0373a1961a610442a31d04f8b0e" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ras_inject_error::catastrophicr_error</definition>
+        <argsstring></argsstring>
+        <name>catastrophicr_error</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/samples/hello_events/hello_events.c" line="81" column="11" bodyfile="docs/sw/samples/hello_events/hello_events.c" bodystart="81" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structras__inject__error_1af21ba825220673afc02ea185c6795758" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ras_inject_error::fatal_error</definition>
+        <argsstring></argsstring>
+        <name>fatal_error</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/samples/hello_events/hello_events.c" line="83" column="11" bodyfile="docs/sw/samples/hello_events/hello_events.c" bodystart="83" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structras__inject__error_1a3acb1e5c21e899989e854536116c2eba" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ras_inject_error::nonfatal_error</definition>
+        <argsstring></argsstring>
+        <name>nonfatal_error</name>
+        <bitfield> 1</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/samples/hello_events/hello_events.c" line="85" column="11" bodyfile="docs/sw/samples/hello_events/hello_events.c" bodystart="85" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structras__inject__error_1af584adf9a23cbcfa54d5f03bb79728f2" prot="public" static="no" mutable="no">
+        <type>uint64_t</type>
+        <definition>uint64_t ras_inject_error::rsvd</definition>
+        <argsstring></argsstring>
+        <name>rsvd</name>
+        <bitfield> 61</bitfield>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/samples/hello_events/hello_events.c" line="87" column="11" bodyfile="docs/sw/samples/hello_events/hello_events.c" bodystart="87" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="structras__inject__error_1a4c896e6127af21a14bea9b9290d86d57" prot="public" static="no" mutable="no">
+        <type>union ras_inject_error::@0</type>
+        <definition>union ras_inject_error::@0 ras_inject_error::@1</definition>
+        <argsstring></argsstring>
+        <name>@1</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/samples/hello_events/hello_events.c" line="89" column="1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="docs/sw/samples/hello_events/hello_events.c" line="76" column="1" bodyfile="docs/sw/samples/hello_events/hello_events.c" bodystart="76" bodyend="90"/>
+    <listofallmembers>
+      <member refid="structras__inject__error_1ac538a0373a1961a610442a31d04f8b0e" prot="public" virt="non-virtual"><scope>ras_inject_error</scope><name>catastrophicr_error</name></member>
+      <member refid="structras__inject__error_1a5699e68224ac45906b604c68c090451d" prot="public" virt="non-virtual"><scope>ras_inject_error</scope><name>csr</name></member>
+      <member refid="structras__inject__error_1af21ba825220673afc02ea185c6795758" prot="public" virt="non-virtual"><scope>ras_inject_error</scope><name>fatal_error</name></member>
+      <member refid="structras__inject__error_1a3acb1e5c21e899989e854536116c2eba" prot="public" virt="non-virtual"><scope>ras_inject_error</scope><name>nonfatal_error</name></member>
+      <member refid="structras__inject__error_1af584adf9a23cbcfa54d5f03bb79728f2" prot="public" virt="non-virtual"><scope>ras_inject_error</scope><name>rsvd</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
