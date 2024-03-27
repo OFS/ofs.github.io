@@ -4366,8 +4366,8 @@ export QUESTA_HOME=$MTI_HOME
 <table>
     <thead>
         <tr>
-            <th>Command (Synopsys VCS) for n6001</th>
-            <th>Command (Questasim) for n6001</th>
+            <th>Command (Synopsys VCS) for n6001 *</th>
+            <th>Command (Questasim) for n6001 *</th>
             <th>Command (Synopsys VCS) for fseries-dk</th>
             <th>Command (Questasim) for fseries-dk</th>
             <th>Details</th>
@@ -4402,10 +4402,12 @@ export QUESTA_HOME=$MTI_HOME
             <td>gmake -f Makefile_MSIM.mk rundb TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1</td>
             <td>run test in sim dir + over-writes content</td>        
         </tr>
+
 </tr>
      </tbody>
 </table>
 
+<p>Note: * For N6000, use flag DISABLE_EMIF=1 for the tests to run successfully </p>
 <h2 id="67-uvm-regression-test"><strong>6.7 <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Regression Test</strong><a class="headerlink" href="#67-uvm-regression-test" title="Permanent link">&para;</a></h2>
 <p>If the user wants to run the complete set of <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> tests in one command for VCS and Questasim targetting the Intel® FPGA SmartNIC N6001-PL then follow the procedure below</p>
 <div class="highlight"><pre><span></span><code>cd $VERDIR/scripts

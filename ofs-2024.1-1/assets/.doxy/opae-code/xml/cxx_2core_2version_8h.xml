@@ -27,6 +27,10 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
+      <node id="6">
+        <label>opae/types_enum.h</label>
+        <link refid="types__enum_8h"/>
+      </node>
       <node id="4">
         <label>stddef.h</label>
       </node>
@@ -37,10 +41,6 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-      </node>
-      <node id="6">
-        <label>opae/types_enum.h</label>
-        <link refid="types__enum_8h"/>
       </node>
     </incdepgraph>
     <invincdepgraph>

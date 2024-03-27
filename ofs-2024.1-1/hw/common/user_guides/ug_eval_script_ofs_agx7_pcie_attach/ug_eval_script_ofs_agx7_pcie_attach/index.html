@@ -1030,8 +1030,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-modification" class="md-nav__link">
-    2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script modification
+  <a href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" class="md-nav__link">
+    2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification
   </a>
   
 </li>
@@ -2255,8 +2255,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-modification" class="md-nav__link">
-    2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script modification
+  <a href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" class="md-nav__link">
+    2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification
   </a>
   
 </li>
@@ -2434,7 +2434,7 @@
 <li>Run hardware and software tests to evaluate the complete <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> flow</li>
 </ul>
 <ul>
-<li>Modify and leverage the script to the your environment and design</li>
+<li>Modify and leverage the script to your environment and design</li>
 </ul>
 <h4 id="table-1-2-software-version-summary"><strong>Table 1-2: Software Version Summary</strong><a class="headerlink" href="#table-1-2-software-version-summary" title="Permanent link">&para;</a></h4>
 <table>
@@ -2491,7 +2491,9 @@
 <p>A download page containing the release and already-compiled <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> ofs-2024.1-1</a> official release drop on GitHub.</p>
 <p><br></p>
 <h2 id="2-introduction-to-ofs-evaluation-script"><strong>2 Introduction to <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Evaluation Script</strong><a class="headerlink" href="#2-introduction-to-ofs-evaluation-script" title="Permanent link">&para;</a></h2>
-<p>By using the clone script and the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> evaluation script you can quickly evaluate many features that the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> framework provides and also leverage this script for your own development.  </p>
+<p>Two scripts have been developed to allow the user to clone, build, compile and test the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platform hardware.</p>
+<p>1) ofs-clone_repositories.sh. This script clones the repositories from GitHub needed to build and test any <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platform.| 
+2) ofs-agx7-pcie-attach_eval.sh. This script evaluates compiles, builds and tests hardware features that the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> framework provides. This script can also be leveraged for your own development.  </p>
 <blockquote>
 <p><strong><em>NOTE:</em></strong>  </p>
 <p><strong>This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all example steps. Additionally, this guide and the example steps can be used with other platforms, such as the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile).</strong>
@@ -2500,20 +2502,35 @@
 <h3 id="21-pre-requisites"><strong>2.1 Pre-Requisites</strong><a class="headerlink" href="#21-pre-requisites" title="Permanent link">&para;</a></h3>
 <p>This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.</p>
 <ul>
-<li>Intel Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded <a href="https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html">here</a>. For details on installation of required patches and quartus installation, refer to section 1.3.4 of the <a href="https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Shell Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs</a>.</li>
+<li>Intel Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded <a href="https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html">here</a>. For details on installation of required patches and quartus installation, refer to section 1.3.4 of the <a href="https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Shell Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs</a>. </li>
 <li>Synopsys<sup>&reg;</sup> VCS Simulator : The simulator can be downloaded in the Synopsys page <a href="https://www.synopsys.com/verification/simulation/vcs.html">here</a></li>
 <li>Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator : The simulator can be downloaded in the Siemens page <a href="https://eda.sw.siemens.com/en-US/ic/questa/simulation/advanced-simulator/">here</a></li>
 </ul>
 <p><strong>Figure 2-1 Folder Hierarchy for Software Tools</strong></p>
 <p><a class="glightbox" href="../images/ofs_n6001_tools_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_n6001_tools_menu.png" /></a></p>
-<h3 id="22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-modification"><strong>2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script modification</strong><a class="headerlink" href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-modification" title="Permanent link">&para;</a></h3>
+<h3 id="22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification"><strong>2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification</strong><a class="headerlink" href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" title="Permanent link">&para;</a></h3>
 <ol>
+<li>Download tar(scripts_ofs-2024.1-1_external.tar.gz) from the assets tab of the <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases">release page</a></li>
 <li>
-<p>You must clone the required <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> repositories using the clone script {enter scripts folder name and link from assets}.</p>
+<p>Untar to folder using the following command
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a> tar -xvf scripts_ofs-2024.1-1_external.tar.gz
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> The folder structure containing the clone script (ofs-clone_repositories.sh) and evaluation script (ofs-agx7-pcie-attach_eval.sh) is as shown in the figure 2-1
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>**Figure 2-2 Directory Structure for the clone script**
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>``` sh
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>## ofs_scripts
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>##      -&gt; host_chan_mmio.stp
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>##      -&gt; ofs-agx7-pcie-attach_eval.sh
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>##      -&gt; README_ofs-agx7-pcie-attach_eval.txt
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>## ofs-clone_repositories.sh
+</code></pre></div></p>
 </li>
 <li>
-<p>Before cloning, please enter the location of your proxy server to allow access to external internet to build software packages. (Lines 6-8)</p>
+<p>Open the clone script ofs-clone_repositories.sh in any text editor</p>
 </li>
+<li>Please enter the location of your proxy server to allow access to external internet to build software packages. (Lines 6-8)</li>
 </ol>
 <p>Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> framework.</p>
 <div class="highlight"><pre><span></span><code>export http_proxy=&lt;user_proxy&gt;
@@ -2522,46 +2539,60 @@ export no_proxy=&lt;user_proxy&gt;
 </code></pre></div>
 <ol>
 <li>
-<p>You must enter name of the directory using the variable OFS_RELEASE. This is where the cloned repositories will be placed.</p>
-<p>export OFS_RELEASE=ofs-2024.1-1-rc2</p>
+<p>Please enter the the license file locations(lines 11-13) for the following tool variables
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>    export LM_LICENSE_FILE=&lt;user_license&gt;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    export DW_LICENSE_FILE=&lt;user_license&gt;
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    export SNPSLMD_LICENSE_FILE=&lt;user_license&gt;
+</code></pre></div></p>
 </li>
 <li>
-<p>The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-2.</p>
+<p>Add the name of the directory where you want the platform repositories to be cloned
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>export OFS_RELEASE=ofs-2024.1-1
+</code></pre></div></p>
 </li>
+<li>
+<p>After setting the required variables, source the clone script based on which platform you want to test
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>source ofs-clone_repositories.sh
+</code></pre></div></p>
+</li>
+<li>The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-2.</li>
 </ol>
-<p><strong>Figure 2-2 Directory Structure for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project</strong></p>
+<p><strong>Figure 2-3 Directory Structure for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project</strong></p>
 <p><a class="glightbox" href="../images/ofs_clone_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_clone_menu.png" /></a></p>
 <ol>
-<li>After cloning, the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> repositories cloned will look as per Figure 2-3.</li>
+<li>
+<p>Once the repositories are cloned, navigate to the directory where you cloned
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>cd ofs-2024.1-1
+</code></pre></div></p>
+</li>
+<li>
+<p>After cloning, the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> repositories cloned will look as per Figure 2-3.</p>
+</li>
 </ol>
-<p><strong>Figure 2-3 Directory Structure for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project</strong>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1">## ofs-2024.1-1</span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="c1">##  N6001(OFS platform)</span>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="c1">##   -&gt; examples-afu</span>
-<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="c1">##   -&gt; ofs-agx7-pcie-attach</span>
-<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="c1">##   -&gt; oneapi-asp</span>
-<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="c1">##   -&gt; oneAPI-samples</span>
-<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="c1">##   -&gt; opae-sim</span>
-<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="c1">##   -&gt; opae-sdk</span>
-<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="c1">##   -&gt; linux-dfl</span>
-<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="c1">##   -&gt; ofs-agx7-pcie-attach_eval.sh</span>
-<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="c1">##   -&gt; README_ofs-agx7-pcie-attach_eval.txt</span>
-<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="c1">##   -&gt; host_chan_mmio.stp</span>
-</code></pre></div>
-6. Once the repositories are cloned, in the platform specific evaluation script, for e.g., in ofs-agx7-pcie-attach_eval.sh,  please follow the instructions below which explains which line numbers to change to adapt this script to the user environment. </p>
+<p><strong>Figure 2-4 Directory Structure for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project</strong>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1">## ofs-2024.1-1</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="c1">##  N6001(OFS platform)</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="c1">##   -&gt; examples-afu</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1">##   -&gt; ofs-agx7-pcie-attach</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="c1">##   -&gt; oneapi-asp</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="c1">##   -&gt; oneAPI-samples</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1">##   -&gt; opae-sim</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1">##   -&gt; opae-sdk</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1">##   -&gt; linux-dfl</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="c1">##   -&gt; ofs-agx7-pcie-attach_eval.sh</span>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="c1">##   -&gt; README_ofs-agx7-pcie-attach_eval.txt</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="c1">##   -&gt; host_chan_mmio.stp</span>
+</code></pre></div></p>
+<ol>
+<li>Once the repositories are cloned, in the platform specific evaluation script, for e.g., in ofs-agx7-pcie-attach_eval.sh, please follow the instructions below which explains which line numbers to change to adapt this script to the user environment. </li>
+</ol>
 <p>a)  Set-Up Proxy Server (lines 67-69)</p>
 <p>Please enter the location of your proxy server to allow access to external internet to build software packages.</p>
 <div class="highlight"><pre><span></span><code>export http_proxy=&lt;user_proxy&gt;
 export https_proxy=&lt;user_proxy&gt;
 export no_proxy=&lt;user_proxy&gt;
 </code></pre></div>
-<p>b)  License Files (lines 72-74)</p>
-<p>Please enter the the license file locations for the following tool variables</p>
-<div class="highlight"><pre><span></span><code>export LM_LICENSE_FILE=&lt;user_license&gt;
-export DW_LICENSE_FILE=&lt;user_license&gt;
-export SNPSLMD_LICENSE_FILE=&lt;user_license&gt;
-</code></pre></div>
-<p>c) Tools Location (line 87, 88, 89, 90)</p>
+<p>b) Tools Location (line 87, 88, 89, 90)</p>
 <p>Set Location of Quartus, Synopsys, Questasim and oneAPI Tools</p>
 <div class="highlight"><pre><span></span><code>export QUARTUS_TOOLS_LOCATION=/home
 export SYNOPSYS_TOOLS_LOCATION=/home
@@ -2569,7 +2600,7 @@ export QUESTASIM_TOOLS_LOCATION=/home
 export ONEAPI_TOOLS_LOCATION=/opt
 </code></pre></div>
 <p>In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools </p>
-<p>d) PCIe (Bus Number)</p>
+<p>c) PCIe (Bus Number)</p>
 <p>The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.</p>
 <div class="highlight"><pre><span></span><code>export OFS_CARD0_BUS_NUMBER=b1
 </code></pre></div>
@@ -2597,7 +2628,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 <p>the command to change to 85 in the evaluation script would be</p>
 <p>grep -rli 'b1' * | xargs -i@ sed -i '85' @</p>
 <h3 id="ofs-platform-example-n6000-n6001-fseries-dk-iseries-dk-custom_board-choice-line-173"><strong><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Platform (Example:= n6000, n6001, fseries-dk, iseries-dk, custom_board) choice (line 173)</strong><a class="headerlink" href="#ofs-platform-example-n6000-n6001-fseries-dk-iseries-dk-custom_board-choice-line-173" title="Permanent link">&para;</a></h3>
-<p>The script is designed to accomodate many <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platform choices eg, n6000, n6001, fseries-dk, iseries-dk or a custom_board of your choice. By default the script defaults to n6001 as shown below and is set by a variable on line 173 of the ofs-agx7-pcie-attach_eval.sh script.</p>
+<p>The script is designed to accommodate many <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> platform choices eg, n6000, n6001, fseries-dk, iseries-dk or a custom_board of your choice. By default the script defaults to n6001 as shown below and is set by a variable on line 173 of the ofs-agx7-pcie-attach_eval.sh script.</p>
 <div class="highlight"><pre><span></span><code>  export OFS_PLATFORM=n6001
 </code></pre></div>
 <p>but the user can switch platform by changing the OFS_PLATFORM variable, so for example if the user wants to switch to the i-series development kit the command would be</p>
@@ -2613,7 +2644,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 <h3 id="311-ofs-tools-menu"><strong>3.1.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> TOOLS MENU</strong><a class="headerlink" href="#311-ofs-tools-menu" title="Permanent link">&para;</a></h3>
 <p>By selecting "List of Documentation for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project," a list of links to the latest <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> version.</p>
 <p>By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.</p>
-<p><a class="glightbox" href="../images/ofs_tools_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_tools_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_tools_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_tools_menu_n6001.png" /></a></p>
 <table>
     <thead>
         <tr>
@@ -2667,7 +2698,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 
 <h3 id="312-ofs-hardware-menu"><strong>3.1.2 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> HARDWARE MENU</strong><a class="headerlink" href="#312-ofs-hardware-menu" title="Permanent link">&para;</a></h3>
 <p>Identifies card by PCIe number, checks power, temperature and current firmware configuration. </p>
-<p><a class="glightbox" href="../images/ofs_hardware_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_hardware_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_hardware_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_hardware_menu_n6001.png" /></a></p>
 <table>
     <thead>
         <tr>
@@ -2849,7 +2880,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 
 <h3 id="313-ofs-pfvf-mux-menu"><strong>3.1.3 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> PF/VF MUX MENU</strong><a class="headerlink" href="#313-ofs-pfvf-mux-menu" title="Permanent link">&para;</a></h3>
 <p>This menu reports the number of PF/VF functions in the reference example and also allows you to reduce the number to 1PF and 1VF to reduce resource utilisation and create a larger area for your workload development. This selection is optional and if the user wants to implement the default number of PF's and VF's then option 9, 10 and 11 should not be used.  Additionally the code used to make the PF/VF modification can be leveraged to increase or modify the number of PF/VFs in the existing design within the limits that the PCIe Subsystem supports (8PF/2K VFs)</p>
-<p><a class="glightbox" href="../images/ofs_pf_vf_mux_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_pf_vf_mux_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_pf_vf_mux_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_pf_vf_mux_menu_n6001.png" /></a></p>
 <table>
     <thead>
         <tr>
@@ -2986,7 +3017,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 
 <h3 id="314-ofs-fimpr-build-menu"><strong>3.1.4 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>/<abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> BUILD MENU</strong><a class="headerlink" href="#314-ofs-fimpr-build-menu" title="Permanent link">&para;</a></h3>
 <p>Builds <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>, Partial Reconfiguration Region and Remote Signal Tap</p>
-<p><a class="glightbox" href="../images/ofs_fim_pr_build_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_fim_pr_build_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_fim_pr_build_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_fim_pr_build_menu_n6001.png" /></a></p>
 <table>
     <thead>
         <tr>
@@ -3056,7 +3087,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 * Bind virtual functions to <abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr> PCIe driver 
 * Run host exerciser (HE) commands such as loopback to test interfaces <abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr> PCI driver binding
 * Read the control and status registers (CSRs) for bound modules that are part of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> reference design.</p>
-<p><a class="glightbox" href="../images/ofs_hardware_programming_diagnostic_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_hardware_programming_diagnostic_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_hardware_programming_diagnostic_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_hardware_programming_diagnostic_menu_n6001.png" /></a></p>
 <table>
     <thead>
         <tr>
@@ -3266,7 +3297,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 
 <h3 id="318-ofs-oneapi-project-menu"><strong>3.1.8 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> ONEAPI PROJECT MENU</strong><a class="headerlink" href="#318-ofs-oneapi-project-menu" title="Permanent link">&para;</a></h3>
 <p>Builds oneAPI kernel, executes sw from host and runs diagnostic tests</p>
-<p><a class="glightbox" href="../images/ofs_oneapi_project_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_oneapi_project_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_oneapi_project_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_oneapi_project_menu_n6001.png" /></a></p>
 <table>
     <thead>
         <tr>
@@ -3403,7 +3434,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 
 <h3 id="3110-ofs-uvm-project-menu"><strong>3.1.10 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> PROJECT MENU</strong><a class="headerlink" href="#3110-ofs-uvm-project-menu" title="Permanent link">&para;</a></h3>
 <p>Builds, compiles and runs full chip simulation tests.  The user should execute the options sequentially ie 68,69, 70 and 71</p>
-<p><a class="glightbox" href="../images/ofs_uvm_project_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_uvm_project_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_uvm_project_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_uvm_project_menu_n6001.png" /></a></p>
 <table>
     <thead>
         <tr>
@@ -3450,7 +3481,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 <p>Builds the complete <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> flow, good for regression testing and overnight builds</p>
 <p>For this menu a user can run a sequence of tests (compilation, build and simulation) and executes them sequentially. After the script is successfully executed, a set of binary files is produced which a you can use to evaluate your hardware. Log files are also produced which checks whether the tests passed.</p>
 <p>A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 62 from the main menu the script will execute 24 tests ie (main menu options 2, 9, 12, 13, 14, 15, 16, 17, 18, 32, 34, 35, 37, 39, 40, 44, 45, 53, 55, 56, 57, 58, 59 and 60. These 24 menu options are chosen to build the complete <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> flow covering build, compile and simulation.</p>
-<p><a class="glightbox" href="../images/ofs_build_all_project_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_build_all_project_menu.png" /></a></p>
+<p><a class="glightbox" href="../images/ofs_build_all_project_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_build_all_project_menu_n6001.png" /></a></p>
 <table>
     <thead>
         <tr>
