@@ -2267,7 +2267,7 @@
 </tr>
 <tr>
 <td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Source Code</td>
-<td><a href="https://github.com/OFS/ofs-d5005">Branch: ofs-d5005</a>, <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1">Tag: release/ofs-2023.1</a></td>
+<td><a href="https://github.com/OFS/ofs-d5005">Branch: ofs-d5005</a>, <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.1-1">Tag: release/ofs-2023.1</a></td>
 <td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Shell RTL for Intel Stratix 10 FPGA (targeting Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005)</td>
 </tr>
 <tr>
@@ -2277,12 +2277,12 @@
 </tr>
 <tr>
 <td><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Examples</td>
-<td><a href="https://github.com/OFS/examples-afu">Branch: examples-afu</a> , <a href="https://github.com/OFS/examples-afu/releases/tag/ofs-examples-afu-1.0.0">Tag: ofs-examples-ofs-examples-afu-1.0.0</a></td>
+<td><a href="https://github.com/OFS/examples-afu">Branch: examples-afu</a> , <a href="https://github.com/OFS/examples-afu/releases/tag/ofs-2023.1-1">Tag: ofs-examples-ofs-2023.1-1</a></td>
 <td>Tutorials and simple examples for the Accelerator Functional Unit region (workload region)</td>
 </tr>
 <tr>
 <td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
-<td><a href="https://github.com/OFS/opae-sdk/tree/2.5.0-3">Branch: 2.5.0-3</a>, <a href="https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3">Tag: 2.5.0-3</a></td>
+<td><a href="https://github.com/OFS/opae-sdk/tree/2.5.0-2">Branch: 2.5.0-2</a>, <a href="https://github.com/OFS/opae-sdk/releases/tag/2.5.0-2">Tag: 2.5.0-2</a></td>
 <td>Open Programmable Acceleration Engine Software Development Kit</td>
 </tr>
 <tr>
@@ -2292,7 +2292,7 @@
 </tr>
 <tr>
 <td>OPAE Simulation</td>
-<td><a href="https://github.com/OFS/opae-sim">Branch: opae-sim</a>, <a href="https://github.com/OFS/opae-sim/releases/tag/2.5.0-3">Tag: 2.5.0-3</a></td>
+<td><a href="https://github.com/OFS/opae-sim">Branch: opae-sim</a>, <a href="https://github.com/OFS/opae-sim/releases/tag/2.5.0-2">Tag: 2.5.0-2</a></td>
 <td>Accelerator Simulation Environment for hardware/software co-simulation of your <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> (workload)</td>
 </tr>
 <tr>
@@ -2489,9 +2489,9 @@
 <p>In the example above "23.1" is used as the Quartus tools version</p>
 <h3 id="opae-tools-line-106"><strong>OPAE Tools (line 106)</strong><a class="headerlink" href="#opae-tools-line-106" title="Permanent link">&para;</a></h3>
 <p>change <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> VERSION<br></p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_SDK_VERSION</span><span class="o">=</span><span class="m">2</span>.5.0-3
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_SDK_VERSION</span><span class="o">=</span><span class="m">2</span>.5.0-2
 </code></pre></div>
-<p>In the example above "2.5.0-3" is used as the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> tools version</p>
+<p>In the example above "2.5.0-2" is used as the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> tools version</p>
 <h3 id="pcie-bus-number-lines-231-and-238"><strong>PCIe (Bus Number) (lines 231 and 238)</strong><a class="headerlink" href="#pcie-bus-number-lines-231-and-238" title="Permanent link">&para;</a></h3>
 <p>The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ADP_CARD0_BUS_NUMBER</span><span class="o">=</span>b1
@@ -2590,7 +2590,7 @@
 <tbody>
 <tr>
 <td>9 - Check ADP software versions for ADP Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 Project</td>
-<td>OFS_ROOTDIR is set to /home/user_area/ofs-2023.1/ofs-d5005<br />OPAE_SDK_REPO_BRANCH is set to release/2.5.0-3 <br />OPAE_SDK_ROOT is set to /home/user_area/ofs-2023.1/ofs-d5005/../opae-sdk <br />LD_LIBRARY_PATH is set to /home/user_area/ofs-2023.1/ofs-d5005/../opae-sdk/lib64:</td>
+<td>OFS_ROOTDIR is set to /home/user_area/ofs-2023.1/ofs-d5005<br />OPAE_SDK_REPO_BRANCH is set to release/2.5.0-2 <br />OPAE_SDK_ROOT is set to /home/user_area/ofs-2023.1/ofs-d5005/../opae-sdk <br />LD_LIBRARY_PATH is set to /home/user_area/ofs-2023.1/ofs-d5005/../opae-sdk/lib64:</td>
 </tr>
 <tr>
 <td>10 - Build <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> for Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 Hardware</td>
@@ -3040,6 +3040,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/d5005/doc_modules/links.md -->
 
 
 

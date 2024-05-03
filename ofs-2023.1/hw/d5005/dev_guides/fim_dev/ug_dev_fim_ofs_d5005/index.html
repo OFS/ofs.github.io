@@ -2623,7 +2623,7 @@
 </tr>
 <tr>
 <td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
-<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3">2.5.0-3 </a></td>
+<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.5.0-2">2.5.0-2 </a></td>
 </tr>
 <tr>
 <td>Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
@@ -3368,7 +3368,7 @@ The resulting relocatable build tree has the following structure:
 <li>External Memory</li>
 <li><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> management</li>
 </ul>
-<p>These simulations use the Synopsys VCS simulator. Each simulation contains a readme file explaining how to run the simulation. Refer to <a href="https://github.com/OFS/otcshare/blob/main/hw/docs/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005.md">Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA</a>  for details of simulation examples. Your simulation shell requires Python, Quartus, and VCS to run.  To run a simulation of the dfh_walker that simulates host access to the internal DFH registers, perform the following steps:</p>
+<p>These simulations use the Synopsys VCS simulator. Each simulation contains a readme file explaining how to run the simulation. Refer to <a href="https://ofs.github.io/ofs-2023.1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/">Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA</a>  for details of simulation examples. Your simulation shell requires Python, Quartus, and VCS to run.  To run a simulation of the dfh_walker that simulates host access to the internal DFH registers, perform the following steps:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>Before<span class="w"> </span>running<span class="w"> </span>unit<span class="w"> </span>simulation,<span class="w"> </span>you<span class="w"> </span>must<span class="w"> </span><span class="nb">set</span><span class="w"> </span>environment<span class="w"> </span>variables<span class="w"> </span>as<span class="w"> </span>described<span class="w"> </span>below:
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$OFS_BUILD_ROOT</span>/ofs-d5005
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OFS_ROOTDIR</span><span class="o">=</span><span class="nv">$PWD</span>
@@ -4572,6 +4572,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/d5005/doc_modules/links.md -->
 
 
 

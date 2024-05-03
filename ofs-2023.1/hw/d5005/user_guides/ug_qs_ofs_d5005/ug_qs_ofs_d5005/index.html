@@ -2576,7 +2576,7 @@ The following submodule repositories are contained within <code>opae-sdk</code><
 </tr>
 <tr>
 <td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
-<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.5.0-3">Tag: 2.5.0-3</a></td>
+<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.5.0-2">Tag: 2.5.0-2</a></td>
 </tr>
 <tr>
 <td>Kernel Drivers</td>
@@ -2871,12 +2871,12 @@ The following submodule repositories are contained within <code>opae-sdk</code><
 <a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>git<span class="w"> </span>init
 <a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OPAE/opae-sdk.git
 <a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a><span class="nb">cd</span><span class="w"> </span>opae-sdk
-<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.5.0-3<span class="w"> </span>-b<span class="w"> </span>release/2.5.0
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.5.0-2<span class="w"> </span>-b<span class="w"> </span>release/2.5.0
 </code></pre></div></p>
 <p><strong>5.</strong> Verify that the correct tag has been checkout out:
 <br>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>git<span class="w"> </span>describe<span class="w"> </span>--tags
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="m">2</span>.5.0-3
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="m">2</span>.5.0-2
 </code></pre></div></p>
 <p><strong>6.</strong> Build the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> source code, and pack it into several local RPM packages. Building the code into packages allows for easier installation and removal.
 <br>
@@ -2887,17 +2887,17 @@ The following submodule repositories are contained within <code>opae-sdk</code><
 <br>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>rpm
 <a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a><span class="c1">#output</span>
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>opae-2.5.0-3.el8.src.rpm
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>opae-2.5.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>opae-debuginfo-2.5.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>opae-debugsource-2.5.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>opae-devel-2.5.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>opae-devel-debuginfo-2.5.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>opae-extra-tools-2.5.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>opae-extra-tools-debuginfo-2.5.0-3.el8.x86_64.rpm
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>opae-2.5.0-2.el8.src.rpm
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>opae-2.5.0-2.el8.x86_64.rpm
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>opae-debuginfo-2.5.0-2.el8.x86_64.rpm
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>opae-debugsource-2.5.0-2.el8.x86_64.rpm
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>opae-devel-2.5.0-2.el8.x86_64.rpm
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>opae-devel-debuginfo-2.5.0-2.el8.x86_64.rpm
+<a id="__codelineno-23-9" name="__codelineno-23-9" href="#__codelineno-23-9"></a>opae-extra-tools-2.5.0-2.el8.x86_64.rpm
+<a id="__codelineno-23-10" name="__codelineno-23-10" href="#__codelineno-23-10"></a>opae-extra-tools-debuginfo-2.5.0-2.el8.x86_64.rpm
 </code></pre></div>
-Remove the opae-2.5.0-3.el8.src.rpm file as it is not used.
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>rm<span class="w"> </span>opae-2.5.0-3.el8.src.rpm
+Remove the opae-2.5.0-2.el8.src.rpm file as it is not used.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>rm<span class="w"> </span>opae-2.5.0-2.el8.src.rpm
 </code></pre></div></p>
 <p><strong>7.a</strong> Install the user-built <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> packages:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>clean<span class="w"> </span>all
@@ -2907,13 +2907,13 @@ Remove the opae-2.5.0-3.el8.src.rpm file as it is not used.
 <p><strong>8.</strong> Check that all packages have been installed:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae
 <a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a><span class="c1">#output</span>
-<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>opae-extra-tools-2.5.0-3.el8.x86_64
-<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>opae-debugsource-2.5.0-3.el8.x86_64
-<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>opae-2.5.0-3.el8.x86_64
-<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>opae-extra-tools-debuginfo-2.5.0-3.el8.x86_64
-<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>opae-debuginfo-2.5.0-3.el8.x86_64
-<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>opae-devel-2.5.0-3.el8.x86_64
-<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>opae-devel-debuginfo-2.5.0-3.el8.x86_64
+<a id="__codelineno-26-3" name="__codelineno-26-3" href="#__codelineno-26-3"></a>opae-extra-tools-2.5.0-2.el8.x86_64
+<a id="__codelineno-26-4" name="__codelineno-26-4" href="#__codelineno-26-4"></a>opae-debugsource-2.5.0-2.el8.x86_64
+<a id="__codelineno-26-5" name="__codelineno-26-5" href="#__codelineno-26-5"></a>opae-2.5.0-2.el8.x86_64
+<a id="__codelineno-26-6" name="__codelineno-26-6" href="#__codelineno-26-6"></a>opae-extra-tools-debuginfo-2.5.0-2.el8.x86_64
+<a id="__codelineno-26-7" name="__codelineno-26-7" href="#__codelineno-26-7"></a>opae-debuginfo-2.5.0-2.el8.x86_64
+<a id="__codelineno-26-8" name="__codelineno-26-8" href="#__codelineno-26-8"></a>opae-devel-2.5.0-2.el8.x86_64
+<a id="__codelineno-26-9" name="__codelineno-26-9" href="#__codelineno-26-9"></a>opae-devel-debuginfo-2.5.0-2.el8.x86_64
 </code></pre></div>
 <p>You can query information about each installed package using <code>rpm -qi &lt;package__name&gt;</code>.</p>
 <h3 id="52-opae-tools-overview"><strong>5.2 OPAE Tools Overview</strong><a class="headerlink" href="#52-opae-tools-overview" title="Permanent link">&para;</a></h3>
@@ -3539,6 +3539,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/d5005/doc_modules/links.md -->
 
 
 

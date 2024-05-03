@@ -2021,7 +2021,7 @@ Deployment: Program the binaries under the Intel® FPGA <abbr title="Programmabl
 </tr>
 <tr>
 <td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
-<td><a href="https://github.com/OFS/opae-sdk/tree/2.5.0-3">2.5.0-3</a></td>
+<td><a href="https://github.com/OFS/opae-sdk/tree/2.5.0-2">2.5.0-2</a></td>
 </tr>
 <tr>
 <td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Release</td>
@@ -2572,11 +2572,11 @@ hosted at the <a href="https://github.com/OFS/opae-sdk">OPAE GitHub</a>. This re
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-47-1" name="__codelineno-47-1" href="#__codelineno-47-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$OFS_BUILD_ROOT</span>
 <a id="__codelineno-47-2" name="__codelineno-47-2" href="#__codelineno-47-2"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OFS/opae-sdk.git
 <a id="__codelineno-47-3" name="__codelineno-47-3" href="#__codelineno-47-3"></a><span class="nb">cd</span><span class="w"> </span>opae-sdk
-<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.5.0-3<span class="w"> </span>-b<span class="w"> </span>release/2.5.0
+<a id="__codelineno-47-4" name="__codelineno-47-4" href="#__codelineno-47-4"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.5.0-2<span class="w"> </span>-b<span class="w"> </span>release/2.5.0
 </code></pre></div>
 Verify proper branch is selected</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-48-1" name="__codelineno-48-1" href="#__codelineno-48-1"></a>git<span class="w"> </span>describe
-<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="w">  </span><span class="m">2</span>.5.0-3
+<a id="__codelineno-48-2" name="__codelineno-48-2" href="#__codelineno-48-2"></a><span class="w">  </span><span class="m">2</span>.5.0-2
 <a id="__codelineno-48-3" name="__codelineno-48-3" href="#__codelineno-48-3"></a>
 <a id="__codelineno-48-4" name="__codelineno-48-4" href="#__codelineno-48-4"></a>git<span class="w"> </span>branch
 <a id="__codelineno-48-5" name="__codelineno-48-5" href="#__codelineno-48-5"></a><span class="w">  </span>master
@@ -2595,15 +2595,15 @@ Verify proper branch is selected</p>
 <p><strong>2.</strong> After a successful compile, there should be eight packages present:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-50-1" name="__codelineno-50-1" href="#__codelineno-50-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$OFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk
 <a id="__codelineno-50-2" name="__codelineno-50-2" href="#__codelineno-50-2"></a>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>rpm
-<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>opae-2.5.0-3.x86_64.rpm<span class="w">                                                                                                    </span>
-<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>opae-PACSign-2.5.0-3.x86_64.rpm<span class="w">                                                                                            </span>
-<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>opae-devel-2.5.0-3.x86_64.rpm<span class="w">                                                                                              </span>
-<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>opae-libs-2.5.0-3.x86_64.rpm<span class="w">                                                                                               </span>
-<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>opae-opae.admin-2.5.0-3.x86_64.rpm<span class="w">                                                                                         </span>
-<a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a>opae-packager-2.5.0-3.x86_64.rpm<span class="w">                                                                                           </span>
-<a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>opae-tests-2.5.0-3.x86_64.rpm<span class="w">                                                                                              </span>
-<a id="__codelineno-50-10" name="__codelineno-50-10" href="#__codelineno-50-10"></a>opae-tools-2.5.0-3.x86_64.rpm<span class="w">                                                                                              </span>
-<a id="__codelineno-50-11" name="__codelineno-50-11" href="#__codelineno-50-11"></a>opae-tools-extra-2.5.0-3.x86_64.rpm
+<a id="__codelineno-50-3" name="__codelineno-50-3" href="#__codelineno-50-3"></a>opae-2.5.0-2.x86_64.rpm<span class="w">                                                                                                    </span>
+<a id="__codelineno-50-4" name="__codelineno-50-4" href="#__codelineno-50-4"></a>opae-PACSign-2.5.0-2.x86_64.rpm<span class="w">                                                                                            </span>
+<a id="__codelineno-50-5" name="__codelineno-50-5" href="#__codelineno-50-5"></a>opae-devel-2.5.0-2.x86_64.rpm<span class="w">                                                                                              </span>
+<a id="__codelineno-50-6" name="__codelineno-50-6" href="#__codelineno-50-6"></a>opae-libs-2.5.0-2.x86_64.rpm<span class="w">                                                                                               </span>
+<a id="__codelineno-50-7" name="__codelineno-50-7" href="#__codelineno-50-7"></a>opae-opae.admin-2.5.0-2.x86_64.rpm<span class="w">                                                                                         </span>
+<a id="__codelineno-50-8" name="__codelineno-50-8" href="#__codelineno-50-8"></a>opae-packager-2.5.0-2.x86_64.rpm<span class="w">                                                                                           </span>
+<a id="__codelineno-50-9" name="__codelineno-50-9" href="#__codelineno-50-9"></a>opae-tests-2.5.0-2.x86_64.rpm<span class="w">                                                                                              </span>
+<a id="__codelineno-50-10" name="__codelineno-50-10" href="#__codelineno-50-10"></a>opae-tools-2.5.0-2.x86_64.rpm<span class="w">                                                                                              </span>
+<a id="__codelineno-50-11" name="__codelineno-50-11" href="#__codelineno-50-11"></a>opae-tools-extra-2.5.0-2.x86_64.rpm
 </code></pre></div>
 <p><strong>3.</strong> Install the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> packages:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-51-1" name="__codelineno-51-1" href="#__codelineno-51-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$OFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk
@@ -2611,15 +2611,15 @@ Verify proper branch is selected</p>
 </code></pre></div>
 <p><strong>4.</strong> check that all packages have been installed:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-52-1" name="__codelineno-52-1" href="#__codelineno-52-1"></a>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae
-<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>opae-devel-2.5.0-3.x86_64<span class="w">                                                                                                  </span>
-<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>opae-packager-2.5.0-3.x86_64<span class="w">                                                                                               </span>
-<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>opae-2.5.0-3.x86_64<span class="w">                                                                                                        </span>
-<a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>opae-tools-2.5.0-3.x86_64<span class="w">                                                                                                  </span>
-<a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>opae-PACSign-2.5.0-3.x86_64<span class="w">                                                                                                </span>
-<a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>opae-tools-extra-2.5.0-3.x86_64<span class="w">                                                                                            </span>
-<a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>opae-opae.admin-2.5.0-3.x86_64<span class="w">                                                                                             </span>
-<a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a>opae-tests-2.5.0-3.x86_64<span class="w">                                                                                                  </span>
-<a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>opae-libs-2.5.0-3.x86_64
+<a id="__codelineno-52-2" name="__codelineno-52-2" href="#__codelineno-52-2"></a>opae-devel-2.5.0-2.x86_64<span class="w">                                                                                                  </span>
+<a id="__codelineno-52-3" name="__codelineno-52-3" href="#__codelineno-52-3"></a>opae-packager-2.5.0-2.x86_64<span class="w">                                                                                               </span>
+<a id="__codelineno-52-4" name="__codelineno-52-4" href="#__codelineno-52-4"></a>opae-2.5.0-2.x86_64<span class="w">                                                                                                        </span>
+<a id="__codelineno-52-5" name="__codelineno-52-5" href="#__codelineno-52-5"></a>opae-tools-2.5.0-2.x86_64<span class="w">                                                                                                  </span>
+<a id="__codelineno-52-6" name="__codelineno-52-6" href="#__codelineno-52-6"></a>opae-PACSign-2.5.0-2.x86_64<span class="w">                                                                                                </span>
+<a id="__codelineno-52-7" name="__codelineno-52-7" href="#__codelineno-52-7"></a>opae-tools-extra-2.5.0-2.x86_64<span class="w">                                                                                            </span>
+<a id="__codelineno-52-8" name="__codelineno-52-8" href="#__codelineno-52-8"></a>opae-opae.admin-2.5.0-2.x86_64<span class="w">                                                                                             </span>
+<a id="__codelineno-52-9" name="__codelineno-52-9" href="#__codelineno-52-9"></a>opae-tests-2.5.0-2.x86_64<span class="w">                                                                                                  </span>
+<a id="__codelineno-52-10" name="__codelineno-52-10" href="#__codelineno-52-10"></a>opae-libs-2.5.0-2.x86_64
 </code></pre></div>
 <p><strong>5.</strong> Setup required environment variables</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-53-1" name="__codelineno-53-1" href="#__codelineno-53-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:<span class="nv">$OFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk/bin
@@ -2854,7 +2854,7 @@ The <strong>hw</strong> directory contains the RTL to implement the hardware fun
 <a id="__codelineno-71-2" name="__codelineno-71-2" href="#__codelineno-71-2"></a><span class="w">  </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">FPGA_BBB_CCI_SRC</span><span class="o">=</span><span class="nv">$OFS_BUILD_ROOT</span>/examples-afu<span class="w">  </span>
 <a id="__codelineno-71-3" name="__codelineno-71-3" href="#__codelineno-71-3"></a>
 <a id="__codelineno-71-4" name="__codelineno-71-4" href="#__codelineno-71-4"></a><span class="w">  </span><span class="c1"># Header files from OPAE and MPF must either be on the default compiler search paths or on both C_INCLUDE_PATH and CPLUS_INCLUDE_PATH.</span>
-<a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a><span class="w">  </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">C_INCLUDE_PATH</span><span class="o">=</span>/usr/src/debug/opae-2.5.0-3.el8.x86_64/tests/framework
+<a id="__codelineno-71-5" name="__codelineno-71-5" href="#__codelineno-71-5"></a><span class="w">  </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">C_INCLUDE_PATH</span><span class="o">=</span>/usr/src/debug/opae-2.5.0-2.el8.x86_64/tests/framework
 <a id="__codelineno-71-6" name="__codelineno-71-6" href="#__codelineno-71-6"></a>
 <a id="__codelineno-71-7" name="__codelineno-71-7" href="#__codelineno-71-7"></a><span class="w">  </span><span class="c1"># OPAE and MPF libraries must either be on the default linker search paths or on both LIBRARY_PATH and LD_LIBRARY_PATH.  </span>
 <a id="__codelineno-71-8" name="__codelineno-71-8" href="#__codelineno-71-8"></a><span class="w">  </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_LOC</span><span class="o">=</span>/usr
@@ -3085,8 +3085,8 @@ Compile the <code>host_chan_mmio</code> <abbr title="Accelerator Functional Unit
 <p>In this section you will set up your server to support ASE by independently downloading and installing <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and ASE. Then, set up the required environment variables.</p>
 <h3 id="511-install-opae-sdk">5.1.1. Install <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr><a class="headerlink" href="#511-install-opae-sdk" title="Permanent link">&para;</a></h3>
 <p>Follow the instructions documented in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005, section <a href="/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit">5.0 OPAE Software Development Kit</a> to build and install the required <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> for the Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> card.</p>
-<p>The Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> card requires <strong>opae-2.5.0-3</strong>. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 section <a href="/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit">5.0 OPAE Software Development Kit</a>. However, just make sure to check out the cloned repository to tag <strong>2.5.0-3</strong> and branch <strong>release/2.5.0</strong>.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.5.0-3<span class="w"> </span>-b<span class="w"> </span>release/2.5.0
+<p>The Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> card requires <strong>opae-2.5.0-2</strong>. Follow the instructions provided in the Getting Started Guide: Intel® Open FPGA Stack for Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 section <a href="/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/#50-opae-software-development-kit">5.0 OPAE Software Development Kit</a>. However, just make sure to check out the cloned repository to tag <strong>2.5.0-2</strong> and branch <strong>release/2.5.0</strong>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-81-1" name="__codelineno-81-1" href="#__codelineno-81-1"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.5.0-2<span class="w"> </span>-b<span class="w"> </span>release/2.5.0
 </code></pre></div>
 <h3 id="512-install-ase-tools">5.1.2 Install ASE Tools<a class="headerlink" href="#512-install-ase-tools" title="Permanent link">&para;</a></h3>
 <p>ASE is an RTL simulator for OPAE-based AFUs. The simulator emulates both the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> software user space API and the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL interface. The majority of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> as well as devices such as PCIe and local memory are emulated with simple functional models.</p>
@@ -3104,7 +3104,7 @@ Compile the <code>host_chan_mmio</code> <abbr title="Accelerator Functional Unit
 <a id="__codelineno-82-3" name="__codelineno-82-3" href="#__codelineno-82-3"></a><span class="w">  </span>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>opae-sim<span class="w">  </span>
 </code></pre></div>
 2. Building ASE requires the include file <code>mock/opae_std.h</code>. If the OPAE-SDK was installed under the default system directories, the <strong>C_INCLUDE_PATH</strong> variable must be set as follows. </p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">C_INCLUDE_PATH</span><span class="o">=</span><span class="s2">&quot;/usr/src/debug/opae-2.5.0-3.el8.x86_64/tests/framework&quot;</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-83-1" name="__codelineno-83-1" href="#__codelineno-83-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">C_INCLUDE_PATH</span><span class="o">=</span><span class="s2">&quot;/usr/src/debug/opae-2.5.0-2.el8.x86_64/tests/framework&quot;</span>
 </code></pre></div>
 <ol>
 <li>Create a build directory and build ASE to be installed under the default system directories along with <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr>.</li>
@@ -3550,6 +3550,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/d5005/doc_modules/links.md -->
 
 
 
