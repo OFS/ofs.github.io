@@ -1722,6 +1722,40 @@ the given command.</p>
 <p><code>errors</code></p>
 <p>Show/clear errors of an FPGA resource that the first argument specifies.
 <code>fpgainfo</code> displays information in human readable form.</p>
+<table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Catfatal Errors</td>
+<td>Bit 8 indicates an Injected Fatal error, bit 11 indicates an Injected Catastrophic Error.</td>
+</tr>
+<tr>
+<td>Inject Errors</td>
+<td>[2:0] are mainly writeable bits. Can read back values.</td>
+</tr>
+<tr>
+<td>(<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) Next Error</td>
+<td>[59:0] 60 LSBs are taken from the given error register that was triggered second, [60:61] 0 = FME0 Error, 1 = PCIe0 Error.</td>
+</tr>
+<tr>
+<td>(<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) First Error</td>
+<td>[59:0] 60 LSBs are taken from the given error register that was triggered first, [60:61] 0 = FME0 Error, 1 = PCIe0 Error.</td>
+</tr>
+<tr>
+<td><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> Errors</td>
+<td>Error from Partial Reconfiguration Block reporting a FIFO Parity Error has occurred.</td>
+</tr>
+<tr>
+<td>Non-fatal Errors</td>
+<td>Bit 6 is used to advertise an Injected Warning Error.</td>
+</tr>
+</tbody>
+</table>
 <p><code>power</code></p>
 <p>Show total the power in watts that the FPGA hardware consumes.</p>
 <p><code>temp</code></p>

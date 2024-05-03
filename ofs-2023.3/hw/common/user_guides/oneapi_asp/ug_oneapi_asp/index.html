@@ -2043,7 +2043,7 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.41-dfl root=/dev/mapper/rhel-root ro crashkern
 </ul>
 <p>4) Ensure you have all the Quartus patches installed, refer to Table 2-3 for required Quartus version.</p>
 <blockquote>
-<p><strong>Note:</strong> For Intel® Agilex® 7 FPGA ensure Quartus patch 0.13, 0.21 and 0.02iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1">patch-agx7-ofs-2023-3.tar.gz</a>. For Intel® Stratix 10® FPGA ensure Quartus patch 0.23 and 0.01iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1">patch-s10-ofs-2023-3.tar.gz</a>.For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. </p>
+<p><strong>Note:</strong> For Intel® Agilex® 7 FPGA ensure Quartus patch 0.13, 0.21 and 0.02iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1">patch-agx7-2023-3.tar.gz</a>. For Intel® Stratix 10® FPGA ensure Quartus patch 0.23 and 0.01iofs are installed. You can find them in a tar file under assets in the following link <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1">patch-s10-2023-3.tar.gz</a>.For quartus patches installation to work properly, you must have Git Large File Storage (LFS) installed when cloning the ofs-fim repository. </p>
 </blockquote>
 <p>Use following command to check Quartus version and installed patches.</p>
 </pre>
@@ -2130,7 +2130,7 @@ gcc --version
 </tr>
 <tr>
 <td>Quartus Prime Pro Edition</td>
-<td>Version 23.3 Pro Edition with patches (0.13, 0.21 and 0.02iofs) under assets on this link [patch-agx7-ofs-2023-3.tar.gz]](https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1)</td>
+<td>Version 23.3 Pro Edition with patches (0.13, 0.21 and 0.02iofs) under assets on this link <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-1">patch-agx7-2023-3.tar.gz</a></td>
 </tr>
 <tr>
 <td>Intel® oneAPI Base Toolkit (Base Kit)</td>
@@ -2181,7 +2181,11 @@ gcc --version
 </tr>
 <tr>
 <td>Quartus Prime Pro Edition</td>
-<td>Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link <a href="https://github.com/OFS/ofs-d5005/releases/tag/ofs-2023.3-1">patch-s10-ofs-2023-3.tar.gz</a></td>
+<td>Version 23.3 Pro Edition  with patches( patch 0.23 and 0.01iofs) under assets on this link [patch-s10-2023-3.tar.gz</td>
+</tr>
+<tr>
+<td>](https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-d5005/releases/tag/ofs-2023.3-1)</td>
+<td></td>
 </tr>
 <tr>
 <td>Intel® oneAPI Base Toolkit (Base Kit)</td>
@@ -2726,6 +2730,9 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/doc_modules/links.md -->
+<!-- include ./docs/hw/d5005/doc_modules/links.md -->
+<!-- include ./docs/hw/n6001/doc_modules/links.md -->
 
 
 

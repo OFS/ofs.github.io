@@ -2983,12 +2983,12 @@ remote: Enumerating objects:  ....
 Resolving deltas  ..., done.
 
 $ cd ofs-f2000x-pl
-$ git checkout tags/ofs-2023.3-2
+$ git checkout tags/ofs-2023.3-1
 </code></pre></div>
 <p>Verify that the correct tag/branch have been checked out        </p>
 <div class="highlight"><pre><span></span><code>$ git describe --tags
 
-$ ofs-2023.3-2
+$ ofs-2023.3-1
 </code></pre></div>
 <h2 id="52-license-requirements"><strong>5.2 License Requirements</strong><a class="headerlink" href="#52-license-requirements" title="Permanent link">&para;</a></h2>
 <p>The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Testbench is <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> compliant and integrates third party VIP's from Synopsys for PCI Express, Arm® AMBA® 4 AXI4-Streaming interface and Arm® AMBA® 4 AXI4Arm® AMBA® 4 AXI4-Memory Mapped interface for comprehensive verification. The user will need to acquire licenses for these VIPs to use this <abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr>. <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> RAL (Register Abstraction Layer) is used for CSR Verification.</p>
@@ -4133,6 +4133,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
 
 
 

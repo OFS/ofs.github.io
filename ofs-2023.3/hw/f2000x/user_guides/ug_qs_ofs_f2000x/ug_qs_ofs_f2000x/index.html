@@ -2427,7 +2427,7 @@
 
 
 <h1 id="ofs-getting-started-guide-for-intel-agilex-7-soc-attach-fpgas"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started Guide for Intel Agilex 7 SoC Attach FPGAs<a class="headerlink" href="#ofs-getting-started-guide-for-intel-agilex-7-soc-attach-fpgas" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>January 10, 2024</strong> </p>
+<p>Last updated: <strong>May 03, 2024</strong> </p>
 <h2 id="10-about-this-document">1.0 About this Document<a class="headerlink" href="#10-about-this-document" title="Permanent link">&para;</a></h2>
 <p>The purpose of this document is to help users get started in evaluating the 2023.3 version of the SoC Attach release targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. After reviewing this document, a user shall be able to:</p>
 <ul>
@@ -2928,7 +2928,7 @@ hub. See <em>Figure 9</em>.</p>
 <h4 id="155-creating-a-bootable-usb-flash-drive-for-the-soc">1.5.5 Creating a Bootable USB Flash Drive for the SoC<a class="headerlink" href="#155-creating-a-bootable-usb-flash-drive-for-the-soc" title="Permanent link">&para;</a></h4>
 <p>Connect your flash drive to an available Linux host. In this section the USB will set up to be used as a secondary boot source for the SoC and will also be used to update the NVMe from which the ICX-D SoC boots in section <a href="#21-updating-the-f2000x-pl-icxd-soc-nvme">2.1 Updating the F2000X-PL ICX-D SoC NVMe</a>.</p>
 <p>You will load the latest pre-compiled Yocto <code>core-image-minimal</code> WIC image into USB flash. This image can be downloaded from
-<a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.3-1">2023.3 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Release for Intel Agilex 7 SoC Attach Reference Shell</a>, under assets, or compiled from <a href="https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2">meta-ofs</a>. Compilation is discussed in section <a href="#40-compiling-a-custom-yocto-soc-image">4.0 Compiling a Custom Yocto SoC Image</a>.</p>
+<a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.3-1">2023.3 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Release for Intel Agilex 7 SoC Attach Reference Shell</a>, under assets, or compiled from <a href="https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.3-1">meta-ofs</a>. Compilation is discussed in section <a href="#40-compiling-a-custom-yocto-soc-image">4.0 Compiling a Custom Yocto SoC Image</a>.</p>
 <ol>
 <li>
 <p>Insert a 64 GB or larger USB Flash Drive into the USB slot of a computer/server you can use to format the drive. The following instructions assume you are using some flavor of GNU+Linux. You need sudo access privileges on this machine.</p>
@@ -3168,7 +3168,7 @@ hub. See <em>Figure 9</em>.</p>
 </li>
 <li>
 <p>Reboot the SoC and update the SoC BIOS to boot from NVMe. Follow steps 2 and 3 from this section again, and this time move the NVME back to the front of the boot order. The NVMe is named <code>UEFI OS (PCIe SSD)</code> by the BIOS. Press F4 to save and exit.</p>
-<p>You can use <code>wget</code> to retrieve a new version of the Yocto release image from <a href="https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.1-2">meta-ofs</a> once the SoC's network connection is up. Use <code>wget</code> to copy the image to the SoC over the network under <code>/mnt</code>. You may need to delete previous Yocto images to save on space: <code>$ wget --no-check-certificate --user &lt;Git username&gt; --ask-password https://github.com/OFS/meta-ofs/releases/download/ofs-2023.3-2/core-image-full-cmdline-intel-corei7-64-20231129215057.rootfs.wic.gz</code>. Uncompress the newly retrieved file: <code>gzip -d core-image-full-cmdline-intel-corei7-64-20231129215057.rootfs.wic.gz</code>. This may take several minutes.</p>
+<p>You can use <code>wget</code> to retrieve a new version of the Yocto release image from <a href="https://github.com/OFS/meta-ofs/releases/tag/ofs-2023.3-1">meta-ofs</a> once the SoC's network connection is up. Use <code>wget</code> to copy the image to the SoC over the network under <code>/mnt</code>. You may need to delete previous Yocto images to save on space: <code>$ wget --no-check-certificate --user &lt;Git username&gt; --ask-password https://github.com/OFS/meta-ofs/releases/download/ofs-2023.3-2/core-image-full-cmdline-intel-corei7-64-20231129215057.rootfs.wic.gz</code>. Uncompress the newly retrieved file: <code>gzip -d core-image-full-cmdline-intel-corei7-64-20231129215057.rootfs.wic.gz</code>. This may take several minutes.</p>
 </li>
 </ol>
 <h4 id="211-setting-the-time">2.1.1 Setting the Time<a class="headerlink" href="#211-setting-the-time" title="Permanent link">&para;</a></h4>
@@ -3683,6 +3683,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
 
 
 

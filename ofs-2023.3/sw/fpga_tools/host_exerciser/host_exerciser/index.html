@@ -1781,7 +1781,7 @@ Value:3'b011-Not supported</p>
 <p><code>--testall</code></p>
 <p>Run all host exerciser tests.</p>
 <p><code>--clock-mhz</code></p>
-<p>pcie clock frequency, default value 350Mhz.</p>
+<p>pcie clock frequency, default value 350Mhz. When specified by the user, will not check value against <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> clock before calculating performance metrics.</p>
 <h2 id="examples">EXAMPLES<a class="headerlink" href="#examples" title="Permanent link">&para;</a></h2>
 <p>This command exerciser Loopback afu:
 <div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="go">host_exerciser lpbk</span>
