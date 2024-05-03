@@ -3740,7 +3740,7 @@
 
 
 <h1 id="shell-developer-guide-agilex-7-soc-attach-open-fpga-stack"><strong>Shell Developer Guide: Agilex<sup>&reg;</sup> 7 SoC Attach: Open FPGA Stack</strong><a class="headerlink" href="#shell-developer-guide-agilex-7-soc-attach-open-fpga-stack" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>April 05, 2024</strong> </p>
+<p>Last updated: <strong>May 03, 2024</strong> </p>
 <h2 id="1-introduction"><strong>1 Introduction</strong><a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
 <h3 id="11-about-this-document"><strong>1.1 About This Document</strong><a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
 <p>This document serves as a guide for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Agilex® 7 SoC Attach developers targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. The following topics are covered in this guide:</p>
@@ -4503,8 +4503,11 @@
 <a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VERDIR</span><span class="o">=</span><span class="nv">$OFS_ROOTDIR</span>/verification
 <a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VIPDIR</span><span class="o">=</span><span class="nv">$VERDIR</span>
 <a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>
-<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="c1"># Set PATH to include compilation and simulation tools</span>
-<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QUARTUS_HOME</span>/../qsys/bin:<span class="nv">$QUARTUS_HOME</span>/sopc_builder/bin/:<span class="nv">$IOFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk/bin:<span class="nv">$MTI_HOME</span>/linux_x86_64/:<span class="nv">$MTI_HOME</span>/bin/:<span class="nv">$DESIGNWARE_HOME</span>/bin:<span class="nv">$VCS_HOME</span>/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="c1"># Set OPAE variables</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_SDK_REPO_BRANCH</span><span class="o">=</span>release/2.12.0
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="c1"># Set PATH to include compilation and simulation tools</span>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QUARTUS_HOME</span>/../qsys/bin:<span class="nv">$QUARTUS_HOME</span>/sopc_builder/bin/:<span class="nv">$IOFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk/bin:<span class="nv">$MTI_HOME</span>/linux_x86_64/:<span class="nv">$MTI_HOME</span>/bin/:<span class="nv">$DESIGNWARE_HOME</span>/bin:<span class="nv">$VCS_HOME</span>/bin:<span class="nv">$PATH</span>
 </code></pre></div>
 </li>
 </ol>
@@ -9698,6 +9701,9 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/doc_modules/links.md -->
+<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
+<!-- include ./docs/hw/f2000x/dev_guides/fim_dev/links.md -->
 
 
 

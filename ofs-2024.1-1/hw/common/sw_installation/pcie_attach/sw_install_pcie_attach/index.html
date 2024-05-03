@@ -2480,7 +2480,7 @@
 
 
 <h1 id="software-installation-guide-open-fpga-stack-for-pcie-attach">Software Installation Guide: Open FPGA Stack for PCIe Attach<a class="headerlink" href="#software-installation-guide-open-fpga-stack-for-pcie-attach" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>April 05, 2024</strong> </p>
+<p>Last updated: <strong>May 03, 2024</strong> </p>
 <h2 id="10-about-this-document">1.0 About This Document<a class="headerlink" href="#10-about-this-document" title="Permanent link">&para;</a></h2>
 <p>The purpose of this document is to help users get started in setting up their local environments and installing the most recent release of the PCIe Attach software stack on the host. This document will not cover the process of board installation or platform bring-up. After reviewing this document, a user shall be able to:</p>
 <ul>
@@ -2671,8 +2671,8 @@
 </tr>
 <tr>
 <td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
-<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4"> 2.12.0-4 </a></td>
-<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4"> 2.12.0-4 </a></td>
+<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5"> 2.12.0-5 </a></td>
+<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5"> 2.12.0-5 </a></td>
 </tr>
 <tr>
 <td>Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
@@ -2926,7 +2926,7 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.78-dfl root=/dev/mapper/cl-root ro crashkernel
 </code></pre></div>
 <h2 id="40-opae-software-development-kit">4.0 OPAE Software Development Kit<a class="headerlink" href="#40-opae-software-development-kit" title="Permanent link">&para;</a></h2>
 <p>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> software stack sits in user space on top of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit <a href="https://opae.github.io/latest/index.html">opae.github.io</a>.</p>
-<p>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> source code is contained within a single GitHub repository hosted at the <a href="https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4">OPAE Github</a>. This repository is open source and does not require any permissions to access.</p>
+<p>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> source code is contained within a single GitHub repository hosted at the <a href="https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5">OPAE Github</a>. This repository is open source and does not require any permissions to access.</p>
 <p>You can choose to install the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> by either using pre-built binaries created for the <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr> OS, or by building them on your local server. If you decide to use the pre-built packages available on your chosen platform's release page, skip to section <a href="#44-installing-the-opae-sdk-with-pre-built-packages">4.3 Installing the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> with Pre-built Packages</a>. Regardless of your choice you will need to follow the steps in this section to prepare your server for installation.</p>
 <p>You may also choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions and is available on the PCIe Attach's platform release page. It can be used to automate installation of the pre-built packages, or to build from source.</p>
 <h3 id="41-opae-sdk-installation-environment-setup">4.1 <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> Installation Environment Setup<a class="headerlink" href="#41-opae-sdk-installation-environment-setup" title="Permanent link">&para;</a></h3>
@@ -2986,13 +2986,13 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.78-dfl root=/dev/mapper/cl-root ro crashkernel
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>git<span class="w"> </span>init
 <a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OFS/opae-sdk<span class="w"> </span>opae-sdk
 <a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/opae-sdk
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.12.0-4
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.12.0-5
 </code></pre></div>
 </li>
 <li>
 <p>Verify that the correct tag/branch have been checkout out.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>git<span class="w"> </span>describe<span class="w"> </span>--tags
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="m">2</span>.12.0-4
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="m">2</span>.12.0-5
 </code></pre></div>
 </li>
 <li>
@@ -3027,19 +3027,19 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.78-dfl root=/dev/mapper/cl-root ro crashkernel
 <li>
 <p>Check that all packages have been installed and match expectation:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>opae-2.12.0-4.el8.x86_64.rpm
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>opae-debuginfo-2.12.0-4.el8.x86_64.rpm
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>opae-debugsource-2.12.0-4.el8.x86_64.rpm
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>opae-devel-2.12.0-4.el8.x86_64.rpm
-<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>opae-devel-debuginfo-2.12.0-4.el8.x86_64.rpm
-<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>opae-extra-tools-2.12.0-4.el8.x86_64.rpm
-<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>opae-extra-tools-debuginfo-2.12.0-4.el8.x86_64.rpm
+<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>opae-2.12.0-5.el8.x86_64.rpm
+<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>opae-debuginfo-2.12.0-5.el8.x86_64.rpm
+<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>opae-debugsource-2.12.0-5.el8.x86_64.rpm
+<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>opae-devel-2.12.0-5.el8.x86_64.rpm
+<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>opae-devel-debuginfo-2.12.0-5.el8.x86_64.rpm
+<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>opae-extra-tools-2.12.0-5.el8.x86_64.rpm
+<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>opae-extra-tools-debuginfo-2.12.0-5.el8.x86_64.rpm
 </code></pre></div>
 </li>
 </ol>
 <h3 id="42-installing-the-opae-sdk-with-pre-built-packages">4.2 Installing the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> with Pre-Built Packages<a class="headerlink" href="#42-installing-the-opae-sdk-with-pre-built-packages" title="Permanent link">&para;</a></h3>
-<p>You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit your chosen platform's release page. Ender the Assets tab you will see a file named opae-2.12.0-4.x86_64-\&lt;\&lt;date>>_\&lt;\&lt;build>>.tar.gz. Download this package and extract its contents:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>tar<span class="w"> </span>xf<span class="w"> </span>opae-2.12.0-4.x86_64-*.tar.gz
+<p>You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit your chosen platform's release page. Ender the Assets tab you will see a file named opae-2.12.0-5.x86_64-\&lt;\&lt;date>>_\&lt;\&lt;build>>.tar.gz. Download this package and extract its contents:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>tar<span class="w"> </span>xf<span class="w"> </span>opae-2.12.0-5.x86_64-*.tar.gz
 </code></pre></div>
 <p>For a fast installation you can delete the source RPM as it isn't necessary, and install all remaining OPAE RPMs:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>rm<span class="w"> </span>opae-*.src.rpm
@@ -3057,6 +3057,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/doc_modules/links.md -->
 
 
 

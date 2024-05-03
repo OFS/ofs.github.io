@@ -3745,6 +3745,10 @@ The key components of OFS include:
 <ul>
 <li>Board Management Controller RTL and firmware that supports telemetry monitoring, remote configuration updates and most importantly a root of trust for the platform.</li>
 </ul>
+<!--
+- Source accessible, modular FPGA Interface  manager (FIM) RTL with a UVM infrastructure and unit tests that can be leveraged for your own custom FIM design
+-->
+
 <ul>
 <li>Source accessible, modular FPGA Interface  manager (FIM) RTL with unit tests that can be leveraged for your own custom FIM design</li>
 </ul>
@@ -3757,6 +3761,8 @@ The key components of OFS include:
 <ul>
 <li>The OneAPI shim provides a layer that is used by the OneAPI runtime to communicate with the kernel.</li>
 </ul>
+<!--- Accelerator simulation through UVM -->
+
 <ul>
 <li>OPAE software development kit (APIs, upstreamed Linux drivers and software tools)</li>
 </ul>
@@ -3765,7 +3771,8 @@ The key components of OFS include:
 </ul>
 <p>The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Intel Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Intel sales representative.</p>
 
-<p><strong>Table 1-2 OFS GitHub Repositories</strong> (<a href="https://github.com/OFS/">https://github.com/OFS/</a>)</p>
+<p><strong>Table 1-2 OFS GitHub Repositories</strong></p>
+<p>OFS GitHub repositories can be found in the <a href="https://github.com/OFS">OFS</a>.</p>
 <table>
 <thead>
 <tr>
@@ -3786,7 +3793,8 @@ The key components of OFS include:
 </table>
 <p> The OPAE software GitHub site is fully opensource and contains resources for both software and workload developers.</p>
 
-<p><strong>Table 1-3 OPAE Public Git Repositories</strong> (<a href="https://github.com/OFS)">https://github.com/OFS)</a></p>
+<p><strong>Table 1-3 OPAE Public Git Repositories</strong></p>
+<p>OPAE GitHub repositories can be found in the <a href="https://github.com/OFS">OFS</a>.</p>
 <table>
 <thead>
 <tr>
@@ -5205,7 +5213,7 @@ Follow these steps to use the priority-based flow control (PFC):
 <li>Ethernet Clock Interface (eth_clock) (from FIM)</li>
 </ol>
 <p>The he-hssi uses the APF interface for HSSI CSR (MMIO) accesses. The AXI4-Stream Ethernet data and side band interface along with Ethernet clocks communicate directly to the he-hssi module in the AFU region through platform independent data structures provided by the PIM.  Even if you implement a different MAC you typically can leverage these data structures defined in the hssi/inc/ofs_fim_eth_avst_if.sv file <a href="https://github.com/OFS/ofs-d5005">here</a> without modification.</p>
-<p>While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file h<a href="https://github.com/OFS/ofs-d500">here</a>. Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.</p>
+<p>While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file in the <a href="https://github.com/OFS/ofs-d5005">OFS D5005 FIM Github Branch</a>. Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.</p>
 <h4 id="1223-hssi-sideband-interface"><strong>12.2.3 HSSI Sideband Interface</strong><a class="headerlink" href="#1223-hssi-sideband-interface" title="Permanent link">&para;</a></h4>
 <p>The AXI4-Stream sideband interface has been been defined to allow for time sensitive status and flow control information. It does not have the optional <code>tready</code> signal and assumes the slave always accepts  information. 
 The Ethernet sideband interface varies widely across IPs and operating modes and device generations. In OFS Stratix 10 FIM, the Ethernet sideband signals are mapped to the AXI4-Stream interface and interface variations can be accommodated by customizing the <code>tdata</code> signals of the sideband interface in platform specific interface packages using the PIM. </p>
@@ -5321,7 +5329,7 @@ HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers are for the reconfiguration interface,
 /sys/kernel/debug/dfl-fme.X.Y</p>
 <p>To read a register offset in the MAC/PHY write the offset to the regaddr file as a C hex string (e.g. 0x04) and then read the value as string out of regval file. To write a register offset in the MAC/PHY write the offset to the regaddr file as a C hex string (e.g. 0x04) and then write the value as a C hex string to regval file.</p>
 <h4 id="1232-hssi-user-space-tool"><strong>12.3.2   HSSI User Space Tool</strong><a class="headerlink" href="#1232-hssi-user-space-tool" title="Permanent link">&para;</a></h4>
-<p>The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  <a href="https://github.com/OFS/opae-sdk/tree/2.12.0-4">OPAE SDK Branch</a>.</p>
+<p>The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  <a href="https://github.com/OFS/opae-sdk/tree/2.12.0-5">OPAE SDK Branch</a>.</p>
 <pre><code>$ hssi --help
 </pre>
 <p></code></p>
@@ -5334,8 +5342,8 @@ HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers are for the reconfiguration interface,
 For the PR flow, the design should be partitioned into static region and reconfigurable region. The static region is the area of your FPGA that is not reconfigured without reprogramming the entire FPGA. An area of the chip that you plan to partially reconfigure is a PR region. </p>
 <p>The Port Gasket contains all the PR specific modules and logic, such as PR slot reset/freeze control, user clock, remote STP etc. For this reference example only one PR slot is supported.
 The following figure depicts the high level view of the Port Gasket:</p>
-<p><strong>Figure 13-1 Partial Reconfiguration Gasket</strong>
-<a class="glightbox" href="images/ofs-pr-gasket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/ofs-pr-gasket.png" alt="drawing" style="width:350px"></a></p>
+<p><strong>Figure 13-1 Partial Reconfiguration Gasket</strong></p>
+<p><a class="glightbox" href="../images/ofs-pr-gasket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ofs-pr-gasket" src="../images/ofs-pr-gasket.png" /></a></p>
 <p><a class="glightbox" href="../images/ofs-he-hssi-clks.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="hssi-he-hssi-clks" src="../images/ofs-he-hssi-clks.png" /></a></p>
 <p>The isolation logic is provided on the output signals of the PR region to ensure they don’t glitch and affect the interfacing logic in the Static Region (SR). The isolation logic is controlled by the PR Freeze logic during PR operation.</p>
 <h2 id="14-reliability-accessibility-serviceability-ras-and-error-handling"><strong>14 Reliability, Accessibility, Serviceability (RAS) and Error Handling</strong><a class="headerlink" href="#14-reliability-accessibility-serviceability-ras-and-error-handling" title="Permanent link">&para;</a></h2>
@@ -5594,8 +5602,8 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-
-
+<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->
 
 
 

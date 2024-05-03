@@ -1454,6 +1454,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2603,6 +2610,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -2622,7 +2636,7 @@
 
 
 <h1 id="afu-simulation-environment-user-guide"><strong><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Simulation Environment User Guide</strong><a class="headerlink" href="#afu-simulation-environment-user-guide" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>April 05, 2024</strong> </p>
+<p>Last updated: <strong>May 03, 2024</strong> </p>
 <h2 id="1-intended-audience"><strong>1. Intended Audience</strong><a class="headerlink" href="#1-intended-audience" title="Permanent link">&para;</a></h2>
 <p>The <em>Accelerator Functional Unit (<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>) Simulation Environment (ASE) User Guide</em> addresses both beginning and experienced developers. To be successful, you should have knowledge and experience in the following areas:</p>
 <ul>
@@ -2641,10 +2655,10 @@ Previous FPGA place and route (PAR) experience is not required to be successful,
 <li>VHDL</li>
 </ul>
 <p><strong>Note: The ASE supports one <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and one application at a time. The ASE does not support multiple-slot simulation.</strong></p>
-<p><a class="glightbox" href="./images/platform.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="./images/platform.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/platform.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/platform.png" /></a></p>
 <h3 id="21-afu-simulation-environment-ase-overview"><strong>2.1. <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Simulation Environment (ASE) Overview</strong><a class="headerlink" href="#21-afu-simulation-environment-ase-overview" title="Permanent link">&para;</a></h3>
 <p>ASE is a dual-process simulator. One process runs an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL simulation. The other process connects to software that runs on the RTL <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> simulation. This unified simulation environment reduces <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> hardware and software development time. The OPAE software distribution includes the ASE.</p>
-<p><a class="glightbox" href="./images/ase_overview_rev1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="./images/ase_overview_rev1.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_overview.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_overview.png" /></a></p>
 <p>The ASE provides two interfaces:</p>
 <ul>
 <li>Software: OPAE API implemented in the C programming language.</li>
@@ -2684,7 +2698,7 @@ Previous FPGA place and route (PAR) experience is not required to be successful,
 <li>The ASE does not simulate multi-<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or multi-socket configurations.</li>
 </ul>
 <h3 id="24-ase-based-afu-design-workflow"><strong>2.4 ASE-Based <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Design Workflow</strong><a class="headerlink" href="#24-ase-based-afu-design-workflow" title="Permanent link">&para;</a></h3>
-<p><a class="glightbox" href="./images/workflow_rev1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="./images/workflow_rev1.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/workflow_rev1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/workflow_rev1.png" /></a></p>
 <p><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> development using the ASE includes the following four stages:</p>
 <ol>
 <li>
@@ -2705,7 +2719,7 @@ Function (AF) bitstream that represents the <abbr title="Accelerator Functional 
 <p>In-system Deployment: Test the AF in system hardware. Use Signal Tap to debug problems. Develop platform-specific software optimizations.</p>
 </li>
 </ol>
-<p><a class="glightbox" href="portability_rev1.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="portability_rev1.PNG" /></a></p>
+<p><a class="glightbox" href="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/portability_rev1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/portability_rev1.png" /></a></p>
 <p>The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL code and OPAE software code you create in the ASE is compatible with the Quartus Prime PAR software if the following two conditions are true:</p>
 <ul>
 <li>The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL code is synthesizable.</li>
@@ -2866,7 +2880,7 @@ The RTL simulator must be able to perform the following functions:</p>
 </code></pre></div>
 <h2 id="5-ase-usage"><strong>5. ASE Usage</strong><a class="headerlink" href="#5-ase-usage" title="Permanent link">&para;</a></h2>
 <p>The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> ASE is a server-client simulation environment. The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL is the server process. The software application compiled and linked to the  OPAE ASE library is the client process. Communication between server and client uses named pipes. The ASE abstracts most of the simulation infrastructure. You do not need to modify it.</p>
-<p><a class="glightbox" href="./images/ase_server_client_process.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="./images/ase_server_client_process.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_server_client_process.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_server_client_process.png" /></a></p>
 <p><strong>Server Process</strong>:
 * The server process interfaces to 3<sup>rd</sup>-Party RTL Simulator packages. The server process currently supports Questasim and Synopsys VCS via the SystemVerilog-DPI library and simulator software interface.
 * Named pipes implement communication to the client.  Named pipes also implement control, status and session management. The server process includes a pipe event monitoring engine.
@@ -3262,6 +3276,18 @@ You cannot suppress warnings and errors.</p>
 </tr>
 </tbody>
 </table>
+<h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
+<p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
+<p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
 
 
 

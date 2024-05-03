@@ -2332,7 +2332,7 @@
 
 
 <h1 id="software-installation-guide-intel-agilex-7-soc-attach-fpgas">Software Installation Guide: Intel Agilex 7 SoC Attach FPGAs<a class="headerlink" href="#software-installation-guide-intel-agilex-7-soc-attach-fpgas" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>April 05, 2024</strong> </p>
+<p>Last updated: <strong>May 03, 2024</strong> </p>
 <h2 id="10-about-this-document">1.0 About this Document<a class="headerlink" href="#10-about-this-document" title="Permanent link">&para;</a></h2>
 <p>The purpose of this document is to help users get started in setting up their local environments and installing the most recent release of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> SoC Attach software stack on the host and platform. After reviewing this document, a user shall be able to:</p>
 <ul>
@@ -2470,7 +2470,7 @@
 </tr>
 <tr>
 <td>Host <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
-<td>2.12.0-4</td>
+<td>2.12.0-5</td>
 </tr>
 <tr>
 <td>SoC OS</td>
@@ -2482,7 +2482,7 @@
 </tr>
 <tr>
 <td>SoC <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
-<td>2.12.0-4</td>
+<td>2.12.0-5</td>
 </tr>
 <tr>
 <td>SoC Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
@@ -2561,11 +2561,11 @@
 <a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$<span class="w"> </span>git<span class="w"> </span>init
 <a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OFS/opae-sdk
 <a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>opae-sdk
-<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.12.0-4
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.12.0-5
 <a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
 <a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="c1"># Verifying we are on the correct release tag</span>
 <a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>$<span class="w"> </span>git<span class="w"> </span>describe<span class="w"> </span>--tags
-<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="m">2</span>.12.0-4
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="m">2</span>.12.0-5
 </code></pre></div>
 </li>
 <li>
@@ -2575,12 +2575,12 @@
 <a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
 <a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Verify all packages are present</span>
 <a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>$<span class="w"> </span>ls<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae.*.deb
-<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>opae_2.12.0-4_amd64.deb
-<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>opae-dbgsym_2.12.0-4_amd64.ddeb
-<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>opae-devel_2.12.0-4_amd64.deb
-<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>opae-devel-dbgsym_2.12.0-4_amd64.ddeb
-<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>opae-extra-tools_2.12.0-4_amd64.deb
-<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>opae-extra-tools-dbgsym_2.12.0-4_amd64.ddeb
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>opae_2.12.0-5_amd64.deb
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>opae-dbgsym_2.12.0-5_amd64.ddeb
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>opae-devel_2.12.0-5_amd64.deb
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>opae-devel-dbgsym_2.12.0-5_amd64.ddeb
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>opae-extra-tools_2.12.0-5_amd64.deb
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>opae-extra-tools-dbgsym_2.12.0-5_amd64.ddeb
 </code></pre></div>
 </li>
 <li>
@@ -2623,6 +2623,8 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
+<!-- include ./docs/hw/doc_modules/links.md -->
 
 
 

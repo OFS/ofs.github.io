@@ -5561,6 +5561,7 @@ preceding example, as they were NULL and 0. When no filtering criteria
 are provided,
 <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103">fpgaEnumerate()</a>
 returns all tokens that can be enumerated.</p>
+<p>The function will assert a reset on the currently loaded <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for a selected device through an <code>ioctl</code> call on its VFIO_GROUP.</p>
 <h5 id="2121-fpga_properties-and-filtering"><strong>2.1.2.1 fpga_properties and Filtering</strong><a class="headerlink" href="#2121-fpga_properties-and-filtering" title="Permanent link">&para;</a></h5>
 <p>An
 <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/types.h#L71-L92">fpga_properties</a>
@@ -6202,6 +6203,7 @@ call in order to perform a Port reset. The fpga_handle passed to
 <a href="https://github.com/OFS/opae-sdk/blob/master/include/opae/access.h#L90-L102">fpgaReset()</a>
 must be a valid open handle to an FPGA_ACCELERATOR. The ioctl requires
 no input/output parameters.</p>
+<p>Note: <code>fpgaReset()</code> will always reset the entire <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region of a device, and will not accept <abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr> devices as an input argument. If you wish to issue a reset on the currently loaded <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> only, use the <code>fpgaEnmuerate()</code> function instead.</p>
 <h4 id="222-port-information"><strong>2.2.2 Port Information</strong><a class="headerlink" href="#222-port-information" title="Permanent link">&para;</a></h4>
 <p>The
 <a href="https://github.com/OFS/opae-sdk/blob/master/libraries/plugins/xfpga/fpga-dfl.h#L82-L99"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>_FPGA_PORT_GET_INFO</a>
@@ -8227,11 +8229,9 @@ The <abbr title="Open Programmable Acceleration Engine Software Development Kit,
 <p>The Linux Operating System treats the FPGA hardware as a PCIe* device. A predefined data structure,
 Device Feature List (<abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>), allows for dynamic feature discovery in an Intel
 FPGA solution.</p>
-<p><a class="glightbox" href="FPGA_PCIe_Device.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="FPGA PCIe Device" src="FPGA_PCIe_Device.png" title="FPGA PCIe Device" /></a></p>
 <p>The Linux Device Driver implements PCIe Single Root I/O Virtualization (<abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr>) for the creation of
 Virtual Functions (VFs). The device driver can release individual accelerators
 for assignment to virtual machines (VMs).</p>
-<p><a class="glightbox" href="FPGA_PCIe_Device_SRIOV.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Virtualized FPGA PCIe Device" src="FPGA_PCIe_Device_SRIOV.png" title="Virtualized FPGA PCIe Device" /></a></p>
 <h3 id="112-fpga-management-engine-fme"><strong>11.2 FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>)</strong><a class="headerlink" href="#112-fpga-management-engine-fme" title="Permanent link">&para;</a></h3>
 <p>The FPGA Management Engine provides error reporting, reconfiguration, performance reporting, and other
 infrastructure functions. Each FPGA has one <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> which is always accessed through the Physical
@@ -8317,7 +8317,6 @@ N is the number of Port released from the PF.</p>
 </blockquote>
 <h3 id="117-driver-organization"><strong>11.7 Driver Organization</strong><a class="headerlink" href="#117-driver-organization" title="Permanent link">&para;</a></h3>
 <h4 id="1171-pcie-module-device-driver"><strong>11.7.1 PCIe Module Device Driver</strong><a class="headerlink" href="#1171-pcie-module-device-driver" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="Driver_Organization.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Driver Organization" src="Driver_Organization.png" title="Driver Organization" /></a></p>
 <p>FPGA devices appear as a PCIe devices. Once enumeration detects a PCIe PF or VF, the Linux OS loads the FPGA PCIe
 device driver. The device driver performs the following functions:</p>
 <ol>
@@ -8978,12 +8977,12 @@ learn how to build and install. Your versions may not match those in the documen
 <tr>
 <td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
 <td>2.3.0-1</td>
-<td><a href="https://github.com/intel-innersource/applications.fpga.ofs.documentation/blob/main/n6000/user_guides/ofs_getting_started/ug_qs_ofs_n6000.md#heading-4.0"><strong>4.0 OPAE Software Development Kit</strong></a></td>
+<td><a href="../../../sw_installation/pcie_attach/sw_install_pcie_attach/"><strong>4.0 OPAE Software Development Kit</strong></a></td>
 </tr>
 <tr>
 <td>linux-dfl</td>
 <td>ofs-2022.3-2</td>
-<td><a href="https://github.com/intel-innersource/applications.fpga.ofs.documentation/blob/main/n6000/user_guides/ofs_getting_started/ug_qs_ofs_n6000.md#heading-3.0"><strong>3.0 Intel <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Drivers</strong></a></td>
+<td><a href="../../../sw_installation/pcie_attach/sw_install_pcie_attach/"><strong>3.0 Intel <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Drivers</strong></a></td>
 </tr>
 </tbody>
 </table>
@@ -9201,6 +9200,7 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/doc_modules/links.md -->
 
 
 

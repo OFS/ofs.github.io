@@ -2271,6 +2271,7 @@ via the vfio-pci driver. The main feature of opae.io is its built-in
 Python command interpreter, along with some Python bindings that provide
 a means to access Configuration and Status Registers (CSRs) that reside
 on the PCIe device.</p>
+<p><em>Note: <code>opae.io</code> peek/poke will call <code>fpgaEnumerate()</code> internally and so a reset will be asserted on the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region. You can avoid initializing these registers by passing <code>opae.io</code> a python script directly.</em></p>
 <p><code>opae.io</code> has two operating modes: command line mode and interactive
 mode.</p>
 <h2 id="command-line-mode">COMMAND LINE MODE<a class="headerlink" href="#command-line-mode" title="Permanent link">&para;</a></h2>

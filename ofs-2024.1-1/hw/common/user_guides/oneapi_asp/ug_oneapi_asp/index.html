@@ -2517,7 +2517,7 @@
 </tbody>
 </table>
 <blockquote>
-<p><strong>Attention:</strong> Intel is discontinuing the Intel FPGA SDK for OpenCL software product. Refer to the <a href="https://cdrdv2.intel.com/v1/dl/getContent/738067?explicitVersion=true">Product Discontinuation Notice PDN2219</a>. Alternatively, Intel recommends using the Intel® oneAPI Base Toolkit (Base Kit), which provides core tools and libraries for developing high-performance data-centric applications across diverse architectures. It features an industry-leading C++ compiler that implements SYCL*, an evolution of C++ for heterogeneous computing. For more information, refer to the <a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html">Intel® oneAPI Base Toolkit (Base Kit)</a> web page. To migrate your OpenCL FPGA designs to SYCL, review <a href="https://www.intel.com/content/www/us/en/develop/documentation/migrate-opencl-fpga-designs-to-dpcpp/top.html"><em>Migrating OpenCL FPGA Designs to SYCL* guide</em></a> that demonstrates important differences between OpenCL and SYCL for FPGA and provides steps to migrate your OpenCL designs.</p>
+<p><strong>Attention:</strong> Intel is discontinuing the Intel FPGA SDK for OpenCL software product. Refer to the <a href="https://cdrdv2.intel.com/v1/dl/getContent/738067?explicitVersion=true">Product Discontinuation Notice PDN2219</a>. Alternatively, Intel recommends using the Intel® oneAPI Base Toolkit (Base Kit), which provides core tools and libraries for developing high-performance data-centric applications across diverse architectures. It features an industry-leading C++ compiler that implements SYCL*, an evolution of C++ for heterogeneous computing. For more information, refer to the <a href="https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html">Intel® oneAPI Base Toolkit (Base Kit)</a> web page. To migrate your OpenCL FPGA designs to SYCL, review <a href="https://www.intel.com/content/www/us/en/develop/documentation/migrate-opencl-fpga-designs-to-dpcpp/top.html"><em>Migrating OpenCL™ FPGA Designs to SYCL</em>*</a> that demonstrates important differences between OpenCL and SYCL for FPGA and provides steps to migrate your OpenCL designs.</p>
 </blockquote>
 <p>After reviewing the document you will be able to:</p>
 <ul>
@@ -2761,9 +2761,9 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-6.1.41-dfl root=/dev/mapper/rhel-root ro crashkern
 </table>
 <p>Once the environment variables are set, you can check the tool version using the following commands:</p>
 </pre>
-<div class="highlight"><pre><span></span><code># Printing all (Quartus, OpenCL SDK, GCC) versions for user info
+<div class="highlight"><pre><span></span><code># Printing all (Quartus, Intel® oneAPI Base Toolkit, GCC) versions for user info
 quartus_sh -v
-icpx --version (for Intel® oneAPI Base Toolkit (Base Kit))
+icpx --version (for oneAPI Base Toolkit)
 gcc --version
 </code></pre></div>
 </pre>
@@ -2791,7 +2791,7 @@ gcc --version
 </tr>
 <tr>
 <td>opae-sdk</td>
-<td>Branch: release/2.12.0, Tag: 2.12.0-4</td>
+<td>Branch: release/2.12.0, Tag: 2.12.0-5</td>
 </tr>
 <tr>
 <td>ofs-fim</td>
@@ -2842,7 +2842,7 @@ gcc --version
 </tr>
 <tr>
 <td>opae-sdk</td>
-<td>Branch: release/2.12.0, Tag: 2.12.0-4</td>
+<td>Branch: release/2.12.0, Tag: 2.12.0-5</td>
 </tr>
 <tr>
 <td>ofs-fim</td>
@@ -2895,10 +2895,10 @@ gcc --version
 <div class="highlight"><pre><span></span><code>    ofs-2024.1-1
 </code></pre></div>
 </pre>
-<p>2) Ensure that <code>OPAE_PLATFORM_ROOT</code> and <code>LIBOPAE_C_ROOT</code> have been set as described in <em><a href="#23-prerequisites">section 2.3</a></em>. Generate the oneAPI ASP hardware and software using provided <code>build-bsp.sh</code> script. This script clones required repositories and builds the oneAPI ASP libraries required by HLD host application to run successfully.</p>
+<p>2) Ensure that <code>OPAE_PLATFORM_ROOT</code> and <code>LIBOPAE_C_ROOT</code> have been set as described in <em><a href="#23-prerequisites">section 2.3</a></em>. Generate the oneAPI ASP hardware and software using provided <code>build-asp.sh</code> script. This script clones required repositories and builds the oneAPI ASP libraries required by HLD host application to run successfully.</p>
 </pre>
 <div class="highlight"><pre><span></span><code>    cd path-to-directory-containing-cloned-oneapi-asp-repo/oneapi-asp/platform-name
-    ./scripts/build-bsp.sh
+    ./scripts/build-asp.sh
 </code></pre></div>
 </pre>
 <p>The generated directory structure is shown below. For more details refer to the <a href="https://ofs.github.io/ofs-2024.1-1/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack</a>.</p>
@@ -2911,29 +2911,46 @@ oneapi-asp/platform-name
 |  |--run-ase.sh
 |  |--setup.sh
 |  |--simulate-aocx.sh
-|--bringup/source/simple-add-buffers/
-|  |--simple-add-buffers.cpp
+|--bringup
+|  |--binaries/
+|  |--source/simple-add-buffers/
+|  |  |--simple-add-buffers.cpp
+|--build/
+|  |--ase-release/
+|  |--bringup/
+|  |--ofs-platform-afu-bbb/
+|  |--release/
 |--hardware/
+|  |--common/build/
 |  |--ofs_platform-name/
 |  |--ofs_platform-name_iopipes/
 |  |--ofs_platform-name_usm/
 |  |--ofs_platform-name_usm_iopipes/
-|--linux64/libexec/
-|  |--flash
-|  |--initialize
-|  |--install
-|  |--setup_permissions.sh
-|  |--uninstall
+|--linux64/
+|  |--doc/
+|  |--include/
+|  |--lib/
+|  |  |--libintel_opae_mmd.so
+|  |  |--libMPF-cxx.so
+|  |  |--libMPF.so
+|  |--libexec/
+|  |  |--diagnose
+|  |  |--flash
+|  |  |--initialize
+|  |  |--install
+|  |  |--program
+|  |  |--setup_permissions.sh
+|  |  |--uninstall
 |--scripts/
-|  |--README.txt
-|  |--build-bsp-sw.sh
-|  |--build-bsp.sh
+|  |--build-asp.sh
+|  |--build-asp-sw.sh
 |  |--build-default-binaries.sh
 |  |--build-mmd.sh
 |  |--build-opae.sh
-|  |--create-tarball.sh
+|  |--create-tarball.sh 
 |  |--dedup-hardware.sh
-|  |--setup-bsp.py
+|  |--README.txt
+|  |--setup-asp.py
 |--board_env.xml
 |--README.md
 </pre>
@@ -2964,7 +2981,7 @@ ASP DIAGNOSTIC_PASSED
 --------------------------------------------------------------------
 </code></pre></div>
 </pre>
-<p>If a oneAPI ASP/BSP is installed, uninstall using <code>aocl uninstall path-to-oneapi-asp-install-location</code>, where <code>path-to-oneapi-asp-install-location</code> is provided under <code>BSP Install Location:</code> in the output of <code>aocl list-devices</code>. If you are prompted with a question to unset the FCD, type <code>Y</code>. If you are prompted with a question to remove OpenCL BSP configuration settings, type <code>Y</code>.</p>
+<p>If a oneAPI ASP/BSP is installed, uninstall using <code>aocl uninstall path-to-oneapi-asp-install-location</code>, where <code>path-to-oneapi-asp-install-location</code> is provided under <code>BSP Install Location:</code> in the output of <code>aocl list-devices</code>. If you are prompted with a question to unset the FCD, type <code>Y</code>. If you are prompted with a question to remove oneAPI-ASP configuration settings, type <code>Y</code>.</p>
 <p>Sample output for <code>aocl uninstall</code> command:</p>
 </pre>
 <div class="highlight"><pre><span></span><code>$ aocl uninstall /home/ofsuser/oneapi-asp/platform-name
@@ -3196,7 +3213,7 @@ Sample output for Stratix® 10 FPGA is shown below.</p>
 </code></pre></div>
 </pre>
 <blockquote>
-<p><strong>Note:</strong> <code>device-name</code> in <code>aocl initialize</code> command is from the <code>BSP Diagnostics</code> section in the output of <code>aocl list-devices</code> (sample output is shown in <em><a href="#24-build-and-install-oneapi-asp">Section 2.4</a></em>). <code>device-name</code> is <code>acl0</code> if there is only 1 board connected to the server. <code>name-of-the-board-variant</code> can be one of the supported board variants listed in <a href="#25-board-initialization">Table 2-6</a> provided the sample application bitstream using steps in section above.</p>
+<p><strong>Note:</strong> <code>device-name</code> in <code>aocl initialize</code> command is from the <code>ASP Diagnostics</code> section in the output of <code>aocl list-devices</code> (sample output is shown in <em><a href="#24-build-and-install-oneapi-asp">Section 2.4</a></em>). <code>device-name</code> is <code>acl0</code> if there is only 1 board connected to the server. <code>name-of-the-board-variant</code> can be one of the supported board variants listed in <a href="#25-board-initialization">Table 2-6</a> provided the sample application bitstream using steps in section above.</p>
 </blockquote>
 <p>Sample output for <code>aocl initialize acl0 ofs_n6001</code> is shown below. Output for Agilex® 7 FPGA F-Series Development Kit (2x F-Tile), Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) and Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 platforms and other board variants should be similar.</p>
 </pre>
@@ -3261,7 +3278,7 @@ Using the following location for fcd installations:
         /opt/Intel/OpenCLFPGA/oneAPI/Boards
 
 Found 1 fcd entry at that location:
-        /opt/Intel/OpenCLFPGA/oneAPI/Boards/ofs_platform-name_shim.fcd
+        /opt/Intel/OpenCLFPGA/oneAPI/Boards/platform-name.fcd
 
 The following OpenCL libraries are referenced in the fcd files:
         libopae-c.so
@@ -3299,14 +3316,14 @@ ofs_ee00001         Passed            Intel OFS Platform (ofs_ee00001)
                                     PCIe b1:00.0
                                     FPGA temperature = 59 degrees C.
 
-BSP DIAGNOSTIC_PASSED
+ASP DIAGNOSTIC_PASSED
 --------------------------------------------------------------------
 
 Call &quot;aocl diagnose &lt;device-names&gt;&quot; to run diagnose for specified devices
 Call &quot;aocl diagnose all&quot; to run diagnose for all devices
 </code></pre></div>
 </pre>
-<p>Run complete diagnostic using <code>aocl diagnose device-name</code> command. <code>device-name</code> is <code>acl0</code> if you have only 1 board in the server. The test reads and write data to the board to check the interfaces function correctly and report the measured bandwidth. The test must show <code>BSP DIAGNOSTIC_PASSED</code> message at the end.</p>
+<p>Run complete diagnostic using <code>aocl diagnose device-name</code> command. <code>device-name</code> is <code>acl0</code> if you have only 1 board in the server. The test reads and write data to the board to check the interfaces function correctly and report the measured bandwidth. The test must show <code>ASP DIAGNOSTIC_PASSED</code> message at the end.</p>
 </pre>
 <div class="highlight"><pre><span></span><code>    aocl diagnose acl0
 </code></pre></div>
@@ -3475,6 +3492,9 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/doc_modules/links.md -->
+<!-- include ./docs/hw/d5005/doc_modules/links.md -->
+<!-- include ./docs/hw/n6001/doc_modules/links.md -->
 
 
 

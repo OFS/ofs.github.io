@@ -2414,7 +2414,7 @@
 
 
 <h1 id="board-installation-guidelines-intel-agilex-7-fpga-f-series-development-kit-2x-f-tile-and-intel-agilex-7-fpga-i-series-development-kit-2x-r-tile-and-1xf-tile">Board Installation Guidelines: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)<a class="headerlink" href="#board-installation-guidelines-intel-agilex-7-fpga-f-series-development-kit-2x-f-tile-and-intel-agilex-7-fpga-i-series-development-kit-2x-r-tile-and-1xf-tile" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>April 05, 2024</strong> </p>
+<p>Last updated: <strong>May 03, 2024</strong> </p>
 <h2 id="10-introduction">1.0 Introduction<a class="headerlink" href="#10-introduction" title="Permanent link">&para;</a></h2>
 <h3 id="11-about-this-document">1.1 About This Document<a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
 <p>The purpose of this document is to educate users of the following acceleration platforms on board installation and server environment setup for the F-Series (2x F-Tile) and I-Series (2x R-Tile and 1xF-Tile) Development Kits. After reading the document a user shall be able to:</p>
@@ -2645,15 +2645,15 @@
 <ol>
 <li>
 <p>The DK-DEV-AGF027F1ES (or it is called the F - tile Dev Kit, or FM86 Dev Kit) has LED light pipes on top of the QSFP cages.</p>
-<p><a class="glightbox" href="../images/ftile_qsfp_light_pipe.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe" src="../images/ftile_qsfp_light_pipe.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe.png" /></a></p>
 <p>These light pipes interfere with the server PCIe slot faceplate.</p>
-<p><a class="glightbox" href="../images/ftile_qsfp_light_pipe_interference_r750.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe_interference_r750" src="../images/ftile_qsfp_light_pipe_interference_r750.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_interference_r750.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe_interference_r750" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_interference_r750.png" /></a></p>
 </li>
 <li>
 <p>The light pipes can be easily removed by prying them off using a small screwdriver for leverage, then pushing the light pipes back to remove the retaining clips from the QSFP cage.</p>
-<p><a class="glightbox" href="../images/ftile_qsfp_light_pipe_removal_part1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe_removal_part1" src="../images/ftile_qsfp_light_pipe_removal_part1.png" /></a></p>
-<p><a class="glightbox" href="../images/ftile_qsfp_light_pipe_removal_part2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe_removal_part2" src="../images/ftile_qsfp_light_pipe_removal_part2.png" /></a></p>
-<p><a class="glightbox" href="../images/ftile_qsfp_light_pipe_removal_part3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe_removal_part3" src="../images/ftile_qsfp_light_pipe_removal_part3.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe_removal_part1" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part1.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe_removal_part2" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part2.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_qsfp_light_pipe_removal_part3" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part3.png" /></a></p>
 </li>
 </ol>
 <h3 id="32-default-switch-settings">3.2 Default Switch Settings<a class="headerlink" href="#32-default-switch-settings" title="Permanent link">&para;</a></h3>
@@ -2661,15 +2661,15 @@
 <ol>
 <li>
 <p>Board switch definitions can be found in the <a href="https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html">Intel Agilex® 7 F-Series FPGA (Two F-Tiles) Development Kit User Guide</a> or <a href="https://www.intel.com/content/www/us/en/docs/programmable/683288/current/default-setting.html">Intel Agilex® 7 FPGA I-Series Development Kit User Guide</a>.</p>
-<p><a class="glightbox" href="../images/ftile_board_switches_diagram.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_board_switches_diagram" src="../images/ftile_board_switches_diagram.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_diagram.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_board_switches_diagram" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_diagram.png" /></a></p>
 <p>See the image below for SW1, SW4 and SW3.</p>
-<p><a class="glightbox" href="../images/ftile_board_switches_picture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ftile_board_switches_picture.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_picture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_picture.png" /></a></p>
 <p>Before inserting into a server, set SW5 to 'ON'.</p>
-<p><a class="glightbox" href="../images/ftile_board_sw5_on.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_board_sw5_on" src="../images/ftile_board_sw5_on.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_board_sw5_on.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_board_sw5_on" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_board_sw5_on.png" /></a></p>
 </li>
 <li>
 <p>Below shows an F-Series Dev Kit installed into a PCIe riser with the light pipes removed.</p>
-<p><a class="glightbox" href="../images/ftile_final_installation_r750.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_final_installation_r750" src="../images/ftile_final_installation_r750.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/ftile_final_installation_r750.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ftile_final_installation_r750" src="../../hw/common/board_installation/devkit_board_installation/images/ftile_final_installation_r750.png" /></a></p>
 </li>
 </ol>
 <h3 id="33-physical-installation-procedure">3.3 Physical Installation Procedure<a class="headerlink" href="#33-physical-installation-procedure" title="Permanent link">&para;</a></h3>
@@ -2693,7 +2693,7 @@
 <ol>
 <li>
 <p>Refer to the following figure for Steps 2 and 3.</p>
-<p><a class="glightbox" href="../images/agilex_ftile_dev_kit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="agilex_ftile_dev_kit" src="../images/agilex_ftile_dev_kit.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/devkit_board_installation/images/agilex_ftile_dev_kit.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="agilex_ftile_dev_kit" src="../../hw/common/board_installation/devkit_board_installation/images/agilex_ftile_dev_kit.png" /></a></p>
 </li>
 <li>
 <p>Locate Single DIP Switch <strong>SW2</strong> and 4-position DIP switch <strong>SW3</strong> on the fseries-dk. These switches control the <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> setup for the board. Ensure that both <strong>SW2</strong> and <strong>SW3.3</strong> are set to <code>ON</code>.</p>

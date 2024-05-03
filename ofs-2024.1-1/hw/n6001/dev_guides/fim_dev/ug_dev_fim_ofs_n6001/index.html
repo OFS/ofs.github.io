@@ -3804,7 +3804,7 @@
 
 
 <h1 id="shell-developer-guide-for-open-fpga-stack-intel-fpga-smartnic-n6000-pl-intel-fpga-smartnic-n6001-pl-pcie-attach">Shell Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6000-PL / Intel® FPGA SmartNIC N6001-PL PCIe Attach<a class="headerlink" href="#shell-developer-guide-for-open-fpga-stack-intel-fpga-smartnic-n6000-pl-intel-fpga-smartnic-n6001-pl-pcie-attach" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>April 05, 2024</strong> </p>
+<p>Last updated: <strong>May 03, 2024</strong> </p>
 <h2 id="1-introduction"><strong>1. Introduction</strong><a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
 <h3 id="11-about-this-document"><strong>1.1. About This Document</strong><a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
 <p>This document serves as a guide for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Agilex PCIe Attach developers targeting the Intel® FPGA SmartNIC N6000-PL and Intel® FPGA SmartNIC N6001-PL. The following topics are covered in this guide:</p>
@@ -4299,6 +4299,13 @@
 </tr>
 </tbody>
 </table>
+<!-- | | Change I/O assignments | N/A | -->
+<!-- | | Port code to another platform | N/A | -->
+<!-- | | Modify Memory Subsystem Settings | N/A | -->
+<!-- | | Modify Memory Interface speed/width | N/A | -->
+<!-- | | Modify Ethernet Subsystem Settings | N/A | -->
+<!-- | | Modify Memory Subsystem to add an additional channel | N/A | -->
+
 <h3 id="13-development-environment"><strong>1.3 Development Environment</strong><a class="headerlink" href="#13-development-environment" title="Permanent link">&para;</a></h3>
 <p>This section describes the components required for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> development, and provides a walkthrough for setting up the environment on your development machine.</p>
 <p>Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the <a href="https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/">Getting Started Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)</a> for instructions on setting up the environment for deployment machines.</p>
@@ -4536,8 +4543,11 @@
 <a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VERDIR</span><span class="o">=</span><span class="nv">$OFS_ROOTDIR</span>/verification
 <a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VIPDIR</span><span class="o">=</span><span class="nv">$VERDIR</span>
 <a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>
-<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="c1"># Set PATH to include compilation and simulation tools</span>
-<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QUARTUS_HOME</span>/../qsys/bin:<span class="nv">$QUARTUS_HOME</span>/sopc_builder/bin/:<span class="nv">$IOFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk/bin:<span class="nv">$MTI_HOME</span>/linux_x86_64/:<span class="nv">$MTI_HOME</span>/bin/:<span class="nv">$DESIGNWARE_HOME</span>/bin:<span class="nv">$VCS_HOME</span>/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a><span class="c1"># Set OPAE variables</span>
+<a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_SDK_REPO_BRANCH</span><span class="o">=</span>release/2.12.0
+<a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>
+<a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a><span class="c1"># Set PATH to include compilation and simulation tools</span>
+<a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QUARTUS_HOME</span>/../qsys/bin:<span class="nv">$QUARTUS_HOME</span>/sopc_builder/bin/:<span class="nv">$IOFS_BUILD_ROOT</span>/opae-sdk/install-opae-sdk/bin:<span class="nv">$MTI_HOME</span>/linux_x86_64/:<span class="nv">$MTI_HOME</span>/bin/:<span class="nv">$DESIGNWARE_HOME</span>/bin:<span class="nv">$VCS_HOME</span>/bin:<span class="nv">$PATH</span>
 </code></pre></div>
 </li>
 </ol>
@@ -9857,6 +9867,9 @@ Intel disclaims all express and implied warranties, including without limitation
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
 <p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/common/doc_modules/links.md -->
+<!-- include ./docs/hw/n6001/doc_modules/links.md -->
+<!-- include ./docs/hw/doc_modules/links.md -->
 
 
 

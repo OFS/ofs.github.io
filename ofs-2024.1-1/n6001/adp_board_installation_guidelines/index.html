@@ -2586,7 +2586,7 @@
 
 
 <h1 id="board-installation-guidelines-intel-fpga-smartnic-n60001-pl-intel-fpga-pac-d5005">Board Installation Guidelines: Intel® FPGA SmartNIC N6000/1-PL, Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005<a class="headerlink" href="#board-installation-guidelines-intel-fpga-smartnic-n60001-pl-intel-fpga-pac-d5005" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>April 05, 2024</strong> </p>
+<p>Last updated: <strong>May 03, 2024</strong> </p>
 <h2 id="10-introduction">1.0 Introduction<a class="headerlink" href="#10-introduction" title="Permanent link">&para;</a></h2>
 <h3 id="11-about-this-document">1.1 About This Document<a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
 <p>The purpose of this document is to educate users of the following acceleration platforms on board installation and server environment setup - the Intel® FPGA SmartNIC N6000/1-PL and the Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005. After reading the document a user shall be able to:</p>
@@ -2800,19 +2800,19 @@
 <tbody>
 <tr>
 <td>Intel® FPGA SmartNIC N6001-PL (SKU2)</td>
-<td><a class="glightbox" href="images/HARDWARE_1_N6000.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_1_N6000" src="images/HARDWARE_1_N6000.png" /></a></td>
+<td><a class="glightbox" href="../../hw/common/board_installation/adp_board_installation/images/HARDWARE_1_N6000.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_1_N6000" src="../../hw/common/board_installation/adp_board_installation/images/HARDWARE_1_N6000.png" /></a></td>
 </tr>
 <tr>
 <td>Supermicro Server SYS-220HE</td>
-<td><a class="glightbox" href="images/HARDWARE_2_SERVER.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_2_SERVER" src="images/HARDWARE_2_SERVER.png" /></a></td>
+<td><a class="glightbox" href="../adp_board_installation/images/HARDWARE_2_SERVER.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_2_SERVER" src="../adp_board_installation/images/HARDWARE_2_SERVER.png" /></a></td>
 </tr>
 <tr>
 <td>Intel FPGA Download Cable II (Only Required for manual flashing)</td>
-<td><a class="glightbox" href="images/HARDWARE_3_JTAG.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_3_JTAG" src="images/HARDWARE_3_JTAG.png" /></a></td>
+<td><a class="glightbox" href="../../hw/common/board_installation/adp_board_installation/images/HARDWARE_3_JTAG.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_3_JTAG" src="../../hw/common/board_installation/adp_board_installation/images/HARDWARE_3_JTAG.png" /></a></td>
 </tr>
 <tr>
 <td>2x5 Extension header - Samtech Part No: ESQ-105-13-L-D (Only Required for manual flashing)</td>
-<td><a class="glightbox" href="images/HARDWARE_4_EXTENDER.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_4_EXTENDER" src="images/HARDWARE_4_EXTENDER.png" /></a></td>
+<td><a class="glightbox" href="../../hw/common/board_installation/adp_board_installation/images/HARDWARE_4_EXTENDER.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_4_EXTENDER" src="../../hw/common/board_installation/adp_board_installation/images/HARDWARE_4_EXTENDER.png" /></a></td>
 </tr>
 </tbody>
 </table>
@@ -2891,7 +2891,7 @@ speed. The following steps will help users on the SuperMicro platform.</p>
 <h2 id="40-board-installation-procedure">4.0 Board Installation Procedure<a class="headerlink" href="#40-board-installation-procedure" title="Permanent link">&para;</a></h2>
 <h3 id="41-pcie-slot-mappings-for-intel-fpga-smartnic-n60001-pl">4.1 PCIe Slot Mappings for Intel® FPGA SmartNIC N6000/1-PL<a class="headerlink" href="#41-pcie-slot-mappings-for-intel-fpga-smartnic-n60001-pl" title="Permanent link">&para;</a></h3>
 <p>The Intel N6000/1-PL FPGA SmartNIC Platforms are officially verified in the upper middle PCIe x16 slot (Slot 3). If using a different slot, refer to the information in <a href="#table-5-pcie-slot-mapping">Table 5 PCIe Slot Mapping</a> for which port settings to change in server BIOS.</p>
-<p><a class="glightbox" href="images/SERVER_1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_1" src="images/SERVER_1.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/adp_board_installation/images/SERVER_1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_1" src="../../hw/common/board_installation/adp_board_installation/images/SERVER_1.png" /></a></p>
 <h4 id="table-5-pcie-slot-mapping">Table 5: PCIe Slot Mapping<a class="headerlink" href="#table-5-pcie-slot-mapping" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -2930,7 +2930,7 @@ speed. The following steps will help users on the SuperMicro platform.</p>
 <li>Position the board over the selected connector on the motherboard.</li>
 <li>Press down gently and firmly to seat the card in the PCIe slot, and then secure the bracket to the system chassis with the retention screw.</li>
 </ol>
-<p><a class="glightbox" href="images/SERVER_2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_2" src="images/SERVER_2.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/adp_board_installation/images/SERVER_2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_2" src="../../hw/common/board_installation/adp_board_installation/images/SERVER_2.png" /></a></p>
 <h4 id="table-6-adp-installation-procedure">Table 6: ADP Installation Procedure<a class="headerlink" href="#table-6-adp-installation-procedure" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -2959,7 +2959,7 @@ speed. The following steps will help users on the SuperMicro platform.</p>
 </tbody>
 </table>
 <p>Do not bend the card while inserting into a slot. Do not apply much pressure in regions 2 or 3 while inserting.</p>
-<p><a class="glightbox" href="images/SERVER_3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_3" src="images/SERVER_3.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/adp_board_installation/images/SERVER_3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_3" src="../../hw/common/board_installation/adp_board_installation/images/SERVER_3.png" /></a></p>
 <h3 id="43-removal-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server">4.3 Removal Procedure for The Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server<a class="headerlink" href="#43-removal-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server" title="Permanent link">&para;</a></h3>
 <p>The following instructions will help to ensure safe removal of the platforms from a supported server.</p>
 <ol>
@@ -2967,7 +2967,7 @@ speed. The following steps will help users on the SuperMicro platform.</p>
 <li>Remove the retention bracket screw.</li>
 <li>Carefully lift the card out of the PCIe slot.</li>
 </ol>
-<p><a class="glightbox" href="images/SERVER_4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_4" src="images/SERVER_4.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/adp_board_installation/images/SERVER_4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_4" src="../../hw/common/board_installation/adp_board_installation/images/SERVER_4.png" /></a></p>
 <h4 id="table-7-adp-removal-procedure">Table 7: ADP Removal Procedure<a class="headerlink" href="#table-7-adp-removal-procedure" title="Permanent link">&para;</a></h4>
 <table>
 <thead>
@@ -2992,7 +2992,7 @@ speed. The following steps will help users on the SuperMicro platform.</p>
 </tbody>
 </table>
 <p>Do not bend the card while removing it from the slot.</p>
-<p><a class="glightbox" href="images/SERVER_5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_5" src="images/SERVER_5.png" /></a></p>
+<p><a class="glightbox" href="../../hw/common/board_installation/adp_board_installation/images/SERVER_5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_5" src="../../hw/common/board_installation/adp_board_installation/images/SERVER_5.png" /></a></p>
 
 
 

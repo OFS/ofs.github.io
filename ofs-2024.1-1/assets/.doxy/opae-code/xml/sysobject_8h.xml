@@ -8,12 +8,12 @@
       <node id="5">
         <label>stdbool.h</label>
       </node>
-      <node id="3">
-        <label>stdint.h</label>
-      </node>
       <node id="6">
         <label>opae/types_enum.h</label>
         <link refid="types__enum_8h"/>
+      </node>
+      <node id="3">
+        <label>stdint.h</label>
       </node>
       <node id="4">
         <label>stddef.h</label>
@@ -50,15 +50,15 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="3">
+        <label>docs/sw/samples/hello_events/hello_events.c</label>
+        <link refid="hello__events_8c"/>
+      </node>
       <node id="1">
         <label>docs/sw/include/opae/sysobject.h</label>
         <link refid="sysobject_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-      </node>
-      <node id="3">
-        <label>docs/sw/samples/hello_events/hello_events.c</label>
-        <link refid="hello__events_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
