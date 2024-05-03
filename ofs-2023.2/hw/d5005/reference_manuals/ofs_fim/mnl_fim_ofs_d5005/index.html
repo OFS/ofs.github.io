@@ -3408,6 +3408,10 @@ The key components of OFS include:
 <ul>
 <li>Board Management Controller RTL and firmware that supports telemetry monitoring, remote configuration updates and most importantly a root of trust for the platform.</li>
 </ul>
+<!--
+- Source accessible, modular FPGA Interface  manager (FIM) RTL with a UVM infrastructure and unit tests that can be leveraged for your own custom FIM design
+-->
+
 <ul>
 <li>Source accessible, modular FPGA Interface  manager (FIM) RTL with unit tests that can be leveraged for your own custom FIM design</li>
 </ul>
@@ -3420,6 +3424,8 @@ The key components of OFS include:
 <ul>
 <li>The OneAPI shim provides a layer that is used by the OneAPI runtime to communicate with the kernel.</li>
 </ul>
+<!--- Accelerator simulation through UVM-->
+
 <ul>
 <li>OPAE software development kit (APIs, upstreamed Linux drivers and software tools)</li>
 </ul>
@@ -4979,7 +4985,7 @@ HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers are for the reconfiguration interface,
 <h3 id="123-hssi-software"><strong>12.3 HSSI Software</strong><a class="headerlink" href="#123-hssi-software" title="Permanent link">&para;</a></h3>
 <p>There are two pieces of software related to running the HSSI Subsystem and the HE-HSSI host exerciser: The Linux* dfl network driver and a user space application.</p>
 <h4 id="1231-hssi-linux-driver"><strong>12.3.1 HSSI Linux Driver</strong><a class="headerlink" href="#1231-hssi-linux-driver" title="Permanent link">&para;</a></h4>
-<p>The HSSI subystem is exposed as a feature in the PCIe PF BAR0 region.  It has a Device Feature Header (DFH) indicating the HSSI interface. The feature ID in the DFH causes the following driver to be instantiated for the HSSI interface: drivers/net/ethernet/intel/s10hssi.c <a href="https://github.com/OFS/linux-dfl/tree/ofs-2023.2-1">Kernel Driver Branch</a></p>
+<p>The HSSI subystem is exposed as a feature in the PCIe PF BAR0 region.  It has a Device Feature Header (DFH) indicating the HSSI interface. The feature ID in the DFH causes the following driver to be instantiated for the HSSI interface: drivers/net/ethernet/intel/s10hssi.c <a href="https://github.com/OFS/linux-dfl/tree/fpga-ofs-dev-6.1-lts">Kernel Driver Branch</a></p>
 <p>The primary functionality of the driver is to interact with the ethernet MAC and PHY through an indirect register access mailbox implemented by the HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers described above. To aid in RTL bringup, the driver provides a debugfs interface directly to the indirect register access mailbox. For each HSSI interface in the system there would be a directory with the following form containing two files, regaddr and regval:
 /sys/kernel/debug/dfl-fme.X.Y</p>
 <p>To read a register offset in the MAC/PHY write the offset to the regaddr file as a C hex string (e.g. 0x04) and then read the value as string out of regval file. To write a register offset in the MAC/PHY write the offset to the regaddr file as a C hex string (e.g. 0x04) and then write the value as a C hex string to regval file.</p>
@@ -4997,8 +5003,8 @@ HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers are for the reconfiguration interface,
 For the PR flow, the design should be partitioned into static region and reconfigurable region. The static region is the area of your FPGA that is not reconfigured without reprogramming the entire FPGA. An area of the chip that you plan to partially reconfigure is a PR region. </p>
 <p>The Port Gasket contains all the PR specific modules and logic, such as PR slot reset/freeze control, user clock, remote STP etc. For this reference example only one PR slot is supported.
 The following figure depicts the high level view of the Port Gasket:</p>
-<p><strong>Figure 13-1 Partial Reconfiguration Gasket</strong>
-<a class="glightbox" href="images/ofs-pr-gasket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/ofs-pr-gasket.png" alt="drawing" style="width:350px"></a></p>
+<p><strong>Figure 13-1 Partial Reconfiguration Gasket</strong></p>
+<p><a class="glightbox" href="../images/ofs-pr-gasket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ofs-pr-gasket" src="../images/ofs-pr-gasket.png" /></a></p>
 <p><a class="glightbox" href="../images/ofs-he-hssi-clks.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="hssi-he-hssi-clks" src="../images/ofs-he-hssi-clks.png" /></a></p>
 <p>The isolation logic is provided on the output signals of the PR region to ensure they don’t glitch and affect the interfacing logic in the Static Region (SR). The isolation logic is controlled by the PR Freeze logic during PR operation.</p>
 <h2 id="14-reliability-accessibility-serviceability-ras-and-error-handling"><strong>14 Reliability, Accessibility, Serviceability (RAS) and Error Handling</strong><a class="headerlink" href="#14-reliability-accessibility-serviceability-ras-and-error-handling" title="Permanent link">&para;</a></h2>
@@ -5257,7 +5263,7 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-
+<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
 
 
 
