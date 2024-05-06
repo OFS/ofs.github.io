@@ -52,7 +52,9 @@ The key components of OFS include:
 -   Target development platforms such as Intel-branded Programmable Acceleration Cards (PACs), Acceleration Development Platforms (ADPs) and third-party platforms.
 
 - Board Management Controller RTL and firmware that supports telemetry monitoring, remote configuration updates and most importantly a root of trust for the platform.
-
+<!--
+- Source accessible, modular FPGA Interface  manager (FIM) RTL with a UVM infrastructure and unit tests that can be leveraged for your own custom FIM design
+-->
 
 - Source accessible, modular FPGA Interface  manager (FIM) RTL with unit tests that can be leveraged for your own custom FIM design
 
@@ -62,7 +64,7 @@ The key components of OFS include:
 
 - The OneAPI shim provides a layer that is used by the OneAPI runtime to communicate with the kernel.
 
-
+<!--- Accelerator simulation through UVM -->
 
 -   OPAE software development kit (APIs, upstreamed Linux drivers and software tools)
 
@@ -73,7 +75,9 @@ The key components of OFS include:
 
 <p>The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Intel Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Intel sales representative.</p>
 
-**Table 1-2 OFS GitHub Repositories** (<https://github.com/OFS/>)
+**Table 1-2 OFS GitHub Repositories**
+
+OFS GitHub repositories can be found in the [OFS](https://github.com/OFS).
 
 | Repository| Contains                                                               |
 |:--------------------------:|------------------------------------------------------------------------|
@@ -83,7 +87,9 @@ The key components of OFS include:
 <p> The OPAE software GitHub site is fully opensource and contains resources for both software and workload developers.</p>
 
 
-**Table 1-3 OPAE Public Git Repositories** (<https://github.com/OFS)>
+**Table 1-3 OPAE Public Git Repositories**
+
+OPAE GitHub repositories can be found in the [OFS](https://github.com/OFS).
 
   | OPAE Git Repository Folder |  Contains|
   |:-:|-------------------------------------|
@@ -117,7 +123,7 @@ The AFU partition is provided for custom acceleration workloads and may contain 
 
 #### **1.3.1 FPGA Interface Manager (FIM)**
 
-The updated OFS architecture for Stratix 10® FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are: 
+The updated OFS architecture for Stratix® 10 FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are: 
 
 * PCIe Subsystem
 * HSSI Subsystem
@@ -136,7 +142,7 @@ Note that as discussed previously, the BMC RTL and firmware, the OFS OPAE softwa
 
 ![base-shell](images/BaseShell.png)
 
-The table below details the features of the OFS release targeting the Stratix 10® FPGA .
+The table below details the features of the OFS release targeting the Stratix® 10 FPGA .
 
 **Table 1-4 Features**
 <table>
@@ -217,7 +223,7 @@ Each FME feature exposes its capability to host software drivers through
 a device feature header (DFH) register found at the beginning of its control
 status register (CSR) space. The FME CSR maps to physical function 0
 (PF0) Base address register 0 (BAR0) so that software can access it
-through a single PCIe link.  For more information about DFHs, refer to the [Device Feature Header (DFH) structure](https://ofs.github.io/23-4/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure).
+through a single PCIe link.  For more information about DFHs, refer to the [Device Feature Header (DFH) structure](https://ofs.github.io/ofs-2024.1-1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure).
 
 ##### **Streaming Datapath**
 
@@ -1308,7 +1314,7 @@ The HSSI subsystem provides the following interfaces to the AFU region:
 
 The he-hssi uses the APF interface for HSSI CSR (MMIO) accesses. The AXI4-Stream Ethernet data and side band interface along with Ethernet clocks communicate directly to the he-hssi module in the AFU region through platform independent data structures provided by the PIM.  Even if you implement a different MAC you typically can leverage these data structures defined in the hssi/inc/ofs_fim_eth_avst_if.sv file [here](https://github.com/OFS/ofs-d5005) without modification.
 
-While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file h[here](https://github.com/OFS/ofs-d500). Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.
+While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file in the [OFS D5005 FIM Github Branch](https://github.com/OFS/ofs-d5005). Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.
 
 ####  **12.2.3 HSSI Sideband Interface**
 
@@ -1473,7 +1479,7 @@ To read a register offset in the MAC/PHY write the offset to the regaddr file as
 #### **12.3.2	HSSI User Space Tool**
 
 
-The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  [OPAE SDK Branch](https://github.com/OFS/opae-sdk/tree/2.12.0-4).
+The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  [OPAE SDK Branch](https://github.com/OFS/opae-sdk/tree/2.12.0-5).
 <pre><code>$ hssi --help
 </pre></code>
 
@@ -1495,7 +1501,8 @@ The Port Gasket contains all the PR specific modules and logic, such as PR slot 
 The following figure depicts the high level view of the Port Gasket:
 
 **Figure 13-1 Partial Reconfiguration Gasket**
-<img src="images/ofs-pr-gasket.png" alt="drawing" style="width:350px">
+
+![ofs-pr-gasket](images/ofs-pr-gasket.png)
 
 ![hssi-he-hssi-clks](images/ofs-he-hssi-clks.png)
 
@@ -1705,7 +1712,7 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
         </tr>
 
 
-For more information on modifying the FIM, refer to the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs].
+For more information on modifying the FIM, refer to the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
 
 
@@ -1723,8 +1730,8 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->
 
 
 

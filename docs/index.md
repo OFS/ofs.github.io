@@ -20,7 +20,7 @@ To find out more about Intel FPGAs, visit the [Intel Stratix 10](https://www.int
 
  1. If you are interested in a production card that uses OFS for your workload application development or for full deployment, please refer to the [**OFS Board Catalog**](https://www.intel.com/content/www/us/en/content-details/765730/open-fpga-stack-board-catalog.html).  
 
- 2. If you are an FPGA developer, refer to our [FPGA Developer Journey Guide: Open FPGA Stack] to understand the OFS development flow as well as the reference shells, tools and development boards you can use to gest started.  FPGA Developers interested in oneAPI should reference this guide as well.
+ 2. If you are an FPGA developer, refer to our [FPGA Developer Journey Guide: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/ ) to understand the OFS development flow as well as the reference shells, tools and development boards you can use to gest started.  FPGA Developers interested in oneAPI should reference this guide as well.
  
  3. If you are a software developer, refer to our [Software Tab](https://ofs.github.io/ofs-2024.1-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for driver and user space tool development resources.
 
@@ -191,5 +191,5 @@ Accessing OFS ingredients to use within the development framework is easy.  The 
 <br>
 
 
-
+<!-- include ./docs/hw/doc_modules/links.md -->
 

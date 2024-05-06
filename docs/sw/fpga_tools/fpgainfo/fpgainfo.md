@@ -51,6 +51,10 @@ Show information about the port such as the AFU ID of currently loaded AFU.
 Show information about the FPGA platform including the partial reconfiguration (PR) Interface ID, the OPAE version,
 and the FPGA Interface Manager (FIM) ID.
 
+The  *User1/User2/Factory Image Info*  lines reflect the information of the image that is present in the Flash.
+
+The  *Bitstream Id* line reflects the information of the image that is programmed in the FPGA.
+
 `bmc`
 
 Show all Board Management Controller sensor values for the FPGA resource, if available.

@@ -13,7 +13,7 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 
 * Run hardware and software tests to evaluate the complete OFS flow
 
-* Modify and leverage the script to the your environment and design
+* Modify and leverage the script to your environment and design
 
 
 #### **Table 1-2: Software Version Summary**
@@ -23,9 +23,9 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html), [Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html) | Intel platform you can use for your custom board development |
 | OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2024.1-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1) | OFS Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
 | AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.12.0-4](https://github.com/OFS/opae-sdk/tree/2.12.0-4), [Tag: 2.12.0-4](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4) | Open Programmable Acceleration Engine Software Development Kit |
+| OPAE SDK | [Branch: 2.12.0-5](https://github.com/OFS/opae-sdk/tree/2.12.0-5), [Tag: 2.12.0-5](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5) | Open Programmable Acceleration Engine Software Development Kit |
 | Kernel Drivers | [Branch: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2024.1-6.1-2), [Tag: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.12.0-4](https://github.com/OFS/opae-sim/releases/tag/2.12.0-4) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.12.0-5](https://github.com/OFS/opae-sim/releases/tag/2.12.0-5) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
 | Intel Quartus Prime Pro Edition Design Software | 23.4 [Intel® Quartus® Prime Pro Edition Linux] | Software tool for Intel FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
@@ -35,8 +35,10 @@ A download page containing the release and already-compiled FIM binary artifacts
 
 ## **2 Introduction to OFS Evaluation Script**
 
+Two scripts have been developed to allow the user to clone, build, compile and test the OFS platform hardware.
 
-By using the clone script and the OFS evaluation script you can quickly evaluate many features that the OFS framework provides and also leverage this script for your own development.  
+1) ofs-clone_repositories.sh. This script clones the repositories from GitHub needed to build and test any OFS platform.| 
+2) ofs-agx7-pcie-attach_eval.sh. This script evaluates compiles, builds and tests hardware features that the OFS framework provides. This script can also be leveraged for your own development.  
 
 > **_NOTE:_**  
 >
@@ -47,7 +49,7 @@ By using the clone script and the OFS evaluation script you can quickly evaluate
 
 This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
-* Intel Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 1.3.4 of the [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+* Intel Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 1.3.4 of the [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/). 
 * Synopsys<sup>&reg;</sup> VCS Simulator : The simulator can be downloaded in the Synopsys page [here](https://www.synopsys.com/verification/simulation/vcs.html)
 * Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator : The simulator can be downloaded in the Siemens page [here](https://eda.sw.siemens.com/en-US/ic/questa/simulation/advanced-simulator/)
 
@@ -56,33 +58,66 @@ This script uses the following set of software tools which should be installed u
 ![](images/ofs_n6001_tools_menu.png)
 
 
-### **2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script modification**
+### **2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification**
 
-1. You must clone the required OFS repositories using the clone script {enter scripts folder name and link from assets}.
+1. Download tar(scripts_ofs-2024.1-1_external.tar.gz) from the assets tab of the [release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases)
+2. Untar to folder using the following command
+```
+ tar -xvf scripts_ofs-2024.1-1_external.tar.gz
+````
+ 
+3. The folder structure containing the clone script (ofs-clone_repositories.sh) and evaluation script (ofs-agx7-pcie-attach_eval.sh) is as shown in the figure 2-2
+
+**Figure 2-2 Directory Structure for the clone script**
+
+``` sh
+## ofs_scripts
+##      -> host_chan_mmio.stp
+##      -> ofs-agx7-pcie-attach_eval.sh
+##      -> README_ofs-agx7-pcie-attach_eval.txt
+## ofs-clone_repositories.sh
+```
+
+4. Open the clone script ofs-clone_repositories.sh in any text editor
+5. Please enter the location of your proxy server to allow access to external internet to build software packages. (lines 6-8)
    
-2. Before cloning, please enter the location of your proxy server to allow access to external internet to build software packages. (Lines 6-8)
-
 Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
     
     export http_proxy=<user_proxy>
     export https_proxy=<user_proxy>
     export no_proxy=<user_proxy> 
-    
-
-3. You must enter name of the directory using the variable OFS_RELEASE. This is where the cloned repositories will be placed.
    
-    export OFS_RELEASE=ofs-2024.1-1-rc2
+6. Please enter the license file locations (lines 11-13) for the following tool variables
+```
+    export LM_LICENSE_FILE=<user_license>
+    export DW_LICENSE_FILE=<user_license>
+    export SNPSLMD_LICENSE_FILE=<user_license>
+```
 
-4.  The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-2.
+7. Add the name of the directory where you want the platform repositories to be cloned (line 19)
+```
+export OFS_RELEASE=ofs-2024.1-1
+```
+
+8. After setting the required variables, source the clone script based on which platform you want to test
+```
+source ofs-clone_repositories.sh
+```
+9.  The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-3.
         
-**Figure 2-2 Directory Structure for OFS Project**
+**Figure 2-3 Directory Structure for OFS Project**
 
 ![](images/ofs_clone_menu.png)
 
-5. After cloning, the OFS repositories cloned will look as per Figure 2-3.
+10. Once the repositories are cloned, navigate to the directory where you cloned
+```
+cd ofs-2024.1-1
+```
+
+11. After cloning, the OFS repositories cloned will look as per Figure 2-4.
 
 
-**Figure 2-3 Directory Structure for OFS Project**
+**Figure 2-4 Directory Structure for OFS Project**
 ```sh
 ## ofs-2024.1-1
 ##  N6001(OFS platform)
@@ -97,7 +132,8 @@ Note: Failing to add proxy server will prevent cloning of repositories and the u
 ##   -> README_ofs-agx7-pcie-attach_eval.txt
 ##   -> host_chan_mmio.stp
 ``` 
-6. Once the repositories are cloned, in the platform specific evaluation script, for e.g., in ofs-agx7-pcie-attach_eval.sh,  please follow the instructions below which explains which line numbers to change to adapt this script to the user environment. 
+
+12. Once the repositories are cloned, in the platform specific evaluation script, for e.g., in ofs-agx7-pcie-attach_eval.sh, please follow the instructions below which explains which line numbers to change to adapt this script to the user environment. 
 
 a)  Set-Up Proxy Server (lines 67-69)
 
@@ -107,15 +143,7 @@ Please enter the location of your proxy server to allow access to external inter
     export https_proxy=<user_proxy>
     export no_proxy=<user_proxy>
 
-b)  License Files (lines 72-74)
-
-Please enter the the license file locations for the following tool variables
-
-    export LM_LICENSE_FILE=<user_license>
-    export DW_LICENSE_FILE=<user_license>
-    export SNPSLMD_LICENSE_FILE=<user_license>
-
-c) Tools Location (line 87, 88, 89, 90)
+b) Tools Location (line 87, 88, 89, 90)
 
 Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
 
@@ -126,10 +154,7 @@ Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
 
 In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools 
 
-
-
-
-d) PCIe (Bus Number)
+c) PCIe (Bus Number)
 
 The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
 
@@ -167,7 +192,7 @@ grep -rli 'b1' * | xargs -i@ sed -i '85' @
 
 ### **OFS Platform (Example:= n6000, n6001, fseries-dk, iseries-dk, custom_board) choice (line 173)**
 
-The script is designed to accomodate many OFS platform choices eg, n6000, n6001, fseries-dk, iseries-dk or a custom_board of your choice. By default the script defaults to n6001 as shown below and is set by a variable on line 173 of the ofs-agx7-pcie-attach_eval.sh script.
+The script is designed to accommodate many OFS platform choices eg, n6000, n6001, fseries-dk, iseries-dk or a custom_board of your choice. By default the script defaults to n6001 as shown below and is set by a variable on line 173 of the ofs-agx7-pcie-attach_eval.sh script.
 
       export OFS_PLATFORM=n6001
 
@@ -188,7 +213,7 @@ The figure below shows a snapshot of the full evaluation script menu showing all
 
 **Figure 3-1 ofs-agx7-pcie-attach_eval.sh Evaluation Menu**
 
-![](images/ofs_eval_menu.png)
+![](images/ofs_eval_menu_n6001.png)
 
 ### **3.1.1 OFS TOOLS MENU**
 
@@ -197,7 +222,7 @@ By selecting "List of Documentation for OFS Project," a list of links to the lat
 
 By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.
 
-![](images/ofs_tools_menu.png)
+![](images/ofs_tools_menu_n6001.png)
 
 <table>
     <thead>
@@ -255,7 +280,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
 
 Identifies card by PCIe number, checks power, temperature and current firmware configuration. 
 
-![](images/ofs_hardware_menu.png)
+![](images/ofs_hardware_menu_n6001.png)
 
 <table>
     <thead>
@@ -441,7 +466,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
 
 This menu reports the number of PF/VF functions in the reference example and also allows you to reduce the number to 1PF and 1VF to reduce resource utilisation and create a larger area for your workload development. This selection is optional and if the user wants to implement the default number of PF's and VF's then option 9, 10 and 11 should not be used.  Additionally the code used to make the PF/VF modification can be leveraged to increase or modify the number of PF/VFs in the existing design within the limits that the PCIe Subsystem supports (8PF/2K VFs)
 
-![](images/ofs_pf_vf_mux_menu.png)
+![](images/ofs_pf_vf_mux_menu_n6001.png)
 
 <table>
     <thead>
@@ -583,7 +608,7 @@ This menu reports the number of PF/VF functions in the reference example and als
 
 Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
 
-![](images/ofs_fim_pr_build_menu.png)
+![](images/ofs_fim_pr_build_menu_n6001.png)
 
 <table>
     <thead>
@@ -657,7 +682,7 @@ The following submenu allows you to:
 * Run host exerciser (HE) commands such as loopback to test interfaces VFIO PCI driver binding
 * Read the control and status registers (CSRs) for bound modules that are part of the OFS reference design.
 
-![](images/ofs_hardware_programming_diagnostic_menu.png)
+![](images/ofs_hardware_programming_diagnostic_menu_n6001.png)
 
 <table>
     <thead>
@@ -879,7 +904,7 @@ This submenu tests partial reconfiguration using a hello_world example AFU/workl
 
 Builds oneAPI kernel, executes sw from host and runs diagnostic tests
 
-![](images/ofs_oneapi_project_menu.png)
+![](images/ofs_oneapi_project_menu_n6001.png)
 
 <table>
     <thead>
@@ -1025,7 +1050,7 @@ Builds, compiles and runs standalone simulation block tests.  More unit test exa
 
 Builds, compiles and runs full chip simulation tests.  The user should execute the options sequentially ie 68,69, 70 and 71
 
-![](images/ofs_uvm_project_menu.png)
+![](images/ofs_uvm_project_menu_n6001.png)
 
 <table>
     <thead>
@@ -1078,7 +1103,7 @@ For this menu a user can run a sequence of tests (compilation, build and simulat
 
 A user can run a sequence of tests and execute them sequentially. In the example below when the user selects option 62 from the main menu the script will execute 24 tests ie (main menu options 2, 9, 12, 13, 14, 15, 16, 17, 18, 32, 34, 35, 37, 39, 40, 44, 45, 53, 55, 56, 57, 58, 59 and 60. These 24 menu options are chosen to build the complete OFS flow covering build, compile and simulation.
 
-![](images/ofs_build_all_project_menu.png)
+![](images/ofs_build_all_project_menu_n6001.png)
 
 <table>
     <thead>
@@ -1268,6 +1293,6 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-
- 
+<!-- include ./docs/hw/doc_modules/links.md -->
+<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
 

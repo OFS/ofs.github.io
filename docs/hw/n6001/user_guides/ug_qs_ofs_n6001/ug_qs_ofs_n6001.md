@@ -1,13 +1,10 @@
 # Getting Started Guide: Open FPGA Stack for Intel<sup>&reg;</sup> Agilex FPGAs Targeting the Intel® FPGA SmartNIC N6000/1-PL
 
-Last updated: **March 20, 2024** 
+Last updated: **May 06, 2024** 
 
 ## 1.0 Introduction
 
-### 1.1 About This Document
-
-The purpose of this document is to help users get started in evaluating the 2024.1-1
- version of the Open FPGA Stack (OFS) for the Intel Agilex FPGA targeting the Intel N6000/1-PL FPGA SmartNIC Platform. After reviewing the document a user shall be able to:
+The purpose of this document is to help users get started in evaluating the 2024.1-1 version of the Open FPGA Stack (OFS) for the Intel Agilex FPGA targeting the Intel N6000/1-PL FPGA SmartNIC Platform. After reviewing the document a user shall be able to:
 
 - Set up their server environment according to the Best Known Configuration (BKC)
 - Build and install the OFS Linux Kernel drivers
@@ -16,120 +13,103 @@ The purpose of this document is to help users get started in evaluating the 2024
 - Verify the full stack functionality offered by the OFS solution
 - Know where to find additional information on other OFS ingredients
 
-The following flow charts show a high level overview of the initial bring up process, split into three sequential diagrams. Detailed instructions for each installation process are shown in their respective sections.
+### 1.1 Audience
+
+The information in this document is intended for customers evaluating the PCIe Attach shell targeting Intel N6000/1-PL FPGA SmartNIC Platforms. These platforms are Development Kits intended to be used as a starting point for evaluation and development.
+
+*Note: Code command blocks are used throughout the document. Commands that are intended for you to run are preceded with the symbol '$', and comments with '#'. Full command output may not be shown.*
 
 ### 1.2 Terminology
 
-#### Table 1: Glossary
+#### Table 1: Terminology
 
-| Term                      | Abbreviation | Description                                                  |
-| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
-|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
-|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
-|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
-|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
-|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel Max10 or Intel Cyclone10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
-|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
-|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implemented on Intel hardware.
-|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
-|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
-|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
-|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
-|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
-|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
-|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
-|Management Component Transport Protocol	|MCTP|	A standardized model for communication with management controllers. Defines the transport protocol carrying PLDM messages through the BMC.|
-|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
-|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
-|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
-|Open Programmable Acceleration Engine Software Development Kit|	OPAE-SDK|	The OPAE-SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
-|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
-|Platform Level Data Model |PLDM|	A specification for reporting telemetry data to the host, such as board temperature, voltage, and current.|
-|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
-|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
-|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
-|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
-|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
-|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
-|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
-|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
-|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
-|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
-|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
+| Term       | Description                                                  |
+| ---------- | ------------------------------------------------------------ |
+| AER        | Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. |
+| AFU        | Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region |
+| BBB        | Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID. |
+| BKC        | Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against. |
+| BMC        | Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors. |
+| CSR        | Command/status registers (CSR) and software interface, OFS uses a defined set of CSR's to expose the functionality of the FPGA to the host software. |
+| DFL        | Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. |
+| FIM        | FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring. |
+| FME        | FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform. |
+| HEM        | Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. |
+| Intel VT-d | Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization. |
+| IOCTL      | Input/Output Control, System calls used to manipulate underlying device parameters of special files. |
+| JTAG       | Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology. |
+| MMIO       | Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators. |
+| OFS        | Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs. |
+| OPAE SDK   | Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. |
+| PAC        | Programmable Acceleration Card: FPGA based Accelerator card  |
+| PIM        | Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
+| PR         | Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to [Partial Reconfiguration](https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html) support page. |
+| RSU        | Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration. |
+| SR-IOV     | Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance. |
+| TB         | Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output. |
+| UVM        | Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework. |
+| VFIO       | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space. |
 
-
-### 1.3 Introduction to OFS
-
-Each OFS FIM targets a specific platform, but the modular hardware, software, simulation and test infrastructure allow users to modify each part of the design and test environment for their own custom acceleration platform card. This OFS release targets the Intel® FPGA SmartNIC N6000/1-PL.
-
-### 1.4 Intended Audience
-
-The information in this document is intended for customers evaluating the Intel® FPGA SmartNIC N6000/1-PL. The card is an acceleration development platform (ADP) intended to be used as a starting point for evaluation and development. This document will cover key topics related to initial bring up and development, with links for deeper dives on the topics discussed therein.
-
-### 1.5 Reference Documents
-
-Documentation for N6000/1 is collected [on GitHub](https://ofs.github.io/ofs-2024.1/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/). The document list is as follows:
-
-#### Table 2: Reference Documents
-
-  
-
-### 1.6 Component Version Summary
+### 1.3 References and Versions
 
 The OFS 2024.1-1 Release targeting the Intel® FPGA SmartNIC N6000/1-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
 
 The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2024.1-1 release.
 
-#### Table 3: Hardware BKC
+#### Table 2: Hardware BKC
 
 | Component | Version |
 | --------- | ------- |
-| 1 x Intel® FPGA SmartNIC N6001-PL, SKU2 | ![HARDWARE_1_N6000](images/HARDWARE_1_N6000.png) |
-| 1 x Supermicro Server SYS-220HE | ![HARDWARE_2_SERVER](images/HARDWARE_2_SERVER.png)|
-| 1 x Intel FPGA Download Cable II (Only Required for manual flashing) |![HARDWARE_3_JTAG](images/HARDWARE_3_JTAG.png) |
-| 1 x 2x5 Extension header - Samtech Part No: ESQ-105-13-L-D (Only Required for manual flashing) |![HARDWARE_4_EXTENDER](images/HARDWARE_4_EXTENDER.png) |
+| 1 x Intel® FPGA SmartNIC N6001-PL, SKU2 | ![HARDWARE_1_N6000](../../hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_1_N6000.png) |
+| 1 x Supermicro Server SYS-220HE | ![HARDWARE_2_SERVER](../../hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_2_SERVER.png)|
+| 1 x Intel FPGA Download Cable II (Only Required for manual flashing) |![HARDWARE_3_JTAG](../../hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_3_JTAG.png) |
+| 1 x 2x5 Extension header - Samtech Part No: ESQ-105-13-L-D (Only Required for manual flashing) |![HARDWARE_4_EXTENDER](../../hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_4_EXTENDER.png) |
 
 The following table highlights the versions of the software which compose the OFS stack. The installation of the OPAE SDK on top of the Linux DFL drivers will be discussed in their relevant sections in this document.
 
-#### Table 4: Software Version Summary
+#### Table 3: Software Version Summary
 
 | Component | Version |
 | --------- | ------- |
-| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1> under "Known Issues"|
-| OPAE SDK | [2.12.0-4](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4)|
+| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1> under "Known Issues"|
+| OPAE SDK | [2.12.0-5](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5)|
 | Kernel Drivers |[ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2)|
 | OneAPI-ASP | [ofs-2024.1-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.1-1)  |
-| OFS FIM Source Code for N6001| [ofs-2024.1-1](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1) |
+| OFS FIM Source Code for N6001| [ofs-2024.1-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1) |
 | OFS FIM Common Resources| [Tag: ofs-fim-common-1.1.0-rc2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-fim-common-1.1.0-rc2) |
 |OFS Platform AFU BBB | [ofs-2024.1-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.1-1) |
 | Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 23.4 for Linux](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html)  |
-| Operating System | [RedHatEnterprise Linux® (RHEL) 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software) |
+| Operating System | [RedHat® Enterprise Linux® (RHEL) 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software) |
 
 The following table highlights the differences between N6000/1 PL FPGA SmartNIC platforms (SKU1/SKU2). Use this table to identify which version of the N6000/1-PL FPGA SmartNIC platform you have. The board identification printed by the `fpgainfo fme` commands depends on both the OPAE SDK and Linux DFL drivers to be installed as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
-#### Table 5: Intel N6000/1-PL FPGA SmartNIC Platform SKU Mapping
+#### Table 4: Intel N6000/1-PL FPGA SmartNIC Platform SKU Mapping
 
 | SKU Mapping | SKU Value | Primary Difference| `fpgainfo` Identification|
 | --------- | ------- | ----- | ----- |
 |N6000| Q1613314XXXXX | PCIe Gen 4 1x16 mechanical bifurcated 2x8 logical to host, with one PCIe Gen 4x8 endpoint reserved for Intel E810-C-CAM2 NIC, the other reserved for FIM| "Intel Acceleration Development Platform N6000"|
 |N6001| Q0216514XXXXX | PCIe Gen 4 1x16 mechanical and logical connection between host and FIM| "Intel Acceleration Development Platform N6001"|
 
-The following table highlights the programmable firmware versions that are supported on the Intel N6000/1-PL FPGA SmartNIC Platform in the [OFS 2024.1-1 release](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1). Programming and verifying these components is discussed in their respective sections.
+The following table highlights the programmable firmware versions that are supported on the Intel N6000/1-PL FPGA SmartNIC Platform in the [OFS 2024.1-1 release](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1). Programming and verifying these components is discussed in their respective sections.
 
-#### Table 6: Intel® FPGA SmartNIC N6000/1-PL Programmable Component Version Summary
+#### Table 5: Intel® FPGA SmartNIC N6000/1-PL Programmable Component Version Summary
 
 | Component | Version |
 | ----- | ----- |
-| PR Interface ID |  1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)  |
-| Bitstream ID | 00x50102023508A422 (TBD) |
+| PR Interface ID |  5d4500ed-e5e5-5521-8865-e47f0c517fac  |
+| Bitstream ID | 360571653789875893 |
 | BMC RTL | 3.15.0 |
 | BMC NIOS FW| 3.15.0 |
 
-### 1.7 Board Installation and Server Setup
+### 1.4 Reference Documents
+
+Documentation is collected on [https://ofs.github.io/ofs-2024.1-1/](https://ofs.github.io/ofs-2024.1-1/).
+
+### 1.5 Board Installation and Server Setup
 
 Platform installation instructions, server BIOS settings and regulatory information can be found in the [Board Installation Guidelines: Intel® FPGA SmartNIC N6000/1-PL, Intel® FPGA PAC D5005](../../../common/board_installation/adp_board_installation/adp_board_installation_guidelines.md).
 
-#### Table 7: SuperMicro Server BMC BKC
+#### Table 6: SuperMicro Server BMC BKC
 
 | Component| Version|
 | -----| -----|
@@ -235,7 +215,7 @@ OFS DFL driver software provides the bottom-most API to FPGA platforms. Librarie
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
-The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1-1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1).
+The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1).
 
 Build and installation instructions are detailed in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
@@ -244,9 +224,9 @@ Build and installation instructions are detailed in the [Software Installation G
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit the [opae reference](https://opae.github.io/2.3.0/index.html) page.
 
 The OPAE SDK source code is contained within a single GitHub repository
-hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
+hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
 
-The OPAE SDK can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1-1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1).
+The OPAE SDK can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1).
 
 You can choose to build and install the OPAE SDK from source, which is detailed in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
@@ -295,7 +275,7 @@ LimitMEMLOCK=infinity
 
 ### 4.6 OPAE Tools Overview
 
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.12.0-4/doc/src/fpga_tools/readme.md). The following command outputs were captured using an N6001 device.
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.12.0-5/doc/src/fpga_tools/readme.md). The following command outputs were captured using an N6001 device.
 
 #### 4.6.1 Board Management with fpgainfo
 
@@ -324,13 +304,13 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 00x50102023508A422 (TBD)
+Bitstream Id                     : 360571653789875893
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+Pr Interface Id                  : 5d4500ed-e5e5-5521-8865-e47f0c517fac
 Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
-User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+User1 Image Info                 : 5d4500ed-e5e5-5521-8865-e47f0c517fac
+User2 Image Info                 : 5d4500ed-e5e5-5521-8865-e47f0c517fac
 
 ```
 
@@ -349,9 +329,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 00x50102023508A422 (TBD)
+Bitstream Id                     : 360571653789875893
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+Pr Interface Id                  : 5d4500ed-e5e5-5521-8865-e47f0c517fac
 ( 1) VCCRT_GXER_0V9 Voltage                             : 0.91 Volts
 ( 2) FPGA VCCIO_1V2 Voltage                             : 1.21 Volts
 ( 3) Inlet 12V Aux Rail Current                         : 0.87 Amps
@@ -372,7 +352,7 @@ The **fpgad** is a service that can help you protect the server from crashing wh
 .
 *Note: Qualified OEM server systems should provide the required cooling for your workloads. Therefore, using **fpgad** may be optional.*
 
-When the opae-tools-extra-2.12.0-4.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
+When the opae-tools-extra-2.12.0-5.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
 The **fpgad** periodically reads the sensor values and if the values exceed the warning threshold stated in the fpgad.conf or the hardware defined warning threshold, it masks the PCIe Advanced Error Reporting (AER) registers for the Intel N6000/1-PL FPGA SmartNIC Platform to avoid system reset.
 Use the following command to start the **fpgad** service:
 
@@ -498,16 +478,16 @@ The Intel® FPGA SmartNIC N6000/1-PL ships with a factory, user1, and user2 prog
 
 Use the following chart for information on the Bitstream ID and Pr Interface ID, two unique values reported by `fpgainfo` which can be used to identify the loaded FIM.
 
-##### Table 13: FIM Version Summary for OFS 2024.1-1 Release
+##### Table 7: FIM Version Summary for OFS 2024.1-1 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| ofs-2024.1-1| 00x50102023508A422 (TBD)| 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2024.1-1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1)|
+| ofs-2024.1-1| 360571653789875893| 5d4500ed-e5e5-5521-8865-e47f0c517fac| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2024.1-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1)|
 | ofs-n6001-0.9.0-rc2 |  0x50102025AD3DD11| 92ec8960-2f2f-5544-9804-075d2e8a71a1 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-n6001/releases/tag/ofs-n6001-0.9.1)|
 | OFS-2.3.0 |  0x50102022267A9ED| f59830f7-e716-5369-a8b0-e7ea897cbf82 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.3.0)|
 | OFS-2.2.0 | 0x501020295B081F0 | 8c157a52-1cf2-5d37-9514-944af0a060da | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.2.0-beta Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.2.0-beta)|
 
-##### Table 14: BMC Version Summary for OFS 2024.1-1 Release
+##### Table 8: BMC Version Summary for OFS 2024.1-1 Release
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
 | 3.15.0 | AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu | n/a|
@@ -636,7 +616,7 @@ Execution of these exercisers requires you bind specific VF endpoint to **vfio-p
 
 Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](../../../n6001/) for a full description of these modules.
 
-##### Table 15: Module PF/VF Mappings
+##### Table 9: Module PF/VF Mappings
 
 | Module | PF/VF |
 |----- | ----- |
@@ -885,7 +865,7 @@ Accelerator GUID                 : 3e7b60a0-df2d-4850-aa31-f54a3e403501
 
 The following table contains a mapping between each VF, Accelerator GUID, and component.
 
-###### Table 16: Accelerator PF/VF and GUID Mappings
+###### Table 10: Accelerator PF/VF and GUID Mappings
 
 | Component| VF| Accelerator GUID|
 | -----| -----| -----|
@@ -913,9 +893,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 00x50102023508A422 (TBD)
+Bitstream Id                     : 360571653789875893
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+Pr Interface Id                  : 5d4500ed-e5e5-5521-8865-e47f0c517fac
 //****** HSSI information ******//
 HSSI version                     : 1.0
 Number of ports                  : 8
@@ -1035,13 +1015,13 @@ The `hssistats` tool provides the MAC statistics.
 
 If your Intel® FPGA SmartNIC N6000/1-PL does not have the 2024.1 version of the FIM and BMC, use this section to begin your upgrade process. The upgrade process depends on both the OPAE SDK and kernel drivers, which were installed in the [Software Installation Guide: PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md). Use the output of **fpgainfo** and compare against the table below to determine if an upgade is necessary.
 
-### Table 17: FIM Version Summary for Intel OFS 2024.1-1 Release
+### Table 11: FIM Version Summary for Intel OFS 2024.1-1 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| 1 | 00x50102023508A422 (TBD) | 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD) | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2024.1-1 Release Page](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1)|
+| 1 | 360571653789875893 | 5d4500ed-e5e5-5521-8865-e47f0c517fac | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2024.1-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1)|
 
-### Table 18: BMC Version Summary for Intel OFS 2024.1-1 Release
+### Table 12: BMC Version Summary for Intel OFS 2024.1-1 Release
 
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
@@ -1062,16 +1042,16 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 00x50102023508A422 (TBD)
+Bitstream Id                     : 360571653789875893
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+Pr Interface Id                  : 5d4500ed-e5e5-5521-8865-e47f0c517fac
 Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
-User2 Image Info                 : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+User1 Image Info                 : 5d4500ed-e5e5-5521-8865-e47f0c517fac
+User2 Image Info                 : 5d4500ed-e5e5-5521-8865-e47f0c517fac
 ```
 
-1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2024.1-1 (Intel Agilex)](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
+1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2024.1-1 (Intel Agilex)](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
 
 ```bash
 $ sudo fpgasupdate AC_BMC_RSU_user_retail_3.15.0_unsigned.rsu
@@ -1123,5 +1103,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-  
-
+<!-- include ./docs/hw/n6001/doc_modules/links.md -->  
+<!-- include ./docs/hw/doc_modules/links.md -->

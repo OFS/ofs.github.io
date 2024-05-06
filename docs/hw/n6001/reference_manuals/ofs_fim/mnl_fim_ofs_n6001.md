@@ -161,8 +161,8 @@ The table provides an overview of the OFS features targeting the Agilex® 7 FPGA
 ##### **Subsystem Interfaces**
 
 The PCIe, Memory and Ethernet interfaces in this design use a new flexible subsystem design that provides a standard Arm® AMBA® 4 AXI4 interface.  To access these Intel FPGA IP Subsystem documents. Please go to the links below:
-* [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_qs_pcie_ss.pdf)
-* [Memory Subsystem Intel FPGA IP User Guide](https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_mem_ss.pdf)
+* [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf)
+* [Memory Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148)
 * [Ethernet Subsystem Intel FPGA IP User Guide](https://cdrdv2-public.intel.com/773414/intelofs-773413-773414.pdf) (public document)
 
 ##### **Hard Processor System (HPS)**
@@ -280,7 +280,7 @@ Verification components include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found [here](https://github.com/OFS/ofs-agx7-pcie-attach/verification) for evaluation and use. Please refer to the [Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs] for more information.
+The verification infrastructure can be found [here](https://github.com/OFS/ofs-agx7-pcie-attach/verification) for evaluation and use. Please refer to the [UVM Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs] for more information.
 
 
 ## **2 OFS High Level Architecture**
@@ -829,7 +829,7 @@ THe following table lists the reset outputs from the `rst_ctrl.sv` block.
 The OFS platform supports interrupts through MSI-X feature. The MSI-X Interrupt feature handles FME and AFU interrupts. FME interrupts are primarily used to notify the host of error events happened in the FIM. When any of the bit in the FME error status registers is set, an interrupt request is sent to the MSI-X module. There are FME error status registers for OFS for Agilex FPGA features. 
 An AFU sends interrupt to the MSI-X module in the PCIE SS on the AXI interrupt request channel. The MSI-X table entries and PBA vectors are implemented in the PCIE SS. The PCIE SS supports upto 4096 vectors in "Static MSI-X mode.
 
-Please refer to the [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_qs_pcie_ss.pdf) for more information.
+Please refer to the [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf) for more information.
 
 
 ## **10 External Memory Interface (EMIF)**
@@ -1321,7 +1321,7 @@ An AFU MMIO Response timeout functions in the same manner described in the [MMIO
 ## **15 OFS Design Hierarchy**
 
 
-Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-agx7-pcie-attach, release branch ${{ N6001_Release }}.
+Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-agx7-pcie-attach, release branch ${{ N6001_OFS_FIM_BRANCH }}.
 
 ### **15.1 Design Guidance**
 
@@ -1343,4 +1343,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
+<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

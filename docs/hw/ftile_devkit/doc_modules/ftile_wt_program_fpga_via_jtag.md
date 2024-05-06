@@ -120,9 +120,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 0x5010202BE8C93B9 (TBD)
+  Bitstream Id                     : 360571653789875893
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed (TBD)
+  Pr Interface Id                  : 65882210-d7d4-5fb0-973d-76989a77be02
   Boot Page                        : N/A
   ```
 
