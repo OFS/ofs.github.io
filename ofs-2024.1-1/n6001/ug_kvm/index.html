@@ -2376,7 +2376,7 @@
 
 
 <h1 id="virtual-machine-user-guide-open-fpga-stack-kvm">Virtual machine User Guide: Open FPGA Stack + KVM<a class="headerlink" href="#virtual-machine-user-guide-open-fpga-stack-kvm" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>May 03, 2024</strong> </p>
+<p>Last updated: <strong>May 06, 2024</strong> </p>
 <h2 id="document-scope">Document scope<a class="headerlink" href="#document-scope" title="Permanent link">&para;</a></h2>
 <p>The document describes setting up and configuring a virtual machine to use PCIe devices. Here are the steps that the document may include:</p>
 <ol>
@@ -2498,20 +2498,20 @@
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>virt-manager<span class="p">&amp;</span>
 </code></pre></div>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="../../hw/common/user_guides/ug_kvm/images/img2.png" alt="img2" style="zoom:50%;" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="/hw/common/user_guides/ug_kvm/images/img2.png" alt="img2" style="zoom:50%;" /></a></p>
 <ol>
 <li>
 <p>Create a new connection from the menu File-&gt; "Add Connection," Use the default options and click "Connect."</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img3" src="../../hw/common/user_guides/ug_kvm/images/img3.png" /></a></p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img4" src="../../hw/common/user_guides/ug_kvm/images/img4.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img3" src="/hw/common/user_guides/ug_kvm/images/img3.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img4" src="/hw/common/user_guides/ug_kvm/images/img4.png" /></a></p>
 </li>
 <li>
 <p>In the <code>virt-manager</code> window, click the "New virtual machine" button.</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img3" src="../../hw/common/user_guides/ug_kvm/images/img3.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img3" src="/hw/common/user_guides/ug_kvm/images/img3.png" /></a></p>
 </li>
 <li>
 <p>In the "New VM" wizard, select "Local install media (ISO image or CDROM)" as the installation source, and then click "Forward."</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="../../hw/common/user_guides/ug_kvm/images/img6.png" alt="img6" style="zoom:67%;" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="/hw/common/user_guides/ug_kvm/images/img6.png" alt="img6" style="zoom:67%;" /></a></p>
 <ul>
 <li>
 <p>Get the Red Hat image from the following link.</p>
@@ -2527,48 +2527,48 @@
 </li>
 <li>
 <p>In the next step, Click Browse -&gt; Browse local, select the Red Hat 8.2 ISO image as the installation source and click "Forward".</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img7" src="../../hw/common/user_guides/ug_kvm/images/img7.png" /></a></p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img8" src="../../hw/common/user_guides/ug_kvm/images/img8.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img7" src="/hw/common/user_guides/ug_kvm/images/img7.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img8" src="/hw/common/user_guides/ug_kvm/images/img8.png" /></a></p>
 <p>Note: if the system is not detected, disable "Automatic detected from the installation media/source" and type ubuntu and select 19.10 (this should be fine for the 22.04); this step is necessary to copy the default values for the specific OS</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img10" src="../../hw/common/user_guides/ug_kvm/images/img10.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img10" src="/hw/common/user_guides/ug_kvm/images/img10.png" /></a></p>
 </li>
 <li>
 <p>In the next step, specify a name and location for the VM, and select the desired memory and CPU configuration. in our case, 16 cores and 64 GB of RAM; Click "Forward" to continue.</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img12" src="../../hw/common/user_guides/ug_kvm/images/img12.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img12" src="/hw/common/user_guides/ug_kvm/images/img12.png" /></a></p>
 </li>
 <li>
 <p>Select "enable storage for this virtual machine," Select "Create a new disk for the virtual machine," and enter a size for the virtual disk (at least 200~300GB in case you need to compile the design) or create a custom storage.</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img13.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img13" src="../../hw/common/user_guides/ug_kvm/images/img13.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img13.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img13" src="/hw/common/user_guides/ug_kvm/images/img13.png" /></a></p>
 <ol>
 <li>
 <p>If you need to create custom storage, select "Select or Create custom storage" and click "Manage."</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img14.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img14" src="../../hw/common/user_guides/ug_kvm/images/img14.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img14.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img14" src="/hw/common/user_guides/ug_kvm/images/img14.png" /></a></p>
 </li>
 <li>
 <p>Click on the "+" icon (Bottom left) to create the storage pool.</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213155215073.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155215073" src="../../hw/common/user_guides/ug_kvm/images/image-20221213155215073.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155215073.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155215073" src="/hw/common/user_guides/ug_kvm/images/image-20221213155215073.png" /></a></p>
 </li>
 <li>
 <p>In the "Create a new storage pool" dialog, enter a name for the storage pool and select the type of storage pool you want to create; select the Target Path and Click "Finish."</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img16.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img16" src="../../hw/common/user_guides/ug_kvm/images/img16.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img16.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img16" src="/hw/common/user_guides/ug_kvm/images/img16.png" /></a></p>
 </li>
 <li>
 <p>Select the pool and later click on the "+" icon (The Icon is on the right side of the Volume label) to create the New Storage Volume.</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213155420459.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155420459" src="../../hw/common/user_guides/ug_kvm/images/image-20221213155420459.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155420459.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155420459" src="/hw/common/user_guides/ug_kvm/images/image-20221213155420459.png" /></a></p>
 </li>
 <li>
 <p>In the "Create Storage Volume" dialog, Define the name and format (keep with the default qcow2) and select the Max Capacity (at least 200~300GB  in case you need to compile the design); click "Finish" to create the disk.</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img21.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img21" src="../../hw/common/user_guides/ug_kvm/images/img21.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img21.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img21" src="/hw/common/user_guides/ug_kvm/images/img21.png" /></a></p>
 </li>
 <li>
 <p>Once the disk is created, it will appear in your virtual machine's list of storage devices. You can now use this disk just like any other disk. Select from the list and Click "Choose Volume."</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/img18.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img18" src="../../hw/common/user_guides/ug_kvm/images/img18.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/img18.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="img18" src="/hw/common/user_guides/ug_kvm/images/img18.png" /></a></p>
 </li>
 </ol>
 </li>
 <li>
 <p>In the next step, select the "Customize configuration before install" option and click "Finish."</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213155659594.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155659594" src="../../hw/common/user_guides/ug_kvm/images/image-20221213155659594.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155659594.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213155659594" src="/hw/common/user_guides/ug_kvm/images/image-20221213155659594.png" /></a></p>
 </li>
 </ol>
 <h3 id="51-passing-devices-to-the-vm">5.1 Passing Devices to the VM<a class="headerlink" href="#51-passing-devices-to-the-vm" title="Permanent link">&para;</a></h3>
@@ -2587,10 +2587,10 @@
 <a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>PCIe<span class="w"> </span>s:b:d.f<span class="w">                     </span>:<span class="w"> </span><span class="m">0000</span>:b1:00.0
 </code></pre></div>
 <p>​               </p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="../../hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" /></a></p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="../../hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" /></a></p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213160028673.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160028673" src="../../hw/common/user_guides/ug_kvm/images/image-20221213160028673.png" /></a></p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213160128900.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="../../hw/common/user_guides/ug_kvm/images/image-20221213160128900.png" alt="image-20221213160128900" style="zoom:80%;" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="/hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213160028673.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160028673" src="/hw/common/user_guides/ug_kvm/images/image-20221213160028673.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213160128900.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="/hw/common/user_guides/ug_kvm/images/image-20221213160128900.png" alt="image-20221213160128900" style="zoom:80%;" /></a></p>
 <h4 id="512-deployment-mode">5.1.2 Deployment Mode<a class="headerlink" href="#512-deployment-mode" title="Permanent link">&para;</a></h4>
 <p>The main idea of this mode is enable the Virtual function used by the Agilex PCIe Attach <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> under the Physical Function 0, This option will allow us to use the Host Exercises.</p>
 <p><em>Note: assigning multiple devices to the same VM on a guest IOMMU, you may need to increase the hard_limit option in order to avoid hitting a limit of pinned memory. The hard limit should be more than (VM memory size x Number of PCIe devices)</em></p>
@@ -2757,8 +2757,8 @@
 <ol>
 <li>
 <p>Ensure you add the desired VF in your PCIE devices list.</p>
-<p><a class="glightbox" href="./images/image-20221213155843256.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="./images/image-20221213155843256.png" /></a></p>
-<p><a class="glightbox" href="./images/image-20221213155919267.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="./images/image-20221213155919267.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" /></a></p>
 </li>
 </ol>
 <h4 id="513-2-pf-mode">5.1.3 2 PF Mode<a class="headerlink" href="#513-2-pf-mode" title="Permanent link">&para;</a></h4>
@@ -2782,8 +2782,8 @@
 </li>
 <li>
 <p>Pass through any required hardware endpoints, select "Add Hardware" -&gt; "PCI Host Device".</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="../../hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" /></a></p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="../../hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="/hw/common/user_guides/ug_kvm/images/image-20221213155843256.png" alt="image-20221213155843256" style="zoom:67%;" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" /></a></p>
 </li>
 <li>
 <p>Run the following command on the host and VM to allocate hugepages for workload testing:</p>
@@ -2867,12 +2867,12 @@
 </li>
 <li>
 <p>Click on "Begin Installation." and follow the wizard installation of the OS.</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213160221768.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160221768" src="../../hw/common/user_guides/ug_kvm/images/image-20221213160221768.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213160221768.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160221768" src="/hw/common/user_guides/ug_kvm/images/image-20221213160221768.png" /></a></p>
 </li>
 <li>
 <p>Once the VM is created, you can start it by selecting it in the <code>virt-manager</code> window and clicking the "Run" button. This will boot the VM and start the Red Hat 8.2/Ubuntu installation process. Follow the on-screen instructions to complete the installation.</p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213160336305.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160336305" src="../../hw/common/user_guides/ug_kvm/images/image-20221213160336305.png" /></a></p>
-<p><a class="glightbox" href="../../hw/common/user_guides/ug_kvm/images/image-20221213160310002.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160310002" src="../../hw/common/user_guides/ug_kvm/images/image-20221213160310002.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213160336305.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160336305" src="/hw/common/user_guides/ug_kvm/images/image-20221213160336305.png" /></a></p>
+<p><a class="glightbox" href="/hw/common/user_guides/ug_kvm/images/image-20221213160310002.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="image-20221213160310002" src="/hw/common/user_guides/ug_kvm/images/image-20221213160310002.png" /></a></p>
 </li>
 <li>
 <p>Under your virtual machine, configure your VM proxy:</p>
