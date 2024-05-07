@@ -5,24 +5,24 @@
     <includes refid="types_8h" local="no">opae/types.h</includes>
     <includedby refid="fpga_8h" local="no">docs/sw/include/opae/fpga.h</includedby>
     <incdepgraph>
-      <node id="6">
-        <label>opae/types_enum.h</label>
-        <link refid="types__enum_8h"/>
-      </node>
       <node id="5">
         <label>stdbool.h</label>
       </node>
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="4">
-        <label>stddef.h</label>
-      </node>
       <node id="1">
         <label>docs/sw/include/opae/umsg.h</label>
         <link refid="umsg_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="4">
+        <label>stddef.h</label>
+      </node>
+      <node id="6">
+        <label>opae/types_enum.h</label>
+        <link refid="types__enum_8h"/>
       </node>
       <node id="2">
         <label>opae/types.h</label>

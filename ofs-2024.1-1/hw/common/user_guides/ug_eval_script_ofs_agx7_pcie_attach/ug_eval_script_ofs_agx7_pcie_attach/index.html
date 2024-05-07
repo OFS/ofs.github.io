@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#evaluation-user-guide-ofs-for-intel-agilex-7-pcie-attach" class="md-skip">
+        <a href="#evaluation-user-guide-ofs-for-agilex-7-pcie-attach" class="md-skip">
           Skip to content
         </a>
       
@@ -1066,8 +1066,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" class="md-nav__link">
-    2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification
+  <a href="#22-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" class="md-nav__link">
+    2.2 Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification
   </a>
   
 </li>
@@ -2385,8 +2385,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" class="md-nav__link">
-    2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification
+  <a href="#22-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" class="md-nav__link">
+    2.2 Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification
   </a>
   
 </li>
@@ -2553,7 +2553,7 @@
   
 
 
-<h1 id="evaluation-user-guide-ofs-for-intel-agilex-7-pcie-attach">Evaluation User Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel® Agilex® 7 PCIe Attach<a class="headerlink" href="#evaluation-user-guide-ofs-for-intel-agilex-7-pcie-attach" title="Permanent link">&para;</a></h1>
+<h1 id="evaluation-user-guide-ofs-for-agilex-7-pcie-attach">Evaluation User Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 PCIe Attach<a class="headerlink" href="#evaluation-user-guide-ofs-for-agilex-7-pcie-attach" title="Permanent link">&para;</a></h1>
 <h2 id="1-overview"><strong>1 Overview</strong><a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
 <h3 id="11-about-this-document"><strong>1.1 About this Document</strong><a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
 <p>This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL and Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) development platform using Open FPGA Stack (<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>). After reviewing the document, you will be able to:</p>
@@ -2579,16 +2579,16 @@
 <tr>
 <td>FPGA Platform</td>
 <td><a href="https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html">Intel® FPGA SmartNIC N6001-PL</a>, <a href="https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html">Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)</a></td>
-<td>Intel platform you can use for your custom board development</td>
+<td>Agilex platform you can use for your custom board development</td>
 </tr>
 <tr>
 <td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Source Code</td>
 <td><a href="https://github.com/OFS/ofs-agx7-pcie-attach">Branch: https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach</a>, <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1">Tag: ofs-2024.1-1</a></td>
-<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Shell RTL for Intel Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL)</td>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Shell RTL for Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL)</td>
 </tr>
 <tr>
 <td><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Examples</td>
-<td><a href="https://github.com/OFS/examples-afu">Branch: examples-afu</a> , <a href="https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1">Tag:ofs-examples-https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/examples-afu/releases/tag/ofs-2024.1-1</a></td>
+<td><a href="https://github.com/OFS/examples-afu">Branch: examples-afu</a> , <a href="https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1">Tag:ofs-2024.1-1</a></td>
 <td>Tutorials and simple examples for the Accelerator Functional Unit region (workload region)</td>
 </tr>
 <tr>
@@ -2607,9 +2607,9 @@
 <td>Accelerator Simulation Environment for hardware/software co-simulation of your <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> (workload)</td>
 </tr>
 <tr>
-<td>Intel Quartus Prime Pro Edition Design Software</td>
-<td>23.4 [Intel® Quartus® Prime Pro Edition Linux]</td>
-<td>Software tool for Intel FPGA Development</td>
+<td>Quartus Prime Pro Edition Design Software</td>
+<td>23.4 [Quartus® Prime Pro Edition Linux]</td>
+<td>Software tool for Altera FPGA Development</td>
 </tr>
 <tr>
 <td>Operating System</td>
@@ -2632,13 +2632,13 @@
 <h3 id="21-pre-requisites"><strong>2.1 Pre-Requisites</strong><a class="headerlink" href="#21-pre-requisites" title="Permanent link">&para;</a></h3>
 <p>This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.</p>
 <ul>
-<li>Intel Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded <a href="https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html">here</a>. For details on installation of required patches and quartus installation, refer to section 1.3.4 of the <a href="https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Shell Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs</a>. </li>
+<li>Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded <a href="https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html">here</a>. For details on installation of required patches and quartus installation, refer to section 1.3.4 of the <a href="https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/">Shell Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs</a>. </li>
 <li>Synopsys<sup>&reg;</sup> VCS Simulator : The simulator can be downloaded in the Synopsys page <a href="https://www.synopsys.com/verification/simulation/vcs.html">here</a></li>
 <li>Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator : The simulator can be downloaded in the Siemens page <a href="https://eda.sw.siemens.com/en-US/ic/questa/simulation/advanced-simulator/">here</a></li>
 </ul>
 <p><strong>Figure 2-1 Folder Hierarchy for Software Tools</strong></p>
 <p><a class="glightbox" href="../images/ofs_n6001_tools_menu.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_n6001_tools_menu.png" /></a></p>
-<h3 id="22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification"><strong>2.2 Intel® Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification</strong><a class="headerlink" href="#22-intel-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" title="Permanent link">&para;</a></h3>
+<h3 id="22-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification"><strong>2.2 Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification</strong><a class="headerlink" href="#22-agilex-7-pcie-attach-clone-and-evaluation-script-download-and-modification" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Download tar(scripts_ofs-2024.1-1_external.tar.gz) from the assets tab of the <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases">release page</a></li>
 <li>
@@ -2773,7 +2773,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
 <p><strong>Figure 3-1 ofs-agx7-pcie-attach_eval.sh Evaluation Menu</strong></p>
 <p><a class="glightbox" href="../images/ofs_eval_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_eval_menu_n6001.png" /></a></p>
 <h3 id="311-ofs-tools-menu"><strong>3.1.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> TOOLS MENU</strong><a class="headerlink" href="#311-ofs-tools-menu" title="Permanent link">&para;</a></h3>
-<p>By selecting "List of Documentation for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project," a list of links to the latest <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> version.</p>
+<p>By selecting "List of Documentation for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Project," a list of links to the latest <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> tag that corresponds to your <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> version.</p>
 <p>By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.</p>
 <p><a class="glightbox" href="../images/ofs_tools_menu_n6001.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs_tools_menu_n6001.png" /></a></p>
 <table>
@@ -2867,7 +2867,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
                 Bitstream Version                : 5.0.1<br>
                 Pr Interface Id                  : 7dbb989d-5eb9-54f4-8a74-40ddff52e0e2<br>
                 <br>
-                Note: This feature is not supported on the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+                Note: This feature is not supported on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
 <br>
             <br>
         </tr>
@@ -2936,7 +2936,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
                 ( 1) FPGA E-Tile Temperature [Remote] : 33.50 Celsius<br>
                 etc ......................<br>
                 <br>
-                Note: This feature is not supported on the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+                Note: This feature is not supported on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </td>        
         </tr>
@@ -3003,7 +3003,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
                 Port6                            :25GbE        DOWN<br>
                 Port7                            :25GbE        DOWN<br>
             <br>
-                Note: This feature is not supported on the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+                Note: This feature is not supported on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </tr>
      </tbody>
@@ -3239,7 +3239,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
             <br>
             Boot Page : user1<br>
             <br>
-            Note: This feature is not supported on the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+            Note: This feature is not supported on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </td>        
         </tr>
@@ -3247,7 +3247,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
             <td>21 - Program FIM Image into user1 area for Hardware</td>
             <td>This option programs the FIM image "ofs_top_page1_unsigned_user1.bin" into user1 area in flash<br>
             <br>
-            Note: Please refer to the Getting Started Guide for details on flashing images for the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+            Note: Please refer to the Getting Started Guide for details on flashing images for the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </td>        
         </tr>
@@ -3261,7 +3261,7 @@ b1:00.4 Processing accelerators: Intel Corporation Device bcce&lt;br&gt;
             2022-11-10 11:26:34,368 - rescanning PCIe bus: /sys/devices/pci0000:b0/pci_bus/0000:b0<br>
             2022-11-10 11:26:35,965 - RSU operation complete<br>
             <br>
-            Note: Please refer to the Getting Started Guide for details on flashing images for the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+            Note: Please refer to the Getting Started Guide for details on flashing images for the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </td>        
         </tr>

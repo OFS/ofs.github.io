@@ -3740,7 +3740,7 @@
 
 
 <h1 id="shell-developer-guide-agilex-7-soc-attach-open-fpga-stack"><strong>Shell Developer Guide: Agilex<sup>&reg;</sup> 7 SoC Attach: Open FPGA Stack</strong><a class="headerlink" href="#shell-developer-guide-agilex-7-soc-attach-open-fpga-stack" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>May 06, 2024</strong> </p>
+<p>Last updated: <strong>May 07, 2024</strong> </p>
 <h2 id="1-introduction"><strong>1 Introduction</strong><a class="headerlink" href="#1-introduction" title="Permanent link">&para;</a></h2>
 <h3 id="11-about-this-document"><strong>1.1 About This Document</strong><a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
 <p>This document serves as a guide for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Agilex® 7 SoC Attach developers targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. The following topics are covered in this guide:</p>
@@ -3943,7 +3943,7 @@
 </tr>
 <tr>
 <td>Memory Subsystem</td>
-<td><a href="https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_mem_ss.pdf">Intel FPGA Memory Subsystem IP User Guide</a></td>
+<td><a href="https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf">Intel FPGA Memory Subsystem IP User Guide</a></td>
 <td>686148<sup><strong>[1]</strong></sup></td>
 </tr>
 <tr>
@@ -3953,7 +3953,7 @@
 </tr>
 </tbody>
 </table>
-<p><sup><strong>[1]</strong></sup> You must log in to myIntel and request entitled access.</p>
+<p><sup><strong>[1]</strong></sup> You must request entitled access to these documents.</p>
 <p>The host control and data flow is shown in the diagram below:</p>
 <p><a class="glightbox" href="../images/OFS-Datapaths.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/OFS-Datapaths.PNG" /></a></p>
 <p>The control and data paths are composed of the following:</p>
@@ -7253,7 +7253,7 @@ sh run_sim.sh TEST=dfh_walker VCSMX=1</p>
 <h4 id="416-walkthrough-debug-the-fim-with-signal-tap"><strong>4.1.6 Walkthrough: Debug the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> with Signal Tap</strong><a class="headerlink" href="#416-walkthrough-debug-the-fim-with-signal-tap" title="Permanent link">&para;</a></h4>
 <p>The following steps guide you through the process of adding a Signal Tap instance to your design. The added Signal Tap instance provides hardware to capture the desired internal signals and connect the stored trace information via <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr>. Please be aware that the added Signal Tap hardware will consume FPGA resources and may require additional floorplanning steps to accommodate these resources. Some areas of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> use logic lock regions and these regions may need to be re-sized.</p>
 <p>For more detailed information on Signal Tap please see refer to <a href="https://www.intel.com/content/www/us/en/docs/programmable/683819/22-4/faq.html">Quartus Prime Pro Edition User Guide: Debug Tools</a> (RDC Document ID 683819).</p>
-<p>Signal Tap uses the Intel FPGA Download Cable II USB device to provide access.  Please see <a href="https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html">Intel FPGA Download Cable II</a> for more information. This device is widely available via distributors for purchase.</p>
+<p>Signal Tap uses the FPGA Download Cable II USB device to provide access.  Please see <a href="https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html">Intel FPGA Download Cable II</a> for more information. This device is widely available via distributors for purchase.</p>
 <p>Pre-requisites:</p>
 <ul>
 <li>This walkthrough requires a development environment. Refer to the <a href="https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment">Set Up Development Environment</a> Section for instructions on setting up a development environment.</li>
@@ -8393,7 +8393,7 @@ To create this minimal <abbr title="FPGA Interface Manager, Provides platform ma
 <p><a class="glightbox" href="../images/etile_channel_placement_tool.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="etile_channel_placement_tool" src="../images/etile_channel_placement_tool.png" /></a></p>
 </li>
 <li>
-<p>Based on your channel selection, identify which pins will be used. Refer to the <a href="https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html">Pin-Out Files for Intel FPGAs</a> determine the required pins for your device. In this example we are targeting the AGFC023R25A2E2VR0 device. Set the pin assignments in the <code>$OFS_ROOTDIR/syn/setup/eth_loc.tcl</code> file.</p>
+<p>Based on your channel selection, identify which pins will be used. Refer to the [Pin-Out Files for Altera FPGAs] determine the required pins for your device. In this example we are targeting the AGFC023R25A2E2VR0 device. Set the pin assignments in the <code>$OFS_ROOTDIR/syn/setup/eth_loc.tcl</code> file.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-184-1" name="__codelineno-184-1" href="#__codelineno-184-1"></a><span class="nv">set_location_assignment</span><span class="w"> </span>PIN_DL8<span class="w">  </span><span class="o">-</span>to<span class="w"> </span>hssi_if<span class="k">[</span><span class="nv">8</span><span class="k">]</span>.rx_p
 <a id="__codelineno-184-2" name="__codelineno-184-2" href="#__codelineno-184-2"></a><span class="nv">set_location_assignment</span><span class="w"> </span>PIN_DN13<span class="w"> </span><span class="o">-</span>to<span class="w"> </span>hssi_if<span class="k">[</span><span class="nv">9</span><span class="k">]</span>.rx_p
 <a id="__codelineno-184-3" name="__codelineno-184-3" href="#__codelineno-184-3"></a><span class="nv">set_location_assignment</span><span class="w"> </span>PIN_DY8<span class="w">  </span><span class="o">-</span>to<span class="w"> </span>hssi_if<span class="k">[</span><span class="nv">10</span><span class="k">]</span>.rx_p
@@ -8614,7 +8614,7 @@ To create this minimal <abbr title="FPGA Interface Manager, Provides platform ma
 </table>
 </li>
 <li>
-<p>Connect the Intel FPGA Download Cable to the <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> header of the f2000x as shown in the figure below.</p>
+<p>Connect the FPGA Download Cable to the <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> header of the f2000x as shown in the figure below.</p>
 <p><a class="glightbox" href="../images/f2000x_jtag_connection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="f2000x_jtag_connection" src="../images/f2000x_jtag_connection.png" /></a></p>
 </li>
 <li>
@@ -8661,7 +8661,7 @@ For example, for a board with PCIe BDF <code>15:00.0</code>:
 </li>
 </ol>
 <h4 id="52-walkthrough-program-the-fpga-via-jtag"><strong>5.2 Walkthrough: Program the FPGA via <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></strong><a class="headerlink" href="#52-walkthrough-program-the-fpga-via-jtag" title="Permanent link">&para;</a></h4>
-<p>Every successful run of <code>build_top.sh</code> script creates the file <code>$OFS_ROOTDIR/&lt;WORK_DIRECTORY&gt;/syn/syn_top/output_files/ofs_top.sof</code> which can be used with the Intel FPGA Download Cable II to load the image into the FPGA using the f2000x  <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> access connector. </p>
+<p>Every successful run of <code>build_top.sh</code> script creates the file <code>$OFS_ROOTDIR/&lt;WORK_DIRECTORY&gt;/syn/syn_top/output_files/ofs_top.sof</code> which can be used with the FPGA Download Cable II to load the image into the FPGA using the f2000x  <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> access connector. </p>
 <p>This walkthrough describes the steps to program the Agilex FPGA on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL with a <code>SOF</code> image via <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr>.</p>
 <p>Pre-Requisites:</p>
 <ul>
@@ -8744,7 +8744,7 @@ For example, for a board with PCIe BDF <code>15:00.0</code>:
 </ol>
 </li>
 <li>
-<p>Launch "Quartus Prime Programmer" software from the device which the Intel FPGA Programmer is connected.</p>
+<p>Launch "Quartus Prime Programmer" software from the device which the FPGA Programmer is connected.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-212-1" name="__codelineno-212-1" href="#__codelineno-212-1"></a><span class="nv">$QUARTUS_ROOTDIR</span>/bin/quartus_pgmw
 </code></pre></div>
 <p>Click on <strong>Hardware Setup</strong>, select <strong>USB-BlasterII</strong> in the <strong>Current Selected Hardware</strong> list, and ensure the <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> <strong>Hardware Frequency</strong> is set to 16Mhz (The default is 24MHz).</p>
