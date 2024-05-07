@@ -3238,7 +3238,7 @@ The key components of OFS include:
 </table>
 <p> The OPAE software GitHub site is fully opensource and contains resources for both software and workload developers.</p>
 
-<p><strong>Table 1-3 OPAE Public Git Repositories</strong> (<a href="https://github.com/OFS)">https://github.com/OFS)</a></p>
+<p><strong>Table 1-3 OPAE Public Git Repositories</strong> (<a href="https://github.com/OFS/">https://github.com/OFS/</a>)</p>
 <table>
 <thead>
 <tr>
@@ -4657,7 +4657,7 @@ Follow these steps to use the priority-based flow control (PFC):
 <li>Ethernet Clock Interface (eth_clock) (from FIM)</li>
 </ol>
 <p>The he-hssi uses the APF interface for HSSI CSR (MMIO) accesses. The AXI4-Stream Ethernet data and side band interface along with Ethernet clocks communicate directly to the he-hssi module in the AFU region through platform independent data structures provided by the PIM.  Even if you implement a different MAC you typically can leverage these data structures defined in the hssi/inc/ofs_fim_eth_avst_if.sv file <a href="https://github.com/OFS/ofs-d5005">here</a> without modification.</p>
-<p>While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file h<a href="https://github.com/OFS/ofs-d500">here</a>. Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.</p>
+<p>While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file h<a href="https://github.com/OFS/ofs-d5005">here</a>. Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.</p>
 <h4 id="1223-hssi-sideband-interface"><strong>12.2.3 HSSI Sideband Interface</strong><a class="headerlink" href="#1223-hssi-sideband-interface" title="Permanent link">&para;</a></h4>
 <p>The AXI4-Stream sideband interface has been been defined to allow for time sensitive status and flow control information. It does not have the optional <code>tready</code> signal and assumes the slave always accepts  information. 
 The Ethernet sideband interface varies widely across IPs and operating modes and device generations. In OFS Stratix 10 FIM, the Ethernet sideband signals are mapped to the AXI4-Stream interface and interface variations can be accommodated by customizing the <code>tdata</code> signals of the sideband interface in platform specific interface packages using the PIM. </p>
@@ -4786,8 +4786,8 @@ HSSI_RCFG_CMD0, HSSI_RCFG_DATA0 registers are for the reconfiguration interface,
 For the PR flow, the design should be partitioned into static region and reconfigurable region. The static region is the area of your FPGA that is not reconfigured without reprogramming the entire FPGA. An area of the chip that you plan to partially reconfigure is a PR region. </p>
 <p>The Port Gasket contains all the PR specific modules and logic, such as PR slot reset/freeze control, user clock, remote STP etc. For this reference example only one PR slot is supported.
 The following figure depicts the high level view of the Port Gasket:</p>
-<p><strong>Figure 13-1 Partial Reconfiguration Gasket</strong>
-<a class="glightbox" href="images/ofs-pr-gasket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img src="images/ofs-pr-gasket.png" alt="drawing" style="width:350px"></a></p>
+<p><strong>Figure 13-1 Partial Reconfiguration Gasket</strong></p>
+<p><a class="glightbox" href="../images/ofs-pr-gasket.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="ofs-pr-gasket" src="../images/ofs-pr-gasket.png" /></a></p>
 <p><a class="glightbox" href="../images/ofs-he-hssi-clks.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="hssi-he-hssi-clks" src="../images/ofs-he-hssi-clks.png" /></a></p>
 <p>The isolation logic is provided on the output signals of the PR region to ensure they don’t glitch and affect the interfacing logic in the Static Region (SR). The isolation logic is controlled by the PR Freeze logic during PR operation.</p>
 <h2 id="14-reliability-accessibility-serviceability-ras-and-error-handling"><strong>14 Reliability, Accessibility, Serviceability (RAS) and Error Handling</strong><a class="headerlink" href="#14-reliability-accessibility-serviceability-ras-and-error-handling" title="Permanent link">&para;</a></h2>
