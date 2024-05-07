@@ -3338,7 +3338,7 @@ The key components of OFS include:
 </table>
 <p> The OPAE software GitHub site is fully opensource and contains resources for both software and workload developers.</p>
 
-<p><strong>Table 1-3 OPAE Public Git Repositories</strong> (<a href="https://github.com/OFS)">https://github.com/OFS)</a></p>
+<p><strong>Table 1-3 OPAE Public Git Repositories</strong> (<a href="https://github.com/OFS/">https://github.com/OFS/</a>)</p>
 <table>
 <thead>
 <tr>
@@ -3477,7 +3477,7 @@ region of the FPGA.</p>
 a device feature header (DFH) register found at the beginning of its control
 status register (CSR) space. The FME CSR maps to physical function 0
 (PF0) Base address register 0 (BAR0) so that software can access it
-through a single PCIe link.  For more information about DFHs, refer to the <a href="/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure">Device Feature Header (DFH) structure</a>.</p>
+through a single PCIe link.  For more information about DFHs, refer to the <a href="https://ofs.github.io/ofs-2023.1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure">Device Feature Header (DFH) structure</a>.</p>
 <h5 id="streaming-datapath"><strong>Streaming Datapath</strong><a class="headerlink" href="#streaming-datapath" title="Permanent link">&para;</a></h5>
 <p>The FIM implements an AXI4-Stream bus protocol for data transfer in the FIM.
 AXI4-Stream channels send data packets to and from the host channel IP
@@ -4025,7 +4025,7 @@ The PF/VF Mux/Demux is an M x N switch that allows any M port to target any N po
 </tbody>
 </table>
 
-<p>For information on how to modify the PF/VF mapping for your own design, refer to the <a href="/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/">Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®</a>.</p>
+<p>For information on how to modify the PF/VF mapping for your own design, refer to the <a href="https://ofs.github.io/ofs-2023.1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/">Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®</a>.</p>
 <h3 id="66-unified-tag-remapping"><strong>6.6 Unified Tag Remapping</strong><a class="headerlink" href="#66-unified-tag-remapping" title="Permanent link">&para;</a></h3>
 <p>When a FPGA function sends out a read cycle, it allocates a unique tag which is subsequently used to identify the read completion.  The tag is considered busy; it cannot be assigned to another read cycle until read completion.  While a tag may be unique within a unit, two different units could unknowingly send out two read cycles of the same tag.  The PCIe subsystem requires unique tags for all read cycles irrespective of their origins.  Therefore, a mechanism is needed to uniquify tag globally across different units.</p>
 <p>OFS contains a tag remapper (tag_remap) that intercepts the read cycle, finds a globally unique tag, and replaces the original tag value.  It also restores the original tag value when returning completion to the read requester.  tag_remap is placed between the AXI4-Stream interface of the PCIE subsystem and the PF/VF Mux/Demux.</p>
@@ -4757,7 +4757,7 @@ Follow these steps to use the priority-based flow control (PFC):
 <li>Ethernet Clock Interface (eth_clock) (from FIM)</li>
 </ol>
 <p>The he-hssi uses the APF interface for HSSI CSR (MMIO) accesses. The AXI4-Stream Ethernet data and side band interface along with Ethernet clocks communicate directly to the he-hssi module in the AFU region through platform independent data structures provided by the PIM.  Even if you implement a different MAC you typically can leverage these data structures defined in the hssi/inc/ofs_fim_eth_avst_if.sv file <a href="https://github.com/OFS/ofs-d5005">here</a> without modification.</p>
-<p>While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file h<a href="https://github.com/OFS/ofs-d500">here</a>. Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.</p>
+<p>While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file h<a href="https://github.com/OFS/ofs-d5005">here</a>. Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.</p>
 <h4 id="1223-hssi-sideband-interface"><strong>12.2.3 HSSI Sideband Interface</strong><a class="headerlink" href="#1223-hssi-sideband-interface" title="Permanent link">&para;</a></h4>
 <p>The AXI4-Stream sideband interface has been been defined to allow for time sensitive status and flow control information. It does not have the optional <code>tready</code> signal and assumes the slave always accepts  information. 
 The Ethernet sideband interface varies widely across IPs and operating modes and device generations. In OFS Stratix 10 FIM, the Ethernet sideband signals are mapped to the AXI4-Stream interface and interface variations can be accommodated by customizing the <code>tdata</code> signals of the sideband interface in platform specific interface packages using the PIM. </p>
@@ -5128,7 +5128,7 @@ The FIM ensures MMIO reads to FME or Port CSR regions that are not mapped to any
         </tr>
 
 
-For more information on modifying the FIM, refer to the [Open FPGA Stack Technical Reference Manual](/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
+For more information on modifying the FIM, refer to the [Open FPGA Stack Technical Reference Manual](https://ofs.github.io/ofs-2023.1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
 
 
 
