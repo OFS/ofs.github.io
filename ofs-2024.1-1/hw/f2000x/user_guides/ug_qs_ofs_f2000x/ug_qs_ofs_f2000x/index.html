@@ -2886,7 +2886,7 @@
 </tbody>
 </table>
 <h3 id="14-board-installation-and-server-requirements">1.4 Board Installation and Server Requirements<a class="headerlink" href="#14-board-installation-and-server-requirements" title="Permanent link">&para;</a></h3>
-<p>The F2000X-PL device physical setup procedure and required server settings are detailed in this device's <a href="../../../../common/board_installation/f2000x_board_installation/f2000x_board_installation/">Board Installation Guidelines</a>. Please review this document and follow proper procedure when installing your device. The rest of this document will assume you have completed basic platform bring-up.</p>
+<p>The F2000X-PL device physical setup procedure and required server settings are detailed in this device's <a href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation.md">Board Installation Guidelines</a>. Please review this document and follow proper procedure when installing your device. The rest of this document will assume you have completed basic platform bring-up.</p>
 <h3 id="15-reference-documents">1.5 Reference Documents<a class="headerlink" href="#15-reference-documents" title="Permanent link">&para;</a></h3>
 <p>Documentation is collected on <a href="https://ofs.github.io/ofs-2024.1-1/">https://ofs.github.io/ofs-2024.1-1/</a>.</p>
 <h2 id="20-updating-the-ipu-platform-f2000x-pl">2.0 Updating the IPU Platform F2000X-PL<a class="headerlink" href="#20-updating-the-ipu-platform-f2000x-pl" title="Permanent link">&para;</a></h2>
@@ -2973,7 +2973,7 @@
 </li>
 <li>
 <p>Ensure your Minicom terminal settings match those shown below. You must direct Minicom to the USB device created in <code>/dev</code> associated with your RS-232 to USB Adapter cable. This cable must be attached to a server that is <em>separate</em> from the one housing your IPU Platform F2000X-PL. Check the server logs in <code>dmesg</code> to figure out which device is associated with your cable: <code>[    7.637291] usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0</code>. In this example the special character file <code>/dev/ttyUSB0</code> is associated with our cable, and can be connected to using the following command: <code>sudo minicom --color=on -D /dev/ttyUSB0</code>.</p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/minicom_settings.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/minicom_settings.PNG" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/minicom_settings.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/minicom_settings.PNG" /></a></p>
 </li>
 <li>
 <p>Change the SoC boot order to boot from USB first. Reboot the server. From your
@@ -2982,18 +2982,18 @@
     up as shown below, click the right arrow key six times to move from
     'Main' set up menu to 'Boot' setup:</p>
 <p>Main setup menu:</p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu1.png" /></a></p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu2.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu1.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu2.png" /></a></p>
 <p>Your order of boot devices may differ. You need to move the USB flash
    up to Boot Option #1 by first using the down arrow key to highlight
    the USB device then use '+' key to move the USB device to #1 as
    shown below:</p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu3.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu3.png" /></a></p>
 <p>Press 'F4' to save and exit.</p>
 </li>
 <li>
 <p>You will boot into Yocto automatically. Log in with username <code>root</code> and an empty password using Minicom. Take note of the IP address of the board, you can use this to log in without needing the serial cable.</p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/yocto_login.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/yocto_login.PNG" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/yocto_login.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/yocto_login.PNG" /></a></p>
 <p>Verify that you have booted from the USB and not the on-board NVMe <code>lsblk -no pkname $(findmnt -n / | awk '{ print $2 }')</code>. You should see a device matching <code>/dev/sd*</code>, and <em>not</em> <code>nvme*n*p*</code>. If you see <code>nvme*n*p*</code>, then review the previous steps.</p>
 <p>Record the IP address of the SoC at this time <code>ip -4 addr</code>. This will be used to log in remotely using SSH.</p>
 </li>
@@ -3125,11 +3125,11 @@
 <ol>
 <li>
 <p>Check your BIOS Version. Reboot the SoC and wait for the BIOS version to be shown. In this example, the BIOS will need to be updated.</p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/bios_setup_splash.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/bios_setup_splash.PNG" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/bios_setup_splash.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/bios_setup_splash.PNG" /></a></p>
 </li>
 <li>
 <p>Download both the ICX-D SoC Update image and <a href="https://www.ami.com/bios-uefi-utilities/#aptiov">APTIO V AMI Firmware Update Utility</a>. Unzip the BIOS update image and locate your BIOS update binary. Unzip Aptio_V_AMI_Firmware_Update_Utility.zip, and then navigate to Aptio_V_AMI_Firmware_Update_Utility\afu\afuefi\64 and unzip AfuEfi64.zip. The file we need from this package is called AfuEfix64.efi.</p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/ami_webpage.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/ami_webpage.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/ami_webpage.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/ami_webpage.png" /></a></p>
 </li>
 <li>
 <p>Copy both files over to the SoC into /boot/EFI using the SoC's IP.</p>
@@ -3139,7 +3139,7 @@
 </li>
 <li>
 <p>Reboot the SoC from a TTY Serial terminal. Watch your screen and press 'ESC' key to go into BIOS setup mode. Select 'Built-in EFI Shell'.</p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/uefi_builtin_shell.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/uefi_builtin_shell.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/uefi_builtin_shell.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/uefi_builtin_shell.png" /></a></p>
 </li>
 <li>
 <p>At EFI prompt enter the following:</p>
@@ -3148,19 +3148,19 @@
 <a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>FS0:<span class="se">\E</span>FI<span class="se">\&gt;</span><span class="w"> </span>AfuEfix64.efi<span class="w"> </span>0ACRH608_REL.BIN<span class="w"> </span>/p<span class="w"> </span>/n<span class="w"> </span>/b
 </code></pre></div>
 <p>Press 'E'. When the update has completed type 'reset -w' to reboot.</p>
-<p><a class="glightbox" href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/afutool.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/afutool.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/afutool.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/afutool.png" /></a></p>
 </li>
 <li>
 <p>Watch your screen and press 'ESC' key to go into BIOS setup mode. Verify BIOS version matches expectation.</p>
-<p><a href="../images/correctbios_Version.png"></a></p>
+<p><a href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/correctbios_Version.png"></a></p>
 </li>
 <li>
 <p>Click the right arrow key six times to move from 'Main' set up menu to 'Boot' setup. Select NVMe as the primary boot source.</p>
-<p><a href="../images/post_bios_update_nvme.png"></a></p>
+<p><a href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/post_bios_update_nvme.png"></a></p>
 </li>
 </ol>
 <h2 id="40-compiling-a-custom-yocto-soc-image">4.0 Compiling a Custom Yocto SoC Image<a class="headerlink" href="#40-compiling-a-custom-yocto-soc-image" title="Permanent link">&para;</a></h2>
-<p>Custom Yocto image compilation steps are shown in the <a href="../../../../common/sw_installation/soc_attach/sw_install_soc_attach/">Software Installation Guide: SoC Attach</a>.</p>
+<p>Custom Yocto image compilation steps are shown in the <a href="/ofs-2024.1-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach.md">Software Installation Guide: SoC Attach</a>.</p>
 <h2 id="50-verifying-the-icx-d-soc-opae-sdk">5.0 Verifying the ICX-D SoC <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr><a class="headerlink" href="#50-verifying-the-icx-d-soc-opae-sdk" title="Permanent link">&para;</a></h2>
 <p>The reference SoC Attach <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and unaltered <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc. Full supported functionality of the HEMs is documented in the <a href="https://opae.github.io/latest/docs/fpga_tools/host_exerciser/host_exerciser.html">host_exerciser</a> opae.io GitHub page. SoC Attach supports HEMs run both with and without an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> image programmed into the board's one supported <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region. This image is available on the offial <a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">SoC Attach GitHub Page</a>, and is programmed using <code>fpgasupdate</code> as shown in section 3.2. A few select examples run from the SoC and their expected results will be shown below.</p>
 <h3 id="51-checking-telemetry-with-fpgainfo">5.1 Checking Telemetry with <code>fpgainfo</code><a class="headerlink" href="#51-checking-telemetry-with-fpgainfo" title="Permanent link">&para;</a></h3>
@@ -3359,7 +3359,7 @@
 </tbody>
 </table>
 <h2 id="60-setting-up-the-host">6.0 Setting up the Host<a class="headerlink" href="#60-setting-up-the-host" title="Permanent link">&para;</a></h2>
-<p>The steps to set up the host and build and install the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> are shown in the <a href="../../../../common/sw_installation/soc_attach/sw_install_soc_attach/">Software Installation Guide: SoC Attach</a>.</p>
+<p>The steps to set up the host and build and install the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> are shown in the <a href="/ofs-2024.1-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach.md">Software Installation Guide: SoC Attach</a>.</p>
 <h3 id="61-verifying-the-soc-attach-solution-on-the-host">6.1 Verifying the SoC Attach Solution on the Host<a class="headerlink" href="#61-verifying-the-soc-attach-solution-on-the-host" title="Permanent link">&para;</a></h3>
 <p>The SoC Attach workload supports testing <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> HW and Latency and PCIe BW and latency out of box. Execution of the <code>host_exerciser</code> binary on the host requires the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> to be installed as shown in section <a href="#61-installing-the-opae-sdk-on-the-host">6.1 Installing the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> On the Host</a>. You will also need to have a proper SoC Attach <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> configured on your board as shown in section <a href="#32-updating-fim-bmc-and-afu-with-fpgasupdate">3.2 Updating <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> and <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> with <code>fpgasupdate</code></a>.</p>
 <ol>

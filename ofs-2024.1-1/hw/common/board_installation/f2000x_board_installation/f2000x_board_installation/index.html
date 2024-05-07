@@ -2865,14 +2865,15 @@ operation under the worst-case power scenario of 150W TDP.</p>
 <p>The airflow requirements for optimal heat sink performance at minimum is
 characteristic of CAT 3 servers or PCIe SIG Level 7 thermal profiles, in
 both, forward &amp; reverse flow, see figure below:</p>
-<p><a class="glightbox" href="../../hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG" /></a> <a class="glightbox" href="../../hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG" /></a>
+<a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png" /></a></p>
 <p>As the IPU Platform F2000X-PL is a development platform, it is not
 integrated into the server baseband management controller closed loop
 cooling control. It is strongly recommended that you set your server's
 fan settings to run constantly at 100% with the server chassis lid closed to prevent unwanted IPU Platform F2000X-PL thermal shutdown.</p>
 <h3 id="14-external-connections">1.4 External Connections<a class="headerlink" href="#14-external-connections" title="Permanent link">&para;</a></h3>
 <h4 id="figure-1-external-connections">Figure 1: External Connections<a class="headerlink" href="#figure-1-external-connections" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../images/external_connections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/external_connections.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/external_connections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/external_connections.png" /></a></p>
 <p>The items listed Table 6 in are known to work for external connectivity. Specific links are given for convenience, other products may be used but have not been tested.</p>
 <h4 id="table-6-external-connection-cables">Table 6: External Connection Cables<a class="headerlink" href="#table-6-external-connection-cables" title="Permanent link">&para;</a></h4>
 <table>
@@ -2947,7 +2948,7 @@ switches <strong>SW2</strong> and <strong>SW3</strong> and make sure the switche
 </tbody>
 </table>
 <h4 id="figure-2-board-switch-settings">Figure 2: Board Switch Settings<a class="headerlink" href="#figure-2-board-switch-settings" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../../dev_guides/fim_dev/images/f2000x_switch_locations.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../../dev_guides/fim_dev/images/f2000x_switch_locations.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/images/f2000x_switch_locations.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/images/f2000x_switch_locations.png" /></a></p>
 <h4 id="151-usb-to-serial-adapter">1.5.1 USB to Serial Adapter<a class="headerlink" href="#151-usb-to-serial-adapter" title="Permanent link">&para;</a></h4>
 <p>The IPU Platform F2000X-PL has a serial UART for access located on
 back edge of the board. This connection is useful for making BIOS and
@@ -2956,11 +2957,11 @@ to remove a riser card and route the USB to serial cable and (optional) Intel FP
 USB Blaster through an unused PCIe slot above or below where the IPU is
 installed. See <em>Figure 3</em> for an example of cable routing.</p>
 <h4 id="figure-3-cable-routing">Figure 3: Cable Routing<a class="headerlink" href="#figure-3-cable-routing" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../images/cablerouting.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/cablerouting.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/cablerouting.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/cablerouting.png" /></a></p>
 <p>The USB to serial connection is shown in <em>Figure 4</em> where the White wire
 is TXD, Black wire is ground and Green wire is RXD.</p>
 <h4 id="figure-4-usb-to-serial-adapter-connection">Figure 4: USB to Serial Adapter connection<a class="headerlink" href="#figure-4-usb-to-serial-adapter-connection" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../images/serialadapterconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/serialadapterconnection.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/serialadapterconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/serialadapterconnection.png" /></a></p>
 <h4 id="152-ipu-jtag">1.5.2 IPU <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr><a class="headerlink" href="#152-ipu-jtag" title="Permanent link">&para;</a></h4>
 <p>The IPU Platform F2000X-PL provides a 10 pin <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> header for FPGA and
 Cyclone 10 Board Management Controller development work using a <a href="https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html">Intel
@@ -2971,9 +2972,9 @@ orientation of the USB Blaster II requires careful installation in a PCIe bay th
 has additional room in the adjacent bay. This may require you to either install the board over the PSU of the server, or to temporarily remove an adjacent
 riser while programming.</p>
 <h4 id="figure-5-usb-blaster-ii-connection">Figure 5: USB Blaster II Connection<a class="headerlink" href="#figure-5-usb-blaster-ii-connection" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../images/usblasterIIconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/usblasterIIconnection.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/usblasterIIconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/usblasterIIconnection.png" /></a></p>
 <h4 id="figure-6-usb-blaster-ii-installation">Figure 6: USB Blaster II Installation<a class="headerlink" href="#figure-6-usb-blaster-ii-installation" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../images/blasterinserver.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/blasterinserver.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/blasterinserver.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/blasterinserver.png" /></a></p>
 <h4 id="153-power">1.5.3 Power<a class="headerlink" href="#153-power" title="Permanent link">&para;</a></h4>
 <p>The IPU Platform F2000X-PL must receive power from both the 12 V and 3.3V
 PCIe slot and the 12 V Auxiliary 2×4 power connector. The board does not power up if any of the 12 V and 3.3 V PCIe slot,
@@ -2983,7 +2984,7 @@ assignment. The IPU Platform F2000X-PL implements an 8-position right
 angle (R/A) through-hole PCB header assembly on the top right side of
 the board as depicted in the picture below.</p>
 <h4 id="figure-7-12v-pcie-aux-connector-location">Figure 7: 12V PCIe AUX Connector Location<a class="headerlink" href="#figure-7-12v-pcie-aux-connector-location" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../images/12vpcieconnector.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/12vpcieconnector.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/12vpcieconnector.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/12vpcieconnector.png" /></a></p>
 <p>Refer the table below for pinout details.</p>
 <h4 id="table-8-12v-2x3-aux-connector-pin-out">Table 8: 12V (2x3) AUX Connector Pin Out<a class="headerlink" href="#table-8-12v-2x3-aux-connector-pin-out" title="Permanent link">&para;</a></h4>
 <table>
@@ -3030,13 +3031,13 @@ the board as depicted in the picture below.</p>
 </table>
 <p>See Auxiliary power connection in <em>Figure 8</em>.</p>
 <h4 id="figure-8-auxiliary-power-connection">Figure 8: Auxiliary Power Connection<a class="headerlink" href="#figure-8-auxiliary-power-connection" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../images/auxpowerconnector.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/auxpowerconnector.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/auxpowerconnector.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/auxpowerconnector.png" /></a></p>
 <h4 id="154-usb-hub-connection">1.5.4 USB Hub Connection<a class="headerlink" href="#154-usb-hub-connection" title="Permanent link">&para;</a></h4>
 <p>The USB Hub is connected to the USB type A connector on the front panel.
 Additionally, attach a network connected Ethernet connection to the USB
 hub. See <em>Figure 9</em>.</p>
 <h4 id="figure-9-usb-hub-connection">Figure 9: USB Hub Connection<a class="headerlink" href="#figure-9-usb-hub-connection" title="Permanent link">&para;</a></h4>
-<p><a class="glightbox" href="../images/usbhubconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/usbhubconnection.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/usbhubconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/usbhubconnection.png" /></a></p>
 <h4 id="155-creating-a-bootable-usb-flash-drive-for-the-soc">1.5.5 Creating a Bootable USB Flash Drive for the SoC<a class="headerlink" href="#155-creating-a-bootable-usb-flash-drive-for-the-soc" title="Permanent link">&para;</a></h4>
 <p>Connect your flash drive to an available Linux host. In this section the USB will set up to be used as a secondary boot source for the SoC and will also be used to update the NVMe from which the ICX-D SoC boots in section <a href="#21-updating-the-f2000x-pl-icxd-soc-nvme">2.1 Updating the F2000X-PL ICX-D SoC NVMe</a>.</p>
 <p>You will load the latest pre-compiled Yocto <code>core-image-minimal</code> WIC image into USB flash. This image can be downloaded from
