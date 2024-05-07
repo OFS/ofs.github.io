@@ -8,10 +8,6 @@
       <node id="5">
         <label>stdbool.h</label>
       </node>
-      <node id="6">
-        <label>opae/types_enum.h</label>
-        <link refid="types__enum_8h"/>
-      </node>
       <node id="3">
         <label>stdint.h</label>
       </node>
@@ -23,6 +19,10 @@
         <link refid="metrics_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="6">
+        <label>opae/types_enum.h</label>
+        <link refid="types__enum_8h"/>
       </node>
       <node id="2">
         <label>opae/types.h</label>
@@ -42,6 +42,12 @@
         <label>docs/sw/samples/hello_fpga/hello_fpga.c</label>
         <link refid="hello__fpga_8c"/>
       </node>
+      <node id="1">
+        <label>docs/sw/include/opae/metrics.h</label>
+        <link refid="metrics_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+      </node>
       <node id="2">
         <label>docs/sw/include/opae/fpga.h</label>
         <link refid="fpga_8h"/>
@@ -53,12 +59,6 @@
       <node id="3">
         <label>docs/sw/samples/hello_events/hello_events.c</label>
         <link refid="hello__events_8c"/>
-      </node>
-      <node id="1">
-        <label>docs/sw/include/opae/metrics.h</label>
-        <link refid="metrics_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
