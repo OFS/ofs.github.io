@@ -2935,7 +2935,7 @@
 
 <h1 id="hard-processor-system-software-developer-guide-ofs-for-intel-agilex-fpgas-targeting-intel-n60001-pl-fpga-smartnic-platform">Hard Processor System Software Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Intel Agilex FPGAs Targeting Intel® N6000/1-PL FPGA SmartNIC Platform<a class="headerlink" href="#hard-processor-system-software-developer-guide-ofs-for-intel-agilex-fpgas-targeting-intel-n60001-pl-fpga-smartnic-platform" title="Permanent link">&para;</a></h1>
 <p><a href="https://www.intel.com/content/www/us/en/search.html?ws=text#q=quartus%20prime%20pro%2023.1&amp;sort=relevancy">Quartus Prime Pro Version: 23.1</a></p>
-<p>Last updated: Last updated: <strong>May 07, 2024</strong> </p>
+<p>Last updated: Last updated: <strong>May 08, 2024</strong> </p>
 <h2 id="glossary">Glossary<a class="headerlink" href="#glossary" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -3160,7 +3160,7 @@
 <p>Note: throughout this document "Intel N6000/1-PL FPGA SmartNIC Platform" denotes both cards. This document describes the software package that runs on the Hard Processor System (HPS) which is a key component within both platforms.</p>
 <p>The Intel N6000/1-PL FPGA SmartNIC Platform has a customized build script that can be used to both set up a development environment and build the essential pieces of the HPS software image. This script, <code>meta-bake.py</code>, has its own dedicated <a href="#31-building-u-boot"><strong>Section 3.1 Building U-Boot</strong></a> which can be used to quickly get started with the HPS build flow. It is recommended you use this build script to construct the first and second stage bootloader files, as it will handle all of the setup and patching required to build out your complete Yocto image. You can familiarize yourself with the contents of this package in its public GitHub repository located at https://github.com/OPAE/meta-opae-fpga/tree/main/tools/meta-bake. All other information included for individual components is included for learning purposes only and is not meant as a recipe for image creation.</p>
 <h3 id="11-reference-documents">1.1 Reference Documents<a class="headerlink" href="#11-reference-documents" title="Permanent link">&para;</a></h3>
-<p>This document pulls much of its information from related Agilex FPGA documentation hosted on <a href="intel.com">intel.com</a>. Reading these references is not required for initial platform bring up, but will serve to further your knowledge of the FPGA SoC boot and configuration process.</p>
+<p>This document pulls much of its information from related Agilex FPGA documentation hosted on <a href="https://www.intel.com">intel.com</a>. Reading these references is not required for initial platform bring up, but will serve to further your knowledge of the FPGA SoC boot and configuration process.</p>
 <p><strong>Table 1. Reference Documents</strong></p>
 <table>
 <thead>
@@ -3183,7 +3183,7 @@
 <h3 id="12-reference-images">1.2 Reference Images<a class="headerlink" href="#12-reference-images" title="Permanent link">&para;</a></h3>
 <p>Intel has provided a set of two pre-compiled ITB images that can be used for exploration and evaluation of the HPS bring-up flow. These images contain the complete SSBL package specific to the board and can be copied to the N6000/1-PL SmartNIC Platform with an HPS enabled <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> loaded. Refer to <a href="#41-example-boot"><strong>Section 4.1 Example Boot</strong></a> for an example on how to use the built-in copy engine IP in tandem with the host-side <code>cpeng</code> software to transfer an SSBL.</p>
 <p>The package is found on the official <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> 2024.1-1 Release on GitHub</a>. Two ITB artifacts are included at the bottom of the page under <em>Assets</em> - one with the Vendor Authorized Boot (VAB) certificate included, and one without. Which you choose to load depends on whether the currently loaded <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> requires VAB authentication. <a href="#43-example-boot"><strong>Section 4.3 Example Boot</strong></a> contains instructions on the boot flow using these files for platform bring up.</p>
-<p>The default username for these two images is <code>root</code> and the password is empty. A good place to start after loading the ITB is to set up SSH for file transfers and the remote console, as seen in <a href="8.0-connecting-remotely-to-the-hps-using-ssh"><strong>8.0 Connecting remotely to the HPS using <code>ssh</code></strong></a>.</p>
+<p>The default username for these two images is <code>root</code> and the password is empty. A good place to start after loading the ITB is to set up SSH for file transfers and the remote console, as seen in <a href="https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/#80-connecting-remotely-to-the-hps-using-ssh"><strong>8.0 Connecting remotely to the HPS using <code>ssh</code></strong></a>.</p>
 <h2 id="20-architecture-overview">2.0 Architecture Overview<a class="headerlink" href="#20-architecture-overview" title="Permanent link">&para;</a></h2>
 <p>The <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> architecture is classified into:</p>
 <ul>
@@ -3209,7 +3209,7 @@
 <p>The HPS is connected to the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and implements all the board specific flows that customers require to begin the application development using the HPS such as host communication, firmware load and update, integration with <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>, and memory. The HPS implements a basic <em>Hello World</em> software application and is intended as a starting point for customers to begin development with HPS.</p>
 <h3 id="21-hps-peripherals">2.1 HPS Peripherals<a class="headerlink" href="#21-hps-peripherals" title="Permanent link">&para;</a></h3>
 <p><strong>Figure 1  Intel Agilex FPGA HPS Peripherals</strong></p>
-<p><a class="glightbox" href="../images/Image1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/Image1.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image1.png" /></a></p>
 <p>The Intel Agilex™ SoC integrates a full-featured Arm<sup>&reg;</sup> Cortex-A53<sup>&reg;</sup> MPCore Processor.</p>
 <p>The Cortex-A53 MPCore supports high-performance applications and provides the capability for secure processing and virtualization.</p>
 <p>Each CPU in the processor has the following features:</p>
@@ -3254,7 +3254,7 @@
 <li>If the FPGA is configured before the HPS boots, then the boot flow looks as shown in the example figure below.</li>
 </ul>
 <p><strong>Figure 2. Typical FPGA First Configuration Steps</strong></p>
-<p><a class="glightbox" href="images/Image2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="images/Image2.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image2.png" /></a></p>
 <p>The flow includes the Time from Power-on-Reset (TPOR) to boot completion (TBoot_Complete).</p>
 <p><strong>Table 2. FPGA Configuration First Stages</strong></p>
 <table>
@@ -3425,9 +3425,9 @@
 <p>The SSBL + Linux is a part of an itb file and may also be signed with Quartus_sign and PACSign for authentication. This process is demonstrated in <a href="#92-configuring-the-hps"><strong>Section 9.2 Configuring the HPS</strong></a>.</p>
 <h2 id="30-environment-setup">3.0 Environment Setup<a class="headerlink" href="#30-environment-setup" title="Permanent link">&para;</a></h2>
 <h3 id="31-building-u-boot">3.1 Building U-Boot<a class="headerlink" href="#31-building-u-boot" title="Permanent link">&para;</a></h3>
-<p><a class="glightbox" href="../images/Image3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/Image3.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image3.png" /></a></p>
 <p>When creating a development environment using <code>meta-bake.py</code> both U-Boot and the patches required to work with the Intel N6000/1-PL FPGA SmartNIC Platform are located at <em>/meta-opae-fpga/tools/meta-bake/build/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/build/socfpga_agilex_n6000_defconfig</em>. To review the required patches applied to U-Boot, navigate to <em>/meta-opae-fpga/tools/meta-bake/build/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/git/patches</em>. From there, using git commands such as <code>git status</code> and <code>git branch</code> will show changes to the build environment. </p>
-<p>Currently the <em>meta-bake</em> build flow requires a specific environment and software dependencies. Refer to section <a href="#61-running-meta-bakepy">6.1 Running meta-bake.py</a> for more information. </p>
+<p>Currently the <em>meta-bake</em> build flow requires a specific environment and software dependencies. Refer to section <a href="#61-running-meta-bakepy">6.1 Running meta-bake.py</a> for more information.</p>
 <p>Invoke the <code>meta-bake.py</code> build script to build your entire image, including U-Boot.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/meta-opae-fpga/tools/meta-bake
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$<span class="w"> </span>./meta-bake.py<span class="w"> </span>--conf<span class="w"> </span>n6000/layers.yaml<span class="w"> </span>builddir
@@ -3732,7 +3732,7 @@ If a terminal emulator is connected to the UART as described above, a user can o
 <a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="o">[</span><span class="m">2021</span>-09-25<span class="w"> </span><span class="m">01</span>:59:46.723<span class="o">]</span><span class="w"> </span><span class="o">[</span>heartbeat<span class="o">]</span><span class="w"> </span><span class="o">[</span>info<span class="o">]</span><span class="w"> </span>heartbeat<span class="w"> </span>value:<span class="w"> </span>0x70015
 </code></pre></div>
 <ol>
-<li>Login to HPS as user, root, with no password over serial connection. This process is covered in <a href="#8.0-connecting-remotely-to-the-hps-using-ssh"><strong>8.0 Connecting remotely to the HPS using <code>ssh</code></strong></a>.</li>
+<li>Login to HPS as user, root, with no password over serial connection. This process is covered in <a href="https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/#80-connecting-remotely-to-the-hps-using-ssh"><strong>8.0 Connecting remotely to the HPS using <code>ssh</code></strong></a>.</li>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>agilex<span class="w"> </span>login:<span class="w"> </span>root
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>root@agilex:~#<span class="w"> </span>ls
@@ -4069,7 +4069,7 @@ Recompile the U-Boot</p>
 <a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>..
 </code></pre></div>
 <p><strong>Figure 3.1 N6000/1 Configs</strong></p>
-<p><a class="glightbox" href="../images/Image4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/Image4.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image4.png" /></a></p>
 <p>If you not see the defconfig desired, please checkout the correct branch version. Example config shown above is socfpga_v2021.10.</p>
 <p>If the memory device tree it mismatches with your hardware (figure below), change the memory device tree at u-boot-socfpga/arch/arm/dts/socfpga_agilex_n6000-u-boot.dtsi</p>
 <p>To make it 2GB, change as</p>
@@ -4082,7 +4082,7 @@ Recompile the U-Boot</p>
 <a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>};
 </code></pre></div>
 <strong>Figure 3.2 Device tree mismatches example</strong></p>
-<p><a class="glightbox" href="../images/Image5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/Image5.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image5.png" /></a></p>
 <p>Refer to 6. Host Side Startup</p>
 <p><div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>opae.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span>4b:00.4<span class="w"> </span>root:root
 <a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>$<span class="w"> </span>hps<span class="w"> </span>cpeng<span class="w"> </span>-f<span class="w"> </span>u-boot.itb
@@ -4090,7 +4090,7 @@ Recompile the U-Boot</p>
 </code></pre></div>
 The error happen (Figure below) when the Images do not sign with VAB.</p>
 <p><strong>Figure 3.3 VAB certificate error example</strong></p>
-<p><a class="glightbox" href="../images/Image6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/Image6.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/Image6.png" /></a></p>
 <h2 id="70-debugging">7.0 Debugging<a class="headerlink" href="#70-debugging" title="Permanent link">&para;</a></h2>
 <p>Debugging the HPS from the host side is standard HPS debugging. The primary debug tool is UART on the HPS and Arm DS-5 debugger.</p>
 <p>A UART connection can be enabled on the board using the following procedure:</p>
@@ -4212,28 +4212,28 @@ The error happen (Figure below) when the Images do not sign with VAB.</p>
 <ol>
 <li>Configure eMMC, I2C, and UAET in Platform Designer. ACtual pin assignments are determined by the WNC board schematic. In Quartus, navigate to the HPS Processor Subsystem Intel Agilex FPGA IP -&gt; Pin Mux and Peripherals -&gt; Advanced -&gt; Advanced IP Placement.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pin Planner" src="../images/wnc1.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Pin Planner" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc1.png" /></a></p>
 <p>Check your pin assigments for the eMMC, UART and I2C in the Pin Planner. If these assignments are not present, then they can be found at the following <a href="https://github.com/OFS/ofs-n6001/blob/45a7dfbcdac16131aabf392457cfbbd51631888e/syn/setup/hps_loc.tcl#L4">link</a>. Based on the changes shown above, the UART pins are removed on HPS IO3 and IO4 what are mapped on AG6 and AB1.</p>
-<p><a class="glightbox" href="../images/wnc2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HPS Pin Assignments" src="../images/wnc2.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HPS Pin Assignments" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc2.png" /></a></p>
 <ol>
 <li>Click Apply Selections-&gt;Generate HDL</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Generate HDL" src="../images/wnc3.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Generate HDL" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc3.png" /></a></p>
 <ol>
 <li>Check for instantiation in <code>top.sv</code>. Click Generate -&gt; Show Instatiation Template.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Instatiation Template" src="../images/wnc4.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Instatiation Template" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc4.png" /></a></p>
 <p>The following image demonstrates eMMC and I2C properly instatiated in <code>top.sv</code>.</p>
-<p><a class="glightbox" href="../images/wnc5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="top.sv Instatiation" src="../images/wnc5.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="top.sv Instatiation" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc5.png" /></a></p>
 <ol>
 <li>Add the following to the hps_ss modules in <code>top.sv</code>.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="hps_ss part 1" src="../images/wnc6.png" /></a></p>
-<p><a class="glightbox" href="../images/wnc7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="hps_ss part 2" src="../images/wnc7.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc6.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="hps_ss part 1" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc6.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc7.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="hps_ss part 2" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc7.png" /></a></p>
 <ol>
 <li>Compile the design.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Compile" src="../images/wnc8.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc8.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Compile" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc8.png" /></a></p>
 <h3 id="92-configuring-the-hps">9.2 Configuring the HPS<a class="headerlink" href="#92-configuring-the-hps" title="Permanent link">&para;</a></h3>
 <ol>
 <li>Enable mmc and DesignWare Memory Card interface flags in U-Boot (.config). After building U-Boot with <code>meta-bake.py</code>, this file is located at <em><build_directory>/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/<version>/build/socfpga_agilex_n6000_defconfig/.config</em>.</li>
@@ -4241,16 +4241,16 @@ The error happen (Figure below) when the Images do not sign with VAB.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nv">CONFIG_CMD_MMC</span><span class="o">=</span>y<span class="w"> </span>//Enable<span class="w"> </span>mmc<span class="w"> </span><span class="nb">command</span><span class="w"> </span>tool<span class="w"> </span><span class="k">in</span><span class="w"> </span>uboot<span class="w"> </span>
 <a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a><span class="nv">CONFIG_MMC_DW</span><span class="o">=</span>y<span class="w"> </span>//<span class="w"> </span>support<span class="w"> </span>DesignWare<span class="w"> </span>Memory<span class="w"> </span>Card<span class="w"> </span>Interface
 </code></pre></div>
-<p><a class="glightbox" href="../images/wnc9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=".config changes 1" src="../images/wnc9.png" /></a></p>
-<p><a class="glightbox" href="../images/wnc10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=".config changes 1" src="../images/wnc10.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc9.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=".config changes 1" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc9.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc10.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt=".config changes 1" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc10.png" /></a></p>
 <ol>
 <li>Enable and configure I2C and eMMC in U-Boot (socfpga_agilex_n6000.dts). After building U-Boot with <code>meta-bake.py</code>, this file is located at <em><build_directory>/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/<version>git/arch/arm/dts/socfpga_agilex_n6000.dts</em>.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc11.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="DTS Changes UBOOT" src="../images/wnc11.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc11.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="DTS Changes UBOOT" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc11.png" /></a></p>
 <ol>
 <li>Enable and configure I2C and eMMC in the Linux device tree (socfpga_agilex_n6000.dts). After building U-Boot with <code>meta-bake.py</code>, this file is located at <em><build_directory>/agilex-n6000-rootfs/tmp/work-shared/agilex/kernel-source/arch/arm64/boot/dts/intel/socfpga_agilex_n6000.dts</em>.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="DTS Changes Linux" src="../images/wnc12.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc12.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="DTS Changes Linux" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc12.png" /></a></p>
 <ol>
 <li>Compile Linux by navigating to the directory <em>agilex-n6000-rootfs/tmp/work/agilex-poky-linux/linux-socfpga-lts/5.10.60-lts+gitAUTOINC+c35d63f9c7-r0/linux-agilex-standard-build</em> and running the following:</li>
 </ol>
@@ -4259,7 +4259,7 @@ The error happen (Figure below) when the Images do not sign with VAB.</p>
 <ol>
 <li>Add the software utilities<code>util-linux-mkfs e2fsprogs.mke2fs e2fsprogs</code> in to the Linux RootFS. Thes utilities will be used to create a filsystem (ext4, FAT32, etc.) and partition the eMMC. Make the following changes in <em>meta-intel-fpga-refdes/recipes-images/poky/n6000-image-minimal.bb</em>.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc13.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Utility additions" src="../images/wnc13.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc13.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Utility additions" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc13.png" /></a></p>
 <ol>
 <li>
 <p>As an output from the Linux compilation from step 4 you will produce the files <strong>Image</strong> and <strong>socfpga_agilex_n6000.dtb</strong>. Transfer both over to the socfpga_agilex_n6000_defconfig directory. Rename <strong>socfpga_agilex_n6000.dtb</strong> to <strong>linux.dtb</strong>. Compile U-Boot by running <code>make</code> in directory <em>agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/build/socfpga_agilex_n6000_defconfig/</em>. This compilation will produce both <code>spl/u-boot-spl-dtb.hex</code> and <code>u-boot.itb</code>. </p>
@@ -4277,7 +4277,7 @@ The error happen (Figure below) when the Images do not sign with VAB.</p>
 <a id="__codelineno-33-3" name="__codelineno-33-3" href="#__codelineno-33-3"></a>$<span class="w"> </span>hps<span class="w"> </span>cpeng<span class="w"> </span>-f<span class="w"> </span>u-boot.itb
 </code></pre></div>
 <p>During HPS boot you should see the following message if the eMMC has been properly configured.</p>
-<p><a class="glightbox" href="../images/wnc14.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="EMMC Boot Message" src="../images/wnc14.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc14.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="EMMC Boot Message" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc14.png" /></a></p>
 <h3 id="93-emmc-testing-from-the-hps">9.3 eMMC Testing from the HPS<a class="headerlink" href="#93-emmc-testing-from-the-hps" title="Permanent link">&para;</a></h3>
 <p><strong>The following memory test was run from the U-Boot shell.</strong></p>
 <ol>
@@ -4285,38 +4285,38 @@ The error happen (Figure below) when the Images do not sign with VAB.</p>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-34-1" name="__codelineno-34-1" href="#__codelineno-34-1"></a>$<span class="w"> </span>mmc<span class="w"> </span>erase<span class="w"> </span>0x400<span class="w"> </span><span class="m">20</span>
 </code></pre></div>
-<p><a class="glightbox" href="../images/wnc15.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc15.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc15.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc15.png" /></a></p>
 <p>Write test data (at 0x00A00000) into the eMMC offset 0x400.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-35-1" name="__codelineno-35-1" href="#__codelineno-35-1"></a>$<span class="w"> </span>mmc<span class="w"> </span>write<span class="w"> </span>0x00A00000<span class="w"> </span>0x400<span class="w"> </span><span class="m">10</span>
 </code></pre></div>
-<p><a class="glightbox" href="../images/wnc16.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc16.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc16.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc16.png" /></a></p>
 <p>Read test data (at 0x00A00040) back from eMMC offset 0x400.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-36-1" name="__codelineno-36-1" href="#__codelineno-36-1"></a>$<span class="w"> </span>mmc<span class="w"> </span><span class="nb">read</span><span class="w"> </span>0x00A00040<span class="w"> </span>0x400<span class="w"> </span><span class="m">10</span>
 </code></pre></div>
-<p><a class="glightbox" href="../images/wnc17.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc17.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc17.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc17.png" /></a></p>
 <p>Data comparison at memory offset 0x00A00000 and 0x00A00040. Data should match.</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-37-1" name="__codelineno-37-1" href="#__codelineno-37-1"></a>$<span class="w"> </span>cmp.l<span class="w"> </span>0x00A00000<span class="w"> </span>0x00A00040<span class="w"> </span><span class="m">10</span>.
 </code></pre></div>
-<p><a class="glightbox" href="../images/wnc18.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc18.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc18.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc18.png" /></a></p>
 <p><strong>The following memory test was run from Linux running on the HPS.</strong></p>
 <ol>
 <li>Display the eMMC and its partitions.</li>
 </ol>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-38-1" name="__codelineno-38-1" href="#__codelineno-38-1"></a>$<span class="w"> </span>fdisk<span class="w"> </span>-l
 </code></pre></div>
-<p><a class="glightbox" href="images/nc19.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="images/nc19.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/nc19.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/nc19.png" /></a></p>
 <ol>
 <li>Create a primary partition on the eMMC.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc20.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc20.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc20.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc20.png" /></a></p>
 <ol>
 <li>Verify the partition has been created.</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc21.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc21.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc21.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc21.png" /></a></p>
 <ol>
 <li>Format the ext3 filesystem in the partition you just created (p1).</li>
 </ol>
-<p><a class="glightbox" href="../images/wnc22.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc22.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc22.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc22.png" /></a></p>
 <ol>
 <li>Create the directory <code>mydata</code> in /mnt. Mount the eMMC p1 partition to <code>/mnt/mydata</code> and verify the filsystem mount was successful.</li>
 </ol>
@@ -4324,7 +4324,7 @@ The error happen (Figure below) when the Images do not sign with VAB.</p>
 <a id="__codelineno-39-2" name="__codelineno-39-2" href="#__codelineno-39-2"></a>$<span class="w"> </span>mount<span class="w"> </span>/dev/mmcblk0p1<span class="w"> </span>/mnt/mydata
 <a id="__codelineno-39-3" name="__codelineno-39-3" href="#__codelineno-39-3"></a>$<span class="w"> </span>df
 </code></pre></div>
-<p><a class="glightbox" href="../images/wnc23.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc23.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc23.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc23.png" /></a></p>
 <ol>
 <li>Create a new text file and write some data in it - "Hello World!". After the device has been written to run <code>sync</code>, unmount eMMC p1 partition and verify the unmount was successful.</li>
 </ol>
@@ -4332,7 +4332,7 @@ The error happen (Figure below) when the Images do not sign with VAB.</p>
 <a id="__codelineno-40-2" name="__codelineno-40-2" href="#__codelineno-40-2"></a>$<span class="w"> </span>umount<span class="w"> </span>/dev/mmcblk0p1
 <a id="__codelineno-40-3" name="__codelineno-40-3" href="#__codelineno-40-3"></a>$<span class="w"> </span>df
 </code></pre></div>
-<p><a class="glightbox" href="../images/wnc24.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/wnc24.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc24.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/n6001/dev_guides/hps_dev/images/wnc24.png" /></a></p>
 <h2 id="layersyaml-reference">layers.yaml Reference<a class="headerlink" href="#layersyaml-reference" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-41-1" name="__codelineno-41-1" href="#__codelineno-41-1"></a><span class="nt">machine</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">agilex</span>
 <a id="__codelineno-41-2" name="__codelineno-41-2" href="#__codelineno-41-2"></a><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">n6000</span>
