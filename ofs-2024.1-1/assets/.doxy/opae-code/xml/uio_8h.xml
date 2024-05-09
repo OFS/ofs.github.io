@@ -8,9 +8,6 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="2">
-        <label>stdio.h</label>
-      </node>
       <node id="1">
         <label>docs/sw/include/opae/uio.h</label>
         <link refid="uio_8h"/>
@@ -18,6 +15,9 @@
         </childnode>
         <childnode refid="3" relation="include">
         </childnode>
+      </node>
+      <node id="2">
+        <label>stdio.h</label>
       </node>
     </incdepgraph>
     <innerclass refid="structopae__uio__device__region" prot="public">opae_uio_device_region</innerclass>
