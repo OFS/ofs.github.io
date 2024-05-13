@@ -25,15 +25,15 @@
       <node id="9">
         <label>stdbool.h</label>
       </node>
-      <node id="19">
-        <label>opae/umsg.h</label>
-        <link refid="umsg_8h"/>
+      <node id="12">
+        <label>opae/access.h</label>
+        <link refid="access_8h"/>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="15">
-        <label>opae/event.h</label>
-        <link refid="event_8h"/>
+      <node id="25">
+        <label>opae/userclk.h</label>
+        <link refid="userclk_8h"/>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
@@ -43,14 +43,49 @@
         <childnode refid="10" relation="include">
         </childnode>
       </node>
+      <node id="20">
+        <label>opae/utils.h</label>
+        <link refid="utils_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="21" relation="include">
+        </childnode>
+      </node>
       <node id="3">
         <label>stdint.h</label>
       </node>
       <node id="4">
         <label>stdlib.h</label>
       </node>
+      <node id="24">
+        <label>opae/sysobject.h</label>
+        <link refid="sysobject_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
       <node id="6">
         <label>errno.h</label>
+      </node>
+      <node id="22">
+        <label>opae/error.h</label>
+        <link refid="error_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>stddef.h</label>
+      </node>
+      <node id="26">
+        <label>opae/metrics.h</label>
+        <link refid="metrics_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="23">
+        <label>opae/version.h</label>
+        <link refid="version_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
       </node>
       <node id="2">
         <label>opae/log.h</label>
@@ -66,69 +101,12 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="25">
-        <label>opae/userclk.h</label>
-        <link refid="userclk_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="14">
-        <label>opae/enum.h</label>
-        <link refid="enum_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="18">
-        <label>opae/properties.h</label>
-        <link refid="properties_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>stddef.h</label>
-      </node>
-      <node id="20">
-        <label>opae/utils.h</label>
-        <link refid="utils_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="21" relation="include">
-        </childnode>
-      </node>
-      <node id="10">
-        <label>opae/types_enum.h</label>
-        <link refid="types__enum_8h"/>
-      </node>
       <node id="5">
         <label>string.h</label>
       </node>
-      <node id="26">
-        <label>opae/metrics.h</label>
-        <link refid="metrics_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="23">
-        <label>opae/version.h</label>
-        <link refid="version_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="24">
-        <label>opae/sysobject.h</label>
-        <link refid="sysobject_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="12">
-        <label>opae/access.h</label>
-        <link refid="access_8h"/>
-        <childnode refid="7" relation="include">
-        </childnode>
-      </node>
-      <node id="17">
-        <label>opae/mmio.h</label>
-        <link refid="mmio_8h"/>
+      <node id="13">
+        <label>opae/buffer.h</label>
+        <link refid="buffer_8h"/>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
@@ -144,9 +122,9 @@
         <childnode refid="10" relation="include">
         </childnode>
       </node>
-      <node id="16">
-        <label>opae/manage.h</label>
-        <link refid="manage_8h"/>
+      <node id="17">
+        <label>opae/mmio.h</label>
+        <link refid="mmio_8h"/>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
@@ -188,30 +166,52 @@
         <childnode refid="26" relation="include">
         </childnode>
       </node>
-      <node id="22">
-        <label>opae/error.h</label>
-        <link refid="error_8h"/>
+      <node id="16">
+        <label>opae/manage.h</label>
+        <link refid="manage_8h"/>
         <childnode refid="7" relation="include">
         </childnode>
+      </node>
+      <node id="18">
+        <label>opae/properties.h</label>
+        <link refid="properties_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="19">
+        <label>opae/umsg.h</label>
+        <link refid="umsg_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="14">
+        <label>opae/enum.h</label>
+        <link refid="enum_8h"/>
+        <childnode refid="7" relation="include">
+        </childnode>
+      </node>
+      <node id="10">
+        <label>opae/types_enum.h</label>
+        <link refid="types__enum_8h"/>
       </node>
       <node id="21">
         <label>stdio.h</label>
       </node>
-      <node id="13">
-        <label>opae/buffer.h</label>
-        <link refid="buffer_8h"/>
+      <node id="15">
+        <label>opae/event.h</label>
+        <link refid="event_8h"/>
         <childnode refid="7" relation="include">
         </childnode>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="2">
-        <label>docs/sw/samples/hello_events/hello_events.c</label>
-        <link refid="hello__events_8c"/>
-      </node>
       <node id="3">
         <label>docs/sw/samples/hello_fpga/hello_fpga.c</label>
         <link refid="hello__fpga_8c"/>
+      </node>
+      <node id="2">
+        <label>docs/sw/samples/hello_events/hello_events.c</label>
+        <link refid="hello__events_8c"/>
       </node>
       <node id="1">
         <label>docs/sw/include/opae/fpga.h</label>
