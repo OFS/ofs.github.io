@@ -12,14 +12,18 @@
       <node id="8">
         <label>stdbool.h</label>
       </node>
-      <node id="6">
-        <label>opae/mem_alloc.h</label>
-        <link refid="mem__alloc_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-      </node>
       <node id="3">
         <label>stdint.h</label>
+      </node>
+      <node id="7">
+        <label>opae/hash_map.h</label>
+        <link refid="hash__map_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="9" relation="include">
+        </childnode>
       </node>
       <node id="4">
         <label>pthread.h</label>
@@ -40,25 +44,21 @@
         <childnode refid="7" relation="include">
         </childnode>
       </node>
-      <node id="7">
-        <label>opae/hash_map.h</label>
-        <link refid="hash__map_8h"/>
-        <childnode refid="3" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="9" relation="include">
-        </childnode>
-      </node>
       <node id="5">
         <label>linux/vfio.h</label>
+      </node>
+      <node id="2">
+        <label>stdio.h</label>
       </node>
       <node id="9">
         <label>opae/types_enum.h</label>
         <link refid="types__enum_8h"/>
       </node>
-      <node id="2">
-        <label>stdio.h</label>
+      <node id="6">
+        <label>opae/mem_alloc.h</label>
+        <link refid="mem__alloc_8h"/>
+        <childnode refid="3" relation="include">
+        </childnode>
       </node>
     </incdepgraph>
     <innerclass refid="structopae__vfio__iova__range" prot="public">opae_vfio_iova_range</innerclass>
