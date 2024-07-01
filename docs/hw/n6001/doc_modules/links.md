@@ -14,8 +14,8 @@
 [examples AFU]: https://github.com/OFS/examples-afu.git
 [PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial
 [Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial
-[Intel FPGA IP Subsystem for PCI Express IP User Guide]: https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_qs_pcie_ss.pdf
-[Memory Subsystem Intel FPGA IP User Guide]: https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_mem_ss.pdf
+[Intel FPGA IP Subsystem for PCI Express IP User Guide]: https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf
+[Memory Subsystem Intel FPGA IP User Guide]: https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148
 [OPAE.io]: https://opae.github.io/latest/docs/fpga_tools/opae.io/opae.io.html
 [OPAE GitHub]: https://github.com/OFS/opae-sdk
 
@@ -23,16 +23,16 @@
 
 [Intel FPGA Download Cable Driver for Linux]: https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-b-lnx.html 
 
-[README_ofs_n6001_eval.txt]: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2
+[README_ofs_n6001_eval.txt]: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1
 
 [FIM MMIO Regions]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/#6-mmio-regions
 
 
-[evaluation script]: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2023.3-2
+[evaluation script]: https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1
 [OFS]: https://github.com/OFS
 [OFS GitHub page]: https://ofs.github.io
 [DFL Wiki]: https://github.com/OPAE/linux-dfl/wiki
-[release notes]: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2
+[release notes]: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1
 
 [Setting Up Required Environment Variables]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-setting-up-required-environment-variables
 
@@ -53,7 +53,7 @@
 
 [Security User Guide: Intel Open FPGA Stack]: https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/
 
-[Pin-Out Files for Intel FPGAs]: https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html
+[Pin-Out Files for Altera FPGAs]: https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html
 
 [E-Tile Channel Placement Tool]: https://www.intel.com/content/www/us/en/content-details/652292/intel-e-tile-channel-placement-tool.html?wapkw=e-tile%20channel%20placement%20tool&DocID=652292
 
@@ -142,6 +142,6 @@
 [Program the FPGA via JTAG]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag
 [Remote System Update]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#53-remote-system-update
 [Program the FPGA via RSU]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu
-[Appendix]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/appendix
-[Appendix A: Resource Utilization Tables]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/appendix-a-resource-utilization-tables
-[Appendix B: Glossary]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/appendix-b-glossary
+[Appendix]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#appendix
+[Appendix A: Resource Utilization Tables]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#appendix-a-resource-utilization-tables
+[Appendix B: Glossary]: https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#appendix-b-glossary

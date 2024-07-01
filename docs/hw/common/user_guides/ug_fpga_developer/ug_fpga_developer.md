@@ -1,6 +1,6 @@
 # **FPGA Developer Journey Guide: Open FPGA Stack**
 
-Last updated: **March 20, 2024** 
+Last updated: **July 01, 2024** 
 ## **1 Introduction**
 
 This document is intended to help you understand the FPGA developer flow using OFS as well as considerations you should take when creating your custom platform.  
@@ -33,7 +33,7 @@ There are two ways to evaluate OFS depending on your needs:
 
 Option 1: Setup your card and software in a server using the steps provided in one of the corresponding **Getting Started Guides** and leverage the appended binaries in the FIM RTL repository release page "Assets" tab to preview the software and design functionality the OFS framework provides you out of the box.  This step will give you a good high-level overview of OFS. **Getting Started Guides** are available for the following FIM(shell) designs:
 
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)]
+* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
 * [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
 * [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (I-Series Development Kit (2xR-Tile, 1xF-Tile))](https://ofs.github.io/ofs-2024.1-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/)
 * [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/)
@@ -70,7 +70,7 @@ You can access the repositories from ofs.github.io by clicking on the GitHub ico
 
 ![](images/Repo-site-access.png)
 
-After making your top level directory, initializing the repository and installing git lfs, clone one of the FIM RTL repositories you intend to use:
+After making your top level directory and initializing the repository, clone one of the FIM RTL repositories you intend to use:
 
 ```bash
 
@@ -78,12 +78,8 @@ After making your top level directory, initializing the repository and installin
 mkdir OFS
 cd OFS
 
-#Initialize repository and install git lfs
+#Initialize repository
 git init
-
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
-sudo dnf install git-lfs
-git lfs install
 
 #Select a FIM RTL repository to clone
 #To clone Intel Agilex 7 PCIe Attach FIM RTL repository
@@ -116,12 +112,12 @@ git checkout tags/ofs-2024.1-6.1-2
 #Use this OPAE clone command for all PCIe Attach Cards
 git clone https://github.com/OFS/opae-sdk
 cd /home/OFS/opae-sdk
-git checkout tags/2.12.0-4
+git checkout tags/2.12.0-5
 
 #Use this OPAE clone command for the SoC Attach Card
 git clone https://github.com/OFS/opae-sdk
 cd /home/OFS/opae-sdk
-git checkout tags/2.12.0-4
+git checkout tags/2.12.0-5
 
 git clone https://github.com/OFS/oneapi-asp.git 
 cd /home/OFS/oneapi-asp
@@ -140,11 +136,11 @@ cd /home/OFS/examples-afu
 git checkout tags/ofs-2024.1-1
 ```
 
-You will also want to ensure you install the correct version of Intel Quartus Prime Pro as directed in the release notes in addition to any Quartus patches.  Note that Quartus Prime Pro software can be downloaded from the [downloads tab](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html) on intel.com.  Quartus Prime Pro patches required are attached to the assets tab at the bottom of the tagged RTL repository release page. Simulator tools as listed corresponding Simulation User Guides:
+You will also want to ensure you install the correct version of Intel Quartus Prime Pro as directed in the release notes in addition to any Quartus patches.  Note that Quartus Prime Pro software can be downloaded from the [downloads tab](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html) on intel.com.  Quartus Prime Pro patches required are attached to the assets tab at the bottom of the tagged RTL repository release page. Simulator tools as listed corresponding UVM Simulation User Guides:
 
-* [Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/)
-* [Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/)
-* [Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)
+* [UVM Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/)
+* [UVM Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/)
+* [UVM Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)
 
 ## **3 Select a Starting Shell/FIM**
 
@@ -272,7 +268,7 @@ When you are ready to begin development you will want to ensure you have any oth
     * Can be used with Intel® FPGA SmartNIC N6001-PL
 * [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)
     * Can be used with Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL 
-* [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]
+* [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/)
     * Can be used with Intel® FPGA PAC D5005
 
 
@@ -303,11 +299,11 @@ If you are also interested in testing different examples for the Acceleration Fu
 
 ## **7 Simulate and Debug**
 
-Setup and test files to perform system-level Universal Verification Methodology (UVM) testing are provided in each FIM RTL repository.  Please refer to the corresponding **Simulation User Guide** for details on test bench architecture, setup and testing.
+Setup and test files to perform system-level Universal Verification Methodology (UVM) testing are provided in each FIM RTL repository.  Please refer to the corresponding **UVM Simulation User Guide** for details on test bench architecture, setup and testing.
 
-* [Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/)
-* [Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/)
-* [Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)
+* [UVM Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/)
+* [UVM Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/)
+* [UVM Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)
 
 ## **8 Optional: Build OneAPI Accelerator Support Package (ASP)**
 
@@ -345,5 +341,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/common/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

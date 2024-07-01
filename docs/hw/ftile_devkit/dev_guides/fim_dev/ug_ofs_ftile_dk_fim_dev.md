@@ -1,6 +1,6 @@
-# FPGA Interface Manager Developer Guide for Open FPGA Stack: Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) PCIe Attach
+# Shell Developer Guide for Open FPGA Stack: Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) PCIe Attach
 
-Last updated: **March 20, 2024** 
+Last updated: **July 01, 2024** 
 
 ## **1. Introduction**
 
@@ -20,7 +20,6 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 | Walkthrough Name | Category |
 | --- | --- |
 | [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
-| [Install Git Large File Storage Extension](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1312-walkthrough-install-git-large-file-storage-extension) | Setup |
 | [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) | Setup |
 | [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) | Setup |
 | [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) | Setup |
@@ -50,13 +49,13 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 It is recommended that you have the following knowledge and skills before using this developer guide.
 
 * Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2024.1-1).
-* Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1) for the Intel Agilex 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
+* Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1) for the Agilex 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
 * Review of [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/).
-* FPGA compilation flows using Intel® Quartus® Prime Pro Edition.
-* Static Timing closure, including familiarity with the Timing Analyzer tool in Intel® Quartus® Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
+* FPGA compilation flows using Quartus® Prime Pro Edition.
+* Static Timing closure, including familiarity with the Timing Analyzer tool in Quartus® Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 * RTL (System Verilog) and coding practices to create synthesized logic.
 * RTL simulation tools.
-* Intel® Quartus® Prime Pro Edition Signal Tap Logic Analyzer tool software.
+* Quartus® Prime Pro Edition Signal Tap Logic Analyzer tool software.
 
 ### **1.2. FIM Development Theory**
 
@@ -84,7 +83,7 @@ FIM development for a new acceleration card generally consists of the following 
   1. FPGA device pin assignment
   2. Create logic lock regions
   3. Create of timing constraints
-  4. Create Intel Quartus Prime Pro FIM test project and validate:
+  4. Create Quartus Prime Pro FIM test project and validate:
     1. Placement
     2. Timing constraints
     3. Build script process
@@ -136,7 +135,7 @@ The *FIM Subsystems* Table  describes the Platform Designer IP subsystems used i
 | Memory Subsystem | [Memory Subsystem Intel FPGA IP User Guide for Intel Agilex OFS](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148) | 686148<sup>**[1]**</sup> |
 | Ethernet Subsystem | [Ethernet Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148) | 773413<sup>**[1]**</sup> |
 
-<sup>**[1]**</sup> You must log in to myIntel and request entitled access.
+<sup>**[1]**</sup> You must request entitled access to these documents.
 
 #### **1.2.1.4 Host Exercisers**
 
@@ -203,7 +202,7 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 | [Modify the Ethernet Sub-System to 3x4x10GbE](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#472-walkthrough-modify-the-ethernet-sub-system-to-3x4x10gbe) |
 | [Remove the HPS](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#481-walkthrough-remove-the-hps) |
 
-
+<!-- | | Modify Memory Subsystem Settings | N/A | -->
 
 ### **1.3 Development Environment**
 
@@ -220,11 +219,11 @@ The *Development Environment Table* describes the Best Known Configuration (BKC)
 | Component | Version | Installation Walkthrough |
 | --- | --- | --- |
 | Operating System | RedHat® Enterprise Linux® (RHEL) 8.6 | N/A |
-| Intel Quartus Prime Software | Quartus Prime Pro Version 23.4 for Linux + Patches 0.17 patch (PCIe) | Section 1.3.1.1 |
+| Quartus Prime Software | Quartus Prime Pro Version 23.4 for Linux + Patches 0.17 patch (PCIe) | Section 1.3.1.1 |
 | Python | 3.6.8 or later | N/A |
-| GCC | 7.4.0 or later | N/A |
+| GCC | 8.5.0 or later | N/A |
 | cmake | 3.15 or later | N/A |
-| git with git-lfs | 1.8.3.1 or later | Section 1.3.1.2 |
+| git | 1.8.3.1 or later | Section 1.3.1.2 |
 | FIM Source Files | ofs-2024.1-1 | Section 1.3.2.1 |
 
 ##### **1.3.1.1 Walkthrough: Install Quartus Prime Pro Software**
@@ -289,23 +288,6 @@ Prior to installing Quartus:
 
 
 
-##### **1.3.1.2 Walkthrough: Install Git Large File Storage Extension**
-
-To install the Git Large File Storage (LFS) extension, execute the following commands:
-
-1. Obtain Git LFS package
-    ```bash
-    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
-    ```
-2. Install Git LFS package
-    ```bash
-    sudo dnf install git-lfs
-    ```
-3. Install Git LFS
-    ```bash
-    git lfs install
-    ```
-
 #### **1.3.2 FIM Source Files**
 
 The source files for the OFS Agilex PCIe Attach FIM are provided in the following repository: [https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1)
@@ -357,7 +339,7 @@ ofs-agx7-pcie-attach
 
 ##### **1.3.2.1 Walkthrough: Clone FIM Repository**
 
-Perform the following steps to clone the OFS Agilex PCIe Attach FIM Repository:
+Perform the following steps to clone the OFS Agilex® 7 PCIe Attach FIM Repository:
 
 1. Create a new directory to use as a clean starting point to store the retrieved files.
     ```bash
@@ -365,14 +347,28 @@ Perform the following steps to clone the OFS Agilex PCIe Attach FIM Repository:
     cd OFS_BUILD_ROOT
     export OFS_BUILD_ROOT=$PWD
     ```
+
 2. Clone GitHub repository using the HTTPS git method
     ```bash
     git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
     ```
+
 3. Check out the correct tag of the repository
     ```bash
     cd ofs-agx7-pcie-attach
     git checkout --recurse-submodules tags/ofs-2024.1-1
+    ```
+
+4. Ensure that `ofs-common` has been cloned as well
+
+    ```bash
+    git submodule status
+    ```
+
+    Example output:
+
+    ```bash
+    ea585a4f48d50faf3ae7ecfbec82525a8d22c730 ofs-common (ofs-2024.1-1)
     ```
 
 #### **1.3.3 Environment Variables**
@@ -441,6 +437,9 @@ Perform the following steps to set the required environment variables. These env
   export VERDIR=$OFS_ROOTDIR/verification
   export VIPDIR=$VERDIR
 
+  # Set OPAE variables
+  export OPAE_SDK_REPO_BRANCH=release/2.12.0
+
   # Set PATH to include compilation and simulation tools
   export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/../qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
   ```
@@ -450,7 +449,7 @@ Perform the following steps to set the required environment variables. These env
 
 This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
 
-1. Ensure that Quartus Prime Pro Version 23.4 for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
+1. Ensure that Quartus Prime Pro Version 23.4 for Linux with Agilex FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
 
   1. Verify version number
 
@@ -463,7 +462,6 @@ This walkthrough guides you through the process of setting up your development e
       ```bash
       Quartus Prime Shell
       Version 23.4 Build 94 06/14/2023 SC Pro Edition
-      Copyright (C) 2023  Intel Corporation. All rights reserved.
       ```
 
 2. Ensure that all support tools are installed on your development machine, and that they meet the version requirements.
@@ -482,7 +480,7 @@ This walkthrough guides you through the process of setting up your development e
       Python 3.6.8
       ```
 
-  2. GCC 7.4.0 or later
+  2. GCC 8.5.0 or later
     1. Verify version number
 
       ```bash
@@ -492,7 +490,7 @@ This walkthrough guides you through the process of setting up your development e
       Example output:
 
       ```bash
-      gcc (GCC) 7.4.0
+      gcc (GCC) 8.5.0
       ```
 
   3. cmake 3.15 or later
@@ -508,7 +506,7 @@ This walkthrough guides you through the process of setting up your development e
       cmake version 3.15
       ```
 
-  4. git with git-lfs 1.8.3.1 or later. Refer to the [Install Git Large File Storage Extension](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1312-walkthrough-install-git-large-file-storage-extension) section for step-by-step instructions on installing the Git Large File Storage (LFS) extension.
+  4. git 1.8.3.1 or later.
 
     1. Verify version number
 
@@ -558,7 +556,7 @@ This walkthrough guides you through the process of setting up your development e
   quartus_sh --version
   ```
 
-5. Set required environment variables. Refer to the [Set Environment Variables] section for step-by-step instructions.
+5. Set required environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 This concludes the walkthrough for setting up your development environment. At this point you are ready to begin FIM development.
 
@@ -608,7 +606,7 @@ build_top.sh [-k] [-p] [-e] [--stage=<action>] [--ofss=<ip_config>] <build_targe
 
 The build script copies source files from the existing cloned repository into the specified work directory, which are then used for compilation. As such, any changes made in the base source files will be included in all subsequent builds, unless the `-k` option is used, in which case an existing work directories files are used as-is. Likewise, any changes made in a work directory is only applied to that work directory, and will not be updated in the base repository by default.
 
-
+<!-- It is possible to do IP modification in the work directory; in this case you may use the emit script to copy these changes to the base source files. TBD -->
 
 Refer to [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#225-walkthrough-compile-ofs-fim) which provides step-by-step instructions for running the `build_top.sh` script with some of the different available options.
 
@@ -1313,6 +1311,8 @@ See FPGA Device Feature List (DFL) Framework Overview for a description of the s
 
 This example will add a `hello_fim` module to the design. The Hello FIM example adds a simple DFH register and 64bit scratchpad register connected to the Board Peripheral Fabric (BPF) that can be accessed by the Host. You can use this example as the basis for adding a new feature to your FIM.
 
+For the purposes of this example, the `hello_fim` module instantiation sets the DFH feature ID (`FEAT_ID`) to 0x100 which is not currently defined. Using an undefined feature ID will result in no driver being used. Normally, a defined feature ID will be used to associate a specific driver with the FPGA module. Refer to the [Device Feature List Feature IDs](https://github.com/OFS/dfl-feature-id/blob/main/dfl-feature-ids.rst) for a list of DFL feature types and IDs. If you are adding a new module to your design, make sure the Type/ID pair does not conflict with existing Type/ID pairs. You may reserve Type/ID pairs by submitting a pull request at the link above.
+
 The Hello FIM design can be verified by Unit Level simulation, Universal Verification Methodology (UVM) simulation, and running in hardware on the fseries-dk card. The process for these are described in this section.
 
 ##### **4.1.1.1 Hello FIM Board Peripheral Fabric (BPF)**
@@ -1997,7 +1997,7 @@ Steps:
   Example output:
 
   ```bash
-  5bcd682f-5093-5fc7-8cd2-ae8073e19452 (TBD)
+  65882210-d7d4-5fb0-973d-76989a77be02
   ```
 
 2. Switch to your deployment environment.
@@ -2030,9 +2030,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 0x5010202BE8C93B9 (TBD) 
+  Bitstream Id                     : 360571653789875893 
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 5bcd682f-5093-5fc7-8cd2-ae8073e19452 (TBD)
+  Pr Interface Id                  : 65882210-d7d4-5fb0-973d-76989a77be02
   Boot Page                        : N/A
   ```
 
@@ -2353,13 +2353,13 @@ Perform the following steps to compile a FIM for where the exercisers are remove
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment] Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository] section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables] section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Compile the FIM with the HE_NULL compile options
 
@@ -2368,7 +2368,6 @@ Steps:
 
   ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk.ofss fseries-dk:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_fseries-dk
   ```
-
 
 ### **4.3 Partial Reconfiguration Region**
 
@@ -2868,7 +2867,7 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/fseries-dk_1pf_1vf.ofss,tools/ofss_config/hssi/hssi_8x25_ftile.ofss fseries-dk:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_fseries-dk_minimal_fim
   ```
 
-6. Review the `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A] Table A-4 for the expected utilization for this Minimal FIM.
+6. Review the `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A: Resource Utilization Tables](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/#appendix-a-resource-utilization-tables) Table A-4 for the expected utilization for this Minimal FIM.
 
 7. Copy the resulting `$OFS_ROOTDIR/work_fseries-dk_minimal_fim/syn/board/fseries-dk/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
 
@@ -3015,6 +3014,8 @@ This section describes the flows for modifying the Ethernet Sub-System.
 >**Note:** The default HSSI-SS configuration for the fseries-dk is 2x4x25GbE.
 
 >**Note:** The fseries-dk does not support 2x200GbE or 1x400GbE configurations.
+
+>**Note:** Due to Ethernet differential pair routing on the ES version of the Agilex® 7 F-Series FPGA (Two F-Tiles) Development Kit, some differential pairs were swapped to improve signal routing. To account for the pair swap, there is a requirement to run a script to invert the differential traces. Refer to the "HE-HSSI" Section of the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on swapping the polarity of Ethernet differential pairs at run-time.
 
 #### **4.7.1 Walkthrough: Modify the Ethernet Sub-System to 2x4x10GbE Using IP Presets**
 
@@ -3565,9 +3566,9 @@ You are responsible for safety of the overall system, including compliance with 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
 
-
-
-
+<!-- include ./docs/hw/doc_modules/links.md -->
+<!-- include ./docs/hw/common/doc_modules/links.md -->
+<!-- include ./docs/hw/ftile_devkit/doc_modules/links.md -->
 
 
 

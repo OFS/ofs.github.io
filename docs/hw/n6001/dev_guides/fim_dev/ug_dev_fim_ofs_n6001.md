@@ -1,6 +1,6 @@
-# FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6000-PL / Intel® FPGA SmartNIC N6001-PL PCIe Attach
+# Shell Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6000-PL / Intel® FPGA SmartNIC N6001-PL PCIe Attach
 
-Last updated: **March 20, 2024** 
+Last updated: **July 01, 2024** 
 
 ## **1. Introduction**
 
@@ -54,13 +54,13 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 It is recommended that you have the following knowledge and skills before using this developer guide.
 
 * Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2024.1-1).
-* Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2) for the Intel Agilex 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
-* Review of [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)].
-* FPGA compilation flows using Intel® Quartus® Prime Pro Edition.
-* Static Timing closure, including familiarity with the Timing Analyzer tool in Intel® Quartus® Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
+* Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1) for the Agilex® 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
+* Review of [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
+* FPGA compilation flows using Quartus® Prime Pro Edition Software.
+* Static Timing closure, including familiarity with the Timing Analyzer tool in Quartus® Prime Pro Edition Software, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 * RTL (System Verilog) and coding practices to create synthesized logic.
 * RTL simulation tools.
-* Intel® Quartus® Prime Pro Edition Signal Tap Logic Analyzer tool software.
+* Quartus® Prime Pro Edition Software Signal Tap Logic Analyzer tool software.
 
 ### **1.2. FIM Development Theory**
 
@@ -88,7 +88,7 @@ FIM development for a new acceleration card generally consists of the following 
   1. FPGA device pin assignment
   2. Create logic lock regions
   3. Create of timing constraints
-  4. Create Intel Quartus Prime Pro FIM test project and validate:
+  4. Create Quartus Prime Pro FIM test project and validate:
     1. Placement
     2. Timing constraints
     3. Build script process
@@ -114,7 +114,7 @@ The top level block diagram for the OFS Agilex PCIe Attach reference design is s
 
 *Figure: OFS Agilex PCIe Attach FIM Top-Level Diagram*
 
-![top_level_diagram](images/n6001_pcie_attach_top_level_diagram.png)
+![top_level_diagram](/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/images/n6001_pcie_attach_top_level_diagram.png)
 
 #### **1.2.1.2 Interfaces**
 
@@ -148,7 +148,7 @@ The *FIM Subsystems* Table  describes the Platform Designer IP subsystems used i
 | Memory Subsystem | [Memory Subsystem Intel FPGA IP User Guide for Intel Agilex OFS](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148) | 686148<sup>**[1]**</sup> |
 | Ethernet Subsystem | [Ethernet Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/docs/programmable/773413/23-1-22-5-0/ethernet-subsystem-intel-fpga-ip-overview.html) | 773413<sup>**[1]**</sup> |
 
-<sup>**[1]**</sup> You must log in to myIntel and request entitled access.
+<sup>**[1]**</sup> You must request entitled access to these documents.
 
 #### **1.2.1.4 Host Exercisers**
 
@@ -181,7 +181,7 @@ The OFS Agilex PCIe Attach n6001 FIM uses AXI4-Lite interconnect logic named the
 | 0x70000 – 0x7FFFF | 56K | PR Gasket:4K= PR Gasket DFH, control and status4K= Port DFH4K=User Clock52K=Remote STP
 | 0x80000 – 0x80FFF | 4K | AFU Error Reporting
 
-*Table: BPF Address Mapping*
+*Table: BPF Address Map*
 
 | Address | Size (Bytes) | Feature |
 | --- | --- | --- |
@@ -220,18 +220,18 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 | [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
 | [Remove the HPS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) |
 
-
-
-
-
-
-
+<!-- | | Change I/O assignments | N/A | -->
+<!-- | | Port code to another platform | N/A | -->
+<!-- | | Modify Memory Subsystem Settings | N/A | -->
+<!-- | | Modify Memory Interface speed/width | N/A | -->
+<!-- | | Modify Ethernet Subsystem Settings | N/A | -->
+<!-- | | Modify Memory Subsystem to add an additional channel | N/A | -->
 
 ### **1.3 Development Environment**
 
 This section describes the components required for OFS FIM development, and provides a walkthrough for setting up the environment on your development machine.
 
-Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up the environment for deployment machines.
+Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up the environment for deployment machines.
 
 #### **1.3.1 Development Tools**
 
@@ -241,10 +241,10 @@ The *Development Environment Table* describes the Best Known Configuration (BKC)
 
 | Component | Version | Installation Walkthrough |
 | --- | --- | --- |
-| Operating System | RedHatEnterprise Linux® (RHEL) 8.6 | N/A |
-| Intel Quartus Prime Software | Quartus Prime Pro Version 23.4 for Linux + Patches 0.17 patch (PCIe) | Section 1.3.1.1 |
+| Operating System | RedHat® Enterprise Linux® (RHEL) 8.6 | N/A |
+| Quartus® Prime Pro Edition Software | Quartus Prime Pro Version 23.4 for Linux + Patches 0.17 patch (PCIe) | Section 1.3.1.1 |
 | Python | 3.6.8 or later | N/A |
-| GCC | 7.4.0 or later | N/A |
+| GCC | 8.5.0 or later | N/A |
 | cmake | 3.15 or later | N/A |
 | FIM Source Files | ofs-2024.1-1 | Section 1.3.2.1 |
 
@@ -252,7 +252,7 @@ The *Development Environment Table* describes the Best Known Configuration (BKC)
 
 **Intel Quartus Prime Pro Version 23.4** is verified to work with the latest OFS release ofs-2024.1-1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
 
-Use RedHatEnterprise Linux® (RHEL) 8.6 for compatibility with your development flow and also testing your FIM design in your platform. 
+Use RedHat® Enterprise Linux® (RHEL) 8.6 for compatibility with your development flow and also testing your FIM design in your platform. 
 
 Prior to installing Quartus:
 
@@ -361,7 +361,7 @@ ofs-agx7-pcie-attach
 
 ##### **1.3.2.1 Walkthrough: Clone FIM Repository**
 
-Perform the following steps to clone the OFS Agilex PCIe Attach FIM Repository:
+Perform the following steps to clone the OFS Agilex® 7 PCIe Attach FIM Repository:
 
 1. Create a new directory to use as a clean starting point to store the retrieved files.
     ```bash
@@ -369,14 +369,28 @@ Perform the following steps to clone the OFS Agilex PCIe Attach FIM Repository:
     cd OFS_BUILD_ROOT
     export OFS_BUILD_ROOT=$PWD
     ```
+
 2. Clone GitHub repository using the HTTPS git method
     ```bash
     git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
     ```
+
 3. Check out the correct tag of the repository
     ```bash
     cd ofs-agx7-pcie-attach
     git checkout --recurse-submodules tags/ofs-2024.1-1
+    ```
+
+4. Ensure that `ofs-common` has been cloned as well
+
+    ```bash
+    git submodule status
+    ```
+
+    Example output:
+
+    ```bash
+    ea585a4f48d50faf3ae7ecfbec82525a8d22c730 ofs-common (ofs-2024.1-1)
     ```
 
 #### **1.3.3 Environment Variables**
@@ -445,6 +459,9 @@ Perform the following steps to set the required environment variables. These env
   export VERDIR=$OFS_ROOTDIR/verification
   export VIPDIR=$VERDIR
 
+  # Set OPAE variables
+  export OPAE_SDK_REPO_BRANCH=release/2.12.0
+
   # Set PATH to include compilation and simulation tools
   export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/../qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
   ```
@@ -454,7 +471,7 @@ Perform the following steps to set the required environment variables. These env
 
 This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
 
-1. Ensure that Quartus Prime Pro Version 23.4 for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
+1. Ensure that Quartus Prime Pro Version 23.4 for Linux with Agilex® 7 FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
 
   1. Verify version number
 
@@ -467,7 +484,6 @@ This walkthrough guides you through the process of setting up your development e
       ```bash
       Quartus Prime Shell
       Version 23.4 Build 94 06/14/2023 SC Pro Edition
-      Copyright (C) 2023  Intel Corporation. All rights reserved.
       ```
 
 2. Ensure that all support tools are installed on your development machine, and that they meet the version requirements.
@@ -486,7 +502,7 @@ This walkthrough guides you through the process of setting up your development e
       Python 3.6.8
       ```
 
-  2. GCC 7.4.0 or later
+  2. GCC 8.5.0 or later
 
     1. Verify version number
 
@@ -497,7 +513,7 @@ This walkthrough guides you through the process of setting up your development e
       Example output:
 
       ```bash
-      gcc (GCC) 7.4.0
+      gcc (GCC) 8.5.0
       ```
 
   3. cmake 3.15 or later
@@ -550,7 +566,7 @@ This walkthrough guides you through the process of setting up your development e
   quartus_sh --version
   ```
 
-5. Set required environment variables. Refer to the [Set Environment Variables] section for step-by-step instructions.
+5. Set required environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 This concludes the walkthrough for setting up your development environment. At this point you are ready to begin FIM development.
 
@@ -684,7 +700,7 @@ Currently supported configuration options for an OFSS file with IP type `ofs` ar
 | `[settings]` | `platform` | `n6001` | `n6000` |
 | | `family` | `agilex` | `agilex` |
 | | `fim` | `base_x16` | `base_x16` |
-| | `part` | `AGFB014R24A2E2V` | `${{ env.N6000_MPN }}` |
+| | `part` | `AGFB014R24A2E2V` | `AGFB014R24A2E2V` |
 | | `device_id` | `6001` |`6000` |
 
 ##### **2.1.2.3 PCIe IP OFSS File**
@@ -973,6 +989,8 @@ Steps:
     ```
 
 #### **2.2.6 Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM**
+
+This walkthrough describes how to manually generate an Out-Of-Tree PR FIM. This can be automatically done for you if you run the build script with the `-p` option. This process is not applicable if you run the build script with the `flat` option.
 
 Pre-requisites:
 
@@ -1354,7 +1372,7 @@ Steps:
 
 ## **4. FIM Customization**
 
-This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 *Table: OFS FIM Customization Examples*
 
@@ -1389,6 +1407,8 @@ If you intend to add a new module to the FIM area, then you will need to inform 
 See FPGA Device Feature List (DFL) Framework Overview for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
 
 This example will add a `hello_fim` module to the design. The Hello FIM example adds a simple DFH register and 64bit scratchpad register connected to the Board Peripheral Fabric (BPF) that can be accessed by the Host. You can use this example as the basis for adding a new feature to your FIM.
+
+For the purposes of this example, the `hello_fim` module instantiation sets the DFH feature ID (`FEAT_ID`) to 0x100 which is not currently defined. Using an undefined feature ID will result in no driver being used. Normally, a defined feature ID will be used to associate a specific driver with the FPGA module. Refer to the [Device Feature List Feature IDs](https://github.com/OFS/dfl-feature-id/blob/main/dfl-feature-ids.rst) for a list of DFL feature types and IDs. If you are adding a new module to your design, make sure the Type/ID pair does not conflict with existing Type/ID pairs. You may reserve Type/ID pairs by submitting a pull request at the link above.
 
 The Hello FIM design can be verified by Unit Level simulation, Universal Verification Methodology (UVM) simulation, and running in hardware on the n6001 card. The process for these are described in this section.
 
@@ -1507,8 +1527,8 @@ Steps:
   module hello_fim_top  #(
      parameter ADDR_WIDTH  = 12, 
      parameter DATA_WIDTH = 64, 
-     parameter bit [11:0] FEAT_ID = 12'h001,
-     parameter bit [3:0]  FEAT_VER = 4'h1,
+     parameter bit [11:0] FEAT_ID = 12'h100,
+     parameter bit [3:0]  FEAT_VER = 4'h0,
      parameter bit [23:0] NEXT_DFH_OFFSET = 24'h1000,
      parameter bit END_OF_LIST = 1'b0
   )(
@@ -1654,8 +1674,8 @@ Steps:
 
   ```verilog
   module hello_fim_com #(
-    parameter bit [11:0] FEAT_ID = 12'h001,
-    parameter bit [3:0]  FEAT_VER = 4'h1,
+    parameter bit [11:0] FEAT_ID = 12'h100,
+    parameter bit [3:0]  FEAT_VER = 4'h0,
     parameter bit [23:0] NEXT_DFH_OFFSET = 24'h1000,
     parameter bit END_OF_LIST = 1'b0
   )(
@@ -2344,7 +2364,7 @@ Steps:
 
     > **Note:** The default N6000 shell has the Memory Sub-System removed, so the `DISABLE_EMIF` flag must be set when running UVM simulations. If you add the Memory Sub-System back to the shell design, you must run this command without the `DISABLE_EMIF` flag.
 
-8. Verify the DFH Walker test results. Run the following commands to show the result of the scratchpad register and Hello FIM ID register. You can see the "Data match" message indicating that the registers are successfuly verified.
+8. Verify the MMIO test results. Run the following commands to show the result of the scratchpad register and Hello FIM ID register. You can see the "Data match" message indicating that the registers are successfuly verified.
 
     ```bash
     cd $VERDIR/sim/mmio_test
@@ -2364,7 +2384,7 @@ Perform the following steps to program and hardware test a FIM that has had a ne
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
 
@@ -2393,7 +2413,7 @@ Steps:
     Example output:
 
     ```bash
-    1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+    5d4500ed-e5e5-5521-8865-e47f0c517fac
     ```
 
 2. Switch to your deployment environment.
@@ -2425,9 +2445,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422 (TBD)
+  Bitstream Id                     : 360571653789875893
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+  Pr Interface Id                  : 5d4500ed-e5e5-5521-8865-e47f0c517fac
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -2571,7 +2591,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
 
@@ -2771,13 +2791,13 @@ Perform the following steps to compile a FIM for where the exercisers are remove
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment] Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository] section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables] section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Compile the FIM with the HE_NULL compile options
 
@@ -2869,7 +2889,7 @@ For more information on how to optimize the floor plan of your Partial Reconfigu
 The PCIe sub-system IP and PF/VF MUX can be modified either using the OFSS flow or the IP Presets flow. The OFSS flow supports a subset of all available PCIe Sub-system settings, while the IP Preset flow can make any available PCIe Sub-system settings change. With PCIe-SS modifcations related to the PFs and VFs, the PF/VF MUX logic is automatically configured based on the PCIe-SS configuration when using OFSS. The sections below describe each flow.
 
 * [PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#443-pcie-configuration-using-ofss)
-* [PCIe Configuration Using IP Presets]
+* [PCIe Sub-System configuration Using IP Presets](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#444-pcie-sub-system-configuration-using-ip-presets)
 
 #### **4.4.1 PF/VF MUX Configuration**
 
@@ -2935,7 +2955,7 @@ Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -3018,7 +3038,7 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss n6001 work_n6001_pfvf_mod
   ```
 
-8. Copy the resulting `$OFS_ROOTDIR/work_n6001_pfvf_mod/syn/board/n6001/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
+8. Copy the resulting `.bin` user 1 image to your deployment environmenment.
 
 9. Switch to your deployment environment.
 
@@ -3079,13 +3099,13 @@ The general flow for using IP Presets to modify he PCIe Sub-system is as follows
 
 ##### **4.4.4.1 Walkthrough: Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets**
 
-Perform the following steps to use an IP preset file to configure the PCIe Sub-system and PF/VF MUX. In this example, we will change the Revision ID of PF0. While this modification can be done with the OFSS flow, this walkthrough is intended to show the procedure for making any PCIe configuration change using IP presets. This walkthrough targets the n6001, but similar steps can be applied to the n6000.
+Perform the following steps to use an IP preset file to configure the PCIe Sub-system and PF/VF MUX. In this example, we will change the Revision ID on PF0. While this modification can be done with the OFSS flow, this walkthrough is intended to show the procedure for making any PCIe configuration change using IP presets. This walkthrough targets the n6001, but similar steps can be applied to the n6000.
 
 Pre-requisites:
 
 * This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment to test the design. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment to test the design. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -3215,13 +3235,13 @@ The FIM source repository contains OFSS file that can be used to build the two d
 
 #### **4.5.1 Walkthrough: Create a Minimal FIM**
 
-Perform the following steps to create a Minimal FIM.
+Perform the following steps to create a Minimal FIM. A minimal FIM is one that has the host exercisers and ethernet subsystem removed. This frees up resources that can be used.
 
 Pre-requisites:
 
 * This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
@@ -3252,16 +3272,16 @@ Steps:
   * For 2PF Minimal FIM
     
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001_2pf.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6001_minimal_fim
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001_2pf.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_n6001_minimal_fim
     ```
 
   * For 1PF/1VF Minimal FIM
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001_1pf_1vf.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6001_minimal_fim
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001_1pf_1vf.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_n6001_minimal_fim
     ```
 
-5. Review the `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A] *Table A-4* for the expected utilization for this Minimal FIM.
+5. Review the `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A: Resource Utilization Tables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#appendix-a-resource-utilization-tables) *Table A-4* for the expected utilization for this Minimal FIM.
 
 6. Copy the resulting `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
 
@@ -3568,7 +3588,7 @@ Steps:
   #set_location_assignment PIN_CU26 -to hssi_rec_clk[0]
   ```
 
-8. Identify the pins you wish to assign prior to compiling. In this example, we will re-pin some of the reference clocks to help guide the fitter. Refer to the [Pin-Out Files for Intel FPGAs](https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html) for the pin list of your device. In this example, the *Migration Re-Pin Mapping* table below shows the pins we will re-pin in the constraints files.
+8. Identify the pins you wish to assign prior to compiling. In this example, we will re-pin some of the reference clocks to help guide the fitter. Refer to the [Pin-Out Files for Altera FPGAs](https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html) for the pin list of your device. In this example, the *Migration Re-Pin Mapping* table below shows the pins we will re-pin in the constraints files.
 
   *Table: Migration Re-Pin Mapping*
   
@@ -3684,7 +3704,7 @@ Steps:
   ***********************************
   ```
 
-13. After a successful compile, to preserve pin assignemnts youmust hard code the new pin asigments back to the constraints files.
+13. After a successful compile, to preserve pin assignemnts you must hard code the new pin asigments back to the constraints files.
 
   ```bash
   $OFS_ROOTDIR/syn/board/n6001/setup/emif_loc.tcl
@@ -3695,7 +3715,7 @@ Steps:
 
 ### **4.7 Modify the Memory Sub-System**
 
-OFS allows modifications on the Memory Sub-System in the FIM. This section provides examples walkthroughs for modifiying the Memory-SS.
+OFS allows modifications on the Memory Sub-System in the FIM. This section provides an example walkthrough for modifiying the Memory-SS.
 
 #### **4.7.1 Walkthrough: Modify the Memory Sub-System Using IP Presets With OFSS**
 
@@ -3971,7 +3991,7 @@ Steps:
 
   ![etile_channel_placement_tool](images/etile_channel_placement_tool.png)
 
-6. Based on your channel selection, identify which pins will be used. Refer to the [Pin-Out Files for Intel FPGAs](https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html) determine the required pins for your device. In this example we are targeting the AGFB014R24A2E2V device. Set the pin assignments in the `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl` file.
+6. Based on your channel selection, identify which pins will be used. Refer to the [Pin-Out Files for Altera FPGAs](https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html) determine the required pins for your device. In this example we are targeting the AGFB014R24A2E2V device. Set the pin assignments in the `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl` file.
 
   ```bash
   set_location_assignment PIN_AV7  -to qsfp_serial[2].rx_p[0]
@@ -3985,13 +4005,23 @@ Steps:
   set_location_assignment PIN_BC4 -to qsfp_serial[2].tx_p[3]
   ```
 
-7. Edit the `NUM_QSFP_PORTS` value in the `$OFS_ROOTDIR/ipss/hssi/rtl/inc/ofs_fim_eth_plat_if_pkg.sv` file to `3`.
+7. Change the number of QSFP ports from `2` to `3` in the `$OFS_ROOTDIR/ofs-common/src/fpga_family/agilex/hssi_ss/inc/ofs_fim_eth_plat_if_pkg.sv` file.
 
-  ```bash
-  localparam NUM_QSFP_PORTS       = 3; // QSFP cage on board
+  ```verilog
+  localparam NUM_QSFP_PORTS_USED  = 3; // Number of QSFP cages on board used by target hssi configuration
   ```
 
-8. Compile the design. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you determine the correct pinout for your design.
+8. Edit `$OFS_ROOTDIR/ofs-common/src/fpga_family/agilex/hssi_ss/hssi_wrapper.sv` so that the QSFP LED signals use `NUM_QSFP_PORTS_USED` defined in the previous step.
+
+  ```verilog
+  // Speed and activity LEDS
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_speed_green,       // Link up in Nx25G or 2x56G or 1x100G speed
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_speed_yellow,      // Link up in Nx10G speed
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_activity_green,    // Link up and activity seen
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_activity_red       // LOS, TX Fault etc
+  ```
+
+9. Compile the design. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you determine the correct pinout for your design.
 
   ```bash
   cd $OFS_ROOTDIR
@@ -4109,15 +4139,15 @@ Steps:
 
 2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-5. Open the Ethernet-SS IP in Quartus Parameter Editor. Make your modifications in the Parameter Editor.
+3. Open the Ethernet-SS IP in Quartus Parameter Editor. Make your modifications in the Parameter Editor.
 
   ```bash
-  qsys-edit $OFS_ROOTDIR/work_n6001/ipss/hssi/qip/hssi_ss/hssi_ss.ip
+  qsys-edit $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/hssi_ss.ip
   ```
 
-6. Once you are satisfied with your changes, click the **Generate HDL**. Save the design if prompted.
+4. Once you are satisfied with your changes, click the **Generate HDL**. Save the design if prompted.
 
-13. Compile the design.
+5. Compile the design.
 
   * If you are not using any other OFSS files in your compilation flow, use the following command to compile. It is recommended to compile a flat design before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
 
@@ -4131,7 +4161,7 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001:flat work_n6001
   ```
 
-5. The resulting FIM will contain the Ethernet-SS configuration contained in the `hssi_ss.ip` source file.
+6. The resulting FIM will contain the Ethernet-SS configuration contained in the `hssi_ss.ip` source file.
 
 ### **4.9 Modifying the HPS**
 
@@ -4248,7 +4278,7 @@ Perform the following steps to set up a JTAG connection to the Intel® FPGA Smar
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a workstation with Quartus Prime Pro Version 23.4 tools installed, specifically the `jtagconfig` tool.
 
@@ -4262,7 +4292,7 @@ Steps:
 
    ![](images/n6000_sw2_position_0_for_agilex_jtag.png)
 
-2. The Intel® FPGA SmartNIC N6001-PL has a 10 pin JTAG header on the top side of the board. Connect an Intel® FPGA Download II Cable to the JTAG header of the Intel® FPGA SmartNIC N6001-PL as shown in picture below. This picture shows the Intel® FPGA SmartNIC N6001-PL card installed in the middle bay, top slot of a SuperMicro® SYS-220HE-FTNR server where the lower slot does not have card installed allowing the Intel® Download II cables to pass through removed the slot access. 
+2. The Intel® FPGA SmartNIC N6001-PL has a 10 pin JTAG header on the top side of the board. Connect an Intel FPGA Download II Cable to the JTAG header of the Intel® FPGA SmartNIC N6001-PL as shown in picture below. This picture shows the Intel® FPGA SmartNIC N6001-PL card installed in the middle bay, top slot of a SuperMicro® SYS-220HE-FTNR server where the lower slot does not have card installed allowing the Intel® FPGA Download II cables to pass through removed the slot access. 
 
   ![](images/n6000_jtag_connection.png)
 
@@ -4309,7 +4339,7 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® F
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
 
@@ -4346,9 +4376,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422 (TBD)
+  Bitstream Id                     : 360571653789875893
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+  Pr Interface Id                  : 5d4500ed-e5e5-5521-8865-e47f0c517fac
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -4424,9 +4454,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422 (TBD)
+  Bitstream Id                     : 360571653789875893
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+  Pr Interface Id                  : 5d4500ed-e5e5-5521-8865-e47f0c517fac
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -4436,23 +4466,19 @@ Steps:
 
 #### **5.3 Remote System Update**
 
-The OPAE `fpgasupdate` tool can be used to update the Intel Max10 Board Management Controller (BMC) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (PR). The `fpgasupdate` tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) for information on created signed images and on programming and managing the root entry hash.  
+The OPAE `fpgasupdate` tool can be used to update the Max10 Board Management Controller (BMC) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (PR). The `fpgasupdate` tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the [Security User Guide: Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) for information on created signed images and on programming and managing the root entry hash.  
 
 The Intel® FPGA SmartNIC N6001-PL ships with a factory, user1, and user2 programmed image for both the FIM and BMC FW and RTL on all cards. The platform ships with a single FIM image that can be programmed into either user1 or user2, depending in the image selected.
 
 ##### **5.3.1 Walkthrough: Program the FPGA via RSU**
 
-This walkthrough describes the steps to program the Agilex FPGA on the Intel® FPGA SmartNIC N6001-PL with a `BIN` image via JTAG.
+This walkthrough describes the steps to program the Agilex FPGA on the Intel® FPGA SmartNIC N6001-PL with a `BIN` image via RSU.
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
-
-* This walkthrough requires a JTAG connection to the n6001. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
-
-* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel® FPGA SmartNIC N6001-PL is connected via JTAG.
 
 Steps:
 
@@ -4483,9 +4509,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422 (TBD)
+  Bitstream Id                     : 360571653789875893
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+  Pr Interface Id                  : 5d4500ed-e5e5-5521-8865-e47f0c517fac
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -4632,7 +4658,7 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-
- 
-
+<!-- include ./docs/hw/common/doc_modules/links.md -->
+<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->
 

@@ -14,21 +14,24 @@
 
 [intel-fpga-bbb]: https://github.com/OPAE/intel-fpga-bbb.git
 [examples AFU]: https://github.com/OFS/examples-afu.git
-[Intel® Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
+[Quartus® Prime Pro Edition Linux]: https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html
 [evaluation script]: https://github.com/OFS/ofs-f2000x-pl/tree/release/ofs-2024.1-1
+[release notes]: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1
 
 [OFS]: https://github.com/OFS
 [OFS GitHub page]: https://ofs.github.io
 [DFL Wiki]: https://github.com/OPAE/linux-dfl/wiki
-[Intel FPGA IP Subsystem for PCI Express IP User Guide]: https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf
 [FPGA Device Feature List Framework Overview]: https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst
 [FME_CSR.xls]: https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/xls/osc/FME_CSR.xls
 [fme_csr.sv]: https://github.com/OFS/ofs-fim-common/blob/release/ofs-2023.1/src/common/fme/fme_csr.sv
+
 [Ethernet Subsystem Intel FPGA IP User Guide]: https://cdrdv2-public.intel.com/773414/intelofs-773413-773414.pdf
+[Intel FPGA IP Subsystem for PCI Express IP User Guide]: https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf
+[Memory Subsystem Intel FPGA IP User Guide]: https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148
 
 [FPGA Device Feature List (DFL) Framework Overview]: https://github.com/OPAE/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview
 [BMC User Guide: Section 15 Single Event Upset Reporting]: https://github.com/otcshare/intel-ofs-docs/blob/main/f2000x/user_guides/ug_bmc_ofs_f2000x/ug_dev_bmc_ofs_f2000x.md#150-single-event-upset-reporting
-[Intel Agilex 7 SEU Mitigation User Guide]: https://www.intel.com/content/www/us/en/docs/programmable/683128/23-1/seu-mitigation-overview.html
+[Agilex 7 SEU Mitigation User Guide]: https://www.intel.com/content/www/us/en/docs/programmable/683128/23-1/seu-mitigation-overview.html
 [Operating System Support]: https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/os-support.html
 
 [Open FPGA Stack Reference Manual - MMIO Regions section]: ../../reference_manuals/ofs_fim/mnl_fim_ofs.md#6-mmio-regions
@@ -65,7 +68,7 @@
 
 [Intel FPGA PCI Express Subsystem IP User Guide]: https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf
 
-[Intel FPGA Memory Subsystem IP User Guide]: https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_mem_ss.pdf
+[Intel FPGA Memory Subsystem IP User Guide]: https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf
 
 [Intel FPGA Ethernet Subsystem IP User Guide]: https://www.intel.com/content/www/us/en/docs/programmable/773413/23-1-22-5-0/introduction.html
 
@@ -87,4 +90,6 @@
 
 [OFS-F2000X-PL release]: https://github.com/OFS/ofs-f2000x-pl/releases/ofs-2024.1-1
 
+[E-Tile Channel Placement Tool]: https://www.intel.com/content/www/us/en/content-details/652292/intel-e-tile-channel-placement-tool.html?wapkw=e-tile%20channel%20placement%20tool&DocID=652292
 
+[Pin-Out Files for Intel FPGAs]: https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html

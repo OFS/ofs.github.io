@@ -1,4 +1,4 @@
-# Simulation User Guide: OFS for Intel® Agilex® PCIe Attach**
+# UVM Simulation User Guide: OFS for Intel® Agilex® PCIe Attach
 
 | Term                      | Abbreviation | Description                                                  |
 | :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
@@ -219,7 +219,7 @@ To run the tutorial steps in this guide requires the following development envir
 | Item                      | Version|
 | ------------------------- | ----------|
 | Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.4|
-| Simulator                 | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
+| Simulator                 | Synopsys VCS S-2021.09-SP1 or newer for UVM simulation of top level FIM |
 | Simulator (Questasim)     | Questasim 2023.4 or newer for UVM simulation of top level FIM |
 
 
@@ -1314,8 +1314,8 @@ There are some optimizations in the Table below for convenience if you want to b
 <table>
     <thead>
         <tr>
-            <th>Command (Synopsys VCS) for n6001</th>
-            <th>Command (Questasim) for n6001</th>
+            <th>Command (Synopsys VCS) for n6001 *</th>
+            <th>Command (Questasim) for n6001 *</th>
             <th>Command (Synopsys VCS) for fseries-dk</th>
             <th>Command (Questasim) for fseries-dk</th>
             <th>Details</th>
@@ -1350,9 +1350,12 @@ There are some optimizations in the Table below for convenience if you want to b
             <td>gmake -f Makefile_MSIM.mk rundb TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1</td>
             <td>run test in sim dir + over-writes content</td>        
         </tr>
+           
 </tr>
      </tbody>
-</table>   
+</table> 
+
+Note: * For N6000, use flag DISABLE_EMIF=1 for the tests to run successfully 
 
 ## **6.7 UVM Regression Test**
 
@@ -1628,5 +1631,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

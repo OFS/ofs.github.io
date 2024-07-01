@@ -1,4 +1,4 @@
-# Simulation User Guide: Open FPGA Stack for Intel Agilex 7 SoC Attach FPGAs
+# UVM Simulation User Guide: Open FPGA Stack for Intel Agilex 7 SoC Attach FPGAs
 
 | Term       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
@@ -240,7 +240,7 @@ To run the tutorial steps in this guide requires the following development envir
 | Item                      | Version|
 | ------------------------- | ----------|
 | Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.4|
-| Simulator                 | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
+| Simulator                 | Synopsys VCS S-2021.09-SP1 or newer for UVM simulation of top level FIM |
 | Simulator (Questasim)     | Questasim 2023.4 or newer for UVM simulation of top level FIM |
 
 
@@ -253,8 +253,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir release/ofs-2024.1
-    $ cd release/ofs-2024.1
+    $ mkdir ofs-2024.1-1
+    $ cd ofs-2024.1-1
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --branch --recurse-submodules https://github.com/ofs-f2000x-pl.git
     
@@ -1556,5 +1556,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/f2000x/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->
