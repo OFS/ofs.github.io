@@ -1,16 +1,3487 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Redirecting</title>
-  <noscript>
-    <meta http-equiv="refresh" content="1; url=../../../../../../ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" />
-  </noscript>
-  <script>
-    window.location.replace("../../../../../../ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" + window.location.hash);
-  </script>
-</head>
-<body>
-  Redirecting to <a href="../../../../../../ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/">../../../../../../ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/</a>...
-</body>
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../../common/sw_installation/soc_attach/sw_install_soc_attach/">
+      
+      
+        <link rel="next" href="../../ug_eval_ofs/ug_eval_script_ofs_f2000x/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>Getting Started Guide - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#ofs-getting-started-guide-for-intel-agilex-7-soc-attach-fpgas" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Getting Started Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_s10_pcie_attach/" class="md-tabs__link">
+        Stratix® 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_agx7_pcie_attach/" class="md-tabs__link">
+        Agilex® 7 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_agx7_soc_attach/" class="md-tabs__link md-tabs__link--active">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix® 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix® 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_s10_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/adp_board_installation_guidelines/" class="md-nav__link">
+        Board Installation Guide (Intel® FPGA PAC D5005)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex® 7 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex® 7 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_agx7_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Board Installation Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Board Installation Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/adp_board_installation_guidelines/" class="md-nav__link">
+        Intel® FPGA SmartNIC N6000/1-PL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/" class="md-nav__link">
+        Agilex® 7 FPGA I-Series and F-Series Development Kits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Getting Started Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA F-Series Development Kit (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        OFS for Intel® FPGA SmartNIC N6001-PL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+          Shell Developer Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Shell Developer Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach I-Series (2xR-Tile, F-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach F-Series (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        PCIe Attach F-Series (P-Tile/E-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_10">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_11">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_agx7_soc_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/board_installation/f2000x_board_installation/f2000x_board_installation/" class="md-nav__link">
+        Board Installation Guide (Intel® IPU Platform F2000X-PL)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Getting Started Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Getting Started Guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-about-this-document" class="md-nav__link">
+    1.0 About this Document
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 About this Document">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-audience" class="md-nav__link">
+    1.1 Audience
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-terminology" class="md-nav__link">
+    1.2 Terminology
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Terminology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-1-terminology" class="md-nav__link">
+    Table 1: Terminology
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-references-and-versions" class="md-nav__link">
+    1.3 References and Versions
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 References and Versions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-2-software-and-firmware-component-version-summary-for-soc-attach" class="md-nav__link">
+    Table 2: Software and Firmware Component Version Summary for SoC Attach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-3-related-repositories" class="md-nav__link">
+    Table 3: Related Repositories
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-board-installation-and-server-requirements" class="md-nav__link">
+    1.4 Board Installation and Server Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-reference-documents" class="md-nav__link">
+    1.5 Reference Documents
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-updating-the-ipu-platform-f2000x-pl" class="md-nav__link">
+    2.0 Updating the IPU Platform F2000X-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Updating the IPU Platform F2000X-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-4-ipu-platform-f2000x-pl-fw-components" class="md-nav__link">
+    Table 4: IPU Platform F2000X-PL FW Components
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-updating-the-f2000x-pl-icx-d-soc-nvme" class="md-nav__link">
+    2.1 Updating the F2000X-PL ICX-D SoC NVMe
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Updating the F2000X-PL ICX-D SoC NVMe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-setting-the-time" class="md-nav__link">
+    2.1.1 Setting the Time
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-updating-the-ipu-platform-f2000x-pl" class="md-nav__link">
+    3.0 Updating the IPU Platform F2000X-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="3.0 Updating the IPU Platform F2000X-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-preparing-the-ipu-platform-f2000x-pl-soc-for-updates" class="md-nav__link">
+    3.1 Preparing the IPU Platform F2000X-PL SoC for Updates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-updating-fim-bmc-and-afu-with-fpgasupdate" class="md-nav__link">
+    3.2 Updating FIM, BMC and AFU with fpgasupdate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-loading-images-with-rsu" class="md-nav__link">
+    3.3 Loading images with rsu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-updating-the-icx-d-soc-bios" class="md-nav__link">
+    3.4 Updating the ICX-D SoC BIOS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-compiling-a-custom-yocto-soc-image" class="md-nav__link">
+    4.0 Compiling a Custom Yocto SoC Image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#50-verifying-the-icx-d-soc-opae-sdk" class="md-nav__link">
+    5.0 Verifying the ICX-D SoC OPAE SDK
+  </a>
+  
+    <nav class="md-nav" aria-label="5.0 Verifying the ICX-D SoC OPAE SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-checking-telemetry-with-fpgainfo" class="md-nav__link">
+    5.1 Checking Telemetry with fpgainfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-host-exercisers" class="md-nav__link">
+    5.2 Host Exercisers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-additional-opae-sdk-utilities" class="md-nav__link">
+    5.3 Additional OPAE SDK Utilities
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Additional OPAE SDK Utilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-5-opae-sdk-utilities" class="md-nav__link">
+    Table 5: OPAE SDK Utilities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#60-setting-up-the-host" class="md-nav__link">
+    6.0 Setting up the Host
+  </a>
+  
+    <nav class="md-nav" aria-label="6.0 Setting up the Host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-verifying-the-soc-attach-solution-on-the-host" class="md-nav__link">
+    6.1 Verifying the SoC Attach Solution on the Host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-fpga-device-access-permissions" class="md-nav__link">
+    6.2 FPGA Device Access Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-memlock-limit" class="md-nav__link">
+    6.3 Memlock limit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        oneAPI ASP Getting Started User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide OFS for PCIe Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide OFS for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+          OPAE FPGA Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-about-this-document" class="md-nav__link">
+    1.0 About this Document
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 About this Document">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-audience" class="md-nav__link">
+    1.1 Audience
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-terminology" class="md-nav__link">
+    1.2 Terminology
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Terminology">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-1-terminology" class="md-nav__link">
+    Table 1: Terminology
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-references-and-versions" class="md-nav__link">
+    1.3 References and Versions
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 References and Versions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-2-software-and-firmware-component-version-summary-for-soc-attach" class="md-nav__link">
+    Table 2: Software and Firmware Component Version Summary for SoC Attach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-3-related-repositories" class="md-nav__link">
+    Table 3: Related Repositories
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-board-installation-and-server-requirements" class="md-nav__link">
+    1.4 Board Installation and Server Requirements
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-reference-documents" class="md-nav__link">
+    1.5 Reference Documents
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-updating-the-ipu-platform-f2000x-pl" class="md-nav__link">
+    2.0 Updating the IPU Platform F2000X-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Updating the IPU Platform F2000X-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-4-ipu-platform-f2000x-pl-fw-components" class="md-nav__link">
+    Table 4: IPU Platform F2000X-PL FW Components
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#21-updating-the-f2000x-pl-icx-d-soc-nvme" class="md-nav__link">
+    2.1 Updating the F2000X-PL ICX-D SoC NVMe
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Updating the F2000X-PL ICX-D SoC NVMe">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#211-setting-the-time" class="md-nav__link">
+    2.1.1 Setting the Time
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-updating-the-ipu-platform-f2000x-pl" class="md-nav__link">
+    3.0 Updating the IPU Platform F2000X-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="3.0 Updating the IPU Platform F2000X-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-preparing-the-ipu-platform-f2000x-pl-soc-for-updates" class="md-nav__link">
+    3.1 Preparing the IPU Platform F2000X-PL SoC for Updates
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-updating-fim-bmc-and-afu-with-fpgasupdate" class="md-nav__link">
+    3.2 Updating FIM, BMC and AFU with fpgasupdate
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-loading-images-with-rsu" class="md-nav__link">
+    3.3 Loading images with rsu
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#34-updating-the-icx-d-soc-bios" class="md-nav__link">
+    3.4 Updating the ICX-D SoC BIOS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-compiling-a-custom-yocto-soc-image" class="md-nav__link">
+    4.0 Compiling a Custom Yocto SoC Image
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#50-verifying-the-icx-d-soc-opae-sdk" class="md-nav__link">
+    5.0 Verifying the ICX-D SoC OPAE SDK
+  </a>
+  
+    <nav class="md-nav" aria-label="5.0 Verifying the ICX-D SoC OPAE SDK">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-checking-telemetry-with-fpgainfo" class="md-nav__link">
+    5.1 Checking Telemetry with fpgainfo
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-host-exercisers" class="md-nav__link">
+    5.2 Host Exercisers
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-additional-opae-sdk-utilities" class="md-nav__link">
+    5.3 Additional OPAE SDK Utilities
+  </a>
+  
+    <nav class="md-nav" aria-label="5.3 Additional OPAE SDK Utilities">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-5-opae-sdk-utilities" class="md-nav__link">
+    Table 5: OPAE SDK Utilities
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#60-setting-up-the-host" class="md-nav__link">
+    6.0 Setting up the Host
+  </a>
+  
+    <nav class="md-nav" aria-label="6.0 Setting up the Host">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#61-verifying-the-soc-attach-solution-on-the-host" class="md-nav__link">
+    6.1 Verifying the SoC Attach Solution on the Host
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#62-fpga-device-access-permissions" class="md-nav__link">
+    6.2 FPGA Device Access Permissions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#63-memlock-limit" class="md-nav__link">
+    6.3 Memlock limit
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="ofs-getting-started-guide-for-intel-agilex-7-soc-attach-fpgas"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Getting Started Guide for Intel Agilex 7 SoC Attach FPGAs<a class="headerlink" href="#ofs-getting-started-guide-for-intel-agilex-7-soc-attach-fpgas" title="Permanent link">&para;</a></h1>
+<p>Last updated: <strong>July 01, 2024</strong> </p>
+<h2 id="10-about-this-document">1.0 About this Document<a class="headerlink" href="#10-about-this-document" title="Permanent link">&para;</a></h2>
+<p>The purpose of this document is to help users get started in evaluating the 2024.1-1 version of the SoC Attach release targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. After reviewing this document, a user shall be able to:</p>
+<ul>
+<li>Set up their server environment according to the Best Known Configuration (<abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr>)</li>
+<li>Build a Yocto image with the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Drivers included</li>
+<li>Load and verify firmware targeting the SR and <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> regions of the board, the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>, and the ICX-D SoC NVMe and BIOS</li>
+<li>Verify full stack functionality offered by the SoC Attach <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> solution</li>
+<li>Know where to find additional information on other SoC Attach ingredients</li>
+</ul>
+<h3 id="11-audience">1.1 Audience<a class="headerlink" href="#11-audience" title="Permanent link">&para;</a></h3>
+<p>The information in this document is intended for customers evaluating the IPU Platform F2000X-PL. The card is an acceleration development platform (ADP) intended to be used as a starting point for evaluation and development. This document will cover key topics related to initial bring up and development of the IPU Platform F2000X-PL, with links for deeper dives on the topics discussed therein.</p>
+<p><em>Note: Code command blocks are used throughout the document. Commands that are intended for you to run are preceded with the symbol '$', and comments with '#'. Full command output may not be shown.</em></p>
+<h3 id="12-terminology">1.2 Terminology<a class="headerlink" href="#12-terminology" title="Permanent link">&para;</a></h3>
+<h4 id="table-1-terminology">Table 1: Terminology<a class="headerlink" href="#table-1-terminology" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
+<td>Advanced Error Reporting, The PCIe <abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr> driver is the extended PCI Express error reporting capability providing more robust error reporting.</td>
+</tr>
+<tr>
+<td><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td>Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside. This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region</td>
+</tr>
+<tr>
+<td><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td>Basic Building Block, Features within an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and host interface requires. All BBBs must have a (globally unique identifier) GUID.</td>
+</tr>
+<tr>
+<td><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
+<td>Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.</td>
+</tr>
+<tr>
+<td><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
+<td>Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> platform. Supports features such as power sequence management and board monitoring through on-board sensors.</td>
+</tr>
+<tr>
+<td>CSR</td>
+<td>Command/status registers (CSR) and software interface, <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> uses a defined set of CSR's to expose the functionality of the FPGA to the host software.</td>
+</tr>
+<tr>
+<td><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>Device Feature List, A concept inherited from <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers provide support for FPGA devices that are designed to support the Device Feature List. The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration.</td>
+</tr>
+<tr>
+<td><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
+</tr>
+<tr>
+<td><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
+<td>FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.</td>
+</tr>
+<tr>
+<td><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
+<td>Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc.</td>
+</tr>
+<tr>
+<td><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
+<td>Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.</td>
+</tr>
+<tr>
+<td><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
+<td>Input/Output Control, System calls used to manipulate underlying device parameters of special files.</td>
+</tr>
+<tr>
+<td><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
+<td>Joint Test Action Group, Refers to the IEEE 1149.1 <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> standard; Another FPGA configuration methodology.</td>
+</tr>
+<tr>
+<td><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td>Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.</td>
+</tr>
+<tr>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td>Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and software developers to optimize and reuse their designs.</td>
+</tr>
+<tr>
+<td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.</td>
+</tr>
+<tr>
+<td><abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr></td>
+<td>Programmable Acceleration Card: FPGA based Accelerator card</td>
+</tr>
+<tr>
+<td><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
+<td>Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
+</tr>
+<tr>
+<td><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
+<td>Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr>, a <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> bitstream refers to an Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>. Refer to <a href="https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html">Partial Reconfiguration</a> support page.</td>
+</tr>
+<tr>
+<td><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
+<td>Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 device that triggers a power cycle of the card only, forcing reconfiguration.</td>
+</tr>
+<tr>
+<td><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
+<td>Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.</td>
+</tr>
+<tr>
+<td><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
+<td>Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.</td>
+</tr>
+<tr>
+<td><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
+<td>Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.</td>
+</tr>
+<tr>
+<td><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
+<td>Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-references-and-versions">1.3 References and Versions<a class="headerlink" href="#13-references-and-versions" title="Permanent link">&para;</a></h3>
+<h4 id="table-2-software-and-firmware-component-version-summary-for-soc-attach">Table 2: Software and Firmware Component Version Summary for SoC Attach<a class="headerlink" href="#table-2-software-and-firmware-component-version-summary-for-soc-attach" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+<th>Download link (where applicable)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Available <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Version(s)</td>
+<td><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> Interface ID: c2dac77b-757c-5e27-a566-aad3ffba2f4e</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+<tr>
+<td>Host Operating System</td>
+<td>Ubuntu 22.04 LTS</td>
+<td><a href="https://ubuntu.com/download/desktop">Official Release Page</a></td>
+</tr>
+<tr>
+<td>Host <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>2.12.0-5</td>
+<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5">https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/opae-sdk/releases/tag/2.12.0-5</a></td>
+</tr>
+<tr>
+<td>SoC OS</td>
+<td>meta-intel-ese Reference Distro 1.0-ESE (kirkstone)</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+<tr>
+<td>SoC Kernel Version</td>
+<td>6.1.78-dfl</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+<tr>
+<td>SoC <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>2.12.0-5</td>
+<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5">https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/opae-sdk/releases/tag/2.12.0-5</a></td>
+</tr>
+<tr>
+<td>SoC Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>ofs-2024.1-6.1-2</td>
+<td><a href="https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2">https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/linux-dfl/releases/tag/ofs-2024.1-6.1-2</a></td>
+</tr>
+<tr>
+<td>SoC <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> and RTL</td>
+<td>1.2.4</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+<tr>
+<td>SoC BIOS</td>
+<td>0ACRH608_REL</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+</tbody>
+</table>
+<p>Not all components shown in Table 2 will have an update available upon release. The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> software stacks are incorporated into a Yocto image and do not need to be downloaded separately. Updates required for the ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell are shown under Table 9 in section <a href="#20-updating-the-IPU Platform F2000X-PL">2.0 Updating the IPU Platform F2000X-PL</a>.</p>
+<h4 id="table-3-related-repositories">Table 3: Related Repositories<a class="headerlink" href="#table-3-related-repositories" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intel-FPGA-<abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td>https://github.com/OPAE/intel-fpga-bbb.git</td>
+</tr>
+<tr>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>-PLATFORM-<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>-<abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-platform-afu-bbb.git, tag: ofs-2024.1-1</td>
+</tr>
+<tr>
+<td><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>-EXAMPLES</td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/examples-afu.git, tag: ofs-2024.1-1</td>
+</tr>
+<tr>
+<td>OPAE-SDK</td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/opae-sdk, tag: 2.12.0-5</td>
+</tr>
+<tr>
+<td>LINUX-<abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/linux-dfl, tag: ofs-2024.1-6.1-2</td>
+</tr>
+<tr>
+<td>META-<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/meta-ofs, tag: ofs-2024.1-2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-board-installation-and-server-requirements">1.4 Board Installation and Server Requirements<a class="headerlink" href="#14-board-installation-and-server-requirements" title="Permanent link">&para;</a></h3>
+<p>The F2000X-PL device physical setup procedure and required server settings are detailed in this device's <a href="https://ofs.github.io/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation">Board Installation Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> For Agilex® 7 SoC Attach IPU F2000X-PL</a>. Please review this document and follow proper procedure when installing your device. The rest of this document will assume you have completed basic platform bring-up.</p>
+<h3 id="15-reference-documents">1.5 Reference Documents<a class="headerlink" href="#15-reference-documents" title="Permanent link">&para;</a></h3>
+<p>Documentation is collected on <a href="https://ofs.github.io/ofs-2024.1-1/">https://ofs.github.io/ofs-2024.1-1/</a>.</p>
+<h2 id="20-updating-the-ipu-platform-f2000x-pl">2.0 Updating the IPU Platform F2000X-PL<a class="headerlink" href="#20-updating-the-ipu-platform-f2000x-pl" title="Permanent link">&para;</a></h2>
+<p>Every IPU Platform F2000X-PL ships with pre-programmed firmware for the FPGA <strong>user1</strong>, <strong>user2</strong>, and <strong>factory</strong> images, the Cyclone 10 <strong><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> RTL and FW</strong>, the <strong>SoC NVMe</strong>, and the <strong>SoC BIOS</strong>. The combination of FW images in <em>Table 4</em> compose the official ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell. Upon initial receipt of the board from manufacturing you will need to update two of these regions of flash to conform with the best known configuration for SoC Attach.  As shown in Table 9, not all devices require firmware updates. To instruct users in the process of updating on-board IPU Platform F2000X-PL firmware, examples are provided in this guide illustrating the firmware update process for all devices.  </p>
+<h4 id="table-4-ipu-platform-f2000x-pl-fw-components">Table 4: IPU Platform F2000X-PL FW Components<a class="headerlink" href="#table-4-ipu-platform-f2000x-pl-fw-components" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>HW Component</th>
+<th>File Name</th>
+<th>Version</th>
+<th>Update Required (Yes/No)</th>
+<th>Download Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>FPGA SR Image<sup>1</sup></td>
+<td>user1: ofs_top_page1_unsigned_user1.bin<br>user2: ofs_top_page2_unsigned_user2.bin<br>factory: ofs_top_page0_unsigned_factory.bin</td>
+<td><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> Interface ID: c2dac77b-757c-5e27-a566-aad3ffba2f4e</td>
+<td>Yes</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+<tr>
+<td>FPGA <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> IMAGE<sup>2</sup></td>
+<td>ofs_pr_afu.green_region_unsigned.gbs</td>
+<td>N/A</td>
+<td>Yes</td>
+<td>Compiled with <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+</tr>
+<tr>
+<td>ICX-D NVMe</td>
+<td>core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic</td>
+<td>N/A</td>
+<td>Yes</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+<tr>
+<td><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> RTL and FW</td>
+<td>AC_BMC_RSU_user_retail_1.2.4_unsigned.rsu</td>
+<td>1.2.4</td>
+<td>No</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+<tr>
+<td>BIOS Version</td>
+<td>0ACRH608_REL.BIN</td>
+<td>0ACRH608_REL</td>
+<td>Yes</td>
+<td><a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a></td>
+</tr>
+</tbody>
+</table>
+<p>If a component does not have a required update, it will not have an entry on <a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a>.</p>
+<p><sup>1</sup>To check the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> Interface ID of the currently programmed <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> RTL and FW version, use <code>fpgainfo fme</code> from the SoC.
+<sup>2</sup>Must be programmed if using <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>-enabled exercisers, not required otherwise.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>fme
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>Intel<span class="w"> </span>IPU<span class="w"> </span>Platform<span class="w"> </span>F2000X-PL
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>**Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>NIOS<span class="w"> </span>FW<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>.2.4**
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>**Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>Build<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>.2.4**
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>//******<span class="w"> </span>FME<span class="w"> </span>******//
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Object<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0xEF00000
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>PCIe<span class="w"> </span>s:b:d.f<span class="w">                     </span>:<span class="w"> </span><span class="m">0000</span>:15:00.0
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Vendor<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0x8086
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Device<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0xBCCE
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>SubVendor<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x8086
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>SubDevice<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x17D4
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Socket<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0x00
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>Ports<span class="w"> </span>Num<span class="w">                        </span>:<span class="w"> </span><span class="m">01</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>**Bitstream<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span><span class="m">360572752842090923</span>**
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>Bitstream<span class="w"> </span>Version<span class="w">                </span>:<span class="w"> </span><span class="m">5</span>.0.1
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>**Pr<span class="w"> </span>Interface<span class="w"> </span>Id<span class="w">                  </span>:<span class="w"> </span>c2dac77b-757c-5e27-a566-aad3ffba2f4e**
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>Boot<span class="w"> </span>Page<span class="w">                        </span>:<span class="w"> </span>user1
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>User1<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">                 </span>:<span class="w"> </span>9e3db8b6a4d25a4e3e46f2088b495899
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>User2<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">                 </span>:<span class="w"> </span>None
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>Factory<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">               </span>:<span class="w"> </span>None
+</code></pre></div>
+<h3 id="21-updating-the-f2000x-pl-icx-d-soc-nvme">2.1 Updating the F2000X-PL ICX-D SoC NVMe<a class="headerlink" href="#21-updating-the-f2000x-pl-icx-d-soc-nvme" title="Permanent link">&para;</a></h3>
+<p>The IPU Platform F2000X-PL ships with a Yocto image pre-programmed in NVMe, which is not the same as the SoC Attach <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> image that we will be using. The latter provides only the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers and is fully open source. This section will show how you can use an attached USB drive to load a new image into flash. You will use a serial terminal to install the new image - Minicom and PuTTy terminal emulators have both been tested. <code>minicom</code> is used for demonstration purposes as the serial terminal to access the ICX-D SoC UART connection in this section. Information on compiling your own Yocto image for use with the IPU Platform F2000X-PL is discussed in section <a href="#40-compiling-a-custom-yocto-soc-image">4.0 Compiling a Custom Yocto SoC Image</a>.</p>
+<p><strong>Note:</strong> Username and password for the default SoC NVMe boot image are "root" and "root@123".</p>
+<ol>
+<li>
+<p>First, make sure to complete the steps in section <a href="#155-creating-a-bootable-usb-flash-drive-for-the-soc">1.5.5 Creating a Bootable USB Flash Drive for the SoC</a>, and attach the USB drive either directly into the rear of the IPU Platform F2000X-PL, or into a USB Hub that itself is connected to the board.</p>
+</li>
+<li>
+<p>Ensure your Minicom terminal settings match those shown below. You must direct Minicom to the USB device created in <code>/dev</code> associated with your RS-232 to USB Adapter cable. This cable must be attached to a server that is <em>separate</em> from the one housing your IPU Platform F2000X-PL. Check the server logs in <code>dmesg</code> to figure out which device is associated with your cable: <code>[    7.637291] usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0</code>. In this example the special character file <code>/dev/ttyUSB0</code> is associated with our cable, and can be connected to using the following command: <code>sudo minicom --color=on -D /dev/ttyUSB0</code>.</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/minicom_settings.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/minicom_settings.PNG" /></a></p>
+</li>
+<li>
+<p>Change the SoC boot order to boot from USB first. Reboot the server. From your
+    serial Minicom terminal, watch your screen and
+    press 'ESC' key to go into BIOS setup mode. Once BIOS setup comes
+    up as shown below, click the right arrow key six times to move from
+    'Main' set up menu to 'Boot' setup:</p>
+<p>Main setup menu:</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu1.png" /></a></p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu2.png" /></a></p>
+<p>Your order of boot devices may differ. You need to move the USB flash
+   up to Boot Option #1 by first using the down arrow key to highlight
+   the USB device then use '+' key to move the USB device to #1 as
+   shown below:</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu3.png" /></a></p>
+<p>Press 'F4' to save and exit.</p>
+</li>
+<li>
+<p>You will boot into Yocto automatically. Log in with username <code>root</code> and an empty password using Minicom. Take note of the IP address of the board, you can use this to log in without needing the serial cable.</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/yocto_login.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/yocto_login.PNG" /></a></p>
+<p>Verify that you have booted from the USB and not the on-board NVMe <code>lsblk -no pkname $(findmnt -n / | awk '{ print $2 }')</code>. You should see a device matching <code>/dev/sd*</code>, and <em>not</em> <code>nvme*n*p*</code>. If you see <code>nvme*n*p*</code>, then review the previous steps.</p>
+<p>Record the IP address of the SoC at this time <code>ip -4 addr</code>. This will be used to log in remotely using SSH.</p>
+</li>
+<li>
+<p>Check that 4 partitions created in <a href="#1.5.5-creating-a-bootable-usb-flash-drive-for-the-soc">1.5.5 Creating a Bootable USB Flash Drive for the SoC</a> are visible to the SoC in <code>/dev/sd*</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>lsblk<span class="w"> </span>-l
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>root@intel-corei7-64:/mnt#<span class="w"> </span>lsblk<span class="w"> </span>-l
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>NAME<span class="w">      </span>MAJ:MIN<span class="w"> </span>RM<span class="w">   </span>SIZE<span class="w"> </span>RO<span class="w"> </span>TYPE<span class="w"> </span>MOUNTPOINTS
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>sda<span class="w">         </span><span class="m">8</span>:0<span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">117</span>.2G<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>sda1<span class="w">        </span><span class="m">8</span>:1<span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">38</span>.5M<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/boot
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>sda2<span class="w">        </span><span class="m">8</span>:2<span class="w">    </span><span class="m">1</span><span class="w">    </span>20G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>sda3<span class="w">        </span><span class="m">8</span>:3<span class="w">    </span><span class="m">1</span><span class="w">    </span>44M<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span><span class="o">[</span>SWAP<span class="o">]</span>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>sda4<span class="w">        </span><span class="m">8</span>:4<span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">97</span>.1G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/mnt
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>nvme0n1<span class="w">   </span><span class="m">259</span>:0<span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">59</span>.6G<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>nvme0n1p1<span class="w"> </span><span class="m">259</span>:1<span class="w">    </span><span class="m">0</span><span class="w">   </span>300M<span class="w">  </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>nvme0n1p2<span class="w"> </span><span class="m">259</span>:2<span class="w">    </span><span class="m">0</span><span class="w">  </span><span class="m">22</span>.1G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>nvme0n1p3<span class="w"> </span><span class="m">259</span>:3<span class="w">    </span><span class="m">0</span><span class="w">    </span>44M<span class="w">  </span><span class="m">0</span><span class="w"> </span>part
+</code></pre></div>
+<p>Mount partition 4, and <code>cd</code> into it.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>$<span class="w"> </span>mount<span class="w"> </span>/dev/sda4<span class="w"> </span>/mnt<span class="sb">`</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/mnt
+</code></pre></div>
+</li>
+<li>
+<p>Install the Yocto release image in the SoC NVMe.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/nvme0n1<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>1M<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress<span class="w"> </span><span class="nv">conv</span><span class="o">=</span>sync
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$<span class="w"> </span>sync
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>$<span class="w"> </span>sgdisk<span class="w"> </span>-e<span class="w"> </span>/dev/nvme0n1
+</code></pre></div>
+<p>The transfer from USB to NVMe will take several minutes.</p>
+</li>
+<li>
+<p>Reboot the SoC and update the SoC BIOS to boot from NVMe. Follow steps 2 and 3 from this section again, and this time move the NVME back to the front of the boot order. The NVMe is named <code>UEFI OS (PCIe SSD)</code> by the BIOS. Press F4 to save and exit.</p>
+<p>You can use <code>wget</code> to retrieve a new version of the Yocto release image from <a href="https://github.com/OFS/meta-ofs/releases/tag/ofs-2024.1-2">meta-ofs</a> once the SoC's network connection is up. Use <code>wget</code> to copy the image to the SoC over the network under <code>/mnt</code>. You may need to delete previous Yocto images to save on space: <code>$ wget --no-check-certificate --user &lt;Git username&gt; --ask-password https://github.com/OFS/meta-ofs/releases/download/ofs-2024.1-2/core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic.gz</code>. Uncompress the newly retrieved file: <code>gzip -d core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic.gz</code>. This may take several minutes.</p>
+</li>
+</ol>
+<h4 id="211-setting-the-time">2.1.1 Setting the Time<a class="headerlink" href="#211-setting-the-time" title="Permanent link">&para;</a></h4>
+<ol>
+<li>
+<p>Use Linux command to set system time using format: <code>date --set="STRING"</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>date<span class="w"> </span>-s<span class="w"> </span><span class="s2">&quot;26 APRIL 2023 18:00:00&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Set HWCLOCK to current system time:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>hwclock<span class="w"> </span>--systohc
+</code></pre></div>
+<p>Verify time is set properly</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>date
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>...
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>hwclock<span class="w"> </span>--show
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>...
+</code></pre></div>
+</li>
+</ol>
+<h2 id="30-updating-the-ipu-platform-f2000x-pl">3.0 Updating the IPU Platform F2000X-PL<a class="headerlink" href="#30-updating-the-ipu-platform-f2000x-pl" title="Permanent link">&para;</a></h2>
+<h3 id="31-preparing-the-ipu-platform-f2000x-pl-soc-for-updates">3.1 Preparing the IPU Platform F2000X-PL SoC for Updates<a class="headerlink" href="#31-preparing-the-ipu-platform-f2000x-pl-soc-for-updates" title="Permanent link">&para;</a></h3>
+<p>Updating the IPU Platform F2000X-PL firmware often requires reboots of the SoC or reconfiguration of the FPGA region. If there are processes connected from the host to the SoC that do not expect the downtime to occur, or if the host is not tolerant to a surprise PCie link down, the following instructions can be used to properly orchestrate updates with the host when reboots occur.</p>
+<p><strong>Note:</strong> Intel IPU Platform F2000X-PL FPGA and <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> updates are initiated by commands issued on the IPU SoC. Issue the following commands from the host to remove any processes that would be impacted by this update. The instructions on properly removing the IPU from PCIe bus require the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> to be installed on the host. Refer to section <a href="#60-setting-up-the-host">6.0 Setting up the Host</a> for this process.</p>
+<ol>
+<li>
+<p>From a host terminal shell, find PCIe Bus/Device/Function (BDF) address of your Intel IPU Platform F2000X-PL. Run the command <code>lspci | grep bcce</code> to print all boards with a DID that matches bcce.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>lspci<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>bcce
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="m">31</span>:00.0<span class="w"> </span>Processing<span class="w"> </span>accelerators:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span>bcce<span class="w"> </span><span class="o">(</span>rev<span class="w"> </span><span class="m">01</span><span class="o">)</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="m">31</span>:00.1<span class="w"> </span>Processing<span class="w"> </span>accelerators:<span class="w"> </span>Intel<span class="w"> </span>Corporation<span class="w"> </span>Device<span class="w"> </span>bcce<span class="w"> </span><span class="o">(</span>rev<span class="w"> </span><span class="m">01</span><span class="o">)</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1"># In this example, 31:00.0 is the proper PCIe BDF of our device</span>
+</code></pre></div>
+</li>
+<li>
+<p>Shut down all VMs and software applications attached to any PFs/VFs on the host</p>
+</li>
+<li>Issue the command <code>sudo pci_device &lt;&lt;PCIe BDF&gt;&gt; unplug</code> on the host to remove the PCIe device from the PCIe bus</li>
+<li>Shut down all software applications on the SoC accessing non-management PFs/VFs</li>
+<li>Issue your update command on the SoC, which will cause an SoC reboot and surprise PCIe link down on the host (ex. <code>reboot</code>, <code>rsu bmc/bmcimg/fpga</code>)</li>
+<li>Once you have completed all firmware updates, you may restart application software on the SoC</li>
+<li>Issue command <code>sudo pci_device &lt;&lt;PCIe BDF&gt;&gt; plug</code> on the host to rescan the PCIe bus and rebind the device to its native driver</li>
+<li>Restart software applications on the host</li>
+</ol>
+<h3 id="32-updating-fim-bmc-and-afu-with-fpgasupdate">3.2 Updating <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> and <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> with <code>fpgasupdate</code><a class="headerlink" href="#32-updating-fim-bmc-and-afu-with-fpgasupdate" title="Permanent link">&para;</a></h3>
+<p>The <code>fpgasupdate</code> tool updates the Intel<sup>&reg;</sup> C10 10 <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> image and firmware, root entry hash, FPGA Static Region (SR) and user image (<abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>). The <code>fpgasupdate</code> will only accept images that have been formatted using PACSign. If a root entry hash has been programmed onto the board, then the image will also need to be signed using the correct keys. Please refer to the <a href="https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/">Security User Guide: Intel Open FPGA Stack</a> for information on creating signed images and on programming and managing the root entry hash. This repository requires special permissions to access - please reach out to your Intel representative to request. The <code>fpgasupdate</code> tool is used to program images into flash memory. The <code>rsu</code> tool is used to configure the FPGA/<abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> with an image that is already stored in flash memory, or to switch between <strong>user1</strong> and <strong>user2</strong> images. All images received from an official Intel release will be "unsigned", as described in the <a href="https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/">Security User Guide: Intel Open FPGA Stack</a>.</p>
+<p><strong>Note:</strong> 'Unsigned' in this context means the image has passed through <code>PACsign</code> and has had the proper security blocks prepended using a set of 'dummy' keys. FIMs with image signing enabled will require all programmable images to pass through <code>PACsign</code> even if the currently programmed <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>/<abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> do not require specific keys to authenticate.</p>
+<p>There are two regions of flash you may store <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> images for general usage, and one backup region. These locations are referred to as <strong>user1</strong>, <strong>user2</strong>, and <strong>factory</strong>. The factory region is not programmed by default and can only be updated once keys have been provisioned. The <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> FW and RTL will come pre-programmed with version 1.1.9.</p>
+<p>Updating the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> from the SoC requires the SoC be running a Yocto image that includes the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers. Updating the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> using <code>fpgasupdate</code> also requires an <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> enabled <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> to be configured on the F2000X-PL, which it will ship with from manufacturing. You need to transfer any update files to the SoC over SSH. The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> utility <code>fpgasupdate</code> will be used to update all ofthe board's programmable firmware . This utility will accept files of the form *.rsu, *.bin, and *.gbs, provided the proper security data blocks have been prepended by PACSign. The default configuration the IPU platform ships with will match the below:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>fme
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Intel<span class="w"> </span>IPU<span class="w"> </span>Platform<span class="w"> </span>F2000X-PL
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>**Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>NIOS<span class="w"> </span>FW<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>.2.4**
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>**Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>Build<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>.2.4**
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>//******<span class="w"> </span>FME<span class="w"> </span>******//
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>Object<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0xEF00000
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>PCIe<span class="w"> </span>s:b:d.f<span class="w">                     </span>:<span class="w"> </span><span class="m">0000</span>:15:00.0
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>Vendor<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0x8086
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>Device<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0xBCCE
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>SubVendor<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x8086
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>SubDevice<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x17D4
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>Socket<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0x00
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>Ports<span class="w"> </span>Num<span class="w">                        </span>:<span class="w"> </span><span class="m">01</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>**Bitstream<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span><span class="m">360572752842090923</span>**
+<a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>Bitstream<span class="w"> </span>Version<span class="w">                </span>:<span class="w"> </span><span class="m">5</span>.0.1
+<a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>**Pr<span class="w"> </span>Interface<span class="w"> </span>Id<span class="w">                  </span>:<span class="w"> </span>c2dac77b-757c-5e27-a566-aad3ffba2f4e**
+<a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>Boot<span class="w"> </span>Page<span class="w">                        </span>:<span class="w"> </span>user1
+<a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>User1<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">                 </span>:<span class="w"> </span>9e3db8b6a4d25a4e3e46f2088b495899
+<a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>User2<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">                 </span>:<span class="w"> </span>None
+<a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>Factory<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">               </span>:<span class="w"> </span>None
+</code></pre></div>
+<p>To load a new update image, you need to pass the IPU's PCIe BDF and the file name to <code>fpgasupdate</code> on the SoC. The below example will update the <strong>user1</strong> image in flash:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$<span class="w"> </span>fpgasupdate<span class="w"> </span>ofs_top_page1_unsigned_user1.bin<span class="w"> </span><span class="m">15</span>:00.0
+</code></pre></div>
+<p>After loading an update image, <code>rsu fpga/bmc/bmcimg</code> can be used to reload the firmware and apply the change, as discussed below. An <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> will always cause a reload of both the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> and FPGA images.</p>
+<h3 id="33-loading-images-with-rsu">3.3 Loading images with <code>rsu</code><a class="headerlink" href="#33-loading-images-with-rsu" title="Permanent link">&para;</a></h3>
+<p><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> performs a Remote System Update operation on an IPU Platform F2000X-PL, given its PCIe address. An <code>rsu</code> operation sends an instruction to the device to trigger a power cycle of the card only if run with <code>bmcimg</code>. <code>rsu</code> will force reconfiguration from flash for either the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> or FPGA. PCIe Advanced Error Reporting (<abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr>) is temporarily disabled for the card when <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> is in progress</p>
+<p>The IPU Platform F2000X-PL contains two regions of flash you may store <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> images. These locations are referred to as <strong>user1</strong> and <strong>user2</strong>. After an image has been programmed to either of these regions in flash using fpgasupdate, you may perform an <code>rsu</code> to reconfigure the Agilex 7 FPGA with the new image stored in flash. This operation will indicate to the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> which region to configure the FPGA device from after power-on.</p>
+<p>If the factory image has been updated, Intel strongly recommends you immediately <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> to the factory image to ensure the image is functional.</p>
+<p>You can determine which region of flash was used to configure their FPGA device using the command <code>fpgainfo fme</code> and looking at the row labelled <strong>Boot Page</strong>.</p>
+<p>When loading a new FPGA SR image, use the command <code>rsu fpga</code>. When loading a new <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> image, use the command <code>rsu bmc</code>. When using the <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> command, you may select which image will be configured to the selected device. For example, when performing an <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> for the Intel Agilex 7 FPGA, you may select to configure the <strong>user1</strong>, <strong>user2</strong>, or <strong>factory</strong> image. When performing an <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> for the C10 <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>, you may select to configure the user or factory image. You may also use <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> to reconfigure the SDM on devices that support it. The <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> command sends an instruction to the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> to reconfigure the selected device from an image stored in flash.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>rsu<span class="w"> </span>fpga<span class="w"> </span>--page<span class="o">=</span>user1<span class="w"> </span><span class="m">15</span>:00.0
+</code></pre></div>
+<p>Useage:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>rsu<span class="w"> </span>bmc<span class="w"> </span>--page<span class="o">=(</span>user<span class="p">|</span>factory<span class="o">)</span><span class="w"> </span><span class="o">[</span>PCIE_ADDR<span class="o">]</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>rsu<span class="w"> </span>fpga<span class="w"> </span>--page<span class="o">=(</span>user1<span class="p">|</span>user2<span class="p">|</span>factory<span class="o">)</span><span class="w"> </span><span class="o">[</span>PCIE_ADDR<span class="o">]</span>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>rsu<span class="w"> </span>sdm<span class="w"> </span><span class="o">[</span>PCIE_ADDR<span class="o">]</span>
+</code></pre></div>
+<p>You can use <abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr> to change which page in memory the FPGA will boot from by default.</p>
+<p>Synopsis:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>rsu<span class="w"> </span>fpgadefault<span class="w"> </span>--page<span class="o">=(</span>user1<span class="p">|</span>user2<span class="p">|</span>factory<span class="o">)</span><span class="w"> </span>--fallback<span class="o">=</span>&lt;csv&gt;<span class="w"> </span><span class="m">15</span>:00.0
+</code></pre></div>
+<p>Use to set the default FPGA boot sequence. The <code>--page</code> option determines the primary FPGA boot image. The <code>--fallback</code> option allows a comma-separated list of values to specify fallback images.</p>
+<h3 id="34-updating-the-icx-d-soc-bios">3.4 Updating the ICX-D SoC BIOS<a class="headerlink" href="#34-updating-the-icx-d-soc-bios" title="Permanent link">&para;</a></h3>
+<p>The ICX-D SoC NVMe comes pre-programmed with BIOS v7 (0ACRH007). This version will need to be replaced with 0ACRH608_REL. BIOS update files come in the form 0ACRH\&lt;\&lt;version>>.bin, and can be downloaded on <a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a>. This update process is in-band, and requires you to download and install a BIOS UEFI utility from AMI called "APTIO V AMI Firmware Update Utility", available <a href="https://www.ami.com/bios-uefi-utilities/#aptiov">here</a>. This package will install a utility in the UEFI shell called AfuEfix64.efi which will be used to overwrite the ICX-D BIOS.</p>
+<ol>
+<li>
+<p>Check your BIOS Version. Reboot the SoC and wait for the BIOS version to be shown. In this example, the BIOS will need to be updated.</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/bios_setup_splash.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/bios_setup_splash.PNG" /></a></p>
+</li>
+<li>
+<p>Download both the ICX-D SoC Update image and <a href="https://www.ami.com/bios-uefi-utilities/#aptiov">APTIO V AMI Firmware Update Utility</a>. Unzip the BIOS update image and locate your BIOS update binary. Unzip Aptio_V_AMI_Firmware_Update_Utility.zip, and then navigate to Aptio_V_AMI_Firmware_Update_Utility\afu\afuefi\64 and unzip AfuEfi64.zip. The file we need from this package is called AfuEfix64.efi.</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/ami_webpage.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/ami_webpage.png" /></a></p>
+</li>
+<li>
+<p>Copy both files over to the SoC into /boot/EFI using the SoC's IP.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>$<span class="w"> </span>scp<span class="w"> </span>0ACRH608_REL.BIN<span class="w"> </span>root@XX.XX.XX.XX:/boot/EFI
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>$<span class="w"> </span>scp<span class="w"> </span>AfuEfix64.efi<span class="w"> </span>root@XX.XX.XX.XX:/boot/EFI
+</code></pre></div>
+</li>
+<li>
+<p>Reboot the SoC from a TTY Serial terminal. Watch your screen and press 'ESC' key to go into BIOS setup mode. Select 'Built-in EFI Shell'.</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/uefi_builtin_shell.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/uefi_builtin_shell.png" /></a></p>
+</li>
+<li>
+<p>At EFI prompt enter the following:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Shell&gt;<span class="w"> </span>FS0:
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>FS0:&gt;<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>EFI
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>FS0:<span class="se">\E</span>FI<span class="se">\&gt;</span><span class="w"> </span>AfuEfix64.efi<span class="w"> </span>0ACRH608_REL.BIN<span class="w"> </span>/p<span class="w"> </span>/n<span class="w"> </span>/b
+</code></pre></div>
+<p>Press 'E'. When the update has completed type 'reset -w' to reboot.</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/afutool.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/afutool.png" /></a></p>
+</li>
+<li>
+<p>Watch your screen and press 'ESC' key to go into BIOS setup mode. Verify BIOS version matches expectation.</p>
+<p><a href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/correctbios_Version.png"></a></p>
+</li>
+<li>
+<p>Click the right arrow key six times to move from 'Main' set up menu to 'Boot' setup. Select NVMe as the primary boot source.</p>
+<p><a href="/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/post_bios_update_nvme.png"></a></p>
+</li>
+</ol>
+<h2 id="40-compiling-a-custom-yocto-soc-image">4.0 Compiling a Custom Yocto SoC Image<a class="headerlink" href="#40-compiling-a-custom-yocto-soc-image" title="Permanent link">&para;</a></h2>
+<p>Custom Yocto image compilation steps are shown in the <a href="https://ofs.github.io/ofs-2024.1-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach">Software Installation Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 SoC Attach FPGAs</a>.</p>
+<h2 id="50-verifying-the-icx-d-soc-opae-sdk">5.0 Verifying the ICX-D SoC <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr><a class="headerlink" href="#50-verifying-the-icx-d-soc-opae-sdk" title="Permanent link">&para;</a></h2>
+<p>The reference SoC Attach <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> and unaltered <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc. Full supported functionality of the HEMs is documented in the <a href="https://opae.github.io/latest/docs/fpga_tools/host_exerciser/host_exerciser.html">host_exerciser</a> opae.io GitHub page. SoC Attach supports HEMs run both with and without an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> image programmed into the board's one supported <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region. This image is available on the offial <a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">SoC Attach GitHub Page</a>, and is programmed using <code>fpgasupdate</code> as shown in section 3.2. A few select examples run from the SoC and their expected results will be shown below.</p>
+<h3 id="51-checking-telemetry-with-fpgainfo">5.1 Checking Telemetry with <code>fpgainfo</code><a class="headerlink" href="#51-checking-telemetry-with-fpgainfo" title="Permanent link">&para;</a></h3>
+<p>The <code>fpgainfo</code> utility displays FPGA information derived from sysfs files.</p>
+<p>The command argument is one of the following: <code>errors</code>, <code>power</code>, <code>temp</code>, <code>port</code>, <code>fme</code>, <code>bmc</code>, <code>phy</code>, <code>mac</code>, and <code>security</code>. Some commands may also have other arguments or options that control their behavior.</p>
+<p>For systems with multiple FPGA devices, you can specify the BDF to limit the output to the FPGA resource with the corresponding PCIe configuration. If not specified, information displays for all resources for the given command.</p>
+<p>An example output for <code>fpgainfo fme</code> is shown below. Your IDs may not match what is shown here:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>fme
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Intel<span class="w"> </span>IPU<span class="w"> </span>Platform<span class="w"> </span>F2000X-PL
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>NIOS<span class="w"> </span>FW<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>.1.9
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>Board<span class="w"> </span>Management<span class="w"> </span>Controller<span class="w"> </span>Build<span class="w"> </span>version:<span class="w"> </span><span class="m">1</span>.1.9
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>//******<span class="w"> </span>FME<span class="w"> </span>******//
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>Object<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0xEF00000
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>PCIe<span class="w"> </span>s:b:d.f<span class="w">                     </span>:<span class="w"> </span><span class="m">0000</span>:15:00.0
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>Vendor<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0x8086
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>Device<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0xBCCE
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>SubVendor<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x8086
+<a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>SubDevice<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x17D4
+<a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>Socket<span class="w"> </span>Id<span class="w">                        </span>:<span class="w"> </span>0x00
+<a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>Ports<span class="w"> </span>Num<span class="w">                        </span>:<span class="w"> </span><span class="m">01</span>
+<a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>Bitstream<span class="w"> </span>Id<span class="w">                     </span>:<span class="w"> </span>0x50103023DFBFC8E
+<a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>Bitstream<span class="w"> </span>Version<span class="w">                </span>:<span class="w"> </span><span class="m">5</span>.0.1
+<a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>Pr<span class="w"> </span>Interface<span class="w"> </span>Id<span class="w">                  </span>:<span class="w"> </span>bf74e494-ad12-5509-98ab-4105d27979f3
+<a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>Boot<span class="w"> </span>Page<span class="w">                        </span>:<span class="w"> </span>user1
+<a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>User1<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">                 </span>:<span class="w"> </span>98ab4105d27979f3bf74e494ad125509
+<a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>User2<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">                 </span>:<span class="w"> </span>None
+<a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>Factory<span class="w"> </span>Image<span class="w"> </span>Info<span class="w">               </span>:<span class="w"> </span>None
+</code></pre></div>
+<h3 id="52-host-exercisers">5.2 Host Exercisers<a class="headerlink" href="#52-host-exercisers" title="Permanent link">&para;</a></h3>
+<p>Of these five tests listed below, the first three do not require an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> be loaded into the board's <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region. They exercise data paths that pass exclusively through the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>. The latter three tests exercise data through the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> data path, and require <a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">SoC Attach release <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Image</a> to be configured using <code>fpgasupdate</code>.</p>
+<ul>
+<li>Run HE-MEM with 2 cachelines per request in <code>mem</code> mode, exercising the FPGA's connection to DDR. No <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> required.<p><strong>Note</strong>: If you see the error message <code>Allocate SRC Buffer, Test mem(1): FAIL</code>, then you may need to manually allocate 2MiB Hugepages using the following: <code>echo 20 &gt; /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages</code></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Create VF device</span>
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>$<span class="w"> </span>pci_device<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;00.0<span class="w"> </span>vf<span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="c1"># Bind VF0 to vfio-pci</span>
+<a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>$<span class="w"> </span>opaei.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.1<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+<a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># Check for HE-MEM Accelerator GUID 8568ab4e-6ba5-4616-bb65-2a578330a8eb</span>
+<a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>port<span class="w"> </span>-B<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.0
+<a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="c1"># Run desired HE-MEM test(s)</span>
+<a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>$<span class="w"> </span>host_exerciser<span class="w"> </span>--cls<span class="w"> </span>cl_1<span class="w"> </span>--mode<span class="w"> </span>lpbk<span class="w"> </span>mem
+<a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>starting<span class="w"> </span><span class="nb">test</span><span class="w"> </span>run,<span class="w"> </span>count<span class="w"> </span>of<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>API<span class="w"> </span>version:<span class="w"> </span><span class="m">2</span>
+<a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>AFU<span class="w"> </span>clock:<span class="w"> </span><span class="m">470</span><span class="w"> </span>MHz
+<a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>Allocate<span class="w"> </span>SRC<span class="w"> </span>Buffer
+<a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>Allocate<span class="w"> </span>DST<span class="w"> </span>Buffer
+<a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>Allocate<span class="w"> </span>DSM<span class="w"> </span>Buffer
+<a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a><span class="w">    </span>Host<span class="w"> </span>Exerciser<span class="w"> </span>Performance<span class="w"> </span>Counter:
+<a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a><span class="w">    </span>Host<span class="w"> </span>Exerciser<span class="w"> </span>numReads:<span class="w"> </span><span class="m">1024</span>
+<a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a><span class="w">    </span>Host<span class="w"> </span>Exerciser<span class="w"> </span>numWrites:<span class="w"> </span><span class="m">1025</span>
+<a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a><span class="w">    </span>Host<span class="w"> </span>Exerciser<span class="w"> </span>numPendReads:<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a><span class="w">    </span>Host<span class="w"> </span>Exerciser<span class="w"> </span>numPendWrites:<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a><span class="w">    </span>Host<span class="w"> </span>Exerciser<span class="w"> </span>numPendEmifReads:<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a><span class="w">    </span>Host<span class="w"> </span>Exerciser<span class="w"> </span>numPendEmifWrites:<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a><span class="w">    </span>Number<span class="w"> </span>of<span class="w"> </span>clocks:<span class="w"> </span><span class="m">9948</span>
+<a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a><span class="w">    </span>Total<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>Reads<span class="w"> </span>sent:<span class="w"> </span><span class="m">1024</span>
+<a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a><span class="w">    </span>Total<span class="w"> </span>number<span class="w"> </span>of<span class="w"> </span>Writes<span class="w"> </span>sent:<span class="w"> </span><span class="m">1024</span>
+<a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a><span class="w">    </span>Bandwidth:<span class="w"> </span><span class="m">3</span>.096<span class="w"> </span>GB/s
+<a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a><span class="w">    </span>Test<span class="w"> </span>mem<span class="o">(</span><span class="m">1</span><span class="o">)</span>:<span class="w"> </span>PASS
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>Generate traffic with HE-HSSI. No <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> required.<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1"># Create VF device</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>$<span class="w"> </span>pci_device<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;00.0<span class="w"> </span>vf<span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="c1"># Bind VF2 to vfio-pci</span>
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>$<span class="w"> </span>opaei.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.2<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="c1"># Check for HE-HSSI Accelerator GUID 823c334c-98bf-11ea-bb37-0242ac130002</span>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>port<span class="w"> </span>-B<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.0
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="c1"># Show number of configured ports</span>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>phy<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>Port
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="c1"># Generate traffic for specific port number</span>
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>$<span class="w"> </span>hssi<span class="w"> </span>--pci-address<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.2<span class="w"> </span>hssi_10g<span class="w"> </span>--num-packets<span class="w"> </span><span class="m">100</span><span class="w"> </span>--port<span class="w"> </span>&lt;port<span class="w"> </span>number&gt;
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>10G<span class="w"> </span>loopback<span class="w"> </span><span class="nb">test</span>
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">  </span>Tx/Rx<span class="w"> </span>port:<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">  </span>Tx<span class="w"> </span>port:<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="w">  </span>Rx<span class="w"> </span>port:<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a><span class="w">  </span>eth_loopback:<span class="w"> </span>on
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a><span class="w">  </span>he_loopback:<span class="w"> </span>none
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="w">  </span>num_packets:<span class="w"> </span><span class="m">100</span>
+<a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a><span class="w">  </span>packet_length:<span class="w"> </span><span class="m">64</span>
+<a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a><span class="w">  </span>src_address:<span class="w"> </span><span class="m">11</span>:22:33:44:55:66
+<a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a><span class="w">    </span><span class="o">(</span>bits<span class="o">)</span>:<span class="w"> </span>0x665544332211
+<a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a><span class="w">  </span>dest_address:<span class="w"> </span><span class="m">77</span>:88:99:aa:bb:cc
+<a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a><span class="w">    </span><span class="o">(</span>bits<span class="o">)</span>:<span class="w"> </span>0xccbbaa998877
+<a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a><span class="w">  </span>random_length:<span class="w"> </span>fixed
+<a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a><span class="w">  </span>random_payload:<span class="w"> </span>incremental
+<a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>...
+</code></pre></div>
+<p>This command will generate a log file in the directory is was run from. Check TxPackets and RxPackets for any loss. Two more supported HSSI commands are <code>hssistats</code>, which provides MAC statistics, and <code>hssimac</code>, which provides maximum TX and RX frame size.</p>
+</li>
+</ul>
+<ul>
+<li>Test memory traffic generation using MEM-TG. This will exercise and test available memory channels with a configurable memory pattern. Does not require an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> image.<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="c1"># Create VF device</span>
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>$<span class="w"> </span>pci_device<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;00.0<span class="w"> </span>vf<span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="c1"># Bind VF2 to vfio-pci</span>
+<a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>$<span class="w"> </span>opaei.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.3<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+<a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="c1"># Check for MEM-TG Accelerator GUID 4dadea34-2c78-48cb-a3dc-5b831f5cecbb</span>
+<a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>port<span class="w"> </span>-B<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.0
+<a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="c1"># Example MEM-TG Test</span>
+<a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>$<span class="w">  </span>mem_tg<span class="w"> </span>--loops<span class="w"> </span><span class="m">500</span><span class="w"> </span>-w<span class="w"> </span><span class="m">1000</span><span class="w"> </span>-r<span class="w"> </span><span class="m">0</span><span class="w"> </span>-b<span class="w"> </span>0x1<span class="w"> </span>--stride<span class="w"> </span>0x1<span class="w"> </span>-m<span class="w"> </span><span class="m">0</span><span class="w"> </span>tg_test
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>HE-LPBK is designed to demo how AFUs move data between host memory and the FPGA. Will check latency, <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> latency, <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> bandwidth, and PCIe bandwidth.  LPBK workload requires the SoC Attach <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> be loaded into the board's <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> slot.<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="c1"># Create VF device</span>
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>$<span class="w"> </span>pci_device<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;00.0<span class="w"> </span>vf<span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="c1"># Bind VF1 to vfio-pci</span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>$<span class="w"> </span>opaei.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.1<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="c1"># Check for LPBK GUID 56e203e9-864f-49a7-b94b-12284c31e02b</span>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>port<span class="w"> </span>-B<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.0
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="c1"># Example loopback test</span>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>$<span class="w">  </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>lpbk<span class="w"> </span>lpbk
+</code></pre></div>
+</li>
+</ul>
+<ul>
+<li>Exercise He-HSSI subsystem from the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>. This test will generate and receieve packets from any of the 8 available ports. This HSSI workload requires the SoC Attach <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> be loaded into the board's <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> slot.<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Create VF device</span>
+<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a>$<span class="w"> </span>pci_device<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;00.0<span class="w"> </span>vf<span class="w"> </span><span class="m">3</span>
+<a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a><span class="c1"># Bind VF6 to vfio-pci</span>
+<a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>$<span class="w"> </span>opaei.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.2<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+<a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a><span class="c1"># Check for HSSI GUID 823c334c-98bf-11ea-bb37-0242ac130002</span>
+<a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>$<span class="w"> </span>fpgainfo<span class="w"> </span>port<span class="w"> </span>-B<span class="w"> </span>&lt;PCIe<span class="w"> </span>Bus&gt;:00.0
+<a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="c1"># Geneate traffic for specific port</span>
+<a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a>$<span class="w">  </span>hssi<span class="w"> </span>--pci-address<span class="w"> </span>&lt;bus_num&gt;:00.6<span class="w"> </span>hssi_10g<span class="w"> </span>--num-packets<span class="w"> </span><span class="m">100</span><span class="w"> </span>--port<span class="w"> </span>&lt;port_num&gt;
+</code></pre></div>
+<p>This command will generate a log file in the directory is was run from. Check TxPackets and RxPackets for any loss. Two more supported HSSI commands are <code>hssistats</code>, which provides MAC statistics, and <code>hssimac</code>, which provides maximum TX and RX frame size.</p>
+</li>
+</ul>
+<h3 id="53-additional-opae-sdk-utilities">5.3 Additional <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> Utilities<a class="headerlink" href="#53-additional-opae-sdk-utilities" title="Permanent link">&para;</a></h3>
+<p>This section will discuss <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> utilities that were not covered by previous sections. These commands are all available on the ICX-D SoC Yocto image by default. A full description and syntax breakdown for each command is located on the official <a href="https://opae.github.io/latest/"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></a> github.io repo.</p>
+<h4 id="table-5-opae-sdk-utilities">Table 5: <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> Utilities<a class="headerlink" href="#table-5-opae-sdk-utilities" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Utility</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fpgasupdate</td>
+<td><a href="#32-updating-fim,-bmc-and-afu-with-fpgasupdate">3.2 Updating <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> and <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> with <code>fpgasupdate</code></a></td>
+</tr>
+<tr>
+<td>rsu</td>
+<td><a href="#33-loading-images-with-rsu">Section 3.3 Loading images with <code>rsu</code></a></td>
+</tr>
+<tr>
+<td>host_exerciser</td>
+<td><a href="#52-host-exercisers">Section 5.2 Host Exercisers</a></td>
+</tr>
+<tr>
+<td>hssi</td>
+<td><a href="#52-host-exercisers">Section 5.2 Host Exercisers</a></td>
+</tr>
+<tr>
+<td>hssistats</td>
+<td><a href="#52-host-exercisers">Section 5.2 Host Exercisers</a></td>
+</tr>
+<tr>
+<td>hssimac</td>
+<td><a href="#52-host-exercisers">Section 5.2 Host Exercisers</a></td>
+</tr>
+<tr>
+<td>mem_tg</td>
+<td><a href="#52-host-exercisers">Section 5.2 Host Exercisers</a></td>
+</tr>
+<tr>
+<td><strong>usrclk</strong></td>
+<td><code>userclk</code> tool is used to set high and low clock frequency to an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>.</td>
+</tr>
+<tr>
+<td><strong>mmlink</strong></td>
+<td>Remote signaltap is software tool used for debug RTL (<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>), effectively a signal trace capability that Quartus places into a green bitstream. Remote Signal Tap provides access the RST part of the Port <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> space, and then runs the remote protocol on top.</td>
+</tr>
+<tr>
+<td><strong>opaevfio</strong></td>
+<td>The <code>opaevfio</code> command enables the binding/unbinding of a PCIe device to/from the vfio-pci device driver. See https://kernel.org/doc/Documentation/vfio.txt for a description of vfio-pci.</td>
+</tr>
+<tr>
+<td><strong>opae.io</strong></td>
+<td>An interactive Python environment packaged on top of libopaevfio.so, which provides user space access to PCIe devices via the vfio-pci driver. The main feature of opae.io is its built-in Python command interpreter, along with some Python bindings that provide a means to access Configuration and Status Registers (CSRs) that reside on the PCIe device.</td>
+</tr>
+<tr>
+<td><strong>bitstreaminfo</strong></td>
+<td>Prints bitstream metadata.</td>
+</tr>
+<tr>
+<td><strong>fpgaconf</strong></td>
+<td>Lower level programming utility that is called automatically by <code>fpgasupdate</code>. <code>fpgaconf</code> writes accelerator configuration bitstreams (also referred to as "green bitstreams") to an FPGA device recognized by OPAE. In the process, it also checks the green bitstream file for compatibility with the targeted FPGA and its current infrastructure bitstream (the "blue bistream").</td>
+</tr>
+<tr>
+<td><strong>fpgad</strong></td>
+<td>Periodically monitors/reports the error status reflected in the device driver's error status sysfs files. Establishes the channel by which events are communicated to the OPAE application. Programs a NULL bitstream in response to AP6 event. <code>fpgad</code> is required to be running before API calls fpgaRegisterEvent and fpgaUnregisterEvent will succeed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="60-setting-up-the-host">6.0 Setting up the Host<a class="headerlink" href="#60-setting-up-the-host" title="Permanent link">&para;</a></h2>
+<p>The steps to set up the host and build and install the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> are shown in the <a href="https://ofs.github.io/ofs-2024.1-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach">Software Installation Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 SoC Attach FPGAs</a>.</p>
+<h3 id="61-verifying-the-soc-attach-solution-on-the-host">6.1 Verifying the SoC Attach Solution on the Host<a class="headerlink" href="#61-verifying-the-soc-attach-solution-on-the-host" title="Permanent link">&para;</a></h3>
+<p>The SoC Attach workload supports testing <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> HW and Latency and PCIe BW and latency out of box. Execution of the <code>host_exerciser</code> binary on the host requires the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> to be installed as shown in section <a href="#61-installing-the-opae-sdk-on-the-host">6.1 Installing the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> On the Host</a>. You will also need to have a proper SoC Attach <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> configured on your board as shown in section <a href="#32-updating-fim-bmc-and-afu-with-fpgasupdate">3.2 Updating <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> and <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> with <code>fpgasupdate</code></a>.</p>
+<ol>
+<li>
+<p>Initialize PF attached to HSSI LPBK GUID with <em>vfio-pci</em> driver.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>opae.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span><span class="m">0000</span>:b1:00.0<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>opae.io<span class="w"> </span>init<span class="w"> </span>-d<span class="w"> </span><span class="m">0000</span>:b1:00.1<span class="w"> </span>&lt;username&gt;:&lt;username&gt;
+</code></pre></div>
+</li>
+<li>
+<p>Run <code>host_exerciser</code> loopback tests (only <em>lpbk</em> is supported). There are more methods of operation than are shown below - read the HE help message for more information.</p>
+</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Example lpbk tests.</span>
+<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>lpbk
+<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>lpbk<span class="w"> </span>lpbk
+<a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w">  </span>lpbk
+<a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w">  </span>lpbk
+<a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="c1"># Number of cachelines per request 4.</span>
+<a id="__codelineno-22-7" name="__codelineno-22-7" href="#__codelineno-22-7"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>lpbk<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-22-8" name="__codelineno-22-8" href="#__codelineno-22-8"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span>lpbk<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-22-9" name="__codelineno-22-9" href="#__codelineno-22-9"></a><span class="c1"># vNumber of cachelines per request 4.</span>
+<a id="__codelineno-22-10" name="__codelineno-22-10" href="#__codelineno-22-10"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-22-11" name="__codelineno-22-11" href="#__codelineno-22-11"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-22-12" name="__codelineno-22-12" href="#__codelineno-22-12"></a><span class="c1"># Number of cachelines per request 4.</span>
+<a id="__codelineno-22-13" name="__codelineno-22-13" href="#__codelineno-22-13"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>write<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-22-14" name="__codelineno-22-14" href="#__codelineno-22-14"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span>write<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-22-15" name="__codelineno-22-15" href="#__codelineno-22-15"></a><span class="c1"># Number of cachelines per request 4.</span>
+<a id="__codelineno-22-16" name="__codelineno-22-16" href="#__codelineno-22-16"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>trput<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-22-17" name="__codelineno-22-17" href="#__codelineno-22-17"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span>trput<span class="w"> </span>--cls<span class="w"> </span>cl_4<span class="w"> </span>lpbk
+<a id="__codelineno-22-18" name="__codelineno-22-18" href="#__codelineno-22-18"></a><span class="c1"># Enable interleave requests in throughput mode</span>
+<a id="__codelineno-22-19" name="__codelineno-22-19" href="#__codelineno-22-19"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>trput<span class="w"> </span>--interleave<span class="w"> </span><span class="m">2</span><span class="w"> </span>lpbk
+<a id="__codelineno-22-20" name="__codelineno-22-20" href="#__codelineno-22-20"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--perf<span class="w"> </span><span class="nb">true</span><span class="w"> </span>--mode<span class="w"> </span>trput<span class="w"> </span>--interleave<span class="w"> </span><span class="m">2</span><span class="w"> </span>lpbk
+<a id="__codelineno-22-21" name="__codelineno-22-21" href="#__codelineno-22-21"></a><span class="c1">#with delay option.</span>
+<a id="__codelineno-22-22" name="__codelineno-22-22" href="#__codelineno-22-22"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span><span class="nb">read</span><span class="w"> </span>--delay<span class="w"> </span><span class="nb">true</span><span class="w"> </span>lpbk
+<a id="__codelineno-22-23" name="__codelineno-22-23" href="#__codelineno-22-23"></a>$<span class="w"> </span>sudo<span class="w"> </span>host_exerciser<span class="w"> </span>--mode<span class="w"> </span>write<span class="w"> </span>--delay<span class="w"> </span><span class="nb">true</span><span class="w"> </span>lpbk
+<a id="__codelineno-22-24" name="__codelineno-22-24" href="#__codelineno-22-24"></a><span class="c1"># Test all modes of operation</span>
+<a id="__codelineno-22-25" name="__codelineno-22-25" href="#__codelineno-22-25"></a>$<span class="w"> </span>host_exerciser<span class="w"> </span>--testall<span class="o">=</span><span class="nb">true</span><span class="w"> </span>lpbk
+</code></pre></div>
+<h3 id="62-fpga-device-access-permissions">6.2 FPGA Device Access Permissions<a class="headerlink" href="#62-fpga-device-access-permissions" title="Permanent link">&para;</a></h3>
+<p>Access to FPGA accelerators and devices is controlled using file access permissions on the Intel® FPGA device files, /dev/dfl-fme.* and /dev/dfl-port.*, as well as to the files reachable through /sys/class/fpga_region/.</p>
+<p>In order to allow regular (non-root) users to access accelerators, you need to grant them read and write permissions on /dev/dfl-port.* (with * denoting the respective socket, i.e. 0 or 1). E.g.:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>sudo<span class="w"> </span>chmod<span class="w"> </span>a+rw<span class="w"> </span>/dev/dfl-port.0
+</code></pre></div>
+<h3 id="63-memlock-limit">6.3 Memlock limit<a class="headerlink" href="#63-memlock-limit" title="Permanent link">&para;</a></h3>
+<p>Depending on the requirements of your application, you may also want to increase the maximum amount of memory a user process is allowed to lock. The exact way to do this depends on your Linux distribution.</p>
+<p>You can check the current memlock limit using</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="nb">ulimit</span><span class="w"> </span>-l
+</code></pre></div>
+<p>A way to permanently remove the limit for locked memory for a regular user is to add the following lines to your /etc/security/limits.conf:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>user1<span class="w">    </span>hard<span class="w">   </span>memlock<span class="w">           </span>unlimited
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>user1<span class="w">    </span>soft<span class="w">   </span>memlock<span class="w">           </span>unlimited
+</code></pre></div>
+<p>This removes the limit on locked memory for user user1. To remove it for all users, you can replace user1 with *:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>*<span class="w">    </span>hard<span class="w">   </span>memlock<span class="w">           </span>unlimited
+<a id="__codelineno-26-2" name="__codelineno-26-2" href="#__codelineno-26-2"></a>*<span class="w">    </span>soft<span class="w">   </span>memlock<span class="w">           </span>unlimited
+</code></pre></div>
+<p>Note that settings in the /etc/security/limits.conf file don't apply to services. To increase the locked memory limit for a service you need to modify the application's systemd service file and add the line:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="o">[</span>Service<span class="o">]</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="nv">LimitMEMLOCK</span><span class="o">=</span>infinity
+</code></pre></div>
+<h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
+<p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
+<p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
+<!-- include ./docs/hw/doc_modules/links.md -->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>

@@ -1,16 +1,3185 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <title>Redirecting</title>
-  <noscript>
-    <meta http-equiv="refresh" content="1; url=../../../../../../ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation/" />
-  </noscript>
-  <script>
-    window.location.replace("../../../../../../ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation/" + window.location.hash);
-  </script>
-</head>
-<body>
-  Redirecting to <a href="../../../../../../ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation/">../../../../../../ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation/</a>...
-</body>
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../../doc_modules/contents_agx7_soc_attach/">
+      
+      
+        <link rel="next" href="../../../sw_installation/soc_attach/sw_install_soc_attach/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>Board Installation Guide (Intel® IPU Platform F2000X-PL) - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#board-installation-guidelines-ipu-platform-f2000x-pl" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Board Installation Guide (Intel® IPU Platform F2000X-PL)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_s10_pcie_attach/" class="md-tabs__link">
+        Stratix® 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_agx7_pcie_attach/" class="md-tabs__link">
+        Agilex® 7 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_agx7_soc_attach/" class="md-tabs__link md-tabs__link--active">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix® 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix® 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_s10_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/adp_board_installation_guidelines/" class="md-nav__link">
+        Board Installation Guide (Intel® FPGA PAC D5005)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex® 7 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex® 7 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_agx7_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Board Installation Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Board Installation Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/adp_board_installation_guidelines/" class="md-nav__link">
+        Intel® FPGA SmartNIC N6000/1-PL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../devkit_board_installation/devkit_board_installation_guidelines/" class="md-nav__link">
+        Agilex® 7 FPGA I-Series and F-Series Development Kits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Getting Started Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA F-Series Development Kit (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        OFS for Intel® FPGA SmartNIC N6001-PL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+          Shell Developer Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Shell Developer Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach I-Series (2xR-Tile, F-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach F-Series (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        PCIe Attach F-Series (P-Tile/E-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_10">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_11">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_agx7_soc_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Board Installation Guide (Intel® IPU Platform F2000X-PL)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Board Installation Guide (Intel® IPU Platform F2000X-PL)
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-about-this-document" class="md-nav__link">
+    1.0 About this Document
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 About this Document">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-audience" class="md-nav__link">
+    1.1 Audience
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Audience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-1-terminology" class="md-nav__link">
+    Table 1: Terminology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-2-related-documentation" class="md-nav__link">
+    Table 2: Related Documentation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-server-requirements" class="md-nav__link">
+    1.2 Server Requirements
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Server Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-host-server-specifications" class="md-nav__link">
+    1.2.1 Host Server Specifications
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-host-bios" class="md-nav__link">
+    1.2.2 Host BIOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-host-server-kernel-and-grub-configuration" class="md-nav__link">
+    1.2.3 Host Server Kernel and GRUB Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-server-forced-air-cooling" class="md-nav__link">
+    1.3 Server Forced Air Cooling
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Server Forced Air Cooling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-5-thermal-terms-and-descriptions" class="md-nav__link">
+    Table 5: Thermal Terms and Descriptions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-external-connections" class="md-nav__link">
+    1.4 External Connections
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 External Connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-1-external-connections" class="md-nav__link">
+    Figure 1: External Connections
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-6-external-connection-cables" class="md-nav__link">
+    Table 6: External Connection Cables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-preparing-the-ipu-platform-f2000x-pl-for-installation" class="md-nav__link">
+    1.5 Preparing the IPU Platform F2000X-PL for Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 Preparing the IPU Platform F2000X-PL for Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-7-switch-settings" class="md-nav__link">
+    Table 7: Switch Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-2-board-switch-settings" class="md-nav__link">
+    Figure 2: Board Switch Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#151-usb-to-serial-adapter" class="md-nav__link">
+    1.5.1 USB to Serial Adapter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-3-cable-routing" class="md-nav__link">
+    Figure 3: Cable Routing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-4-usb-to-serial-adapter-connection" class="md-nav__link">
+    Figure 4: USB to Serial Adapter connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-ipu-jtag" class="md-nav__link">
+    1.5.2 IPU JTAG
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-5-usb-blaster-ii-connection" class="md-nav__link">
+    Figure 5: USB Blaster II Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-6-usb-blaster-ii-installation" class="md-nav__link">
+    Figure 6: USB Blaster II Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-power" class="md-nav__link">
+    1.5.3 Power
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-7-12v-pcie-aux-connector-location" class="md-nav__link">
+    Figure 7: 12V PCIe AUX Connector Location
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-8-12v-2x3-aux-connector-pin-out" class="md-nav__link">
+    Table 8: 12V (2x3) AUX Connector Pin Out
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-8-auxiliary-power-connection" class="md-nav__link">
+    Figure 8: Auxiliary Power Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-usb-hub-connection" class="md-nav__link">
+    1.5.4 USB Hub Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-9-usb-hub-connection" class="md-nav__link">
+    Figure 9: USB Hub Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-creating-a-bootable-usb-flash-drive-for-the-soc" class="md-nav__link">
+    1.5.5 Creating a Bootable USB Flash Drive for the SoC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        oneAPI ASP Getting Started User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide OFS for PCIe Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide OFS for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+          OPAE FPGA Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-about-this-document" class="md-nav__link">
+    1.0 About this Document
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 About this Document">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-audience" class="md-nav__link">
+    1.1 Audience
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Audience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-1-terminology" class="md-nav__link">
+    Table 1: Terminology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-2-related-documentation" class="md-nav__link">
+    Table 2: Related Documentation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-server-requirements" class="md-nav__link">
+    1.2 Server Requirements
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Server Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-host-server-specifications" class="md-nav__link">
+    1.2.1 Host Server Specifications
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-host-bios" class="md-nav__link">
+    1.2.2 Host BIOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#123-host-server-kernel-and-grub-configuration" class="md-nav__link">
+    1.2.3 Host Server Kernel and GRUB Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-server-forced-air-cooling" class="md-nav__link">
+    1.3 Server Forced Air Cooling
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Server Forced Air Cooling">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-5-thermal-terms-and-descriptions" class="md-nav__link">
+    Table 5: Thermal Terms and Descriptions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#14-external-connections" class="md-nav__link">
+    1.4 External Connections
+  </a>
+  
+    <nav class="md-nav" aria-label="1.4 External Connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#figure-1-external-connections" class="md-nav__link">
+    Figure 1: External Connections
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-6-external-connection-cables" class="md-nav__link">
+    Table 6: External Connection Cables
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#15-preparing-the-ipu-platform-f2000x-pl-for-installation" class="md-nav__link">
+    1.5 Preparing the IPU Platform F2000X-PL for Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="1.5 Preparing the IPU Platform F2000X-PL for Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-7-switch-settings" class="md-nav__link">
+    Table 7: Switch Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-2-board-switch-settings" class="md-nav__link">
+    Figure 2: Board Switch Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#151-usb-to-serial-adapter" class="md-nav__link">
+    1.5.1 USB to Serial Adapter
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-3-cable-routing" class="md-nav__link">
+    Figure 3: Cable Routing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-4-usb-to-serial-adapter-connection" class="md-nav__link">
+    Figure 4: USB to Serial Adapter connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#152-ipu-jtag" class="md-nav__link">
+    1.5.2 IPU JTAG
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-5-usb-blaster-ii-connection" class="md-nav__link">
+    Figure 5: USB Blaster II Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-6-usb-blaster-ii-installation" class="md-nav__link">
+    Figure 6: USB Blaster II Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#153-power" class="md-nav__link">
+    1.5.3 Power
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-7-12v-pcie-aux-connector-location" class="md-nav__link">
+    Figure 7: 12V PCIe AUX Connector Location
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-8-12v-2x3-aux-connector-pin-out" class="md-nav__link">
+    Table 8: 12V (2x3) AUX Connector Pin Out
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-8-auxiliary-power-connection" class="md-nav__link">
+    Figure 8: Auxiliary Power Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#154-usb-hub-connection" class="md-nav__link">
+    1.5.4 USB Hub Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#figure-9-usb-hub-connection" class="md-nav__link">
+    Figure 9: USB Hub Connection
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#155-creating-a-bootable-usb-flash-drive-for-the-soc" class="md-nav__link">
+    1.5.5 Creating a Bootable USB Flash Drive for the SoC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="board-installation-guidelines-ipu-platform-f2000x-pl">Board Installation Guidelines: IPU Platform F2000X-PL<a class="headerlink" href="#board-installation-guidelines-ipu-platform-f2000x-pl" title="Permanent link">&para;</a></h1>
+<p>Last updated: <strong>July 01, 2024</strong> </p>
+<h2 id="10-about-this-document">1.0 About this Document<a class="headerlink" href="#10-about-this-document" title="Permanent link">&para;</a></h2>
+<p>The purpose of this document is to help users prepare their server and install the IPU Platform F2000X-PL. After reviewing this document, a user shall be able to:</p>
+<ul>
+<li>Set up their server environment according to the Best Known Configuration (<abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr>)</li>
+<li>Install an F2000X device into a supported server platform</li>
+<li>Attach all required peripherals</li>
+</ul>
+<h3 id="11-audience">1.1 Audience<a class="headerlink" href="#11-audience" title="Permanent link">&para;</a></h3>
+<p>The information in this document is intended for customers evaluating the IPU Platform F2000X-PL. The card is an acceleration development platform (ADP) intended to be used as a starting point for evaluation and development. This document will cover key topics related to server bring-up and physical platform installation, with links for deeper dives on the topics discussed therein.</p>
+<p><em>Note: Code command blocks are used throughout the document. Comments are preceded with '#'. Full command output may not be shown.</em></p>
+<h4 id="table-1-terminology">Table 1: Terminology<a class="headerlink" href="#table-1-terminology" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
+<td>Advanced Error Reporting, The PCIe <abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr> driver is the extended PCI Express error reporting capability providing more robust error reporting.</td>
+</tr>
+<tr>
+<td><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td>Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside. This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region</td>
+</tr>
+<tr>
+<td><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td>Basic Building Block, Features within an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and host interface requires. All BBBs must have a (globally unique identifier) GUID.</td>
+</tr>
+<tr>
+<td><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
+<td>Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.</td>
+</tr>
+<tr>
+<td><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
+<td>Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> platform. Supports features such as power sequence management and board monitoring through on-board sensors.</td>
+</tr>
+<tr>
+<td>CSR</td>
+<td>Command/status registers (CSR) and software interface, <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> uses a defined set of CSR's to expose the functionality of the FPGA to the host software.</td>
+</tr>
+<tr>
+<td><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>Device Feature List, A concept inherited from <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers provide support for FPGA devices that are designed to support the Device Feature List. The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration.</td>
+</tr>
+<tr>
+<td><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
+</tr>
+<tr>
+<td><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
+<td>FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.</td>
+</tr>
+<tr>
+<td><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
+<td>Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc.</td>
+</tr>
+<tr>
+<td><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
+<td>Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.</td>
+</tr>
+<tr>
+<td><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
+<td>Input/Output Control, System calls used to manipulate underlying device parameters of special files.</td>
+</tr>
+<tr>
+<td><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
+<td>Joint Test Action Group, Refers to the IEEE 1149.1 <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> standard; Another FPGA configuration methodology.</td>
+</tr>
+<tr>
+<td><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td>Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.</td>
+</tr>
+<tr>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td>Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and software developers to optimize and reuse their designs.</td>
+</tr>
+<tr>
+<td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.</td>
+</tr>
+<tr>
+<td><abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr></td>
+<td>Programmable Acceleration Card: FPGA based Accelerator card</td>
+</tr>
+<tr>
+<td><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
+<td>Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
+</tr>
+<tr>
+<td><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
+<td>Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr>, a <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> bitstream refers to an Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>. Refer to <a href="https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html">Partial Reconfiguration</a> support page.</td>
+</tr>
+<tr>
+<td><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
+<td>Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 device that triggers a power cycle of the card only, forcing reconfiguration.</td>
+</tr>
+<tr>
+<td><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
+<td>Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.</td>
+</tr>
+<tr>
+<td><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
+<td>Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.</td>
+</tr>
+<tr>
+<td><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
+<td>Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.</td>
+</tr>
+<tr>
+<td><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
+<td>Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="table-2-related-documentation">Table 2: Related Documentation<a class="headerlink" href="#table-2-related-documentation" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>[Automated Evaluation User Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 SoC Attach FPGAs]</td>
+</tr>
+<tr>
+<td>[Shell Technical Reference Manual: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 SoC Attach FPGAs]</td>
+</tr>
+<tr>
+<td>[Software Reference Manual: Open FPGA Stack]</td>
+</tr>
+<tr>
+<td>[Shell Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 SoC Attach FPGAs]</td>
+</tr>
+<tr>
+<td>[Workload Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 SoC Attach FPGAs]</td>
+</tr>
+<tr>
+<td>[Security User Guide: Open FPGA Stack]</td>
+</tr>
+<tr>
+<td>[KVM User Guide: Open FPGA Stack]</td>
+</tr>
+<tr>
+<td>[Docker User Guide: Open FPGA Stack]</td>
+</tr>
+<tr>
+<td>[<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> 2024.1 F2000X-PL Release Notes] - under "Important Notes"</td>
+</tr>
+<tr>
+<td>Cyclone® 10 LP Board Management Controller (<abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>) User Guide for Intel® IPU F2000X-PL v1.2.4 (Document ID: 789706) <sup><strong>1</strong></sup></td>
+</tr>
+</tbody>
+</table>
+<p><sup><strong>1</strong></sup> Work with your Altera sales representative for access.</p>
+<h3 id="12-server-requirements">1.2 Server Requirements<a class="headerlink" href="#12-server-requirements" title="Permanent link">&para;</a></h3>
+<p>The following requirements must be met when purchasing a server to support the IPU Platform F2000X-PL.</p>
+<h4 id="121-host-server-specifications">1.2.1 Host Server Specifications<a class="headerlink" href="#121-host-server-specifications" title="Permanent link">&para;</a></h4>
+<p>The host server must meet the following minimal specifications:</p>
+<ul>
+<li>The server platform must contain at least 64GiB of RAM to to compile the Yocto or <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> images</li>
+<li>If using the server platform to build a Yocto image, it is recommended to have at least 200 GB of free storage space</li>
+</ul>
+<h4 id="122-host-bios">1.2.2 Host BIOS<a class="headerlink" href="#122-host-bios" title="Permanent link">&para;</a></h4>
+<p>Te Host BIOS settings known to work with the IPU Platform F2000X-PL:</p>
+<ul>
+<li>PCIe slot width must be <strong>x16</strong></li>
+<li>PCIe slot speed must be <strong>4</strong></li>
+<li>PCIe slot must have <strong>iommu</strong> enabled</li>
+<li>Intel VT for Directed I/O (VT-d) must be <strong>enabled</strong></li>
+</ul>
+<p>Specific BIOS paths are not listed here, as they can differ between BIOS vendors and versions.</p>
+<h4 id="123-host-server-kernel-and-grub-configuration">1.2.3 Host Server Kernel and GRUB Configuration<a class="headerlink" href="#123-host-server-kernel-and-grub-configuration" title="Permanent link">&para;</a></h4>
+<p>While many host Linux kernel and OS distributions may work with this design, only the following configuration(s) have been tested:</p>
+<ul>
+<li>Ubuntu 22.04 LTS, 6.1.78-dfl</li>
+</ul>
+<h3 id="13-server-forced-air-cooling">1.3 Server Forced Air Cooling<a class="headerlink" href="#13-server-forced-air-cooling" title="Permanent link">&para;</a></h3>
+<p>The IPU Platform F2000X-PL is a high-performance processing card with a
+passive heat sink to dissipate device heat and must be installed
+in a server with sufficient forced airflow cooling to keep all devices
+operating below maximum temperature. The table below lists the
+thermal terms and descriptions used in thermal analysis.</p>
+<h4 id="table-5-thermal-terms-and-descriptions">Table 5: Thermal Terms and Descriptions<a class="headerlink" href="#table-5-thermal-terms-and-descriptions" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Term</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cubic Feet per Minute (CFM)</td>
+<td>Volumetric airflow rate, in cubic feet per minute, of air passing through faceplate.</td>
+</tr>
+<tr>
+<td>T<sub>j</sub></td>
+<td>FPGA Junction Temperature</td>
+</tr>
+<tr>
+<td>T<sub>LA</sub></td>
+<td>Local Ambient temperature. Temperature of forced air as it enters the IPU Platform F2000X-PL. &nbsp; <strong>Note:</strong> In many systems, this is higher than the room ambient due to  heating effects of chassis components.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> The FPGA junction temperature must not exceed 100°C. The case
+temperature of the QSFP modules must meet the module vendor's
+specification.</p>
+<p><strong>Note:</strong> The table below provides the thermal targets for which the IPU Platform F2000X-PL
+was designed. As a card manufacturer, you must
+qualify your own production cards.</p>
+<p>The maximum card inlet air temperatures must support continuous
+operation under the worst-case power scenario of 150W TDP.</p>
+<p>The airflow requirements for optimal heat sink performance at minimum is
+characteristic of CAT 3 servers or PCIe SIG Level 7 thermal profiles, in
+both, forward &amp; reverse flow, see figure below:</p>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG" /></a>
+<a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png" /></a></p>
+<p>As the IPU Platform F2000X-PL is a development platform, it is not
+integrated into the server baseband management controller closed loop
+cooling control. It is strongly recommended that you set your server's
+fan settings to run constantly at 100% with the server chassis lid closed to prevent unwanted IPU Platform F2000X-PL thermal shutdown.</p>
+<h3 id="14-external-connections">1.4 External Connections<a class="headerlink" href="#14-external-connections" title="Permanent link">&para;</a></h3>
+<h4 id="figure-1-external-connections">Figure 1: External Connections<a class="headerlink" href="#figure-1-external-connections" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/external_connections.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/external_connections.png" /></a></p>
+<p>The items listed Table 6 in are known to work for external connectivity. Specific links are given for convenience, other products may be used but have not been tested.</p>
+<h4 id="table-6-external-connection-cables">Table 6: External Connection Cables<a class="headerlink" href="#table-6-external-connection-cables" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th><strong>Item</strong></th>
+<th><strong>Part Number</strong></th>
+<th><strong>Link to source</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RS-232 to USB Adapter</td>
+<td>DTECH FTDI USB to TTL Serial Adapter, 3 m</td>
+<td><a href="https://www.amazon.com/gp/product/B08BLJ9NFF/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&amp;psc=1">USB to TTL Serial</a></td>
+</tr>
+<tr>
+<td>USB to Ethernet Adapter, Aluminum 3 Port USB 3.0</td>
+<td>Teknet</td>
+<td><a href="https://www.amazon.com/TeckNet-Aluminum-Converter-Ultrabooks-Notebooks/dp/B0178HOTOU/ref=sxin_16_ac_d_mf_brs?ac_md=1-0-VEVDS05FVA%3D%3D-ac_d_mf_brs_brs&amp;content-id=amzn1.sym.37d5b521-1d59-436f-8d1e-f9aa8f2d7ab6%3Aamzn1.sym.37d5b521-1d">USB Hub with Ethernet adapter</a></td>
+</tr>
+<tr>
+<td>Flash Drive, 64 GB or larger</td>
+<td>SanDisk</td>
+<td></td>
+</tr>
+<tr>
+<td>QSFP DAC Cable</td>
+<td> FS.com Generic 2m 100G QSP28 Passive Direct Attach Copper</td>
+<td><a href="https://www.fs.com/products/74661.html?attribute=10134&amp;id=197229">QSFP28 DAC</a></td>
+</tr>
+<tr>
+<td>(optional) Intel FPGA Download Cable II</td>
+<td>PL-USB2-BLASTER</td>
+<td><a href="https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html">USB-Blaster II</a></td>
+</tr>
+</tbody>
+</table>
+<h3 id="15-preparing-the-ipu-platform-f2000x-pl-for-installation">1.5 Preparing the IPU Platform F2000X-PL for Installation<a class="headerlink" href="#15-preparing-the-ipu-platform-f2000x-pl-for-installation" title="Permanent link">&para;</a></h3>
+<p>Turn the board over to back side and remove the Kapton tape covering
+switches <strong>SW2</strong> and <strong>SW3</strong> and make sure the switches are set as shown in
+<em>Figure 1</em>.</p>
+<h4 id="table-7-switch-settings">Table 7: Switch Settings<a class="headerlink" href="#table-7-switch-settings" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SW3.1</td>
+<td>off</td>
+</tr>
+<tr>
+<td>SW3.2</td>
+<td>off</td>
+</tr>
+<tr>
+<td>SW3.2</td>
+<td>on</td>
+</tr>
+<tr>
+<td>SW3.2</td>
+<td>off</td>
+</tr>
+<tr>
+<td>SW2</td>
+<td>off</td>
+</tr>
+</tbody>
+</table>
+<h4 id="figure-2-board-switch-settings">Figure 2: Board Switch Settings<a class="headerlink" href="#figure-2-board-switch-settings" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/images/f2000x_switch_locations.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/images/f2000x_switch_locations.png" /></a></p>
+<h4 id="151-usb-to-serial-adapter">1.5.1 USB to Serial Adapter<a class="headerlink" href="#151-usb-to-serial-adapter" title="Permanent link">&para;</a></h4>
+<p>The IPU Platform F2000X-PL has a serial UART for access located on
+back edge of the board. This connection is useful for making BIOS and
+boot settings and for monitoring the SoC. In most servers, you will need
+to remove a riser card and route the USB to serial cable and (optional) Intel FPGA
+USB Blaster through an unused PCIe slot above or below where the IPU is
+installed. See <em>Figure 3</em> for an example of cable routing.</p>
+<h4 id="figure-3-cable-routing">Figure 3: Cable Routing<a class="headerlink" href="#figure-3-cable-routing" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/cablerouting.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/cablerouting.png" /></a></p>
+<p>The USB to serial connection is shown in <em>Figure 4</em> where the White wire
+is TXD, Black wire is ground and Green wire is RXD.</p>
+<h4 id="figure-4-usb-to-serial-adapter-connection">Figure 4: USB to Serial Adapter connection<a class="headerlink" href="#figure-4-usb-to-serial-adapter-connection" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/serialadapterconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/serialadapterconnection.png" /></a></p>
+<h4 id="152-ipu-jtag">1.5.2 IPU <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr><a class="headerlink" href="#152-ipu-jtag" title="Permanent link">&para;</a></h4>
+<p>The IPU Platform F2000X-PL provides a 10 pin <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> header for FPGA and
+Cyclone 10 Board Management Controller development work using a <a href="https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html">Intel
+FPGA Download Cable
+II</a>.
+This <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> connection is optional for initial bring-up but is useful for manual image reprogramming and debug. See <em>Figure 5</em> noting the orientation of the connection. The
+orientation of the USB Blaster II requires careful installation in a PCIe bay that
+has additional room in the adjacent bay. This may require you to either install the board over the PSU of the server, or to temporarily remove an adjacent
+riser while programming.</p>
+<h4 id="figure-5-usb-blaster-ii-connection">Figure 5: USB Blaster II Connection<a class="headerlink" href="#figure-5-usb-blaster-ii-connection" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/usblasterIIconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/usblasterIIconnection.png" /></a></p>
+<h4 id="figure-6-usb-blaster-ii-installation">Figure 6: USB Blaster II Installation<a class="headerlink" href="#figure-6-usb-blaster-ii-installation" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/blasterinserver.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/blasterinserver.png" /></a></p>
+<h4 id="153-power">1.5.3 Power<a class="headerlink" href="#153-power" title="Permanent link">&para;</a></h4>
+<p>The IPU Platform F2000X-PL must receive power from both the 12 V and 3.3V
+PCIe slot and the 12 V Auxiliary 2×4 power connector. The board does not power up if any of the 12 V and 3.3 V PCIe slot,
+or 12 V Auxiliary power sources are disconnected.</p>
+<p>PCIe specifications define 12 V Auxiliary power connector pin
+assignment. The IPU Platform F2000X-PL implements an 8-position right
+angle (R/A) through-hole PCB header assembly on the top right side of
+the board as depicted in the picture below.</p>
+<h4 id="figure-7-12v-pcie-aux-connector-location">Figure 7: 12V PCIe AUX Connector Location<a class="headerlink" href="#figure-7-12v-pcie-aux-connector-location" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/12vpcieconnector.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/12vpcieconnector.png" /></a></p>
+<p>Refer the table below for pinout details.</p>
+<h4 id="table-8-12v-2x3-aux-connector-pin-out">Table 8: 12V (2x3) AUX Connector Pin Out<a class="headerlink" href="#table-8-12v-2x3-aux-connector-pin-out" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Pin</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>+12V</td>
+</tr>
+<tr>
+<td>2</td>
+<td>+12V</td>
+</tr>
+<tr>
+<td>3</td>
+<td>+12V</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Sense 1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Ground</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Sense 0</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Ground</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Ground</td>
+</tr>
+</tbody>
+</table>
+<p>See Auxiliary power connection in <em>Figure 8</em>.</p>
+<h4 id="figure-8-auxiliary-power-connection">Figure 8: Auxiliary Power Connection<a class="headerlink" href="#figure-8-auxiliary-power-connection" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/auxpowerconnector.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/auxpowerconnector.png" /></a></p>
+<h4 id="154-usb-hub-connection">1.5.4 USB Hub Connection<a class="headerlink" href="#154-usb-hub-connection" title="Permanent link">&para;</a></h4>
+<p>The USB Hub is connected to the USB type A connector on the front panel.
+Additionally, attach a network connected Ethernet connection to the USB
+hub. See <em>Figure 9</em>.</p>
+<h4 id="figure-9-usb-hub-connection">Figure 9: USB Hub Connection<a class="headerlink" href="#figure-9-usb-hub-connection" title="Permanent link">&para;</a></h4>
+<p><a class="glightbox" href="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/usbhubconnection.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2024.1-1/hw/common/board_installation/f2000x_board_installation/images/usbhubconnection.png" /></a></p>
+<h4 id="155-creating-a-bootable-usb-flash-drive-for-the-soc">1.5.5 Creating a Bootable USB Flash Drive for the SoC<a class="headerlink" href="#155-creating-a-bootable-usb-flash-drive-for-the-soc" title="Permanent link">&para;</a></h4>
+<p>Connect your flash drive to an available Linux host. In this section the USB will set up to be used as a secondary boot source for the SoC and will also be used to update the NVMe from which the ICX-D SoC boots in section <a href="#21-updating-the-f2000x-pl-icxd-soc-nvme">2.1 Updating the F2000X-PL ICX-D SoC NVMe</a>.</p>
+<p>You will load the latest pre-compiled Yocto <code>core-image-minimal</code> WIC image into USB flash. This image can be downloaded from
+<a href="https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1">ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell</a>, under assets, or compiled from <a href="https://github.com/OFS/meta-ofs/releases/tag/ofs-2024.1-2">meta-ofs</a>. Compilation is discussed in section <a href="#40-compiling-a-custom-yocto-soc-image">4.0 Compiling a Custom Yocto SoC Image</a>.</p>
+<ol>
+<li>
+<p>Insert a 64 GB or larger USB Flash Drive into the USB slot of a computer/server you can use to format the drive. The following instructions assume you are using some flavor of GNU+Linux. You need sudo access privileges on this machine.</p>
+</li>
+<li>
+<p>In a terminal window, find the device name of the USB flash drive and unmount the device:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>lsblk
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>NAME<span class="w"> </span>MAJ:MIN<span class="w"> </span>RM<span class="w"> </span>SIZE<span class="w"> </span>RO<span class="w"> </span>TYPE<span class="w"> </span>MOUNTPOINT
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>sda<span class="w"> </span><span class="m">8</span>:0<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>.8T<span class="w"> </span><span class="m">0</span><span class="w"> </span>disk
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>├─sda1<span class="w"> </span><span class="m">8</span>:1<span class="w"> </span><span class="m">0</span><span class="w"> </span>600M<span class="w"> </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/boot/efi
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>├─sda2<span class="w"> </span><span class="m">8</span>:2<span class="w"> </span><span class="m">0</span><span class="w"> </span>1G<span class="w"> </span><span class="m">0</span><span class="w"> </span>part<span class="w"> </span>/boot
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>└─sda3<span class="w"> </span><span class="m">8</span>:3<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>.8T<span class="w"> </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>├─rhel-root<span class="w"> </span><span class="m">253</span>:0<span class="w"> </span><span class="m">0</span><span class="w"> </span>50G<span class="w"> </span><span class="m">0</span><span class="w"> </span>lvm<span class="w"> </span>/
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├─rhel-swap<span class="w"> </span><span class="m">253</span>:1<span class="w"> </span><span class="m">0</span><span class="w"> </span>4G<span class="w"> </span><span class="m">0</span><span class="w"> </span>lvm<span class="w"> </span><span class="se">\[</span>SWAP<span class="se">\]</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>└─rhel-home<span class="w"> </span><span class="m">253</span>:6<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">1</span>.7T<span class="w"> </span><span class="m">0</span><span class="w"> </span>lvm<span class="w"> </span>/home
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>sdb<span class="w"> </span><span class="m">8</span>:16<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">447</span>.1G<span class="w"> </span><span class="m">0</span><span class="w"> </span>disk
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>├─sdb1<span class="w"> </span><span class="m">8</span>:17<span class="w"> </span><span class="m">0</span><span class="w"> </span>600M<span class="w"> </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>├─sdb2<span class="w"> </span><span class="m">8</span>:18<span class="w"> </span><span class="m">0</span><span class="w"> </span>1G<span class="w"> </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>└─sdb3<span class="w"> </span><span class="m">8</span>:19<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">445</span>.5G<span class="w"> </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>├─fedora_localhost<span class="se">\-</span>-live-swap<span class="w"> </span><span class="m">253</span>:2<span class="w"> </span><span class="m">0</span><span class="w"> </span>4G<span class="w"> </span><span class="m">0</span><span class="w"> </span>lvm
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>├─fedora_localhost<span class="se">\-</span>-live-home<span class="w"> </span><span class="m">253</span>:3<span class="w"> </span><span class="m">0</span><span class="w"> </span>301G<span class="w"> </span><span class="m">0</span><span class="w"> </span>lvm
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>├─fedora_localhost<span class="se">\-</span>-live-root<span class="w"> </span><span class="m">253</span>:4<span class="w"> </span><span class="m">0</span><span class="w"> </span>70G<span class="w"> </span><span class="m">0</span><span class="w"> </span>lvm
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>└─fedora_localhost<span class="se">\-</span>-live-centos_root<span class="w"> </span><span class="m">253</span>:5<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">70</span>.5G<span class="w"> </span><span class="m">0</span><span class="w"> </span>lvm
+<a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>sdd<span class="w"> </span><span class="m">8</span>:48<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">57</span>.3G<span class="w"> </span><span class="m">0</span><span class="w"> </span>disk
+<a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>└─sdd1<span class="w"> </span><span class="m">8</span>:49<span class="w"> </span><span class="m">1</span><span class="w"> </span><span class="m">57</span>.3G<span class="w"> </span><span class="m">0</span><span class="w"> </span>part
+</code></pre></div>
+<p>In the above example, the 64 GB USB Flash device is designated <code>sdd</code>. Note, your device file name may be different. You are looking for an entry that matches the size of
+  your USB Flash. You can also check the output of <code>dmesg</code> after manually plugging in your USB Flash device to view the name the kernel has given it in an auto-generated event.</p>
+</li>
+<li>
+<p>Unmount the USB flash (if not already unmounted).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>umount<span class="w"> </span>/dev/sdd1
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>umount:<span class="w"> </span>/dev/sdd1:<span class="w"> </span>not<span class="w"> </span>mounted.
+</code></pre></div>
+</li>
+<li>
+<p>Download the Yocto WIC image. To prevent boot errors that may arise when using the same boot image loaded in both USB flash and on-board NVMe, you must choose an older version of the Yocto WIC to load onto the USB. Browse the tagged Yocto release images on <a href="https://github.com/OFS/meta-ofs/releases">GitHub</a> and choose the second newest release image as the temporary USB boot target. In this example we will use the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> 2023.1 RC3 release. You will also need to download the newest Yocto release image (core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic.gz).</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Download an older version of the Yocto release image to use as the USB boot target, version 2023.1 RC3 shown here</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/meta-ofs/releases/download/ofs-2023.1-3/core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic.gz
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/meta-ofs/releases/download/ofs-2023.1-3/core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic.gz.sha256
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="c1"># Verify the checksum of the downloaded image</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>$<span class="w"> </span>sha256sum<span class="w"> </span>-c<span class="w"> </span>https://github.com/OFS/meta-ofs/releases/download/ofs-2023.1-3/core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic.gz.sha256
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="c1"># Uncompress the package</span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>$<span class="w"> </span>gzip<span class="w"> </span>-d<span class="w"> </span>core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic.gz
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="c1"># Download the most recent Yocto release image, which will overwrite on-board NVMe</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/meta-ofs/releases/download/ofs-2024.1-2/core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>$<span class="w"> </span>wget<span class="w"> </span>https://github.com/OFS/meta-ofs/releases/download/ofs-2024.1-2/core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic.sha256
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="c1"># Verify the checksum of the downloaded image</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>sha256sum<span class="w"> </span>-c<span class="w"> </span>core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic.sha256
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1"># Uncompress the package</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>$<span class="w"> </span>gzip<span class="w"> </span>-d<span class="w"> </span>core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic
+</code></pre></div>
+</li>
+<li>
+<p>Copy core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic to the USB flash. This process may take several minutes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>dd<span class="w"> </span><span class="k">if</span><span class="o">=</span>core-image-full-cmdline-intel-corei7-64-20230505161810.rootfs.wic<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/sdd1<span class="w"> </span><span class="nv">bs</span><span class="o">=</span>512k<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress<span class="w"> </span><span class="nv">conv</span><span class="o">=</span>sync<span class="w"> </span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>$<span class="w"> </span>sgdisk<span class="w"> </span>-e<span class="w"> </span>/dev/sdd
+</code></pre></div>
+</li>
+<li>
+<p>Create a partition to store the Yocto image, which will be used to overwrite on-board NVMe as the default boot target.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">    </span>$<span class="w"> </span>sudo<span class="w"> </span>fdisk<span class="w"> </span>/dev/sdd
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span>Command<span class="w"> </span><span class="o">(</span>m<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nb">help</span><span class="o">)</span>:<span class="w"> </span>p
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span>Command<span class="w"> </span><span class="o">(</span>m<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nb">help</span><span class="o">)</span>:<span class="w"> </span>n
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span>Partition<span class="w"> </span>number<span class="w"> </span><span class="o">(</span><span class="m">4</span>-128,<span class="w"> </span>default<span class="w"> </span><span class="m">4</span><span class="o">)</span>:<span class="w"> </span><span class="s">&lt;&lt;press enter&gt;&gt;</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="s">    First sector (14617908-125045390, default 14618624): &lt;&lt;press</span><span class="w"> </span>enter&gt;&gt;
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span>Last<span class="w"> </span>sector,<span class="w"> </span>+/-sectors<span class="w"> </span>or<span class="w"> </span>+/-size<span class="o">{</span>K,M,G,T,P<span class="o">}</span><span class="w"> </span><span class="o">(</span><span class="m">14618624</span>-125045390,<span class="w"> </span>default
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="m">125045390</span><span class="o">)</span>:<span class="w"> </span><span class="s">&lt;&lt;press enter&gt;&gt;</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="s">    Created a new p</span>artition<span class="w"> </span><span class="m">4</span><span class="w"> </span>of<span class="w"> </span><span class="nb">type</span><span class="w"> </span><span class="s1">&#39;Linux filesystem&#39;</span><span class="w"> </span>and<span class="w"> </span>of<span class="w"> </span>size<span class="w"> </span><span class="m">92</span><span class="w"> </span>GiB.
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span>Command<span class="w"> </span><span class="o">(</span>m<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nb">help</span><span class="o">)</span>:<span class="w"> </span>p
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>Command<span class="w"> </span><span class="o">(</span>m<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nb">help</span><span class="o">)</span>:<span class="w"> </span>w
+</code></pre></div>
+</li>
+<li>
+<p>Verify USB flash is partitioned.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span>lsblk
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span>NAME<span class="w">        </span>MAJ:MIN<span class="w"> </span>RM<span class="w">   </span>SIZE<span class="w"> </span>RO<span class="w"> </span>TYPE<span class="w"> </span>MOUNTPOINTS
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span>sdd<span class="w">           </span><span class="m">8</span>:0<span class="w">    </span><span class="m">1</span><span class="w"> </span><span class="m">114</span>.6G<span class="w">  </span><span class="m">0</span><span class="w"> </span>disk
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="p">|</span>-sdd1<span class="w">        </span><span class="m">8</span>:1<span class="w">    </span><span class="m">1</span><span class="w">   </span>300M<span class="w">  </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="p">|</span>-sdd2<span class="w">        </span><span class="m">8</span>:2<span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">22</span>.1G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="p">|</span>-sdd3<span class="w">        </span><span class="m">8</span>:3<span class="w">    </span><span class="m">1</span><span class="w">    </span>44M<span class="w">  </span><span class="m">0</span><span class="w"> </span>part
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="sb">`</span>-sdd4<span class="w">        </span><span class="m">8</span>:4<span class="w">    </span><span class="m">1</span><span class="w">  </span><span class="m">92</span>.2G<span class="w">  </span><span class="m">0</span><span class="w"> </span>part
+</code></pre></div>
+</li>
+<li>
+<p>Format the new partition.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span>mkfs<span class="w"> </span>-t<span class="w"> </span>ext4<span class="w"> </span>/dev/sdd4
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$<span class="w"> </span>mount<span class="w"> </span>/dev/sda4<span class="w"> </span>/mnt
+</code></pre></div>
+</li>
+<li>
+<p>Copy compressed <code>core-image-minimal</code> WIC into /mnt.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>cp<span class="w"> </span>core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic<span class="w"> </span>/mnt
+</code></pre></div>
+</li>
+</ol>
+<p>Remove the USB flash from the Linux computer and install the flash drive in the USB hub attached to the IPU Platform F2000X-PL.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
 </html>
