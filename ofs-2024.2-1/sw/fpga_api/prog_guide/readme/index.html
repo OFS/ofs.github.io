@@ -1,0 +1,2972 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>OPAE C API Programming Guide # - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#opae-c-api-programming-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OPAE C API Programming Guide #
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../hw/doc_modules/contents_s10_pcie_attach/" class="md-tabs__link">
+        Stratix® 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../hw/doc_modules/contents_agx7_pcie_attach/" class="md-tabs__link">
+        Agilex® 7 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../hw/doc_modules/contents_agx7_soc_attach/" class="md-tabs__link">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../hw/common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../hw/common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/user_guides/ug_sw_developer/ug_sw_developer/" class="md-nav__link">
+        Software Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix® 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix® 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/doc_modules/contents_s10_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/adp_board_installation_guidelines/" class="md-nav__link">
+        Board Installation Guide (Intel® FPGA PAC D5005)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex® 7 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex® 7 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/doc_modules/contents_agx7_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Board Installation Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Board Installation Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/adp_board_installation_guidelines/" class="md-nav__link">
+        Intel® FPGA SmartNIC N6000/1-PL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/" class="md-nav__link">
+        Agilex® 7 FPGA I-Series and F-Series Development Kits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Getting Started Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA F-Series Development Kit (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        OFS for Intel® FPGA SmartNIC N6001-PL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+          Shell Developer Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Shell Developer Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach I-Series (2xR-Tile, F-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach F-Series (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        PCIe Attach F-Series (P-Tile/E-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_9">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/doc_modules/contents_agx7_soc_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/board_installation/f2000x_board_installation/f2000x_board_installation/" class="md-nav__link">
+        Board Installation Guide (Intel® IPU Platform F2000X-PL)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        oneAPI ASP Getting Started User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide OFS for PCIe Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../hw/common/sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide OFS for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+          OPAE FPGA Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opae-role" class="md-nav__link">
+    OPAE Role
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intel-accelerator-stack-hardware-terminology" class="md-nav__link">
+    Intel Accelerator Stack Hardware Terminology
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opae-software-concepts-reflected-in-the-c-api" class="md-nav__link">
+    OPAE Software Concepts Reflected in the C API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opae-library" class="md-nav__link">
+    OPAE Library
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sample-code" class="md-nav__link">
+    Sample Code
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#high-level-directory-structure" class="md-nav__link">
+    High-Level Directory Structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-application-flow" class="md-nav__link">
+    Basic Application Flow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#api-components" class="md-nav__link">
+    API Components
+  </a>
+  
+    <nav class="md-nav" aria-label="API Components">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#object-models" class="md-nav__link">
+    Object Models
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functions" class="md-nav__link">
+    Functions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fpga-resource-properties" class="md-nav__link">
+    FPGA Resource Properties
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#opae-c-api-return-codes" class="md-nav__link">
+    OPAE C API Return Codes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage-models" class="md-nav__link">
+    Usage Models
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage Models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#query-and-search-for-a-resource" class="md-nav__link">
+    Query and Search for a Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#acquire-and-release-a-resource" class="md-nav__link">
+    Acquire and Release a Resource
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#shared-memory-buffer" class="md-nav__link">
+    Shared Memory Buffer
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mmio" class="md-nav__link">
+    MMIO
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="opae-c-api-programming-guide">OPAE C API Programming Guide<a class="headerlink" href="#opae-c-api-programming-guide" title="Permanent link">&para;</a></h1>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>The OPAE C library (<em>libopae-c</em>) is a lightweight user-space library that
+provides abstractions for FPGA resources in a compute environment. The OPAE C library 
+builds on the driver stack that supports the FPGA device, abstracting 
+hardware- and OS-specific details. It provides access to the underlying FPGA
+resources as a set of features available to software programs
+running on the host. These features include the acceleration logic
+preconfigured on the FPGA and functions to manage and reconfigure
+the FPGA. The library enables your applications to
+transparently and seamlessly benefit from FPGA-based acceleration.</p>
+<p><a class="glightbox" href="../FPGA-lib-1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Layered architecture" src="../FPGA-lib-1.png" title="A user space library built on top of FPGA driver stack" /></a></p>
+<p>By providing a unified C API, the library supports different FPGA
+integration and deployment models, ranging from single-node systems with one or
+a few FPGA devices to large-scale FPGA deployments in a data center.
+At one end of the spectrum, the API supports a simple application using a PCIe link to reconfigure 
+the FPGA with different accelerator functions. At the other end of the spectrum, resource
+management and orchestration services in a data center can use this API to
+discover and select FPGA resources and then allocate them for use by acceleration workloads.</p>
+<h2 id="opae-role">OPAE Role<a class="headerlink" href="#opae-role" title="Permanent link">&para;</a></h2>
+<p>The OPAE provides a common base layer for a wide range of
+applications without sacrificing performance or efficiency. The abstraction layer limits 
+the details of the FPGA hardware that software applications must handle. </p>
+<p>The OPAE provides consistent interfaces to crucial components of the platform. The  OPAE does not constrain
+frameworks and applications by making optimizations with limited applicability. When the OPAE does
+provide convenience functions or optimizations, they are optional.</p>
+<p>For example, the OPAE provides an interface to allocate physically contiguous
+buffers in system memory that user-space software and an accelerator can share. 
+This interface enables the most basic feature set of
+allocating and sharing a large page of memory in one API call. However, it 
+does <em>not</em> provide a malloc()-like interface backed by a memory pool or slab
+allocator. Higher layers of the software stack can make such
+domain-specific optimizations.</p>
+<h2 id="intel-accelerator-stack-hardware-terminology">Intel Accelerator Stack Hardware Terminology<a class="headerlink" href="#intel-accelerator-stack-hardware-terminology" title="Permanent link">&para;</a></h2>
+<p>The following terms define the hardware and hardware processes involved in creating an accelerator function. </p>
+<ul>
+<li>FPGA: <a href="https://en.wikipedia.org/wiki/Field-programmable_gate_array">Field Programmable Gate Array</a> 
+is a discrete or integrated device connecting to a host CPU via PCIe or other type of interconnects.</li>
+<li>Accelerator Function Unit (<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>): The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> is the supplied implementation of an accelerator, typically
+in HDL. AFUs implement a function such as compression, encryption, or mathematical operations.
+The Quartus Prime Pro software synthesizes the RTL logic into a bitstream. </li>
+<li>Accelerator Function (AF): The AF is the compiled binary for an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>. An AF is a raw binary file (.rbf)
+bitstream. A tool (<em>fpgaconf</em>) reconfigures the FPGA using an AF bitstream.</li>
+<li>Reconfiguration: The process of reprogramming the FPGA with a different AF.</li>
+</ul>
+<h2 id="opae-software-concepts-reflected-in-the-c-api">OPAE Software Concepts Reflected in the C API<a class="headerlink" href="#opae-software-concepts-reflected-in-the-c-api" title="Permanent link">&para;</a></h2>
+<p>The following OPAE data structures and functions integrate AFUs into the OPAE environment. 
+The OPAE C API models these data structures and functions. For more information on the object 
+models refer to the <a href="#object-models">Object model</a> section.</p>
+<ul>
+<li>Accelerator: An accelerator is an allocable accelerator function implemented in an FPGA. 
+An accelerator tracks the  <em>ownership</em> of an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> (or part of it) for a process that uses it.
+Multiple processes can share an accelerator.</li>
+<li>Device: The OPAE enumerates and models two device types: the FPGA and the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>.</li>
+<li>Events: Events are asynchronous notifications. The FPGA driver
+triggers particular events to indicate error conditions. Accelerator logic can also
+define its own events. User applications can choose to be
+notified when particular events occur and respond appropriately.</li>
+<li>Shared memory buffers: Software allocates shared memory buffers in user process memory
+on the host. Shared memory buffers facilitate data transfers between the user process and the 
+accelerator that it owns.</li>
+</ul>
+<h2 id="opae-library">OPAE Library<a class="headerlink" href="#opae-library" title="Permanent link">&para;</a></h2>
+<p>Linking with this library is straightforward.
+Code using the  OPAE library should include the header file <code>fpga.h</code>. Taking the GCC
+compiler on Linux as an example, here is the simplest compile and link command:</p>
+<p><code>gcc myprog.c -I&lt;/path/to/fpga.h&gt; -L&lt;/path/to/libopae-c.so&gt; -lopae-c -luuid -ljson-c -lpthread</code></p>
+<p>.. note::</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>The OPAE library uses the third-party `libuuid` and `libjson-c` libraries that are not distributed with 
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>the OPAE library. Make sure to install these libraries.
+</code></pre></div>
+<h2 id="sample-code">Sample Code<a class="headerlink" href="#sample-code" title="Permanent link">&para;</a></h2>
+<p>The library source includes two code samples. Use these samples
+to learn how to call functions in the library. Build and run these samples
+to determine if your installation and environment are set up properly. </p>
+<p>Refer to the <a href="https://www.altera.com/content/altera-www/global/en_us/index/documentation/dnv1485190478614.html#vks1498593668425">Running the Hello FPGA Example</a> chapter in the <em>Intel&reg; Acceleration Stack
+Quick Start Guide for for Intel Programmable Acceleration Card with Intel Arria&reg; 10 GX FPGA</em> for more information about using the sample code.  </p>
+<h2 id="high-level-directory-structure">High-Level Directory Structure<a class="headerlink" href="#high-level-directory-structure" title="Permanent link">&para;</a></h2>
+<p>Building and installing the OPAE library results in the following directory structure on the Linux OS.
+Windows and MacOS have similar directories and files.</p>
+<table>
+<thead>
+<tr>
+<th>Directory &amp; Files</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>include/opae</td>
+<td>Directory containing all header files</td>
+</tr>
+<tr>
+<td>include/opae/fpga.h</td>
+<td>Top-level header for user code to include</td>
+</tr>
+<tr>
+<td>include/opae/access.h</td>
+<td>Header file for accelerator acquire/release, <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>, memory management, event handling, and so on</td>
+</tr>
+<tr>
+<td>include/opae/bitstream.h</td>
+<td>Header file for bitstream manipulation functions</td>
+</tr>
+<tr>
+<td>include/opae/common.h</td>
+<td>Header file for error reporting functions</td>
+</tr>
+<tr>
+<td>include/opae/enum.h</td>
+<td>Header file for <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> enumeration functions</td>
+</tr>
+<tr>
+<td>include/opae/manage.h</td>
+<td>Header file for FPGA management functions</td>
+</tr>
+<tr>
+<td>include/opae/types.h</td>
+<td>Various type definitions</td>
+</tr>
+<tr>
+<td>lib</td>
+<td>Directory containing shared library files</td>
+</tr>
+<tr>
+<td>lib/libopae-c.so</td>
+<td>The shared dynamic library for linking with the user application</td>
+</tr>
+<tr>
+<td>doc</td>
+<td>Directory containing API documentation</td>
+</tr>
+<tr>
+<td>doc/html</td>
+<td>Directory for documentation of HTML format</td>
+</tr>
+<tr>
+<td>doc/latex</td>
+<td>Directory for documentation of LaTex format</td>
+</tr>
+<tr>
+<td>doc/man</td>
+<td>Directory for documentation of Unix man page format</td>
+</tr>
+</tbody>
+</table>
+<h2 id="basic-application-flow">Basic Application Flow<a class="headerlink" href="#basic-application-flow" title="Permanent link">&para;</a></h2>
+<p>The figure below shows the basic application flow from the
+viewpoint of a user-process. </p>
+<p><a class="glightbox" href="../FPGA-lib-3.PNG" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="Basic flow" src="../FPGA-lib-3.PNG" title="Basic application flow" /></a></p>
+<h2 id="api-components">API Components<a class="headerlink" href="#api-components" title="Permanent link">&para;</a></h2>
+<p>The API object model abstracts the physical FPGA device and
+available functions. It is a generalized model and extends to 
+describe any FPGA type. </p>
+<h3 id="object-models">Object Models<a class="headerlink" href="#object-models" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>fpga_objtype</code>: An enum type that represents the type of an FPGA resource, either <code>FPGA_DEVICE</code> or <code>FPGA_ACCELERATOR</code>. 
+An <code>FPGA_DEVICE</code> object corresponds to a physical FPGA device. Only <code>FPGA_DEVICE</code> objects can invoke management functions.
+The <code>FPGA_ACCELERATOR</code> represents an instance of an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>. </li>
+<li><code>fpga_token</code>: An opaque type that represents a resource known to, but not
+necessarily owned by, the calling process. The calling process must own a
+resource before it can invoke functions of the resource.</li>
+<li><code>fpga_handle</code>: An opaque type that represents a resource owned by the
+calling process. The API functions <code>fpgaOpen()</code> and <code>fpgaClose()</code> acquire and release ownership of a resource that an <code>fpga_handle</code> represents. (Refer to the <a href="#functions">Functions</a> section for more information.)</li>
+<li><code>fpga_properties</code>: An opaque type for a properties object. Your
+applications use these properties to query and search for appropriate resources. The 
+<a href="#fpga-resource-properties">FPGA Resource Properties</a> section documents properties visible to your
+applications.</li>
+<li><code>fpga_event_handle</code>: An opaque handle the FPGA driver uses to notify your
+application about an event. </li>
+<li><code>fpga_event_type</code>: An enum type that represents the types of events. The following are valid values: 
+<code>FPGA_EVENT_INTERRUPT</code>, <code>FPGA_EVENT_ERROR</code>, and <code>FPGA_EVENT_POWER_THERMAL</code>. (The Intel Programmable Acceleration Card (<abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr>) with
+Intel Arria 10 GX FPGA does not handle thermal and power events.)</li>
+<li><code>fpga_result</code>: An enum type to represent the result of an API function. If the
+function returns successfully the result is <code>FPGA_OK</code>. Otherwise, the result is
+the appropriate error codes. Function <code>fpgaErrStr()</code> translates an error code
+into human-readable strings.</li>
+</ul>
+<h3 id="functions">Functions<a class="headerlink" href="#functions" title="Permanent link">&para;</a></h3>
+<p>The table below groups important API calls by their functionality. For more information about each of the functions, refer to the 
+<a href="https://opae.github.io/0.13.0/docs/fpga_api/fpga_api.html">OPAE C API reference manual</a>.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Functionality</th>
+<th align="left">API Call</th>
+<th align="center">FPGA</th>
+<th align="center">Accelerator</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Enumeration</td>
+<td align="left"><code>fpgaEnumerate()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Query FPGA resources that match certain properties</td>
+</tr>
+<tr>
+<td align="left">Enumeration: Properties</td>
+<td align="left"><code>fpga[Get, Update, Clear, Clone, Destroy Properties]()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Manage <code>fpga_properties</code> life cycle</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>fpgaPropertiesGet[Prop]()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Get the specified property <em>Prop</em>, from the <a href="#fpga-resource-properties">FPGA Resource Properties</a> table</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>fpgaPropertiesSet[Prop]()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Set the specified property <em>Prop</em>, from the <a href="#fpga-resource-properties">FPGA Resource Properties</a> table</td>
+</tr>
+<tr>
+<td align="left">Access: Ownership</td>
+<td align="left"><code>fpga[Open, Close]()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Acquire/release ownership</td>
+</tr>
+<tr>
+<td align="left">Access: Reset</td>
+<td align="left"><code>fpgaReset()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Reset an accelerator</td>
+</tr>
+<tr>
+<td align="left">Access: Event handling</td>
+<td align="left"><code>fpga[Register, Unregister]Event()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Register/unregister an event to be notified about</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>fpga[Create, Destroy]EventHandle()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Manage <code>fpga_event_handle</code> life cycle</td>
+</tr>
+<tr>
+<td align="left">Access: <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td align="left"><code>fpgaMapMMIO()</code>, <code>fpgaUnMapMMIO()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Map/unmap <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> space</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>fpgaGetMMIOInfo()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Get information about the specified <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> space</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>fpgaReadMMIO[32, 64]()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Read a 32-bit or 64-bit value from <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> space</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>fpgaWriteMMIO[32, 64]()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Write a 32-bit or 64-bit value to <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> space</td>
+</tr>
+<tr>
+<td align="left">Memory management: Shared memory</td>
+<td align="left"><code>fpga[Prepare, Release]Buffer()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Manage memory buffer shared between the calling process and an accelerator</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>fpgaGetIOAddress()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Return the device I/O address of a shared memory buffer</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"><code>fpgaBindSVA()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Bind IOMMU shared virtual addressing</td>
+</tr>
+<tr>
+<td align="left">Management: Reconfiguration</td>
+<td align="left"><code>fpgaReconfigureSlot()</code></td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="left">Replace an existing <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> with a new one</td>
+</tr>
+<tr>
+<td align="left">Error report</td>
+<td align="left"><code>fpgaErrStr()</code></td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">Map an error code to a human readable string</td>
+</tr>
+</tbody>
+</table>
+<p>.. note::</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>The UMsg APIs are not supported for the Intel(R) PAC cards. They will be deprecated in a future release.
+</code></pre></div>
+<h3 id="fpga-resource-properties">FPGA Resource Properties<a class="headerlink" href="#fpga-resource-properties" title="Permanent link">&para;</a></h3>
+<p>Applications query resource properties by specifying the property name for <code>Prop</code> in the 
+<code>fpgaPropertiesGet[Prop]()</code> and <code>fpgaPropertiesSet[Prop]()</code> functions. The FPGA and Accelerator
+columns state whether or not the Property is available for the FPGA or Accelerator objects.</p>
+<table>
+<thead>
+<tr>
+<th align="left">Property</th>
+<th align="center">FPGA</th>
+<th align="center">Accelerator</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Parent</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+<td align="left"><code>fpga_token</code> of the parent object</td>
+</tr>
+<tr>
+<td align="left">ObjectType</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">The type of the resource: either <code>FPGA_DEVICE</code> or <code>FPGA_ACCELERATOR</code></td>
+</tr>
+<tr>
+<td align="left">Bus</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">The bus number</td>
+</tr>
+<tr>
+<td align="left">Device</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">The PCI device number</td>
+</tr>
+<tr>
+<td align="left">Function</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">The PCI function number</td>
+</tr>
+<tr>
+<td align="left">SocketId</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">The socket ID</td>
+</tr>
+<tr>
+<td align="left">DeviceId</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">The device ID</td>
+</tr>
+<tr>
+<td align="left">NumSlots</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="left">Number of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> slots available on an <code>FPGA_DEVICE</code> resource</td>
+</tr>
+<tr>
+<td align="left">BBSID</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="left">The FPGA Interface Manager (<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>) ID of an <code>FPGA_DEVICE</code> resource</td>
+</tr>
+<tr>
+<td align="left">BBSVersion</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="left">The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> version of an <code>FPGA_DEVICE</code> resource</td>
+</tr>
+<tr>
+<td align="left">VendorId</td>
+<td align="center">Yes</td>
+<td align="center">No</td>
+<td align="left">The vendor ID of an <code>FPGA_DEVICE</code> resource</td>
+</tr>
+<tr>
+<td align="left">GUID</td>
+<td align="center">Yes</td>
+<td align="center">Yes</td>
+<td align="left">The GUID of an <code>FPGA_DEVICE</code> or <code>FPGA_ACCELERATOR</code> resource</td>
+</tr>
+<tr>
+<td align="left">NumMMIO</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+<td align="left">The number of <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> space of an <code>FPGA_ACCELERATOR</code> resource</td>
+</tr>
+<tr>
+<td align="left">NumInterrupts</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+<td align="left">The number of interrupts of an <code>FPGA_ACCELERATOR</code> resource</td>
+</tr>
+<tr>
+<td align="left">AcceleratorState</td>
+<td align="center">No</td>
+<td align="center">Yes</td>
+<td align="left">The state of an <code>FPGA_ACCELERATOR</code> resource: either <code>FPGA_ACCELERATOR_ASSIGNED</code> or <code>FPGA_ACCELERATOR_UNASSIGNED</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="opae-c-api-return-codes">OPAE C API Return Codes<a class="headerlink" href="#opae-c-api-return-codes" title="Permanent link">&para;</a></h2>
+<p>The OPAE C library returns a code for every exported public API function.  <code>FPGA_OK</code> indicates successful completion
+of the requested operation. Any return code other than <code>FPGA_OK</code> indicates an error or unexpected
+behavior. When using the OPAE C API, always check the API return codes. </p>
+<table>
+<thead>
+<tr>
+<th>Error Code</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FPGA_OK</code></td>
+<td>Operation completed successfully</td>
+</tr>
+<tr>
+<td><code>FPGA_INVALID_PARAM</code></td>
+<td>Invalid parameter supplied</td>
+</tr>
+<tr>
+<td><code>FPGA_BUSY</code></td>
+<td>Resource is busy</td>
+</tr>
+<tr>
+<td><code>FPGA_EXCEPTION</code></td>
+<td>An exception occurred</td>
+</tr>
+<tr>
+<td><code>FPGA_NOT_FOUND</code></td>
+<td>A required resource was not found</td>
+</tr>
+<tr>
+<td><code>FPGA_NO_MEMORY</code></td>
+<td>Not enough memory to complete operation</td>
+</tr>
+<tr>
+<td><code>FPGA_NOT_SUPPORTED</code></td>
+<td>Requested operation is not supported</td>
+</tr>
+<tr>
+<td><code>FPGA_NO_DRIVER</code></td>
+<td>Driver is not loaded</td>
+</tr>
+<tr>
+<td><code>FPGA_NO_DAEMON</code></td>
+<td>FPGA Daemon (<code>fpgad</code>) is not running</td>
+</tr>
+<tr>
+<td><code>FPGA_NO_ACCESS</code></td>
+<td>Insufficient privileges or permissions</td>
+</tr>
+<tr>
+<td><code>FPGA_RECONF_ERROR</code></td>
+<td>Error while reconfiguring FPGA</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage-models">Usage Models<a class="headerlink" href="#usage-models" title="Permanent link">&para;</a></h2>
+<h3 id="query-and-search-for-a-resource">Query and Search for a Resource<a class="headerlink" href="#query-and-search-for-a-resource" title="Permanent link">&para;</a></h3>
+<p>The user-code first populates an <code>fpga_properties</code> object with the required properties.
+Then, <code>fpgaEnumerate()</code> searches for matching resources. <code>fpgaEnumerate()</code> may return more
+than one matching resource.</p>
+<div class="highlight"><pre><span></span><code>#include &quot;fpga/fpga.h&quot;
+
+fpga_guid               guid;
+fpga_properties         filter = NULL;
+fpga_result             res;
+fpga_token              tokens[MAX_NUM_TOKENS];
+uint32_t                num_matches = 0;
+
+/* Start with an empty properties object */
+res = fpgaGetProperties(NULL, &amp;filter);
+
+/* Populate the properties object with required values.
+   In this case, search for accelerators that matches 
+   the specified GUID.
+*/
+uuid_parse(GUID, guid);
+res = fpgaPropertiesSetObjectType(filter, FPGA_ACCELERATOR);
+res = fpgaPropertiesSetGuid(filter, guid);
+
+/* Query the number of matching resources */
+res = fpgaEnumerate(&amp;filter, 1, NULL, 1, &amp;num_matches);
+
+/* Return tokens for all matching resources */
+res = fpgaEnumerate(&amp;filter, 1, tokens, num_matches, &amp;num_matches);
+
+/* Destroy the properties object */
+res = fpgaDestroyProperties(&amp;filter);
+
+/* More code */
+......
+
+/* Destroy tokens */
+for (uint32_t i = 0; i &lt; num_matches; ++i) {
+    res = fpgaDestroyToken(tokens[i]);
+}
+</code></pre></div>
+<p>The <code>fpgaEnumerate()</code> function can take multiple <code>fpga_properties</code>objects in an array. In such cases,
+the function performs a logical OR of  the properties object and returns resources that match any of 
+the multiple properties. The  <code>fpga_token</code> objects that <code>fpgaEnumerate()</code> returns, do not signify
+ownership. To acquire ownership of a resource represented by a token, pass the token to <code>fpgaOpen()</code>.</p>
+<h3 id="acquire-and-release-a-resource">Acquire and Release a Resource<a class="headerlink" href="#acquire-and-release-a-resource" title="Permanent link">&para;</a></h3>
+<p>Use <code>fpgaOpen()</code> and <code>fpgaClose()</code> to acquire and release ownership of a resource. 
+The calling process must own the resource before it can initiate <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>, access share memory buffers, 
+and use functions offered by the resource.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;fpga/fpga.h&quot;</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">    </span><span class="n">fpga_handle</span><span class="w">             </span><span class="n">handle</span><span class="p">;</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="w">    </span><span class="n">fpga_result</span><span class="w">             </span><span class="n">res</span><span class="p">;</span>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">    </span><span class="cm">/* Acquire ownership of a resource that </span>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="cm">    `fpgaEnumerate()` previously returned as a token */</span>
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpgaOpen</span><span class="p">(</span><span class="n">token</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">handle</span><span class="p">);</span>
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">    </span><span class="cm">/* More code */</span>
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">    </span><span class="p">......</span>
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">    </span><span class="cm">/* Release the ownership */</span>
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a><span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpgaClose</span><span class="p">(</span><span class="n">handle</span><span class="p">);</span>
+</code></pre></div>
+<h3 id="shared-memory-buffer">Shared Memory Buffer<a class="headerlink" href="#shared-memory-buffer" title="Permanent link">&para;</a></h3>
+<p>This code snippet shows how to prepare a memory buffer to be shared between the
+calling process and an accelerator.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;fpga/fpga.h&quot;</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">    </span><span class="n">fpga_handle</span><span class="w">             </span><span class="n">handle</span><span class="p">;</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="n">fpga_result</span><span class="w">             </span><span class="n">res</span><span class="p">;</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="cm">/* Hint for the virtual address of the buffer */</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">    </span><span class="k">volatile</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w">       </span><span class="o">*</span><span class="n">addr_hint</span><span class="p">;</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="cm">/* An ID we can use to reference the buffer later */</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w">                </span><span class="n">bufid</span><span class="p">;</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="cm">/* Flag to indicate whether or not the buffer is preallocated */</span>
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">    </span><span class="kt">int</span><span class="w">                     </span><span class="n">flag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="w">    </span><span class="cm">/* Allocate (if necessary), pin, and map a buffer to be accessible</span>
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="cm">       by an accelerator</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="cm">    */</span>
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpgaPrepareBuffer</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">BUF_SIZE</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="n">addr_hint</span><span class="p">,</span>
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">                            </span><span class="o">&amp;</span><span class="n">bufid</span><span class="p">,</span><span class="w"> </span><span class="n">flag</span><span class="p">);</span>
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">    </span><span class="cm">/* The actual address mapped to the buffer */</span>
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w">                </span><span class="n">iova</span><span class="p">;</span>
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">    </span><span class="cm">/* Get the IO virtual address for the buffer */</span>
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpgaGetIOAddress</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">bufid</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">iova</span><span class="p">);</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">    </span><span class="cm">/* Inform the accelerator about the virtual address by writing to its mapped</span>
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="cm">       register file</span>
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="cm">    */</span>
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">    </span><span class="p">......</span>
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">    </span><span class="cm">/* More code */</span>
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">    </span><span class="p">......</span>
+<a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>
+<a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a><span class="w">    </span><span class="cm">/* Release the shared buffer */</span>
+<a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a><span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpgaReleaseBuffer</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">bufid</span><span class="p">);</span>
+</code></pre></div>
+<p>.. note::</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>The `flag` variable can take a constant `FPGA_BUF_PREALLOCATED` to
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>indicate that the calling process has already allocated the address space
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>that `addr_hint` points to.
+</code></pre></div>
+<h3 id="mmio"><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr><a class="headerlink" href="#mmio" title="Permanent link">&para;</a></h3>
+<p>This code snippet shows how to map and unmap the register file of an accelerator into the
+calling process's virtual memory space.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="w">    </span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;fpga/fpga.h&quot;</span>
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="n">fpga_handle</span><span class="w">             </span><span class="n">handle</span><span class="p">;</span>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="n">fpga_result</span><span class="w">             </span><span class="n">res</span><span class="p">;</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">    </span><span class="cm">/* Index of the MMIO space. There might be multiple spaces on an accelerator */</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">    </span><span class="kt">uint32_t</span><span class="w">                </span><span class="n">mmio_num</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="cm">/* Mapped address */</span>
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="kt">uint64_t</span><span class="w">                </span><span class="n">mmio_addr</span><span class="p">;</span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">    </span><span class="cm">/* Map MMIO */</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpgaMapMMIO</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">mmio_num</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">mmio_addr</span><span class="p">);</span>
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="cm">/* Write to a 32-bit value to the mapped register file at a certain byte</span>
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="cm">       offset.</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="cm">       CSR_CTL is the offset in the mapped space to where the value will be</span>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="cm">       written. It&#39;s defined elsewhere.</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="cm">    */</span>
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpgaWriteMMIO32</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">mmio_num</span><span class="p">,</span><span class="w"> </span><span class="n">CSR_CTL</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">);</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>
+<a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">    </span><span class="cm">/* More code */</span>
+<a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">    </span><span class="p">......</span>
+<a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>
+<a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="w">    </span><span class="cm">/* Unmap MMIO */</span>
+<a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a><span class="w">    </span><span class="n">res</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">fpgaUnmapMMIO</span><span class="p">(</span><span class="n">handle</span><span class="p">,</span><span class="w"> </span><span class="n">mmio_num</span><span class="p">);</span>
+</code></pre></div>
+<p>.. Note::</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Every AFU has its own register adress space and its own protocol to control operation through 
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>the registers. 
+</code></pre></div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

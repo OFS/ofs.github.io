@@ -1,0 +1,4246 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../../../d5005/ug_dev_afu_sim_env/">
+      
+      
+        <link rel="next" href="../../../../../d5005/ug_docker/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>Simulation User Guide - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#uvm-simulation-user-guide-open-fpga-stack-for-intel-stratix-10-fpga" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Simulation User Guide
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_s10_pcie_attach/" class="md-tabs__link md-tabs__link--active">
+        Stratix® 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_agx7_pcie_attach/" class="md-tabs__link">
+        Agilex® 7 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_agx7_soc_attach/" class="md-tabs__link">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/ug_sw_developer/ug_sw_developer/" class="md-nav__link">
+        Software Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix® 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix® 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_s10_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/adp_board_installation_guidelines/" class="md-nav__link">
+        Board Installation Guide (Intel® FPGA PAC D5005)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Simulation User Guide
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Simulation User Guide
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    1 Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="1 Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-about-this-document" class="md-nav__link">
+    1.1 About this Document
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-introduction-to-uvm" class="md-nav__link">
+    2 Introduction to UVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-testbench-architecture" class="md-nav__link">
+    3 Testbench Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-testbench-infrastructure" class="md-nav__link">
+    4 Testbench Infrastructure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-traffic-flow" class="md-nav__link">
+    4.1 Traffic Flow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-link-up-and-enumeration" class="md-nav__link">
+    4.2 Link Up and Enumeration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#421-link-up" class="md-nav__link">
+    4.2.1 Link Up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#422-enumeration" class="md-nav__link">
+    4.2.2 Enumeration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#423-pfvf-bar" class="md-nav__link">
+    4.2.3 PF/VF BAR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-mmio-apis" class="md-nav__link">
+    4.3 MMIO APIs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-ral" class="md-nav__link">
+    4.4 RAL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-vip-dut-connection" class="md-nav__link">
+    4.5 VIP DUT Connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-test-plan" class="md-nav__link">
+    5 Test Plan
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-mmio-path" class="md-nav__link">
+    5.1 MMIO Path
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-he-lb" class="md-nav__link">
+    5.2 HE-LB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-he-mem" class="md-nav__link">
+    5.3 HE-MEM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54-he-hssi" class="md-nav__link">
+    5.4 HE-HSSI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#541-indirect-registers" class="md-nav__link">
+    5.4.1 Indirect Registers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#542-tx-loopback" class="md-nav__link">
+    5.4.2 TX Loopback
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55-interrupt-test" class="md-nav__link">
+    5.5 Interrupt Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56-performance-test" class="md-nav__link">
+    5.6 Performance Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#57-csr-test" class="md-nav__link">
+    5.7 CSR Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#571-reset-value-check" class="md-nav__link">
+    5.7.1 Reset Value Check
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#572-rw-attribute-csr" class="md-nav__link">
+    5.7.2 RW Attribute CSR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-checking-mechanism" class="md-nav__link">
+    6 Checking Mechanism
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-protocol-violation" class="md-nav__link">
+    6.1 Protocol Violation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-data-checking" class="md-nav__link">
+    6.2 Data Checking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-counter-checking" class="md-nav__link">
+    6.3 Counter Checking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-afu-error-csr" class="md-nav__link">
+    6.4 AFU Error CSR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-uvm-set-up" class="md-nav__link">
+    7 UVM set-up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#71-uvm-prerequisite" class="md-nav__link">
+    7.1 UVM Prerequisite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72-license-requirements" class="md-nav__link">
+    7.2 License Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-software-tools-requirements" class="md-nav__link">
+    7.3 Software Tools Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-creating-a-software-tools-script" class="md-nav__link">
+    7.4 Creating a Software Tools Script
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-files" class="md-nav__link">
+    License Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-environment-variables" class="md-nav__link">
+    General Environment Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quartus-tools" class="md-nav__link">
+    Quartus Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-verification-tools" class="md-nav__link">
+    Synopsys Verification Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-verification-tools" class="md-nav__link">
+    QuestaSIM Verification Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-running-a-uvm-simulation-test-and-analysing-results" class="md-nav__link">
+    8 Running a UVM Simulation Test and Analysing Results
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#81-simulation" class="md-nav__link">
+    8.1 Simulation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-file-structure" class="md-nav__link">
+    8.2 File Structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-uvm-test-suite" class="md-nav__link">
+    8.3 UVM Test Suite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-ip-compile" class="md-nav__link">
+    8.4 IP Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-rtl-test-bench-compile" class="md-nav__link">
+    8.5 RTL &amp; Test Bench Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_1" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_1" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86-ip-and-rtl-test-bench-compile" class="md-nav__link">
+    8.6 IP and RTL &amp; Test Bench Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_2" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_2" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_3" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_3" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_4" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_4" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87-uvm-regression-test" class="md-nav__link">
+    8.7 UVM Regression Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#88-uvm-waveform-and-transcript-analysis" class="md-nav__link">
+    8.8 UVM Waveform and Transcript Analysis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_5" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_5" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-modifying-uvm-testbench" class="md-nav__link">
+    9 Modifying UVM Testbench
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#91-modifying-uvm-environment-when-targeting-different-device" class="md-nav__link">
+    9.1 Modifying UVM environment when targeting different device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-modifying-uvm-environment-when-adding-a-new-interface" class="md-nav__link">
+    9.2 Modifying UVM environment when adding a new interface
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-adding-a-new-uvm-test" class="md-nav__link">
+    9.3 Adding a new UVM test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex® 7 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex® 7 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_agx7_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Board Installation Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Board Installation Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/adp_board_installation_guidelines/" class="md-nav__link">
+        Intel® FPGA SmartNIC N6000/1-PL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/" class="md-nav__link">
+        Agilex® 7 FPGA I-Series and F-Series Development Kits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Getting Started Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA F-Series Development Kit (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        OFS for Intel® FPGA SmartNIC N6001-PL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+          Shell Developer Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Shell Developer Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach I-Series (2xR-Tile, F-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach F-Series (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        PCIe Attach F-Series (P-Tile/E-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_9">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_agx7_soc_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/board_installation/f2000x_board_installation/f2000x_board_installation/" class="md-nav__link">
+        Board Installation Guide (Intel® IPU Platform F2000X-PL)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        oneAPI ASP Getting Started User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide OFS for PCIe Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../common/sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide OFS for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+          OPAE FPGA Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-overview" class="md-nav__link">
+    1 Overview
+  </a>
+  
+    <nav class="md-nav" aria-label="1 Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-about-this-document" class="md-nav__link">
+    1.1 About this Document
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-introduction-to-uvm" class="md-nav__link">
+    2 Introduction to UVM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-testbench-architecture" class="md-nav__link">
+    3 Testbench Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-testbench-infrastructure" class="md-nav__link">
+    4 Testbench Infrastructure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#41-traffic-flow" class="md-nav__link">
+    4.1 Traffic Flow
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#42-link-up-and-enumeration" class="md-nav__link">
+    4.2 Link Up and Enumeration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#421-link-up" class="md-nav__link">
+    4.2.1 Link Up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#422-enumeration" class="md-nav__link">
+    4.2.2 Enumeration
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#423-pfvf-bar" class="md-nav__link">
+    4.2.3 PF/VF BAR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#43-mmio-apis" class="md-nav__link">
+    4.3 MMIO APIs
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#44-ral" class="md-nav__link">
+    4.4 RAL
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#45-vip-dut-connection" class="md-nav__link">
+    4.5 VIP DUT Connection
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-test-plan" class="md-nav__link">
+    5 Test Plan
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#51-mmio-path" class="md-nav__link">
+    5.1 MMIO Path
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#52-he-lb" class="md-nav__link">
+    5.2 HE-LB
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#53-he-mem" class="md-nav__link">
+    5.3 HE-MEM
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#54-he-hssi" class="md-nav__link">
+    5.4 HE-HSSI
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#541-indirect-registers" class="md-nav__link">
+    5.4.1 Indirect Registers
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#542-tx-loopback" class="md-nav__link">
+    5.4.2 TX Loopback
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#55-interrupt-test" class="md-nav__link">
+    5.5 Interrupt Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#56-performance-test" class="md-nav__link">
+    5.6 Performance Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#57-csr-test" class="md-nav__link">
+    5.7 CSR Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#571-reset-value-check" class="md-nav__link">
+    5.7.1 Reset Value Check
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#572-rw-attribute-csr" class="md-nav__link">
+    5.7.2 RW Attribute CSR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-checking-mechanism" class="md-nav__link">
+    6 Checking Mechanism
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#61-protocol-violation" class="md-nav__link">
+    6.1 Protocol Violation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#62-data-checking" class="md-nav__link">
+    6.2 Data Checking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#63-counter-checking" class="md-nav__link">
+    6.3 Counter Checking
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#64-afu-error-csr" class="md-nav__link">
+    6.4 AFU Error CSR
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-uvm-set-up" class="md-nav__link">
+    7 UVM set-up
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#71-uvm-prerequisite" class="md-nav__link">
+    7.1 UVM Prerequisite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#72-license-requirements" class="md-nav__link">
+    7.2 License Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#73-software-tools-requirements" class="md-nav__link">
+    7.3 Software Tools Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#74-creating-a-software-tools-script" class="md-nav__link">
+    7.4 Creating a Software Tools Script
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#license-files" class="md-nav__link">
+    License Files
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#general-environment-variables" class="md-nav__link">
+    General Environment Variables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#quartus-tools" class="md-nav__link">
+    Quartus Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-verification-tools" class="md-nav__link">
+    Synopsys Verification Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim-verification-tools" class="md-nav__link">
+    QuestaSIM Verification Tools
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-running-a-uvm-simulation-test-and-analysing-results" class="md-nav__link">
+    8 Running a UVM Simulation Test and Analysing Results
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#81-simulation" class="md-nav__link">
+    8.1 Simulation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#82-file-structure" class="md-nav__link">
+    8.2 File Structure
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#83-uvm-test-suite" class="md-nav__link">
+    8.3 UVM Test Suite
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#84-ip-compile" class="md-nav__link">
+    8.4 IP Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#85-rtl-test-bench-compile" class="md-nav__link">
+    8.5 RTL &amp; Test Bench Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_1" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_1" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#86-ip-and-rtl-test-bench-compile" class="md-nav__link">
+    8.6 IP and RTL &amp; Test Bench Compile
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_2" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_2" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_3" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_3" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_4" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_4" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#87-uvm-regression-test" class="md-nav__link">
+    8.7 UVM Regression Test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#88-uvm-waveform-and-transcript-analysis" class="md-nav__link">
+    8.8 UVM Waveform and Transcript Analysis
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synopsys-vcs_5" class="md-nav__link">
+    Synopsys VCS
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#questasim_5" class="md-nav__link">
+    Questasim
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-modifying-uvm-testbench" class="md-nav__link">
+    9 Modifying UVM Testbench
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#91-modifying-uvm-environment-when-targeting-different-device" class="md-nav__link">
+    9.1 Modifying UVM environment when targeting different device
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#92-modifying-uvm-environment-when-adding-a-new-interface" class="md-nav__link">
+    9.2 Modifying UVM environment when adding a new interface
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#93-adding-a-new-uvm-test" class="md-nav__link">
+    9.3 Adding a new UVM test
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="uvm-simulation-user-guide-open-fpga-stack-for-intel-stratix-10-fpga"><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Simulation User Guide: Open FPGA Stack for Intel Stratix® 10 FPGA<a class="headerlink" href="#uvm-simulation-user-guide-open-fpga-stack-for-intel-stratix-10-fpga" title="Permanent link">&para;</a></h1>
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
+<td>Advanced Error Reporting, The PCIe <abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr> driver is the extended PCI Express error reporting capability providing more robust error reporting.</td>
+</tr>
+<tr>
+<td><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td>Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside. This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region</td>
+</tr>
+<tr>
+<td><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td>Basic Building Block, Features within an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and host interface requires. All BBBs must have a (globally unique identifier) GUID.</td>
+</tr>
+<tr>
+<td><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
+<td>Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.</td>
+</tr>
+<tr>
+<td><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
+<td>Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> platform. Supports features such as power sequence management and board monitoring through on-board sensors.</td>
+</tr>
+<tr>
+<td>CSR</td>
+<td>Command/status registers (CSR) and software interface, <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> uses a defined set of CSR's to expose the functionality of the FPGA to the host software.</td>
+</tr>
+<tr>
+<td><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>Device Feature List, A concept inherited from <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers provide support for FPGA devices that are designed to support the Device Feature List. The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration.</td>
+</tr>
+<tr>
+<td><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
+</tr>
+<tr>
+<td><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
+<td>FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.</td>
+</tr>
+<tr>
+<td><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
+<td>Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc.</td>
+</tr>
+<tr>
+<td>Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005</td>
+<td>Intel FPGA Programmable Acceleration Card D5005, A high performance PCI Express (PCIe)-based FPGA acceleration card for data centers. This card is the target platform for the initial <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> release.</td>
+</tr>
+<tr>
+<td><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
+<td>Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.</td>
+</tr>
+<tr>
+<td><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
+<td>Input/Output Control, System calls used to manipulate underlying device parameters of special files.</td>
+</tr>
+<tr>
+<td><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
+<td>Joint Test Action Group, Refers to the IEEE 1149.1 <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> standard; Another FPGA configuration methodology.</td>
+</tr>
+<tr>
+<td><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td>Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.</td>
+</tr>
+<tr>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td>Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and software developers to optimize and reuse their designs.</td>
+</tr>
+<tr>
+<td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.</td>
+</tr>
+<tr>
+<td><abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr></td>
+<td>Programmable Acceleration Card: FPGA based Accelerator card</td>
+</tr>
+<tr>
+<td><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
+<td>Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
+</tr>
+<tr>
+<td><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
+<td>Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr>, a <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> bitstream refers to an Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>. Refer to <a href="https://www.intel.com/content/www/us/en/programmable/products/design-software/fpga-design/quartus-prime/features/partial-reconfiguration.html">Partial Reconfiguration</a> support page.</td>
+</tr>
+<tr>
+<td><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
+<td>Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 device that triggers a power cycle of the card only, forcing reconfiguration.</td>
+</tr>
+<tr>
+<td><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
+<td>Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.</td>
+</tr>
+<tr>
+<td><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
+<td>Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.</td>
+</tr>
+<tr>
+<td><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
+<td>Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.</td>
+</tr>
+<tr>
+<td><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
+<td>Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="1-overview"><strong>1 Overview</strong><a class="headerlink" href="#1-overview" title="Permanent link">&para;</a></h2>
+<h3 id="11-about-this-document"><strong>1.1 About this Document</strong><a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
+<p>This document serves as a set-up and user guide for the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> simulation tool using <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. After reviewing the document, you will be able to:</p>
+<ul>
+<li>Set-up the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> verification tool suite</li>
+<li>Run pre-existing <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> unit tests and also create new <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> tests for your design</li>
+</ul>
+<h2 id="2-introduction-to-uvm"><strong>2 Introduction to <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></strong><a class="headerlink" href="#2-introduction-to-uvm" title="Permanent link">&para;</a></h2>
+<p><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> (Open FPGA Stack) provides a <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> (Universal Verification Methodology) environment for the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> (FPGA Interface Manager) with a modular, reusable, and scalable testbench structure via an API framework.</p>
+<p>The framework consists of a <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Testbench which is <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> compliant and integrates third party VIPs from Synopsys for PCI Express, Arm® AMBA® 4 AXI4-Streaming interface and Arm® AMBA® 4 AXI4-Memory Mapped interface for comprehensive verification. The user will need to acquire licenses for these VIPs to use this Testbench. <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> RAL (Register Abstaction Layer) is used for CSR (Command and Status Registers) verification.</p>
+<p>The qualified verification IPs will help to detect incorrect protocol behavior, help to focus on <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> features and accelerate the verification process.</p>
+<p>Verification components include:</p>
+<ul>
+<li><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> monitor to detect correct design behavior</li>
+<li><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> assertions for signal level integrity testing</li>
+<li>Arm AMBA Arm® AMBA® 4 AXI4 scoreboards to check data integrity</li>
+<li><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> coverage to collect functional data</li>
+</ul>
+<h2 id="3-testbench-architecture"><strong>3 Testbench Architecture</strong><a class="headerlink" href="#3-testbench-architecture" title="Permanent link">&para;</a></h2>
+<p>The testbench connects to the full chip that includes major RTL blocks depicted in Figure 1.</p>
+<p><a class="glightbox" href="../images/ofs-uvm_testbench_architecture.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs-uvm_testbench_architecture.png" /></a></p>
+<p><strong>Figure 1 Testbench Diagram</strong></p>
+<p>The major interface is between the Xeon and FPGA where PCIe Verification IP is connected to PCIe Subsystem. Therefore, as a full chip simulation environment, PCIe host VIP is the sole VIP/BFM used. PCIe host VIP connects to PCIe device which resides in FPGA in serial mode.
+<br><br></p>
+<h2 id="4-testbench-infrastructure"><strong>4 Testbench Infrastructure</strong><a class="headerlink" href="#4-testbench-infrastructure" title="Permanent link">&para;</a></h2>
+<h2 id="41-traffic-flow"><strong>4.1 Traffic Flow</strong><a class="headerlink" href="#41-traffic-flow" title="Permanent link">&para;</a></h2>
+<p>PCIe Host, as the master of FPGA, initiates <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> read/write requests to FPGA to program registers. The PCIe host also passively receives memory requests from FPGA to read from or write to host memory. </p>
+<h2 id="42-link-up-and-enumeration"><strong>4.2 Link Up and Enumeration</strong><a class="headerlink" href="#42-link-up-and-enumeration" title="Permanent link">&para;</a></h2>
+<p>With serial mode connection between PCIe host and device, link training and enumeration has to be done before the regular traffic starts. </p>
+<h2 id="421-link-up"><strong>4.2.1 Link Up</strong><a class="headerlink" href="#421-link-up" title="Permanent link">&para;</a></h2>
+<p>Linkup sequence(pcie_device_bring_up_link_sequence) is part of configure sequence(ofs_config_seq), which is started in <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> configure phase. </p>
+<h2 id="422-enumeration"><strong>4.2.2 Enumeration</strong><a class="headerlink" href="#422-enumeration" title="Permanent link">&para;</a></h2>
+<p>PCIe host driver needs to retrieve information from the device hard IP and program necessary configuration space registers, such as PF/VF BAR values. This is done in enumerate_seq, which follows link up sequence in configure sequence(ofs_config_seq). </p>
+<h2 id="423-pfvf-bar"><strong>4.2.3 PF/VF BAR</strong><a class="headerlink" href="#423-pfvf-bar" title="Permanent link">&para;</a></h2>
+<p>PF0 BAR0 is set in the base sequence and can be randomized. During enumeration, PF0 BAR0, along with PCIe device hard IP configuration, derives other PF and VF BAR values. These BAR values are stored into base sequence variables and can be used throughout any test sequences that extend the base sequence. </p>
+<h2 id="43-mmio-apis"><strong>4.3 <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> APIs</strong><a class="headerlink" href="#43-mmio-apis" title="Permanent link">&para;</a></h2>
+<p>The base sequence provides APIs for 32-bit and 64-bit <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> read/write accesses, as well as blocking or non-blocking for <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> read as described in Table 1. The users can use <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> APIs without knowing the underlining PCIe sequence items.</p>
+<table>
+<thead>
+<tr>
+<th>Name</th>
+<th>API</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>32-bit <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> Write</td>
+<td>task mmio_write32(input bit [63:0] addr_, input bit [31:0] data_);</td>
+</tr>
+<tr>
+<td>64-bit <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> Write</td>
+<td>task mmio_write64(input bit [63:0] addr_, input bit [63:0] data_);</td>
+</tr>
+<tr>
+<td>32-bit <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> Read</td>
+<td>task mmio_read32(input bit [63:0] addr_, output bit [31:0] data_, input blocking_ = 1);</td>
+</tr>
+<tr>
+<td>64-bit <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> Read</td>
+<td>task mmio_read64(input bit [63:0] addr_, output bit [63:0] data_, input blocking_ = 1);</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Table 1 <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> APIs</strong></p>
+<h2 id="44-ral"><strong>4.4 RAL</strong><a class="headerlink" href="#44-ral" title="Permanent link">&para;</a></h2>
+<p><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> RAL is integrated in the testbench providing alternative ways of accessing CSRs in test sequences. RAL is generated from an excel format CSR specification where register name, field, offset, bitmap, attribute, and description are specified.</p>
+<h2 id="45-vip-dut-connection"><strong>4.5 VIP DUT Connection</strong><a class="headerlink" href="#45-vip-dut-connection" title="Permanent link">&para;</a></h2>
+<p>PCIe host verification IP and DUT connection is achieved by connecting 16 bits lanes. The module for connection from VIP is svt_pcie_device_agent_serdes_x16_x8g_hdl.
+<br><br> </p>
+<h2 id="5-test-plan"><strong>5 Test Plan</strong><a class="headerlink" href="#5-test-plan" title="Permanent link">&para;</a></h2>
+<p>The test plan consists of four major categories: <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> path, HE-LB, HE-MEM, HE-HSSI and interrupt tests. </p>
+<h2 id="51-mmio-path"><strong>5.1 <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> Path</strong><a class="headerlink" href="#51-mmio-path" title="Permanent link">&para;</a></h2>
+<p>The tests under this category exercise <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> path including all destination functions or blocks as well as PF/VF mux and different fabrics. </p>
+<h2 id="52-he-lb"><strong>5.2 HE-LB</strong><a class="headerlink" href="#52-he-lb" title="Permanent link">&para;</a></h2>
+<p>The tests under this category target HE-LB function only. Software which test sequences needs to configure HE-LB CSRs before starting it. These CSRs include SRC_ADDR, DST_ADDR, DSM_ADDR, NUM_LINES, CFG etc.   </p>
+<p>If HE-LB is configured to have memory read transactions, PCIe host memory has to be initialized before HE-LB is started. This is done by svt_pcie_mem_target_service sequence. In other words, PCIe host VIP programs its internal memory model entries in backdoor way. The same process applies to DSM memory entry. </p>
+<p>Once HE-LB is started, HE-LB will function based on what it is programmed to do. When HE-LB is done with all necessary memory transactions, it will perform a final memory write to DSM memory entry. Since the software does not know when hardware is done, software polls DSM memory entry periodically until the DSM status bit is asserted. </p>
+<p>For loopback mode, data is compared between source buffer and destination buffer in host memory. </p>
+<p>RTL statistic counters are also compared against the corresponding variables inside the test sequence at the end of the simulation. </p>
+<h2 id="53-he-mem"><strong>5.3 HE-MEM</strong><a class="headerlink" href="#53-he-mem" title="Permanent link">&para;</a></h2>
+<p>HE-MEM tests are duplicates from HE-LB with <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> to CSRs targeting HE-MEM instead of HE-LB. </p>
+<p>The DDR simulation model is inside memory controller IP when being generated.  </p>
+<h2 id="54-he-hssi"><strong>5.4 HE-HSSI</strong><a class="headerlink" href="#54-he-hssi" title="Permanent link">&para;</a></h2>
+<p>HE-HSSI has indirect registers that are associated with HSSI subsystem, <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> for indirect registers is different from other functions. </p>
+<h2 id="541-indirect-registers"><strong>5.4.1 Indirect Registers</strong><a class="headerlink" href="#541-indirect-registers" title="Permanent link">&para;</a></h2>
+<p>To obtain access to indirect registers, either reading or writing, a <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> write must be performed.</p>
+<h2 id="542-tx-loopback"><strong>5.4.2 TX Loopback</strong><a class="headerlink" href="#542-tx-loopback" title="Permanent link">&para;</a></h2>
+<p>In TX loopback, HE-HSSI initiates ethernet packets to HSSI subsystem and the packets are looped back to HE-HSSI. The loopback is achieved by hard-wiring HSSI TX and RX lanes. This is done inside RTL and for simulation purposes only. </p>
+<h2 id="55-interrupt-test"><strong>5.5 Interrupt Test</strong><a class="headerlink" href="#55-interrupt-test" title="Permanent link">&para;</a></h2>
+<p>The test plan covers the basic interrupt flow for <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> error, PORT error and user <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> interrupts. The MSI-X table must be programmed in PF0 BAR4. Corresponding PBA bit is expected to be asserted. </p>
+<h2 id="56-performance-test"><strong>5.6 Performance Test</strong><a class="headerlink" href="#56-performance-test" title="Permanent link">&para;</a></h2>
+<p>Performance tests are derived from HE-LB tests and they are directed tests. At the end of the simulation, performance number is calculated and printed to terminal and a log file. </p>
+<h2 id="57-csr-test"><strong>5.7 CSR Test</strong><a class="headerlink" href="#57-csr-test" title="Permanent link">&para;</a></h2>
+<p>CSR consists of two parts. </p>
+<h2 id="571-reset-value-check"><strong>5.7.1 Reset Value Check</strong><a class="headerlink" href="#571-reset-value-check" title="Permanent link">&para;</a></h2>
+<p>Front-door <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> read data is compared against RAL register reset value out of reset. </p>
+<h2 id="572-rw-attribute-csr"><strong>5.7.2 RW Attribute CSR</strong><a class="headerlink" href="#572-rw-attribute-csr" title="Permanent link">&para;</a></h2>
+<p><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> write-read-compare is performed after reset value check for RW attribute CSRs.
+<br><br></p>
+<h2 id="6-checking-mechanism"><strong>6 Checking Mechanism</strong><a class="headerlink" href="#6-checking-mechanism" title="Permanent link">&para;</a></h2>
+<p>Since there is only PCIe host verification component in testbench, data checking is done by a self-checking mechanism in the test sequence.  </p>
+<h2 id="61-protocol-violation"><strong>6.1 Protocol Violation</strong><a class="headerlink" href="#61-protocol-violation" title="Permanent link">&para;</a></h2>
+<p>PCIe host VIP has built-in protocol checking on TLP received from FPGA. Abnormal responses are also flagged by the VIP. </p>
+<p>Internal AXI Streaming interface has integrated RTL assertion to check AXI Streaming protocol violations. </p>
+<h2 id="62-data-checking"><strong>6.2 Data Checking</strong><a class="headerlink" href="#62-data-checking" title="Permanent link">&para;</a></h2>
+<p>Data checking is done by self-checking inside a test sequence. <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> write/read/compare to read-writable CSRs is done inside a sequence. </p>
+<p>For memory transactions initiated by functions, backdoor reads from host memory on source buffer and destination buffer is done inside a sequence. Data is compared in case of loopback mode. </p>
+<h2 id="63-counter-checking"><strong>6.3 Counter Checking</strong><a class="headerlink" href="#63-counter-checking" title="Permanent link">&para;</a></h2>
+<p>RTL statistic counters records the number of transactional information that can be read at the end of the simulation and compared against the test expected number. </p>
+<h2 id="64-afu-error-csr"><strong>6.4 <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Error CSR</strong><a class="headerlink" href="#64-afu-error-csr" title="Permanent link">&para;</a></h2>
+<p><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> interface handler provides an error log for illegal transactions that can be read at the end of the simulation.
+<br><br></p>
+<h2 id="7-uvm-set-up"><strong>7 <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> set-up</strong><a class="headerlink" href="#7-uvm-set-up" title="Permanent link">&para;</a></h2>
+<p>To run the tutorial steps in this guide requires the following development environment:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intel Quartus Prime Pro</td>
+<td>Intel Quartus Prime Pro 23.4</td>
+</tr>
+<tr>
+<td>Simulator (VCS)</td>
+<td>Synopsys VCS S-2021.09-SP1 or newer for <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> simulation of top level <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+</tr>
+<tr>
+<td>Simulator (Questasim)</td>
+<td>Questasim 2023.4 or newer for <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> simulation of top level <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+</tr>
+</tbody>
+</table>
+<h2 id="71-uvm-prerequisite"><strong>7.1 <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Prerequisite</strong><a class="headerlink" href="#71-uvm-prerequisite" title="Permanent link">&para;</a></h2>
+<p>Retrieve <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> repositories.</p>
+<p>The <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> source code is included in the GitHub repository. Create a new directory to use as a clean starting point to store the retrieved files.  The following is a short description of each repository, followed by the git commands for cloning.  The instructions section uses the HTTPS git method for cloning repositories.  Cloning the repo using the HTTPS method requires a personal access token.  Please see this blog post for information about obtaining a personal access token <a href="https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/">Token authentication requirements for Git operations</a>.</p>
+<p>Navigate to the location for storage of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> source, create the top-level source directory and clone <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> repositories.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>mkdir<span class="w"> </span>ofs-2024.1-1
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>ofs-2024.1-1
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">OFS_BUILD_ROOT</span><span class="o">=</span><span class="nv">$PWD</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>--recurse-submodules<span class="w"> </span>https://github.com/OFS/ofs-d5005
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Cloning<span class="w"> </span>into<span class="w"> </span><span class="s1">&#39;ofs-d5005&#39;</span><span class="w"> </span>...
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Username<span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="s1">&#39;https://github.com&#39;</span>:<span class="w"> </span><span class="s">&lt;&lt;Enter your git hub username&gt;&gt;</span>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="s">Password for &#39;https://&lt;&lt;Your username&gt;&gt;&#39;: &lt;&lt;Enter</span><span class="w"> </span>your<span class="w"> </span>personal<span class="w"> </span>access<span class="w"> </span>token&gt;&gt;
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>remote:<span class="w"> </span>Enumerating<span class="w"> </span>objects:<span class="w">  </span>....
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>...
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>...
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>Resolving<span class="w"> </span>deltas<span class="w">  </span>...,<span class="w"> </span><span class="k">done</span>.
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>ofs-d5005
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>tags/ofs-2024.1-1
+</code></pre></div>
+<p>Verify that the correct tag/branch have been checked out        </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>$<span class="w"> </span>git<span class="w"> </span>describe<span class="w"> </span>--tags
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>$<span class="w"> </span>ofs-2024.1-1
+</code></pre></div>
+<h2 id="72-license-requirements"><strong>7.2 License Requirements</strong><a class="headerlink" href="#72-license-requirements" title="Permanent link">&para;</a></h2>
+<p>The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> Testbench is <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> compliant and integrates third party VIPs from Synopsys for PCI Express, Arm® AMBA® 4 AXI4-Streaming interface and Arm® AMBA® 4 AXI4-Memory Mapped interface for comprehensive verification. The user will need to acquire licenses for these VIPs to use this <abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr>. <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> RAL (Register Abstraction Layer) is used for CSR Verification.</p>
+<p>The Qualified Verification IPs will help to detect incorrect protocol behavior easily, help to focus on BBS features and accelerate the verification process.</p>
+<ul>
+<li>VCS &amp; DVE</li>
+<li>SNPS-Assertions</li>
+<li>Verdi</li>
+<li>VerdiCoverage</li>
+<li>VerdiSimDB</li>
+<li>VerdiTransactionDebugUltra</li>
+<li>VIP-AMBA-AXI-SVT</li>
+<li>VIP-AMBA-STREAM-SVT</li>
+<li>VIP-PCIE-SVT</li>
+<li>VIP-PCIE-TS-SVT</li>
+<li>VIP-PCIE-G3-OPT-SVT</li>
+</ul>
+<h2 id="73-software-tools-requirements"><strong>7.3 Software Tools Requirements</strong><a class="headerlink" href="#73-software-tools-requirements" title="Permanent link">&para;</a></h2>
+<p>The following tools are required for successful <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> set-up</p>
+<ul>
+<li>Python 3.6.8</li>
+<li>Synopsys PCIE and AMBA AXI <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> VIP Q-2020.03A License</li>
+<li>Synopsys Verdi R-2020.12-SP2 License<br>
+        Note: Makefile can be modified to use DVE instead of Verdi</li>
+</ul>
+<ul>
+<li>VCS R-2020.12-SP2 License </li>
+</ul>
+<h2 id="74-creating-a-software-tools-script"><strong>7.4 Creating a Software Tools Script</strong><a class="headerlink" href="#74-creating-a-software-tools-script" title="Permanent link">&para;</a></h2>
+<p>The <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> tool set-up is best done by creating a simple set-up script so all applicable tools are sourced before running the tests.</p>
+<p>The following environment variables can be pasted into a script and used prior to running the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> verification environment</p>
+<h2 id="license-files">License Files<a class="headerlink" href="#license-files" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">LM_LICENSE_FILE</span><span class="o">=</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">SNPSLMD_LICENSE_FILE</span><span class="o">=</span>
+</code></pre></div>
+<p>The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can point to a server license on your system.</p>
+<h2 id="general-environment-variables">General Environment Variables<a class="headerlink" href="#general-environment-variables" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OFS_BUILD_ROOT</span><span class="o">=</span><span class="nv">$PWD</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">OFS_ROOTDIR</span><span class="o">=</span>&lt;user_path&gt;/ofs-d5005
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">WORKDIR</span><span class="o">=</span><span class="nv">$OFS_ROOTDIR</span>
+</code></pre></div>
+<h2 id="quartus-tools">Quartus Tools<a class="headerlink" href="#quartus-tools" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_HOME</span><span class="o">=</span>&lt;user_path&gt;/intelFPGA_pro/23.4/quartus
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_INSTALL_DIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR_OVERRIDE</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">IMPORT_IP_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../ip
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QSYS_ROOTDIR</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/../qsys/bin
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_HOME</span>/bin:<span class="nv">$QUARTUS_HOME</span>/qsys/bin:<span class="nv">$QUARTUS_HOME</span>/sopc_builder/bin/:<span class="nv">$PATH</span>
+</code></pre></div>
+<h2 id="synopsys-verification-tools">Synopsys Verification Tools<a class="headerlink" href="#synopsys-verification-tools" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">DESIGNWARE_HOME</span><span class="o">=</span>&lt;user_path&gt;/synopsys/vip_common/vip_Q-2020.03A
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$DESIGNWARE_HOME</span>/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">UVM_HOME</span><span class="o">=</span>&lt;user_path&gt;/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VCS_HOME</span><span class="o">=</span>&lt;user_path&gt;/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$VCS_HOME</span>/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VERDIR</span><span class="o">=</span><span class="nv">$OFS_ROOTDIR</span>/verification
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nb">export</span><span class="w"> </span><span class="nv">VIPDIR</span><span class="o">=</span><span class="nv">$VERDIR</span>
+</code></pre></div>
+<h2 id="questasim-verification-tools">QuestaSIM Verification Tools<a class="headerlink" href="#questasim-verification-tools" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">MTI_HOME</span><span class="o">=</span>&lt;user_path&gt;/mentor/questasim/2023.4/linux64
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$MTI_HOME</span>/linux_x86_64/:<span class="nv">$MTI_HOME</span>/bin/:<span class="nv">$PATH</span>
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nb">export</span><span class="w"> </span><span class="nv">QUESTA_HOME</span><span class="o">=</span><span class="nv">$MTI_HOME</span>
+</code></pre></div>
+<p><br></p>
+<h2 id="8-running-a-uvm-simulation-test-and-analysing-results"><strong>8 Running a <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Simulation Test and Analysing Results</strong><a class="headerlink" href="#8-running-a-uvm-simulation-test-and-analysing-results" title="Permanent link">&para;</a></h2>
+<h2 id="81-simulation"><strong>8.1 Simulation</strong><a class="headerlink" href="#81-simulation" title="Permanent link">&para;</a></h2>
+<p>The default simulator used in this document is Synopsys VCS-MX but there will be references to Questasim. Users can refer to the options and adopt the options for other simulators. </p>
+<p>The script is a makefile that calls vlogan, vcs and simv for compilation, elaboration and simulation, respectively</p>
+<h2 id="82-file-structure"><strong>8.2 File Structure</strong><a class="headerlink" href="#82-file-structure" title="Permanent link">&para;</a></h2>
+<p>After cloning the repo, the verification and ofs-common directories contain all <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> verification related files. The directory structure is shown in Figure 2 below.</p>
+<p><a class="glightbox" href="../images/ofs-uvm_directory_structure.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs-uvm_directory_structure.png" /></a></p>
+<p><strong>Figure 2 <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Verification Directory File Structure</strong></p>
+<p>ofs-d5005/testbench has a testbench, uvm env, virtual sequencer, RAL etc. </p>
+<p>ofs-d5005/verification/tests contains all uvm tests and sequences. </p>
+<p>Users can run the simulation under "ofs-d5005/verification/scripts" directory and the simulation result is outputted to a "sim" directory for Synopsys VCS or "sim_msim" for Questasim.</p>
+<p>The simulation result folder is named after the test name with increasing suffix number. If user runs the same test multiple times, the suffix is incremented by 1 each time.</p>
+<h2 id="83-uvm-test-suite"><strong>8.3 <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Test Suite</strong><a class="headerlink" href="#83-uvm-test-suite" title="Permanent link">&para;</a></h2>
+<p>The <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> environment contains a variety of tests that have been developed to test out the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> portion of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</p>
+<p>The table below lists out the "Test Name" which will be used on the command line to execute the test, the "Test Scenario" and the "Checking Criteria".</p>
+<p>Tests are located at ofs-d5005/verification/tests</p>
+<table>
+<thead>
+<tr>
+<th>Test Name</th>
+<th>DUT Scope</th>
+<th>Test Scenario</th>
+<th>Checking Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dfh_walking_test</td>
+<td>DFH</td>
+<td>DHF walking</td>
+<td>offset checking, eol checking</td>
+</tr>
+<tr>
+<td>flr_reset_test</td>
+<td>FLR Reset</td>
+<td>FLR reset to all PFs</td>
+<td>Reset checking</td>
+</tr>
+<tr>
+<td>flr_vf0_reset_test</td>
+<td>FLR Reset</td>
+<td>FLR reset to VF0</td>
+<td>Reset checking</td>
+</tr>
+<tr>
+<td>flr_vf1_reset_test</td>
+<td>FLR Reset</td>
+<td>FLR reset to VF1</td>
+<td>Reset checking</td>
+</tr>
+<tr>
+<td>flr_vf2_reset_test</td>
+<td>FLR Reset</td>
+<td>FLR reset to VF2</td>
+<td>Reset checking</td>
+</tr>
+<tr>
+<td>fme_csr_test</td>
+<td><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> CSR</td>
+<td>CSR accesses</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>fme_hemem_intr_test</td>
+<td>Interrupt</td>
+<td><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> and HE MEM interrupt</td>
+<td>Interrupts assertion, PBA bits check</td>
+</tr>
+<tr>
+<td>fme_intr_test</td>
+<td>Interrupt</td>
+<td><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> error interrupt</td>
+<td>Interrupts assertion, PBA bits check</td>
+</tr>
+<tr>
+<td>he_hssi_csr_test</td>
+<td>HE-HSSI</td>
+<td>CSR accesses for HSSI</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>he_hssi_err_test</td>
+<td>HE-HSSI</td>
+<td>Error Cases</td>
+<td>counter checking</td>
+</tr>
+<tr>
+<td>he_hssi_rx_lpbk_test</td>
+<td>HE-HSSI</td>
+<td>RX loopback</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>he_hssi_tx_lpbk_test</td>
+<td>HE-HSSI</td>
+<td>TX loopback</td>
+<td>counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_cont_test</td>
+<td>HE-LPBK</td>
+<td>Continuous mode/LPBK mode, random num_lines, addresses, req_len</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>he_lpbk_long_rst_test</td>
+<td>HE-MEM</td>
+<td>Multiple iterations of he_lpb_seq with soft reset HE-LB in middle</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_long_test</td>
+<td>HE-MEM</td>
+<td>Multiple iterations of he_lpb_seq with STOP HE-LB in middle</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_port_rst_test</td>
+<td>HE-LPBK</td>
+<td>Loopback mode. Randomize num_lines, addresses, req_len with port rst</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>he_lpbk_rd_cont_test</td>
+<td>HE-LPBK</td>
+<td>Read only mode/ Continuous mode. Randomize num_lines, addresses, req_len</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_rd_test</td>
+<td>HE-LPBK</td>
+<td>Read only mode. Randomize num_lines, addresses, req_len</td>
+<td>counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_reqlen1_test</td>
+<td>HE-LPBK</td>
+<td>Loopback mode. 128 CLs, req_len = 1CL, random addresses</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_reqlen2_test</td>
+<td>HE-LPBK</td>
+<td>Loopback mode. 128 CLs, req_len = 2CL, random addresses.</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_reqlen4_test</td>
+<td>HE-LPBK</td>
+<td>Loopback mode. 128 CLs, req_len = 4CL, random addresses</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>he_lpbk_reqlen8_test</td>
+<td>HE-LPBK</td>
+<td>Loopback mode. 128 CLs, req_len = 8CL, random addresses</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>he_lpbk_test</td>
+<td>HE-LPBK</td>
+<td>Loopback mode. Randomize num_lines, addresses, req_len</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_thruput_contmode_test</td>
+<td>HE-LPBK</td>
+<td>Continuous mode, Read/Write mode. 50/50. Randomize num_lines, addresses req_len</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_thruput_test</td>
+<td>HE-LPBK</td>
+<td>Read/Write mode. 50/50. Randomize num_lines, addresses, req_len</td>
+<td>counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_wr_cont_test</td>
+<td>HE-LPBK</td>
+<td>Write only mode/ Continuous mode. Randomize num_lines, addresses, req_len</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_lpbk_wr_test</td>
+<td>HE-LPBK</td>
+<td>Write only mode. Randomize num_lines, addresses, req_len</td>
+<td>counter checking</td>
+</tr>
+<tr>
+<td>he_mem_cont_test</td>
+<td>HE-MEM</td>
+<td>Continuous mode/LPBK mode, random num_lines, addresses, req_len</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>he_mem_lpbk_long_rst_test</td>
+<td>HE-LPBK</td>
+<td>Multiple iterations of he_lpb_seq with soft reset HE-LB in middle</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_lpbk_long_test</td>
+<td>HE-LPBK</td>
+<td>Multiple iterations of he_lpb_seq with STOP HE-LB in middle</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_lpbk_reqlen1_test</td>
+<td>HE-MEM</td>
+<td>Loopback mode. 128 CLs, req_len = 1CL, random addresses.</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_lpbk_reqlen2_test</td>
+<td>HE-MEM</td>
+<td>Loopback mode. 128 CLs, req_len = 2CL, random addresses.</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_lpbk_reqlen4_test</td>
+<td>HE-MEM</td>
+<td>Loopback mode. 128 CLs, req_len = 4CL, random addresses</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_lpbk_test</td>
+<td>HE-MEM</td>
+<td>Loopback mode. Randomize num_lines, addresses, req_len</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_rd_cont_test</td>
+<td>HE-MEM</td>
+<td>Read only mode/ Continuous mode. Randomize num_lines, addresses, req_len</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_rd_test</td>
+<td>HE-MEM</td>
+<td>Read only mode. Randomize num_lines, addresses, req_len</td>
+<td>counter checking</td>
+</tr>
+<tr>
+<td>he_mem_thruput_contmode_test</td>
+<td>HE-MEM</td>
+<td>Continuous mode, Read/Write mode. 50/50. Randomize num_lines, addresses, req_len</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_thruput_test</td>
+<td>HE-MEM</td>
+<td>Read/Write mode. 50/50. Randomize num_lines, addresses, req_len</td>
+<td>counter checking</td>
+</tr>
+<tr>
+<td>he_mem_wr_cont_test</td>
+<td>HE-MEM</td>
+<td>Write only mode/ Continuous mode. Randomize num_lines, addresses, req_len</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>he_mem_wr_test</td>
+<td>HE-MEM</td>
+<td>Write only mode. Randomize num_lines, addresses, req_len</td>
+<td>counter checking</td>
+</tr>
+<tr>
+<td>he_random_long_test</td>
+<td>All HE's</td>
+<td>Enable all HEs and randomize modes for multiple iterations</td>
+<td>data checking if in lpbk mode, counter checking</td>
+</tr>
+<tr>
+<td>he_random_test</td>
+<td>All HEs</td>
+<td>Enable all HEs and randomize modes</td>
+<td>data checking if in lpbk mode, counter checking</td>
+</tr>
+<tr>
+<td>hehssi_csr_test</td>
+<td>HE-HSSI</td>
+<td>CSR accesses for Traffic Control Mail box registers</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>helb_csr_test</td>
+<td>HE-LPBK</td>
+<td>CSR accesses</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>helb_rd_1cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 1CL; 1024 CLs; Read only mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>helb_rd_2cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 2CL; 1024 CLs; Read only mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>helb_rd_4cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 4CL; 1024 CLs; Read only mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>helb_thruput_1cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 1CL; 1024 CLs; Thruput mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>helb_thruput_2cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 2CL; 1024 CLs; Thruput mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>helb_thruput_4cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 4CL; 1024 CLs; Thruput mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>helb_wr_1cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 1CL; 1024 CLs; Write only mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>helb_wr_2cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 2CL; 1024 CLs; Write only mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>helb_wr_4cl_test</td>
+<td>Performance</td>
+<td>HE-LB; ReqLen = 4CL; 1024 CLs; Write only mode</td>
+<td>data checking, counter checking</td>
+</tr>
+<tr>
+<td>hemem_csr_test</td>
+<td>HE-MEM</td>
+<td>CSR accesses</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>hemem_intr_test</td>
+<td>Interrupt</td>
+<td>HE MEMN Interrupt</td>
+<td>Interrupts assertion, PBA bits check</td>
+</tr>
+<tr>
+<td>malformedtlp_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3. Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be returned on reads. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing.</td>
+</tr>
+<tr>
+<td>maxpayloaderror_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3. Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be returned on reads. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing.</td>
+</tr>
+<tr>
+<td>MaxTagError_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3.Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be returned on reads. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing.</td>
+</tr>
+<tr>
+<td>mini_smoke_test</td>
+<td>All HEs</td>
+<td>shorter simpler version of random test for turn-in sanity check</td>
+<td>data checking if in lpbk mode, counter checking</td>
+</tr>
+<tr>
+<td>mmio_64b_bar_test</td>
+<td>PCIe <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> Path</td>
+<td>64-bit bar addess for <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>mmio_stress_nonblocking_test</td>
+<td>PF/VF Mux/Demux</td>
+<td>Stressing <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> on PF/VF Mux/Demux with non-blocking <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> reads</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>mmio_stress_test</td>
+<td>PF/VF Mux/Demux</td>
+<td>Stressing <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> on PF/VF Mux/Demux</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>mmio_test</td>
+<td>PCIe <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> Path</td>
+<td><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> targeting PF0(ST2MM, <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>, PMCI, HSSI SS), PF1, PF1.VF1, PF1.VF2</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>mmio_unimp_test</td>
+<td>PCIe <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> Path</td>
+<td><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> acccess to unimplemented addresses</td>
+<td><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> checking</td>
+</tr>
+<tr>
+<td>MMIODataPayloadOverrun_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3. Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be returned on reads. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing.</td>
+</tr>
+<tr>
+<td>MMIOInsufficientData_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3. Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be returned on reads. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing.</td>
+</tr>
+<tr>
+<td>MMIOTimedout_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3. Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be returned on reads. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing.</td>
+</tr>
+<tr>
+<td>msix_csr_test</td>
+<td>MSIX CSR</td>
+<td>CSR accesses</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>pmci_csr_test</td>
+<td>PMCI CSR</td>
+<td>CSR accesses</td>
+<td>data checking</td>
+</tr>
+<tr>
+<td>port_gasket_csr_test</td>
+<td>PORT GASKET</td>
+<td>Port Gasket CSR test</td>
+<td>port csr checking</td>
+</tr>
+<tr>
+<td>TxMWrDataPayloadOverrun_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3. Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be returned on reads. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing</td>
+</tr>
+<tr>
+<td>TxMWrInsufficientData_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3. Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be returned on reads. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing</td>
+</tr>
+<tr>
+<td>UnexpMMIORspErr_test</td>
+<td>Protocol Checker</td>
+<td>Checks for different PCIe Protocol error generation (upstram/downstream) and check the clear mechanism of <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> for these detected protocol errors. 1. Apply the error 2. Wait 5us 1us 3. Set the port reset bit true and then false again (within 1us) (You will not be able to perform a read-modify-write because F's will be retuened on resds. Write a 0x5 to set and a 0x4 to clear) 4. Wait 124us 135us (or 7.5us 28us if MMIO_TIMEOUT_CYCLES is 512.) 5. Read bit 31 of the AFU_INTF_ERROR, BlockingTraffic. If it is set it means that we did not wait long enough in step 4 6. Read the AFU_INTF_ERROR register, Be sure only the expected error(s) are set 7. Read the AFU_INTF_FIRST_ERROR CSR. Be sure only one error bit is set and it is the expected one 8. Clear the errors in the AFU_INTF_ERROR CSR by writing one to the bits that are set 9. Read the AFU_INTF_FIRST_ERROR CSR. Be sure all bits are cleared</td>
+<td>Check AFU_INTF_ERROR and AFU_INTF_FIRST_ERROR register is getting set with correct error vector. After clearing the error register,check if normal transcation are completing</td>
+</tr>
+</tbody>
+</table>
+<p>The next section describes how to compile and build the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> environment prior to running each <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> test and analyzing the results in the log files</p>
+<h2 id="84-ip-compile"><strong>8.4 IP Compile</strong><a class="headerlink" href="#84-ip-compile" title="Permanent link">&para;</a></h2>
+<h2 id="synopsys-vcs"><strong>Synopsys VCS</strong><a class="headerlink" href="#synopsys-vcs" title="Permanent link">&para;</a></h2>
+<p>To compile all IPs for the Synopsys VCS simulater:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>cmplib
+</code></pre></div>
+<h2 id="questasim"><strong>Questasim</strong><a class="headerlink" href="#questasim" title="Permanent link">&para;</a></h2>
+<p>To compile all IPs for the Questasim simulater:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>cmplib<span class="w"> </span>
+</code></pre></div>
+<h2 id="85-rtl-test-bench-compile"><strong>8.5 RTL &amp; Test Bench Compile</strong><a class="headerlink" href="#85-rtl-test-bench-compile" title="Permanent link">&para;</a></h2>
+<p>The RTL file list for compilation is located here: verification/scripts/rtl_comb.f</p>
+<p>The <abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr> file list for compilation is located here: verification/scripts/ver_list.f</p>
+<h2 id="synopsys-vcs_1"><strong>Synopsys VCS</strong><a class="headerlink" href="#synopsys-vcs_1" title="Permanent link">&para;</a></h2>
+<p>To compile RTL and Testbench for the Synopsys VCS simulater</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="w">    </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>build<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<h2 id="questasim_1"><strong>Questasim</strong><a class="headerlink" href="#questasim_1" title="Permanent link">&para;</a></h2>
+<p>To compile RTL and Testbench for the Questasim simulater</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="w">    </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>build<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<h2 id="86-ip-and-rtl-test-bench-compile"><strong>8.6 IP and RTL &amp; Test Bench Compile</strong><a class="headerlink" href="#86-ip-and-rtl-test-bench-compile" title="Permanent link">&para;</a></h2>
+<h2 id="synopsys-vcs_2"><strong>Synopsys VCS</strong><a class="headerlink" href="#synopsys-vcs_2" title="Permanent link">&para;</a></h2>
+<p>If the user wants to compile all IPs and RTL Testbench in one command for Synopsys VCS then follow the procedure below</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">    </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>build_all<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<h2 id="questasim_2"><strong>Questasim</strong><a class="headerlink" href="#questasim_2" title="Permanent link">&para;</a></h2>
+<p>If the user wants to compile all IPs and RTL Testbench in one command for Questasim then follow the procedure below</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="w">    </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>build_all<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<h2 id="synopsys-vcs_3"><strong>Synopsys VCS</strong><a class="headerlink" href="#synopsys-vcs_3" title="Permanent link">&para;</a></h2>
+<p>To run a simulation for Synopsys VCS:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="w">    </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>run<span class="w"> </span><span class="nv">TESTNAME</span><span class="o">=</span>mmio_test<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<h2 id="questasim_3"><strong>Questasim</strong><a class="headerlink" href="#questasim_3" title="Permanent link">&para;</a></h2>
+<p>To run a simulation for Questasim:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">    </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">    </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>run<span class="w"> </span><span class="nv">TESTNAME</span><span class="o">=</span>mmio_test<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>
+</code></pre></div>
+<h2 id="synopsys-vcs_4"><strong>Synopsys VCS</strong><a class="headerlink" href="#synopsys-vcs_4" title="Permanent link">&para;</a></h2>
+<p>To dump the waveform, "DUMP=1" must be added into the command line for Synopsys VCS build and simulation. </p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="w">    </span>ofs-d5005/verification/scripts<span class="w">  </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>build<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a><span class="w">    </span>ofs-d5005/verification/scripts<span class="w">  </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>run<span class="w"> </span><span class="nv">TESTNAME</span><span class="o">=</span>&lt;test_case_name&gt;<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+Or</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="w">    </span>ofs-d5005/verification/scripts<span class="w">  </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>build_run<span class="w"> </span><span class="nv">TESTNAME</span><span class="o">=</span>&lt;test_case_name&gt;<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<h2 id="questasim_4"><strong>Questasim</strong><a class="headerlink" href="#questasim_4" title="Permanent link">&para;</a></h2>
+<p>To dump the waveform, "DUMP=1" must be added into the command line for Questasim build and simulation. </p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="w">    </span>ofs-d5005/verification/scripts<span class="w">  </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>build<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">    </span>ofs-d5005/verification/scripts<span class="w">  </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>run<span class="w"> </span><span class="nv">TESTNAME</span><span class="o">=</span>&lt;test_case_name&gt;<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+Or</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="w">    </span>ofs-d5005/verification/scripts<span class="w">  </span>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>build_run<span class="w"> </span><span class="nv">TESTNAME</span><span class="o">=</span>&lt;test_case_name&gt;<span class="w"> </span><span class="nv">DUMP</span><span class="o">=</span><span class="m">1</span>
+</code></pre></div>
+<p>There are some optimizations in the Table below for convenience if you want to bypass some commands for both Synopsys VCS and Questasim:</p>
+<table>
+<thead>
+<tr>
+<th>Command (Synopsys VCS)</th>
+<th>Command (Questasim)</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gmake -f Makefile_VCS.mk build_all DUMP=1</td>
+<td>gmake -f Makefile_MSIM.mk build_all DUMP=1</td>
+<td>compile IP + compile RTL</td>
+</tr>
+<tr>
+<td>gmake -f Makefile_VCS.mk build_run TESTNAME= DUMP=1</td>
+<td>gmake -f Makefile_MSIM.mk build_run TESTNAME= DUMP=1</td>
+<td>compile RTL + run test</td>
+</tr>
+<tr>
+<td>gmake -f Makefile_VCS.mk do_it_all TESTNAME= DUMP=1</td>
+<td>gmake -f Makefile_MSIM.mk do_it_all TESTNAME= DUMP=1</td>
+<td>compile IP, RTL and run test</td>
+</tr>
+<tr>
+<td>gmake -f Makefile_VCS.mk rundb TESTNAME= DUMP=1</td>
+<td>gmake -f Makefile_MSIM.mk rundb TESTNAME= DUMP=1</td>
+<td>run test in sim dir + over-writes content</td>
+</tr>
+</tbody>
+</table>
+<h2 id="87-uvm-regression-test"><strong>8.7 <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Regression Test</strong><a class="headerlink" href="#87-uvm-regression-test" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>For<span class="w"> </span>Regression<span class="w"> </span><span class="k">in</span><span class="w"> </span>VCS<span class="w"> </span>with<span class="w"> </span>top/test<span class="w"> </span>package,<span class="w"> </span>execute<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span><span class="nb">command</span><span class="w"> </span>
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="w">    </span>python<span class="w"> </span>uvm_regress.py<span class="w"> </span>-l<span class="w"> </span>-n<span class="w"> </span><span class="m">8</span><span class="w"> </span>-s<span class="w"> </span>vcs<span class="w"> </span>-c
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>Results<span class="w"> </span>are<span class="w"> </span>created<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>sim<span class="w"> </span>directory<span class="w"> </span><span class="o">(</span><span class="nv">$VERDIR</span>/sim<span class="o">)</span><span class="w"> </span>with<span class="w"> </span>individual<span class="w"> </span>testcase<span class="w"> </span>log<span class="w"> </span>dir
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>For<span class="w"> </span>Regression<span class="w"> </span><span class="k">in</span><span class="w"> </span>MSIM<span class="w"> </span>with<span class="w"> </span>top/test<span class="w"> </span>package,<span class="w"> </span>execute<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span><span class="nb">command</span><span class="w"> </span>
+<a id="__codelineno-19-9" name="__codelineno-19-9" href="#__codelineno-19-9"></a><span class="w">    </span>python<span class="w"> </span>uvm_regress.py<span class="w"> </span>-l<span class="w"> </span>-n<span class="w"> </span><span class="m">8</span><span class="w"> </span>-s<span class="w"> </span>msim<span class="w"> </span>-c
+</code></pre></div>
+<p>Results are created in a sim directory ($VERDIR/sim_msim) with individual testcase log dir</p>
+<h2 id="88-uvm-waveform-and-transcript-analysis"><strong>8.8 <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Waveform and Transcript Analysis</strong><a class="headerlink" href="#88-uvm-waveform-and-transcript-analysis" title="Permanent link">&para;</a></h2>
+<h2 id="synopsys-vcs_5"><strong>Synopsys VCS</strong><a class="headerlink" href="#synopsys-vcs_5" title="Permanent link">&para;</a></h2>
+<p>Running Synopsys VCS <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> tests will generate a ofs-d5005/verification/sim directory</p>
+<ul>
+<li>All build time logs are at ofs-d5005/verification/sim</li>
+</ul>
+<ul>
+<li>Each testcase will have separate directory inside sim ofs-d5005/verification/sim/<test_case_name></li>
+</ul>
+<p>There are two tracker or log files that are available: runsim.log and trans.log. </p>
+<p>runsim.log is the simulation log file generated from Synopsys VCS. The test sequence prints useful information for debugging purpose, such as the base address for each function or block. For HE-LB and HE-MEM, key information such as SRC_ADDR, DST_ADDR, NUM_LINES, mode, req_len etc is printed out as shown in Figure 3</p>
+<p><a class="glightbox" href="../images/ofs-uvm_runsim_log.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs-uvm_runsim_log.png" /></a></p>
+<p><strong>Figure 3 runsim.log</strong></p>
+<p>trans.log is generated from PCIe host VIP. trans.log records all transaction information coming in or going out of the VIP. Users can find traffic direction(DIR), TLP type, Tag, Address or BDF, 3 or 4 dword header of the TLP as shown in Figure 4</p>
+<p><a class="glightbox" href="../images/ofs-uvm_trans_log.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs-uvm_trans_log.png" /></a></p>
+<p><strong>Figure 4 trans.log</strong></p>
+<p>The waveform generated is named as "inter.vpd". To open the waveform, go to simulation result directory and run </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>dve<span class="w"> </span>-full64<span class="w"> </span>-vpd<span class="w"> </span>inter.vpd<span class="w"> </span><span class="p">&amp;</span>
+</code></pre></div>
+<h2 id="questasim_5"><strong>Questasim</strong><a class="headerlink" href="#questasim_5" title="Permanent link">&para;</a></h2>
+<p>Running Questasim <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> tests will generate a ofs-d5005/verification/sim_msim directory</p>
+<ul>
+<li>All build time logs are at ofs-d5005/verification/sim_msim</li>
+</ul>
+<ul>
+<li>Each testcase will have separate directory inside sim ofs-d5005/verification/sim_msim/<test_case_name></li>
+</ul>
+<p>There are two tracker or log files that are available: runsim.log and trans.log. </p>
+<p>runsim.log is the simulation log file generated from Questasim. The test sequence prints useful information for debugging purpose, such as the base address for each function or block. For HE-LB and HE-MEM, key information such as SRC_ADDR, DST_ADDR, NUM_LINES, mode, req_len etc is printed out as shown in Figure 4</p>
+<p><a class="glightbox" href="../images/ofs-uvm_runsim_log.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs-uvm_runsim_log.png" /></a></p>
+<p><strong>Figure 4 runsim.log</strong></p>
+<p>trans.log is generated from PCIe host VIP. trans.log records all transaction information coming in or going out of the VIP. Users can find traffic direction(DIR), TLP type, Tag, Address or BDF, 3 or 4 dword header of the TLP as shown in Figure 5</p>
+<p><a class="glightbox" href="../images/ofs-uvm_trans_log.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/ofs-uvm_trans_log.png" /></a></p>
+<p><strong>Figure 5 trans.log</strong></p>
+<p>The waveform generated is named as "vsim.wlf". To open the waveform, go to simulation result directory and run </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="w">    </span>vsim<span class="w"> </span>-view<span class="w"> </span>vsim.wlf<span class="w"> </span><span class="p">&amp;</span><span class="w">    </span>
+</code></pre></div>
+<h2 id="9-modifying-uvm-testbench"><strong>9 Modifying <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> Testbench</strong><a class="headerlink" href="#9-modifying-uvm-testbench" title="Permanent link">&para;</a></h2>
+<p>The next section describe what needs to be considered when modifying the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr>, targeting a different device, adding a new interface to the testbench and creating a new <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> test for a customized <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Accelerator platform.</p>
+<h2 id="91-modifying-uvm-environment-when-targeting-different-device"><strong>9.1 Modifying <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> environment when targeting different device</strong><a class="headerlink" href="#91-modifying-uvm-environment-when-targeting-different-device" title="Permanent link">&para;</a></h2>
+<p>A new device may have different design feature or flow. The base address must be allocated for the new device. The <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> targeting the new device must be based on the base address. If it is a new PF or VF, PCIe HIP must be regenerated and enumeration sequence must be updated accordingly. </p>
+<h2 id="92-modifying-uvm-environment-when-adding-a-new-interface"><strong>9.2 Modifying <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> environment when adding a new interface</strong><a class="headerlink" href="#92-modifying-uvm-environment-when-adding-a-new-interface" title="Permanent link">&para;</a></h2>
+<p>Adding a new interface requires signal connections in the testbench. An additional BFM or verification IP is needed to drive the new interface. The main testbench file tb_top.sv is found at the following location</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="w">    </span><span class="nv">$OFS_ROOTDIR</span>/verification/testbench
+</code></pre></div>
+<h2 id="93-adding-a-new-uvm-test"><strong>9.3 Adding a new <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> test</strong><a class="headerlink" href="#93-adding-a-new-uvm-test" title="Permanent link">&para;</a></h2>
+<p>In the following example we will modify an existing test "he_lpbk" and name it "he_lpbk_new", and rebuild the test to check it. Please follow the steps below </p>
+<ol>
+<li>
+<p>Create a new test sequence file under ofs-d5005/verification/tests/sequences</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>he_lpbk_seq_new.svh
+</code></pre></div>
+</li>
+<li>
+<p>Modify ifndef, define and endif statements in new test sequence case i.e he_lpbk_seq_new.svh file</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a><span class="sb">`</span>ifndef<span class="w"> </span>HE_LPBK_SEQ_NEW_SVH<span class="w"> </span>
+<a id="__codelineno-24-2" name="__codelineno-24-2" href="#__codelineno-24-2"></a><span class="sb">`</span>define<span class="w"> </span>HE_LPBK_SEQ_NEW_SVH
+<a id="__codelineno-24-3" name="__codelineno-24-3" href="#__codelineno-24-3"></a><span class="sb">`</span>endif<span class="w"> </span>//<span class="w"> </span>HE_LPBK_SEQ_NEW_SVH
+</code></pre></div>
+<p>also replace all occurences of he_lpbk_seq with he_lpbk_seq_new in the he_lpbk_seq_new.svh file</p>
+</li>
+<li>
+<p>Append the new sequence name into ofs-d5005/verification/tests/sequences/seq_lib.svh file</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a><span class="sb">`</span>include<span class="w"> </span><span class="s2">&quot;he_lpbk_seq_new.svh&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Create a new test under ofs-d5005/verification/tests</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a>he_lpbk_test_new.svh
+</code></pre></div>
+</li>
+<li>
+<p>Modify ifndef, define and endif statements in new test case i.e he_lpbk_test_new.svh file</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="sb">`</span>ifndef<span class="w"> </span>HE_LPBK_TEST_NEW_SVH<span class="w"> </span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="sb">`</span>define<span class="w"> </span>HE_LPBK_TEST_NEW_SVH
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="sb">`</span>endif<span class="w"> </span>//<span class="w"> </span>HE_LPBK_TEST_NEW_SVH
+</code></pre></div>
+<p>also replace all occurences of he_lpbk_test with he_lpbk_test_new in the he_lpbk_test_new.svh file</p>
+</li>
+<li>
+<p>Append the new test name into ofs-d5005/verification/tests/test_pkg.svh file</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a><span class="sb">`</span>include<span class="w"> </span><span class="s2">&quot;he_lpbk_test_new.svh&quot;</span>
+</code></pre></div>
+</li>
+<li>
+<p>Rebuild <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> test suite for either Synopsys VCS or Questasim simulater</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-29-1" name="__codelineno-29-1" href="#__codelineno-29-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-29-2" name="__codelineno-29-2" href="#__codelineno-29-2"></a>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>build_all
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-30-1" name="__codelineno-30-1" href="#__codelineno-30-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-30-2" name="__codelineno-30-2" href="#__codelineno-30-2"></a>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>build_all
+</code></pre></div>
+</li>
+<li>
+<p>Execute new test for either Synopsys VCS or Questasim simulater</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-31-1" name="__codelineno-31-1" href="#__codelineno-31-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-31-2" name="__codelineno-31-2" href="#__codelineno-31-2"></a>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_VCS.mk<span class="w"> </span>run<span class="w"> </span><span class="nv">TESTNAME</span><span class="o">=</span>he_lpbk_test_new
+</code></pre></div>
+<p>or</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-32-1" name="__codelineno-32-1" href="#__codelineno-32-1"></a><span class="nb">cd</span><span class="w"> </span><span class="nv">$VERDIR</span>/scripts
+<a id="__codelineno-32-2" name="__codelineno-32-2" href="#__codelineno-32-2"></a>gmake<span class="w"> </span>-f<span class="w"> </span>Makefile_MSIM.mk<span class="w"> </span>run<span class="w"> </span><span class="nv">TESTNAME</span><span class="o">=</span>he_lpbk_test_new
+</code></pre></div>
+</li>
+</ol>
+<p>9) Check new test and log files
+        cd ofs-d5005/verification/sim/he_lpbk_test_new</p>
+<div class="highlight"><pre><span></span><code>```sh
+open runsim.log
+```
+</code></pre></div>
+<h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
+<p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+No product or component can be absolutely secure. 
+Performance varies by use, configuration and other factors.
+Your costs and results may vary. 
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
+<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. </p>
+<p>OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. </p>
+<!-- include ./docs/hw/d5005/doc_modules/links.md -->
+<!-- include ./docs/hw/doc_modules/links.md -->
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

@@ -1,0 +1,3093 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../hw/doc_modules/contents_agx7_pcie_attach/">
+      
+      
+        <link rel="next" href="../../hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>Intel® FPGA SmartNIC N6000/1-PL - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#board-installation-guidelines-intel-fpga-smartnic-n60001-pl-intel-fpga-pac-d5005" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Intel® FPGA SmartNIC N6000/1-PL
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hw/doc_modules/contents_s10_pcie_attach/" class="md-tabs__link">
+        Stratix® 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hw/doc_modules/contents_agx7_pcie_attach/" class="md-tabs__link md-tabs__link--active">
+        Agilex® 7 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hw/doc_modules/contents_agx7_soc_attach/" class="md-tabs__link">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hw/common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../hw/common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/user_guides/ug_sw_developer/ug_sw_developer/" class="md-nav__link">
+        Software Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix® 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix® 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/doc_modules/contents_s10_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../d5005/adp_board_installation_guidelines/" class="md-nav__link">
+        Board Installation Guide (Intel® FPGA PAC D5005)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../d5005/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../d5005/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../d5005/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../d5005/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../d5005/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex® 7 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex® 7 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/doc_modules/contents_agx7_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" checked>
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Board Installation Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Board Installation Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Intel® FPGA SmartNIC N6000/1-PL
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Intel® FPGA SmartNIC N6000/1-PL
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-introduction" class="md-nav__link">
+    1.0 Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-about-this-document" class="md-nav__link">
+    1.1 About This Document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-audience" class="md-nav__link">
+    1.2 Audience
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Audience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-1-terminology" class="md-nav__link">
+    Table 1: Terminology
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-required-hardware-for-installation" class="md-nav__link">
+    1.3 Required Hardware for Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Required Hardware for Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-2-intel-n60001-pl-fpga-smartnic-platform-sku-mapping" class="md-nav__link">
+    Table 2: Intel N6000/1-PL FPGA SmartNIC Platform SKU Mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-3-hardware-bkc" class="md-nav__link">
+    Table 3: Hardware BKC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-initial-server-setup" class="md-nav__link">
+    2.0 Initial Server Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Initial Server Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-server-information-for-intel-fpga-smartnic-n60001-pl" class="md-nav__link">
+    2.1 Server Information for Intel® FPGA SmartNIC N6000/1-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Server Information for Intel® FPGA SmartNIC N6000/1-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-4-supermicro-server-bmc-bkc" class="md-nav__link">
+    Table 4: SuperMicro Server BMC BKC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-server-information-for-intel-fpga-pac-d5005" class="md-nav__link">
+    2.2 Server Information for Intel® FPGA PAC D5005
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-server-settings" class="md-nav__link">
+    3.0 Server Settings
+  </a>
+  
+    <nav class="md-nav" aria-label="3.0 Server Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-bios-settings" class="md-nav__link">
+    3.1 BIOS Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-server-fan-speed" class="md-nav__link">
+    3.1 Server Fan Speed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cooling-requirements" class="md-nav__link">
+    3.2 Cooling Requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-board-installation-procedure" class="md-nav__link">
+    4.0 Board Installation Procedure
+  </a>
+  
+    <nav class="md-nav" aria-label="4.0 Board Installation Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pcie-slot-mappings-for-intel-fpga-smartnic-n60001-pl" class="md-nav__link">
+    4.1 PCIe Slot Mappings for Intel® FPGA SmartNIC N6000/1-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 PCIe Slot Mappings for Intel® FPGA SmartNIC N6000/1-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-5-pcie-slot-mapping" class="md-nav__link">
+    Table 5: PCIe Slot Mapping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-installation-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server" class="md-nav__link">
+    4.2 Installation Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Installation Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-6-adp-installation-procedure" class="md-nav__link">
+    Table 6: ADP Installation Procedure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-removal-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server" class="md-nav__link">
+    4.3 Removal Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Removal Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-7-adp-removal-procedure" class="md-nav__link">
+    Table 7: ADP Removal Procedure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/" class="md-nav__link">
+        Agilex® 7 FPGA I-Series and F-Series Development Kits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Getting Started Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        OFS for Agilex® 7 FPGA F-Series Development Kit (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        OFS for Intel® FPGA SmartNIC N6001-PL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_6" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
+          Shell Developer Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_6">
+          <span class="md-nav__icon md-icon"></span>
+          Shell Developer Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach I-Series (2xR-Tile, F-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach F-Series (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        PCIe Attach F-Series (P-Tile/E-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_9" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_9">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/doc_modules/contents_agx7_soc_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/board_installation/f2000x_board_installation/f2000x_board_installation/" class="md-nav__link">
+        Board Installation Guide (Intel® IPU Platform F2000X-PL)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../f2000x/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../f2000x/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../f2000x/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../f2000x/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../f2000x/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/user_guides/oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        oneAPI ASP Getting Started User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide OFS for PCIe Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../hw/common/sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide OFS for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_4" id="__nav_7_4_label" tabindex="0">
+          OPAE FPGA Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_4">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-introduction" class="md-nav__link">
+    1.0 Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-about-this-document" class="md-nav__link">
+    1.1 About This Document
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-audience" class="md-nav__link">
+    1.2 Audience
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Audience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-1-terminology" class="md-nav__link">
+    Table 1: Terminology
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#13-required-hardware-for-installation" class="md-nav__link">
+    1.3 Required Hardware for Installation
+  </a>
+  
+    <nav class="md-nav" aria-label="1.3 Required Hardware for Installation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-2-intel-n60001-pl-fpga-smartnic-platform-sku-mapping" class="md-nav__link">
+    Table 2: Intel N6000/1-PL FPGA SmartNIC Platform SKU Mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-3-hardware-bkc" class="md-nav__link">
+    Table 3: Hardware BKC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#20-initial-server-setup" class="md-nav__link">
+    2.0 Initial Server Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="2.0 Initial Server Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-server-information-for-intel-fpga-smartnic-n60001-pl" class="md-nav__link">
+    2.1 Server Information for Intel® FPGA SmartNIC N6000/1-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="2.1 Server Information for Intel® FPGA SmartNIC N6000/1-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-4-supermicro-server-bmc-bkc" class="md-nav__link">
+    Table 4: SuperMicro Server BMC BKC
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-server-information-for-intel-fpga-pac-d5005" class="md-nav__link">
+    2.2 Server Information for Intel® FPGA PAC D5005
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-server-settings" class="md-nav__link">
+    3.0 Server Settings
+  </a>
+  
+    <nav class="md-nav" aria-label="3.0 Server Settings">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-bios-settings" class="md-nav__link">
+    3.1 BIOS Settings
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#31-server-fan-speed" class="md-nav__link">
+    3.1 Server Fan Speed
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-cooling-requirements" class="md-nav__link">
+    3.2 Cooling Requirements
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-board-installation-procedure" class="md-nav__link">
+    4.0 Board Installation Procedure
+  </a>
+  
+    <nav class="md-nav" aria-label="4.0 Board Installation Procedure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-pcie-slot-mappings-for-intel-fpga-smartnic-n60001-pl" class="md-nav__link">
+    4.1 PCIe Slot Mappings for Intel® FPGA SmartNIC N6000/1-PL
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 PCIe Slot Mappings for Intel® FPGA SmartNIC N6000/1-PL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-5-pcie-slot-mapping" class="md-nav__link">
+    Table 5: PCIe Slot Mapping
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-installation-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server" class="md-nav__link">
+    4.2 Installation Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server
+  </a>
+  
+    <nav class="md-nav" aria-label="4.2 Installation Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-6-adp-installation-procedure" class="md-nav__link">
+    Table 6: ADP Installation Procedure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#43-removal-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server" class="md-nav__link">
+    4.3 Removal Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server
+  </a>
+  
+    <nav class="md-nav" aria-label="4.3 Removal Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-7-adp-removal-procedure" class="md-nav__link">
+    Table 7: ADP Removal Procedure
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="board-installation-guidelines-intel-fpga-smartnic-n60001-pl-intel-fpga-pac-d5005">Board Installation Guidelines: Intel® FPGA SmartNIC N6000/1-PL, Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005<a class="headerlink" href="#board-installation-guidelines-intel-fpga-smartnic-n60001-pl-intel-fpga-pac-d5005" title="Permanent link">&para;</a></h1>
+<p>Last updated: <strong>July 16, 2024</strong> </p>
+<h2 id="10-introduction">1.0 Introduction<a class="headerlink" href="#10-introduction" title="Permanent link">&para;</a></h2>
+<h3 id="11-about-this-document">1.1 About This Document<a class="headerlink" href="#11-about-this-document" title="Permanent link">&para;</a></h3>
+<p>The purpose of this document is to educate users of the following acceleration platforms on board installation and server environment setup - the Intel® FPGA SmartNIC N6000/1-PL and the Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005. After reading the document a user shall be able to:</p>
+<ul>
+<li>Safely install and remove an ADP</li>
+<li>Set up their server BIOS with the recommended settings</li>
+<li>Learn about thermal cooling requirements for their platform</li>
+</ul>
+<p>This document will include notes where board installation or information differs between platforms. If no such note exists, you may assume it is applicable to all three platforms.</p>
+<h3 id="12-audience">1.2 Audience<a class="headerlink" href="#12-audience" title="Permanent link">&para;</a></h3>
+<p>The information in this document is intended for customers evaluating the PCIe Attach shell on supported ADP platforms. This reference is a starting point for evaluation and development of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> compliant shell designs and workloads. This document will not cover software installation or platform validation, as those are shown in their respective documents.</p>
+<p><em>Note: Code command blocks are used throughout the document. Full command output may not be shown for the sake of brevity.</em></p>
+<h4 id="table-1-terminology">Table 1: Terminology<a class="headerlink" href="#table-1-terminology" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">Term</th>
+<th align="center">Abbreviation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Advanced Error Reporting</td>
+<td align="center"><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
+<td>The PCIe <abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr> driver is the extended PCI Express error reporting capability providing more robust error reporting. <a href="https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer">(link)</a></td>
+</tr>
+<tr>
+<td align="center">Accelerator Functional Unit</td>
+<td align="center"><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td>Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside. This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region.</td>
+</tr>
+<tr>
+<td align="center">Basic Building Block</td>
+<td align="center"><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td>Features within an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and host interface requires. All BBBs must have a (globally unique identifier) GUID.</td>
+</tr>
+<tr>
+<td align="center">Best Known Configuration</td>
+<td align="center"><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
+<td>The software and hardware configuration Intel uses to verify the solution.</td>
+</tr>
+<tr>
+<td align="center">Board Management Controller</td>
+<td align="center"><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
+<td>Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> known as the PMCI resides in the main Agilex FPGA.</td>
+</tr>
+<tr>
+<td align="center">Configuration and Status Register</td>
+<td align="center">CSR</td>
+<td>The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>, various sub-systems and modules).</td>
+</tr>
+<tr>
+<td align="center">Data Parallel C++</td>
+<td align="center">DPC++</td>
+<td>DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.</td>
+</tr>
+<tr>
+<td align="center">Device Feature List</td>
+<td align="center"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software framework. <a href="https://docs.kernel.org/fpga/dfl.html">(link)</a></td>
+</tr>
+<tr>
+<td align="center">FPGA Interface Manager</td>
+<td align="center"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
+</tr>
+<tr>
+<td align="center">FPGA Management Engine</td>
+<td align="center"><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
+<td>Performs reconfiguration and other FPGA management functions. Each FPGA device only has one <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> which is accessed through PF0.</td>
+</tr>
+<tr>
+<td align="center">Host Exerciser Module</td>
+<td align="center"><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
+<td>Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc.</td>
+</tr>
+<tr>
+<td align="center">Input/Output Control</td>
+<td align="center"><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
+<td>System calls used to manipulate underlying device parameters of special files.</td>
+</tr>
+<tr>
+<td align="center">Intel Virtualization Technology for Directed I/O</td>
+<td align="center"><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
+<td>Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.</td>
+</tr>
+<tr>
+<td align="center">Joint Test Action Group</td>
+<td align="center"><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
+<td>Refers to the IEEE 1149.1 <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> standard; Another FPGA configuration methodology.</td>
+</tr>
+<tr>
+<td align="center">Memory Mapped Input/Output</td>
+<td align="center"><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td>The memory space users may map and access both control registers and system memory buffers with accelerators.</td>
+</tr>
+<tr>
+<td align="center">oneAPI Accelerator Support Package</td>
+<td align="center">oneAPI-asp</td>
+<td>A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> shell components. oneAPI ASP hardware components and oneAPI kernel form the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region of a oneAPI system in <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</td>
+</tr>
+<tr>
+<td align="center">Open FPGA Stack</td>
+<td align="center"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3<sup>rd</sup> party, or custom board.</td>
+</tr>
+<tr>
+<td align="center">Open Programmable Acceleration Engine Software Development Kit</td>
+<td align="center"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> resides exclusively in user-space.</td>
+</tr>
+<tr>
+<td align="center">Platform Interface Manager</td>
+<td align="center"><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
+<td>An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
+</tr>
+<tr>
+<td align="center">Platform Management Controller Interface</td>
+<td align="center">PMCI</td>
+<td>The portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> that resides in the Agilex FPGA and allows the FPGA to communicate with the primary <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> component on the board.</td>
+</tr>
+<tr>
+<td align="center">Partial Reconfiguration</td>
+<td align="center"><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
+<td>The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> designs, the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region is referred to as the pr_slot.</td>
+</tr>
+<tr>
+<td align="center">Port</td>
+<td align="center">N/A</td>
+<td>When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region containing the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>.</td>
+</tr>
+<tr>
+<td align="center">Remote System Update</td>
+<td align="center"><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
+<td>The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".</td>
+</tr>
+<tr>
+<td align="center">Secure Device Manager</td>
+<td align="center">SDM</td>
+<td>The SDM is the point of entry to the FPGA for <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).</td>
+</tr>
+<tr>
+<td align="center">Static Region</td>
+<td align="center">SR</td>
+<td>The portion of the FPGA design that cannot be dynamically reconfigured during run-time.</td>
+</tr>
+<tr>
+<td align="center">Single-Root Input-Output Virtualization</td>
+<td align="center"><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
+<td>Allows the isolation of PCI Express resources for manageability and performance.</td>
+</tr>
+<tr>
+<td align="center">SYCL</td>
+<td align="center">SYCL</td>
+<td>SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.</td>
+</tr>
+<tr>
+<td align="center">Test Bench</td>
+<td align="center"><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
+<td>Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.</td>
+</tr>
+<tr>
+<td align="center">Universal Verification Methodology</td>
+<td align="center"><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
+<td>A modular, reusable, and scalable testbench structure via an API framework.  In the context of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>, the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> enviroment provides a system level simulation environment for your design.</td>
+</tr>
+<tr>
+<td align="center">Virtual Function Input/Output</td>
+<td align="center"><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
+<td>An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="13-required-hardware-for-installation">1.3 Required Hardware for Installation<a class="headerlink" href="#13-required-hardware-for-installation" title="Permanent link">&para;</a></h3>
+<h4 id="table-2-intel-n60001-pl-fpga-smartnic-platform-sku-mapping">Table 2: Intel N6000/1-PL FPGA SmartNIC Platform SKU Mapping<a class="headerlink" href="#table-2-intel-n60001-pl-fpga-smartnic-platform-sku-mapping" title="Permanent link">&para;</a></h4>
+<p>The following table highlights the differences between N6000/1 PL FPGA SmartNIC platforms (SKU1/SKU2). Use this table to identify which version of the N6000/1-PL FPGA SmartNIC platforms you have if you are unsure. The board identification printed by the <code>fpgainfo fme</code> commands depends on both the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers from sections, whose installation is covered in the [Software Installation Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for PCIe Attach FPGAs].</p>
+<table>
+<thead>
+<tr>
+<th>SKU Mapping</th>
+<th>SKU Value</th>
+<th>Primary Difference</th>
+<th><code>fpgainfo</code> Identification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>N6000</td>
+<td>Q1613314XXXXX</td>
+<td>PCIe Gen 4 1x16 mechanical bifurcated 2x8 logical to host, with one PCIe Gen 4x8 endpoint reserved for Intel E810-C-CAM2 NIC, the other reserved for <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>"Intel Acceleration Development Platform N6000"</td>
+</tr>
+<tr>
+<td>N6001</td>
+<td>Q0216514XXXXX</td>
+<td>PCIe Gen 4 1x16 mechanical and logical connection between host and <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>"Intel Acceleration Development Platform N6001"</td>
+</tr>
+</tbody>
+</table>
+<p>The following table provides a picture reference for the hardware components discussed in the rest of the document.</p>
+<h4 id="table-3-hardware-bkc">Table 3: Hardware <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr><a class="headerlink" href="#table-3-hardware-bkc" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Image</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intel® FPGA SmartNIC N6001-PL (SKU2)</td>
+<td><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_1_N6000.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_1_N6000" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_1_N6000.png" /></a></td>
+</tr>
+<tr>
+<td>Supermicro Server SYS-220HE</td>
+<td><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_2_SERVER.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_2_SERVER" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_2_SERVER.png" /></a></td>
+</tr>
+<tr>
+<td>Intel FPGA Download Cable II (Only Required for manual flashing)</td>
+<td><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_3_JTAG.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_3_JTAG" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_3_JTAG.png" /></a></td>
+</tr>
+<tr>
+<td>2x5 Extension header - Samtech Part No: ESQ-105-13-L-D (Only Required for manual flashing)</td>
+<td><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_4_EXTENDER.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="HARDWARE_4_EXTENDER" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_4_EXTENDER.png" /></a></td>
+</tr>
+</tbody>
+</table>
+<p>In addition to the above, all <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> ADP platforms require an auxillary power cable for the 12 V-Auxiliary 2x4 PCIe* power connector. This cable will differ between server vendors - review the pinout of the power connector on the <a href="https://www.intel.com/content/www/us/en/docs/programmable/683568/current/power.html">Intel® FPGA Programmable Acceleration Card D5005 Data Sheet</a> or <a href="https://www.intel.com/content/www/us/en/search.html?ws=text#q=n6001%20data%20sheet&amp;sort=relevancy">Intel FPGA SmartNIC N6001-PL Data Sheet - SKU2</a> (content ID=723837) as a reference for ordering. Although this is <em>not always the case</em>, often the standard 2x4 PCIe power connector that is required to enable a GPU in your server will also work for an FPGA-based ADP.</p>
+<h2 id="20-initial-server-setup">2.0 Initial Server Setup<a class="headerlink" href="#20-initial-server-setup" title="Permanent link">&para;</a></h2>
+<h3 id="21-server-information-for-intel-fpga-smartnic-n60001-pl">2.1 Server Information for Intel® FPGA SmartNIC N6000/1-PL<a class="headerlink" href="#21-server-information-for-intel-fpga-smartnic-n60001-pl" title="Permanent link">&para;</a></h3>
+<p>Both the server BIOS and <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> need to match the versions listed below in <a href="#table-4-supermicro-server-bmc-bkc">Table 4: Supermicro Server <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></a>. These updates only apply for this specific Best Known Configuration (<abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr>) - other server manufacturers may require different BIOS updates. Please consult your server's user guide and release notes for update information.</p>
+<h4 id="table-4-supermicro-server-bmc-bkc">Table 4: SuperMicro Server <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr><a class="headerlink" href="#table-4-supermicro-server-bmc-bkc" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BIOS Version</td>
+<td>American Megatrends International, LLC(1.4)</td>
+</tr>
+</tbody>
+</table>
+<p>Information about the server’s currently loaded firmware can be found on the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>
+web portal dashboard. Accessing this page requires an Ethernet cable to be attached
+to an open port on the server labelled “IPMI”. During boot the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>’s login IP will be
+presented on the screen.</p>
+<p>Open this IP address in a browser and enter your login credentials. The default
+username is ADMIN, and the default password has been printed on the service tag
+that pulls out from the front of the server case. It is recommended the user change
+their <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>’s default username as soon as they are able.</p>
+<p>After logging in you should be able to review information about the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> and BIOS by
+referring to the System box, visible upon initial loading of the page. Double check that
+the values match those in Table 4. If they do not, you
+may download the appropriate versions from the <a href="https://www.supermicro.com/en/products/system/Hyper/2U/SYS-220HE-FTNR">SuperMicro product page</a> by
+selecting the BIOS option and downloading the most recent “Bundled Software File
+Name”. Follow the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> and BIOS update instructions included in the
+<a href="https://www.supermicro.com/support/manuals/?mlg=0">SuperMicro manuals page</a> in the document <strong>X12/H12 <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> Manual</strong> in <strong>Appendix A.2 Updating Firmware Using <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> Web GUI</strong>.</p>
+<p>If using a different server model, refer to that server’s user guide for instructions on remote system management. Ensure that any system you end up using meets all the following requirements:</p>
+<ul>
+<li>Main Board: PCI Express 3.0 (D5005) or 4.0 (N6000/1) compliant motherboard with at least one dual-width x16 PCIe slot available for card installation</li>
+<li>Board Power Supply: Auxiliary Power (12V)</li>
+</ul>
+<h3 id="22-server-information-for-intel-fpga-pac-d5005">2.2 Server Information for Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005<a class="headerlink" href="#22-server-information-for-intel-fpga-pac-d5005" title="Permanent link">&para;</a></h3>
+<p>Refer to sections 2.1-2.3 of the <a href="https://www.intel.com/content/www/us/en/programmable/documentation/edj1542148561811.html">Intel Acceleration Stack Quick Start Guide: Intel FPGA Programmable Acceleration Card D5005</a> for a complete overview of the physical installation process and ESD precautions for the D5005 platform.</p>
+<p>Ensure that the system meets all the following requirements before proceeding to install the Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 into a server.</p>
+<ul>
+<li>Main Board: PCI Express 3.0 compliant motherboard with at least one dual-width x16 PCIe slot available for card installation</li>
+<li>Board Power Supply: Auxiliary Power (12V)</li>
+</ul>
+<p>Detailed mechanical for information can be found on the <a href="https://www.intel.com/content/www/us/en/docs/programmable/683568/current/mechanical-information.html">D5005 Data Sheet</a> and in section 4.0 Mechanical Information of the <a href="https://www.intel.com/content/www/us/en/search.html?ws=text#q=n6001%20data%20sheet&amp;sort=relevancy">Intel FPGA SmartNIC N6001-PL Data Sheet - SKU2</a> (content ID=723837).</p>
+<h2 id="30-server-settings">3.0 Server Settings<a class="headerlink" href="#30-server-settings" title="Permanent link">&para;</a></h2>
+<h3 id="31-bios-settings">3.1 BIOS Settings<a class="headerlink" href="#31-bios-settings" title="Permanent link">&para;</a></h3>
+<p>You must enable Intel VT-x/VT-d technologies for the PCIe slot housing your ADP. The following steps are known to work on a SuperMicro SYS-220HE server platform.</p>
+<ol>
+<li>
+<p>To enter the Supermicro server’s BIOS setup page, reboot, and press \&lt;Delete> when prompted. You can browse the tabs / options with a combination of arrow keys along with \&lt;Escape> and \&lt;Enter>.</p>
+</li>
+<li>
+<p>Navigate right to the <strong>Advanced</strong> tab, then select the following menu options: <strong>Chipset Configuration</strong> -&gt; <strong>North Bridge</strong> -&gt; <strong>IIO Configuration</strong> -&gt; <strong>Intel VT for Directed I/O (VT-d)</strong>.</p>
+</li>
+<li>
+<p>If not already, enable the option <strong>Intel VT for Directed I/O (VT-d)</strong>.</p>
+</li>
+</ol>
+<h3 id="31-server-fan-speed">3.1 Server Fan Speed<a class="headerlink" href="#31-server-fan-speed" title="Permanent link">&para;</a></h3>
+<p>The recommended fan speed setting is to use the 100% preset. If using a different
+server model, refer to that server’s user guide for instructions on changing fan
+speed. The following steps will help users on the SuperMicro platform.</p>
+<ol>
+<li>Log in to the SuperMicro server <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>. (This requires an Ethernet cable to be attached to an open port on the server labelled “IPMI”.)</li>
+<li>During boot the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>’s login IP will be presented on the screen. Open this IP address in a browser and enter your login credentials. The default username is ADMIN, and the default password has been printed on the service tag that pulls out from the front of the server case.</li>
+<li>On the left menu select <strong>System</strong> -&gt; <strong>Component Info</strong>, select the <strong>Fan</strong> tab, under <strong>Advanced Settings</strong> click the circle next to <strong>Full Speed</strong>.</li>
+</ol>
+<h3 id="32-cooling-requirements">3.2 Cooling Requirements<a class="headerlink" href="#32-cooling-requirements" title="Permanent link">&para;</a></h3>
+<p>Please refer to sections 8.1 and 8.2 of the <a href="https://www.intel.com/content/www/us/en/docs/programmable/683568/current/thermal-and-airflow-requirements.html">Intel FPGA Programmable Acceleration Card D5005 Data Sheet</a> or section 6.0 of the <a href="https://www.intel.com/content/www/us/en/search.html?ws=text#q=n6001%20data%20sheet&amp;sort=relevancy">Intel FPGA SmartNIC N6001-PL Data Sheet - SKU2</a> (content ID=723837) for guidance on cooling specifications that must be met when using these platforms. Failure to adhere to these guidelines may result in thermal runaway and/or performance degradation.</p>
+<h2 id="40-board-installation-procedure">4.0 Board Installation Procedure<a class="headerlink" href="#40-board-installation-procedure" title="Permanent link">&para;</a></h2>
+<h3 id="41-pcie-slot-mappings-for-intel-fpga-smartnic-n60001-pl">4.1 PCIe Slot Mappings for Intel® FPGA SmartNIC N6000/1-PL<a class="headerlink" href="#41-pcie-slot-mappings-for-intel-fpga-smartnic-n60001-pl" title="Permanent link">&para;</a></h3>
+<p>The Intel N6000/1-PL FPGA SmartNIC Platforms are officially verified in the upper middle PCIe x16 slot (Slot 3). If using a different slot, refer to the information in <a href="#table-5-pcie-slot-mapping">Table 5 PCIe Slot Mapping</a> for which port settings to change in server BIOS.</p>
+<p><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_1" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_1.png" /></a></p>
+<h4 id="table-5-pcie-slot-mapping">Table 5: PCIe Slot Mapping<a class="headerlink" href="#table-5-pcie-slot-mapping" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>CPU Number</th>
+<th>Port Number (in BIOS)</th>
+<th>PCIe Slot</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CPU1</td>
+<td>Port 2</td>
+<td>5 and 6</td>
+</tr>
+<tr>
+<td>CPU1</td>
+<td>Port 4</td>
+<td>7 and 8</td>
+</tr>
+<tr>
+<td>CPU2</td>
+<td>Port 2</td>
+<td>1 and 2</td>
+</tr>
+<tr>
+<td>CPU2</td>
+<td>Port 4</td>
+<td>3 and 4</td>
+</tr>
+</tbody>
+</table>
+<h3 id="42-installation-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server">4.2 Installation Procedure for The Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server<a class="headerlink" href="#42-installation-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server" title="Permanent link">&para;</a></h3>
+<p>The following instructions will help to ensure safe installation of an ADP platform into a supported server. While an Intel® FPGA SmartNIC N6001-PL is shown in the images below, this procedure applies to all three platforms.</p>
+<ol>
+<li>Position the board over the selected connector on the motherboard.</li>
+<li>Press down gently and firmly to seat the card in the PCIe slot, and then secure the bracket to the system chassis with the retention screw.</li>
+</ol>
+<p><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_2.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_2" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_2.png" /></a></p>
+<h4 id="table-6-adp-installation-procedure">Table 6: ADP Installation Procedure<a class="headerlink" href="#table-6-adp-installation-procedure" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Callout</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Retention screw</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Press down here gently</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Press down here gently</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Motherboard</td>
+</tr>
+</tbody>
+</table>
+<p>Do not bend the card while inserting into a slot. Do not apply much pressure in regions 2 or 3 while inserting.</p>
+<p><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_3.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_3" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_3.png" /></a></p>
+<h3 id="43-removal-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server">4.3 Removal Procedure for The Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server<a class="headerlink" href="#43-removal-procedure-for-the-intel-fpga-pac-d5005-and-intel-fpga-smartnic-n60001-pl-into-a-server" title="Permanent link">&para;</a></h3>
+<p>The following instructions will help to ensure safe removal of the platforms from a supported server.</p>
+<ol>
+<li>Disconnect all power cords from the server power supply(s).</li>
+<li>Remove the retention bracket screw.</li>
+<li>Carefully lift the card out of the PCIe slot.</li>
+</ol>
+<p><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_4.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_4" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_4.png" /></a></p>
+<h4 id="table-7-adp-removal-procedure">Table 7: ADP Removal Procedure<a class="headerlink" href="#table-7-adp-removal-procedure" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Callout</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Retention screw</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Pull up here gently</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Motherboard</td>
+</tr>
+</tbody>
+</table>
+<p>Do not bend the card while removing it from the slot.</p>
+<p><a class="glightbox" href="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_5.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="SERVER_5" src="/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_5.png" /></a></p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
