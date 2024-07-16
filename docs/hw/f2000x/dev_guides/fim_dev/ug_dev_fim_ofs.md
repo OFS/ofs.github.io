@@ -1,101 +1,90 @@
-# **Intel<sup>&reg;</sup> FPGA Interface Manager Developer Guide: Intel Agilex<sup>&reg;</sup> 7 SoC Attach: Open FPGA Stack**
+# **Shell Developer Guide: Agilex<sup>&reg;</sup> 7 SoC Attach: Open FPGA Stack**
 
-Last updated: **March 20, 2024** 
+Last updated: **July 16, 2024** 
 
 ## **1 Introduction**
 
 ### **1.1 About This Document**
 
-This document serves as a design guide for FPGA developers, system architects, and hardware developers using Open FPGA Stack (OFS) as a starting point for the creation of an FPGA Interface Manager (FIM) for a custom FPGA acceleration board.   
+This document serves as a guide for OFS Agilex® 7 SoC Attach developers targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. The following topics are covered in this guide:
 
-OFS addresses the demand for FPGA acceleration boards and workloads by providing a powerful methodology for the rapid development of FPGA Acceleration systems.  This methodology addresses the challenges and responsibilities of the board, platform, and workload developers by providing a complete FPGA project consisting of RTL and simulation code, build scripts, and software.  This provided FPGA project can be rapidly customized to meet new market requirements.
-
-OFS separates the FPGA design into two areas: FPGA Interface Manager (FIM) and workload (or Acceleration Function Unit) as shown in the figure below:
-
-![](images/Agilex_Fabric_Features.svg)
-
-As can be seen in this diagram, the OFS FPGA structure has a natural separation into two distinct areas: 
-
-* FPGA Interface Manager (FIM or sometimes called the "the shell") containing:
-  * FPGA external interfaces and IP cores (e.g. Ethernet, DDR-4, PCIe, etc)
-  * PLLs/resets
-  * FPGA - Board management infrastructure
-  * Interface to Acceleration Function Unit (AFU)
-* Acceleration Function Unit ("the workload")
-  * Uses the FIM interfaces to perform useful work inside the FPGA
-  * Contains logic supporting partial reconfiguration
-  * Remote Signal Tap core for remote debugging of SoC AFU PR region
-  
-This guide is organized as follows: 
-
-* Introduction
-* Top Level Block Diagram description
-  * Control and data flow
-* Description of Sub-systems
-  * Command/status registers (CSR) and software interface
-  * Clocking, resets, and interfaces
-  * High-Speed Serial Interface Sub-System (HSSI-SS) - also known as the Ethernet Sub-System
-  * External Memory Interface Sub-System (MEM-SS)
-* High-level development flow description
-  * Installation of OFS RTL and development packages
-  * Compiling FIM
-  * Simulation  
-* Design customization walkthroughs
+* Compiling the OFS Agilex® 7 SoC Attach FIM design
+* Simulating the OFS Agilex® 7 SoC Attach FIM design
+* Customizing the OFS Agilex® 7 SoC Attach FIM design
+* Configuring the FPGA with an OFS Agilex® 7 SoC Attach FIM design
 
 This document uses the  Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL as the platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS.  The demonstration steps serve as a tutorial for the development of your OFS knowledge.  
 
-This document covers OFS architecture lightly. For more details on the OFS architecture, please see [Shell Technical Reference Manual: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/).
+This document covers OFS architecture lightly. For more details on the OFS architecture, please see [Shell Technical Reference Manual: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/).
 
-#### **1.1.1 Glossary**
+### **1.1.1 Knowledge Prerequisites**
 
-The following table describes several terms that are used in this document.
+It is recommended that you have the following knowledge and skills before using this developer guide.
 
-| Term                      | Abbreviation | Description                                                  |
-| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
-|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
-|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
-|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
-|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
-|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
-|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
-|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
-|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
-|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
-|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
-|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
-|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
-|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
-|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
-|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
-|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
-|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
-|Open Programmable Acceleration Engine Software Development Kit|	OPAE SDK|	The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
-|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
-|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
-|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
-|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
-|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
-|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
-|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
-|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
-|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
-|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
-|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
-|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
+* Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2024.2-1).
+* Review the [release notes](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1) for the Agilex® 7 SoC Attach Reference Shells, with careful consideration of the **Known Issues**.
+* Review of [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/).
+* FPGA compilation flows using Quartus® Prime Pro Edition.
+* Static Timing closure, including familiarity with the Timing Analyzer tool in Quartus Prime Pro Version 23.4, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
+* RTL (System Verilog) and coding practices to create synthesized logic.
+* RTL simulation tools.
+* Quartus® Prime Pro Edition Signal Tap Logic Analyzer tool software.
 
+### **1.2. FIM Development Theory**
 
-### **1.2 Release Capabilities**
+This section will help you understand how the OFS Agilex® 7 SoC Attach FIM can be developed to fit your design goals.
 
-Intel Agilex 7 SoC Attach OFS supports the following features.
+The [Default FIM Features](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#121-default-fim-features) section provides general information about the default features of the OFS Agilex® 7 SoC Attach FIM so you can become familiar with the default design. For more detailed information about the FIM architecture, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/).
+
+The [Customization Options](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#122-customization-options) section then gives suggestions of how this default design can be customized. Step-by-step walkthroughs for many of the suggested customizations are later described in the [FIM Customization](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-fim-customization) section.
+
+FIM development for a new card generally consists of the following steps:
+
+1. Install OFS and familiarize yourself with provided scripts and source code
+2. Develop high level design with your specific functionality
+  1. Determine requirements and key performance metrics
+  2. Select IP cores
+  3. Select FPGA device
+  4. Develop software memory map
+3. Select and implement FIM Physical interfaces including:
+  1. External clock sources and creation of internal PLL clocks
+  2. General I/O
+  3. Ethernet modules
+  4. External memories
+  5. FPGA programming methodology
+4. Develop device physical implementation
+  1. FPGA device pin assignment
+  2. Create logic lock regions
+  3. Create of timing constraints
+  4. Create Quartus Prime Pro FIM test project and validate:
+    1. Placement
+    2. Timing constraints
+    3. Build script process
+    4. Review test FIM FPGA resource usage
+5. Select FIM to AFU interfaces and development of PIM
+6. Implement FIM design
+  1. Develop RTL
+  2. Instantiate IPs
+  3. Develop test AFU to validate FIM
+  4. Develop unit and device level simulation
+  5. Develop timing constraints and build scripts
+  6. Perform timing closure and build validation
+7. Create FIM documentation to support AFU development and synthesis
+8. Software Device Feature discovery
+9. Integrate, validate, and debug hardware/software
+10. Prepare for high volume production
+
+### **1.2.1 Default FIM Features**
+
+Agilex® 7 SoC Attach OFS supports the following features.
 
 |                                     | FIM BASE                                    |
 | ----------------------------------- | ------------------------------------------- |
-| Intel® IPU Platform F2000X-PL                 | f2000x                     |
+| IPU Platform F2000X-PL                 | f2000x                     |
 | PCIe Configuration                  | Host: PCIe Gen4x16<br />SoC: PCIe Gen4x16   |
 | SR-IOV support                      | Host: 2 PFs, No VFs<br />SoC:  1 PFs, 3 VFs |
 | AXI ST datapath                     | 512b @ 470MHz                               |
 | Transceiver Subsystem Configuration | 2x4x25G                                     |
-
 
 The FIM also integrates:
 
@@ -105,7 +94,7 @@ The FIM also integrates:
 * Remote Signal Tap
 * Partial Reconfiguration of the SoC AFU
 
-The Host exercisers are provided for the quick evaluation of the FIM and can be leveraged for the verification of the platform's functionality and capabilities.  The host exercisers can be removed by the designer to release FPGA real estate to accommodate new workload functions. To compile the FIM without host exercisers go to [How to compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu).
+The Host exercisers are provided for the quick evaluation of the FIM and can be leveraged for the verification of the platform's functionality and capabilities.  The host exercisers can be removed by the designer to release FPGA real estate to accommodate new workload functions. To compile the FIM without host exercisers go to [How to compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu).
 
 OFS is extensible to meet the needs of a broad set of customer applications.  The general use cases listed below are examples where the OFS base design is easily extended to build a custom FIM:
 
@@ -123,21 +112,27 @@ OFS is extensible to meet the needs of a broad set of customer applications.  Th
   * Add/remove user clocks for the AFU
   * Add/remove IP to the design with connection to the AFU
 
-### **1.3 Knowledge Prerequisites**
+#### **1.2.1.1 Top Level FPGA**
 
-OFS is an advanced application of FPGA technology. This guide assumes you have the following FPGA logic design-related knowledge and skills:
-
-* FPGA compilation flows using Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4.
-* Static Timing closure, including familiarity with the Timing Analyzer tool in Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
-* RTL (System Verilog) and coding practices to create synthesized logic.
-* RTL simulation tools.
-* Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Signal Tap Logic Analyzer tool software.
-
-## **2 Top Level Description**
-
-The FIM targets operation in the  Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL the block diagram is shown below.  
+OFS separates the FPGA design into two areas: FPGA Interface Manager (FIM) and workload (or Acceleration Function Unit) as shown in the figure below:
 
 ![](images/Agilex_Fabric_Features.svg)
+
+As can be seen in this diagram, the OFS FPGA structure has a natural separation into two distinct areas: 
+
+* FPGA Interface Manager (FIM or sometimes called the "the shell") containing:
+  * FPGA external interfaces and IP cores (e.g. Ethernet, DDR-4, PCIe, etc)
+  * PLLs/resets
+  * FPGA - Board management infrastructure
+  * Interface to Acceleration Function Unit (AFU)
+* Acceleration Function Unit ("the workload")
+  * Uses the FIM interfaces to perform useful work inside the FPGA
+  * Contains logic supporting partial reconfiguration
+  * Remote Signal Tap core for remote debugging of SoC AFU PR region
+
+#### **1.2.1.2 Interfaces**
+
+The key interfaces in the OFS Agilex® 7 SoC Attach design are listed below.
 
 * Host interface 
   * PCIe Gen4 x 16
@@ -152,132 +147,19 @@ The FIM targets operation in the  Intel® Infrastructure Processing Unit (Intel�
   * SPI interface
   * FPGA configuration
 
-### **2.1 Top Level FPGA**
+#### **1.2.1.3 Subsystems**
 
-The internal FPGA architecture is shown below:
+The *FIM Subsystems* Table  describes the Platform Designer IP subsystems used in the OFS Agilex Agilex® 7 SoC Attach f2000x FIM.
 
-![](images/IOFS_HW_Arch_Spec_diagrams.svg)
+*Table: FIM Subsystems*
 
-The following Platform Designer IP subsystems are used to implement the following:
+| Subsystem | User Guide | Document ID |
+| --- | --- | --- |
+| PCIe Subsystem | [Intel FPGA PCI Express Subsystem IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf) | N/A |
+| Memory Subsystem | [Intel FPGA Memory Subsystem IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf) | 686148<sup>**[1]**</sup> |
+| Ethernet Subsystem | [Ethernet Subsystem Intel FPGA IP User Guide](https://cdrdv2-public.intel.com/773414/intelofs-773413-773414.pdf) | 773413<sup>**[1]**</sup> |
 
-* P-tile PCIe Subsystem
-* E-Tile Ethernet Subsystem
-* Memory Subsystem
-
-Documentation on the above Platform Designer IP subsystems is available by request to your Intel support team.
-
-### **2.2 FIM FPGA Resource Usage**
-
-The provided design includes both required board management and control functions as well as optional interface exerciser logic that both creates transactions and validates operations.  These exerciser modules include:
-
-* HE_MEM - this module creates external memory transactions to the DDR4 memory and then verifies the responses.
-* HE_MEM-TG -The memory traffic generator (TG) AFU provides a way for users to characterize local memory channel bandwidth with a variety of traffic configuration features including request burst size, read/write interleave count, address offset, address strobe, and data pattern.
-* HE_HSSI - this module creates ethernet transactions to the HSSI Subsystem and then verifies the responses.
-
-The FIM uses a small portion of the available FPGA resources.  The table below shows resource usage for a base FIM built with 2 channels of external memory, a small AFU instantiated that has host CSR read/write, external memory test and Ethernet test functionality.
-
->**Note:** The host exerciser modules allow you to evaluate the FIM in hardware and are removed when you begin development. 
-
-The AGFC023R25A2E2VR0  FPGA has the following resources available for base FIM design :
-
-| Resource                 | needed / total on device (%) |
-| ------------------------ | ---------------------------- |
-| Logic utilization (ALMs) | 229,622 / 782,400 ( 29 % )   |
-| M20K blocks              | 1,241 / 10,464 (12 %)        |
-| Pins                     | 518 / 742 ( 70 % )           |
-| IOPLLs                   | 10 / 15 ( 67 % )             |
-
-The resource usage for the FIM base:
-
-| Entity Name         | ALMs needed | ALM Utilization % | M20Ks | M20K Utilization % |
-| ------------------- | ----------- | ----------------- | ----- | ------------------ |
-| top                 | 229,646.10  | 29.35             | 1241  | 11.86              |
-| soc_afu             | 87,364.80   | 11.17             | 273   | 2.61               |
-| soc_pcie_wrapper    | 37,160.80   | 4.75              | 195   | 1.86               |
-| pcie_wrapper        | 36,233.40   | 4.63              | 187   | 1.79               |
-| host_afu            | 26,462.20   | 3.38              | 140   | 1.34               |
-| hssi_wrapper        | 20,066.30   | 2.56              | 173   | 1.65               |
-| pmci_wrapper        | 8,449.90    | 1.08              | 186   | 1.78               |
-| mem_ss_top          | 7,907.10    | 1.01              | 60    | 0.57               |
-| auto_fab_0          | 2,708.90    | 0.35              | 13    | 0.12               |
-| soc_bpf             | 1,210.20    | 0.15              | 0     | 0.00               |
-| qsfp_1              | 635.50      | 0.08              | 4     | 0.04               |
-| qsfp_0              | 628.70      | 0.08              | 4     | 0.04               |
-| fme_top             | 628.60      | 0.08              | 6     | 0.06               |
-| host_soc_rst_bridge | 151.40      | 0.02              | 0     | 0.00               |
-| rst_ctrl            | 16.80       | 0.00              | 0     | 0.00               |
-| soc_rst_ctrl        | 16.50       | 0.00              | 0     | 0.00               |
-| sys_pll             | 0.50        | 0.00              | 0     | 0.00               |
-
-The following example without the he_lb,he_hssi,he_mem,he_mem_tg:
-
-| Entity Name         | ALMs needed | ALM Utilization % | M20Ks | M20K Utilization % |
-| ------------------- | ----------- | ----------------- | ----- | ------------------ |
-| top                 | 162,010.20  | 20.71             | 992   | 9.48               |
-| pcie_wrapper        | 36,771.70   | 4.70              | 195   | 1.86               |
-| soc_afu_top         | 34,851.30   | 4.45              | 85    | 0.81               |
-| pcie_wrapper        | 33,358.90   | 4.26              | 175   | 1.67               |
-| hssi_wrapper        | 20,109.90   | 2.57              | 173   | 1.65               |
-| afu_top             | 14,084.20   | 1.80              | 91    | 0.87               |
-| pmci_wrapper        | 8,447.90    | 1.08              | 186   | 1.78               |
-| mem_ss_top          | 8,379.70    | 1.07              | 60    | 0.57               |
-| alt_sld_fab_0       | 2,725.10    | 0.35              | 13    | 0.12               |
-| bpf_top             | 1,213.00    | 0.16              | 0     | 0.00               |
-| fme_top             | 638.30      | 0.08              | 6     | 0.06               |
-| qsfp_top            | 626.70      | 0.08              | 4     | 0.04               |
-| qsfp_top            | 619.20      | 0.08              | 4     | 0.04               |
-| axi_lite_rst_bridge | 147.40      | 0.02              | 0     | 0.00               |
-| rst_ctrl            | 17.40       | 0.00              | 0     | 0.00               |
-| rst_ctrl            | 15.90       | 0.00              | 0     | 0.00               |
-| sys_pll             | 0.50        | 0.00              | 0     | 0.00               |
-
-The following example without the Ethernet Subsystem (no_hssi):
-
-| Entity Name         | ALMs needed | ALM Utilization % | M20Ks | M20K Utilization % |
-| ------------------- | ----------- | ----------------- | ----- | ------------------ |
-| top                 | 189,827.00  | 24.26             | 980   | 9.37               |
-| soc_afu_top         | 67,751.40   | 8.66              | 197   | 1.88               |
-| pcie_wrapper        | 36,909.30   | 4.72              | 195   | 1.86               |
-| pcie_wrapper        | 36,077.70   | 4.61              | 187   | 1.79               |
-| afu_top             | 26,549.40   | 3.39              | 140   | 1.34               |
-| pmci_wrapper        | 8,688.10    | 1.11              | 186   | 1.78               |
-| mem_ss_top          | 8,079.00    | 1.03              | 60    | 0.57               |
-| alt_sld_fab_0       | 1,751.90    | 0.22              | 9     | 0.09               |
-| bpf_top             | 1,186.00    | 0.15              | 0     | 0.00               |
-| dummy_csr           | 664.70      | 0.08              | 0     | 0.00               |
-| dummy_csr           | 662.80      | 0.08              | 0     | 0.00               |
-| dummy_csr           | 661.20      | 0.08              | 0     | 0.00               |
-| fme_top             | 649.40      | 0.08              | 6     | 0.06               |
-| axi_lite_rst_bridge | 161.70      | 0.02              | 0     | 0.00               |
-| rst_ctrl            | 16.30       | 0.00              | 0     | 0.00               |
-| rst_ctrl            | 16.00       | 0.00              | 0     | 0.00               |
-| sys_pll             | 0.50        | 0.00              | 0     | 0.00               |
-
-The following example without the Ethernet Subsystem (no_hssi) + no host exercisers (he_lb, he_hssi, he_mem, he_mem_tg):
-
-| Entity Name         | ALMs needed | ALM Utilization % | M20Ks | M20K Utilization % |
-| ------------------- | ----------- | ----------------- | ----- | ------------------ |
-| top                 | 139,105.70  | 17.78             | 807   | 7.71               |
-| pcie_wrapper        | 36,518.80   | 4.67              | 195   | 1.86               |
-| pcie_wrapper        | 33,234.50   | 4.25              | 175   | 1.67               |
-| soc_afu_top         | 32,700.00   | 4.18              | 85    | 0.81               |
-| afu_top             | 14,178.20   | 1.81              | 91    | 0.87               |
-| pmci_wrapper        | 8,693.20    | 1.11              | 186   | 1.78               |
-| mem_ss_top          | 7,999.00    | 1.02              | 60    | 0.57               |
-| alt_sld_fab_0       | 1,758.40    | 0.22              | 9     | 0.09               |
-| bpf_top             | 1,183.50    | 0.15              | 0     | 0.00               |
-| dummy_csr           | 667.20      | 0.09              | 0     | 0.00               |
-| dummy_csr           | 666.30      | 0.09              | 0     | 0.00               |
-| dummy_csr           | 663.10      | 0.08              | 0     | 0.00               |
-| fme_top             | 652.80      | 0.08              | 6     | 0.06               |
-| axi_lite_rst_bridge | 153.80      | 0.02              | 0     | 0.00               |
-| rst_ctrl            | 18.20       | 0.00              | 0     | 0.00               |
-| rst_ctrl            | 16.50       | 0.00              | 0     | 0.00               |
-| sys_pll             | 0.50        | 0.00              | 0     | 0.00               |
-
-## **3 Description of Sub-Systems**
-
-### **3.1 Host Control and Data Flow**
+<sup>**[1]**</sup> You must request entitled access to these documents.
 
 The host control and data flow is shown in the diagram below:
 
@@ -308,7 +190,7 @@ Peripherals are presented to software as:
 * OFS managed peripherals that implement DFH CSR structure.  
 * Native driver managed peripherals (i.e. Exposed via an independent PF, VF)
 
-The peripherals connected to the peripheral fabric are primarily Intel OPAE managed resources, whereas the peripherals connected to the AFU are “primarily” managed by native OS drivers. The word “primarily” is used since the AFU is not mandated to expose all its peripherals to Intel OPAE. 
+The peripherals connected to the peripheral fabric are primarily OPAE managed resources, whereas the peripherals connected to the AFU are “primarily” managed by native OS drivers. The word “primarily” is used since the AFU is not mandated to expose all its peripherals to OPAE. 
 
 OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](../../reference_manuals/ofs_fim/mnl_fim_ofs.md#6-mmio-regions).
 
@@ -318,149 +200,254 @@ In the default design, the SoC and Host AFUs are isolated from each other. You m
 
 >**Note:** The default configuration of the Board Peripheral Fabric, there is a connection from the Host Interface to the PMCI-SS, however the PMCI-SS is not in the Host DFL, and is not discovered by Host SW by default. If you want to guarantee that the Host can not access the PMCI-SS, and by extension the Board BMC, you must implement a filtering mechanism, for example, in the Host ST2MM module to prevent access to the PMCI-SS address space.
 
-Refer to the following documents for more information on sub-systems:
+#### **1.2.1.4 Host Exercisers**
 
-* [Intel FPGA PCI Express Subsystem IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf)
-* [Intel FPGA Memory Subsystem IP User Guide](https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_mem_ss.pdf)
-* [Intel FPGA Ethernet Subsystem IP User Guide](https://www.intel.com/content/www/us/en/docs/programmable/773413/23-1-22-5-0/introduction.html)
+The default AFU workloads in the OFS Agilex® 7 SoC Attach f2000x FIM contains several modules called Host Exercisers which are used to exercise the interfaces on the board. The *Host Exerciser Descriptions* Table describes these modules.
 
-## **4 High Level Development Flow**
+*Table: Host Exerciser Descriptions*
 
-OFS provides a framework of FPGA synthesizable code, simulation environment, and synthesis/simulation scripts.  FIM designers can use the provided code as-is, modify the provided code, or add new code to meet your specific product requirements. The instructions provided after this point are for you to either evaluate the existing design (the current section) or to modify and generate your own design (described in the [Custom FIM Development Flow](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#5-custom-fim-development-flow) section). 
+|Name | Acronym | Description | OPAE Command |
+| --- | --- | --- | --- |
+| Host Exerciser Loopback | HE-LB | Used to exercise and characterize host to FPGA data transfer. | `host_exerciser` |
+| Host Exerciser Memory | HE_MEM | Used to exercise and characterize host to Memory data transfer. | `host_exerciser` |
+| Host Exerciser Memory Traffic Generator| HE_MEM_TG | Used to exercise and test available memory channels with a configurable traffic pattern. | `mem_tg`
+| Host Exerciser High Speed Serial Interface | HE-HSSI | f2000x: Used to exercise and characterize HSSI interfaces. | `hssi` |
 
-### **4.1 Development Pre-requisites**
+The host exercisers can be removed from the design at compile-time using command line arguments for the build script.
 
-The following pre-requisites must be satisfied to go through the development flow.
+#### **1.2.1.5 Module Access via APF/BPF**
 
-#### **4.1.1 Tutorial Pre-requisites**
+The OFS Agilex Agilex® 7 SoC Attach f2000x FIM uses AXI4-Lite interconnect logic named the AFU Peripheral Fabric (APF) and Board Peripheral Fabric (BPF) to access the registers of the various modules in the design. The APF/BPF modules define master/slave interactions, namely between the SoC/Host software and AFU and board peripherals. The following tables describe the address mapping of the APF and BPF for both the SoC and the Host.
 
-To run the FPGA compilation steps covered in this guide, requires the following:
+*Table: SoC APF Address Map*
 
-1. Workstation or server with a Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4 installed on a Intel Quartus Prime Pro-supported Linux distribution.  See [Operating System Support](https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/os-support.html).  The Linux distribution known to work with this version of RedHatEnterprise Linux® (RHEL) 8.6 . Note, Windows is not supported.
-2. Compilation targeting Intel Agilex 7 devices requires a minimum of 64 GB of RAM.
+| Address | Size (Bytes) | Feature |
+| --- | --- | --- |
+| 0x00_0000 - 0x0F_FFFF | 1024K | Board Peripherals (See *SoC BPF Address Map* table) |
+| 0x10_0000 - 0x10_FFFF | 64K | ST2MM |
+| 0x11_0000 - 0x12_FFFF | 128K | Reserved |
+| 0x13_0000 - 0x13_FFFF | 64K | PR Gasket:</br> 4K= PR Gasket DFH, control and status</br>4K= Port DFH</br>4K=User Clock</br>52K=Remote STP |
+| 0x14_0000 - 0x14_FFFF | 64K | AFU Error Reporting |
+
+*Table: Host APF Address Map*
+
+| Address | Size (Bytes) | Feature |
+| --- | --- | --- |
+| 0x00_0000 - 0x0F_FFFF | 1024K | Board Peripherals (See *Host BPF Address Map* table) |
+| 0x10_0000 - 0x10_FFFF | 64K | ST2MM |
+| 0x11_0000 - 0x13_FFFF | 192K | Reserved |
+| 0x14_0000 - 0x14_FFFF | 64K | AFU Error Reporting |
+
+*Table: SoC BPF Address Map*
+
+| Address | Size (Bytes) | Feature |
+| --- | --- | --- |
+| 0x0_0000 - 0x0_FFFF | 64K | FME |
+| 0x1_0000 - 0x1_0FFF | 4K | SoC PCIe IF |
+| 0x1_1000 - 0x1_1FFF | 4K | Reserved |
+| 0x1_2000 - 0x1_2FFF | 4K | QSFP0 |
+| 0x1_3000 - 0x1_3FFF | 4K | QSFP1 |
+| 0x1_4000 - 0x1_4FFF | 4K | Ethernet Sub-System |
+| 0x1_5000 - 0x1_5FFF | 4K | Memory Sub-System |
+| 0x8_0000 - 0xF_FFFF | 512K | PMCI Controller |
+
+*Table: Host BPF Address Map*
+
+| Address | Size (Bytes) | Feature |
+| --- | --- | --- |
+| 0x0_0000 - 0x0_0FFF | 4K | Host PCIe IF |
+| 0x8_0000 - 0xF_FFFF | 512K | PMCI Controller |
+
+### **1.2.2 Customization Options**
+
+OFS is designed to be easily customizable to meet your design needs. The *OFS FIM Customization Examples Table* lists the general user flows for OFS Agilex® 7 SoC Attach f2000x FIM development, along with example customizations for each user flow, plus links to step-by-step walkthroughs where available.
+
+*Table: OFS FIM Customization Examples*
+
+| Walkthrough Name |
+| --- |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#416-walkthrough-debug-the-fim-with-signal-tap) |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4431-walkthrough-modify-the-pcie-sub-system-and-pf-vf-mux-configuration-using-ofss) |
+| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4441-walkthrough-modify-pcie-sub-system-and-pf-vf-mux-configuration-using-ip-presets) |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#451-walkthrough-create-a-minimal-fim) |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
+| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
+| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
+| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
+| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
+| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
+| [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) |
+| [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) |
+| [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) |
+
+### **1.3 Development Environment**
+
+This section describes the components required for OFS FIM development, and provides a walkthrough for setting up the environment on your development machine.
+
+Note that your development machine may be different than your deployment machine where the FPGA card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Refer to the following guides for instructions on setting up an OFS deployment environment.
+
+* [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation)
+* [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach)
+
+The recommended Best Known Configuration (BKC) operating system for development of the OFS FIM is RedHatEnterprise Linux® (RHEL) 8.6, which is the assumed operating system for this developer guide. 
+
+The recommended development environment requires the following:
+
+1. Workstation or server with a Quartus Prime Pro Version 23.4 installed on a Quartus Prime Pro-supported Linux distribution.  See [Operating System Support](https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/os-support.html).  The Linux distribution known to work with this version of RedHatEnterprise Linux® (RHEL) 8.6 . Note, Windows is not supported.
+2. Compilation targeting Agilex® 7 FPGA devices requires a minimum of 64 GB of RAM.
 3. Simulation of lower level functionality (not chip level) is supported by Synopsys<sup>&reg;</sup> VCS and Mentor Graphics<sup>&reg;</sup> QuestaSim SystemVerilog simulators.
 4. Simulation of chip level requires Synopsys VCS and VIP
-   
-#### **4.1.2 Development Environment**
 
-To run the tutorial steps in this guide requires this development environment:
+You may modify the build scripts and pin files to target different boards with Agilex® 7 FPGA devices.
 
-| Item                          | Version         |
-| ------------------------- | ---------- |
-| Intel Quartus Prime Pro | 23.4 |
-| OPAE SDK   | **Branch Tag:** release/2.12.0 |
-| Simulator  | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
-| Python            | 3.6.8 |
-| GCC               | 7.2.0 |
-| cmake             | 3.15 |
-| git with git-lfs  | 1.8.3.1 |
+Testing the Agilex® 7 SoC Attach on the IPU Platform F2000X-PL hardware requires a deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+
+#### **1.3.1 Development Tools**
+
+The *Development Environment Table* describes the Best Known Configuration (BKC) for the tools that are required for OFS FIM development.
+
+*Table: Development Environment BKC*
+
+| Component | Version | Installation Walkthrough |
+| --- | --- | --- |
+| Development Operating System | RedHatEnterprise Linux® (RHEL) 8.6 | N/A |
+| Quartus Prime Software | Quartus Prime Pro Version 23.4 for Linux + Patches 0.17 | Section 1.3.1.1 |
+| Python | 3.6.8 or later | N/A |
+| GCC | 8.5.0 or later | N/A |
+| cmake | 3.15 or later | N/A |
+| git  | 1.8.3.1 |
 | PERL | 5.8.8 |
+| FIM Source Files | ofs-2024.1-1 | Section 1.3.2.1 |
 
->**Note:** Steps to install Intel Quartus Prime Pro are provided in the [Installation of OFS](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#42-installation-of-ofs) section.
+##### **1.3.1.1 Walkthrough: Install Quartus Prime Pro Software**
 
-To install the ```Git Large File Storage (LFS)``` extension run the following commands:
+**Intel Quartus Prime Pro Version 23.4** is verified to work with the latest OFS release ofs-2024.1-1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
+
+Use Ubuntu 22.04 LTS for compatibility with your development flow and also testing your FIM design in your platform. 
+
+Prior to installing Quartus:
+
+1. Ensure you have at least 64 GB of free space for Quartus Prime Pro installation and your development work.
+  * Intel® recommends that your system be configured to provide virtual memory equal in size or larger than the recommended physical RAM size that is required to process your design.
+  * The disk space may be significantly more based on the device families included in the install. Prior to installation, the disk space should be enough to hold both zipped tar files and uncompressed installation files. After successful installation, delete the downloaded zipped files and uncompressed zip files to release the disk space.
+
+2. Perform the following steps to satisfy the required dependencies.
+
+  ```bash
+  $ sudo dnf install -y gcc gcc-c++ make cmake libuuid-devel rpm-build autoconf automake bison boost boost-devel libxml2 libxml2-devel make ncurses grub2 bc csh flex glibc-locale-source libnsl ncurses-compat-libs 
+  ```
+
+  Apply the following configurations.
+
+  ```bash
+  $ sudo localedef -f UTF-8 -i en_US en_US.UTF-8 
+  $ sudo ln -s /usr/lib64/libncurses.so.6 /usr/lib64/libncurses.so.5 
+  $ sudo ln -s /usr/bin/python3 /usr/bin/python
+  ```
+
+3. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
+
+  The installation path must satisfy the following requirements:
+
+  * Contain only alphanumeric characters
+  * No special characters or symbols, such as !$%@^&*<>,
+  * Only English characters
+  * No spaces
+
+4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
+
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1). The patches for this release are 0.17.
+
+6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
+
+  ```bash
+  export PATH=<Quartus install directory>/quartus/bin:$PATH
+  export PATH=<Quartus install directory>/qsys/bin:$PATH
+  ```
+
+  For example, if the Quartus install directory is /home/intelFPGA_pro/23.4 then the new line is:
+
+  ```bash
+  export PATH=/home/intelFPGA_pro/23.4/quartus/bin:$PATH
+  export PATH=/home/intelFPGA_pro/23.4/qsys/bin:$PATH
+  ```
+
+7. Verify, Quartus is discoverable by opening a new shell:
+
+  ```
+  $ which quartus
+  /home/intelFPGA_pro/23.4/quartus/bin/quartus
+  ```
+
+
+
+#### **1.3.2 FIM Source Files**
+
+OFS provides a framework of FPGA synthesizable code, simulation environment, and synthesis/simulation scripts.  FIM designers can use the provided code as-is, modify the provided code, or add new code to meet your specific product requirements. Instructions for compiling the existing design is given in the [FIM Compilation](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2-fim-compilation) section, while instructions for customizing the default design can be found in the [FIM Customization](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-fim-customization) section.
+
+The source files for the OFS Agilex® 7 SoC Attach FIM are provided in the following repository: [https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1).
+
+Some essential directories in the repository are described as follows:
 
 ```bash
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
-sudo dnf install git-lfs
-git lfs install
+|  ipss            // Contains files for IP Sub-Systems
+|  |  hssi         // Contains source files for HSSI Sub-System
+|  |  mem          // Contains source files for HSSI Sub-System
+|  |  pcie         // Contains source files for PCIe Sub-System
+|  |  pmci         // Contains source files for PMCI Sub-System
+|  |  qsfp         // Contains source files for QSFP Sub-System
+|  ofs-common      // Contains files which are common across OFS platforms
+|  |  scripts      // Contains common scripts
+|  |  src          // Contains common source files, including host exercisers
+|  |  tools        // Contains common tools files
+|  |  verification // Contains common UVM files
+|  sim             // Contains simulation files
+|  |  bfm
+|  |  common
+|  |  scripts
+|  |  unit_test    // Contains files for all unit tests
+|  src             // Contains source files for Agilex Agilex® 7 SoC Attach FIM
+|  |  afu_top      // Contains top-level source files for AFU
+|  |  includes     // Contains source file header files
+|  |  pd_qsys      // Contains source files related to APF/BPF fabric
+|  |  top          // Contains top-level source files, including design top module
+|  syn             // Contains files related to design synthesis
+|  |  scripts
+|  |  setup        // Contains setup files, including pin constraints and location constraints
+|  |  syn_top      // Contains Quartus project files
+|  tools
+|  |  ofss_config  // Contains top level OFSS files for each pre-made board configuration
+|  verification    // Contains files for UVM testing
+|  |  scripts
+|  |  testbench
+|  |  tests
+|  |  unit_tb
+|  |  verifplan
 ```
 
-To test FPGA image files on hardware, this version of OFS only targets  Intel® IPU Platform F2000X-PL. You may modify the build scripts and pin files to target different boards with Intel Agilex 7 FPGA devices.
-### **4.2 Installation of OFS**
+##### **1.3.2.1 Walkthrough: Clone FIM Repository**
 
-In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see the [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
+Perform the following steps to clone the OFS Agilex® 7 SoC Attach FIM Repository:
 
-Building the OFS FIM requires the build machine to have at least 64 GB of RAM.  
-
-The following is a summary of the steps to set up for FIM development:
-
-1. Install Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4 Linux with Agilex device support
-2. Make sure support tools are installed and meet version requirements
-3. Clone the  repository
-4. Install required Intel Quartus Prime Pro patches which are included in the cloned `ofs-f2000x` repository
-5. Review the files provided in the repo
-6. Test installation by building the FIM
-
-**Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4** is the currently verified version of Intel Quartus Prime Pro used for building the FIM and AFU images.  Porting to newer versions of Intel Quartus Prime Pro may be performed by developers, however, you will need to verify operation.
-
-The recommended Best Known Configuration (BKC) for development of the OFS FIM is RedHatEnterprise Linux® (RHEL) 8.6, which is the assumed operating system for this developer guide. 
-
-1. Prior to installing Intel Quartus Prime Pro, perform the following steps to satisfy the required dependencies.
-
+1. Create a new directory to use as a clean starting point to store the retrieved files.
     ```bash
-    sudo dnf install -y gcc gcc-c++ make cmake libuuid-devel rpm-build autoconf automake bison boost boost-devel libxml2 libxml2-devel make ncurses grub2 bc csh flex glibc-locale-source libnsl ncurses-compat-libs 
+    mkdir OFS_BUILD_ROOT
+    cd OFS_BUILD_ROOT
+    export OFS_BUILD_ROOT=$PWD
     ```
 
-2. Apply the following configurations.
-
+2. Clone GitHub repository using the HTTPS git method
     ```bash
-    sudo localedef -f UTF-8 -i en_US en_US.UTF-8 
-    sudo ln -s /usr/lib64/libncurses.so.6 /usr/lib64/libncurses.so.5 
-    sudo ln -s /usr/bin/python3 /usr/bin/python
+    git clone --recurse-submodules https://github.com/OFS/ofs-f2000x-pl.git
     ```
 
-3. Download [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html).
-
-4. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
-
-    ```bash
-    export PATH=<Quartus install directory>/quartus/bin:$PATH
-    export PATH=<Quartus install directory>/qsys/bin:$PATH
-    ```
-
-    For example, if the Intel Quartus Prime Pro install directory is /home/intelFPGA_pro/23.4 then the new line is:
-
-    ```bash
-    export PATH=/home/intelFPGA_pro/23.4/quartus/bin:$PATH
-    export PATH=/home/intelFPGA_pro/23.4/qsys/bin:$PATH
-    ```
-
-5. Verify, Intel Quartus Prime Pro is discoverable by opening a new shell:
-
-    ```bash
-    which quartus
-    ```
-
-    Example output:
-    ```bash
-    /home/intelFPGA_pro/23.4/quartus/bin/quartus
-    ```
-
-6. Install Quartus two patches 0.11 and 0.19.  The patch files are included as assets in the [OFS-F2000X-PL release](https://github.com/OFS/ofs-f2000x-pl/releases/ofs-2024.1-1).  Scroll to the bottom of the page and download the patches to your Quartus development computer and then install the patches by running the patch script and following the installation items.
-
-    ```bash
-    sudo ./quartus-23.2-0.11-linux-internal-donot-distribute.run
-    sudo ./quartus-23.2-0.19-linux-internal-donot-distribute.run
-    ```
-
-7. Verify Quartus the version of Quartus.
-
-    ```bash
-    quartus_sh --version
-    Version 23.2.0 Build 94 06/14/2023 Patches 0.11,0.19 SC Pro Edition
-    Copyright (C) 2023  Intel Corporation. All rights reserved.
-    ```
-
-#### **4.2.1 Clone the OFS Git Repo**
-
-Retrieve the OFS FIM source code from the [OFS f2000x FIM Github Branch](https://github.com/OFS/ofs-f2000x-pl) repository. Create a new directory to use as a clean starting point to store the retrieved files.  The following is a short description of each repository, followed by the git commands for cloning.  The instructions section uses the HTTPS git method for cloning repositories.
-
-1. Navigate to the location you want to clone the OFS source files, and create the top-level source directory.
-
-    ```bash
-    mkdir IOFS_BUILD_ROOT
-    ```
-
-2. Clone OFS repositories.
-
-    ```bash
-    cd IOFS_BUILD_ROOT
-    git clone --recurse-submodules https://github.com/OFS/ofs-f2000x-pl
-    ```
-
-3. Checkout the proper tag
-
+3. Check out the correct tag of the repository
     ```bash
     cd ofs-f2000x-pl
     git checkout --recurse-submodules tags/ofs-2024.1-1
@@ -475,216 +462,590 @@ Retrieve the OFS FIM source code from the [OFS f2000x FIM Github Branch](https:/
     Example output:
 
     ```bash
-    ea585a4f48d50faf3ae7ecfbec82525a8d22c730 ofs-common (ofs-2024.1-1)
+    ofs-common (ofs-2024.1-1)
     ```
 
-### **4.3 Directory Structure of OFS**
+#### **1.3.3 Environment Variables**
 
-List the directory contents of the cloned repo to verify that the following directories and files are present in `$IOFS_BUILD_ROOT/ofs-f2000x` directory.  
+The OFS FIM compilation and simulation scripts require certain environment variables be set prior to execution.
+
+##### **1.3.3.1 Walkthrough: Set Development Environment Variables**
+
+Perform the following steps to set the required environment variables. These environment variables must be set prior to simulation or compilation tasks so it is recommended that you create a script to set these variables.
+
+1. Navigate to the top level directory of the cloned OFS FIM repository.
+
+  ```bash
+  cd ofs-f2000x-pl
+  ```
+
+2. Set project variables
+  ```bash
+  # Set OFS Root Directory - e.g. this is the top level directory of the cloned OFS FIM repository
+  export OFS_ROOTDIR=$PWD
+  ```
+
+2. Set variables based on your development environment
+  ```bash
+  # Set proxies if required for your server
+  export http_proxy=<YOUR_HTTP_PROXY>
+  export https_proxy=<YOUR_HTTPS_PROXY>
+  export ftp_proxy=<YOUR_FTP_PROXY>
+  export socks_proxy=<YOUR_SOCKS_PROXY>
+  export no_proxy=<YOUR_NO_PROXY>
+
+  # Set Quartus license path
+  export LM_LICENSE_FILE=<YOUR_LM_LICENSE_FILE>
+
+  # Set Synopsys License path (if using Synopsys for simulation)
+  export DW_LICENSE_FILE=<YOUR_DW_LICENSE_FILE>
+  export SNPSLMD_LICENSE_FILE=<YOUR_SNPSLMD_LICENSE_FILE>
+
+  # Set Quartus Installation Directory - e.g. $QUARTUS_ROOTDIR/bin contains Quartus executables
+  export QUARTUS_ROOTDIR=<YOUR_QUARTUS_INSTALLATION_DIRECTORY>
+
+  # Set the Tools Directory - e.g. $TOOLS_LOCATION contains the 'synopsys' directory if you are using Synopsys. Refer to the $VCS_HOME variable for an example.
+  export TOOLS_LOCATION=<YOUR_TOOLS_LOCATION>
+  ```
+
+3. Set generic environment variables
+
+  ```bash
+  # Set Work directory 
+  export WORKDIR=$OFS_ROOTDIR
+
+  # Set Quartus Tools variables
+  export QUARTUS_HOME=$QUARTUS_ROOTDIR
+  export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
+  export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
+  export QUARTUS_VER_AC=$QUARTUS_ROOTDIR
+  export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip
+  export IMPORT_IP_ROOTDIR=$IP_ROOTDIR
+  export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys/bin
+
+  # Set Verification Tools variables (if running simulations)
+  export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/vip_Q-2020.03A
+  export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.F2000X_SIM_VCS_VER_SH }}/linux64/rhel/etc/uvm
+  export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.F2000X_SIM_VCS_VER_SH }}/linux64/rhel
+  export MTI_HOME=$QUARTUS_ROOTDIR/../questa_fse
+  export VERDIR=$OFS_ROOTDIR/verification
+  export VIPDIR=$VERDIR
+
+  # Set OPAE variables
+  export OPAE_SDK_REPO_BRANCH=release/2.12.0
+
+  # Set PATH to include compilation and simulation tools
+  export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/../qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$OFS_ROOTDIR/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
+  ```
+
+#### **1.3.4 Walkthrough: Set Up Development Environment**
+
+This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
+
+1. Ensure that Quartus Prime Pro Version 23.4 for Linux with Agilex® 7 FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions. Quartus Prime Pro Version 23.4 is the currently verified version of Quartus Prime Pro used for building the FIM and AFU images.  Porting to newer versions of Quartus Prime Pro may be performed by developers, however, you will need to verify operation.
+
+  1. Verify version number
+
+      ```bash
+      quartus_sh --version
+      ```
+
+      Example Output:
+
+      ```bash
+      Quartus Prime Shell
+      Version 23.4 SC Pro Edition
+      ```
+
+2. Ensure that all support tools are installed on your development machine, and that they meet the version requirements.
+
+  1. Python 3.6.8 or later
+
+    1. Verify version number
+
+      ```bash
+      python --version
+      ```
+
+      Example Output:
+
+      ```bash
+      Python 3.6.8
+      ```
+
+  2. GCC 8.5.0 or later
+
+    1. Verify version number
+
+      ```bash
+      gcc --version
+      ```
+
+      Example output:
+
+      ```bash
+      gcc (GCC) 8.5.0
+      ```
+
+  3. cmake 3.15 or later
+
+    1. Verify version number
+
+      ```bash
+      cmake --version
+      ```
+
+      Example output:
+
+      ```bash
+      cmake version 3.15
+      ```
+
+3. Clone the ofs-f2000x-pl repository if not already cloned. Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+4. Install UART IP license patch `.02`.
+
+  1. Navigate to the `license` directory
+
+    ```bash
+    cd $OFS_BUILD_ROOT/license
+    ```
+
+  2. Install Patch 0.02
+
+    ```bash
+    sudo ./quartus-0.0-0.02iofs-linux.run
+    ```
+
+5. Install Quartus Patches 0.17. All required patches are provided in the **Assets** of the OFS FIM Release: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1
+
+  1. Extract and unzip the `patch-agx7-2024-1.tar.gz` file.
+
+    ```bash
+    tar -xvzf patch-agx7-2024-1.tar.gz
+    ```
+
+  2. Run each patch `.run` file. As an example:
+
+    ```bash
+    sudo ./quartus-23.4-0.17-linux.run
+    ```
+
+6. Verify that patches have been installed correctly. They should be listed in the output of the following command.
+
+  ```bash
+  quartus_sh --version
+  ```
+
+5. Set required environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+This concludes the walkthrough for setting up your development environment. At this point you are ready to begin FIM development.
+
+## **2. FIM Compilation**
+
+This section describes the process of compiling OFS FIM designs using the provided build scripts. It contains two main sections:
+
+* [Compilation Theory](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#21-compilation-theory) - Describes the theory behind FIM compilation
+* [Compilation Flows](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#22-compilation-flows) - Describes the process of compiling a FIM
+
+The walkthroughs provided in this section are:
+
+* [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim)
+* [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2261-walkthrough-manually-generate-ofs-out-of-tree-pr-fim)
+
+### **2.1 Compilation Theory**
+
+This section describes the theory behind FIM compilation.
+
+#### **2.1.1 FIM Build Script**
+
+The OFS Common Repository contains a script named `build_top.sh` which is used to build OFS FIM designs and generate output files that can be programmed to the board. After cloning the OFS FIM repository (with the ofs-common repository included), the build script can be found in the following location:
 
 ```bash
-ls -1
-```
-Expected output:
-```bash
-ipss
-LICENSE.txt
-ofs-common
-README.md  
-SECURITY.md
-sim
-src
-syn
-tools
-verification
+$OFS_ROOTDIR/ofs-common/scripts/common/syn/build_top.sh
 ```
 
-Use the following command to show how the directories are arranged:
+The usage of the `build_top.sh` script is as follows:
 
 ```bash
-find . -mindepth 1 -maxdepth 2 -type d -not -path '*/\.*' -print | sed -e 's/[^-][^\/]*\//--/g' -e 's/--/|  /g' -e 's/|-/|   /g'
-```
-Expected output:
-
-```bash
-
-|  ipss
-|  |  hssi
-|  |  mem
-|  |  pcie
-|  |  pmci
-|  |  qsfp
-|  ofs-common
-|  |  scripts
-|  |  src
-|  |  tools
-|  |  verification
-|  sim
-|  |  bfm
-|  |  common
-|  |  scripts
-|  |  unit_test
-|  src
-|  |  afu_top
-|  |  includes
-|  |  pd_qsys
-|  |  top
-|  syn
-|  |  scripts
-|  |  setup
-|  |  syn_top
-|  tools
-|  |  pfvf_config_tool
-|  verification
-|  |  scripts
-|  |  testbench
-|  |  tests
-|  |  unit_tb
-|  |  verifplan
+build_top.sh [-k] [-p] [-e] [--stage=<action>] [--ofss=<ip_config>] <build_target>[:<fim_options>] [<work_dir_name>]
 ```
 
+| Field | Options | Description | Requirement |
+| --- | --- | --- | --- |
+| `-k` | None | Keep. Preserves and rebuilds within an existing work tree instead of overwriting it. | Optional |
+| `-p` | None | When set, and if the FIM supports partial reconfiguration, a PR template tree is generated at the end of the FIM build. The PR template tree is located in the top of the work directory but is relocatable and uses only relative paths. See $OFS_ROOTDIR/syn/common/scripts generate_pr_release.sh for details. | Optional |
+| `-e` | None | Run only Quartus analysis and elaboration. It completes the `setup` stage, passes `-end synthesis` to the Quartus compilation flow and exits without running the `finish` stage. | Optional |
+| `--stage` | `all` \| `setup` \| `compile` \| `finish` | Controls which portion of the OFS build is run.</br>&nbsp;&nbsp;- `all`: Run all build stages (default)</br>&nbsp;&nbsp;- `setup`: Initialize a project in the work directory</br>&nbsp;&nbsp;- `compile`: Run the Quartus compilation flow on a project that was already initialized with `setup`</br>&nbsp;&nbsp;- `finish`: Complete OFS post-compilation tasks, such as generating flash images and, if `-p` is set, generating a release. | Optional |
+| `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. This parameter is consumed during the setup stage and IP is updated only inside the work tree. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | Optional |
+| `<build_target>` | `n6000` \| `n6001` \| `fseries-dk` \| `iseries-dk` \| **`f2000x`** | Specifies which board is being targeted. | Required |
+| `<fim_options>` | `flat` \| `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` \| `no_hssi` | Used to change how the FIM is built.</br>&nbsp;&nbsp;&bull; `flat` - Compiles a flat design (no PR assignments). This is useful for bringing up the design on a new board without dealing with PR complexity.</br>&nbsp;&nbsp;&bull; `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>&nbsp;&nbsp;&bull; `no_hssi` - Removes the HSSI-SS from the FIM. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:flat,null_he_lb,null_he_hssi` | Optional | 
+| `<work_dir_name>` | String | Specifies the name of the work directory in which the FIM will be built. If not specified, the default target is `$OFS_ROOTDIR/work` | Optional |
 
-### **4.4 Compiling the OFS FIM**
+Refer to [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) which provides step-by-step instructions for running the `build_top.sh` script with some of the different available options.
 
-OFS provides a build script with the following FPGA image creation options:
-
-* Flat compile which combines the FIM and AFU into one FPGA image that is loaded into the entire FPGA device
-* A PR compile which creates a FPGA image consisting of the FIM that is loaded into the static region of the FPGA and a default AFU that is loaded into dynamic region. The AFU image may be loaded into the dynamic region using partial reconfiguration.  
+If you wish to compile the f2000x FIM using the Quartus Prime Pro GUI, you must at least run the setup portion of the `build_top.sh` script before compiling with the GUI. For instructions on compiling the FIM using the Quartus GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui) section.
 
 The build scripts included with OFS are verified to run in a bash shell. Other shells have not been tested. The full build script typically takes around 3 hours to complete.
 
-The build script flow is the primary flow described in this user guide. For instructions on compiling using the Intel Quartus Prime Pro GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui) section.
+The build script copies the ```ipss```, ```ofs-common```, ```sim```, ```src```,```syn``` and ```tools``` directories to the specified work directory and then these copied files are used in the Quartus Prime Pro compilation process.
 
-The following sections describe how to set up the environment and build the provided FIM and AFU. Follow these steps as a tutorial to learn the build flow.  You will use this environment and build scripts for the creation of your specialized FIM.
+Some key output directories are described in the following table:
 
-#### **4.4.1. Setting Up Required Environment Variables**
+| Directory | Description |
+| --- | --- |
+| `$OFS_ROOTDIR/<WORK_DIR>/syn/syn_top` | Quartus Prime Pro project (ofs_top.qpf) and other Quartus Prime Pro specific files|
+| `$OFS_ROOTDIR/<WORK_DIR>/syn/syn_top/output_files` | Directory with build reports and FPGA programming files |
 
-Set required environment variables as shown below.  These environment variables must be set prior to simulation or compilation tasks so creating a simple script to set these variables saves time. 
+The build script will run PACSign (if installed) and create an unsigned FPGA programming files for both user1 and user2 locations of the f2000x  FPGA flash.  Please note, if the f2000x  has the root entry hash key loaded, then PACsign must be run to add the proper key to the FPGA binary file.
 
-Set the following environment variables based on your environment:
+#### **2.1.1.1 Build Work Directory**
+
+The build script copies source files from the existing cloned repository into the specified work directory, which are then used for compilation. As such, any changes made in the base source files will be included in all subsequent builds, unless the `-k` option is used, in which case an existing work directories files are used as-is. Likewise, any changes made in a work directory is only applied to that work directory, and will not be updated in the base repository by default. When using OFSS files to modify the design, the build script will create a work directory and make the modifications in the work directory.
+
+#### **2.1.1.2 Null Host Exercisers**
+
+An HE_NULL FIM refers to a design with one, some, or all of the Host Exercisers replaced by `he_null` blocks. The `he_null` is a minimal block with CSRs that responds to PCIe MMIO requests in order to keep PCIe alive. You may use any of the build flows (flat, in-tree, out-of-tree) with the HE_NULL compile options. The HE_NULL compile options are as follows:
+
+* `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`
+* `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`
+* `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`
+* `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`
+
+The [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) section gives step-by-step instructions for this flow.
+
+#### **2.1.2 OFSS File Usage**
+
+The OFS FIM build script can use OFSS files to easily customize design IP prior to compilation using preset configurations. The OFSS files specify certain parameters for different IPs. Using OFSS is provided as a convenience feature for building FIMs; it is not required if the source files are already configured as desired. The *Provided OFSS Files* table below describes the pre-made OFSS files for the f2000x that can be found in the `$OFS_ROOTDIR/tools/ofss_config` directory. 
+
+*Table: Provided OFSS Files*
+
+| OFSS File Name | Location | Type | Description |
+| --- | --- | --- | --- |
+| `f2000x.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Top level OFSS file which includes OFS, PCIe Host, PCIe SoC, IOPLL, and Memory OFSS files. |
+| `f2000x_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | ofs | Defines certain attributes of the design, including the platform name, device family, fim type, part number, and device ID. |
+| `pcie_host.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem for the f2000x Host|
+| `pcie_soc.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem for the f2000x SoC|
+| `iopll.ofss` | `$OFS_ROOTDIR/tools/ofss_config/iopll` | iopll | Sets the IOPLL frequency to `470 MHz` |
+| `memory.ofss` | `$OFS_ROOTDIR/tools/ofss_config/memory` | memory | Defines the memory IP preset file to be used during the build as `f2000x` |
+| `hssi_8x25.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 8x25 GbE |
+| `hssi_8x10.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 8x10 GbE |
+| `hssi_2x100.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 2x100 GbE CAUI-4 |
+| `hssi_4x100_caui2.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 2x100 GbE CAUI-2 |
+
+There can typically be three sections contained within an OFSS file.
+
+* **`[include]`**
+
+  * This section of an OFSS file contains elements separated by a newline, where each element is the path to an OFSS file that is to be included for configuration by the OFSS Configuration Tool. Ensure that any environment variables (e.g. `$OFS_ROOTDIR`) is set correctly. The OFSS Config tool uses breadth first search to include all of the specified OFSS files; the ordering of OFSS files does not matter
+
+* **`[ip]`**
+
+  * This section of an OFSS file contains a key value pair that allows the OFSS Config tool to determine which IP configuration is being passed in. The currently supported values of IP are `ofs`, `iopll`, `pcie`, `memory`, and `hssi`.
+
+* **`[settings]`**
+
+  * This section of an OFSS file contains IP specific settings. Refer to an existing IP OFSS file to see what IP settings are set. For the IP type `ofss`, the settings will be information of the OFS device (platform, family, fim, part #, device_id)
+
+##### **2.1.2.1 Platform OFSS File**
+
+The `<platform>.ofss` file (e.g. `$OFS_ROOTDIR/tools/ofss_config/f2000x.ofss`) is the platform level OFSS wrapper file. This is typically the OFSS file that is provided to the build script. It only contains an `include` section which lists all other OFSS files that are to be used when the `<platform>.ofss` file is passed to the build script.
+
+The generic structure of a `<platform>.ofss` file is as follows:
+
 ```bash
-
-export QUARTUS_MAINPATH=/<YOUR_QUARTUS_DIRECTORY>/23.4 
-export TOOLS_LOCATION=<YOUR_TOOLS_DIRECTORY> 
-export LM_LICENSE_FILE=<YOUR_LM_LICENSE_PATH>
-export DW_LICENSE_FILE=<YOUR_DW_LICENSE_PATH>
-export SNPSLMD_LICENSE_FILE=<YOUR_SNPSLMD_LICENSE_PATH>
+[include]
+<PATH_TO_PLATFORM_BASE_OFSS_FILE>
+<PATH_TO_PCIE_OFSS_FILE>
+<PATH_TO_IOPLL_OFSS_FILE>
+<PATH_TO_MEMORY_OFSS_FILE>
+<PATH_TO_HSSI_OFSS_FILE>
 ```
 
->**Note:** The TOOLS_LOCATION directory is where the Synopsys tools reside. Refer to the `UVM_HOME` variable below for an example.
+##### **2.1.2.2 OFS IP OFSS File**
 
-Then set the remaining environment variables:
+An OFSS file with IP type `ofs` (e.g. `$OFS_ROOTDIR/tools/ofss_config/f2000x_base.ofss`) contains board specific information for the target board.
+
+The default configuration options for an OFSS file with IP type `ofs` are described in the *OFS IP OFSS File Options* table.
+
+*Table: OFS IP OFSS File Defaults*
+
+| Section | Parameter | f2000x Default Value |
+| --- | --- | --- |
+| `[ip]` | `type` | `ofs` |
+| `[settings]` | `platform` | `f2000x` |
+| | `family` | `agilex` |
+| | `fim` | `base_x16` |
+| | `part` | `AGFC023R25A2E2VR0` |
+| | `device_id` | `6100` |
+
+##### **2.1.2.3 PCIe IP OFSS File**
+
+An OFSS file with IP type `pcie` (e.g. `$OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host.ofss`) is used to configure the PCIe-SS in the FIM.
+
+The PCIe OFSS file has a special section type (`[pf*]`) which is used to define physical functions (PFs) in the FIM. Each PF has a dedicated section, where the `*` character is replaced with the PF number. For example, `[pf0]`, `[pf1]`, etc. For reference FIM configurations, the Host must have at least 1 PF. The SoC must have at least 1 PF with 1 VF. This is because the PR region cannot be left unconnected. PFs must be consecutive. The *PFVF Limitations* tables below describe the supported number of PFs and VFs for the Host and SoC.
+
+*Table: Host PF/VF Limitations*
+
+| Parameter | Value |
+| --- | --- |
+| Min # of PFs | 1 |
+| Max # of PFs | 8 |
+| Min # of VFs | 0 |
+| Max # of VFs | 2000 distributed across all PFs |
+
+*Table: SoC PF/VF Limitations*
+
+| Parameter | Value |
+| --- | --- |
+| Min # of PFs | 1 |
+| Max # of PFs | 8 |
+| Min # of VFs | 1 (on PF0) |
+| Max # of VFs | 2000 distributed across all PFs |
+
+Currently supported configuration options for an OFSS file with IP type `pcie` are described in the *PCIe IP OFSS File Options* table.
+
+*Table: PCIe IP OFSS File Options*
+
+| Section | Parameter | Options | Description |
+| --- | --- | --- | --- |
+| `[ip]` | `type` | `pcie` | Specifies that this OFSS file configures the PCIe-SS |
+| `[settings]` | `output_name` | `pcie_ss` \| `soc_pcie_ss` | Specifies the output name of the PCIe-SS IP |
+| | `preset` | *String* | OPTIONAL - Specifies the name of a PCIe-SS IP presets file to use when building the FIM. When used, a presets file will take priority over any other parameters set in this OFSS file. |
+| `[pf*]` | `num_vfs` | Integer | Specifies the number of Virtual Functions in the current PF |
+| | `bar0_address_width` | Integer | |
+| | `bar4_address_width` | Integer | |
+| | `vf_bar0_address_width` | Integer | |
+| | `ats_cap_enable` | `0` \| `1` | |
+| | `vf_ats_cap_enable` | `0` \| `1` | |
+| | `prs_ext_cap_enable` | `0` \| `1` | |
+| | `pasid_cap_enable` | `0` \| `1` | |
+| | `pci_type0_vendor_id` | 32'h Value | |
+| | `pci_type0_device_id` | 32'h Value | |
+| | `revision_id` | 32'h Value | |
+| | `class_code` | 32'h Value | |
+| | `subsys_vendor_id` | 32'h Value | |
+| | `subsys_dev_id` | 32'h Value | |
+| | `sriov_vf_device_id` | 32'h Value | |
+| | `exvf_subsysid` | 32'h Value | |
+
+The default values for all PCIe-SS parameters (that are not defined in the PCIe IP OFSS file) are defined in `$OFS_ROOTDIR/ofs-common/tools/ofss_config/ip_params/pcie_ss_component_parameters.py`. When using a PCIe IP OFSS file during compilation, the PCIe-SS IP that is used will be defined based on the values in the PCIe IP OFSS file plus the parameters defined in `pcie_ss_component_parameters.py`.
+
+##### **2.1.2.4 IOPLL IP OFSS File**
+
+An OFSS file with IP type `iopll` (e.g. `$OFS_ROOTDIR/tools/ofss_config/iopll/iopll.ofss`) is used to configure the IOPLL in the FIM.
+
+The IOPLL OFSS file has a special section type (`[p_clk]`) which is used to define the IOPLL clock frequency.
+
+Currently supported configuration options for an OFSS file with IP type `iopll` are described in the *IOPLL OFSS File Options* table.
+
+*Table: IOPLL OFSS File Options*
+
+| Section | Parameter | Options | Description |
+| --- | --- | --- | --- |
+| `[ip]` | `type` | `iopll` | Specifies that this OFSS file configures the IOPLL |
+| `[settings]` | `output_name` | `sys_pll` | Specifies the output name of the IOPLL. |
+| | `instance_name` | `iopll_0` | Specifies the instance name of the IOPLL. |
+| `[p_clk]` | `freq` | Integer: 250 - 470 | Specifies the IOPLL clock frequency in MHz. |
+
+>**Note:** The following frequencies have been tested on reference boards: 350MHz, 400MHz, 470MHz.
+
+##### **2.1.2.5 Memory IP OFSS File**
+
+An OFSS file with IP type `memory` (e.g. `$OFS_ROOTDIR/tools/ofss_config/memory/memory.ofss`) is used to configure the Memory-SS in the FIM.
+
+The Memory OFSS file specifies a `preset` value, which selects a presets file (`.qprs`) to configure the Memory-SS.
+
+Currently supported configuration options for an OFSS file with IP type `memory` are described in the *Memory OFSS File Options* table.
+
+*Table: Memory OFSS File Options*
+
+| Section | Parameter | Options | Description |
+| --- | --- | --- | --- |
+| `[ip]` | `type` | `memory` | Specifies that this OFSS file configures the Memory-SS |
+| `[settings]` | `output_name` | `mem_ss_fm` | Specifies the output name of the Memory-SS. |
+| | `preset` | `f2000x` \| *String*<sup>**[1]**</sup> | Specifies the name of the `.qprs` presets file that will be used to build the Memory-SS. |
+
+<sup>**[1]**</sup> You may generate your own `.qprs` presets file with a unique name using Quartus. 
+
+Memory-SS presets files are stored in the `$OFS_ROOTDIR/ipss/mem/qip/presets` directory.
+
+##### **2.1.2.6 HSSI IP OFSS File**
+
+An OFSS file with IP type `hssi` (e.g. `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_8x25.ofss`) is used to configure the Ethernet-SS in the FIM.
+
+Currently supported configuration options for an OFSS file with IP type `hssi` are described in the *HSSI OFSS File Options* table.
+
+*Table: HSSI OFSS File Options*
+
+| Section | Parameter | Options | Description |
+| --- | --- | --- | --- |
+| `[ip]` | `type` | `hssi` | Specifies that this OFSS file configures the Ethernet-SS |
+| `[settings]` | `output_name` | `hssi_ss` | Specifies the output name of the Ethernet-SS |
+| | `num_channels` | Integer | Specifies the number of channels. |
+| | `data_rate` | `10GbE` \| `25GbE` \| `100GCAUI-4` \| `100GAUI-2` | Specifies the data rate |
+| | `preset` | None \| *String*<sup>**[1]**</sup> | OPTIONAL - Selects the platform whose preset `.qprs` file will be used to build the Ethernet-SS. When used, this will overwrite the other settings in this OFSS file. |
+
+<sup>**[1]**</sup> You may generate your own `.qprs` presets file with a unique name using Quartus. 
+
+Ethernet-SS presets should be stored in a `$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/presets` directory.
+
+#### **2.1.3 OFS Build Script Outputs**
+
+The output files resulting from running the the OFS FIM `build_top.sh` build script are copied to a single directory during the `finish` stage of the build script. The path for this directory is: `$OFS_ROOTDIR/<WORK_DIRECTORY>/syn/syn_top/output_files`
+
+The output files include programmable images and compilation reports. The *OFS Build Script Output Descriptions* table describes some of the essential images that are generated by the build script.
+
+*Table: OFS Build Script Output Descriptions*
+
+| File            | Description                        |
+|-----------------|------------------------------------|
+| ofs_top.bin | This is an intermediate, raw binary file. This intermediate raw binary file is produced by taking the Quartus Prime Pro generated \*.sof file, and converting it to \*.pof using quartus_pfg, then converting the \*.pof to \*.hexout using quartus_cpf, and finally converting the \*.hexout to \*.bin using objcopy. <br /><br />`ofs_top.bin` - Raw binary image of the FPGA. |
+| ofs_top_page0_unsigned_factory.bin | This is the unsigned PACSign output generated for the Factory Image. **Unsigned** means that the image has been signed with an empty header. |
+| ofs_top_page1_user1.bin | This is an input file to PACSign to generate `ofs_top_page1_unsigned_user1.bin`. This file is created by taking the ofs_top.bin file and assigning the User1 or appending factory block information. **Unsigned** means that the image has been signed with an empty header. |
+| ofs_top_page1_unsigned_user1.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User1 Image. This file is used to load the FPGA flash User1 Image using the fpgasupdate tool. **Unsigned** means that the image has been signed with an empty header. |
+| ofs_top_page2_user2.bin |  This is an input file to PACSign to generate `ofs_top_page2_unsigned_user2.bin`. This file is created by taking the `ofs_top.bin` file and assigning the User2 or appending factory block information. |
+| ofs_top_page2_unsigned_user2.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User2 Image. This file is used to load the FPGA flash User2 Image using the fpgasupdate tool. **Unsigned** means that the image has been signed with an empty header. |
+| ofs_top.sof | This image is used to generate `ofs_top.bin`, and can also be used to program the Agilex® 7 FPGA device directly through JTAG |
+
+>**Note:** The `build/output_files/timing_report` directory contains clocks report, failing paths and passing margin reports. 
+
+### **2.2 Compilation Flows**
+
+This section provides information for using the build script to generate different FIM types. Walkthroughs are provided for each compilation flow. These walkthroughs require that the development environment has been set up as described in the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) section.
+
+#### **2.2.1 Flat FIM**
+
+A flat FIM is compiled such that there is no partial reconfiguration region, and the entire design is built as a flat design. This is useful for compiling new designs without worrying about the complexity introduced by partial reconfiguration. The flat compile removes the PR region and PR IP; thus, you cannot use the `-p` build flag when using the `flat` compile setting. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+
+#### **2.2.2 In-Tree PR FIM**
+
+An In-Tree PR FIM is the default compilation if no compile flags or compile settings are used. This flow will compile the design with the partial reconfiguration region, but it will not create a relocatable PR directory tree to aid in AFU development. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+
+#### **2.2.3 Out-of-Tree PR FIM**
+
+An Out-of-Tree PR FIM will compile the design with the partial reconfiguration region, and will create a relocatable PR directory tree to aid in AFU workload development. This is especially useful if you are developing a FIM to be used by another team developing AFU workloads. This is the recommended build flow in most cases. There are two ways to create the relocatable PR directory tree:
+
+* Run the FIM build script with the `-p` option. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+* Run the `generate_pr_release.sh` script after running the FIM build script. Refer to the **Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM** Section step-by-step instructions for this flow.
+
+In both cases, the `generate_pr_release.sh` is run to create the relocatable build tree. This script is located at `$OFS_ROOTDIR/ofs-common/scripts/common/syn/generate_pr_release.sh`. Usage for this script is as follows:
+
 ```bash
-export QUARTUS_ROOTDIR=$QUARTUS_MAINPATH/quartus 
-export QUARTUS_HOME=$QUARTUS_ROOTDIR 
-export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR 
-export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR 
-export IMPORT_IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip 
-export IP_ROOTDIR=$QUARTUS_ROOTDIR/../ip 
-export INTELFPGAOCLSDKROOT=$QUARTUS_MAINPATH/hld 
-export QSYS_ROOTDIR=$QUARTUS_ROOTDIR/../qsys/bin 
-export IOFS_BUILD_ROOT=$PWD
-export OFS_ROOTDIR=$IOFS_BUILD_ROOT/ofs-f2000x-pl
-export WORKDIR=$OFS_ROOTDIR 
-export VERDIR=$OFS_ROOTDIR/verification/ofs-f2000x/common:$OFS_ROOTDIR/verification 
-export OFS_PLATFORM_AFU_BBB=$IOFS_BUILD_ROOT/ofs-platform-afu-bbb 
-export OPAE_SDK_REPO_BRANCH=release/$OPAE_SDK_VERSION
-export OPAE_PLATFORM_ROOT=$OFS_ROOTDIR/work_dir/build_tree    
-export LIBRARY_PATH=$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/lib 
-export LD_LIBRARY_PATH=$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/lib64 
-export OPAE_LOC=/install-opae-sdk 
-export QUARTUS_NUM_PARALLEL_PROCESSORS=8 
-export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/vip_Q-2020.03A
-export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm 
-export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel 
-export MTI_HOME=$TOOLS_LOCATION/intelFPGA_pro/questa_fse 
-export PATH=$PATH:$QUARTUS_HOME/bin:$QUARTUS_HOME/qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin
-
+generate_pr_release.sh -t <PATH_OF_RELOCATABLE_PR_TREE> <BOARD_TARGET> <WORK_DIRECTORY>
 ```
 
-### **4.4.2 Compiling the FIM**
+The *Generate PR Release Script Options* table describes the options for the `generate_pr_release.sh` script.
 
-The f2000x  FIM build flow uses the bash script `$OFS_ROOTDIR/ofs-common/scripts/common/syn/build_top.sh`.  There are several setup files that must be put in place before compilation, which is handled by the build script. If you wish to compile the f2000x FIM using the Intel Quartus Prime Pro GUI, you must at least run the setup portion of the `build_top.sh` script before compiling with the GUI. For instructions on compiling the FIM using the Quartus GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui) section.
+*Table: Generate PR Release Script Options*
 
-The usage of the compile build script is shown below:
+| Parameter | Options | Description |
+| --- | --- | --- |
+| `<PATH_OF_RELOCATABLE_PR_TREE>` | String | Specifies the location of the relocatable PR directory tree to be created. |
+| `<BOARD_TARGET>` | `n6001` \| `n6000` \| `fseries-dk` \| `iseries-dk` | Specifies the name of the board target. |
+| `<WORK_DIRECTORY>` | String | Specifies the existing work directory from which the relocatable PR directory tree will be created from. |
+
+After generating the relocatable build tree, it is located in the `$OFS_ROOTDIR/<WORK_DIRECTORY>/pr_build_template` directory (or the directory you specified if generated separately). The contents of this directory have the following structure:
+
 ```bash
-ofs-common/scripts/common/syn/build_top.sh/build_top.sh [-p] f2000x[:OPTIONS]  work_dir 
+├── bin
+├── ├── afu_synth
+├── ├── qar_gen
+├── ├── update_pim
+├── ├── run.sh
+├── ├── build_env_config
+├── README
+├── hw
+├── ├── lib
+├── ├── ├── build
+├── ├── ├── fme-ifc-id.txt
+├── ├── ├── platform
+├── ├── ├── fme-platform-class.txt
+├── ├── blue_bits
+├── ├── ├── ofs_top.sof
+├── ├── ├── ofs_top_page0_unsigned_factory.bin
+├── ├── ├── ofs_top_page1_unsigned_user1.bin
+└── └── └── ofs_top_page2_unsigned_user2.bin
 ```
->**Note:** Refer to the $OFS_ROOTDIR/ofs-common/scripts/common/syn/README for detailed information on using this script
 
-* To build the provided design using a flat, non-PR build flow use the following commands:
+### **2.2.5 Walkthrough: Compile OFS FIM**
+
+Perform the following steps to compile the OFS Agilex® 7 SoC Attach FIM for the f2000x:
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Navigate to the root directory.
 
     ```bash
     cd $OFS_ROOTDIR
-    ./ofs-common/scripts/common/syn/build_top.sh f2000x:flat  work_dir
     ```
 
-* To build the provided design with in-tree PR enabled use the following commands:
+4. Run the `build_top.sh` script with the desired compile options. Some examples are provided:
+
+  * Out-of-Tree PR FIM using OFSS (Standard Flow)
 
     ```bash
-    cd $OFS_ROOTDIR
-    ./ofs-common/scripts/common/syn/build_top.sh f2000x work_dir
-    ```
-
-* To build the provided design with a relocatable (out-of-tree) PR directory use the following commands:
-
-    ```bash
-    cd $OFS_ROOTDIR
-    ./ofs-common/scripts/common/syn/build_top.sh -p f2000x work_dir
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x_oot_pr
     ```
     
-    Refer to the [Create a Relocatable PR Directory Tree](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim) section for more information on out-of-tree PR builds.
+    Refer to the [Create a Relocatable PR Directory Tree](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim) section for more information on out-of-tree PR builds.
+
+  * Flat FIM using OFSS
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x:flat work_f2000x_flat
+    ```
+
+  * In-Tree PR FIM using OFSS
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x_in_tree_pr
+    ```
+
+  * Flat FIM using OFSS with Host Exercisers Removed
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x:flat,null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_f2000x_flat_null_he
+     ```
+
+  * In-Tree PR FIM using Source
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh f2000x work_f2000x
+    ```
+
 
 The build takes ~3 hours to complete. A successful build will report the following:
 
 ```tcl
-Compile work directory:     <$IOFS_BUILD_ROOT>/ofs-f2000x/work_f2000x /syn/syn_top
-Compile artifact directory: <$IOFS_BUILD_ROOT>/ofs-f2000x/work_f2000x /syn/syn_top/output_files
+Compile work directory:     <OFS_ROOTDIR>/agx7-soc-attach/rel/default/ofs-f2000x-pl/work_f2000x/syn/syn_top
+Compile artifact directory: <OFS_ROOTDIR>/agx7-soc-attach/rel/default/ofs-f2000x-pl/work_f2000x/syn/syn_top/output_files
 
 ***********************************
 ***
-***        OFS_PROJECT: f2000x 
+***        OFS_PROJECT: f2000x
 ***        OFS_FIM: base
 ***        OFS_BOARD: adp
 ***        Q_PROJECT:  ofs_top
 ***        Q_REVISION: ofs_top
-***        SEED: 0
+***        SEED: 1
 ***        Build Complete
 ***        Timing Passed!
 ***
 ***********************************
 ```
 
-
-The build script copies the ```ipss```, ```ofs-common```, ```sim```, ```src```,```syn``` and ```tools``` directories to the specified work directory and then these copied files are used in the Intel Quartus Prime Pro compilation process.
-
-Some key output directories are described in the following table:
-
-| Directory | Description |
-| --- | --- |
-| `$OFS_ROOTDIR/<WORK_DIR>/syn/syn_top` | Intel Quartus Prime Pro project (ofs_top.qpf) and other Intel Quartus Prime Pro specific files|
-| `$OFS_ROOTDIR/<WORK_DIR>/syn/syn_top/output_files` | Directory with build reports and FPGA programming files |
-
-The build script will run PACSign (if installed) and create an unsigned FPGA programming files for both user1 and user2 locations of the f2000x  FPGA flash.  Please note, if the f2000x  has the root entry hash key loaded, then PACsign must be run to add the proper key to the FPGA binary file.
-
-The following table provides a detailed description of the generated *.bin files.
-
-| File            | Description                        |
-|-----------------|------------------------------------|
-| ofs_top.bin | This is an intermediate, raw binary file. This intermediate raw binary file is produced by taking the Intel Quartus Prime Pro generated \*.sof file, and converting it to \*.pof using quartus_pfg, then converting the \*.pof to \*.hexout using quartus_cpf, and finally converting the \*.hexout to \*.bin using objcopy. <br /><br />`ofs_top.bin` - Raw binary image of the FPGA. |
-| ofs_top_page0_unsigned_factory.bin | This is the unsigned PACSign output generated for the Factory Image. **Unsigned** means that the image has been signed with an empty header. |
-| ofs_top_page1_user1.bin | This is an input file to PACSign to generate `ofs_top_page1_unsigned_user1.bin`. This file is created by taking the ofs_top.bin file and assigning the User1 or appending factory block information. **Unsigned** means that the image has been signed with an empty header. |
-| ofs_top_page1_unsigned_user1.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User1 Image. This file is used to load the FPGA flash User1 Image using the fpgasupdate tool. **Unsigned** means that the image has been signed with an empty header. |
-| ofs_top_page2_user2.bin |  This is an input file to PACSign to generate `ofs_top_page2_unsigned_user2.bin`. This file is created by taking the `ofs_top.bin` file and assigning the User2 or appending factory block information. |
-| ofs_top_page2_unsigned_user2.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User2 Image. This file is used to load the FPGA flash User2 Image using the fpgasupdate tool. **Unsigned** means that the image has been signed with an empty header. |
-| ofs_top.sof | This image is used to generate `ofs_top.bin`, and can also be used to program the Intel Agilex 7 device directly through JTAG |
-
->**Note:** The `build/output_files/timing_report` directory contains clocks report, failing paths and passing margin reports. 
-
-#### **4.4.3 Create a Relocatable PR Directory Tree from the base_x16 FIM**
+#### **2.2.6 Creating a Relocatable PR Directory Tree**
 
 If you are developing a FIM to be used by another team developing AFU workload(s), scripts are provided that create a relocatable PR directory tree. ODM and board developers will make use of this capability to enable a broad set of AFUs to be loaded on a board using PR.
-
 
 You can create this relocatable PR directory tree by either:
 
@@ -734,19 +1095,91 @@ The resulting relocatable build tree has the following structure:
 ```
 This build tree can be moved to a different location and used for AFU development of PR-able AFU to be used with this board.
 
-#### **4.4.4 Compiling the OFS FIM Using Quartus GUI**
+#### **2.2.6.1 Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM**
+
+This walkthrough describes how to manually generate an Out-Of-Tree PR FIM. 
+
+> **Note:** This can be automatically done for you if you run the build script with the `-p` option.
+
+> **Note:** This process is not applicable if you run the build script with the `flat` option.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Navigate to the root directory.
+
+  ```bash
+  cd $OFS_ROOTDIR
+  ```
+
+4. Run the `build_top.sh` script with the desired compile options using the f2000x OFSS presets. In order to create the relocatable PR tree, you may not compile with the `flat` option. For example:
+
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x
+  ```
+
+5. Run the `generate_pr_release.sh` script to create the relocatable PR tree.
+
+  ```bash
+  ./ofs-common/scripts/common/syn/generate_pr_release.sh -t work_f2000x/pr_build_template f2000x work_f2000x
+  ```
+
+#### **2.2.7 Compilation Seed**
+
+You may change the seed which is used by the build script during Quartus compilation to change the starting point of the fitter. Trying different seeds is useful when your design is failing timing by a small amount.
+
+##### **2.2.7.1 Walkthrough: Change the Compilation Seed**
+
+Perform the following steps to change the compilation seed for the FIM build.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Edit the `SEED` assignment in the `$OFS_ROOTDIR/syn/syn_top/ofs_top.qsf` file to your desired seed value. The value can be any non-negative integer value.
+
+  ```
+  vim $OFS_ROOTDIR/syn/syn_top/ofs_top.qsf
+  ```
+
+  ```
+  set_global_assignment -name SEED 2
+  ```
+
+4. Build the FIM. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) section for instructions.
+
+#### **2.2.8 Compiling the OFS FIM Using Quartus GUI**
 
 Perform the following steps to compile the OFS FIM using the Quartus GUI:
 
-1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
 2. Run the setup portion of the build script. This takes a few seconds to complete.
 
-    ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh --stage setup f2000x work_dir
-    ```
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup f2000x work_dir
+  ```
 
-3. Open the OFS FIM project using the Intel Quartus Prime Pro GUI. The project is located at `$OFS_ROOTDIR/work_dir/syn/syn_top/ofs_top.qpf`.
+3. Open the OFS FIM project using the Quartus Prime Pro GUI. The project is located at `$OFS_ROOTDIR/work_dir/syn/syn_top/ofs_top.qpf`.
 
 4. Ensure the checkbox next to **Assembler (Generate programming files)** is marked.
 
@@ -762,7 +1195,7 @@ Perform the following steps to compile the OFS FIM using the Quartus GUI:
 
 8. Check the `$OFS_ROOTDIR/work_dir/syn/syn_top/output_files` directory again to see that all output files have been generated.
 
-### **4.5 Unit Level Simulation**
+### **3 Unit Level Simulation**
 
 Unit level simulation of key components in the FIM is provided. These simulations provide verification of the following areas:
 
@@ -809,139 +1242,154 @@ The scripts to run the unit level simulations are located in `$OFS_ROOTDIR/sim/u
 | | pmci_vdm_tx_rx_lpbk_test |
 | | regress_run.py |
 
-#### **4.5.1 Run Comprehensive Unit Tests**
+### **3.1 Simulation File Generation**
 
-The `regress_run.py` script is provided to automatically run all unit tests for either the SoC or the Host. Note that running all tests will take around three hours for the SoC tests and around 2.5 hours for the Host tests to complete.
+The simulation files must be generated prior to running unit level simulations. The script to generate simulation files is in the following location:
 
-Perform the following steps to run comprehensive tests:
+```bash
+$OFS_ROOTDIR/ofs-common/scripts/common/sim/gen_sim_files.sh
+```
 
-1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
-2. Navigate to the test directory you wish to run from.
-  * SoC Tests
+The usage of the `gen_sim_files.sh` script is as follows:
 
-       ```bash
-       cd $OFS_ROOTDIR/sim/unit_test/soc_tests
-       ```
+```bash
+gen_sim_files.sh [--ofss=<ip_config>] <build_target>[:<fim_options>] [<device>] [<family>]
+```
 
-  * Host Tests
+The *Gen Sim Files Script Options* table describes the options for the `gen_sim_files.sh` script.
 
-       ```bash
-       cd $OFS_ROOTDIR/sim/unit_test/host_tests
-       ```
+*Table: Gen Sim Files Script Options*
 
-3. Run the tests with the `regress_run.py`. Use the `-h` argument to display the help menu.
+| Field | Options | Description | Requirement |
+| --- | --- | --- | --- |
+| `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | Platform Dependent<sup>**[1]**</sup> |
+| `<build_target>` | `n6001` \| `n6000` \| `fseries-dk` \| `iseries-dk` \| **`f2000x`** | Specifies which board is being targeted. | Required |
+| `<fim_options>` | `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` | Used to change how the FIM is built.</br>&nbsp;&nbsp;- `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;- `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:null_he_lb,null_he_hssi` | Optional | 
+| `<device>` | string | Specifies the device ID for the target FPGA. If not specified, the default device is parsed from the `QSF` file for the project. | Optional |
+| `<family>` | string | Specifies the family for the target FPGA. If not specified, the default family is parsed from the `QSF` file for the project. | Optional |
 
-    For example, to run all tests locally, using VCS, with 8 processors:
+<sup>**[1]**</sup> Using OFSS is required for the N6000, F-Series Development Kit (2xF-Tile), and the I-Series Development Kit (2xR-Tile, 1xF-Tile).
+
+Refer to the [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#321-walkthrough-run-individual-unit-level-simulation) section for an example of the simulation files generation flow.
+
+When running regression tests, you may use the `-g` command line argument to generate simulation files; refer to the [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#331-walkthrough-run-regression-unit-level-simulation) section for step-by-step instructions.
+
+### **3.2 Individual Unit Tests**
+
+Each unit test may be run individually using the `run_sim.sh` script located in the following directory:
+
+```bash
+$OFS_ROOTDIR/ofs-common/scripts/common/sim/run_sim.sh
+```
+
+The usage for the `run_sim.sh` script is as follows:
+
+```bash
+sh run_sim.sh TEST=<test> [VCSMX=<0|1> | MSIM=<0|1>]
+```
+
+The *Run Sim Script Options* table describes the options for the `run_sim.sh` script.
+
+*Table: Run Sim Script Options*
+
+| Field | Options | Description | 
+| --- | --- | --- |
+| `TEST` | String | Specify the name of the test to run, e.g. `dfh_walker` |
+| `VCSMX` | `0` \| `1` | When set, the VCSMX simulator will be used |
+| `MSIM` | `0` \| `1` | When set, the QuestaSim simulator will be used |
+
+>**Note:** The default simulator is VCS if neither `VCSMX` nor `MSIM` are set.
+
+The log for a unit test is stored in a transcript file in the simulation directory of the test that was run.
+
+```bash
+$OFS_ROOTDIR/sim/unit_test/<TEST_NAME>/<SIMULATOR>/transcript
+```
+
+For example, the log for the DFH walker test using VCSMX would be found at:
+
+```bash
+$OFS_ROOTDIR/sim/unit_test/dfh_walker/sim_vcsmx/transcript
+```
+
+The simulation waveform database is saved as vcdplus.vpd for post simulation review.
+
+#### **3.2.1 Walkthrough: Run Individual Unit Level Simulation**
+
+Perform the following steps to run an individual unit test on either the SoC or Host.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Navigate to the simulation directory.
 
     ```bash
-    python regress_run.py -l -n 8 -k all -s vcs
+    cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
     ```
 
-4. Once all tests have completed, the comprehensive test summary will be shown. The following is an example test summary after running the SoC tests:
+4. Generate the simulation files for the target design.
 
-    ```
-    2023-05-14 19:10:55,404: Passing Unit Tests:12/12 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    2023-05-14 19:10:55,404:    csr_test:......... PASS -- Time Elapsed:0:03:57.713154
-    2023-05-14 19:10:55,404:    dfh_walker:....... PASS -- Time Elapsed:0:02:46.025067
-    2023-05-14 19:10:55,404:    flr:.............. PASS -- Time Elapsed:0:03:26.289900
-    2023-05-14 19:10:55,404:    he_lb_test:....... PASS -- Time Elapsed:0:06:41.142643
-    2023-05-14 19:10:55,404:    he_mem_test:...... PASS -- Time Elapsed:1:39:01.824096
-    2023-05-14 19:10:55,404:    hssi_kpi_test:.... PASS -- Time Elapsed:2:21:33.007328
-    2023-05-14 19:10:55,404:    hssi_test:........ PASS -- Time Elapsed:2:16:36.821034
-    2023-05-14 19:10:55,404:    mem_ss_csr_test:.. PASS -- Time Elapsed:0:38:45.836540
-    2023-05-14 19:10:55,404:    mem_ss_rst_test:.. PASS -- Time Elapsed:0:40:51.065354
-    2023-05-14 19:10:55,404:    mem_tg_test:...... PASS -- Time Elapsed:0:54:00.210146
-    2023-05-14 19:10:55,404:    pf_vf_access_test: PASS -- Time Elapsed:0:03:25.561919
-    2023-05-14 19:10:55,404:    qsfp_test:........ PASS -- Time Elapsed:0:39:29.192304
-    2023-05-14 19:10:55,404: Failing Unit Tests: 0/12 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    2023-05-14 19:10:55,404: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-    2023-05-14 19:10:55,404:       Number of Unit test results captured: 12
-    2023-05-14 19:10:55,404:       Number of Unit test results passing.: 12
-    2023-05-14 19:10:55,404:       Number of Unit test results failing.:  0
-    2023-05-14 19:10:55,404:     End Unit regression running at date/time................: 2023-05-14 19:10:55.404641
-    2023-05-14 19:10:55,404:     Elapsed time for Unit regression run....................: 2:22:39.310455
-    ```
+  ```bash
+  ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/f2000x.ofss f2000x
+  ```
 
-5. Output logs for each individual test are saved in the respective test's directory
+5. Navigate to the common simulation directory
+  ```bash
+  cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
+  ```
 
-    ```bash
-    $OFS_ROOTDIR/sim/unit_test/<TEST_TYPE>/<TEST_NAME>/<SIMULATOR>/transcript
-    ```
-
-    For example, the log for the SoC DFH Walker test using VCS can be found in:
-
-    ```bash
-    $OFS_ROOTDIR/sim/unit_test/soc_tests/dfh_walker/sim_vcs/transcript
-    ```
-
-
-#### **4.5.2 Run Individual Unit Tests**
-
-The `run_sim.sh` scripts are provided to run individual unit tests for either the SoC or the Host. Before you can run any unit tests, you must generate the IP simulation files. Note that the `regress_run.py` script used for comprehensive testing does this step automatically. Perform the following steps to generate the IP simulation files:
-
-1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
-2. Generate the IP simulation files for all unit tests:
-
-    ```bash
-    cd `$OFS_ROOTDIR/ofs-common/scripts/common/sim`
-    sh gen_sim_files.sh f2000x 
-    ```
-
-Next, perform the following steps to run individual tests:
-
-1. Navigate to the directory of the test you wish to run
-
-    ```bash
-    cd $OFS_ROOTDIR/sim/unit_test/<TEST_TYPE>/<TEST_NAME>
-    ```
-
-    For example, to run the DFH walker test for the SoC:
-
-    ```bash
-    cd $OFS_ROOTDIR/sim/unit_test/soc_tests/dfh_walker
-    ```
-
-2. Run the test with your desired simulator:
-
+6. Run the desired unit test using your desired simulator
   * Using VCS
 
     ```bash
-    sh run_sim.sh
+    sh run_sim.sh TEST=<test_name>
     ```
 
-  * Using Questasim
+  * Using VCSMX
 
     ```bash
-    sh run_sim.sh MSIM=1
+    sh run_sim.sh TEST=<test_name> VCSMX=1
     ```
 
-  * Using VCS-MX
+  * Using QuestaSim
 
     ```bash
-    sh run_sim.sh VCSMX=1
+    sh run_sim.sh TEST=<test_name> MSIM=1
     ```
-
-3. Once the test has completed, the test summary will be shown. The following is an example test summary after running the SoC DFH Walker Test:
+  
+  * For example, to run the DFH walker test using VCSMX:
 
     ```bash
-    Test status: OK
-   
-    ********************
-    Test summary
-    ********************
-       test_dfh_walking (id=0) - pass
-    Test passed!
-    Assertion count: 0
-    $finish called from file "/home/applications.fpga.ofs.fim-f2000x-pl/sim/unit
-    _test/scripts/../../bfm/rp_bfm_simple/tester.sv", line 210.
-    $finish at simulation time            355393750
-            V C S   S i m u l a t i o n   R e p o r t
-    Time: 355393750 ps
-    CPU Time:     59.870 seconds;       Data structure size:  91.2Mb
-    Sun May 14 16:54:20 2023
-    ```
+    sh run_sim.sh TEST=dfh_walker VCSMX=1
 
-4. The log for the test is stored in a transcript file in the simulation directory of the test that was run.
+7. Once the test has completed, the test summary will be shown. The following is an example test summary after running the SoC DFH Walker Test:
+
+  ```bash
+  Test status: OK
+  
+  ********************
+  Test summary
+  ********************
+     test_dfh_walking (id=0) - pass
+  Test passed!
+  Assertion count: 0
+  $finish called from file "/home/applications.fpga.ofs.fim-f2000x-pl/sim/unit
+  _test/scripts/../../bfm/rp_bfm_simple/tester.sv", line 210.
+  $finish at simulation time            355393750
+          V C S   S i m u l a t i o n   R e p o r t
+  Time: 355393750 ps
+  CPU Time:     59.870 seconds;       Data structure size:  91.2Mb
+  Sun May 14 16:54:20 2023
+  ```
+
+8. The log for the test is stored in a transcript file in the simulation directory of the test that was run.
 
     ```bash
     $OFS_ROOTDIR/sim/unit_test/<TEST_TYPE>/<TEST_NAME>/<SIMULATOR>/transcript
@@ -955,91 +1403,126 @@ Next, perform the following steps to run individual tests:
 
     The simulation waveform database is saved as vcdplus.vpd for post simulation review. You are encouraged to run the additional simulation examples to learn about each key area of the OFS shell.
 
+#### **3.3 Regression Unit Tests**
 
-## **5 Custom FIM Development Flow**
+The `regress_run.py` script is provided to automatically run all unit tests for either the SoC or the Host. Note that running all tests will take around three hours for the SoC tests and around 2.5 hours for the Host tests to complete.
 
-FIM development for a new acceleration card consists of the following steps:
+#### **3.3.1 Walkthrough: Run Regression Unit Level Simulation**
 
-1. Installation of OFS and familiarization with scripts and source code
-2. Development of high level block diagram with your specific functionality
-  1. Determination of requirements and key performance metrics
-  2. Selection of IP cores
-  3. Selection of FPGA device
-  4. Software memory map
-3. Selection and implementation of FIM Physical interfaces including:
-  1. External clock sources and creation of internal PLL clocks
-  2. General I/O
-  3. Ethernet modules
-  4. External memories
-  5. FPGA programming methodology
-4. Device physical implementation
-  1. FPGA device pin assignment
-  2. Inclusion of logic lock regions
-  3. Creation of timing constraints
-  4. Create Intel Quartus Prime Pro FIM test project and validate:
-    1. Placement
-    2. Timing constraints
-    3. Build script process
-    4. Review test FIM FPGA resource usage
-5. Select FIM to AFU interfaces and development of PIM
-6. FIM design implementation
-  1. RTL coding
-  2. IP instantiation
-  3. Development of test AFU to validate FIM
-  4. Unit and device level simulation
-  5. Timing constraints and build scripts
-  6. Timing closure and build validation
-7. Creation of FIM documentation to support AFU development and synthesis
-8. Software Device Feature discovery
-9. Hardware/software integration, validation and debugging
-10.  High volume production preparation
+Perform the following steps to run comprehensive regression unit tests.
 
-The FIM developer works closely with the hardware design of the target board, software development and system validation.
+Pre-requisites:
 
-This section describes how to perform specific customizations of areas of the FIM. Each section can be done independently. The following walkthroughs are provided:
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-| Section | Walkthrough |
-| --- | --- |
-| 5.1 | How to add a new module to the FIM |
-| 5.2 | How to debug the FIM with Signal Tap |
-| 5.3 | How to compile the FIM in preparation for designing your AFU |
-| 5.4 | How to resize the Partial Reconfiguration Region |
-| 5.5 | How to modify the Memory Subsystem |
-| 5.6 | How to compile the FIM with no HSSI |
-| 5.7 | How to change the PCIe Device ID and Vendor ID |
-| 5.8 | How to migrate to a different Intel Agilex 7 device number |
-| 5.9 | How to change the Ethernet interface from 8x25 GbE to 8x10 GbE |
-| 5.10 | How to change the Ethernet interface from 8x25 GbE to 2x100 GbE |
-| 5.11 | How to add more transceiver channels to the FIM|
-| 5.12 | How to modify the PF/VF MUX configuration |
-| 5.13 | How to create a minimal FIM|
+Steps:
 
-In each section, it is assumed that:
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-1. You have a clean, unmodified clone of the OFS repo.  See the [Clone the OFS Git Repo](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
-2. After cloning, you must set various environment variables. See the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-### **5.1 How to add a new module to the FIM**
+3. Navigate to the test directory you wish to run from.
+
+  * SoC Tests
+
+    ```bash
+    cd $OFS_ROOTDIR/sim/unit_test/soc_tests
+    ```
+
+  * Host Tests
+
+    ```bash
+    cd $OFS_ROOTDIR/sim/unit_test/host_tests
+    ```
+
+4. Run the tests with the `regress_run.py`. Use the `-h` argument to display the help menu. For example, to run all tests locally, generate the simulation files, using VCS, with 8 processors:
+
+  ```bash
+  python regress_run.py -g -l -n 8 -k all -s vcs
+  ```
+
+5. Once all tests have completed, the comprehensive test summary will be shown. The following is an example test summary after running the SoC tests:
+
+  ```
+  2023-05-14 19:10:55,404: Passing Unit Tests:12/12 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  2023-05-14 19:10:55,404:    csr_test:......... PASS -- Time Elapsed:0:03:57.713154
+  2023-05-14 19:10:55,404:    dfh_walker:....... PASS -- Time Elapsed:0:02:46.025067
+  2023-05-14 19:10:55,404:    flr:.............. PASS -- Time Elapsed:0:03:26.289900
+  2023-05-14 19:10:55,404:    he_lb_test:....... PASS -- Time Elapsed:0:06:41.142643
+  2023-05-14 19:10:55,404:    he_mem_test:...... PASS -- Time Elapsed:1:39:01.824096
+  2023-05-14 19:10:55,404:    hssi_kpi_test:.... PASS -- Time Elapsed:2:21:33.007328
+  2023-05-14 19:10:55,404:    hssi_test:........ PASS -- Time Elapsed:2:16:36.821034
+  2023-05-14 19:10:55,404:    mem_ss_csr_test:.. PASS -- Time Elapsed:0:38:45.836540
+  2023-05-14 19:10:55,404:    mem_ss_rst_test:.. PASS -- Time Elapsed:0:40:51.065354
+  2023-05-14 19:10:55,404:    mem_tg_test:...... PASS -- Time Elapsed:0:54:00.210146
+  2023-05-14 19:10:55,404:    pf_vf_access_test: PASS -- Time Elapsed:0:03:25.561919
+  2023-05-14 19:10:55,404:    qsfp_test:........ PASS -- Time Elapsed:0:39:29.192304
+  2023-05-14 19:10:55,404: Failing Unit Tests: 0/12 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  2023-05-14 19:10:55,404: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  2023-05-14 19:10:55,404:       Number of Unit test results captured: 12
+  2023-05-14 19:10:55,404:       Number of Unit test results passing.: 12
+  2023-05-14 19:10:55,404:       Number of Unit test results failing.:  0
+  2023-05-14 19:10:55,404:     End Unit regression running at date/time................: 2023-05-14 19:10:55.404641
+  2023-05-14 19:10:55,404:     Elapsed time for Unit regression run....................: 2:22:39.310455
+  ```
+
+6. Output logs for each individual test are saved in the respective test's directory
+
+  ```bash
+  $OFS_ROOTDIR/sim/unit_test/<TEST_TYPE>/<TEST_NAME>/<SIMULATOR>/transcript
+  ```
+
+  For example, the log for the SoC DFH Walker test using VCS can be found in:
+
+  ```bash
+  $OFS_ROOTDIR/sim/unit_test/soc_tests/dfh_walker/sim_vcs/transcript
+  ```
+
+## **4 FIM Customization**
+
+This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+
+*Table: FIM Customization Walkthroughs*
+
+| Walkthrough Name |
+| --- |
+| How to add a new module to the FIM |
+| How to debug the FIM with Signal Tap |
+| How to compile the FIM in preparation for designing your AFU |
+| How to resize the Partial Reconfiguration Region |
+| How to modify the Memory Subsystem |
+| How to compile the FIM with no HSSI |
+| How to change the PCIe Device ID and Vendor ID |
+| How to migrate to a different Agilex 7 device number |
+| How to change the Ethernet interface from 8x25 GbE to 8x10 GbE |
+| How to change the Ethernet interface from 8x25 GbE to 2x100 GbE |
+| How to add more transceiver channels to the FIM |
+| How to modify the PF/VF MUX configuration |
+| How to create a minimal FIM |
+
+### **4.1 Adding a new module to the FIM**
 
 This section provides a walkthrough for adding a custom module to the FIM, simulating the new design, compiling the new design, implementing and testing the new design on hardware, and debugging the new design on hardware.
+
+#### **4.1.1 Hello FIM Theory of Operation**
 
 If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module. The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO). This set of CSR registers and their operation is described in FIM MMIO Regions.
 
 See [FPGA Device Feature List (DFL) Framework Overview](https://github.com/OPAE/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
 
-The Hello FIM example adds a simple DFH register and 64bit scratchpad register connected to the Board Peripheral Fabric (BPF) that can be accessed by the SoC. You can use this example as the basis for adding a new feature to your FIM. 
+The Hello FIM example adds a simple DFH register and 64bit scratchpad register connected to the Board Peripheral Fabric (BPF) that can be accessed by the SoC. You can use this example as the basis for adding a new feature to your FIM.
+
+For the purposes of this example, the `hello_fim` module instantiation sets the DFH feature ID (`FEAT_ID`) to 0x100 which is not currently defined. Using an undefined feature ID will result in no driver being used. Normally, a defined feature ID will be used to associate a specific driver with the FPGA module. Refer to the [Device Feature List Feature IDs](https://github.com/OFS/dfl-feature-id/blob/main/dfl-feature-ids.rst) for a list of DFL feature types and IDs. If you are adding a new module to your design, make sure the Type/ID pair does not conflict with existing Type/ID pairs. You may reserve Type/ID pairs by submitting a pull request at the link above.
 
 The Hello FIM design can be verified by Unit Level simulation, Universal Verification Methodology (UVM) simulation, and running in hardware on the f2000x  card. The process for these are described in this section. 
 
-#### **5.1.1 Board Peripheral Fabric (BPF)**
+##### **4.1.1.1 Hello FIM Board Peripheral Fabric (BPF)**
 
 The Hello FIM module will be connected to the Board Peripheral Fabric (BPF), and will be connected such that it can only be mastered by the SoC. The BPF is an interconnect generated by Platform Designer. The figure below shows the APF/BPF Master/Slave interactions, as well as the added Hello FIM module.
 
 ![](images/apf_bpf_diagram.svg)
 
 You can create, modify, and/or generate the BPF manually in Platform Designer or more conveniently by executing a provided script.
-
-#### **5.1.2 SoC MMIO Region**
 
 We will add the Hello FIM module to an un-used address space in the SoC MMIO region. The table below shows the MMIO region for the SoC with the Hello FIM module added at base address `0x16000`.
 
@@ -1063,8 +1546,9 @@ We will add the Hello FIM module to an un-used address space in the SoC MMIO reg
 |0x133000|Remote SignalTap (Port Gasket)|
 |0x140000|AFU Errors (AFU Interface Handler)|
 
-Refer to the [FIM Technical Reference Manual: Interconnect Fabric](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/#5-interconnect-fabric) for more information on the default MMIO region.
-#### **5.1.3 Hello FIM CSR**
+Refer to the [FIM Technical Reference Manual: Interconnect Fabric](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/#5-interconnect-fabric) for more information on the default MMIO region.
+
+##### **4.1.1.2 Hello FIM CSR**
 
 The Hello FIM CSR will consist of the three registers shown in the table below. The DFH and Hello FIM ID registers are read-only. The Scratchpad register supports read and write accesses.
 
@@ -1074,7 +1558,7 @@ The Hello FIM CSR will consist of the three registers shown in the table below. 
 |0x016030|RW|Scrachpad register|0x0|
 |0x016038|RO|Hello FIM ID register|0x6626070150000034|
 
-#### **5.1.4 Files to Edit to Support Hello FIM**
+##### **4.1.1.3 Files to Edit to Support Hello FIM**
 
 The table below shows all files in $OFS_ROOTDIR that will be modified or created in order to implement the Hello FIM module. The build_top.sh script copies files from $OFS_ROOTDIR into the target work directory and then the copied files are used in the Quartus build process. Details on editing these files is given in subsequent sections.
 
@@ -1095,18 +1579,22 @@ The table below shows all files in $OFS_ROOTDIR that will be modified or created
 ||Modify|/ofs-common/verification/fpga_family/agilex/tests/sequences|dfh_walking_seq.svh|DFH Walking testbench|
 ||Modify|ofs-common/verification/fpga_family/agilex/scripts|Makefile_VCS.mk|Makefile for VCS|
 
-#### **5.1.5 Pre-Requisites for Adding Hello FIM**
+#### **4.1.2 Walkthrough: Add a new module to the OFS FIM**
 
-The following pre-requisites must be satisfied before adding the Hello FIM module.
+Perform the following steps to add a new module to the OFS FIM that can be accessed by the SoC.
 
-1. Clone the design repositories. See the [Clone the OFS Git Repo](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
-2. Set the environment variables. See the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+Pre-requisites:
 
-#### **5.1.6 File Modification**
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-This section describes the steps to add the Hello FIM module to the FIM.  The steps in this simple example are the basis for modifying the FIM for more complex functions.
+Steps:
 
-1. Modify `syn/syn_top/ofs_top.qsf`
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Modify `syn/syn_top/ofs_top.qsf`
+
   1. Define the `INCLUDE_HELLO_FIM` Verilog macro to the `Verilog Macros` section. This will enable instantiation of the Hello FIM module. If this is not set, a dummy register will be instantiated instead.
 
     ```bash
@@ -1117,7 +1605,8 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     set_global_assignment -name VERILOG_MACRO "INCLUDE_HELLO_FIM"     # Includes Hello FIM
     ```
 
-2. Modify `syn/syn_top/ofs_top_sources.tcl`
+4. Modify `syn/syn_top/ofs_top_sources.tcl`
+
   1. Add `hello_fim_design_files.tcl` to the list of subsystems in the Design Files section.
 
     ```tcl
@@ -1130,7 +1619,8 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     set_global_assignment -name SOURCE_TCL_SCRIPT_FILE ../setup/hello_fim_design_files.tcl
     ```
 
-3. Create `syn/setup/hello_fim_design_files.tcl`
+5. Create `syn/setup/hello_fim_design_files.tcl`
+
   1. Create `hello_fim_design_files.tcl` with the following contents:
 
     ```tcl
@@ -1153,7 +1643,8 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     set_global_assignment -name SYSTEMVERILOG_FILE $::env(BUILD_ROOT_REL)/src/hello_fim/hello_fim_top.sv
     ```
 
-4. Modify `/src/pd_qsys/fabric/fabric_design_files.tcl`
+6. Modify `/src/pd_qsys/fabric/fabric_design_files.tcl`
+
   1. Add `bpf_hello_fim_slv.ip` to the list of files in the BPF section.
 
     ```tcl
@@ -1164,7 +1655,8 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     set_global_assignment -name IP_FILE ../ip_lib/src/pd_qsys/fabric/ip/bpf/bpf_hello_fim_slv.ip
     ```
 
-5. Modify `src/top/top.sv`
+7. Modify `src/top/top.sv`
+
   1. Add `bpf_hello_fim_slv_if` to AXI4-Lite Interfaces:
 
     ```bash
@@ -1199,7 +1691,7 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     ) emif_dummy_csr (
     ```
 
-  4. Add Hello FIM instance and dummy CSR after the Memory Subsystem. Set the `NEXT_DFH_OFFSET` to `24'h6A000` for both
+  4. Add Hello FIM instance and dummy CSR after the Memory Subsystem. Set the `NEXT_DFH_OFFSET` to `24'h6A000` for both.
 
     ```verilog
     //*******************************
@@ -1234,7 +1726,8 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     `endif 
     ```
 
-6. Modify `/src/pd_qsys/bpf_top.sv`
+8. Modify `/src/pd_qsys/bpf_top.sv`
+
   1. Add `bpf_hello_fim_slv_if` to the interface descriptions
 
     ```verilog
@@ -1276,14 +1769,16 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     endmodule
     ```
 
-7. Create `src/hello_fim`
+9. Create `src/hello_fim`
+
   1. Create `src/hello_fim` directory
 
     ```bash
     mkdir $OFS_ROOTDIR/src/hello_fim
     ```
 
-8. Create `src/hello_fim/hello_fim_top.sv`
+10. Create `src/hello_fim/hello_fim_top.sv`
+
   1. Create `hello_fim_top.sv` with the following contents:
 
     ```verilog
@@ -1329,8 +1824,8 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     module hello_fim_top  #(
        parameter ADDR_WIDTH  = 12, 
        parameter DATA_WIDTH = 64, 
-       parameter bit [11:0] FEAT_ID = 12'h001,
-       parameter bit [3:0]  FEAT_VER = 4'h1,
+       parameter bit [11:0] FEAT_ID = 12'h100,
+       parameter bit [3:0]  FEAT_VER = 4'h0,
        parameter bit [23:0] NEXT_DFH_OFFSET = 24'h1000,
        parameter bit END_OF_LIST = 1'b0
     )(
@@ -1466,13 +1961,14 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     endmodule
     ```
 
-9. Create `src/hello_fim/hello_fim_com.sv`
+11. Create `src/hello_fim/hello_fim_com.sv`
+
   1. Create `hello_fim_com.sv` with the following contents:
 
     ```verilog
     module hello_fim_com #(
-       parameter bit [11:0] FEAT_ID = 12'h001,
-       parameter bit [3:0]  FEAT_VER = 4'h1,
+       parameter bit [11:0] FEAT_ID = 12'h100,
+       parameter bit [3:0]  FEAT_VER = 4'h0,
        parameter bit [23:0] NEXT_DFH_OFFSET = 24'h1000,
        parameter bit END_OF_LIST = 1'b0
     )(
@@ -1544,7 +2040,8 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
 
     ```
 
-10. Modify `src/pd_qsys/fabric/bpf.txt`
+12. Modify `src/pd_qsys/fabric/bpf.txt`
+
   1. Add `hello_fim` as a slave in the BPF, and enable the SoC as a master for it.
 
     ```
@@ -1555,14 +2052,14 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
     hello_fim   slv     0x16000         12             n/a
     ```
 
-11. Execute the helper script to re-generate the BPF design files
+13. Execute the helper script to re-generate the BPF design files
 
   ```bash
   cd $OFS_ROOTDIR/src/pd_qsys/fabric/
   sh gen_fabrics.sh
   ```
 
-12. After the shell script finishes, you can find the generated `bpf_hello_fim_slv.ip` file in `$OFS_ROOTDIR/src/pd_qsys/fabric/ip/bpf/`. This is the ip variant of the axi4lite shim that bridges the Hello FIM module with the BPF. The updated `bpf.qsys` file is located in `$OFS_ROOTDIR/src/pd_qsys/fabric`. You can view the updated bpf file in Platform designer as follows.
+14. After the shell script finishes, you can find the generated `bpf_hello_fim_slv.ip` file in `$OFS_ROOTDIR/src/pd_qsys/fabric/ip/bpf/`. This is the ip variant of the axi4lite shim that bridges the Hello FIM module with the BPF. The updated `bpf.qsys` file is located in `$OFS_ROOTDIR/src/pd_qsys/fabric`. You can view the updated bpf file in Platform designer as follows.
 
   ```bash
   cd $OFS_ROOTDIR/src/pd_qsys/fabric
@@ -1573,15 +2070,36 @@ This section describes the steps to add the Hello FIM module to the FIM.  The st
 
   ![](./images/hello_fim_auto_bpf.png)
 
-#### **5.1.7 Unit Level Simulation of Hello FIM Design**
+15. Compile the Hello FIM design:
 
-The following section describes the file modifications that need to be made to perform unit level simulations of the Hello FIM design, followed by instructions for running the unit level simulations.
+  1. Return to the OFS root directory.
 
-##### **5.1.7.1 Unit Level Simulation File Modification**
+    ```bash
+    cd $OFS_ROOTDIR
+    ```
 
-Perform the following steps to modify the Unit Level simulation files to support the Hello FIM design.
+  2. Run the `build_top.sh` script.
 
-1. Modify `$OFS_ROOTDIR/sim/unit_test/soc_tests/dfh_walker/test_csr_defs.sv`
+      ```bash
+      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x_hello_fim
+      ```
+
+#### **4.1.3 Walkthrough: Modify and run unit tests for a FIM that has a new module**
+
+Perform the following steps to modify the unit test files to support a FIM that has had a new module added to it.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Modify `$OFS_ROOTDIR/sim/unit_test/soc_tests/dfh_walker/test_csr_defs.sv`
+
   1. Add a `HELLO_FIM_IDX` entry to the `t_dfh_idx` enumeration:
 
     ```verilog
@@ -1660,25 +2178,21 @@ Perform the following steps to modify the Unit Level simulation files to support
     endfunction
     ```
 
-2. Regenerate the simulation files
+4. Regenerate the simulation files
 
   ```bash
   cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
   sh gen_sim_files.sh f2000x 
   ```
    
-##### **5.1.7.2 Run DFH Walker Simulation**
-
-After the simulation files have been re-generated, run the DFH Walker test to ensure the Hello FIM module can be accessed by the SoC through the BPF.
-
-1. Run the DFH Walker test
+5. Run the DFH Walker test
 
   ```bash
   cd $OFS_ROOTDIR/sim/unit_test/soc_tests/dfh_walker
   sh run_sim.sh
   ```
 
-2. Check the output for the presence of the `HELLO_FiM` module at address `0x16000`:
+6. Check the output for the presence of the `HELLO_FiM` module at address `0x16000`:
 
   ```bash
   ********************************************
@@ -1729,15 +2243,20 @@ After the simulation files have been re-generated, run the DFH Walker test to en
   Assertion count: 0
   ```
 
-#### **5.1.8 UVM Verfication of the HelloFIM**
+#### **4.1.4 Walkthrough: Modify and run UVM tests for a FIM that has a new module**
 
-The following section describes the file modifications that need to be made to perform UVM verifaction of the Hello FIM design, followed by instructions for running the UVM simulations.
+Perform the following steps to modify the UVM simulation files to support a design that has a new module added to it.
 
-##### **5.1.8.1 UVM Simulation File Modification**
+Pre-requisites:
 
-Perform the following steps to modify the UVM simulation files to support the Hello FIM design.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
+
+Steps:
 
 1. Modify `$OFS_ROOTDIR/verification/tests/sequences/dfh_walking_seq.svh`
+
   1. Modify the `dfh_offset_array` to insert the Hello FIM.
 
     ```verilog
@@ -1761,6 +2280,7 @@ Perform the following steps to modify the UVM simulation files to support the He
     ```
 
 2. Modify `$OFS_ROOTDIR/verification/tests/sequences/mmio_seq.svh`
+
   1. Add test code related to the Hello FIM. This code will verify the scratchpad register at 0x16030 and read only the register at 0x16038.
 
     ```verilog
@@ -1790,6 +2310,7 @@ Perform the following steps to modify the UVM simulation files to support the He
     >**Note:** uvm_info and uvm_error statements will put a message into log file.
 
 3. Modify `$OFS_ROOTDIR/verification/scripts/Makefile_VCS.mk`
+
   1. Add `INCLUDE_HELLO_FIM` define option to enable Hello FIM on UVM
 
     ```bash
@@ -1797,6 +2318,7 @@ Perform the following steps to modify the UVM simulation files to support the He
     ```
 
 4. Re-generate the UVM files
+
   1. Navigate to the verification scripts directory
 
     ```bash
@@ -1823,11 +2345,7 @@ Perform the following steps to modify the UVM simulation files to support the He
 
     >**Note:** Using the `DEBUG` option will provide more detail in the log file for the simulation.
 
-##### **5.1.8.2 Run UVM DFH Walker Simulation**
-
-Perform the following steps to run the UVM DFH Walker Simulation.
-
-1. Run the DFH Walker simulation
+5. Run the UVM DFH Walker simulation
 
   ```bash
   cd $VERDIR/scripts
@@ -1836,54 +2354,52 @@ Perform the following steps to run the UVM DFH Walker Simulation.
 
   >**Note:** Using the `DEBUG` option will provide more detail in the log file for the simulation.
 
-2. The output logs are stored in the $VERDIR/sim/dfh_walking_test directory. The main files to note are described in the table below:
+6. Verify the DFH Walker test results
 
-  |File Name|Description|
-  |:---|:---|
-  |runsim.log|A log file of UVM|
-  |trans.log|A log file of transactions on PCIe bus|
-  |inter.vpd|A waveform for VCS|
+  1. The output logs are stored in the $VERDIR/sim/dfh_walking_test directory. The main files to note are described in the table below:
+  
+    |File Name|Description|
+    |:---|:---|
+    |runsim.log|A log file of UVM|
+    |trans.log|A log file of transactions on PCIe bus|
+    |inter.vpd|A waveform for VCS|
+  
+  2. Run the following command to quickly verify- that the Hello FIM module was successfully accessed. In the example below, the message `DFH offset Match! Exp = 80016000 Act = 80016000` shows that the Hello FIM module was successfully accessed.
+  
+    ```bash
+    cd $VERDIR/sim/dfh_walking_test
+    cat runsim.log | grep "DFH offset"
+    ```
+  
+    Expected output:
+  
+    ```bash
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 111950000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp = 80000000 Act = 80000000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 112586000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80001000 Act = 80001000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 113222000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80003000 Act = 80003000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 113858000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80004000 Act = 80004000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 114494000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80012000 Act = 80012000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 115147000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80013000 Act = 80013000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 115801000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80014000 Act = 80014000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 116628000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80015000 Act = 80015000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 117283000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80016000 Act = 80016000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 117928000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80080000 Act = 80080000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 118594000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80100000 Act = 80100000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 119248000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80130000 Act = 80130000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 119854000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80131000 Act = 80131000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 120460000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80132000 Act = 80132000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 121065000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80133000 Act = 80133000
+    UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 121672000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80140000 Act = 80140000
+    ```
 
-3. Run the following command to quickly verify- that the Hello FIM module was successfully accessed. In the example below, the message `DFH offset Match! Exp = 80016000 Act = 80016000` shows that the Hello FIM module was successfully accessed.
-
-  ```bash
-  cd $VERDIR/sim/dfh_walking_test
-  cat runsim.log | grep "DFH offset"
-  ```
-
-  Expected output:
-
-  ```bash
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 111950000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp = 80000000 Act = 80000000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 112586000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80001000 Act = 80001000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 113222000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80003000 Act = 80003000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 113858000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80004000 Act = 80004000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 114494000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80012000 Act = 80012000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 115147000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80013000 Act = 80013000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 115801000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80014000 Act = 80014000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 116628000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80015000 Act = 80015000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 117283000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80016000 Act = 80016000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 117928000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80080000 Act = 80080000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 118594000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80100000 Act = 80100000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 119248000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80130000 Act = 80130000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 119854000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80131000 Act = 80131000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 120460000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80132000 Act = 80132000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 121065000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80133000 Act = 80133000
-  UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/dfh_walking_seq.svh(73) @ 121672000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] DFH offset Match! Exp= 80140000 Act = 80140000
-  ```
-
-##### **5.1.8.3 Run UVM MMIO Simulation**
-
-Perform the following steps to run the UVM MMIO Simulation.
-
-1. Run the MMIO test
+7. Run UVM MMIO Simulation
 
   ```bash
   cd $VERDIR/scripts
   gmake -f Makefile_VCS.mk run TESTNAME=mmio_test DUMP=1
   ```
 
-2. Run the following commands to show the result of the scratchpad register and Hello FIM ID register. You can see the "Data match" message indicating that the registers are successfuly verified.
+8. Verify the MMIO test results. Run the following commands to show the result of the scratchpad register and Hello FIM ID register. You can see the "Data match" message indicating that the registers are successfuly verified.
 
   ```bash
   cd $VERDIR/sim/mmio_test
@@ -1897,73 +2413,23 @@ Perform the following steps to run the UVM MMIO Simulation.
   UVM_INFO /home/applications.fpga.ofs.fim-f2000x-pl/verification/tests/sequences/mmio_seq.svh(76) @ 116112000000: uvm_test_top.tb_env0.v_sequencer@@m_seq [m_seq] Data match 64! addr = 80016038, data = 6626070150000034
   ```
 
-#### **5.1.9 Compile the f2000x Design with Hello FIM**
+#### **4.1.5 Walkthrough: Hardware test a FIM that has a new module**
 
-Perform the following to compile the Hello FIM design.
+Perform the following steps to program and hardware test a FIM that has had a new module added to it.
 
-1. Ensure the pre-requesites described in the [Pre-Requisites for Adding Hello FIM](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#515-pre-requisites-for-adding-hello-fim) section are satisfied.
-2. Ensure that Intel Quartus Prime Pro is in your $PATH
-3. Compile the design
+Pre-requisites:
 
-  ```bash
-  $OFS_ROOTDIR/ofs-common/scripts/common/syn/build_top.sh -p f2000x work_hello_fim
-  ```
+* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
-4. Once compilation is complete, the output files can be found in the `$OFS_ROOTDIR/work_hello_fim/syn/syn_top/output_files` directory.
+* This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
 
-#### **5.1.10 Program the f2000x with the HelloFIM Design**
+Steps:
 
-Perform the following steps to program the f2000x with the HelloFIM design generated in the previous section. This flow uses the RSU feature, which requires that an OPAE enabled design is already loaded on the FPGA. All OPAE commands are run from the SoC, and the new image will be updated from the SoC.
+1. Start in your deployment environment.
 
-1. Use the `fpgainfo fme` command to obtain the PCIe `s:b:d.f` associated with your board. In this example, the PCIe `s:b:d.f` is `0000:15:00.0`.
+2. Program the FPGA with the Hello FIM image. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
 
-  ```bash
-  fpgainfo fme
-  ```
-
-  Example output:
-
-  ```bash
-  Intel IPU Platform f2000x
-  Board Management Controller NIOS FW version: 1.2.4 
-  Board Management Controller Build version: 1.2.4 
-  //****** FME ******//
-  Object Id                        : 0xF000000
-  PCIe s:b:d.f                     : 0000:15:00.0
-  Vendor Id                        : 0x8086
-  Device Id                        : 0xBCCE
-  SubVendor Id                     : 0x8086
-  SubDevice Id                     : 0x17D4
-  Socket Id                        : 0x00
-  Ports Num                        : 01
-  Bitstream Id                     : 0x5010302A97C08A3
-  Bitstream Version                : 5.0.1
-  Pr Interface Id                  : fb25ff1d-c31a-55d8-81d8-cbcedcfcea17
-  Boot Page                        : user1
-  User1 Image Info                 : a566ceacaed810d43c60b0b8a7145591
-  User2 Image Info                 : a566ceacaed810d43c60b0b8a7145591
-  Factory Image Info               : None
-  ```
-
-2. Navigate to the output directory in the Hello FIM work directory that contains the output files from compilation. 
-
-  ```bash
-  cd $OFS_ROOTDIR/work_hello_fim/syn/syn_top/output_files
-  ```
-
-3. Initiate the User Image 1 update by running `fpgasupdate` from a shell in the SoC. This will update User Image 1 stored in FPGA Flash. Remember to use the PCIe BDF associated with your board.
-
-  ```bash
-  sudo fpgasupdate ofs_top_page1_unsigned_user1.bin 0000:15:00.0
-  ```
-
-4. Run the `rsu` command to re-configure the FPGA with User Image 1 from FPGA Flash.
-
-  ```bash
-  sudo rsu fpga --page=user1 0000:15:00.0
-  ```
-    
-5. Run the `fpgainfo fme` command again to verify the User1 Image Info has been updated.
+3. Run the `fpgainfo fme` command to determine the PCIe B:D.F of your board. In this example, the PCIe B:D.F is `15:00.0`.
    
   Example Output:
 
@@ -1989,11 +2455,7 @@ Perform the following steps to program the f2000x with the HelloFIM design gener
   Factory Image Info               : None
   ```
 
-#### **5.1.11 Verify the Hello FIM Design on the f2000x Using OPAE**
-
-This section will describe how to access the Hello FIM registers using the opae.io tool.
-
-1. Confirm the driver software on 0000:15:00.0
+4. Check that the driver software on 0000:15:00.0 is `dfl-pci`.
 
   ```bash
   opae.io ls
@@ -2005,13 +2467,13 @@ This section will describe how to access the Hello FIM registers using the opae.
   [0000:15:00.0] (0x8086:0xbcce 0x8086:0x17d4) Intel IPU Platform f2000x (Driver: dfl-pci)
   ```
 
-2. Initialize the opae.io tool
+5. Initialize the opae.io tool
 
   ```bash
   opae.io init -d 15:00.0
   ```
 
-3. Confirm the driver software on 0000:15:00.0 has been updated
+6. Confirm the driver software on 0000:15:00.0 has been updated to `vfio-pci`.
 
   ```bash
   opae.io ls
@@ -2023,7 +2485,7 @@ This section will describe how to access the Hello FIM registers using the opae.
   [0000:15:00.0] (0x8086:0xbcce 0x8086:0x17d4) Intel IPU Platform f2000x (Driver: vfio-pci)
   ```
 
-4. Run the DFH Walker test to verify there is a module at offset `0x16000`
+7. Run the DFH Walker test to verify there is a module at offset `0x16000`
 
   ```bash
   opae.io walk -d 15:00.0
@@ -2066,7 +2528,8 @@ This section will describe how to access the Hello FIM registers using the opae.
       dfh: id = 0x10, rev = 0x2, next = 0x0, eol = 0x1, reserved = 0x0, feature_type = 0x3
   ```
 
-5. Read all of the registers in the Hello FIM module
+8. Read all of the registers in the Hello FIM module
+
   1. Read the DFH Register
 
     ```bash
@@ -2103,7 +2566,8 @@ This section will describe how to access the Hello FIM registers using the opae.
     0x6626070150000034
     ```
 
-6. Verify the scratchpad register at 0x16030 by writing and reading back from it.
+9. Verify the scratchpad register at 0x16030 by writing and reading back from it.
+
   1. Write to Scratchpad register
 
     ```bash
@@ -2140,13 +2604,13 @@ This section will describe how to access the Hello FIM registers using the opae.
     0xfedcba9876543210
     ```
 
-7. Release the opae.io tool
+10. Release the opae.io tool
 
   ```bash
   opae.io release -d 15:00.0
   ```
 
-8. Confirm the driver has been set back to `dfl-pci`
+11. Confirm the driver has been set back to `dfl-pci`
 
   ```bash
   opae.io ls
@@ -2158,21 +2622,26 @@ This section will describe how to access the Hello FIM registers using the opae.
   [0000:15:00.0] (0x8086:0xbcce 0x8086:0x17d4) Intel IPU Platform f2000x (Driver: dfl-pci)
   ```
 
-### **5.2 How to Debug the FIM with Signal Tap**
+#### **4.1.6 Walkthrough: Debug the FIM with Signal Tap**
 
-For debugging issues within the FIM, Signal Tap can be used to gain internal visibility into your design. This section describes the process of adding a Signal Tap instance to the Hello FIM design example described in the [How to add a new module to the FIM](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-how-to-add-a-new-module-to-the-fim) section, however the process can be used for any design.
+The following steps guide you through the process of adding a Signal Tap instance to your design. The added Signal Tap instance provides hardware to capture the desired internal signals and connect the stored trace information via JTAG. Please be aware that the added Signal Tap hardware will consume FPGA resources and may require additional floorplanning steps to accommodate these resources. Some areas of the FIM use logic lock regions and these regions may need to be re-sized.
 
 For more detailed information on Signal Tap please see refer to [Quartus Prime Pro Edition User Guide: Debug Tools](https://www.intel.com/content/www/us/en/docs/programmable/683819/22-4/faq.html) (RDC Document ID 683819).
 
-Signal Tap uses the Intel FPGA Download Cable II USB device to provide access.  Please see [Intel FPGA Download Cable II](https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html) for more information. This device is widely available via distributors for purchase.
+Signal Tap uses the FPGA Download Cable II USB device to provide access.  Please see [Intel FPGA Download Cable II](https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html) for more information. This device is widely available via distributors for purchase.
 
-#### **5.2.1 Adding Signal Tap to the Hello FIM example**
+Pre-requisites:
 
-The following steps guide you through the process of adding a Signal Tap instance to your design. The added Signal Tap instance provides hardware to capture the desired internal signals and connect the stored trace information via JTAG. Please be aware that the added Signal Tap hardware will consume FPGA resources and may require additional floorplanning steps to accommodate these resources. Some areas of the FIM use logic lock regions and these regions may need to be re-sized. These steps assume the use of the  Intel® IPU Platform F2000X-PL.  
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-The steps below use the hello_fim example to add Signal Tap, however the general process can be used for any design.
+* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+
+* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
+
+Steps:
 
 1. The design must be synthesized before adding Signal Tap.
+
   * If you are using the previously built Hello FIM design, copy the work directory and rename it so that we have a work directory dedicated to the Hello FIM Signal Tap design.
 
     ```bash
@@ -2180,18 +2649,16 @@ The steps below use the hello_fim example to add Signal Tap, however the general
     ```
    
   * If you are adding signal tap to a new design that has not yet been synthesized, perform the following steps to synthesize the design.
-    1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
-    2. Run the setup portion of the build script to create a working directory based on the original source files.
+
+    1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+
+    2. Run the build script with the `-e` option to synthesize the design.
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh --stage setup f2000x <YOUR_STP_WORK_DIR>
+      ./ofs-common/scripts/common/syn/build_top.sh -e --ofss tools/ofss_config/f2000x.ofss f2000x work_hello_fim_with_stp
       ```
 
-    3. Open the project in the Intel Quartus Prime Pro GUI. The Intel Quartus Prime Pro project is named ofs_top.qpf and is located in the work directory `$OFS_ROOTDIR/<YOUR_STP_WORK_DIR>/syn/syn_top/ofs_top.qpf`.
-    4. In the **Compilation Flow** window, run **Analysis & Synthesis**.
-    5. Once Synthesis has completed, you may skip to Step 3.
-
-2. Open the Hello FIM Signal Tap project in the Intel Quartus Prime Pro GUI. The Intel Quartus Prime Pro project is named ofs_top.qpf and is located in the work directory `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/ofs_top.qpf`.
+2. Open the Hello FIM Signal Tap project in the Quartus Prime Pro GUI. The Quartus Prime Pro project is named ofs_top.qpf and is located in the work directory `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/ofs_top.qpf`.
 
 3. Select **Tools** > **Signal Tap Logic Analyzer** to open the Signal Tap GUI.
 
@@ -2208,7 +2675,7 @@ The steps below use the hello_fim example to add Signal Tap, however the general
 
   ![](images/signal_tap_log_analyizer_dialog.png)
 
-6. Set up the clock for the STP instance. This example instruments the **hello_fim_top** module previously intetegrated into the FIM. If unfamiliar with code, it is helpful to use the Intel Quartus Prime Pro Project Navigator to find the block of interest and open the design instance for review. For example, see the image below using Project Navigator to open the **top** module where **hello_fim_top_inst** is instantiated.
+6. Set up the clock for the STP instance. This example instruments the **hello_fim_top** module previously intetegrated into the FIM. If unfamiliar with code, it is helpful to use the Quartus Prime Pro Project Navigator to find the block of interest and open the design instance for review. For example, see the image below using Project Navigator to open the **top** module where **hello_fim_top_inst** is instantiated.
 
   ![](images/hello_fim_top.png)
 
@@ -2302,286 +2769,37 @@ The steps below use the hello_fim example to add Signal Tap, however the general
   ***********************************
   ```
 
-#### **5.2.2 Configuring the FPGA with a SOF Image via JTAG**
+18. Set up a JTAG connection to the f2000x. Refer to [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
-Every successful run of `build_top.sh` script creates the file `$OFS_ROOTDIR/<WORK_DIRECTORY>/syn/syn_top/output_files/ofs_top.sof` which can be used with the Intel FPGA Download Cable II to load the image into the FPGA using the f2000x  JTAG access connector. 
+19. Copy the `ofs_top.sof` and `stp_for_hello_fim.stp` files to the machine which is connected to the f2000x via JTAG.
 
-Perform the steps described in the following sections to load the `ofs_fim.sof` image created in the previous section into the Intel Agilex 7 FPGA using the Intel FPGA Download Cable II. You will also use the Intel FPGA Download Cable II to access the Signal Tap instance via JTAG.
+20. From the JTAG connected machine, program the `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/output_files/ofs_top.sof` image to the f2000x FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) section for step-by-step programming instructions.
 
-##### **5.2.2.1 Connecting to Intel FPGA Download Cable**
-
-The f2000x  has a 10 pin JTAG header on the top side of the board.  This JTAG header provides access to either the Intel Agilex 7 FPGA or Cyclone<sup>&reg;</sup> 10 BMC device.  Perform the followign steps to connect the Itel FPGA Download Cable II and target the Intel Agilex 7 device:
-
-1. Locate SW2 and SW3 on the f2000x board as shown in the following figure.
-
-    ![f2000x_switch_locations](images/f2000x_switch_locations.png)
-
-2. Set the switches described in the following table:
-
-    | Switch | Position |
-    | --- | --- |
-    | SW2 | ON |
-    | SW3.3 | ON |
-
-3. Connect the Intel FPGA Download Cable to the JTAG header of the f2000x as shown in the figure below.
-
-    ![f2000x_jtag_connection](images/f2000x_jtag_connection.png)
-
-4. Depending on your server, install the card in a slot that allows room for the JTAG cable. The figure below shows the f2000x installed in a Supermicro server slot.
-
-    ![f2000x_jtag_sm_server](images/f2000x_jtag_sm_server.png)
-
-
-5. There are two JTAG modes that exist. Short-chain mode is when only the Cyclone 10 device is on the JTAG chain. Long-chain mode is when both the Cyclone 10 and the Intel Agilex 7 FPGA are on the JTAG chain. Check which JTAG mode the f2000x board is in by running the following command.
-
-  ```bash
-  $QUARTUS_ROOTDIR/bin/jtagconfig
-  ```
-
-  * Example output when in short-chain mode (only Cyclone 10 detected):
-
-    ```bash
-    1) USB-BlasterII [3-4]
-    020F60DD    10CL080(Y|Z)/EP3C80/EP4CE75
-    ```
-
-  * Example output when in long-chain mode (both Cyclone 10 and Intel Agilex 7 detected):
-
-    ```bash
-    1) USB-BlasterII [3-4]
-    020F60DD   10CL080(Y|Z)/EP3C80/EP4CE75
-    234150DD   AGFC023R25A(.|AE|R0)
-    ```
-  If the Intel Agilex 7 device does not appear on the chain, ensure that the switches described in Step 1 have been set correctly and power cycle the board. Also ensure that the JTAG Longchain bit is set to `0` in BMC Register 0x378. The BMC registers are accessed through SPI control registers at addresses 0x8040C and 0x80400 in the PMCI. Use the following commands to clear the JTAG Longchain bit in BMC register 0x378. 
-
-  >**Note**: These commands must be executed as root user from the SoC.
-
-  >**Note**: You may find the PCIe BDF of your card by running `fpgainfo fme`.
-
-  ```bash
-  opae.io init -d <BDF>
-  opae.io -d <BDF> -r 0 poke 0x8040c 0x000000000
-  opae.io -d <BDF> -r 0 poke 0x80400 0x37800000002
-  opae.io release -d <BDF>
-  ```
-  For example, for a board with PCIe BDF `15:00.0`:
-  ```bash
-  opae.io init -d 15:00.0
-  opae.io -d 15:00.0 -r 0 poke 0x8040c 0x000000000
-  opae.io -d 15:00.0 -r 0 poke 0x80400 0x37800000002
-  opae.io release -d 15:00.0
-  ```
-
-
-##### **5.2.2.2 Programming the Intel Agilex 7 FPGA via JTAG**
-
-Perform the following steps to program the Intel Agilex 7 FPGA via JTAG.
-
-1. The generated SOF file is located in the work directory **$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/output_files/ofs_top.sof**. If the target FPGA is on a different server, then transfer **ofs_top.sof** and **STP_For_Hello_FIM.stp** files to the server with the target FPGA.
-
-2. You can use a Full Intel Quartus Prime Pro Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the f2000x  is installed or on a separte machine such as a laptop.
-
-  >**Note**: You can download the Quartus Prime Programmer and Tools by clicking on the "Additional Software" tab on the FPGA download page. The Quartus Prime Programmer and Tools come with Quartus programmer as well as System Console which are needed to program the flash devices.
-
-  >**Note**: If using the Intel FGPA download Cable on Linux, add the udev rule as described in [Intel FPGA Download Cable (formerly USB-Blaster) Driver for Linux]((https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-b-lnx.html)).
-
-
-3. Temporarily disable the PCIe AER feature and remove the PCIe port for the board you are going to update.. This is required because when you program the FPGA using JTAG, the f2000x PCIe link goes down for a moment causing a server surprise link down event. To prevent this server event, temporarily disable PCIe AER and remove the PCIe port using the following commands:
-
-  >**Note:** enter the following commands as root.
-
-  1. Find the PCIe BDF and Device ID of your board from the SoC. You may use the OPAE command `fpaginfo fme` on the SoC to display this information. Run this command on the SoC.
-
-    ```bash
-    fpgainfo fme
-    ```
-
-    Example output:
-
-    ```bash
-    Intel IPU Platform F2000X-PL
-    Board Management Controller NIOS FW version: 1.2.3
-    Board Management Controller Build version: 1.2.3
-    //****** FME ******//
-    Object Id                        : 0xEF00000
-    PCIe s:b:d.f                     : 0000:15:00.0
-    Vendor Id                        : 0x8086
-    Device Id                        : 0xBCCE
-    SubVendor Id                     : 0x8086
-    SubDevice Id                     : 0x17D4
-    Socket Id                        : 0x00
-    Ports Num                        : 01
-    Bitstream Id                     : 0x50103024BF5B5B1
-    Bitstream Version                : 5.0.1
-    Pr Interface Id                  : e7926956-9b1b-5ea1-b02c-307f1cb33446
-    Boot Page                        : user1
-    User1 Image Info                 : b02c307f1cb33446e79269569b1b5ea1
-    User2 Image Info                 : b02c307f1cb33446e79269569b1b5ea1
-    Factory Image Info               : b02c307f1cb33446e79269569b1b5ea1
-    ```
-
-    In this case, the PCIe BDF for the board on the SoC is `15:00.0`, and the Device ID is `0xBCCE`.
-
-  2. From the SoC, use the `pci_device` OPAE command to "unplug" the PCIe port for your board using the PCIe BDF found in Step 3.a. Run this command on the SoC.
-
-    ```bash
-    pci_device <B:D.F> unplug
-    ```
-
-    For example:
-
-    ```bash
-    pci_device 15:00.0 unplug
-    ```
-
-  3. Find the PCIe BDF of your board from the Host. Use `lspci` and `grep` for the device ID found in Step 3.a to get the PCIe BDF. Run this command on the Host.
-
-    For example:
-
-    ```bash
-    lspci | grep bcce
-    ```
-
-    Example output:
-
-    ```bash
-    31:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
-    31:00.1 Processing accelerators: Intel Corporation Device bcce (rev 01)
-    ```
-
-    In this case, the board has PCIe BDF 31:00.0 from the Host.
-
-  3. From the Host, use the `pci_device` OPAE command to "unplug" the PCIe port for your board using the PCIe BDF found in Step 3.c. Run this command on the Host.
-
-    ```bash
-    pci_device <B:D.F> unplug
-    ```
-
-    For example:
-
-    ```bash
-    pci_device 31:00.0 unplug
-    ```
-
-4. Launch "Quartus Prime Programmer" software from the device which the Intel FPGA Programmer is connected.
-
-  ```bash
-  $QUARTUS_ROOTDIR/bin/quartus_pgmw
-  ```
-
-  Click on **Hardware Setup**, select **USB-BlasterII** in the **Current Selected Hardware** list, and ensure the JTAG **Hardware Frequency** is set to 16Mhz (The default is 24MHz).
-
-  ![](images/stp_hardware_setup.png)
-
-  Alternatively, use the following command from the command line to change the clock frequency:
-
-  ```bash
-  jtagconfig –setparam “USB-BlasterII” JtagClock 16M
-  ```
-
-
-5. Click **Auto Detect** and make sure the Intel Agilex 7 Device is shown in the JTAG chain. Select the Cyclone 10 and Intel Agilex 7 devices if prompted.
-   
-  ![](images/stp_autodetect_agilex.png)
-   
-6. Right-click on the cell in the **File** column for the Intel Agilex 7 device and click on **Change file**
-
-  ![](images/stp_change_file_hello_fim.png)
-      
-7. Select the generated **ofs_top.sof** file for the Intel Agilex 7 FPGA with the Signal Tap instrumented Hello FIM example. Remember that the output files are located under **work_hello_fim_with_stp/syn/syn_top/output_files/**.
-  
-8. Tick the checkbox below "Program/Configure" column and click on **Start** to program this .sof file.
-
-  ![](images/stp_program_hello_fim.png)
-
-9. After successful programming, you can close the "Quartus Prime Programmer" software. You can answer 'No' if a dialog pops up asking to save the **'Chain.cdf'** file. This completes the Intel Agilex 7 .sof programming.
-
-10. Re-plug the PCIe ports on both the SoC and Host.
-
-  >**Note:** enter the following commands as root.
-
-  1. From the SoC, use the `pci_device` OPAE command to "plug" the PCIe port for your board using the PCIe BDF found in Step 3.a. Run this command on the SoC.
-
-    ```bash
-    pci_device <B:D.F> plug
-    ```
-
-    For example:
-
-    ```bash
-    pci_device 15:00.0 plug
-    ```
-
-  2. From the Host, use the `pci_device` OPAE command to "plug" the PCIe port for your board using the PCIe BDF found in Step 3.c. Run this command on the Host.
-
-    ```bash
-    pci_device <B:D.F> plug
-    ```
-
-    For example:
-
-    ```bash
-    pci_device 31:00.0 plug
-    ```
-
-11. Verify the f2000x is present by checking expected bitstream ID using `fpaginfo fme` on the SoC:
-
-  ```bash
-  fpgainfo fme
-  ```
-
-  Example output:
-  ```bash
-  Intel IPU Platform f2000x-PL
-  Board Management Controller NIOS FW version: 1.1.9
-  Board Management Controller Build version: 1.1.9
-  //****** FME ******//
-  Object Id                        : 0xF000000
-  PCIe s:b:d.f                     : 0000:15:00.0
-  Vendor Id                        : 0x8086
-  Device Id                        : 0xBCCE
-  SubVendor Id                     : 0x8086
-  SubDevice Id                     : 0x17D4
-  Socket Id                        : 0x00
-  Ports Num                        : 01
-  Bitstream Id                     : 0x5010302A97C08A3
-  Bitstream Version                : 5.0.1
-  Pr Interface Id                  : cf00eed4-a82b-5f07-be25-0528baec3711
-  Boot Page                        : user1
-  User1 Image Info                 : 9e3db8b6a4d25a4e3e46f2088b495899
-  User2 Image Info                 : 9e3db8b6a4d25a4e3e46f2088b495899
-  Factory Image Info               : None
-  ```
-
-  >**Note:** The **Image Info** fields will not change, because these represent the images stored in flash. In this example, we are programming the Intel Agilex 7 FPGA directly, thus only the Bitstream ID should change.
-
-#### **5.2.3 Signal Tap trace acquisition of Hello FIM signals**
-
-1. Once the instrumented HelloFIM SOF file is downloaded into the Intel Agilex 7 FPGA, start the Quartus Signal Tap GUI.
+21. Open Quartus Signal Tap GUI.
 
   ```bash
   $QUARTUS_ROOTDIR/bin/quartus_stpw
   ```
 
-2. In the Signal Tap GUI, open your STP file. Your STP file settings will load. In this example we used `STP_For_Hello_FIM.stp`.
+22. In the Signal Tap GUI, open your STP file. Your STP file settings will load. In this example we used `STP_For_Hello_FIM.stp`.
    
   ![](images/stp_open_STP_For_Hello_FIM.stp.png)
    
-3. In the right pane of the Signal Tap GUI, in the **Hardware:** selection box select the cable `USB-BlasterII`. In the **Device:** selection box select the Intel Agilex 7 device.
+23. In the right pane of the Signal Tap GUI, in the **Hardware:** selection box select the cable `USB-BlasterII`. In the **Device:** selection box select the Agilex® 7 FPGA device.
 
   ![](images/stp_select_usbBlasterII_hardware.png)
    
-4.   If the Intel Agilex 7 Device is not displayed in the **Device:** list, click the **'Scan Chain'** button to re-scan the JTAG device chain.
+24.   If the Agilex® 7 FPGA is not displayed in the **Device:** list, click the **'Scan Chain'** button to re-scan the JTAG device chain.
 
-5. If not already set, you can create the trigger conditions. In this example, we will capture data on a rising edge of the Read Address Valid signal.
+25. If not already set, you can create the trigger conditions. In this example, we will capture data on a rising edge of the Read Address Valid signal.
    
   ![](images/stp_set_trigger_conditions.png)
    
-6. Start analysis by selecting the **'STP_For_Hello_FIM'** instance and pressing **'F5'** or clicking the **Run Analysis** icon in the toolbar. You should see a green message indicating the Acquisition is in progress. Then, move to the **Data** Tab to observe the signals captured.
+26. Start analysis by selecting the **'STP_For_Hello_FIM'** instance and pressing **'F5'** or clicking the **Run Analysis** icon in the toolbar. You should see a green message indicating the Acquisition is in progress. Then, move to the **Data** Tab to observe the signals captured.
 
   ![](images/stp_start_signal_capture.png)
 
-7. To generate traffic in the **csr_lite_if** signals of the Hello FIM module, go back to the terminal and walk the DFH list or peek/poke the Hello FIM registers as was done during the creation of the Hello FIM design example.
+27. To generate traffic in the **csr_lite_if** signals of the Hello FIM module, go back to the terminal and walk the DFH list or peek/poke the Hello FIM registers as was done during the creation of the Hello FIM design example.
 
   ```
   opae.io init -d 0000:15:00.0
@@ -2593,11 +2811,11 @@ Perform the following steps to program the Intel Agilex 7 FPGA via JTAG.
 
   ![](images/stp_captured_csr_lite_if_traces.png)
    
-8. The PCIe AER feature is automatically re-enabled by rebooting the server. 
+28. The PCIe AER feature is automatically re-enabled by rebooting the server. 
 
 This concludes the example on how to instrument an OFS FIM with the Quartus Prime Signal Tap Logic Analyzer.
 
-### **5.3 How to compile the FIM in preparation for designing your AFU**
+### **4.2 Preparing FIM for AFU Development**
 
 To save area, the default Host Excercisers in the FIM can be replaced by a "he_null" block during compile-time. There are a few things to note:
 
@@ -2606,16 +2824,37 @@ To save area, the default Host Excercisers in the FIM can be replaced by a "he_n
 * The options supported are ```null_he_lb```, ```null_he_hssi```, ```null_he_mem``` and ```null_he_mem_tg```. Any combination, order or all can be enabled at the same time. 
 * Finer grain control is provided for you to, for example, turn off only the exercisers in the Static Region in order to save area.
 
-To compile a FIM for where the exercisers are removed and replaced with a he_null module and keeping the PF/VF multiplexor connections, execute the following command.
+#### **4.2.1 Walkthrough: Compile the FIM in preparation for designing your AFU**
 
-```bash
-cd $OFS_ROOTDIR
-ofs-common/scripts/common/syn/build_top.sh -p f2000x:null_he,null_he_hssi,null_he_mem,null_he_mem_tg work_null_he
-```
+Perform the following steps to compile a FIM for where the exercisers are removed and replaced with an he_null module while keeping the PF/VF multiplexor connections.
 
-### **5.4 How to Resize the Partial Reconfiguration Region**
+Pre-requisites:
 
-To take advantage of the available resources in the Intel Agilex 7 FPGA for an AFU design, you can adjust the size of the AFU PR partition. An example reason for the changing the size of PR region is if you add more logic to the FIM region, then you may need to reduce the size of the PR region to fit the additional logic into the static region.  Similiarly, if you reduce logic in the FIM region, then you can increase the size of the PR region to provide more logic resources for the AFU.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Compile the FIM with the HE_NULL compile options
+
+  1. Navigate to the OFS root directory
+
+    ```bash
+    cd $OFS_ROOTDIR
+    ```
+
+  2. Run the `build_top.sh` script with the null host exerciser options.
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_f2000x
+    ```
+
+### **4.3 Partial Reconfiguration Region**
+
+To take advantage of the available resources in the Agilex® 7 FPGA for an AFU design, you can adjust the size of the AFU PR partition. An example reason for the changing the size of PR region is if you add more logic to the FIM region, then you may need to reduce the size of the PR region to fit the additional logic into the static region.  Similiarly, if you reduce logic in the FIM region, then you can increase the size of the PR region to provide more logic resources for the AFU.
 
 After the compilation of the FIM, the resources usage broken down by partitions is reported in the `Logic Lock Region Usage Summary` sections of following two files:
 
@@ -2625,6 +2864,8 @@ After the compilation of the FIM, the resources usage broken down by partitions 
   ![](images/IOFS_FLOW_Logic_lock_region_usage_summary.PNG)
 
 In this case, the default size for the `afu_top|port_gasket|pr_slot|afu_main` PR partition is large enough to comfortably hold the logic of the default AFU, which is mainly occupied by the Host Exercisers. However, larger designs might require additional resources.
+
+#### **4.3.1 Walkthrough: Resize the Partial Reconfiguration Region**
 
 Perform the following steps to customize the resources allocated to the AFU in the PR regions:
 
@@ -2643,7 +2884,7 @@ Perform the following steps to customize the resources allocated to the AFU in t
 
   Each region is made up of rectangles defined by the origin (X0,Y0) and the top right corner (X1,Y1).
 
-2. Use Quartus Chip Planner to identify the locations of the resources available within the Intel Agilex 7 device for placement and routing your AFU. The image below shows the default floorplan for the f2000x Intel Agilex 7 device.
+2. Use Quartus Chip Planner to identify the locations of the resources available within the Agilex® 7 FPGA for placement and routing your AFU. The image below shows the default floorplan for the f2000x Agilex® 7 FPGA.
 
   ![](images/chip_planner_coordinates.png)
 
@@ -2653,7 +2894,7 @@ Perform the following steps to customize the resources allocated to the AFU in t
 
   ```bash
   cd $OFS_ROOTDIR    
-  ofs-common/scripts/common/syn/build_top.sh -p f2000x  <YOUR_WORK_DIRECTORY>
+  ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x  <YOUR_WORK_DIRECTORY>
   ```
 
 5. Analyze the resource utilization report per partition produced after recompiling the design.
@@ -2665,50 +2906,550 @@ Refer to the following documentation for more information on how to optimize the
 * [Analyzing and Optimizing the Design Floorplan](https://www.intel.com/content/www/us/en/docs/programmable/683641/23-1/analyzing-and-optimizing-the-design-03170.html)
 * [Partial Reconfiguration Design Flow - Step 3: Floorplan the Design](https://www.intel.com/content/www/us/en/docs/programmable/683834/23-1/step-3-floorplan-the-design.html)
 
-### **5.5 How to modify the Memory Subsystem**
+### **4.4 PCIe Configuration**
+
+The PCIe sub-system IP and PF/VF MUX can be modified either using the OFSS flow or the IP Presets flow. The OFSS flow supports a subset of all available PCIe Sub-system settings, while the IP Preset flow can make any available PCIe Sub-system settings change. With PCIe-SS modifcations related to the PFs and VFs, the PF/VF MUX logic is automatically configured based on the PCIe-SS configuration when using OFSS. The sections below describe each flow.
+
+* [PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-pcie-configuration-using-ofss)
+* [PCIe Sub-System configuration Using IP Presets](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-pcie-sub-system-configuration-using-ip-presets)
+
+#### **4.4.1 PF/VF MUX Configuration**
+
+The default PF/VF MUX configuration for OFS Agilex® 7 SoC Attach FIM for the f2000x can support up to 8 PFs and 2000 VFs distributed accross all PFs on both the Host and the SoC.
+
+For reference FIM configurations, you must have at least 1 PF on the Host, and at least 1 PF with 1 VF on the SoC. This is because the PR region cannot be left unconnected. PFs must be consecutive. The *PFVF Limitations* table describes the supported number of PFs and VFs.
+
+*Table: Host PF/VF Limitations*
+
+| Parameter | Value |
+| --- | --- |
+| Min # of PFs | 1 |
+| Max # of PFs | 8 |
+| Min # of VFs | 0 |
+| Max # of VFs | 2000 distributed across all PFs |
+
+*Table: SoC PF/VF Limitations*
+
+| Parameter | Value |
+| --- | --- |
+| Min # of PFs | 1 |
+| Max # of PFs | 8 |
+| Min # of VFs | 1 (on PF0) |
+| Max # of VFs | 2000 distributed across all PFs |
+
+New PF or VF instances will automatically have a null_afu module instantiated and connected to the new PF or VF.
+
+#### **4.4.2 PCIe-SS Configuration Registers**
+
+The PCIe configuration registers contains the Vendor, Device and Subsystem Vendor ID registers which are used in PCIe add-in cards to uniquely identify the card for assignment to software drivers.  OFS has these registers set with Intel values for out of the box usage.  If you are using OFS for a PCIe add in card that your company manufactures, then update the PCIe Subsytem Subsystem ID and Vendor ID registers as described below and change OPAE provided software code to properly operate with your company's register values.
+
+The Vendor ID is assigned to your company by the PCI-SIG (Special Interest Group). The PCI-SIG is the only body officially licensed to give out IDs. You must be a member of PCI-SIG to request your own ID. Information about joining PCI-SIG is available here: [PCI-SIG](http://www.pcisig.com). You select the Subsystem Device ID for your PCIe add in card.
+
+#### **4.4.3 PCIe Configuration Using OFSS**
+
+The general flow for using OFSS to modify the PCIe Sub-system and PF/VF MUX is as follows:
+
+1. Create or modify a PCIe OFSS file with the desired PCIe configuration. 
+2. Call this PCIe OFSS file when running the FIM build script.
+
+The *PCIe IP OFSS File Options* table lists all of the configuration options supported by the OFSS flow. Any other customizations to the PCIe sub-system must be done with the IP Presets Flow.
+
+*Table: PCIe IP OFSS File Options*
+
+| Section | Parameter | Options | Default | Description |
+| --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `pcie` | N/A | Specifies that this OFSS file configures the PCIe-SS |
+| `[settings]` | `output_name` | `pcie_ss` | N/A | Specifies the output name of the PCIe-SS IP |
+| | `preset` | *String* | N/A | OPTIONAL - Specifies the name of a PCIe-SS IP presets file to use when building the FIM. When used, a presets file will take priority over any other parameters set in this OFSS file. |
+| `[pf*]` | `num_vfs` | Integer | `0` | Specifies the number of Virtual Functions in the current PF |
+| | `bar0_address_width` | Integer | `12` | |
+| | `bar4_address_width` | Integer | `14` | |
+| | `vf_bar0_address_width` | Integer | `12` | |
+| | `ats_cap_enable` | `0` \| `1` | `0` | |
+| | `vf_ats_cap_enable` | `0` \| `1` | `0` | |
+| | `prs_ext_cap_enable` | `0` \| `1` | `0` | |
+| | `pasid_cap_enable` | `0` \| `1` | `0` | |
+| | `pci_type0_vendor_id` | 32'h Value | `0x00008086` | |
+| | `pci_type0_device_id` | 32'h Value | `0x0000bcce` | |
+| | `revision_id` | 32'h Value | `0x00000001` | |
+| | `class_code` | 32'h Value | `0x00120000` | |
+| | `subsys_vendor_id` | 32'h Value | `0x00008086` | |
+| | `subsys_dev_id` | 32'h Value | `0x00001771` | |
+| | `sriov_vf_device_id` | 32'h Value | `0x0000bccf` | |
+| | `exvf_subsysid` | 32'h Value | `0x00001771` | |
+
+##### **4.4.3.1 Walkthrough: Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS**
+
+Perform the following steps to modify the PF/VF MUX configuration.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Decide which PCIe PF/VFs require modification.  If you are modifying host side PF/VF configuration, you must edit file `pcie_host.ofss` file found in `$OFS_ROOTDIR/tools/pfvf_config_tool`.  If you want to modify SoC-side PF/VF configuration, edit the `pcie_soc.ofss` file found in the same location. The the following code shows the default Host OFSS file:
+
+  ```bash
+  [ip]
+  type = pcie
+  
+  [settings]
+  output_name = pcie_ss
+  
+  [pf0]
+  bar0_address_width = 21
+  
+  [pf1]
+  ```
+
+  This default configuration is made up of two physical functions (PF), and neither of them has any virtual functions (VF). 
+
+
+4. In this example, we will modify the Host PCIe configuration. Create a new Host PCIe OFSS file from the existing `pcie_host.ofss` file.
+
+  ```bash
+  cp $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host.ofss $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host_pfvf_mod.ofss
+  ```
+
+5. Modify the new `pcie_pfvf_mod.ofss` OFSS file with the new PF/VF configuration. An example modification to the OFSS file is shown below.  In this example we have changed the configuration to: 6 PFs in total, 4 VFs in PF0, 1 VF in PF2, and 2 VFs on PF3.  You can add up to 8 PFs and could conceivably add up to the number of VFs supported by the PCIe IP. Note that more PFs/VFs will use more FPGA resources, which may cause fitter challenges.
+
+  ```bash
+  [ip]
+  type = pcie
+  
+  [settings]
+  output_name = pcie_ss
+  
+  [pf0]
+  bar0_address_width = 21
+  num_vfs = 4
+
+  [pf1]
+
+  [pf2]
+  num_vfs = 1
+
+  [pf3]
+  num_vfs = 2
+
+  [pf4]
+
+  [pf5]
+  ```
+
+6. Edit the top level OFSS file to use the new PCIe OFSS file `pcie_host_pfvf_mod.ofss`. In this example, we will edit the f2000x top level OFSS file `$OFS_ROOTDIR/tools/ofss_config/f2000x.ofss`.
+
+  ```
+  [include]
+  "$OFS_ROOTDIR"/tools/ofss_config/f2000x_base.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host_pfvf_mod.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_soc.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
+  ```
+
+7. Compile the FIM.
+
+  ```bash
+  cd $OFS_ROOTDIR
+
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x_pfvf_mod
+  ```
+
+8. Copy the resulting `.bin` user 1 image to your deployment environmenment.
+
+9. Switch to your deployment environment.
+
+10. Program the `.bin` image to the f2000x FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
+
+11. From the Host, verify the number of VFs on the PFs. In this example, we defined 4 VFs on PF0 in Step 5.
+
+  ```bash 
+  sudo lspci -vvv -s b1:00.0 | grep VF
+  ```
+
+  Example output:
+
+  ```bash               
+  Initial VFs: 4, Total VFs: 4, Number of VFs: 0, Function Dependency Link: 00
+  VF offset: 6, stride: 1, Device ID: bccf               
+  ```
+
+12. Verify communication with the newly added PFs. New PF/VF are seamlessly connected to their own CSR stub, which can be read at DFH Offset 0x0. You can bind to the function and perform `opae.io peek` commands to read from the stub CSR. Similarly, perform `opae.io poke` commands to write into the stub CSRs. Use this mechanism to verify that the new PF/VF Mux configuration allows to write and read back values from the stub CSRs. 
+
+  The GUID for every new PF/VF CSR stub is the same.
+  
+  ```
+  * NULL_GUID_L           = 64'haa31f54a3e403501
+  * NULL_GUID_H           = 64'h3e7b60a0df2d4850
+  ```
+  
+  In the following steps, we will verify the newly added PF5.
+
+  1. Initialize the driver on PF5
+
+    ```bash
+    sudo opae.io init -d b1:00.5
+    ```
+
+  2. Read the GUID for the PF5 CSR stub.
+
+    ```bash
+    sudo opae.io -d b1:00.5 -r 0 peek 0x8
+    sudo opae.io -d b1:00.5 -r 0 peek 0x10
+    ```
+
+    Example output:
+
+    ```bash
+    0xaa31f54a3e403501
+    0x3e7b60a0df2d4850
+    ```
+
+  >**Note:** The PCIe B:D.F associated with your board may be different. Use the `fpgainfo fme` command to see the PCIe B:D:F for your board.
+
+#### **4.4.4 PCIe Sub-System configuration Using IP Presets**
+
+The general flow for using IP Presets to modify he PCIe Sub-system is as follows:
+
+1. [OPTIONAL] Create a work directory using OFSS files if you wish to use OFSS configuration settings as a starting point.
+2. Open the PCIe-SS IP and make desired modifications.
+3. Create an IP Presets file.
+4. Create an PCIe OFSS file that uses the IP Presets file.
+5. Build the FIM with the PCIe OFSS file from Step 4.
+
+##### **4.4.4.1 Walkthrough: Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets**
+
+Perform the following steps to use an IP preset file to configure the PCIe Sub-system and PF/VF MUX. In this example, we will change the Revision ID on PF0. While this modification can be done with the OFSS flow, this walkthrough is intended to show the procedure for making any PCIe configuration change using IP presets.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. [OPTIONAL] Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the target board. In this example we will target the f2000x.
+
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x
+  ```
+
+4. Open the host PCIe-SS using Quartus Parameter Editor. If you performed Step 3, open the PCIe-SS IP from the work directory; otherwise, open the PCIe-SS IP from the source files.
+
+  ```bash
+  qsys-edit $OFS_ROOTDIR/work_f2000x/ipss/pcie/qip/pcie_ss.ip
+
+5. Modify the settings as desired. In this example we will change the **Revision ID** to `0x2`. In the **IP Parameter Editor**, scroll down and expand the **PCIe Interfaces Ports Settings -> Port 0 -> PCIe0 Device Identification Registers -> PCIe0 PF0 IDs** tab and make this change.
+
+6. Once you are satisfied with your modifcations, create a new IP Preset file.
+
+  1. click **New...** in the **Presets** window.
+
+  2. In the **New Preset** window, set a unique **Name** for the preset; for example, `f2000x-rev2`.
+
+  3. Click the **...** button to set the save location for the IP Preset file to `$OFS_ROOTDIR/ipss/pcie/presets`. Set the **File Name** to match the name selected in Step 9. Click **OK**.
+
+  4. In the **New Preset** window, click **Save**. Click **No** when prompted to add the file to the IP search path.
+
+9. Close **IP Parameter Editor** without saving or generating HDL.
+
+10. Create a new PCIe OFSS file in the `$OFS_ROOTDIR/tools/ofss_config/pcie` directory. For example:
+
+  ```bash
+  touch $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host_mod_preset.ofss
+  ```
+
+  Insert the following into the OFSS file to specify the IP Preset file created in Step 6. 
+
+  ```
+  [ip]
+  type = pcie
+  
+  [settings]
+  output_name = pcie_ss
+  preset = f2000x-rev2
+  ```
+
+11. Edit the `$OFS_ROOTDIR/tools/ofss_config/f2000x.ofss` file to call new OFSS file created in Step 10.
+  ```
+  [include]
+  "$OFS_ROOTDIR"/tools/ofss_config/f2000x_base.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host_mod_preset.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_soc.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
+  ```
+
+12. Compile the FIM.
+
+  ```bash
+  cd $OFS_ROOTDIR
+
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x_pcie_mod
+  ```
+
+13. Copy the resulting `$OFS_ROOTDIR/work_f2000x_pcie_mod/syn/syn_top/output_files/ofs_top.sof` image to your deployment environmenment for JTAG programming, or copy a `bin` file (e.g. `ofs_top_page1_unsigned_user1.bin`) for RSU programming.
+
+  >**Note:** OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to program the FPGA via JTAG to load the test FPGA image.  If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command `fpgasupdate`.
+
+14. Program the image to the f2000x FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step JTAG programming instructions, or the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step RSU programming instructions.
+
+15. Use `lspci` to verify that the PCIe changes have been implemented.
+
+  ```bash
+  lspci -nvmms b1:00.0
+  ```
+
+  Example output:
+
+  ```bash
+  Slot:   b1:00.0
+  Class:  1200
+  Vendor: 8086
+  Device: bcce
+  SVendor:        8086
+  SDevice:        1771
+  PhySlot:        1
+  Rev:    02
+  NUMANode:       1
+  ```
+
+>**Note:** Some changes to software may be required to work with certain new PCIe settings. These changes are described in [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) 
+
+#### **4.5.1 Walkthrough: Create a Minimal FIM**
+
+Perform the following steps to create a Minimal FIM. A minimal FIM is one that has the host exercisers and ethernet subsystem removed. This frees up resources that can be used as desired.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+To create this minimal FIM, perform the following steps:
+
+3. Edit the Host PCIe OFSS file to use the minimal number of  PFs (1).
+
+  1. `$OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host.ofss`
+
+    ```bash
+    [ip]
+    type = pcie
+    
+    [settings]
+    output_name = pcie_ss
+    
+    [pf0]
+    bar0_address_width = 21
+    ```
+
+4. Edit the SoC PCIe OFSS file to use the minimal number of  PFs (1) and VFs (1).
+    
+  1. `$OFS_ROOTDIR/tools/ofss_config/pcie/soc_host.ofss`
+
+    ```bash
+    [ip]
+    type = pcie
+    
+    [settings]
+    output_name = soc_pcie_ss
+    
+    [pf0]
+    num_vfs = 1
+    bar0_address_width = 21
+    vf_bar0_address_width = 21 
+    ```
+
+5. Run the build script with exercisers and ethernet subsystem (HSSI) removed.
+
+  ```bash
+  cd $OFS_ROOTDIR
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_f2000x_minimal_fim
+  ```
+
+6. The build will complete with reduced resources as compared to the base version. You may review the floorplan in Quartus Chip Planner and modify the Logic Lock regions to allocate more resources to the PR region if desired. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan. 
+
+### **4.6 Migrate to a Different Agilex Device Number**
+
+The following instructions enable you to change the Agilex 7 FPGA device part number of the f2000x, for example, to migrate to a device with a larger density. Be aware that this release works with Agilex® 7 FPGAs that have P-tile for PCIe and E-tile for Ethernet.
+
+The default device for the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL is AGFC023R25A2E2VR0
+
+#### **4.6.1 Walkthrough: Migrate to a Different Agilex Device Number**
+
+This walkthrough describes how to change the device to a larger density with the same package. In this example, we will change the device from part AGFC023R25A2E2VR0 to part AGFA027R25A2E2VR0.
+
+Pre-requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the design repository. See the [Clone the OFS Git Repo](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
+
+2. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+
+3. Navigate to the OFS Root Directory
+
+  ```bash
+  cd $OFS_ROOTDIR
+  ```
+
+4. Use the following command to change the device part number throughout the OFS Root directory heirarchy, replacing `<DEFAULT_OPN>` and `<NEW_OPN>` with the part numbers specific to your update:
+
+  ```bash
+  grep -rli '<DEFAULT_OPN>' * | xargs -i@ sed -i 's/<DEFAULT_OPN>/<NEW_OPN>/g' @
+  ```
+
+  For example, use the following command to change from part AGFC023R25A2E2VR0 to part AGFA027R25A2E2VR0:
+
+  ```bash
+  grep -rli 'AGFC023R25A2E2VR0'* | xargs -i@ sed -i 's/AGFC023R25A2E2VR0/AGFA027R25A2E2VR0/g' @
+  ```
+
+  This changes all occurrences of the default device (AGFC023R25A2E2VR0) in the $OFS_ROOTDIR directory to the new device number (AGFA027R25A2E2VR0).
+
+3. Modify the `part` field in the `$OFS_ROOTDIR/tools/ofss_config/f2000x_base.ofss` file to use the new part number; in this example `AGFA027R25A2E2VR0`. This is only necessary if you are using the OFSS flow.
+
+  ```bash
+  [ip]
+  type = ofs
+  
+  [settings]
+  platform = f2000x
+  fim = base_x16
+  family = agilex
+  part = AGFA027R25A2E2VR0
+  device_id = 6100
+  ```
+
+4. Modify the `DEVICE` field in the `$OFS_ROOTDIR/syn/syn_top/ofs_top.qsf` file.
+
+  ```bash
+  ############################################################################################
+  # FPGA Device
+  ############################################################################################
+	
+  set_global_assignment -name FAMILY Agilex
+  set_global_assignment -name DEVICE AGFA027R25A2E2VR0
+  ```
+
+5. Modify the `DEVICE` field in the `$OFS_ROOTDIR/syn/syn_top/ofs_pr_afu.qsf` file.
+
+  ```bash
+  ############################################################################################
+  # FPGA Device
+  ############################################################################################
+	
+  set_global_assignment -name FAMILY Agilex
+  set_global_assignment -name DEVICE AGFA027R25A2E2VR0
+  ```
+
+6. Modify the `DEVICE` field in te `$OFS_ROOTDIR/ipss/pmci/pmci_ss.qsf` file.
+
+  ```bash
+  set_global_assignment -name DEVICE AGFA027R25A2E2VR0
+  ```
+
+5. Compile the flat (non-PR) design to verify the compilation is successful with the new part. The flat design is compiled without any Logic Lock constraints.
+
+  ```bash
+  cd $OFS_ROOTDIR
+  ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x:flat  <YOUR_WORK_DIRECTORY>
+  ```
+
+6. To enable the PR region, use Quartus Chip Planner to analyze the compiled flat design and adjust the Logic Lock constraints defined in `$OFS_ROOTDIR/syn/setup/pr_assignments.tcl` for the new device layout. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for instructions. Re-compile the design with the out-of-tree PR region enabled.
+
+  ```bash
+  cd $OFS_ROOTDIR
+  ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x  <YOUR_WORK_DIRECTORY>
+  ```
+
+### **4.7 Modify the Memory Sub-System**
+
+OFS allows modifications on the Memory Sub-System in the FIM. This section provides an example walkthrough for modifiying the Memory-SS.
+
+#### **4.7.1 Walkthrough: Modify the Memory Sub-System Using IP Presets With OFSS**
 
 In this example we will modify the Memory Subsystem to enable ECC on all of the existing memory interfaces. You may make different modifications to meet your own design requirements. Perform the following steps to make this change.
 
-1. Clone the design repositories or use an existing design. See the [Clone the OFS Git Repo](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
+Pre-requisites:
 
-2. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-3. Navigate to the directory containing the Memory Subsystem IP file `mem_ss_fm.ip`.
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Open the Memory Subsystem IP file in Platform Designer to perform the required edits. 
 
   ```bash
-  cd $OFS_ROOTDIR/ipss/mem/qip/mem_ss/ 
+  qsys-edit $OFS_ROOTDIR/ipss/mem/qip/mem_ss/mem_ss.ip
   ```
 
-4. Open the Memory Subsystem IP file in Platform Designer to perform the required edits. 
+4. The Memory Subsystem IP will open in IP Parameter Editor. Click **Dive Into Packaged Subsystem**.
 
-  ```bash
-  qsys-edit mem_ss_fm.ip
-  ```
+  ![](images/mem_ss_dive_into_packaged_ss.png)
 
-  The IP Parameter Editor GUI opens as shown below.
+5. The Platform Designer mem_ss view opens. All of the EMIFs are shown in the **Filter** window.
 
-  ![](images/mem_ss_init.PNG)
+  ![](images/mem_ss_pd_view.png)
 
-5. Select the "Memory Interfaces" tab to view the current configuration of the Memory Interfaces. You may make edits to the configuration of any of the interfaces as needed. The figure below shows the default configuration of Interface 3.
+6. Click each EMIF 0 through 3 and perform the following actions.
 
-  ![](images/mem_ss_current_settings.png)
+  1. In the **Parameters** window, click the **Memory** tab and change the **DQ width** to `40`.
 
-6. In this example we will enable ECC for all four interfaces. In Interface tabs 0 through 3, change the drop-down selection for **Memory DQ width** from `32 (no ECC)` to `40 (with ECC)`. The figure below shows this change for **Interface 3**.
+    ![](images/mem_ss_pd_memory_tab.png)
 
-  ![](images/mem_ss_from_40b_ecc_to_32b_no_ecc.png)
+  2. In the **Parameters** window, click the **Controller** tab. Scroll down and check the box for `Enable Error Detection and Correction Logic with ECC`. 
+  
+    ![](images/mem_ss_pd_controller_tab.png)
 
-7. Generate the HDL code by clicking the **Generate HDL...** button at the bottom right corner of the Platform Designer window. In the dialog box that appears next, review the HDL generation options and click the **Generate** button at the bottom right corner of the dialog box. Save the system if prompted to do so. Once the generation process is finished, close the Platform designer windows. 
+7. Once Step 6 has been done for each EMIF 0-3, click **File -> Save**. Close the Platform Designer window.
 
-8. Edit the `$OFS_ROOTDIR/ipss/mem/rtl/mem_ss_pkg.sv` file to change the `DDR4_DQ_WIDTH` from `32` to `40`.
+8. In the IP Parameter Editor **Presets** window, click **New** to create an IP Presets file.
 
-  ```verilog
-  // DDR PARAMS
-  ...
-  localparam DDR4_DQ_WIDTH      = 40;
-  ```
+  ![](images/mem_ss_preset_new.png)
 
-9. Edit the `$OFS_ROOTDIR/syn/setup/emif_loc.tcl` file to assign the pins required for ECC enabled interfaces.</br>
-  1. Uncomment the `DQS4` pin assignments for all memory interfaces
+9. In the **New Preset** window, set the **Name** for the preset. In this case we will name it `f2000x-ecc`.
+
+  ![mem_ss_preset_name](images/mem_ss_preset_name.png)
+
+10. Click the **...** button to select the location for the **Preset file**.
+
+11. In the **Save As** window, change the save location to `$OFS_ROOTDIR/ipss/mem/qip/presets` and change the **File Name** to `f2000x-ecc.qprs`. Click **OK**.
+
+  ![mem_ss_preset_save_as](images/mem_ss_preset_save_as.png)
+
+12. Click **Save** in the **New Preset** window. Click **No** when prompted to add the file to the IP search path.
+
+  ![](images/ip_preset_search_path.png)
+
+13. Close the **IP Parameter Editor**. You do not need to generate or save the IP.
+
+14. Edit the `$OFS_ROOTDIR/syn/setup/emif_loc.tcl` file to assign the pins required for ECC enabled interfaces.
+
+  1. Uncomment the `DQS4 (ECC)` pin assignments for all memory interfaces
 
     ```tcl
     #---------------------------------------------------------
@@ -2786,624 +3527,851 @@ In this example we will modify the Memory Subsystem to enable ECC on all of the 
     set_location_assignment PIN_W9  -to ddr4_mem[1].dbi_n[4]
     ```
 
-10. Compile the design.
+15. Edit the `$OFS_ROOTDIR/tools/ofss_config/memory/memory.ofss` file to use the new presets file generated previously.
+
+  ```
+  [ip]
+  type = memory
+  
+  [settings]
+  output_name = mem_ss_fm
+  preset = f2000x-mem-ecc
+  ```
+
+10. Compile the design with the f2000x OFSS file which calls the Memory OFSS file edited in the previous step. 
 
   ```bash
   cd $OFS_ROOTDIR
-  ofs-common/scripts/common/syn/build_top.sh -p f2000x <YOUR_WORK_DIRECTORY>
+  ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x <YOUR_WORK_DIRECTORY>
   ```
 
-11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
 
-The configuration edits described here were made to the original source files of the cloned OFS repository. Therefore, these modifications will present in subsequent FIM compilations. This is because the FIM compilation process links and copies source files from the cloned OFS repository to the FIM compilation work directory.
+### **4.8 Modify the Ethernet Sub-System**
 
-### **5.6 How to compile the FIM with No HSSI**
+This section describes the flows for modifying the Ethernet Sub-System. There are three flows you may use to make modifications.
 
-In this example we will compile f2000x with the Ethernet subsystem removed. To perform the flat compile of the FIM with no Ethernet subsystem, pass the ```no_hssi``` and ```flat``` options to the build_top.sh script:
+* Modify the Ethernet Sub-System with OFSS supported changes only. These modifications are supported natively by the build script, and are made at run-time of the build script. This flow is useful for users who only need to leverage natively supported HSSI OFSS settings.
+* Modify the Ethernet Sub-System with OFSS supported changes, then make additional custom modifications not covered by OFSS. These modifications will be captured in a presets file which can be used in future compiles. This flow is useful for users who whish to leverage pre-made HSSI OFSS settings, but make additional modifications not natively supported by HSSI OFSS.
+* Modify the Ethernet Sub-System without HSSI OFSS. These modification will be made directly in the source files.
 
-```bash
-cd $OFS_ROOTDIR
-ofs-common/scripts/common/syn/build_top.sh f2000x :flat,no_hssi <YOUR_WORK_DIRECTORY>
-```
+#### **4.8.1 Walkthrough: Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS**
 
-If you wish to build a PR enabled design, you may adjust the Logic Lock regions to allocate more resources to the PR region since the Ethernet subsystem has been removed from the FIM. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+This walkthrough describes how to use OFSS to configure the Ethernet-SS. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This walkthrough is useful for users who only need to leverage the pre-made, natively supported HSSI OFSS settings.
 
-### **5.7 How to change the PCIe device ID and Vendor ID**
+Pre-Requisites:
 
-The PCIe configuration registers contains the Vendor, Device and Subsystem Vendor ID registers which are used in PCIe add-in cards to uniquely identify the card for assignment to software drivers.  OFS has these registers set with Intel values for out of the box usage.  If you are using OFS for a PCIe add in card that your company manufactures, then update the PCIe Subsytem Subsystem ID and Vendor ID registers as described below and change OPAE provided software code to properly operate with your company's register values.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-The Vendor ID is assigned to your company by the PCI-SIG (Special Interest Group). The PCI-SIG is the only body officially licensed to give out IDs. You must be a member of PCI-SIG to request your own ID. Information about joining PCI-SIG is available here: [PCI-SIG](http://www.pcisig.com). You select the Subsystem Device ID for your PCIe add in card.
+Steps:
 
-Follow the instructions below to customize the PCIe device ID and Vendor ID of the f2000x  PLPlatform.
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-You can display the current settings using the command ```lspci -nvmms <PCIe B.D.f>``` as shown below:
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-```bash
-lspci -nvmms 98:00
-```
-Example Output:
+3. Edit the `$OFS_ROTDIR/tools/ofss_config/f2000x.ofss` file to use the desired Ethernet-SS OFSS configuration. The pre-provided OFSS configurations are as follows:
 
-```bash
-Slot:   98:00.0
-Class:  1200
-Vendor: 8086
-Device: bcce
-SVendor:        8086
-SDevice:        1771
-PhySlot:        1
-Rev:    01
-NUMANode:       1
+  * To select the 2x4x25GbE configuration, include the following line
 
-Slot:   98:00.1
-Class:  1200
-Vendor: 8086
-Device: bcce
-SVendor:        8086
-SDevice:        1771
-PhySlot:        1
-NUMANode:       1
+    ```bash
+    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x25.ofss
+    ```
 
-Slot:   98:00.2
-Class:  1200
-Vendor: 8086
-Device: bcce
-SVendor:        8086
-SDevice:        1771
-PhySlot:        1
-NUMANode:       1
+  * To select the 2x4x10GbE configuration, include the following line
 
-Slot:   98:00.3
-Class:  1200
-Vendor: 1af4
-Device: 1000
-SVendor:        1af4
-SDevice:        1771
-PhySlot:        1
-NUMANode:       1
+    ```bash
+    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x10.ofss
+    ```
 
-Slot:   98:00.4
-Class:  1200
-Vendor: 8086
-Device: bcce
-SVendor:        8086
-SDevice:        1771
-PhySlot:        1
-NUMANode:       1
-```
+  * To select the 2x1x100GbE configuration, include the following line
 
-### **5.7.1 Changing the PCIe Subsystem Device ID and Vendor ID**
+    ```bash
+    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_2x100.ofss
+    ```
 
-You will use IP Parameter Editor to modify the PCIe configuration registers.
-
-1. Navigate to the PCIe Subsystem IP file and bring up IP Parameter Editor to change values.
-
-  >**Note:** Both the Host and SoC PCIe subsystems use the same IP module, so the following changes to Device ID and Vendor ID will be reflected in both the Host and SoC PCIe Subsystems.
-
-  ```bash
-  cd $OFS_ROOTDIR/ipss/pcie/qip/ss
-  qsys-edit pcie_ss.ip
-  ```
-  The IP Parameter Editor GUI will open.  Close any tool pop-ups.
-    
-  ![](images/pcie_ss_editor.PNG)
-
-2. Scroll down through the PCIe subsystem settings tabs to the PCIe Interfaces 0 Ports Settings tab as shown below:
-
-  ![](images/pcie_ss_editor2.PNG)
-    
-  Select the PCIe0 Device Identification Registers tab. You can edit the values of Vendor ID, Device ID, Subsystem Vendor ID and Subsystem Device ID for each PF/VF in use.
-
-3. Once you have made changes, click Generate HDL and save. 
-4. Make sure the environment variables are set as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
-5. Build your new FPGA image with build_top.sh script
-   
-  ```bash
-  cd $OFS_ROOTDIR
-  ofs-common/scripts/common/syn/build_top.sh -p f2000x work_pcie_vid
-  ```
-
-Be aware that OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to initially confiugre the FPGA via JTAG to load the test FPGA image. Instructions for thes process are given in the [Configuring the FPGA with a SOF Image via JTAG](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#522-configuring-the-fpga-with-a-sof-image-via-jtag) section. If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command ```fpgasupdate```.
-
-The changes to software required to work with new PCIe settings are described in [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) 
-
-### **5.8 How to migrate to a different Intel Agilex 7 device number**
-
-The following instructions enable you to change the Intel Agilex 7 FPGA device part number of the f2000x, for example, to migrate to a device with a larger density. Be aware that this release works with Intel Agilex 7 devices that have P-tile for PCIe and E-tile for Ethernet.
-
-The default device for the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL is AGFC023R25A2E2VR0
-
-#### **5.8.1 Migrating To a Larger Device With the Same Package**
-
-Perform the following steps to change the device to a larger density with the same package.
-
-1. Clone the design repository. See the [Clone the OFS Git Repo](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
-
-2. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
-
-3. Navigate to the OFS Root Directory
+4. Compile the FIM using the f2000x OFSS file.
 
   ```bash
   cd $OFS_ROOTDIR
+
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x
   ```
 
-4. Use the following command to change the device part number throughout the OFS Root directory heirarchy, replacing `<DEFAULT_OPN>` and `<NEW_OPN>` with the part numbers specific to your update:
+5. The resulting FIM will contain the Ethernet-SS configuration specified in Step 3. The Ethernet-SS IP in the resulting work directory shows the parameter settings that are used.
+
+#### **4.8.2 Walkthrough: Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS**
+
+This walkthrough describes how to create an use a custom OFSS file to add channels to the Ethernet-SS and compile a design with a 3x4x25GbE Ethernet-SS configuration. This walkthrough is useful for users who wish to leverage the natively supported HSSI OFSS settings.
+
+Pre-Requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Create a new HSSI OFSS file `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_12x25.ofss` with the following contents. In this example we are using 12 channels.
 
   ```bash
-  grep -rli '<DEFAULT_OPN>' * | xargs -i@ sed -i 's/<DEFAULT_OPN>/<NEW_OPN>/g' @
-  ```
-
-  For example, use the following command to change from part AGFC023R25A2E2VR0 to part AGFA027R25A2E2VR0:
-
-  ```bash
-  grep -rli 'AGFC023R25A2E2VR0'* | xargs -i@ sed -i 's/AGFC023R25A2E2VR0/AGFA027R25A2E2VR0/g' @
-  ```
-
-  This changes all occurrences of the default device (AGFC023R25A2E2VR0) in the $OFS_ROOTDIR directory to the new device number (AGFA027R25A2E2VR0).
-
-5. Compile the flat (non-PR) design to verify the compilation is successful with the new part. The flat design is compiled without any Logic Lock constraints.
-
-  ```bash
-  cd $OFS_ROOTDIR
-  ofs-common/scripts/common/syn/build_top.sh f2000x:flat  <YOUR_WORK_DIRECTORY>
-  ```
-
-6. To enable the PR region, use Quartus Chip Planner to analyze the compiled flat design and adjust the Logic Lock constraints defined in `$OFS_ROOTDIR/syn/setup/pr_assignments.tcl` for the new device layout. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for instructions. Re-compile the design with the out-of-tree PR region enabled.
-
-  ```bash
-  cd $OFS_ROOTDIR
-  ofs-common/scripts/common/syn/build_top.sh -p f2000x  <YOUR_WORK_DIRECTORY>
-  ```
-
-### **5.9 How to change Ethernet interface from 8x25 GbE to 8x10 GbE**
-
-This section describes steps to change the Ethernet interface from 8x25 GbE to 8x10 GbE. 
-
-1. Edit the HSSI IP Subsystem **$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss_8x25g.ip** to be 8x10 GbE using IP Platform Editor.
-   
-  ```bash
-  cd $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss
-  qsys-edit hssi_ss_8x25g.ip
-  ```
-
-2. The IP Prameter Editer comes up - expect 2-5 minutes for this process to complete.  When the pop-up indicates Open System Completed, click **Close**.  When the General Configuration window comes up, scroll down and switch ports 0 through 7 from 25GbE to 10GbE as shown below:
-
-  ![](images/ip_param_editor_10g_1.png)
-
-3. Click the IP Configuration tab and note the default settings of **OFF** for AN/LT and SYNCE.  You may optionally change these settings based on your application needs. The settings for P0 IP cover ports 0 to 3.  The settings for P4 cover ports 4 to 7.
-   
-  ![](images/ip_param_editor_10g_2.png)
-
-4.  Click "P0 Configuration" tab and note the default settings for maximum frame size.  You may optionally change these settings based on your application needs.  Set "P4 Configuration" as needed. 
-
-  ![](images/ip_param_editor_10g_3.PNG)
-
-5. Leave other settings at default values.
-6. Click `File` and `Save As` hssi_ss_8x10g.ip  Click `Generate HDL` in the bottom right hand corner of IP Editor and enable simulation support.
-7. Edit $OFS_ROOTDIR/ipss/hssi/eth_design_files.tcl to comment out 8x25g and add in 8x10g.ip
-
-  ```tcl
-  #-----------------
-  # HSSI SS IP
-  #-----------------
-  #set_global_assignment -name IP_FILE               ../ip_lib/ipss/hssi/qip/hssi_ss/hssi_ss_8x25g.ip
-  set_global_assignment -name IP_FILE               ../ip_lib/ipss/hssi/qip/hssi_ss/hssi_ss_8x10g.ip
-  set_global_assignment -name IP_FILE               ../ip_lib/ipss/hssi/qip/ptp_iopll/ptp_sample_clk_pll.ip
-  ```
-
-8. Edit $OFS_ROOTDIR/syn/syn_top/ofs_top.qsf and $OFS_ROOTDIR/syn/syn_top/ofs_pr_afu.qsf to add new macro definition:
-
-  ```tcl
-  set_global_assignment -name VERILOG_MACRO "ETH_10G"    # Change Ethernet from 8x25 to 8x10 GbE
-  ```
-
-10. Build new 8x10G FIM
-
-  ```bash
-  cd $OFS_ROOTDIR
-  ofs-common/scripts/common/syn/build_top.sh -p f2000x work_8x10gbe
-  ```
-
-11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
-
-### **5.10 How to change Ethernet interface from 8 X 25 GbE to 2 X 100 GbE**
-
-This section describes steps to change the Ethernet interface from 8 X 25 GbE to 2 x 100 GbE. 
-
-1. Edit HSSI IP Subsystem **$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/hssi_ss_8x25g.ip** to be 2 X 100 GbE using IP Platform Editor.
-   
-  ```bash
-  cd $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss
-  qsys-edit hssi_ss_8x25g.ip
-  ```
-
-2. The IP Prameter Editer comes up - expect 2-5 minutes for this process to complete.  When pop-up indicates Open System Completed, click 'Close'.  The General Configuration window comes up, change ports to 2 and set "PORT0_PROFILE" and "PORT4_PROFILE" to "100GCAUI-4" as shown below:
+  [ip]
+  type = hssi
 	
-  ![](images/ip_param_editor_100g_1.png)
-
-3. Click the IP Configuration tab and note the default settings of OFF for AN/LT and SYNCE.  You may optionally change these settings based on your application needs.
-   
-  ![](images/ip_param_editor_100g_2.png)
-
-4.  Click "P0 Configuration" tab and note the default settings for maximum frame size.  You may optionally change these settings based on your application needs.  Set "P4 Configuration" as needed. 
-
-  ![](images/ip_param_editor_100g_3.png)
-
-5. Leave other settings at default values.
-6. Click `File` and `Save As` hssi_ss_2x100g.  Click `Generate HDL` in the bottom right hand corner of IP Editor and enable simulation support.
-
-7. Edit $OFS_ROOTDIR/ipss/hssi/eth_design_files.tcl to comment out 8x25g and add in 2x100g.ip
-   
-  ```
-  #-----------------
-  # HSSI SS IP
-  #-----------------
-  #set_global_assignment -name IP_FILE               ../ip_lib/ipss/hssi/qip/hssi_ss/hssi_ss_8x25g.ip
-  set_global_assignment -name IP_FILE               ../ip_lib/ipss/hssi/qip/hssi_ss/hssi_ss_2x100g.ip
-  set_global_assignment -name IP_FILE               ../ip_lib/ipss/hssi/qip/ptp_iopll/ptp_sample_clk_pll.ip
+  [settings]
+  output_name = hssi_ss
+  num_channels = 12
+  data_rate = 25GbE
   ```
 
-8. Edit $OFS_ROOTDIR/syn/syn_top/ofs_top.qsf and $OFS_ROOTDIR/syn/syn_top/ofs_pr_afu.qsf to add new macro definition:
-    
-  ```
-  set_global_assignment -name VERILOG_MACRO "ETH_100G"      # Change Ethernet from 8x25 to 2x100 GbE
-  ```
-
-9. Update $OFS_ROOTDIR/syn/setup/eth_top.sdc:
-   
-  ```
-  #Timing for 100G
-  set_false_path -from [get_clocks {sys_pll|iopll_0_clk_100m}] -to [get_clocks {hssi_wrapper|hssi_ss|hssi_ss_0|U_hssi_ss_ip_wrapper|U_hssi_ss_ip_top_p*|alt_ehipc3_fm_0|alt_ehipc3_fm_top_p*|alt_ehipc3_fm_hard_inst|E100GX4_FEC.altera_xcvr_native_inst|xcvr_native_s10_etile_0_example_design_4ln_ptp|tx_clkout|ch0}]; 
-
-  set_false_path -from [get_clocks {hssi_wrapper|hssi_ss|hssi_ss_0|U_hssi_ss_ip_wrapper|U_hssi_ss_ip_top_p*|alt_ehipc3_fm_0|alt_ehipc3_fm_top_p*|alt_ehipc3_fm_hard_inst|E100GX4_FEC.altera_xcvr_native_inst|xcvr_native_s10_etile_0_example_design_4ln_ptp|tx_clkout|ch0}] -to [get_clocks {sys_pll|iopll_0_clk_100m}];   
-  ```
-    
-10. Build new 2x100G FIM.
-    
-  ```
-  cd $OFS_ROOTDIR
-  ofs-common/scripts/common/syn/build_top.sh -p f2000x work_2x100gbe
-  ```
-
-11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to  for information regarding modifications to the floorplan.
-
-### **5.11 How to add more Transceiver channels the Ethernet Subsystem**
-
-This section describes how to add 4 extra Ethernet channels to the existing f2000x FIM design which uses the 8x25G (2x4x25G) as the default ethernet configuration.
-
-In this exercise we will add 4 extra channels to make a total of 12 channels. This configuration will be called 12x25G.
-
-1. Clone the design repository or use an existing design. See the [Clone the OFS Git Repo](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
-2. Set the environment variables. See the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
-3. Navigate to the directory containing the existing Ethernet Subsystem IP `hssi_ss_8x25g.ip`.
+4. Edit the `$OFS_ROOTDIR/tools/ofss_config/f2000x.ofss` file to use the new HSSI OFSS file generated in Step 3.
 
   ```bash
-  cd $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss
+  [include]
+  "$OFS_ROOTDIR"/tools/ofss_config/f2000x_base.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_soc.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_12x25.ofss
   ```
 
-4. Create a copy of the existing 8x25G IP and name it `hssi_ss_12x25g.ip`.
+5. Identify the which channels will be added. You may use the [E-Tile Channel Placement Tool](https://www.intel.com/content/www/us/en/content-details/652292/intel-e-tile-channel-placement-tool.html?wapkw=e-tile%20channel%20placement%20tool&DocID=652292) to aid in your design. In this example we will add the 4 new 25GbE channels to Channels 8-11.
 
-  ```bash
-  cp hssi_ss_8x25g.ip hssi_ss_12x25g.ip
-  ```
+  ![etile_channel_placement_tool](images/etile_channel_placement_tool.png)
 
-5. Open the newly created `hssi_ss_12x25g.ip` file in Platform Designer.
-
-  ```bash
-  qsys-edit hssi_ss_12x25g.ip
-  ```
-
-6. In the **HSSI Subsystem > Device 0 Configuration > Main Configuration** tab, change the **NUM_ENABLED_PORTS** value from `8` to `12`. 
-
-  ![](images/eth_ss_num_ports.png)
-
-7. In the **HSSI Subsystem > Device 0 Configuration > Main Configuration** tab, enable Ports 8 through 11, using the same configuration as the original 8 transceiver ports.
-
-  ![](images/eth_ss_port_config.png)
-
-  ![](images/eth_ss_port_config2.png)
-
-8. Click **Generate HDL**. Close Platform Designer once generation is complete with no errors.
-
-9. Edit `$OFS_ROOTDIR/ipss/hssi/eth_design_files.tcl`
-  1. Comment out the old 8x25G IP and and the new 12x25G IP in the **HSSI SS IP** section
-
-    ```tcl
-    #set_global_assignment -name IP_FILE ../ip_lib/ipss/hssi/qip/hssi_ss/hssi_ss_8x25g.ip
-    set_global_assignment -name IP_FILE ../ip_lib/ipss/hssi/qip/hssi_ss/hssi_ss_12x25g.ip
-    ```
-
-10. Edit `$OFS_ROOTDIR/ipss/hssi/rtl/hssi_wrapper.sv`
-  1. In the **HSSI SS Instantiation** section, replace the existing 8x25G IP instantiation with the new 12x25G IP instantiation.
-
-    ```verilog
-    //hssi_ss_8x25g
-    hssi_ss_12x25g
-    ```
-
-  2. In the **Serial signal mapping to QSFP** section, after the `else` statement, add the 4 new Ethernet ports:
-    
-    ```verilog
-    `ifdef INCLUDE_HSSI_PORT_8
-    assign serial_rx_p[PORT_8] = qsfp_serial[2].rx_p[0];
-    assign serial_rx_n[PORT_8] = 1'b0;
-    assign qsfp_serial[2].tx_p[0] = serial_tx_p[PORT_8];
-    `endif
-    `ifdef INCLUDE_HSSI_PORT_9
-    assign serial_rx_p[PORT_9] = qsfp_serial[2].rx_p[1];
-    assign serial_rx_n[PORT_9] = 1'b0;
-    assign qsfp_serial[2].tx_p[1] = serial_tx_p[PORT_9];
-    `endif
-    `ifdef INCLUDE_HSSI_PORT_10
-    assign serial_rx_p[PORT_10] = qsfp_serial[2].rx_p[2];
-    assign serial_rx_n[PORT_10] = 1'b0;
-    assign qsfp_serial[2].tx_p[2] = serial_tx_p[PORT_10];
-    `endif
-    `ifdef INCLUDE_HSSI_PORT_11
-    assign serial_rx_p[PORT_11] = qsfp_serial[2].rx_p[3];
-    assign serial_rx_n[PORT_11] = 1'b0;
-    assign qsfp_serial[2].tx_p[3] = serial_tx_p[PORT_11];
-    `endif
-    ```
-
-11. Edit `$OFS_ROOTDIR/ipss/hssi/rtl/inc/ofs_fim_eth_plat_defines.svh`
-  1. Define the new port macros in the section configuring 25G with no CVL
-    
-    ```verilog
-    `define INCLUDE_HSSI_PORT_8
-    `define INCLUDE_HSSI_PORT_9
-    `define INCLUDE_HSSI_PORT_10
-    `define INCLUDE_HSSI_PORT_11
-    ```
-
-12. Edit `$OFS_ROOTDIR/ipss/hssi/rtl/inc/ofs_fim_eth_plat_if_pkg.sv`
-  1. Change the parameter defining the number of QSFP ports from `2` to `3`
-
-    ```verilog
-    localparam NUM_QSFP_PORTS = 3; // QSFP cage on board
-    ```
+6. Based on your channel selection, identify which pins will be used. Refer to the [Pin-Out Files for Altera FPGAs] determine the required pins for your device. In this example we are targeting the AGFC023R25A2E2VR0 device. Set the pin assignments in the `$OFS_ROOTDIR/syn/setup/eth_loc.tcl` file.
         
-  2. Change the number of ethernet channels parameter for the 25G with no CVL configuration from `8` to `12`
-    
-    ```verilog
-    localparam NUM_ETH_CHANNELS = 12; // Ethernet Ports
-    ````
+  ```tcl
+  set_location_assignment PIN_DL8  -to hssi_if[8].rx_p
+  set_location_assignment PIN_DN13 -to hssi_if[9].rx_p
+  set_location_assignment PIN_DY8  -to hssi_if[10].rx_p
+  set_location_assignment PIN_EB13 -to hssi_if[11].rx_p
 
-13. Edit `$OFS_ROOTDIR/syn/setup/eth_loc.tcl`
-  1. Edit the pinout file to assign pins for the new QSFP. In this example we are using Channels 8-11 in the E-tile.
-        
-    ```tcl
-    set_location_assignment PIN_DL1  -to qsfp_serial[2].tx_p[0]
-    set_location_assignment PIN_DN4  -to qsfp_serial[2].tx_p[1]
-    set_location_assignment PIN_DY1  -to qsfp_serial[2].tx_p[2]
-    set_location_assignment PIN_EB4  -to qsfp_serial[2].tx_p[3]
+  set_location_assignment PIN_DL1  -to hssi_if[8].tx_p
+  set_location_assignment PIN_DN4  -to hssi_if[9].tx_p
+  set_location_assignment PIN_DY1  -to hssi_if[10].tx_p
+  set_location_assignment PIN_EB4  -to hssi_if[11].tx_p
+  ```
 
-    set_location_assignment PIN_DL8  -to qsfp_serial[2].rx_p[0]
-    set_location_assignment PIN_DN13 -to qsfp_serial[2].rx_p[1]
-    set_location_assignment PIN_DY8  -to qsfp_serial[2].rx_p[2]
-    set_location_assignment PIN_EB13 -to qsfp_serial[2].rx_p[3]
-    ```
+7. Change the number of QSFP ports from `2` to `3` in the `$OFS_ROOTDIR/ofs-common/src/fpga_family/agilex/hssi_ss/inc/ofs_fim_eth_plat_if_pkg.sv` file.
 
-14. Compile the design
-   
+  ```verilog
+  localparam NUM_QSFP_PORTS_USED  = 3; // Number of QSFP cages on board used by target hssi configuration
+  ```
+
+8. Edit `$OFS_ROOTDIR/ofs-common/src/fpga_family/agilex/hssi_ss/hssi_wrapper.sv` so that the QSFP LED signals use `NUM_QSFP_PORTS_USED` defined in the previous step.
+
+  ```verilog
+  // Speed and activity LEDS
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_speed_green,       // Link up in Nx25G or 2x56G or 1x100G speed
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_speed_yellow,      // Link up in Nx10G speed
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_activity_green,    // Link up and activity seen
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_activity_red       // LOS, TX Fault etc
+  ```
+
+9. Compile the design. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you determine the correct pinout for your design.
+
   ```bash
   cd $OFS_ROOTDIR
-  ofs-common/scripts/common/syn/build_top.sh -p f2000x <YOUR_WORK_DIRECTORY>
+
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x:flat work_f2000x_12x25g
   ```
 
-15. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+10. You may need to adjust the floorplan in order to compile with a PR region that meets timing. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
 
-### **5.12 How to modify the PF/VF MUX configuration**
+#### **4.8.3 Walkthrough: Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications**
 
-The **PF/VF Configuration Tool** allows you to easily reconfigure the default number of PFs and VFs on both the SoC and Host side of your design. To modify the PF/VF configuration, you must:
+This walkthrough describes how to use OFSS to first modify the Ethernet-SS, then make additional modifications on top. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This flow is useful for users who whish to leverage pre-made OFSS settings, but make additional modifications not natively supported by OFSS.
 
-1. Decide which PCIe PF/VFs require modification.  If you are modifying host side PF/VF configuration, you must edit file `pcie_host.ofss` file found in ```$OFS_ROOTDIR/tools/pfvf_config_tool```.  If you want to modify SoC-side PF/VF configuration, edit the `pcie_soc.ofss` file found in the same location.  
+Pre-Requisites:
 
-  The code given below show the default Host *.ofss file:
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Edit the `$OFS_ROTDIR/tools/ofss_config/f2000x.ofss` file to use the desired Ethernet-SS OFSS configuration starting point. Examples for using pre-provided HSSI OFSS files are given below.
+
+  * To select 2x4x25GbE configuration, add the following line
+
+    ```bash
+    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x25.ofss
+    ```
+
+  * To select 2x4x10GbE configuration, add the following line
+
+    ```bash
+    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x10.ofss
+    ```
+
+  * To select 2x1x100GbE configuration, add the following line
+
+    ```bash
+    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_2x100.ofss
+    ```
+
+4. Run the `setup` stage of the build script with the OFSS file to create a work directory which contains the Ethernet-SS IP configuration specified in Step 3.
 
   ```bash
-  [ProjectSettings]
-  platform = f2000x 
-  family = Agilex
-  fim = base_x16
-  Part = AGFC023R25A2E2VR0
-  IpDeployFile = pcie_ss.sh
-  IpFile = pcie_ss.ip
-  OutputName = pcie_ss
-  ComponentName = pcie_ss
-  is_host = True
+  cd $OFS_ROOTDIR
 
-  [pf0]
-
-  [pf1]
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x
   ```
 
-  This default configuration is made up of two physical functions (PF), and neither of them has any virtual functions (VF). 
-
-2. Modify the OFSS file with the new PF/VF configuration.
-
-  An example modification to the OFSS file is shown below.  In this example we have changed the configuration to: 6 PFs in total, 4 VFs in PF0, 1 VF in PF2, and 2 VFs on PF3.  You can add up to 8 PFs and could conceivably add up to the number of VFs supported by the PCIe IP. Note that more PFs/VFs will use more FPGA resources, which may cause fitter challenges.
-
-  ```bash   
-  [ProjectSettings]
-  platform = f2000x 
-  family = Agilex
-  fim = base_x16
-  Part = AGFC023R25A2E2VR0
-  IpDeployFile = pcie_ss.sh
-  IpFile = pcie_ss.ip
-  OutputName = pcie_ss
-  ComponentName = pcie_ss
-  is_host = True
-
-  [pf0]
-  num_vfs = 4
-
-  [pf1]
-
-  [pf2]
-  num_vfs = 1
-
-  [pf3]
-  num_vfs = 2
-
-  [pf4]
-
-  [pf5]
-  ```
-
-3. Run the `gen_ofs_settings.py` script found in `$OFS_ROOTDIR/ofs-fim-common/tools/pfvf_config_tool`.
+5. Open the Ethernet-SS IP in Quartus Parameter Editor. The IP settings will match te configuration of the OFSS file defined in Step 3. Make any additional modifications in the Parameter Editor as desired.
 
   ```bash
-  ./gen_ofs_settings.py  --ini $OFS_ROOTDIR/tools/pfvf_config_tool/<PCIE_SOURCE>.ofss --platform <PLATFORM>
+  qsys-edit $OFS_ROOTDIR/work_f2000x/ipss/hssi/qip/hssi_ss/hssi_ss.ip
   ```
 
-  For example, execute the following command to generate Host settings in an f2000x design:
+6. Once you are satisfied with your changes, click the **New...** button in the **Presets** pane of IP Parameter Editor.
+
+  ![hssi_presets_new](images/hssi_presets_new.png)
+
+7. In the **New Preset** window, create a unique **Name**. In this example the name is `f2000x-hssi-presets`.
+
+  ![hssi_preset_name](images/hssi_preset_name.png)
+
+8. Click the **...** button to select where to save the preset file. Give it a name, and save it to `$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/presets`. Create the `presets` directory if necessary.
+
+  ![hssi_presets_save](images/hssi_presets_save.png)
+
+9. Click **Save** in the **New Preset** window. Click **No** when prompted to add the file to the IP search path.
+
+10. Close out of all Quartus GUIs. You do not need to save or compile the IP.
+
+11. Create a new HSSI OFSS file in the `$OFS_ROOTDIR/tools/ofss_config/hssi` directory named `hssi_preset_f2000x.ofss` with the following contents. Note that the `num_channels` and `data_rate` settings will be overwritten by the contents of the preset file. The `preset` setting must match the name you selected in Step 7.
 
   ```bash
-  ./gen_ofs_settings.py  --ini $OFS_ROOTDIR/tools/pfvf_config_tool/pcie_host.ofss --platform f2000x
+  [ip]
+  type = hssi
+	
+  [settings]
+  output_name = hssi_ss
+  num_channels = 8
+  data_rate = 25GbE
+  preset = f2000x-hssi-presets
   ```
 
-  This script reconfigures the FIM by:
-
-  1. Updating the PF/VF Mux Package APIs:
-    * $OFS_ROOTDIR/src/afu_top/mux/top_cfg_pkg.sv
-  2. Adding/removing AFU endpoints
-    * PF0 VFs - afu_main.port_afu_instances
-    * All other functions: afu_top.fim_afu_instances
-    * New AFUs will be instantiated as HE-NULL (he_null.sv) AFUs
-  3. Updating the pcie_ss.sh "ip-deploy" file
-    * Generating the new pcie_ss.ip file ($OFS_ROOTDOR/ipss/pcie/ss/pcie_ss.ip)
-    * Adding scratch register reads/writes to sim/csr_test for added functions
-    * Updating the simulation filelists ($OFS_ROOTDIR/sim/common/pfvf_sim_pkg.sv)
-
-  If the port gasket is enabled in the OFSS file, all functions in the PR region must be a virtual function (VF) on physical function 0 (PF0) and are routed to Port AFU Instances (port_afu_instances.sv) in the port gasket.  You can enable the port gasket in the ini (*.ofss file) by adding `pg_enable = True` under the `num_vfs` in PF0. In the 2024.1 OFS SoC Attach Release for Intel IPU Platform F2000X-PL the PR region is in the SoC AFU, so the SoC OFSS file has the port gasket enabled by default:
+12. Edit the `$OFS_ROOTDIR/tools/ofss_config/f2000x.ofss` file to use the new HSSI OFSS file created in Step 10.
 
   ```bash
-  [ProjectSettings]
-  platform = f2000x 
-  family = Agilex
-  fim = base_x16
-  Part = AGFC023R25A2E2VR0
-  IpDeployFile = pcie_ss.sh
-  IpFile = pcie_ss.ip
-  OutputName = pcie_ss
-  ComponentName = pcie_ss
-  is_host = False
-   
-  [pf0]
-  pg_enable = True
-  num_vfs = 3
+  [include]
+  "$OFS_ROOTDIR"/tools/ofss_config/f2000x_base.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_soc.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
+  "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_preset_f2000x.ofss
   ```
 
-  If the port gasket is disabled, the virtual functions on PF0 are routed to FIM AFU Instances (fim_afu_instances.sv) in the static region.  All physical functions and virtual functions not on PF0 are routed to the FIM AFU Instances module (fim_afu_instances.sv) in afu_top.
-
-  After you run the `gen_ofs_settings.py` script you should see a final success report:
+13. Compile the design using the f2000x OFSS file. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
 
   ```bash
-  2022.07.28.21:46:38 Info: Regenerate these scripts whenever you make any change to any Quartus-generated IP in your project.
-  2022.07.28.21:46:38 Info: Finished: Create simulation script
-  sh: /home/applications.fpga.ofs.rtl/env_not_shipped/f2000x/update_sim.sh: No such file or directory
-  Success!  Thank you for using the IP-Deploy Tool
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x:flat work_f2000x_hssi_preset
   ```
 
-4. Recompile the FIM using the ```build_top.sh``` script described in the [Compiling the FIM](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#442-compiling-the-fim) section of this guide. 
+14. The resulting FIM will contain the Ethernet-SS configuration specified by the presets file. The Ethernet-SS IP in the resulting work directory shows the parameter settings that are used.
 
-5. Verify the correct functionality of new the PF/VF Mux configuration.
+#### **4.8.4 Walkthrough: Modify the Ethernet Sub-System Without HSSI OFSS**
 
-  New PF/VF are seamlessly connected to their own CSR stub, which can be read at DFH Offset 0x0. You can bind to the function and perform ```opae.io peek``` commands to read from the stub CSR. Similarly, perform ```opae.io poke``` commands to write into the stub CSRs. Use this mechanism to verify that the new PF/VF Mux configuration allows to write and read back values from the stub CSRs. 
-   
-  The GUID for every new PF/VF CSR stub is the same.   
-   
-  * NULL_GUID_L           = 64'haa31f54a3e403501
-  * NULL_GUID_H           = 64'h3e7b60a0df2d4850
+This walkthrough describes how to modify the Ethernet-SS wihout using OFSS. This flow will edit the Ethernet-SS IP source directly. This walkthrough is useful for users who wish to make all Ethernet-SS modifications manually, without leveraging HSSI OFSS.
 
-  > **Limitations:** Setting 0 virtual functions on SoC PF0 is not supported. This is because the **PR** region cannot be left unconnected. A loopback may need to be instantiated in this special case. 
-   
-  Load the newly compiled FIM to the card to test the functionality of the new PF/VF functions. Use the following commands to verify the number of PFs/VFs created:
-   
-  ```bash 
-  sudo lspci -vvv -s b1:00.0 | grep VF
+Pre-Requisites:
+
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+
+Steps:
+
+1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+
+3. Open the Ethernet-SS IP in Quartus Parameter Editor. Make your modifications in the Parameter Editor.
+
+  ```bash
+  qsys-edit $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/hssi_ss.ip
   ```
+
+4. Once you are satisfied with your changes, click the **Generate HDL**. Save the design if prompted.
+
+5. Compile the design.
+
+  * If you are not using any other OFSS files in your compilation flow, use the following command to compile. It is recommended to compile a flat design before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh f2000x:flat work_f2000x
+    ```
+
+  * If you are using OFSS files for other IP in the design, ensure that the top level OFSS file (e.g. `$OFS_ROOTDIR/tools/ofss_config/f2000x.ofss`) does not specify an HSSI OFSS file. Then use the following command to compile. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
+
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x:flat work_f2000x
+  ```
+
+6. The resulting FIM will contain the Ethernet-SS configuration contained in the `hssi_ss.ip` source file.
+
+
+
+
+## **5. FPGA Configuration**
+
+Configuring the Agilex FPGA on the f2000x can be done by Remote System Update (RSU) using OPAE commands, or by programming a `SOF` image to the FPGA via JTAG using Quartus Programer.
+
+Programming via RSU will program the flash device on the board for non-volatile image updates. Programming via JTAG will configure the FPGA for volatile image updates.
+
+#### **5.1 Walkthrough: Set up JTAG**
+
+The f2000x  has a 10 pin JTAG header on the top side of the board.  This JTAG header provides access to either the Agilex 7 FPGA or Cyclone<sup>&reg;</sup> 10 BMC device. A JTAG connection with the FPGA Download Cable II can be used to configure the FPGA and to access the Signal Tap Instance. This walkthrough describes how to connect the FPGA Download Cable II and target the Agilex 7 device.
+
+Pre-requisites:
+
+* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+
+* This walkthrough requires a workstation with Quartus Prime Pro Version 23.4 tools installed, specifically the `jtagconfig` tool.
+
+* This walkthrough requires an [Intel FPGA Download Cable II](https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html).
+
+Steps:
+
+1. Locate SW2 and SW3 on the f2000x board as shown in the following figure.
+
+    ![f2000x_switch_locations](images/f2000x_switch_locations.png)
+
+2. Set the switches described in the following table:
+
+    | Switch | Position |
+    | --- | --- |
+    | SW2 | ON |
+    | SW3.3 | ON |
+
+3. Connect the FPGA Download Cable to the JTAG header of the f2000x as shown in the figure below.
+
+    ![f2000x_jtag_connection](images/f2000x_jtag_connection.png)
+
+4. Depending on your server, install the card in a slot that allows room for the JTAG cable. The figure below shows the f2000x installed in a Supermicro server slot.
+
+    ![f2000x_jtag_sm_server](images/f2000x_jtag_sm_server.png)
+
+
+5. There are two JTAG modes that exist. Short-chain mode is when only the Cyclone 10 device is on the JTAG chain. Long-chain mode is when both the Cyclone 10 and the Agilex® 7 FPGA are on the JTAG chain. Check which JTAG mode the f2000x board is in by running the following command.
+
+  ```bash
+  $QUARTUS_ROOTDIR/bin/jtagconfig
+  ```
+
+  * Example output when in short-chain mode (only Cyclone 10 detected):
+
+    ```bash
+    1) USB-BlasterII [3-4]
+    020F60DD    10CL080(Y|Z)/EP3C80/EP4CE75
+    ```
+
+  * Example output when in long-chain mode (both Cyclone 10 and Agilex® 7 FPGA):
+
+    ```bash
+    1) USB-BlasterII [3-4]
+    020F60DD   10CL080(Y|Z)/EP3C80/EP4CE75
+    234150DD   AGFC023R25A(.|AE|R0)
+    ```
+
+  If the Agilex® 7 FPGA does not appear on the chain, ensure that the switches described in Step 1 have been set correctly and power cycle the board. Also ensure that the JTAG Longchain bit is set to `0` in BMC Register 0x378. The BMC registers are accessed through SPI control registers at addresses 0x8040C and 0x80400 in the PMCI. Use the following commands to clear the JTAG Longchain bit in BMC register 0x378. 
+
+  >**Note**: These commands must be executed as root user from the SoC.
+
+  >**Note**: You may find the PCIe BDF of your card by running `fpgainfo fme`.
+
+  ```bash
+  opae.io init -d <BDF>
+  opae.io -d <BDF> -r 0 poke 0x8040c 0x000000000
+  opae.io -d <BDF> -r 0 poke 0x80400 0x37800000002
+  opae.io release -d <BDF>
+  ```
+  For example, for a board with PCIe BDF `15:00.0`:
+  ```bash
+  opae.io init -d 15:00.0
+  opae.io -d 15:00.0 -r 0 poke 0x8040c 0x000000000
+  opae.io -d 15:00.0 -r 0 poke 0x80400 0x37800000002
+  opae.io release -d 15:00.0
+  ```
+
+#### **5.2 Walkthrough: Program the FPGA via JTAG**
+
+Every successful run of `build_top.sh` script creates the file `$OFS_ROOTDIR/<WORK_DIRECTORY>/syn/syn_top/output_files/ofs_top.sof` which can be used with the FPGA Download Cable II to load the image into the FPGA using the f2000x  JTAG access connector. 
+
+This walkthrough describes the steps to program the Agilex FPGA on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL with a `SOF` image via JTAG.
+
+Pre-Requisites:
+
+* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+
+* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
+
+* This walkthrough requires a JTAG connection to the f2000x. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
+
+* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL is connected via JTAG.
+
+Steps:
+
+1. Start in your deployment environment.
+
+2. Temporarily disable the PCIe AER feature and remove the PCIe port for the board you are going to update. This is required because when you program the FPGA using JTAG, the f2000x PCIe link goes down for a moment causing a server surprise link down event. To prevent this server event, temporarily disable PCIe AER and remove the PCIe port using the following commands:
+
+  >**Note:** enter the following commands as root.
+
+  1. Find the PCIe BDF and Device ID of your board from the SoC. You may use the OPAE command `fpaginfo fme` on the SoC to display this information. Run this command on the SoC.
+
+    ```bash
+    fpgainfo fme
+    ```
+
+    Example output:
+
+    ```bash
+    Intel IPU Platform F2000X-PL
+    Board Management Controller NIOS FW version: 1.2.3
+    Board Management Controller Build version: 1.2.3
+    //****** FME ******//
+    Object Id                        : 0xEF00000
+    PCIe s:b:d.f                     : 0000:15:00.0
+    Vendor Id                        : 0x8086
+    Device Id                        : 0xBCCE
+    SubVendor Id                     : 0x8086
+    SubDevice Id                     : 0x17D4
+    Socket Id                        : 0x00
+    Ports Num                        : 01
+    Bitstream Id                     : 0x50103024BF5B5B1
+    Bitstream Version                : 5.0.1
+    Pr Interface Id                  : e7926956-9b1b-5ea1-b02c-307f1cb33446
+    Boot Page                        : user1
+    User1 Image Info                 : b02c307f1cb33446e79269569b1b5ea1
+    User2 Image Info                 : b02c307f1cb33446e79269569b1b5ea1
+    Factory Image Info               : b02c307f1cb33446e79269569b1b5ea1
+    ```
+
+    In this case, the PCIe BDF for the board on the SoC is `15:00.0`, and the Device ID is `0xBCCE`.
+
+  2. From the SoC, use the `pci_device` OPAE command to "unplug" the PCIe port for your board using the PCIe BDF found in Step 3.a. Run this command on the SoC.
+
+    ```bash
+    pci_device <B:D.F> unplug
+    ```
+
+    For example:
+
+    ```bash
+    pci_device 15:00.0 unplug
+    ```
+
+  3. Find the PCIe BDF of your board from the Host. Use `lspci` and `grep` for the device ID found in Step 3.a to get the PCIe BDF. Run this command on the Host.
+
+    For example:
+
+    ```bash
+    lspci | grep bcce
+    ```
+
+    Example output:
+
+    ```bash
+    31:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    31:00.1 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    ```
+
+    In this case, the board has PCIe BDF 31:00.0 from the Host.
+
+  3. From the Host, use the `pci_device` OPAE command to "unplug" the PCIe port for your board using the PCIe BDF found in Step 3.c. Run this command on the Host.
+
+    ```bash
+    pci_device <B:D.F> unplug
+    ```
+
+    For example:
+
+    ```bash
+    pci_device 31:00.0 unplug
+    ```
+
+3. Launch "Quartus Prime Programmer" software from the device which the FPGA Programmer is connected.
+
+  ```bash
+  $QUARTUS_ROOTDIR/bin/quartus_pgmw
+  ```
+
+  Click on **Hardware Setup**, select **USB-BlasterII** in the **Current Selected Hardware** list, and ensure the JTAG **Hardware Frequency** is set to 16Mhz (The default is 24MHz).
+
+  ![](images/stp_hardware_setup.png)
+
+  Alternatively, use the following command from the command line to change the clock frequency:
+
+  ```bash
+  jtagconfig –setparam “USB-BlasterII” JtagClock 16M
+  ```
+
+
+4. Click **Auto Detect** and make sure the Agilex® 7 FPGA is shown in the JTAG chain. Select the Cyclone 10 and Agilex® 7 FPGA if prompted.
+   
+  ![](images/stp_autodetect_agilex.png)
+   
+5. Right-click on the cell in the **File** column for the Agilex® 7 FPGA and click on **Change file**
+
+  ![](images/stp_change_file_hello_fim.png)
+      
+6. Select the **.sof** file that you wish to configure the Agilex® 7 FPGA with.
+  
+7. Tick the checkbox below "Program/Configure" column and click on **Start** to program this .sof file.
+
+  ![](images/stp_program_hello_fim.png)
+
+8. After successful programming, you can close the "Quartus Prime Programmer" software. You can answer 'No' if a dialog pops up asking to save the **'Chain.cdf'** file. This completes the Agilex® 7 FPGA .sof programming.
+
+9. Re-plug the PCIe ports on both the SoC and Host.
+
+  >**Note:** enter the following commands as root.
+
+  1. From the SoC, use the `pci_device` OPAE command to "plug" the PCIe port for your board using the PCIe BDF found in Step 3.a. Run this command on the SoC.
+
+    ```bash
+    pci_device <B:D.F> plug
+    ```
+
+    For example:
+
+    ```bash
+    pci_device 15:00.0 plug
+    ```
+
+  2. From the Host, use the `pci_device` OPAE command to "plug" the PCIe port for your board using the PCIe BDF found in Step 3.c. Run this command on the Host.
+
+    ```bash
+    pci_device <B:D.F> plug
+    ```
+
+    For example:
+
+    ```bash
+    pci_device 31:00.0 plug
+    ```
+
+10. Verify the f2000x is present by checking expected bitstream ID using `fpaginfo fme` on the SoC:
+
+  ```bash
+  fpgainfo fme
+  ```
+
   Example output:
-  ```bash               
-  Initial VFs: 4, Total VFs: 4, Number of VFs: 0, Function Dependency Link: 00
-  VF offset: 6, stride: 1, Device ID: bccf               
+  ```bash
+  Intel IPU Platform f2000x-PL
+  Board Management Controller NIOS FW version: 1.2.4
+  Board Management Controller Build version: 1.2.4
+  //****** FME ******//
+  Object Id                        : 0xF000000
+  PCIe s:b:d.f                     : 0000:15:00.0
+  Vendor Id                        : 0x8086
+  Device Id                        : 0xBCCE
+  SubVendor Id                     : 0x8086
+  SubDevice Id                     : 0x17D4
+  Socket Id                        : 0x00
+  Ports Num                        : 01
+  Bitstream Id                     : 0x5010302A97C08A3
+  Bitstream Version                : 5.0.1
+  Pr Interface Id                  : cf00eed4-a82b-5f07-be25-0528baec3711
+  Boot Page                        : user1
+  User1 Image Info                 : 9e3db8b6a4d25a4e3e46f2088b495899
+  User2 Image Info                 : 9e3db8b6a4d25a4e3e46f2088b495899
+  Factory Image Info               : None
   ```
 
-  >**Note:** The PCIe B:D.F associated with your board may be different. Use the `fpgainfo fme` command to see the PCIe B:D:F for your board.
+  >**Note:** The **Image Info** fields will not change, because these represent the images stored in flash. In this example, we are programming the Agilex® 7 FPGA directly, thus only the Bitstream ID should change.
 
-### **5.13 How to Create a Minimal FIM**
+#### **5.3 Remote System Update**
 
-In this example, the exercisers and Ethernet subsystem are removed and a new AFU PR area is used to make use of the added area from the removed components.  This minimal FIM is useful for HDL applications.
+The OPAE `fpgasupdate` tool can be used to update the Cyclone 10 Board Management Controller (BMC) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (PR). The `fpgasupdate` tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys.
 
-To create this minimal FIM, perform the following steps:
+The RSU flow requires that an OPAE enabled design is already loaded on the FPGA. All OPAE commands are run from the SoC, and the new image will be updated from the SoC.
 
-1. Change the PF/VF configuration to support only 1 PF with 1 VF. Edit the following files in the `$OFS_ROOTDIR/tools/pfvf_config_tool/` directory as shown below:
-  1. `$OFS_ROOTDIR/tools/pfvf_config_tool/pcie_host.ofss`
+##### **5.3.1 Walkthrough: Program the FPGA via RSU**
 
-    ```bash
-    [ProjectSettings]
-    platform = f2000x 
-    family = Agilex
-    fim = base_x16
-    Part = AGFC023R25A2E2VR0
-    IpDeployFile = pcie_ss.sh
-    IpFile = pcie_ss.ip
-    OutputName = pcie_ss
-    ComponentName = pcie_ss
-    is_host = True
+This walkthrough describes the steps to program the Agilex FPGA on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL with a `BIN` image via RSU.
 
-    [pf0]
-    ```
+Pre-Requisites:
 
-  2. `$OFS_ROOTDIR/tools/pfvf_config_tool/pcie_soc.ofss` 
+* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
-    ```bash
-    [ProjectSettings]
-    platform = f2000x 
-    family = Agilex
-    fim = base_x16
-    Part = AGFC023R25A2E2VR0
-    IpDeployFile = pcie_ss.sh
-    IpFile = pcie_ss.ip
-    OutputName = soc_pcie_ss
-    ComponentName = pcie_ss
-    is_host = False
+* This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
 
-    [pf0]
-    num_vfs = 1
-    pg_enable = True
-    ```
+Steps:
 
-2. Save the modified ofs_dev.ofss file and build a new configuration.
+1. Start in your deployment environment.
+
+2. Use the `fpgainfo fme` command to obtain the PCIe `s:b:d.f` associated with your board. In this example, the PCIe `s:b:d.f` is `0000:15:00.0`.
 
   ```bash
-  python3 gen_ofs_settings.py --ini $OFS_ROOTDIR/tools/pfvf_config_tool/pcie_host.ofss --platform f2000x
-
-  python3 gen_ofs_settings.py --ini $OFS_ROOTDIR/tools/pfvf_config_tool/pcie_soc.ofss --platform f2000x
+  fpgainfo fme
   ```
 
-3. Compile the new FIM with exercisers removed.
+  Example output:
 
   ```bash
-  cd $OFS_ROOTDIR
-  ./ofs-common/scripts/common/syn/build_top.sh -p f2000x:null_he,null_he_lp,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_null_he_no_hssi
+  Intel IPU Platform f2000x
+  Board Management Controller NIOS FW version: 1.2.4 
+  Board Management Controller Build version: 1.2.4 
+  //****** FME ******//
+  Object Id                        : 0xF000000
+  PCIe s:b:d.f                     : 0000:15:00.0
+  Vendor Id                        : 0x8086
+  Device Id                        : 0xBCCE
+  SubVendor Id                     : 0x8086
+  SubDevice Id                     : 0x17D4
+  Socket Id                        : 0x00
+  Ports Num                        : 01
+  Bitstream Id                     : 0x5010302A97C08A3
+  Bitstream Version                : 5.0.1
+  Pr Interface Id                  : fb25ff1d-c31a-55d8-81d8-cbcedcfcea17
+  Boot Page                        : user1
+  User1 Image Info                 : a566ceacaed810d43c60b0b8a7145591
+  User2 Image Info                 : a566ceacaed810d43c60b0b8a7145591
+  Factory Image Info               : a566ceacaed810d43c60b0b8a7145591
   ```
 
-4. The build will complete with reduced resources as compared to the base version. You may review the floorplan in Quartus Chip Planner and modify the Logic Lock regions to allocate more resources to the PR region if desired. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan. 
+3. Use the OPAE `fpgasupdate` command to program a signed image to flash. The flash slot which will be programmed is determined by the signed header of the image.
+
+  ```bash
+  sudo fpgasupdate <IMAGE> <PCIe B:D.F>
+  ```
+
+  * Example: update User Image 1 in flash
+
+    ```bash
+    sudo fpgasupdate ofs_top_page1_unsigned_user1.bin 15:00.0
+    ```
+
+  * Example: update User Image 2 in flash
+
+    ```bash
+    sudo fpgasupdate ofs_top_page2_unsigned_user2.bin 15:00.0
+    ```
+
+  * Example: update Factory Image in flash
+
+    ```bash
+    sudo fpgasupdate ofs_top_page0_unsigned_factory.bin 15:00.0
+    ```
+
+>**Note:** The label "unsigned" in the images produced by the build script mean that the image has been signed with a null header. These images can only be programmed to devices which have not had any keys provisioned.
+
+4. Use the OPAE `rsu` command to reconfigure the FPGA with the new image. You may select which image to configure from (User 1, User 2, Factory).
+
+  ```bash
+  sudo rsu fpga --page <PAGE> <PCIe B:D.F>
+  ```
+
+  * Example: configure FPGA with User 1 Image
+
+    ```bash
+    sudo rsu fpga --page user1 15:00.0
+    ```
+
+  * Example: configure FPGA with User 2 Image
+
+    ```bash
+    sudo rsu fpga --page user2 15:00.0
+    ```
+
+  * Example: configure FPGA with Factory Image
+
+    ```bash
+    sudo rsu fpga --page factory 15:00.0
+    ```
+
+5. Run the `fpgainfo fme` command again to verify the User1 Image Info has been updated.
+   
+  Example Output:
+
+  ```bash
+  Intel IPU Platform f2000x
+  Board Management Controller NIOS FW version: 1.2.4 
+  Board Management Controller Build version: 1.2.4 
+  //****** FME ******//
+  Object Id                        : 0xF000000
+  PCIe s:b:d.f                     : 0000:15:00.0
+  Vendor Id                        : 0x8086
+  Device Id                        : 0xBCCE
+  SubVendor Id                     : 0x8086
+  SubDevice Id                     : 0x17D4
+  Socket Id                        : 0x00
+  Ports Num                        : 01
+  Bitstream Id                     : 0x5010302A97C08A3
+  Bitstream Version                : 5.0.1
+  Pr Interface Id                  : fb25ff1d-c31a-55d8-81d8-cbcedcfcea17
+  Boot Page                        : user1
+  User1 Image Info                 : 81d8cbcedcfcea17fb25ff1dc31a55d8
+  User2 Image Info                 : a566ceacaed810d43c60b0b8a7145591
+  Factory Image Info               : None
+  ```
 
 ## **6 Single Event Upset Reporting**
 
 A Single Event Upset (SEU) is the change in state of a storage element inside a device or system. They are caused by ionizing radiation strikes that discharge the charge in storage elements, such as configuration memory cells, user memory and registers.
 
-Error Detection CRC (EDCRC) circuitry in the Card BMC is used to detect SEU errors. The CRC function is enabled in Intel Quartus Prime Pro to enable CRC status to be reported to the FM61 via the dedicated CRC_ERROR pin.
+Error Detection CRC (EDCRC) circuitry in the Card BMC is used to detect SEU errors. The CRC function is enabled in Quartus Prime Pro to enable CRC status to be reported to the FM61 via the dedicated CRC_ERROR pin.
 
 With the EDCRC there is no method to determine the severity of an SEU error i.e. there is not way to distinguish between non-critical and catastrophic errors. Hence once the SEU error is detected, the Host system must initiate the Card BMC reset procedure.
 
-SEU errors can be read from either the Card BMC SEU Status Register or the PMCI Subsystem SEU Error Indication Register. The processes to read these registers are described in greater detail in the BMC User Guide. Contact your Intel representative for access to the BMC User Guide.
+SEU errors can be read from either the Card BMC SEU Status Register or the PMCI Subsystem SEU Error Indication Register. The processes to read these registers are described in greater detail in the BMC User Guide. Contact your Altera representative for access to the BMC User Guide.
 
-Additionally, refer to the [Intel Agilex SEU Mitigation User Guide] for more information on SEU detection and mitigation.
+Additionally, refer to the [Agilex 7 SEU Mitigation User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683128/23-1/seu-mitigation-overview.html) for more information on SEU detection and mitigation.
 
+## **Appendix**
+
+### **Appendix A: FIM FPGA Resource Usage**
+
+The provided design includes both required board management and control functions as well as optional interface exerciser logic that both creates transactions and validates operations.  These exerciser modules include:
+
+* HE_MEM - this module creates external memory transactions to the DDR4 memory and then verifies the responses.
+* HE_MEM-TG -The memory traffic generator (TG) AFU provides a way for users to characterize local memory channel bandwidth with a variety of traffic configuration features including request burst size, read/write interleave count, address offset, address strobe, and data pattern.
+* HE_HSSI - this module creates ethernet transactions to the HSSI Subsystem and then verifies the responses.
+
+The FIM uses a small portion of the available FPGA resources.  The table below shows resource usage for a base FIM built with 2 channels of external memory, a small AFU instantiated that has host CSR read/write, external memory test and Ethernet test functionality.
+
+>**Note:** The host exerciser modules allow you to evaluate the FIM in hardware and are removed when you begin development. 
+
+The AGFC023R25A2E2VR0  FPGA has the following resources available for base FIM design :
+
+| Resource                 | needed / total on device (%) |
+| ------------------------ | ---------------------------- |
+| Logic utilization (ALMs) | 229,622 / 782,400 ( 29 % )   |
+| M20K blocks              | 1,241 / 10,464 (12 %)        |
+| Pins                     | 518 / 742 ( 70 % )           |
+| IOPLLs                   | 10 / 15 ( 67 % )             |
+
+The resource usage for the FIM base:
+
+| Entity Name         | ALMs needed | ALM Utilization % | M20Ks | M20K Utilization % |
+| ------------------- | ----------- | ----------------- | ----- | ------------------ |
+| top                 | 229,646.10  | 29.35             | 1241  | 11.86              |
+| soc_afu             | 87,364.80   | 11.17             | 273   | 2.61               |
+| soc_pcie_wrapper    | 37,160.80   | 4.75              | 195   | 1.86               |
+| pcie_wrapper        | 36,233.40   | 4.63              | 187   | 1.79               |
+| host_afu            | 26,462.20   | 3.38              | 140   | 1.34               |
+| hssi_wrapper        | 20,066.30   | 2.56              | 173   | 1.65               |
+| pmci_wrapper        | 8,449.90    | 1.08              | 186   | 1.78               |
+| mem_ss_top          | 7,907.10    | 1.01              | 60    | 0.57               |
+| auto_fab_0          | 2,708.90    | 0.35              | 13    | 0.12               |
+| soc_bpf             | 1,210.20    | 0.15              | 0     | 0.00               |
+| qsfp_1              | 635.50      | 0.08              | 4     | 0.04               |
+| qsfp_0              | 628.70      | 0.08              | 4     | 0.04               |
+| fme_top             | 628.60      | 0.08              | 6     | 0.06               |
+| host_soc_rst_bridge | 151.40      | 0.02              | 0     | 0.00               |
+| rst_ctrl            | 16.80       | 0.00              | 0     | 0.00               |
+| soc_rst_ctrl        | 16.50       | 0.00              | 0     | 0.00               |
+| sys_pll             | 0.50        | 0.00              | 0     | 0.00               |
+
+The following example without the he_lb,he_hssi,he_mem,he_mem_tg:
+
+| Entity Name         | ALMs needed | ALM Utilization % | M20Ks | M20K Utilization % |
+| ------------------- | ----------- | ----------------- | ----- | ------------------ |
+| top                 | 162,010.20  | 20.71             | 992   | 9.48               |
+| pcie_wrapper        | 36,771.70   | 4.70              | 195   | 1.86               |
+| soc_afu_top         | 34,851.30   | 4.45              | 85    | 0.81               |
+| pcie_wrapper        | 33,358.90   | 4.26              | 175   | 1.67               |
+| hssi_wrapper        | 20,109.90   | 2.57              | 173   | 1.65               |
+| afu_top             | 14,084.20   | 1.80              | 91    | 0.87               |
+| pmci_wrapper        | 8,447.90    | 1.08              | 186   | 1.78               |
+| mem_ss_top          | 8,379.70    | 1.07              | 60    | 0.57               |
+| alt_sld_fab_0       | 2,725.10    | 0.35              | 13    | 0.12               |
+| bpf_top             | 1,213.00    | 0.16              | 0     | 0.00               |
+| fme_top             | 638.30      | 0.08              | 6     | 0.06               |
+| qsfp_top            | 626.70      | 0.08              | 4     | 0.04               |
+| qsfp_top            | 619.20      | 0.08              | 4     | 0.04               |
+| axi_lite_rst_bridge | 147.40      | 0.02              | 0     | 0.00               |
+| rst_ctrl            | 17.40       | 0.00              | 0     | 0.00               |
+| rst_ctrl            | 15.90       | 0.00              | 0     | 0.00               |
+| sys_pll             | 0.50        | 0.00              | 0     | 0.00               |
+
+The following example without the Ethernet Subsystem (no_hssi):
+
+| Entity Name         | ALMs needed | ALM Utilization % | M20Ks | M20K Utilization % |
+| ------------------- | ----------- | ----------------- | ----- | ------------------ |
+| top                 | 189,827.00  | 24.26             | 980   | 9.37               |
+| soc_afu_top         | 67,751.40   | 8.66              | 197   | 1.88               |
+| pcie_wrapper        | 36,909.30   | 4.72              | 195   | 1.86               |
+| pcie_wrapper        | 36,077.70   | 4.61              | 187   | 1.79               |
+| afu_top             | 26,549.40   | 3.39              | 140   | 1.34               |
+| pmci_wrapper        | 8,688.10    | 1.11              | 186   | 1.78               |
+| mem_ss_top          | 8,079.00    | 1.03              | 60    | 0.57               |
+| alt_sld_fab_0       | 1,751.90    | 0.22              | 9     | 0.09               |
+| bpf_top             | 1,186.00    | 0.15              | 0     | 0.00               |
+| dummy_csr           | 664.70      | 0.08              | 0     | 0.00               |
+| dummy_csr           | 662.80      | 0.08              | 0     | 0.00               |
+| dummy_csr           | 661.20      | 0.08              | 0     | 0.00               |
+| fme_top             | 649.40      | 0.08              | 6     | 0.06               |
+| axi_lite_rst_bridge | 161.70      | 0.02              | 0     | 0.00               |
+| rst_ctrl            | 16.30       | 0.00              | 0     | 0.00               |
+| rst_ctrl            | 16.00       | 0.00              | 0     | 0.00               |
+| sys_pll             | 0.50        | 0.00              | 0     | 0.00               |
+
+The following example without the Ethernet Subsystem (no_hssi) + no host exercisers (he_lb, he_hssi, he_mem, he_mem_tg):
+
+| Entity Name         | ALMs needed | ALM Utilization % | M20Ks | M20K Utilization % |
+| ------------------- | ----------- | ----------------- | ----- | ------------------ |
+| top                 | 139,105.70  | 17.78             | 807   | 7.71               |
+| pcie_wrapper        | 36,518.80   | 4.67              | 195   | 1.86               |
+| pcie_wrapper        | 33,234.50   | 4.25              | 175   | 1.67               |
+| soc_afu_top         | 32,700.00   | 4.18              | 85    | 0.81               |
+| afu_top             | 14,178.20   | 1.81              | 91    | 0.87               |
+| pmci_wrapper        | 8,693.20    | 1.11              | 186   | 1.78               |
+| mem_ss_top          | 7,999.00    | 1.02              | 60    | 0.57               |
+| alt_sld_fab_0       | 1,758.40    | 0.22              | 9     | 0.09               |
+| bpf_top             | 1,183.50    | 0.15              | 0     | 0.00               |
+| dummy_csr           | 667.20      | 0.09              | 0     | 0.00               |
+| dummy_csr           | 666.30      | 0.09              | 0     | 0.00               |
+| dummy_csr           | 663.10      | 0.08              | 0     | 0.00               |
+| fme_top             | 652.80      | 0.08              | 6     | 0.06               |
+| axi_lite_rst_bridge | 153.80      | 0.02              | 0     | 0.00               |
+| rst_ctrl            | 18.20       | 0.00              | 0     | 0.00               |
+| rst_ctrl            | 16.50       | 0.00              | 0     | 0.00               |
+| sys_pll             | 0.50        | 0.00              | 0     | 0.00               |
+
+### **Appendix B: Glossary**
+
+| Term                      | Abbreviation | Description                                                  |
+| :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
+|Advanced Error Reporting	|AER	|The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting. [(link)](https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer)|
+|Accelerator Functional Unit	|AFU	|Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region.|
+|Basic Building Block	|BBB|	Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.|
+|Best Known Configuration	|BKC	|The software and hardware configuration Intel uses to verify the solution.|
+|Board Management Controller|	BMC	|Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the BMC logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the BMC known as the PMCI resides in the main Agilex FPGA.
+|Configuration and Status Register	|CSR	|The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. AFU, BMC, various sub-systems and modules).|
+|Data Parallel C++	|DPC++|	DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.
+|Device Feature List	|DFL	| The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the OFS software framework. [(link)](https://docs.kernel.org/fpga/dfl.html)|
+|FPGA Interface Manager	|FIM|	Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
+|FPGA Management Engine	|FME	|Performs reconfiguration and other FPGA management functions. Each FPGA device only has one FME which is accessed through PF0.|
+|Host Exerciser Module	|HEM	|Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.|
+|Input/Output Control|	IOCTL	|System calls used to manipulate underlying device parameters of special files.|
+|Intel Virtualization Technology for Directed I/O	|Intel VT-d	|Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.|
+|Joint Test Action Group	|JTAG	| Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.|
+|Memory Mapped Input/Output	|MMIO|	The memory space users may map and access both control registers and system memory buffers with accelerators.|
+|oneAPI Accelerator Support Package	|oneAPI-asp	|A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and OFS shell components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS.|
+|Open FPGA Stack	|OFS|	OFS is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board. |
+|Open Programmable Acceleration Engine Software Development Kit|	OPAE SDK|	The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space.|
+|Platform Interface Manager	|PIM|	An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.|
+|Platform Management Controller Interface|	PMCI|	The portion of the BMC that resides in the Agilex FPGA and allows the FPGA to communicate with the primary BMC component on the board.|
+|Partial Reconfiguration	|PR	|The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For OFS designs, the PR region is referred to as the pr_slot.|
+|Port|	N/A	|When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the PR region containing the AFU.|
+|Remote System Update|	RSU	|The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".|
+|Secure Device Manager	|SDM|	The SDM is the point of entry to the FPGA for JTAG commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).|
+|Static Region|	SR	|The portion of the FPGA design that cannot be dynamically reconfigured during run-time.|
+|Single-Root Input-Output Virtualization|	SR-IOV	|Allows the isolation of PCI Express resources for manageability and performance.|
+|SYCL	|SYCL|	SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.|
+|Test Bench	|TB	|Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.|
+|Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
+|Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
 
 ## Notices & Disclaimers
@@ -3420,6 +4388,7 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/doc_modules/links.md -->
+<!-- include ./docs/hw/f2000x/doc_modules/links.md --> 
+<!-- include ./docs/hw/f2000x/dev_guides/fim_dev/links.md --> 
 

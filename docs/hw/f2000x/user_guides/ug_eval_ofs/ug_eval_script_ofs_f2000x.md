@@ -1,4 +1,4 @@
-# Platform Evaluation Script: Open FPGA Stack for Intel Agilex 7 SoC Attach FPGAs
+# Platform Evaluation Script: Open FPGA Stack for Agilex 7 SoC Attach FPGAs
 
 | Term       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
@@ -33,7 +33,7 @@
 ### **1.1 About this Document**
 
 
-This document serves as a set-up and user guide for the checkout and evaluation of an Intel® IPU Platform F2000X-PL development platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
+This document serves as a set-up and user guide for the checkout and evaluation of an IPU Platform F2000X-PL development platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
 
 -   Set-up and modify the script to the your environment
 
@@ -46,17 +46,17 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 
 | Component | Version |  Description |
 | --------- | ------- | -------|
-| FPGA Platform | [Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL]()| Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-f2000x-pl](https://github.com/OFS/ofs-f2000x-pl), [Tag: ofs-2024.1-1](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1) | OFS Shell RTL for Intel Agilex 7 FPGA (targeting https://github.com/OFS/ofs-f2000x-pl) |
-| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-fim-common/releases/tag/https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1) | Common RTL across all OFS-based platforms |
-| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-examples-https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1](https://github.com/OFS/examples-afu/releases/tag/https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.12.0-4](https://github.com/OFS/opae-sdk/tree/2.12.0-4), [Tag: 2.12.0-4](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4) | Open Programmable Acceleration Engine Software Development Kit |
+| FPGA Platform | [Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL]()| Agilex platform you can use for your custom board development |
+| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-f2000x-pl](https://github.com/OFS/ofs-f2000x-pl), [Tag: ofs-2024.1-1](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1) | OFS Shell RTL for Agilex 7 FPGA (targeting https://github.com/OFS/ofs-f2000x-pl) |
+| OFS FIM Common| [Branch: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-fim-common), [Tag: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1) | Common RTL across all OFS-based platforms |
+| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-2024.1-1](https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
+| OPAE SDK | [Branch: 2.12.0-5](https://github.com/OFS/opae-sdk/tree/2.12.0-5), [Tag: 2.12.0-5](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5) | Open Programmable Acceleration Engine Software Development Kit |
 | Kernel Drivers | [Branch: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2024.1-6.1-2), [Tag: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.12.0-4](https://github.com/OFS/opae-sim/releases/tag/2.12.0-4) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Intel Quartus Prime Pro Edition Design Software | 23.4 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html) | Software tool for Intel FPGA Development|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.12.0-5](https://github.com/OFS/opae-sim/releases/tag/2.12.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Quartus Prime Pro Edition Design Software | 23.4 [Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-2-for-linux.html) | Software tool for Altera FPGA Development|
 | Operating System | [Ubuntu 22.04](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL can be found on the [OFS ofs-2024.1-1](https://github.com/OFS/ofs-f2000x/releases/tag/ofs-2024.1-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL can be found on the [OFS ofs-2024.1-1](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1) official release drop on GitHub.
 
 <br>
 
@@ -107,104 +107,123 @@ By following the setup steps and using the OFS evaluation script you can quickly
 
 This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
-* Intel Quartus<sup>&reg;</sup> Prime Pro Software
-* Synopsys<sup>&reg;</sup> VCS Simulator
-* Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator
+* Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 4.2 of the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/). 
+* Synopsys<sup>&reg;</sup> VCS Simulator : The simulator can be downloaded in the Synopsys page [here](https://www.synopsys.com/verification/simulation/vcs.html)
+* Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator : The simulator can be downloaded in the Siemens page [here](https://eda.sw.siemens.com/en-US/ic/questa/simulation/advanced-simulator/)
 
 **Figure 2-1 Folder Hierarchy for Software Tools**
 
 ![](images/ofs_f2000x_tools_menu.png)
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2024.1-1. 
+1. Download tar(scripts_ofs-2024.1-1_external.tar.gz) from the assets tab of the [release page](https://github.com/OFS/ofs-f2000x-pl/releases)
+2. Untar to folder using the following command
+```
+ tar -xvf scripts_ofs-2024.1-1_external.tar.gz
+````
+ 
+3. The folder structure containing the clone script (ofs-clone_repositories.sh) and evaluation script (ofs_f2000x_eval.sh) is as shown in the figure 2-2
 
-2. You must clone the required OFS repositories as per Figure 2-2.  Please refer to the BKC table for locations. Please go [OFS Getting Started User Guide] for the instructions for the BKC installation.
+**Figure 2-2 Directory Structure for the clone script**
 
-3. Once the repositories are cloned, contact your intel representative to receive the eval script evaluation script (ofs_f2000x_eval.sh) and copy it to the ofs-2024.1-1 directory location as shown in the example below:
-
-**Figure 2-2 Directory Structure for OFS Project**
-
-```sh
-## ofs-2024.1-1
-##  -> examples-afu
-##  -> linux-dfl
-##  -> ofs-f2000x-pl
-##  -> opae-sdk
-##  -> opae-sim
-##  -> ofs_f2000x_eval.sh
+``` sh
+## ofs_scripts
+##      -> host_chan_mmio.stp
+##      -> ofs_f2000x_eval.sh
+##      -> README_ofs_f2000x_eval.txt
+## ofs-clone_repositories.sh
 ```
 
-4. Contact your intel representative to receive the README file named (README_ofs-agx7-pcie-attach_eval.txt) and copy it to the ofs-2024.1-1 directory location. The README informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests.
-
-### **2.2 f2000x Evaluation Script modification**
-
-
-To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the ofs_f2000x_eval.sh script 
-
-### **User Directory Creation**
-
-The user must create the top-level source directory and then clone the OFS repositories
+4. Open the clone script ofs-clone_repositories.sh in any text editor
+5. Please enter the location of your proxy server to allow access to external internet to build software packages. (lines 6-8)
+   
+Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
     
-    mkdir ofs-2024.1-1
+    export http_proxy=<user_proxy>
+    export https_proxy=<user_proxy>
+    export no_proxy=<user_proxy> 
+   
+6. Please enter the license file locations (lines 11-13) for the following tool variables
+```
+    export LM_LICENSE_FILE=<user_license>
+    export DW_LICENSE_FILE=<user_license>
+    export SNPSLMD_LICENSE_FILE=<user_license>
+```
 
-In the example above we have used ofs-2024.1-1 as the directory name
+7. Add the name of the directory where you want the platform repositories to be cloned (line 19)
+```
+export OFS_RELEASE=ofs-2024.1-1
+```
 
-### **Set-Up Proxy Server (lines 67-69)**
+8. After setting the required variables, source the clone script based on which platform you want to test
+```
+source ofs-clone_repositories.sh
+```
+9.  The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-3.
+        
+**Figure 2-3 Directory Structure for OFS Project**
+
+![](images/ofs_f2000x_clone_menu.png)
+
+10. Once the repositories are cloned, navigate to the directory where you cloned
+```
+cd ofs-2024.1-1
+```
+
+11. After cloning, the OFS repositories cloned will look as per Figure 2-4.
+
+
+**Figure 2-4 Directory Structure for OFS Project**
+```sh
+## ofs-2024.1-1
+##  f2000x(OFS platform)
+##   -> examples-afu
+##   -> ofs-f2000x-pl
+##   -> oneapi-asp
+##   -> oneAPI-samples
+##   -> opae-sim
+##   -> opae-sdk
+##   -> linux-dfl
+##   -> ofs_f2000x_eval.sh
+##   -> README_ofs_f2000x_eval.txt
+##   -> host_chan_mmio.stp
+``` 
+
+12. Once the repositories are cloned, in the platform specific evaluation script, for e.g., in ofs_f2000x_eval.sh, please follow the instructions below which explains which line numbers to change to adapt this script to the user environment. 
+
+a)  Set-Up Proxy Server (lines 67-69)
 
 Please enter the location of your proxy server to allow access to external internet to build software packages.
-
-Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
     
     export http_proxy=<user_proxy>
     export https_proxy=<user_proxy>
     export no_proxy=<user_proxy>
 
-### **License Files (lines 72-74)**
+b) Tools Location (line 87, 88, 89, 90)
 
-Please enter the the license file locations for the following tool variables
-
-    export LM_LICENSE_FILE=<user_license>
-    export DW_LICENSE_FILE=<user_license>
-    export SNPSLMD_LICENSE_FILE=<user_license>
-
-### **Tools Location (line 87, 88, 89, 90)**
-
-Set Location of Quartus, Synopsys and Questasim
+Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
 
     export QUARTUS_TOOLS_LOCATION=/home
     export SYNOPSYS_TOOLS_LOCATION=/home
     export QUESTASIM_TOOLS_LOCATION=/home
     export ONEAPI_TOOLS_LOCATION=/opt
 
-In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools
+In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools 
 
-### **Quartus Tools Version (line 93)**
-
-Set version of Quartus
-
-    export QUARTUS_VERSION=23.4
-
-In the example above "23.4" is used as the Quartus tools version
-
-### **OPAE Tools (line 108)**
-
-change OPAE SDK VERSION<br>
-
-    export OPAE_SDK_VERSION=2.12.0-4
-
-In the example above "2.12.0-4" is used as the OPAE SDK tools version
-
-### **PCIe (Bus Number)**
+c) PCIe (Bus Number)
 
 The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
 
     export OFS_CARD0_BUS_NUMBER=b1
 
- The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerater card plugged into a server. 
+ The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerator card plugged into a server. 
 
     lspci | grep acc
     
-    b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
-
+    b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
+    b1:00.1 Processing accelerators: Intel Corporation Device bcce<br>
+    b1:00.2 Processing accelerators: Intel Corporation Device bcce<br>
+    b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
+    b1:00.4 Processing accelerators: Intel Corporation Device bcce<br>
 
 The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
 
@@ -216,15 +235,29 @@ grep -rli 'b1' * | xargs -i@ sed -i 'b1' @
 
 if the bus number is 85 for example 
 
-    85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
+    85:00.1 Processing accelerators: Intel Corporation Device bcce<br>
+    85:00.2 Processing accelerators: Intel Corporation Device bcce<br>
+    85:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
+    85:00.4 Processing accelerators: Intel Corporation Device bcce<br>
 
 the command to change to 85 in the evaluation script would be
 
 grep -rli 'b1' * | xargs -i@ sed -i '85' @
 
-The ofs_f2000x_eval.sh script has now been modified to the server set-up and the user can proceed to build, compile and simulate the OFS stack
+### **OFS Platform (Example:= n6000, n6001, fseries-dk, iseries-dk, custom_board) choice (line 173)**
 
+The script is designed to accommodate many OFS platform choices eg, n6000, n6001, fseries-dk, iseries-dk or a custom_board of your choice. By default the script defaults to n6001 as shown below and is set by a variable on line 173 of the ofs_f2000x_eval.sh script.
+
+      export OFS_PLATFORM=n6001
+
+but the user can switch platform by changing the OFS_PLATFORM variable, so for example if the user wants to switch to the i-series development kit the command would be
+
+      export OFS_PLATFORM=iseries-dk
+
+The ofs_f2000x_eval.sh script has now been modified to the server set-up and the user can proceed to build, compile and simulate the OFS stack
 <br>
+
 
 ## **3 f2000x Evaluation Script**
 
@@ -241,7 +274,7 @@ The figure below shows a snapshot of the full evaluation script menu showing all
 ### **3.1.1 OFS TOOLS MENU**
 
 
-By selecting "List of Documentation for OFS f2000x Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
+By selecting "List of Documentation for OFS f2000x Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the OFS tag that corresponds to your OFS version.
 
 By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.
 
@@ -1145,5 +1178,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/f2000x/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

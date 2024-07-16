@@ -1,21 +1,23 @@
 # Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
 
-Last updated: **March 20, 2024** 
+Last updated: **July 16, 2024** 
 
 ## 1.0 About This Document
 
-The purpose of this document is to help users get started in evaluating the 2024.1 version of the PCIe Attach release targeting the I-Series Development Kit. After reviewing this document, a user shall be able to:
+The purpose of this document is to help users get started in evaluating the 2024.2-1 version of the PCIe Attach release targeting the I-Series Development Kit. After reviewing this document, a user shall be able to:
 
-* Set up a server environment according to the Best Known Configuration (BKC)
-* Load and verify firmware targeting the FIM and AFU regions of the Agilex FPGA
-* Verify full stack functionality offered by the PCIe Attach OFS solution
-* Learn where to find additional information on other PCIe Attach ingredients
+- Set up a server environment according to the Best Known Configuration (BKC)
+- Load and verify firmware targeting the FIM and AFU regions of the Agilex FPGA
+- Verify full stack functionality offered by the PCIe Attach OFS solution
+- Learn where to find additional information on other PCIe Attach ingredients
 
 ### 1.1 Audience
 
 The information in this document is intended for customers evaluating the PCIe Attach shell targeting Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile). This platform is a Development Kit intended to be used as a starting point for evaluation and development.
 
 *Note: Code command blocks are used throughout the document. Commands that are intended for you to run are preceded with the symbol '$', and comments with '#'. Full command output may not be shown.*
+
+### 1.2 Terminology
 
 #### Table 1: Terminology
 
@@ -53,20 +55,21 @@ The information in this document is intended for customers evaluating the PCIe A
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
 
+### 1.3 References and Versions
+
 #### Table 2: Software and Component Version Summary for OFS PCIe Attach targeting the I-Series Development Kit
 
-The OFS 2024.1 PCIe Attach release is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents.
+The OFS 2024.2-1 PCIe Attach release is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents.
 
 | Component | Version |
 | ----- | -----  |
-| Quartus | https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html, patches: 0.17 patch (PCIe) |
-| Host Operating System | https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software |
-| OneAPI-ASP | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.1-1, patches: 0.02 |
-| OFS Platform AFU BBB  | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.1-1|
-| OFS FIM Common Resources| https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2023.3-2 |
-| AFU Examples | https://github.com/OFS/examples-afu/releases/tag/ofs-2023.3-2 |
+| Quartus | https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html, patches: 0.18, 0.26 |
+| Host Operating System | https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software |
+| OneAPI-ASP | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1, patches: 0.02 |
+| OFS Platform AFU BBB  | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1|
+| OFS FIM Common Resources| https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1 |
+| AFU Examples | https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1 |
 | OPAE-SIM | https://github.com/OPAE/opae-sim |
-
 
 #### Table 3: Programmable Firmware Version Summary for OFS PCIe Attach Targeting the I-Series Development Kit
 
@@ -74,28 +77,32 @@ OFS releases include pre-built binaries for the FPGA, OPAE SDK and Linux DFL whi
 
 | Component | Version| Link |
 | ----- | ----- | ----- |
-| FIM (shell) | Pr Interface ID: TBD  | https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1 |
-| Host OPAE SDK| https://github.com/OPAE/opae-sdk, tag: 2.12.0-4| https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4 |
-| Host Linux DFL Drivers| https://github.com/OPAE/linux-dfl, tag: ofs-2024.1-6.1-2 | https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2|
+| FIM (shell) | Pr Interface ID: b7855572-6ca9-58b8-bd11-44e1f1ab329f  | https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1 |
+| Host OPAE SDK| https://github.com/OPAE/opae-sdk, tag: 2.13.0-3| https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3 |
+| Host Linux DFL Drivers| https://github.com/OPAE/linux-dfl, tag: intel-1.11.0-2 | https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2|
 
 #### Table 4: Hardware BKC for OFS PCIe Attach
 
-The following table highlights the hardware which composes the Best Known Configuation (BKC) for the OFS 2024.1 PCIe Attach release. The Intel FPGA Download Cable II is not required when using the I Series Dev Kit, as the device has an on-board blaster.
+The following table highlights the hardware which composes the Best Known Configuration (BKC) for the OFS 2024.2-1 PCIe Attach release. The Intel FPGA Download Cable II is not required when using the I Series Dev Kit, as the device has an on-board blaster.
 
 | Component | Link |
 | ----- | ----- |
 | Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html |
 | (optional) Intel FPGA Download Cable II| https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html|
 
-### 1.2 Board Installation and Server Settings
+### 1.4 Board Installation and Server Settings
 
-Instructions detailing the board installation guidelines for an I-Series Dev Kit including server BIOS settings and regulatory information can be found in the [Board Installation Guidelines: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](../../../common/board_installation/devkit_board_installation/devkit_board_installation_guidelines.md). This document also covers the installation of a JTAG cable, which is required for shell programming.
+Instructions detailing the board installation guidelines for an I-Series Dev Kit including server BIOS settings and regulatory information can be found in the [Board Installation Guide: OFS for Agilex® 7 PCIe Attach Development Kits]. This document also covers the installation of a JTAG cable, which is required for shell programming.
 
-### 1.3 I-Series Development Kit JTAG Setup
+### 1.5 Reference Documents
+
+Documentation is collected on [https://ofs.github.io/ofs-2024.1-1/](https://ofs.github.io/ofs-2024.1-1/).
+
+### 1.6 I-Series Development Kit JTAG Driver Setup
 
 A specific JTAG driver needs to be installed on the host OS. Follow the instructions under the driver setup for Red Hat 5+ on [Intel® FPGA Download Cable (formerly USB-Blaster) Driver for Linux*](https://www.intel.com/content/www/us/en/support/programmable/support-resources/download/dri-usb-b-lnx.html).
 
-View the JTAG Chain after installing the proper driver and Quartus 23.3
+View the JTAG Chain after installing the proper driver and Quartus Programmer.
 
 ```bash
 cd ~/intelFPGA_pro/quartus/bin
@@ -120,21 +127,21 @@ cd ~/intelFPGA_pro/quartus/bin
   JTAG clock speed 24 MHz
 ```
 
-### 1.5 Upgrading the I-Series Development Kit FIM via JTAG
+### 1.7 Upgrading the I-Series Development Kit FIM via JTAG
 
-Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2024.1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1). After programming the shell and installing both the OPAE SDK and Linux DFL kernel drivers as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
+Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1). After programming the shell and installing both the OPAE SDK and Linux DFL kernel drivers as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
 
 #### Table 5: FIM Version
 
 |Identifier|Value|
 |-----|-----|
-|Pr Interface ID|5bcd682f-5093-5fc7-8cd2-ae8073e19452 (TBD)|
-|Bitstream ID|TBD|
+|Pr Interface ID|b7855572-6ca9-58b8-bd11-44e1f1ab329f|
+|Bitstream ID|360571656856467345|
 
-1. Download and unpack the artifacts from [the 2024.1 release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.1-1/iseries-dk-images.tar.gz). The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage, therefore if the server is power cycled, you will need to reload the FPGA .sof file.
+1. Download and unpack the artifacts from [the 2024.2-1 release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/iseries-2x200-images_ofs-2024-2-1.tar.gz). The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage, therefore if the server is power cycled, you will need to reload the FPGA .sof file.
 
     ```bash
-    wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.1-1/iseries-dk-images.tar.gz
+    wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/iseries-2x200-images_ofs-2024-2-1.tar.gz
     tar xf iseries-dk-images.tar.gz
     cd iseries-dk-images/
     
@@ -148,13 +155,13 @@ Intel provides a pre-built FIM that can be used out-of-box for platform bring-up
 
 3. Start the Quartus Prime Programmer GUI interface, `quartus_pgmw &`, located in the `bin` directory of your Quartus installation. Select "Hardware Setup", double click the AGI FPGA Development Kit hardware item and change the hardware frequency to 16MHz.
 
-    ![QProgrammer Hardware Setup](./images/iseries_qprogrammer_hardwaresetup.png)
+    ![QProgrammer Hardware Setup](/ofs-2024.2-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_qprogrammer_hardwaresetup.png)
 
 4. On the home screen select "Auto Detect" and accept the default device.
 
 5. Left click on the line for device AGIB027R29A (the Agilex device) and hit "Change File". Load ofs_top.sof from the artifacts directory and check "Program / Configure". Hit start.
 
-    ![QProgrammer Auto Detect](./images/iseries_qprogrammer_autodetect.png)
+    ![QProgrammer Auto Detect](/ofs-2024.2-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_qprogrammer_autodetect.png)
 
 6. Re-add the card to the PCIe bus. This step is not necessary if no image was loaded beforehand.
 
@@ -164,19 +171,19 @@ Intel provides a pre-built FIM that can be used out-of-box for platform bring-up
 
 7. If this is the first time you've loaded an image into the board, you will need to restart (warm boot) the server (not power cycle / cold boot).
 
-8. Verify the PR Interface ID for your image matches expectation. When loading a FIM from the pre-compiled binary included in the artifacts archive, this ID will match the one listed in [Table 5](#table-5-hardware-bkc-for-ofs-pcie-attach).
+8. Verify the PR Interface ID for your image matches expectation. When loading a FIM from the pre-compiled binary included in the artifacts archive, this ID will match the one listed in [Table 4](#table-4-hardware-bkc-for-ofs-pcie-attach).
 
 ## 2.0 OFS Stack Architecture Overview for Reference Platform
 
 ### 2.1 Hardware Components
 
-The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
 OFS is a hardware and software infrastructure that provides an efficient approach to developing a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board.
 
 #### 2.1.1 FPGA Interface Manager
 
-![iSeries-PCIe-Attach](./images/iseries_fim_overview.jpg)
+![iSeries-PCIe-Attach](/ofs-2024.2-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_fim_overview.jpg)
 
 The FPGA Interface Manager (FIM), or shell of the FPGA provides platform management functionality, clocks, resets, and interface access to the host and peripheral features on the acceleration platform. The OFS architecture for Intel Agilex 7 FPGA provides modularity, configurability, and scalability. The primary components of the FPGA Interface Manager or shell of the reference design are:
 
@@ -191,7 +198,7 @@ The FPGA Interface Manager (FIM), or shell of the FPGA provides platform managem
 
 The FPGA Management Engine (FME) provides management features for the platform and the loading/unloading of accelerators through partial reconfiguration. Each feature of the FME exposes itself to the kernel-level OFS drivers on the host through a Device Feature Header (DFH) register that is placed at the beginning of Control Status Register (CSR) space. Only one PCIe link can access the FME register space in a multi-host channel design architecture at a time.
 
-*Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
+*Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
 
 #### 2.1.2 AFU
 
@@ -217,19 +224,19 @@ In this design, the AFU region is comprised of:
 
 The AFU has the option to consume native packets from the host or interface channels or to instantiate a shim provided by the Platform Interface Manager (PIM) to translate between protocols.
 
-*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
+*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
 
 ### 2.2 OFS Software Overview
 
 The responsibility of the OFS kernel drivers is to act as the lowest software layer in the FPGA software stack, providing a minimalist driver implementation between the host software and functionality that has been implemented on the development platform. This leaves the implementation of IP-specific software in user-land, not the kernel. The OFS software stack also provides a mechanism for interface and feature discovery of FPGA platforms.
 
-The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space, and can be found on the [OPAE SDK Github](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4).
+The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space, and can be found on the [OPAE SDK Github](https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3).
 
 The OFS drivers decompose implemented functionality, including external FIM features such as HSSI, EMIF and SPI, into sets of individual Device Features. Each Device Feature has its associated Device Feature Header (DFH), which enables a uniform discovery mechanism by software. A set of Device Features are exposed through the host interface in a Device Feature List (DFL). The OFS drivers discover and "walk" the Device Features in a Device Feature List and associate each Device Feature with its matching kernel driver.
 
 In this way the OFS software provides a clean and extensible framework for the creation and integration of additional functionalities and their features.
 
-*Note: A deeper dive on available SW APIs and programming model is available in the [Software Reference Manual: Open FPGA Stack](/hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md), on [kernel.org](https://docs.kernel.org/fpga/dfl.html?highlight=fpga), and through the [Linux DFL wiki pages](https://github.com/OFS/linux-dfl/wiki).*
+*Note: A deeper dive on available SW APIs and programming model is available in the [Software Reference Manual: Open FPGA Stack], on [kernel.org](https://docs.kernel.org/fpga/dfl.html?highlight=fpga), and through the [Linux DFL wiki pages](https://github.com/OFS/linux-dfl/wiki).*
 
 ## 3.0 OFS DFL Kernel Drivers
 
@@ -237,23 +244,23 @@ OFS DFL driver software provides the bottom-most API to FPGA platforms. Librarie
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
-The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1).
+The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1).
 
-You can also build and install the software stack yourself from source as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
+You can also build and install the software stack yourself from source as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 ## 4.0 OPAE Software Development Kit
 
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit [opae.github.io](https://opae.github.io/latest/index.html).
 
-The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4). This repository is open source and does not require any permissions to access.
+The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3). This repository is open source and does not require any permissions to access.
 
-You may choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1).
+You may choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1).
 
-Instructions on building and installing the OPAE SDK from source can be found in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](../../../common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
+Instructions on building and installing the OPAE SDK from source can be found in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 ### 4.1 OPAE Tools Overview
 
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.12.0-4/doc/src/fpga_tools/readme.md).
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.13.0-3/doc/src/fpga_tools/readme.md).
 
 A list of all tools included in the OPAE SDK release can be found on the [OPAE FPGA Tools](https://ofs.github.io/ofs-2023.3/sw/fpga_tools/fpgadiag/) tab of ofs.github.io.
 
@@ -287,9 +294,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : TBD
+Bitstream Id                     : 360571656856467345
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : TBD
+Pr Interface Id                  : b7855572-6ca9-58b8-bd11-44e1f1ab329f
 Boot Page                        : N/A
 ```
 
@@ -331,14 +338,14 @@ Successfully tested Register/Unregister for FME events!
 clearing error
 ```
 
-#### 4.1.4 Host Exercisor Modules
+#### 4.1.4 Host Exerciser Modules
 
 The reference FIM and unchanged FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. There are three HEMs present in the Intel OFS Reference FIM - HE-LPBK, HE-MEM, and HE-HSSI. These exercisers are tied to three different VFs that must be enabled before they can be used.
 Execution of these exercisers requires you bind specific VF endpoint to **vfio-pci**. The host-side software looks for these endpoints to grab the correct FPGA resource.
 
-Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2023.3/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
+Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
 
-##### Table 7: Module PF/VF Mappings
+##### Table 6: Module PF/VF Mappings
 
 | Module | PF/VF |
 |----- | ----- |
@@ -381,24 +388,26 @@ Assigning /dev/vfio/188 to user
 Changing permissions for /dev/vfio/188 to rw-rw----
 
 
-sudo host_exerciser --clock-mhz 400 lpbk
+$ sudo host_exerciser --clock-mhz 400 lpbk
     starting test run, count of 1
-API version: 1
+API version: 4
+Bus width: 128 bytes
 AFU clock from command line: 400 MHz
 Allocate SRC Buffer
 Allocate DST Buffer
 Allocate DSM Buffer
     Host Exerciser Performance Counter:
-    Host Exerciser numReads: 1024
-    Host Exerciser numWrites: 1025
+    Host Exerciser numReads: 512
+    Host Exerciser numWrites: 513
     Host Exerciser numPendReads: 0
     Host Exerciser numPendWrites: 0
-    Number of clocks: 5224
-    Total number of Reads sent: 1024
-    Total number of Writes sent: 1022
-    Bandwidth: 5.018 GB/s
+    Host Exerciser numPendEmifReads: 0
+    Host Exerciser numPendEmifWrites: 0
+    Number of clocks: 2166
+    Total number of Reads sent: 512
+    Total number of Writes sent: 512
+    Bandwidth: 12.103 GB/s
     Test lpbk(1): PASS
-
 ```
 
 The following example will run a loopback throughput test using one cache line per request.
@@ -410,22 +419,24 @@ sudo opae.io init -d 0000:b1:00.2 user:user
 
 sudo host_exerciser --clock-mhz 400 --mode trput --cls cl_1 lpbk
     starting test run, count of 1
-API version: 1
+API version: 4
+Bus width: 128 bytes
 AFU clock from command line: 400 MHz
 Allocate SRC Buffer
 Allocate DST Buffer
 Allocate DSM Buffer
     Host Exerciser Performance Counter:
-    Host Exerciser numReads: 512
-    Host Exerciser numWrites: 513
+    Host Exerciser numReads: 256
+    Host Exerciser numWrites: 257
     Host Exerciser numPendReads: 0
     Host Exerciser numPendWrites: 0
-    Number of clocks: 3517
-    Total number of Reads sent: 512
-    Total number of Writes sent: 512
-    Bandwidth: 7.454 GB/s
+    Host Exerciser numPendEmifReads: 0
+    Host Exerciser numPendEmifWrites: 0
+    Number of clocks: 2127
+    Total number of Reads sent: 256
+    Total number of Writes sent: 256
+    Bandwidth: 12.325 GB/s
     Test lpbk(1): PASS
-
 ```
 
 ##### 4.1.4.2 Traffic Generator AFU Test Application
@@ -444,28 +455,82 @@ To run the preconfigured write/read traffic test on channel 0:
 
 ```bash
 mem_tg tg_test
+[2024-06-27 21:07:11.753] [tg_test] [info] starting test run, count of 1
+Memory channel clock frequency unknown. Assuming 300 MHz.
+Channel 0:
+TG PASS
+Mem Clock Cycles: 117
+DEBUG: wcnt_ 1
+DEBUG: rcnt_ 1
+DEBUG: bcnt_ 1
+DEBUG: loop_ 1
+DEBUG: num_ticks 117
+Write BW: 0.164103 GB/s
+Read BW: 0.164103 GB/s
+
+Thread on channel 0 exited with status 0
+[2024-06-27 21:07:11.754] [tg_test] [info] Test tg_test(1): PASS
 ```
 
 Target channel 1 with a 1MB single-word write only test for 1000 iterations
 
 ```bash
 mem_tg --loops 1000 -r 0 -w 2000 -m 1 tg_test
+[2024-06-27 21:07:28.601] [tg_test] [info] starting test run, count of 1
+Memory channel clock frequency unknown. Assuming 300 MHz.
+Channel 1:
+TG PASS
+Mem Clock Cycles: 2116468
+DEBUG: wcnt_ 2000
+DEBUG: rcnt_ 0
+DEBUG: bcnt_ 1
+DEBUG: loop_ 1000
+DEBUG: num_ticks 2116468
+Write BW: 18.1434 GB/s
+Read BW: 0 GB/s
+
+Thread on channel 1 exited with status 0
+[2024-06-27 21:07:28.608] [tg_test] [info] Test tg_test(1): PASS
 ```
 
 Target channel 2 with 4MB write/read test of max burst length for 10 iterations
 
 ```bash
 mem_tg --loops 10 -r 8 -w 8 --bls 255 -m 2 tg_test
+[2024-06-27 21:07:41.537] [tg_test] [info] starting test run, count of 1
+Memory channel clock frequency unknown. Assuming 300 MHz.
+Channel 2:
+TG PASS
+Mem Clock Cycles: 43398
+DEBUG: wcnt_ 8
+DEBUG: rcnt_ 8
+DEBUG: bcnt_ 255
+DEBUG: loop_ 10
+DEBUG: num_ticks 43398
+Write BW: 9.0253 GB/s
+Read BW: 9.0253 GB/s
+
+Thread on channel 2 exited with status 0
+[2024-06-27 21:07:41.539] [tg_test] [info] Test tg_test(1): PASS
 ```
 
 ```bash
 sudo mem_tg --loops 1000 -r 2000 -w 2000 --stride 2 --bls 2  -m 1 tg_test
-[2022-07-15 00:13:16.349] [tg_test] [info] starting test run, count of 1
+[2024-06-27 21:07:54.841] [tg_test] [info] starting test run, count of 1
 Memory channel clock frequency unknown. Assuming 300 MHz.
+Channel 1:
 TG PASS
-Mem Clock Cycles: 17565035
-Write BW: 4.37232 GB/s
-Read BW: 4.37232 GB/s
+Mem Clock Cycles: 8508637
+DEBUG: wcnt_ 2000
+DEBUG: rcnt_ 2000
+DEBUG: bcnt_ 2
+DEBUG: loop_ 1000
+DEBUG: num_ticks 8508637
+Write BW: 9.02612 GB/s
+Read BW: 9.02612 GB/s
+
+Thread on channel 1 exited with status 0
+[2024-06-27 21:07:54.867] [tg_test] [info] Test tg_test(1): PASS
 ```
 
 ##### 4.1.4 HE-HSSI
@@ -476,43 +541,38 @@ The `hssi` application provides a means of interacting with the 10G and with the
 
 ```bash
 sudo fpgainfo phy b1:00.0
-board_n6000.c:306:read_bmcfw_version() **ERROR** : Failed to get read object
-board_n6000.c:482:print_board_info() **ERROR** : Failed to read bmc version
-board_n6000.c:332:read_max10fw_version() **ERROR** : Failed to get read object
-board_n6000.c:488:print_board_info() **ERROR** : Failed to read max10 version
-Board Management Controller NIOS FW version:
-Board Management Controller Build version:
+Intel Acceleration JTAG PCI Development Kit
 //****** PHY ******//
 Interface                        : DFL
-Object Id                        : 0xEF00001
+Object Id                        : 0xF100000
 PCIe s:b:d.f                     : 0000:B1:00.0
 Vendor Id                        : 0x8086
 Device Id                        : 0xBCCE
 SubVendor Id                     : 0x8086
-SubDevice Id                     : 0x1771
+SubDevice Id                     : 0x0001
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 0x501020241BF165B
-Bitstream Version                : TBD
-Pr Interface Id                  : TBD
-QSFP0                            : Connected
-QSFP1                            : Connected
+Bitstream Id                     : 0x50102025B1C68BA
+Bitstream Version                : 5.0.1
+Pr Interface Id                  : e5ee3be6-1b34-5c65-923b-84cf652e6b93
+QSFP0                            : Not Connected
+QSFP1                            : Not Connected
 //****** HSSI information ******//
 HSSI version                     : 2.0
 Number of ports                  : 8
-Port0                            :25GbE        UP
-Port1                            :25GbE        UP
-Port2                            :25GbE        UP
+Port0                            :25GbE        DOWN
+Port1                            :25GbE        DOWN
+Port2                            :25GbE        DOWN
 Port3                            :25GbE        DOWN
-Port4                            :25GbE        UP
-Port5                            :25GbE        UP
+Port4                            :25GbE        DOWN
+Port5                            :25GbE        DOWN
 Port6                            :25GbE        DOWN
 Port7                            :25GbE        DOWN
 ```
 
 The following example walks through the process of binding the VF corresponding with the HE-HSSI exerciser to vfio-pci, sending traffic, and verifying that traffic was received.
 
-###### Table 8: Accelerator PF/VF and GUID Mappings
+###### Table 7: Accelerator PF/VF and GUID Mappings
 
 | Component| VF| Accelerator GUID|
 | -----| -----| -----|
@@ -642,20 +702,24 @@ The following example walks through the process of binding the VF corresponding 
     
     ```bash
     sudo fpgainfo phy -B 0xb1 
-    //****** FME ******//
-    Object Id                        : 0xED00001
+    Intel Acceleration JTAG PCI Development Kit
+    //****** PHY ******//
+    Interface                        : DFL
+    Object Id                        : 0xF100000
     PCIe s:b:d.f                     : 0000:B1:00.0
     Vendor Id                        : 0x8086
     Device Id                        : 0xBCCE
     SubVendor Id                     : 0x8086
-    SubDevice Id                     : 0x1771
+    SubDevice Id                     : 0x0001
     Socket Id                        : 0x00
     Ports Num                        : 01
-    Bitstream Id                     : TBD
+    Bitstream Id                     : 0x50102025B1C68BA
     Bitstream Version                : 5.0.1
-    Pr Interface Id                  : TBD
+    Pr Interface Id                  : e5ee3be6-1b34-5c65-923b-84cf652e6b93
+    QSFP0                            : Not Connected
+    QSFP1                            : Not Connected
     //****** HSSI information ******//
-    HSSI version                     : 1.0
+    HSSI version                     : 2.0
     Number of ports                  : 8
     Port0                            :25GbE        DOWN
     Port1                            :25GbE        DOWN
@@ -671,20 +735,20 @@ The following example walks through the process of binding the VF corresponding 
     
     ```bash
     sudo hssiloopback --loopback enable  --pcie-address 0000:b1:00.0 
-    args Namespace(loopback='enable', pcie_address='0000:b1:00.0', port=0)
+    args Namespace(loopback='enable', ncsi_ch_sel=None, pcie_address='0000:84:00.0', port=0)
     sbdf: 0000:b1:00.0
-    FPGA dev: {'segment': 0, 'bus': 177, 'dev': 0, 'func': 0, 'path': '/sys/class/fpga_region/region0', 'pcie_address': '0000:b1:00.0'}
-    args.hssi_grps{0: ['dfl_dev.6', ['/sys/bus/pci/devices/0000:b1:00.0/fpga_region/region0/dfl-fme.0/dfl_dev.6/uio/uio0']]}
-    fpga uio dev:dfl_dev.6
+    FPGA dev: {'segment': 0, 'bus': 132, 'dev': 0, 'func': 0, 'path': '/sys/class/fpga_region/region0', 'pcie_address': '0000:b1:00.0'}
+    args.hssi_grps[('dfl_dev.3', ['/sys/bus/pci/devices/0000:b1:00.0/fpga_region/region0/dfl-fme.0/dfl_dev.3/uio/uio0'], '0000:b1:00.0', 21)]
+    fpga uio dev:dfl_dev.3
     
     --------HSSI INFO START-------
-    DFH                     :0x3000000010002015
+    DFH                     :0x3000000010003015
     HSSI ID                 :0x15
     DFHv                    :0.5
     guidl                   :0x99a078ad18418b9d
     guidh                   :0x4118a7cbd9db4a9b
-    HSSI version            :1.0
-    Firmware Version        :1
+    HSSI version            :2.0
+    Firmware Version        :16
     HSSI num ports          :8
     Port0                   :25GbE
     Port1                   :25GbE
@@ -697,15 +761,44 @@ The following example walks through the process of binding the VF corresponding 
     --------HSSI INFO END-------
     
     hssi loopback enabled to port0
+    [DCPsupport@AN-R760-1 ~]$ sudo fpgainfo phy 0xb1
+    Intel Acceleration JTAG PCI Development Kit
+    //****** PHY ******//
+    Interface                        : DFL
+    Object Id                        : 0xED00000
+    PCIe s:b:d.f                     : 0000:b1:00.0
+    Vendor Id                        : 0x8086
+    Device Id                        : 0xBCCE
+    SubVendor Id                     : 0x8086
+    SubDevice Id                     : 0x0001
+    Socket Id                        : 0x00
+    Ports Num                        : 01
+    Bitstream Id                     : 0x50102025B1C68BA
+    Bitstream Version                : 5.0.1
+    Pr Interface Id                  : 79a90b4b-b308-55d0-961e-a882ef571b2c
+    QSFP0                            : Not Connected
+    QSFP1                            : Connected
+    //****** HSSI information ******//
+    HSSI version                     : 2.0
+    Number of ports                  : 8
+    Port0                            :25GbE        UP
+    Port1                            :25GbE        DOWN
+    Port2                            :25GbE        DOWN
+    Port3                            :25GbE        DOWN
+    Port4                            :25GbE        DOWN
+    Port5                            :25GbE        DOWN
+    Port6                            :25GbE        DOWN
+    Port7                            :25GbE        DOWN
     
     ```
 
 7. Send traffic through the 10G AFU.
     
     ```bash
-    sudo hssi --pci-address b1:00.6 hssi_10g --num-packets 100       
-    10G loopback test
-      port: 0
+        10G loopback test
+      Tx/Rx port: 99
+      Tx port: 0
+      Rx port: 0
       eth_loopback: on
       he_loopback: none
       num_packets: 100
@@ -721,7 +814,7 @@ The following example walks through the process of binding the VF corresponding 
       rnd_seed2: 25eed
       eth:
     
-    No eth interface, so not honoring --eth-loopback.
+    No eth interface, so not honoring --eth-loopback. Try using the hssiloopback command instead.
     0x40000           ETH_AFU_DFH: 0x1000010000001000
     0x40008          ETH_AFU_ID_L: 0xbb370242ac130002
     0x40010          ETH_AFU_ID_H: 0x823c334c98bf11ea
@@ -744,24 +837,22 @@ The following example walks through the process of binding the VF corresponding 
     0x3c0b              rnd_seed1: 0x5eed0001
     0x3c0c              rnd_seed2: 0x00025eed
     0x3c0d             pkt_length: 0x00000040
-    0x3cf4          tx_end_tstamp: 0x000003d2
+    0x3cf4          tx_sta_tstamp: 0x02c1a766
+    0x3cf5          tx_end_tstamp: 0x02c1abd6
     0x3d00                num_pkt: 0xffffffff
-    0x3d01               pkt_good: 0x00000064
+    0x3d01               pkt_good: 0x00000063
     0x3d02                pkt_bad: 0x00000000
     0x3d07            avst_rx_err: 0x00000000
-    0x3d0b          rx_sta_tstamp: 0x00000103
-    0x3d0c          rx_end_tstamp: 0x0000053b
+    0x3d0b          rx_sta_tstamp: 0x02c1a85d
+    0x3d0c          rx_end_tstamp: 0x02c1acd2
     0x3e00               mac_loop: 0x00000000
     
     HSSI performance:
             Selected clock frequency : 402.832 MHz
-            Latency minimum : 642.948 ns
-            Latency maximum : 896.155 ns
-            Achieved Tx throughput : 18.4528 GB/s
-            Achieved Rx throughput : 16.7101 GB/s
-    
-    No eth interface, so not showing stats.
-    
+            Latency minimum : 613.159 ns
+            Latency maximum : 625.571 ns
+            Achieved Tx throughput : 15.8863 GB/s
+            Achieved Rx throughput : 15.8167 GB/s
     ```
 
 The `hssi_loopback` utility works in conjunction with a packet generator accelerator function unit (AFU) to test high-speed serial interface (HSSI) cards. `hssi_loopback` tests both external and internal loopbacks.

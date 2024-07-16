@@ -1,4 +1,4 @@
-# Simulation User Guide: OFS for Intel® Agilex® PCIe Attach**
+# UVM Simulation User Guide: OFS for Intel® Agilex® PCIe Attach
 
 | Term                      | Abbreviation | Description                                                  |
 | :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
@@ -218,9 +218,8 @@ To run the tutorial steps in this guide requires the following development envir
 
 | Item                      | Version|
 | ------------------------- | ----------|
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.4|
-| Simulator                 | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
-| Simulator (Questasim)     | Questasim 2023.4 or newer for UVM simulation of top level FIM |
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 24.1|
+| Simulator                 | Synopsys VCS S-2023.03-SP2-1 or newer for UVM simulation of top level FIM |
 
 
 ## **5.1 UVM Prerequisite**
@@ -232,8 +231,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir ofs-2024.1-1
-    $ cd ofs-2024.1-1
+    $ mkdir ofs-2024.2-1
+    $ cd ofs-2024.2-1
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
     
@@ -246,13 +245,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-agx7-pcie-attach
-    $ git checkout tags/ofs-2024.1-1
+    $ git checkout tags/ofs-2024.2-1
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2024.1-1
+    $ ofs-2024.2-1
 
 ## **5.2 License Requirements**
 
@@ -281,10 +280,10 @@ The following tools are required for successful UVM set-up
 
 * Python 3.6.8
 * Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
-* Synopsys Verdi R-2020.12-SP2 License <br>
+* Synopsys Verdi S-2023.03-SP2-1 License <br>
     Note: Makefile can be modified to use DVE instead of Verdi
 
-* VCS R-2020.12-SP2 License 
+* VCS S-2023.03-SP2-1 License 
 
 ## **5.4 Creating a Software Tools Script**
 
@@ -305,7 +304,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export WORKDIR=$OFS_ROOTDIR
 
 ## Quartus Tools
-    export QUARTUS_HOME=<user_path>/intelFPGA_pro/23.4/quartus
+    export QUARTUS_HOME=<user_path>/intelFPGA_pro/24.1/quartus
     export QUARTUS_ROOTDIR=$QUARTUS_HOME
     export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
     export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
@@ -316,16 +315,11 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
 ## Synopsys Verification Tools
     export DESIGNWARE_HOME=<user_path>/synopsys/vip_common/vip_Q-2020.03A
     export PATH=$DESIGNWARE_HOME/bin:$PATH
-    export UVM_HOME=<user_path>/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm
-    export VCS_HOME=<user_path>/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel
+    export UVM_HOME=<user_path>/synopsys/vcsmx/S-2023.03-SP2-1/linux64/rhel/etc/uvm
+    export VCS_HOME=<user_path>/synopsys/vcsmx/S-2023.03-SP2-1/linux64/rhel
     export PATH=$VCS_HOME/bin:$PATH
     export VERDIR=$OFS_ROOTDIR/verification
     export VIPDIR=$VERDIR
-
-## QuestaSIM Verification Tools
-    export MTI_HOME=<user_path>/mentor/questasim/2023.4/linux64
-    export PATH=$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$PATH
-    export QUESTA_HOME=$MTI_HOME
 
 <br>
 
@@ -340,7 +334,7 @@ The default simulator used in the simulation script is Synopsys VCS-MX. Users ca
 
 After cloning the repo, the verification and ofs-common directories contain all UVM verification related files. The directory structure is shown in Figure 4 below.
 
-![](images/ofs-uvm_directory_structure.png)
+![](images/ofs-uvm_verfication_directory_structure.png)
 
 **Figure 4 UVM Verification Directory File Structure**
 
@@ -348,7 +342,7 @@ ofs-agx7-pcie-attach/verification/testbench has a testbench, uvm env, virtual se
 
 ofs-agx7-pcie-attach/tests contains all uvm tests and sequences. 
 
-Users can run the simulation under "ofs-agx7-pcie-attach/verification/scripts" directory and the simulation result is outputted to a "sim" directory for Synopsys VCS or sim_msim for Questasim.
+Users can run the simulation under "ofs-agx7-pcie-attach/verification/scripts" directory and the simulation result is outputted to a "sim" directory for Synopsys VCS.
 
 
 The simulation result folder is named after the test name with increasing suffix number. If user runs the same test multiple times, the suffix is incremented by 1 each time.
@@ -480,6 +474,20 @@ Tests are located at ofs-agx7-pcie-attach/verification/tests
             <td>Interrupt</td>
             <td>FME interrupt request using RAS ERROR assertion</td>
             <td>Test checks for interrupt assertion, deassertion, mask feature, PBA bits and MSIX host memory data integrity through backdoor memory read</td>
+        </tr>
+        <tr>
+            <td>fme_ras_cat_fat_err_test</td>
+            <td>FME Error</td>
+            <td>FME This test verifies the RAS fatal error register in FME. RAS error is generated by forcing/writing into the error register.
+MSI Generation is verified via PBA mechanism by masking and unmasking interrupt vector</td>
+            <td>Error Checking</td>
+        </tr>
+        <tr>
+            <td>fme_ras_no_fat_err_test</td>
+            <td>FME Error</td>
+            <td>This test verifies the RAS no-fatal error register in FME. RAS error is generated by forcing/writing into the error register.
+MSI Generation is verified via PBA mechanism by masking and unmasking interrupt vector</td>
+            <td>Error Checking</td>
         </tr>
         <tr>
             <td>fme_multi_err_intr_test</td>
@@ -624,12 +632,6 @@ Tests are located at ofs-agx7-pcie-attach/verification/tests
             <td>HE-LPBK</td>
             <td>Loopback mode. 128 CLs, req_len = 8CL, random addresses</td>
             <td>data checking, counter checking</td>
-        </tr>
-        <tr>
-            <td>he_lpbk_rst_in_middle_test</td>
-            <td>PCIe MMIO Path</td>
-            <td>Set HE_LPK in  all the modes randomly and iterate the transactions in loop. At the end of every loop assert the Soft reset in the middle of the transactions</td>
-            <td>Register Base Offset</td>
         </tr>
         <tr>
             <td>he_lpbk_test</td>
@@ -780,6 +782,12 @@ Tests are located at ofs-agx7-pcie-attach/verification/tests
             <td>HE-MEM</td>
             <td>Write only mode. Randomize num_lines, addresses, req_len</td>
             <td>counter checkingt</td>
+        </tr>
+        <tr>
+            <td>he_mem_flr_rst_test</td>
+            <td>HE-MEM</td>
+            <td>Loopback mode. Randomize num_lines, addresses, req_len Read the Control and Status registers before FLR Reset. Apply PF0VF0 FLR reset and check again the control and status registers.</td>
+            <td>Test checks for interrupt assertion, deassertion, mask feature, PBA bits and MSIX host memory data integrity through backdoor memory read plus verifying interrupt requests generated from HE-MEM</td>
         </tr>
         <tr>
             <td>he_random_test</td>
@@ -1138,11 +1146,18 @@ Tests are located at ofs-agx7-pcie-attach/verification/tests
                 2.After clearing the error register ,check if normal transcation are completing.</td>
         </tr> 
         <tr>
+            <td>protocol_checker_csr_test</td>
+            <td>Protocol Checker</td>
+            <td>CSR access to Protocol Checker</td>
+            <td>data checking</td>
+        </tr>
+        <tr>
             <td>vdm_err_vid_test</td>
             <td>Vendor ID check</td>
             <td>generate a packet with undefined Vendor-ID from Host to PMCI_SS</td>
             <td>ID check</td>
         </tr>
+
 </tr>
      </tbody>
 </table>   
@@ -1153,8 +1168,6 @@ The next section describes how to compile and build the UVM environment prior to
 
 ## **6.4 IP Compile**
 
-
-## **Synopsys VCS**
 To compile all IPs for the Synopsys VCS simulater targetting the Intel® FPGA SmartNIC N6001-PL:
 
         cd $VERDIR/scripts
@@ -1168,19 +1181,6 @@ To compile all IPs for the Synopsys VCS simulater targetting the Agilex® 7 FPGA
         gmake -f Makefile_VCS.mk cmplib_adp FTILE_SIM=1
 
 
-## **Questasim** (TBD)
-To compile all IPs for the Questasim simulater targetting the Intel® FPGA SmartNIC N6001-PL:
-
-        cd $VERDIR/scripts
-    
-        gmake -f Makefile_MSIM.mk cmplib_adp 
-        
-To compile all IPs for the Questasim simulater targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
-
-        cd $VERDIR/scripts
-    
-        gmake -f Makefile_MSIM.mk cmplib_adp FTILE_SIM=1
-
 ## **6.5 RTL & Test Bench Compile**
 
 
@@ -1188,7 +1188,6 @@ The RTL file list for compilation is located here: verification/scripts/rtl_comb
 
 The TB file list for compilation is located here: verification/scripts/ver_list.f
 
-## **Synopsys VCS**
 To compile RTL and Testbench for the Synopsys VCS simulater targetting the Intel® FPGA SmartNIC N6001-PL:
 
         cd $VERDIR/scripts
@@ -1199,79 +1198,37 @@ To compile RTL and Testbench for the Synopsys VCS simulater targetting the Agile
 
         cd $VERDIR/scripts
     
-        gmake -f Makefile_VCS.mk build_adp FTILE_SIM=1 DUMP=1
+        gmake -f Makefile_VCS.mk build_adp FTILE_SIM=1 
         
-## **Questasim** (TBD)
-To compile RTL and Testbench for the Questasim simulater targetting the Intel® FPGA SmartNIC N6001-PL:
-
-        cd $VERDIR/scripts
-    
-        gmake -f Makefile_MSIM.mk build_adp DUMP=1
-
-To compile RTL and Testbench for the Questasim simulater targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
-
-        cd $VERDIR/scripts
-    
-        gmake -f Makefile_MSIM.mk build_adp FTILE_SIM=1 DUMP=1
-
 ## **6.6 IP and RTL & Test Bench Compile**
 
-
-## **Synopsys VCS**
 If the user wants to compile all IPs and RTL Testbench in one command for Synopsys VCS targetting the Intel® FPGA SmartNIC N6001-PL then follow the procedure below
 
         cd $VERDIR/scripts
     
-        gmake -f Makefile_VCS.mk build_all DUMP=1
+        gmake -f Makefile_VCS.mk build_all 
 
 If the user wants to compile all IPs and RTL Testbench in one command for Synopsys VCS targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
 
         cd $VERDIR/scripts
     
-        gmake -f Makefile_VCS.mk build_all FTILE_SIM=1 DUMP=1
+        gmake -f Makefile_VCS.mk build_all FTILE_SIM=1 
 
-        
-## **Questasim** (TBD)
-If the user wants to compile all IPs and RTL Testbench in one command for Questasim targetting the Intel® FPGA SmartNIC N6001-PL then follow the procedure below
+## **6.7 Running Individual Testcases**
 
-        cd $VERDIR/scripts
-    
-        gmake -f Makefile_MSIM.mk build_all DUMP=1
-
-If the user wants to compile all IPs and RTL Testbench in one command for Questasim targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
-
-        cd $VERDIR/scripts
-    
-        gmake -f Makefile_MSIM.mk build_all FTILE_SIM=1 DUMP=1
-
-## **Synopsys VCS**
 To run a simulation for Synopsys VCS targetting the Intel® FPGA SmartNIC N6001-PL:
 
         cd $VERDIR/scripts
     
-        gmake -f Makefile_VCS.mk run TESTNAME=ofs_mmio_test DUMP=1
+        gmake -f Makefile_VCS.mk run TESTNAME=ofs_mmio_test 
 
 To run a simulation for Synopsys VCS targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
-        gmake -f Makefile_VCS.mk run TESTNAME=ofs_mmio_test FTILE_SIM=1 DUMP=1
-        
-## **Questasim** (TBD)
-To run a simulation for Questasim targetting the Intel® FPGA SmartNIC N6001-PL:
-
-        cd $VERDIR/scripts
-    
-        gmake -f Makefile_MSIM.mk run TESTNAME=ofs_mmio_test DUMP=1 
-
-To run a simulation for Questasim targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
-
-        cd $VERDIR/scripts
-    
-        gmake -f Makefile_MSIM.mk run TESTNAME=ofs_mmio_test FTILE_SIM=1 DUMP=1 
+        gmake -f Makefile_VCS.mk run TESTNAME=ofs_mmio_test FTILE_SIM=1 
 
 
-## **Synopsys VCS**
 To dump the waveform, "DUMP=1" must be added into the command line for Synopsys VCS build and simulation targetting the Intel® FPGA SmartNIC N6001-PL:
 
         gmake -f Makefile_VCS.mk build_adp DUMP=1
@@ -1290,111 +1247,91 @@ Or
 
         gmake -f Makefile_VCS.mk build_run TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1
 
-## **Questasim** (TBD)
-To dump the waveform, "DUMP=1" must be added into the command line for Questasim build and simulation targetting the Intel® FPGA SmartNIC N6001-PL: 
-
-        gmake -f Makefile_MSIM.mk build_adp DUMP=1
-    
-        gmake -f Makefile_MSIM.mk run TESTNAME=<test_case_name> DUMP=1
-Or
-
-        gmake -f Makefile_MSIM.mk build_run TESTNAME=<test_case_name> DUMP=1
-
-To dump the waveform, "DUMP=1" must be added into the command line for Questasim build and simulation targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
-
-        gmake -f Makefile_MSIM.mk build_adp FTILE_SIM=1 DUMP=1
-    
-        gmake -f Makefile_MSIM.mk run TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1
-Or
-
-        gmake -f Makefile_MSIM.mk build_run TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1
-
-There are some optimizations in the Table below for convenience if you want to bypass some commands for both Synopsys VCS and Questasim:
+There are some optimizations in the Table below for convenience if you want to bypass some commands for both Synopsys VCS:
 
 <table>
     <thead>
         <tr>
-            <th>Command (Synopsys VCS) for n6001</th>
-            <th>Command (Questasim) for n6001</th>
+            <th>Command (Synopsys VCS) for n6001 *</th>
             <th>Command (Synopsys VCS) for fseries-dk</th>
-            <th>Command (Questasim) for fseries-dk</th>
             <th>Details</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>gmake -f Makefile_VCS.mk build_all DUMP=1</td>
-            <td>gmake -f Makefile_MSIM.mk build_all DUMP=1</td>
             <td>gmake -f Makefile_VCS.mk build_all FTILE_SIM=1 DUMP=1</td>
-            <td>gmake -f Makefile_MSIM.mk build_all FTILE_SIM=1 DUMP=1</td>  
             <td>compile IP + compile RTL</td>        
         </tr>
         <tr>
             <td>gmake -f Makefile_VCS.mk build_run TESTNAME=<test_case_name> DUMP=1</td>
-            <td>gmake -f Makefile_MSIM.mk build_run TESTNAME=<test_case_name> DUMP=1</td>
             <td>gmake -f Makefile_VCS.mk build_run TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1</td>
-            <td>gmake -f Makefile_MSIM.mk build_run TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1</td>
             <td>compile RTL + run test</td>        
         </tr>
         <tr>
             <td>gmake -f Makefile_VCS.mk do_it_all TESTNAME=<test_case_name> DUMP=1</td>
-            <td>gmake -f Makefile_MSIM.mk do_it_all TESTNAME=<test_case_name> DUMP=1</td>
             <td>gmake -f Makefile_VCS.mk do_it_all TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1</td>
-            <td>gmake -f Makefile_MSIM.mk do_it_all TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1</td>
             <td>compile IP, RTL and run test</td>        
         </tr>
         <tr>
             <td>gmake -f Makefile_VCS.mk rundb TESTNAME=<test_case_name> DUMP=1</td>
-            <td>gmake -f Makefile_MSIM.mk rundb TESTNAME=<test_case_name> DUMP=1</td>
             <td>gmake -f Makefile_VCS.mk rundb TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1</td>
-            <td>gmake -f Makefile_MSIM.mk rundb TESTNAME=<test_case_name> FTILE_SIM=1 DUMP=1</td>
             <td>run test in sim dir + over-writes content</td>        
         </tr>
+           
 </tr>
      </tbody>
-</table>   
+</table> 
+
+Note: * For N6000, use flag DISABLE_EMIF=1 for the tests to run successfully 
 
 ## **6.7 UVM Regression Test**
 
-If the user wants to run the complete set of UVM tests in one command for VCS and Questasim targetting the Intel® FPGA SmartNIC N6001-PL then follow the procedure below
+If the user wants to run the complete set of UVM tests in one command for VCS targetting the Intel® FPGA SmartNIC N6001-PL then follow the procedure below
 
     cd $VERDIR/scripts
     
-    python uvm_regress.py -l -n 8 -p adp -k top_pkg -s vcs -c none
+    python uvm_regress.py -l -n 8 -p adp -k <pkg_name> -s vcs -c none
     
-    For Regression in VCS with top/test package, execute the following command 
-        python uvm_regress.py -l -n 8 -p adp -k top_pkg -s vcs -c none
-    
+
+If the user wants to run the complete set of UVM tests in one command for VCS targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
+
+    python uvm_regress.py -l -n 8 -p adp -k <pkg_name> -s vcs -c none -e -t ftile
+
+Test Packages for Intel® FPGA SmartNIC N6001-PL and Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) are listed below:
+
+    <pkg_name> :top_pkg (it contains two packages test_pkg + test_long_pkg)
+               :test_pkg
+               :test_long_pkg
+               :tx_pkg
+               :tx_pkg_100G_200G
+               :tx_pkg_400G
+               :rx_pkg
+               :rx_pkg_100G
+               :rx_pkg_400G
+
+Test Package files are located in tests directory ($VERDIR/tests) please go through the list of testcases that package file contains before running the regression test
+
 Results are created in a sim directory ($VERDIR/sim) with individual testcase log dir
-    
-    For Regression in MSIM with top/test package, execute the following command 
-        python uvm_regress.py -l -n 8 -p adp -k top_pkg -s msim -c none
-        
-Results are created in a sim directory ($VERDIR/sim_msim) with individual testcase log dir
-
-If the user wants to run the complete set of UVM tests in one command for VCS and Questasim targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
-
-    TBC
-
 ## **6.8 UVM Waveform and Transcript Analysis**
 
-
-## **Synopsys VCS**
 Running Synopsys VCS UVM tests will generate a ofs-agx7-pcie-attach/verification/sim directory
 
     • All build time logs are located at ofs-agx7-pcie-attach/verification/sim
     
     • Each testcase will have separate directory inside sim ofs-agx7-pcie-attach/verification/sim/<test_case_name>
 
-There are two tracker or log files that are available: runsim.log and trans.log. 
+There are two tracker or log files that are available: **runsim.log** and **trans.log**. 
 
+## runsim.log 
 runsim.log is the simulation log file generated from Synopsys VCS. The test sequence prints useful information for debugging purpose, such as the base address for each function or block. For HE-LB and HE-MEM, key information such as SRC_ADDR, DST_ADDR, NUM_LINES, mode, req_len etc is printed out as shown in Figure 5
 
 ![](images/ofs-uvm_runsim_log.png)
 
 **Figure 5 runsim.log**
 
-trans.log is generated from PCIe host VIP. trans.log records all transaction information coming in or going out of the VIP. Users can find traffic direction(DIR), TLP type, Tag, Address or BDF, 3 or 4 dword header of the TLP as shown in Figure 6
+## trans.log
+ trans.log is generated from PCIe host VIP. trans.log records all transaction information coming in or going out of the VIP. Users can find traffic direction(DIR), TLP type, Tag, Address or BDF, 3 or 4 dword header of the TLP as shown in Figure 6
 
 ![](images/ofs-uvm_trans_log.png)
 
@@ -1402,32 +1339,7 @@ trans.log is generated from PCIe host VIP. trans.log records all transaction inf
 
 The waveform generated is named as "inter.vpd". To open the waveform, go to simulation result directory and run 
 
-        dve -full64 -vpd inter.vpd &
-
-## **Questasim** (TBD)
-Running Questasim UVM tests will generate a ofs-agx7-pcie-attach/verification/sim_msim directory
-
-    • All build time logs are at ofs-agx7-pcie-attach/verification/sim_msim
-    
-    • Each testcase will have separate directory inside sim ofs-agx7-pcie-attach/verification/sim_msim/<test_case_name>
-
-There are two tracker or log files that are available: runsim.log and trans.log. 
-
-runsim.log is the simulation log file generated from Questasim. The test sequence prints useful information for debugging purpose, such as the base address for each function or block. For HE-LB and HE-MEM, key information such as SRC_ADDR, DST_ADDR, NUM_LINES, mode, req_len etc is printed out as shown in Figure 7
-
-![](images/ofs-uvm_runsim_log.png)
-
-**Figure 7 runsim.log**
-
-trans.log is generated from PCIe host VIP. trans.log records all transaction information coming in or going out of the VIP. Users can find traffic direction(DIR), TLP type, Tag, Address or BDF, 3 or 4 dword header of the TLP as shown in Figure 8
-
-![](images/ofs-uvm_trans_log.png)
-
-**Figure 8 trans.log**
-
-The waveform generated is named as "vsim.wlf". To open the waveform, go to simulation result directory and run 
-
-        vsim -view vsim.wlf &   
+    dve -full64 -vpd inter.vpd &
 
 ## **6.9 UVM Coverage Analysis**
 
@@ -1457,7 +1369,27 @@ The following commands shows how to launch DVE and check the coverage reports
 
 Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
 
-    TBC
+The following command allows to run a single testcase with coverage enabled
+
+        gmake -f Makefile_VCS.mk cmplib_adp FTILE_SIM=1 && gmake -f Makefile_VCS.mk build_adp FTILE_SIM=1 DUMP=1 DEBUG=1 COV_FUNCTIONAL=1&& gmake -f Makefile_VCS.mk run TESTNAME=<TESTCASE-NAME>  FTILE_SIM=1 DUMP=1 DEBUG=1 COV_FUNCTIONAL=1 &
+
+The following command shows how to merge and generate the coverage report
+
+        urg -dir <$VERDIR/sim/simv.vdb> <$VERDIR/sim/regression.vdb> -format both -dbname <regression_database_name>
+
+This will generate both urgreport directory and <regression_database_name>.vdb file Multiple regression.vdb from different regressions can be merged with the same command.
+        
+        e.g "urg -dir <path1_till_simv.vdb> <path1_till_regression.vdb> <path2_till_regression.vdb> -report <dir> -format both -dbname <dirname>"
+
+The following commands shows how to launch DVE and check the coverage reports
+
+    To open DVE of a single regression or testcase, execute:  
+        
+        dve -full64 -cov -covdir simv.vdb regression.vdb &
+    
+    To open DVE of a merged regression test, execute: 
+    
+        dve -full64 -cov -covdir <dirname.vdb> &
 
 <br><br>
 
@@ -1474,7 +1406,7 @@ The UVM Register Layer provides a standard base class library that enable users 
 
 The RAL register models for different CSR's mimics the design registers. All RAL files are located here.
 
-        ofs-agx7-pcie-attach/verification/testbench/ral
+    ofs-agx7-pcie-attach/verification/testbench/ral
 
 The RAL model is generated through the Synopsys RALGEN tool and is used for CSR verification.
 
@@ -1582,7 +1514,7 @@ Following these three steps above will enable the build and sim flow to run the 
 
 Adding a new interface requires signal connections in the testbench. An additional BFM or verification IP is needed to drive the new interface. The main testbench file tb_top.sv is found at the following location
 
-        ofs-agx7-pcie-attach/verification/testbench
+    ofs-agx7-pcie-attach/verification/testbench
 
 ## **8.3 Adding a new RAL directory**
 
@@ -1628,5 +1560,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

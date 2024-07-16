@@ -1,17 +1,17 @@
-# Intel® FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel® Stratix 10® FPGA
+# Shell Developer Guide: Open FPGA Stack for Stratix 10® FPGA
 
 
 
 ## 1. Introduction
 ### 1.1. About This Document
 
-This document serves as a design guide for FPGA developers, system architects and hardware developers using OFS as a starting point for the creating the FPGA Interface Manager (FIM) for a custom FPGA acceleration board or Platform with Intel FPGAs.
+This document serves as a design guide for FPGA developers, system architects and hardware developers using OFS as a starting point for the creating the FPGA Interface Manager (FIM) for a custom FPGA acceleration board or Platform with Altera FPGAs.
 
 This document uses the Intel® FPGA PAC D5005 as an example platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS (Open FPGA Stack) to custom platforms. The demonstration steps serves as a tutorial for the development of your OFS knowledge.
 
-This document covers OFS architecture lightly.  For more details on the OFS architecture, please see [Shell Technical Reference Manual: OFS for Stratix® 10 PCIe Attach FPGAs].
+This document covers OFS architecture lightly.  For more details on the OFS architecture, please see [Shell Technical Reference Manual: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/).
 
-You are encouraged to read [OFS AFU Development Guide] to fully understand how AFU Developers will use your newly developed FIM.
+You are encouraged to read [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) to fully understand how AFU Developers will use your newly developed FIM.
 
 
 
@@ -47,9 +47,9 @@ You are encouraged to read [OFS AFU Development Guide] to fully understand how A
 
 ### 1.2. Introduction
 
-Open FPGA Stack (OFS) addresses the scalability for FPGA acceleration boards and workloads by providing a powerful and systematic methodology for the rapid development of FPGA-based Acceleration systems.  This methodology addresses the key challenges of hardware, software and workload developers by providing a complete FPGA project consisting of RTL and simulation code, build scripts and software. The FPGA project released in OFS can be rapidly customized to meet new market requirements by adding new features, custom IPs and Intel interface subsystems IPs. 
+Open FPGA Stack (OFS) addresses the scalability for FPGA acceleration boards and workloads by providing a powerful and systematic methodology for the rapid development of FPGA-based Acceleration systems.  This methodology addresses the key challenges of hardware, software and workload developers by providing a complete FPGA project consisting of RTL and simulation code, build scripts and software. The FPGA project released in OFS can be rapidly customized to meet new market requirements by adding new features, custom IPs and interface subsystems IPs. 
 
-A high-level overview of the OFS Stratix 10® FPGA hardware architecture on the Stratix 10® FPGA reference platform, Intel® FPGA PAC D5005 is shown in the below figure. The provided FPGA architecture is divided into two main components 
+A high-level overview of the OFS Stratix® 10 FPGA hardware architecture on the Stratix® 10 FPGA reference platform, Intel® FPGA PAC D5005 is shown in the below figure. The provided FPGA architecture is divided into two main components 
 
    - The outer area in white, the FPGA Interface manager (or FIM)
    - The inner area in green, the Acceleration Function Unit or AFU Region. 
@@ -112,11 +112,11 @@ Reuse of the provided host management FPGA logic and software is the fastest and
 
 OFS is an advanced application of FPGA technology. This guide assumes you have the following FPGA logic design-related knowledge and skills:
 
-- FPGA compilation flows using Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition design flow.
-- Static Timing closure, including familiarity with the Timing Analyzer tool in Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
+- FPGA compilation flows using Quartus<sup>&reg;</sup> Prime Pro Edition design flow.
+- Static Timing closure, including familiarity with the Timing Analyzer tool in Quartus<sup>&reg;</sup> Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 - RTL and coding practices for FPGA implementation.
 - RTL simulation tools.
--  Intel<sup>&reg;</sup> Quartus<sup>&reg;</sup> Prime Pro Edition Signal Tap Logic Analyzer tool software.
+-  Quartus<sup>&reg;</sup> Prime Pro Edition Signal Tap Logic Analyzer tool software.
 
 #### 1.3.2. Development Environment
 
@@ -124,20 +124,20 @@ To run the tutorial steps in this guide requires this development environment:
 
 | Item                          | Version         |
 | ------------------------- | ---------- |
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 23.4 (with license patch) |
+| Quartus Prime Pro   | Quartus Prime Pro 23.4 (with license patch) |
 | Target D5005 Sever Operating System   | RHEL 8.6 |
-| OPAE SDK   | [2.12.0-4 ](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4 ) |
+| OPAE SDK   | [2.12.0-5 ](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5 ) |
 | Linux DFL    | [ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2) |
 | Python    | 3.6.8 |
 | cmake     | 3.15 |
-| GCC       | 7.4.0 |
+| GCC       | 8.5.0 |
 | perl      | 5.8.8 |
 
 The following server and Intel PAC card are required to run the examples in this guide:
 
 1. Qualified Intel Xeon <sup>&reg;</sup> server see [Qualified Servers](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005/view.html).
-2. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Intel for root entry hash erase instructions).  The standard Intel® FPGA PAC D5005 card is programmed to only allow the FIM binary files signed by Intel to be loaded.  The root entry hash erase process will allow newly created, unsigned FIM binary files to be loaded.
-3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [OFS Getting Started User Guide].
+2. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Altera for root entry hash erase instructions).  The standard Intel® FPGA PAC D5005 card is programmed to only allow the FIM binary files signed by Altera to be loaded.  The root entry hash erase process will allow newly created, unsigned FIM binary files to be loaded.
+3. Intel® FPGA PAC D5005 installed in the qualified server following instructions in [Board Installation Guide: OFS for Acceleration Development Platforms](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/adp_board_installation_guidelines).
 
 The steps included in this guide have been verified in the Dell R740 and HPE ProLiant DL380 Gen10 servers.
 ## 2. High Level Description
@@ -334,11 +334,11 @@ Peripherals are presented to software as:
 * OFS managed peripherals that implement DFH CSR structure.  
 * Native driver managed peripherals (i.e. Exposed via an independent PF, VF)
 
-The peripherals connected to the peripheral fabric are primarily Intel OPAE managed resources, whereas the peripherals connected to the AFU are “primarily” managed by native OS drivers. The word “primarily” is used since the AFU is not mandated to expose all its peripherals to Intel OPAE. It can be connected to the peripheral fabric, but can choose to expose only a subset of its capability to Intel OPAE.
+The peripherals connected to the peripheral fabric are primarily OPAE managed resources, whereas the peripherals connected to the AFU are “primarily” managed by native OS drivers. The word “primarily” is used since the AFU is not mandated to expose all its peripherals to OPAE. It can be connected to the peripheral fabric, but can choose to expose only a subset of its capability to OPAE.
 
-OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/23-4/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
+OFS uses a defined set of CSRs to expose the functionality of the FPGA to the host software.  These registers are described in [Open FPGA Stack Reference Manual - MMIO Regions section](https://ofs.github.io/ofs-2024.1-1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#7-mmio-regions).
 
-If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver.  The [Device Feature Header (DFH) structure](https://ofs.github.io/23-4/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
+If you make changes to the FIM that affect the software operation, then OFS provides a mechanism to communicate that information to the proper software driver.  The [Device Feature Header (DFH) structure](https://ofs.github.io/ofs-2024.1-1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure) provides a mechanism to maintain compatibility with OPAE software.  Please see [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for an excellent description of DFL operation from the driver perspective.
 
 When you are planning your address space for your FIM updates, please be aware that the OFS FIM targeting Intel® FPGA PAC D5005, 256KB of MMIO region is allocated for external FME features and 128kB of MMIO region is allocated for external port features. Each external feature must implement a feature DFH, and the DFH needs to be placed at 4KB boundary. The last feature in the external feature list must have the EOL bit in its DFH set to 1 to mark the end of external feature list.  Since the FPGA address space is limited, consider using an indirect addressing scheme to conserve address space.
 
@@ -384,11 +384,11 @@ FIM development for a new acceleration card consists of the following steps:
 
 The FIM developer works closely with the hardware design of the target board, software development and system validation.
 
-Understanding how the AFU developer utilizes the FIM is important for FIM development success.  Please read [OFS AFU Development Guide] for a detailed description of AFU development.
+Understanding how the AFU developer utilizes the FIM is important for FIM development success.  Please read [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/) for a detailed description of AFU development.
 
 ### 4.1. Installation of OFS
 
-In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see [OFS Getting Started User Guide] for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
+In this section you set up a development machine for compiling the OFS FIM. These steps are separate from the setup for a deployment machine where the FPGA acceleration card is installed.  Typically, FPGA development and deployment work is performed on separate machines, however, both development and deployment can be performed on the same server if desired.  Please see [Software Installation Guide: OFS for PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach) for instructions on installing software for deployment of your FPGA FIM, AFU and software application on a server.  
 
 Building the OFS FIM requires the development machine to have at least 64 GB of RAM.
 
@@ -398,13 +398,13 @@ The following is a summary of the steps to set up for FIM development:
 2. Clone the github `ofs-d5005` repository
 3. Test installation by building the provided FIM
 
-Intel Quartus Prime Pro version 23.4 is the currently verified version of Quartus used for building the FIM and AFU images for this release.  Porting to newer versions of Quartus may be performed by developers.  Download Quartus Prime Pro Linux version 23.4 from [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html).
+Quartus Prime Pro version 23.4 is the currently verified version of Quartus used for building the FIM and AFU images for this release.  Porting to newer versions of Quartus may be performed by developers.  Download Quartus Prime Pro Linux version 23.4 from [Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html).
 
 
 
-**Intel Quartus Prime Pro Version 23.4** is verified to work with the latest OFS release ofs-2024.1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
+**Intel Quartus Prime Pro Version 23.4** is verified to work with the latest OFS release ofs-2024.1-1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
 
-Use RedHatEnterprise Linux® (RHEL) for compatibility with your development flow and also testing your FIM design in your platform. 
+Use RedHat® Enterprise Linux® (RHEL) 8.6 for compatibility with your development flow and also testing your FIM design in your platform. 
 
 Prior to installing Quartus:
 
@@ -437,7 +437,7 @@ Prior to installing Quartus:
 
 4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-d5005/tree/release/ofs-2024.1). The patches for this release are N/A.
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1). The patches for this release are No patches for this release.
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -490,18 +490,12 @@ sudo dnf install ncurses-compat-libs
 sudo ln -s /usr/bin/python3 /usr/bin/python
 ```
 
-You will need to obtain a license for Intel Quartus Prime Pro version 23.4 to compile the design.  This license is obtained from Intel.  Additionally, OFS for Stratix 10® FPGA requires a license for the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core.  This license is required to generate a programming file using the provided OFS source code.  The Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core license patch installer is provided in the ofs-d5005 git repository in the /license directory.  After cloning the OFS release in step 4 below, you can install this IP license.  
+You will need to obtain a license for Quartus Prime Pro version 23.4 to compile the design. Additionally, OFS for Stratix® 10 FPGA requires a license for the Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core.  This license is required to generate a programming file using the provided OFS source code.  The Low Latency 10Gbps Ethernet MAC (6AF7 0119) IP core license patch installer is provided in the ofs-d5005 git repository in the /license directory.  After cloning the OFS release in step 4 below, you can install this IP license.  
 
-4. Install git and install git lfs to extract large files within the repository that are compressed with git lfs.  Please note, for proper operation of files retrieved from OFS repository, you will require git lfs. 
+4. Install git.
 
 ```bash
 sudo dnf install git
-```
-#### Install git lfs:
-```bash
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
-sudo dnf install git-lfs
-git lfs install
 ```
 
 5. Retrieve OFS repositories:
@@ -651,14 +645,14 @@ Some of the key files are described below:
 │  ├── d5005.qsf               // Quartus Settings File (qsf) lists current project settings and entity level assignments
 │  ├── d5005.stp               // Signal Tap file included in the d5005.qsf. This file can be modified as required if you need to add an Signal Tap instance
 │  ├── fme_id.mif              // the fme id hex value is stored in a mif file format
-│  ├── Intel OFS_pr_afu.json        // PR JSON file
-│  ├── Intel OFS_pr_afu.qsf                // PR AFU qsf file
-│  ├── Intel OFS_pr_afu_sources.tcl        // AFU source file list
+│  ├── OFS_pr_afu.json        // PR JSON file
+│  ├── OFS_pr_afu.qsf                // PR AFU qsf file
+│  ├── OFS_pr_afu_sources.tcl        // AFU source file list
 │  ├── ip_upgrade_port_diff_reports   // IP upgrade report files for reference
 ```
 <work_dir>/syn/syn_top/output_files == Directory with build reports and FPGA programming files. 
 
-The programming files consist of the Quartus generated d5005.sof and d5005.pof.  The D5005 board hardware provides a 2 Gb flash device to store the FPGA programming files and a MAX10 BMC that reads this flash and programs the D5005 Stratix 10® FPGA FPGA. The syn/build_top.sh script runs script file syn/syn_top/build_flash/build_flash.s which takes the Quartus generated d5005.sof and creates binary files in the proper format to be loaded into the 2 Gb flash device.  You can also run build_flash.sh by yourself if needed.  The build_flash  script runs PACSign (if installed) to create an unsigned FPGA programming file that can be stored in the D5005 FPGA flash. Please note, if the D5005 has the root entry hash key loaded, then PACsign must be run with d5005_page1.bin as the input with the proper key to create an authenticated FPGA binary file.  Please see [Security User Guide: Intel® Open FPGA Stack for Intel® Stratix 10® FPGA] for details on the security aspects of Intel® Open FPGA Stack.
+The programming files consist of the Quartus generated d5005.sof and d5005.pof.  The D5005 board hardware provides a 2 Gb flash device to store the FPGA programming files and a MAX10 BMC that reads this flash and programs the D5005 Stratix® 10 FPGA FPGA. The syn/build_top.sh script runs script file syn/syn_top/build_flash/build_flash.s which takes the Quartus generated d5005.sof and creates binary files in the proper format to be loaded into the 2 Gb flash device.  You can also run build_flash.sh by yourself if needed.  The build_flash  script runs PACSign (if installed) to create an unsigned FPGA programming file that can be stored in the D5005 FPGA flash. Please note, if the D5005 has the root entry hash key loaded, then PACsign must be run with d5005_page1.bin as the input with the proper key to create an authenticated FPGA binary file.  Please see [Security User Guide: Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/ug-pac-security.md) for details on the security aspects of Open FPGA Stack.
 
 The following table provides further detail on the generated bin files.
 
@@ -677,7 +671,7 @@ build/output_files/timing_report == Directory containing clocks report, failing 
 
 If you are developing a FIM to be used by another team developing the AFU workload, scripts are provided that create a relocatable PR directory tree. ODM and board developers will make use of this capability to enable a broad set of AFUs to be loaded on a board using PR.  The relocatable PR directory contains the Quartus *.qdb file that goes the FIM.
 
-The creation of the relocatable PR directory tree requires a clone of the Intel Basic Building Blocks (BBB) repository. The OFS_PLATFORM_AFU_BBB environment variable must point to the repository, for example.
+The creation of the relocatable PR directory tree requires a clone of the Basic Building Blocks (BBB) repository. The OFS_PLATFORM_AFU_BBB environment variable must point to the repository, for example.
 
 ```bash
 cd $OFS_BUILD_ROOT
@@ -758,7 +752,7 @@ Unit level simulation of key components is provided. These simulations provide v
 * FIM management
   
 
-These simulations use the Synopsys VCS simulator. Each simulation contains a readme file explaining how to run the simulation. Refer to [Simulation User Guide: Open FPGA Stack for Intel Intel® Stratix 10® FPGA]  for details of simulation examples. Your simulation shell requires Python, Quartus, and VCS to run.  To run a simulation of the dfh_walker that simulates host access to the internal DFH registers, perform the following steps:
+These simulations use the Synopsys VCS simulator. Each simulation contains a readme file explaining how to run the simulation. Refer to [UVM Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)  for details of simulation examples. Your simulation shell requires Python, Quartus, and VCS to run.  To run a simulation of the dfh_walker that simulates host access to the internal DFH registers, perform the following steps:
 
 
 
@@ -945,11 +939,11 @@ To use Signal Tap with OFS, you will need the following:
 * Understanding of Signal Tap fundamentals - please review [*Quartus Prime Pro Edition User Guide: Debug Tools*](https://www.intel.com/content/www/us/en/programmable/documentation/nfc1513989909783.html).  
 section 2. Design Debugging with the Signal Tap Logic Analyzer.
 
-* The Intel® FPGA PAC D5005 has a built in Intel FPGA Download Cable II allowing JTAG access to the S10 FPGA. You can access the D5005 built in Intel FPGA Download Cable II by connecting your server to the Micro USB connector as shown below:
+* The Intel® FPGA PAC D5005 has a built in FPGA Download Cable II allowing JTAG access to the S10 FPGA. You can access the D5005 built in FPGA Download Cable II by connecting your server to the Micro USB connector as shown below:
 
 ![Microbus](images/D5005_MicroUSB.png)
 
-*  If you are using a custom board without a built-in Intel FPGA Download Cable then an external Intel FPGA Download Cable II (see [Download Cables](https://www.intel.com/content/www/us/en/programmable/products/boards_and_kits/download-cables.html) for more information) can be used for Signal Tap access.  The custom board must have JTAG access to the target FPGA for the Intel FPGA Download Cable II.
+*  If you are using a custom board without a built-in FPGA Download Cable then an external FPGA Download Cable II (see [Download Cables](https://www.intel.com/content/www/us/en/programmable/products/boards_and_kits/download-cables.html) for more information) can be used for Signal Tap access.  The custom board must have JTAG access to the target FPGA for the FPGA Download Cable II.
 
 #### 4.4.2. Adding Signal Tap
 
@@ -1000,7 +994,7 @@ The following steps guide you through the process of adding a Signal Tap instanc
 2.  To provide a unique name for your Signal Tap instance, select "auto signaltap_0", right click and select rename instance and provide a descriptive name for your instance.
 3.  Save the newly created Signal Tap file and click "Yes" to add the new Signal Tap file to the project.
 4.  Compile the project with the Signal Tap file added to the project.
-5.  Once the compile successfully completes with proper timing, you can load the generated d5005.sof using the Intel FPGA Downloader cable.
+5.  Once the compile successfully completes with proper timing, you can load the generated d5005.sof using the FPGA Downloader cable.
   
 #### 4.4.3. Signal Tap trace acquisition
 
@@ -1043,7 +1037,7 @@ echo "1" > /sys/bus/pci/devices/0000:3b:00.0/remove
 exit
 ```
 
-1. The SOF file is located in the work directory work_d5005/syn/syn_top/output_files/d5005.sof.  If the target FPGA is on a different server, then transfer d5005.sof and STP files to the server with the target FPGA. Load the SOF using the Intel® FPGA PAC D5005 built-in Intel FPGA Download Cable II. 
+1. The SOF file is located in the work directory work_d5005/syn/syn_top/output_files/d5005.sof.  If the target FPGA is on a different server, then transfer d5005.sof and STP files to the server with the target FPGA. Load the SOF using the Intel® FPGA PAC D5005 built-in FPGA Download Cable II. 
 
 ```bash
 sudo su
@@ -1094,7 +1088,7 @@ An example of FIM modification is provided in this section.  This example can be
 
 ### 5.1. Hello FIM example
 
-If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions](https://ofs.github.io/23-4/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions).
+If you intend to add a new module to the FIM area, then you will need to inform the host software of the new module.  The FIM exposes its functionalities to host software through a set of CSR registers that are mapped to an MMIO region (Memory Mapped IO).  This set of CSR registers and their operation is described in [FIM MMIO Regions](https://ofs.github.io/ofs-2024.1-1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#mmio_regions).
 
 See [FPGA Device Feature List (DFL) Framework Overview](https://github.com/ofs/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview) for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
 
@@ -1114,7 +1108,7 @@ The steps to add this simple DFH register are described below.
 8. Update synthesis files to include the new hello_fim source files
 9. Build and test the new FIM
 
-The following sections describe changes to add the hello_fim DFH example to the Intel provided FPGA design.
+The following sections describe changes to add the hello_fim DFH example to the provided FPGA design.
 
 ### 5.1.1. src/top/iofs_top.sv
 
@@ -1200,7 +1194,9 @@ module emif_csr #(
 ```
 #### 5.1.3. src/hello_fim/hello_fim_top.sv
 
-Create hello_fim_top.sv, and store it in src/hello_fim directory. The main purpose of this RTL is to convert AXI4-Lite interface to a simple interface to interface with the registers in hello_fim_com.sv.  This register sets the DFH feature ID to 0xfff which is undefined.  Since this for test purposes, using an undefined feature ID will result in no driver being used.  Normally, a defined feature ID will be used to associate a specific driver with the FPGA module.
+Create hello_fim_top.sv, and store it in src/hello_fim directory. The main purpose of this RTL is to convert AXI4-Lite interface to a simple interface to interface with the registers in hello_fim_com.sv.
+
+For the purposes of this example, the `hello_fim` module instantiation sets the DFH feature ID (`FEAT_ID`) to 0xfff which is not currently defined. Using an undefined feature ID will result in no driver being used. Normally, a defined feature ID will be used to associate a specific driver with the FPGA module. Refer to the [Device Feature List Feature IDs](https://github.com/OFS/dfl-feature-id/blob/main/dfl-feature-ids.rst) for a list of DFL feature types and IDs. If you are adding a new module to your design, make sure the Type/ID pair does not conflict with existing Type/ID pairs. You may reserve Type/ID pairs by submitting a pull request at the link above.
 
 ```Verilog
 // ***************************************************************************
@@ -1432,8 +1428,8 @@ Create hello_fim_com.sv, and store it in src/hello_fim directory. This is the si
 
 
 module hello_fim_com #(
-    parameter bit [11:0] FEAT_ID = 12'h001,
-    parameter bit [3:0]  FEAT_VER = 4'h1,
+    parameter bit [11:0] FEAT_ID = 12'hfff,
+    parameter bit [3:0]  FEAT_VER = 4'h0,
     parameter bit [23:0] NEXT_DFH_OFFSET = 24'h1000,
     parameter bit END_OF_LIST = 1'b0
  )(
@@ -1980,7 +1976,7 @@ Check if binary was loaded correctly
 fpgainfo fme
 ## Output
 Intel FPGA Programmable Acceleration Card D5005
-Board Management Controller, MAX10 NIOS FW version: 2.0.14
+Board Management Controller, MAX10 NIOS FW version: 2.0.8
 Board Management Controller, MAX10 Build version: 2.0.8
 //****** FME ******//
 Object Id                        : 0xF000000
@@ -1991,9 +1987,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x138D
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : TBD
+Bitstream Id                     : 288511860124977321
 Bitstream Version                : 4.0.1
-Pr Interface Id                  : TBD
+Pr Interface Id                  : a195b6f7-cf23-5a2b-8ef9-1161e184ec4e
 Boot Page                        : user
 
 ```
@@ -2063,4 +2059,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
+<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

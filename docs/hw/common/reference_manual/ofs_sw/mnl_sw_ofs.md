@@ -62,7 +62,7 @@ management and orchestration services in a data center can use this API to disco
 The OPAE provides consistent interfaces to crucial components of the platform. OPAE does not constrain frameworks and applications by making optimizations with limited applicability. When the OPAE does
 provide convenience functions or optimizations, they are optional. For example, the OPAE provides an interface to allocate physically contiguous buffers in system memory that user-space software and an accelerator can share. This interface enables the most basic feature set of allocating and sharing a large page of memory in one API call. However, it does *not* provide a `malloc()`-like interface backed by a memory pool or slab allocator. Higher layers of the software stack can make such domain-specific optimizations.
 
-Most of the information related to OPAE can be found on the official [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2023.2/) and in the [OPAE SDK repository](https://github.com/OFS/opae-sdk). The following is a summary of the information present on this web page:
+Most of the information related to OPAE can be found on the official [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/latest) and in the [OPAE SDK repository](https://github.com/OFS/opae-sdk). The following is a summary of the information present on this web page:
 
 - Configuration options present in the OPAE SDK build and installation flow
 - The steps required to build a sample OPAE application
@@ -351,7 +351,7 @@ are provided,
 [fpgaEnumerate()](https://github.com/OFS/opae-sdk/blob/master/include/opae/enum.h#L46-L103)
 returns all tokens that can be enumerated.
 
-
+The function will assert a reset on the currently loaded AFU for a selected device through an `ioctl` call on its VFIO_GROUP.
 
 ##### **2.1.2.1 fpga\_properties and Filtering**
 
@@ -1158,7 +1158,7 @@ call in order to perform a Port reset. The fpga\_handle passed to
 must be a valid open handle to an FPGA\_ACCELERATOR. The ioctl requires
 no input/output parameters.
 
-
+Note: `fpgaReset()` will always reset the entire FIM and AFU region of a device, and will not accept VFIO devices as an input argument. If you wish to issue a reset on the currently loaded AFU only, use the `fpgaEnmuerate()` function instead.
 
 #### **2.2.2 Port Information**
 
@@ -3519,7 +3519,7 @@ missing, the create script will complain until they are resolved.
 
 ```bash
 $ cd opae-sdk
-$ ./packaging/opae/rpm/create unrestriected
+$ ./packaging/opae/rpm/create unrestricted
 ```
 
 ### **8.4 Updating the RPM Version Information**
@@ -3986,13 +3986,9 @@ The Linux Operating System treats the FPGA hardware as a PCIe\* device. A predef
 Device Feature List (DFL), allows for dynamic feature discovery in an Intel
 FPGA solution.
 
-![FPGA PCIe Device](FPGA_PCIe_Device.png "FPGA PCIe Device")
-
 The Linux Device Driver implements PCIe Single Root I/O Virtualization (SR-IOV) for the creation of
 Virtual Functions (VFs). The device driver can release individual accelerators
 for assignment to virtual machines (VMs).
-
-![Virtualized FPGA PCIe Device](FPGA_PCIe_Device_SRIOV.png "Virtualized FPGA PCIe Device")
 
 ### **11.2 FPGA Management Engine (FME)**
 
@@ -4081,18 +4077,13 @@ N is the number of Port released from the PF.
 
 #### **11.7.1 PCIe Module Device Driver**
 
-![Driver Organization](Driver_Organization.png "Driver Organization")
-
-
-
-
 FPGA devices appear as a PCIe devices. Once enumeration detects a PCIe PF or VF, the Linux OS loads the FPGA PCIe
 device driver. The device driver performs the following functions:
 
 1. Walks through the Device Feature List in PCIe device base address register (BAR) memory to discover features
 and their sub-features and creates necessary platform devices.
-2. Enables SR-IOV.
-3. Introduces the feature device infrastructure, which abstracts operations for sub-features and provides common functions
+1. Enables SR-IOV.
+2. Introduces the feature device infrastructure, which abstracts operations for sub-features and provides common functions
 to feature device drivers.
 
 #### **11.7.2 PCIe Module Device Driver Functions**
@@ -4794,8 +4785,8 @@ learn how to build and install. Your versions may not match those in the documen
 
 | Software      | Version       | Build Instructions                  |
 | -----         | -----         | -----                               |
-| OPAE SDK      | 2.3.0-1       | [**4.0 OPAE Software Development Kit**](https://github.com/intel-innersource/applications.fpga.ofs.documentation/blob/main/n6000/user_guides/ofs_getting_started/ug_qs_ofs_n6000.md#heading-4.0) |
-| linux-dfl     | ofs-2022.3-2  | [**3.0 Intel OFS DFL Kernel Drivers**](https://github.com/intel-innersource/applications.fpga.ofs.documentation/blob/main/n6000/user_guides/ofs_getting_started/ug_qs_ofs_n6000.md#heading-3.0)  |
+| OPAE SDK      | 2.3.0-1       | [**4.0 OPAE Software Development Kit**](../../sw_installation/pcie_attach/sw_install_pcie_attach.md) |
+| linux-dfl     | ofs-2022.3-2  | [**3.0 Intel OFS DFL Kernel Drivers**](../../sw_installation/pcie_attach/sw_install_pcie_attach.md)  |
 
 The following steps will enable your device to use the OPAE SDK. We will call our new device the "Intel FPGA Programmable Acceleration Card N6002".
 This device is identical to the Intel FPGA Programmable Acceleration Card N6001, and will use the pre-existing plugins and feature ID associated with that device. We will also use the enum value `FPGA_HW_DCP_N6002` to describe our new board
@@ -5049,4 +5040,4 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
+<!-- include ./docs/hw/doc_modules/links.md --> 

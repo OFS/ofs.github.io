@@ -2,7 +2,7 @@ To install the Git Large File Storage (LFS) extension, execute the following com
 
 1. Obtain Git LFS package
     ```bash
-    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh
     ```
 2. Install Git LFS package
     ```bash

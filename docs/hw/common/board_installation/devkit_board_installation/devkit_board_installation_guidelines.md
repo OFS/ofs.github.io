@@ -1,6 +1,6 @@
 # Board Installation Guidelines: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
 
-Last updated: **March 20, 2024** 
+Last updated: **July 16, 2024** 
 
 ## 1.0 Introduction
 
@@ -58,9 +58,9 @@ The information in this document is intended for customers evaluating the PCIe A
 
 ### 1.3 Required Hardware for Installation
 
-#### Table 2: Hardware BKC for OFS PCIe Attach targeting the F-tile Development Kit
+#### Table 2: Hardware BKC for OFS PCIe Attach targeting the F-Series Development Kit
 
-The following table highlights the hardware which composes the Best Known Configuation (BKC) for the OFS 2024.1 PCIe Attach release targeting F-tile Development Kit.
+The following table highlights the hardware which composes the Best Known Configuation (BKC) for the OFS 2024.2-1 PCIe Attach release targeting F-Series Development Kit.
 
 *Note: The Dell R750 server product line is known not to work with this release.*
 
@@ -102,25 +102,24 @@ The recommended fan speed setting is to use the 100% preset. If using a differen
 
 ## 3.0 Development Kit Installation
 
-### 3.1 Preparing the F-tile Development Kit for Installation into a Server
+### 3.1 Preparing the F-Series Development Kit for Installation into a Server
 
 Light pipes located on the top of the QSFP cages for the F-Series Dev Kit may or may not cause physical fit issues for some server platforms. If you run into any issues during installation you may remove the light pipes:
 
 1. The DK-DEV-AGF027F1ES (or it is called the F - tile Dev Kit, or FM86 Dev Kit) has LED light pipes on top of the QSFP cages.
-    
-    ![ftile_qsfp_light_pipe](./images/ftile_qsfp_light_pipe.png)
+
+    ![ftile_qsfp_light_pipe](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe.png)
     
     These light pipes interfere with the server PCIe slot faceplate.
-    
-    ![ftile_qsfp_light_pipe_interference_r750](./images/ftile_qsfp_light_pipe_interference_r750.png)
+    ![ftile_qsfp_light_pipe_interference_r750](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_interference_r750.png)
 
 2. The light pipes can be easily removed by prying them off using a small screwdriver for leverage, then pushing the light pipes back to remove the retaining clips from the QSFP cage.
         
-    ![ftile_qsfp_light_pipe_removal_part1](./images/ftile_qsfp_light_pipe_removal_part1.png)
+    ![ftile_qsfp_light_pipe_removal_part1](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part1.png)
     
-    ![ftile_qsfp_light_pipe_removal_part2](./images/ftile_qsfp_light_pipe_removal_part2.png)
+    ![ftile_qsfp_light_pipe_removal_part2](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part2.png)
     
-    ![ftile_qsfp_light_pipe_removal_part3](./images/ftile_qsfp_light_pipe_removal_part3.png)
+    ![ftile_qsfp_light_pipe_removal_part3](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part3.png)
 
 ### 3.2 Default Switch Settings
 
@@ -128,19 +127,19 @@ Double check that your development kit switch settings match those listed as the
 
 1. Board switch definitions can be found in the [Intel Agilex® 7 F-Series FPGA (Two F-Tiles) Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) or [Intel Agilex® 7 FPGA I-Series Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/default-setting.html).
 
-    ![ftile_board_switches_diagram](./images/ftile_board_switches_diagram.png)
+    ![ftile_board_switches_diagram](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_diagram.png)
     
     See the image below for SW1, SW4 and SW3.
     
-    ![](./images/ftile_board_switches_picture.png)
+    ![](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_picture.png)
     
     Before inserting into a server, set SW5 to 'ON'.
     
-    ![ftile_board_sw5_on](./images/ftile_board_sw5_on.png)
+    ![ftile_board_sw5_on](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_sw5_on.png)
 
 2. Below shows an F-Series Dev Kit installed into a PCIe riser with the light pipes removed.
     
-    ![ftile_final_installation_r750](./images/ftile_final_installation_r750.png)
+    ![ftile_final_installation_r750](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_final_installation_r750.png)
 
 ### 3.3 Physical Installation Procedure
 
@@ -157,15 +156,15 @@ Both Development Kits have an on-board FPGA Download Cable II module which is us
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Software Installation Guide: PCIe Attach](../../sw_installation/pcie_attach/sw_install_pcie_attach.md) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Software Installation Guide: PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a workstation with Quartus Prime Pro Version 23.4 tools installed, specifically the `jtagconfig` tool.
+* This walkthrough requires a workstation with Quartus Prime Pro Version 24.1 tools installed, specifically the `jtagconfig` tool.
 
 Steps:
 
 1. Refer to the following figure for Steps 2 and 3.
 
-  ![agilex_ftile_dev_kit](images/agilex_ftile_dev_kit.png)
+  ![agilex_ftile_dev_kit](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/agilex_ftile_dev_kit.png)
 
 2. Locate Single DIP Switch **SW2** and 4-position DIP switch **SW3** on the fseries-dk. These switches control the JTAG setup for the board. Ensure that both **SW2** and **SW3.3** are set to `ON`.
 
@@ -174,7 +173,7 @@ Steps:
 4. Use the `jtagconfig` tool to check that the JTAG chain contains the AGFB027R24C2E2VR2 device.
 
     ```bash
-    <QUARTUS_INSTALL_DIR>/23.4/quartus/bin/jtagconfig
+    <QUARTUS_INSTALL_DIR>/24.1/quartus/bin/jtagconfig
     ```
 
     Example expected output:

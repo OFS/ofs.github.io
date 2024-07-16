@@ -1,6 +1,6 @@
 # **FPGA Developer Journey Guide: Open FPGA Stack**
 
-Last updated: **March 20, 2024** 
+Last updated: **July 16, 2024** 
 ## **1 Introduction**
 
 This document is intended to help you understand the FPGA developer flow using OFS as well as considerations you should take when creating your custom platform.  
@@ -19,7 +19,7 @@ The general development flow is depicted in the diagram below and discussed in m
 
 ## **2 Evaluate OFS** 
 
-The repositories in the OFS site are tagged based on year and release number.  For example, a tag of 2024.1-1-1 indicates the first release package of the quarter.  If there an updates to this release package, the last number will be incremented by 1, such as 2024.1-1-2.
+The repositories in the OFS site are tagged based on year and release number in the format `<yyyy>.<release>-<iteration>`.  For example, a tag of 2024.2-1 indicates the 2nd release of the year.  If there are any updates to a particular release package, the last number will be incremented by 1, for example, as 2024.2-2.
 
 By clicking on the release link to the right of the RTL repositories, you will find the latest release, the tag number and release notes.  
 
@@ -33,29 +33,29 @@ There are two ways to evaluate OFS depending on your needs:
 
 Option 1: Setup your card and software in a server using the steps provided in one of the corresponding **Getting Started Guides** and leverage the appended binaries in the FIM RTL repository release page "Assets" tab to preview the software and design functionality the OFS framework provides you out of the box.  This step will give you a good high-level overview of OFS. **Getting Started Guides** are available for the following FIM(shell) designs:
 
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)]
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (I-Series Development Kit (2xR-Tile, 1xF-Tile))](https://ofs.github.io/ofs-2024.1-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/)
-* [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/)
-* [Getting Started Guide: OFS for Stratix 10® FPGA PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/)
+* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
+* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2024.2-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
+* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (I-Series Development Kit (2xR-Tile, 1xF-Tile))](https://ofs.github.io/ofs-2024.2-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/)
+* [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/)
+* [Getting Started Guide: OFS for Stratix 10® FPGA PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/)
 
 Option 2: After your card and software are installed using the steps provided in one of the corresponding **Getting Started Guides** listed above, use a corresponding **Evaluation Guide** and provided evaluation script to run through all the capabilities of the OFS framework by selecting one of the choices in the evaluation menu.  The evaluation script gives you familiarity of the entire design, build, simulation, programming and test flow for OFS, including a OneAPI flow.
 
-* [Automated Evaluation User Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/)
-* [Automated Evaluation User Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/)
-* [Automated Evaluation User Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/)
+* [Automated Evaluation User Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/)
+* [Automated Evaluation User Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/)
+* [Automated Evaluation User Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/)
 
 The scripts that go with each user guide are found in the assets tab of the corresponding FIM RTL repository's latest tag release page.
 
-To use the full functionality of the script you will want to ensure you clone all of the appropriate repositories below at the same level just under an OFS directory you create, such as ofs-2024.1-1, similar to the figure below. 
+To use the full functionality of the script you will want to ensure you clone all of the appropriate repositories below at the same level just under an OFS directory you create, such as ofs-2024.2, similar to the figure below. 
 
 
 **Figure 2-2: Directory Structure of Cloned Repositories**
 
 ```bash
-##|-- ofs-2024.1-1
+##|-- ofs-2024.2
 ##|    |--examples-afu
-##|    |--linux-dfl
+##|    |--linux-dfl-backport
 ##|    |--ofs-agx7-pcie-attach
 ##|    |--ofs-oneapi-asp
 ##|    |--opae-sdk
@@ -70,7 +70,7 @@ You can access the repositories from ofs.github.io by clicking on the GitHub ico
 
 ![](images/Repo-site-access.png)
 
-After making your top level directory, initializing the repository and installing git lfs, clone one of the FIM RTL repositories you intend to use:
+After making your top level directory and initializing the repository, clone one of the FIM RTL repositories you intend to use:
 
 ```bash
 
@@ -78,20 +78,15 @@ After making your top level directory, initializing the repository and installin
 mkdir OFS
 cd OFS
 
-#Initialize repository and install git lfs
+#Initialize repository
 git init
-
-curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | sudo bash
-sudo dnf install git-lfs
-git lfs install
 
 #Select a FIM RTL repository to clone
 #To clone Intel Agilex 7 PCIe Attach FIM RTL repository
 
 git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
 cd ofs-agx7-pcie-attach
-git checkout --recurse-submodules tags/ofs-2024.1-1
-
+git checkout --recurse-submodules tags/ofs-2024.2-1
 
 #To clone Intel Agilex 7 SoC Attach FIM RTL Repository
 git clone --recurse-submodules https://github.com/OFS/ofs-f2000x-pl.git
@@ -109,23 +104,23 @@ After cloning your FIM RTL repository, clone the other necessary repositories:
 ```bash
 #All other repositories below should be cloned to use the evaluation script:
 
-git clone https://github.com/OFS/linux-dfl
-cd /home/OFS/linux-dfl
-git checkout tags/ofs-2024.1-6.1-2
+git clone https://github.com/OFS/linux-dfl-backport
+cd /home/OFS/linux-dfl-backport
+git checkout tags/intel-1.11.0-2
 
 #Use this OPAE clone command for all PCIe Attach Cards
 git clone https://github.com/OFS/opae-sdk
 cd /home/OFS/opae-sdk
-git checkout tags/2.12.0-4
+git checkout tags/2.13.0-3
 
 #Use this OPAE clone command for the SoC Attach Card
 git clone https://github.com/OFS/opae-sdk
 cd /home/OFS/opae-sdk
-git checkout tags/2.12.0-4
+git checkout tags/2.12.0-5
 
 git clone https://github.com/OFS/oneapi-asp.git 
 cd /home/OFS/oneapi-asp
-git checkout tags/ofs-2024.1-1
+git checkout tags/ofs-2024.2-1
 
 git clone https://github.com/OFS/ofs-platform-afu-bbb.git
 cd /home/OFS/ofs-platform-afu-bbb
@@ -133,18 +128,18 @@ git checkout tags/ofs-2024.1-1
 
 git clone https://github.com/OFS/opae-sim.git
 cd /home/OFS/opae-sim
-git checkout tags/2.12.0-1
+git checkout tags/2.13.0-2
 
 git clone https://github.com/OFS/examples-afu.git
 cd /home/OFS/examples-afu
 git checkout tags/ofs-2024.1-1
 ```
 
-You will also want to ensure you install the correct version of Intel Quartus Prime Pro as directed in the release notes in addition to any Quartus patches.  Note that Quartus Prime Pro software can be downloaded from the [downloads tab](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html) on intel.com.  Quartus Prime Pro patches required are attached to the assets tab at the bottom of the tagged RTL repository release page. Simulator tools as listed corresponding Simulation User Guides:
+You will also want to ensure you install the correct version of Intel Quartus Prime Pro as directed in the release notes in addition to any Quartus patches.  Note that Quartus Prime Pro software can be downloaded from the [downloads tab](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html) on intel.com.  Quartus Prime Pro patches required are attached to the assets tab at the bottom of the tagged RTL repository release page. Simulator tools as listed corresponding UVM Simulation User Guides:
 
-* [Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/)
-* [Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/)
-* [Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)
+* [UVM Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/)
+* [UVM Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/)
+* [UVM Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)
 
 ## **3 Select a Starting Shell/FIM**
 
@@ -159,7 +154,7 @@ To begin you may want to learn more about Intel Stratix 10 and Intel Agilex 7 fa
 
 Note that each reference design provides an integrated shell, called the FPGA Interface Manager (FIM), which is encompasses in blue in the diagrams below.  This shell provides standard AXI interfaces to the Accelerator Functional Unit (AFU) region, shown in green, which depicts a region where a workload or partial reconfiguration slot resides.  The regions are not drawn to scale.  The figures and tables below give an overview of the available starting points for your design.
 
-**Figure 3-1: OFS FIM Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup>7 PCIe Attach (P-tile, E-tile)**
+**Figure 3-1: OFS FIM Targeting Agilex<sup>&reg;</sup>7 PCIe Attach (P-tile, E-tile)**
 
 ![](../../../n6001/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.png)
 
@@ -177,12 +172,12 @@ Note that each reference design provides an integrated shell, called the FPGA In
 | Software Support                      | * Linux DFL drivers targeting OFS FIMs<br>* OPAE Software Development Kit* OPAE Tools |
 | Target Board                          | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/content-details/779620/a-smartnic-for-accelerating-communications-and-networking-workloads.html) |
 
-Click here for the [OFS Collateral for Agilex® 7 FPGA PCIe Attach Reference FIM](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/) documentation collection.
+Click here for the [OFS Collateral for Agilex® 7 FPGA PCIe Attach Reference FIM](https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_agx7_pcie_attach) documentation collection.
 
 <br>
 
 
-**Figure 3-2: OFS FIM Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup>7 PCIe Attach (2xF-tile)**
+**Figure 3-2: OFS FIM Targeting Agilex<sup>&reg;</sup>7 PCIe Attach (2xF-tile)**
 
 ![](images/F-tile-PCIe-Attach.png)
 
@@ -194,18 +189,38 @@ Click here for the [OFS Collateral for Agilex® 7 FPGA PCIe Attach Reference FIM
 | Memory                                | 3 DDR Channels:* One HPS DDR4 bank, x40 (x32 Data and x8 ECC), 2400 MHz, 1GB each* Two Fabric DDR4 banks, x64 (no ECC), 2400 MHz, 8GB |
 | Ethernet                              | 2x4x25GbE |
 | Hard Processor System                 | 64-bit quad core Arm® Cortex®-A53 MPCore with integrated peripherals. |
-| Configuration and Board Manageability | * FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration)<br>* Platform Controller Management Interface (PMCI) Module for Board Management Controller |
+| Configuration and Board Manageability | * FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration) |
 | Partial Reconfiguration               | Supported |
 | OneAPI                                | OneAPI Acceleration Support Package (ASP) provided with compiled FIM to support OneAPI Runtime |
 | Software Support                      | * Linux DFL drivers targeting OFS FIMs<br>* OPAE Software Development Kit* OPAE Tools |
 | Target Board                          | [Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) |
 
-Click here for the [OFS Collateral for Agilex® 7 FPGA PCIe Attach Reference FIM](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/) documentation collection.
+Click here for the [OFS Collateral for Agilex® 7 FPGA PCIe Attach Reference FIM](https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_agx7_pcie_attach) documentation collection.
+
+**Figure 3-3: OFS FIM Targeting Agilex<sup>&reg;</sup>7 PCIe Attach (2xR-tile, F-tile)**
+
+![](images/iseries_pcie_attach_1x16_top_level_diagram.png)
+
+| Key Feature                           | Description                                                  |
+| ------------------------------------- | ------------------------------------------------------------ |
+| Target OPN                            | AGIB027R29A1E2VR3                                           |
+| PCIe                                  | PR-tile PCIe 1xGen5x16<br>R-tile PCIe 2xGen5x8<br>R-tile PCIe 1xGen4x16 |
+| Virtualization                        | 5 physical functions/3 virtual functions with ability to expand |
+| Memory                                | 4 Fabric DDR4 channels, x64 (no ECC), 2666 MHz, 8GB |
+| Ethernet                              | 2x4x25GbE, 2x200GbE, 2x400GbE |
+| Hard Processor System                 | 64-bit quad core Arm® Cortex®-A53 MPCore with integrated peripherals. |
+| Configuration and Board Manageability | * FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration) |
+| Partial Reconfiguration               | Supported |
+| OneAPI                                | OneAPI Acceleration Support Package (ASP) provided with compiled FIM to support OneAPI Runtime |
+| Software Support                      | * Linux DFL drivers targeting OFS FIMs<br>* OPAE Software Development Kit* OPAE Tools |
+| Target Board                          | [Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) |
+
+Click here for the [OFS Collateral for Agilex® 7 FPGA PCIe Attach Reference FIM](https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_agx7_pcie_attach) documentation collection.
 
 <br>
 
 
-**Figure 3-3: OFS FIM Features Targeting Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> 7 SoC Attach**
+**Figure 3-4: OFS FIM Features Targeting Agilex<sup>&reg;</sup> 7 SoC Attach**
 
 ![](../../../f2000x/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.svg)
 
@@ -223,13 +238,13 @@ Click here for the [OFS Collateral for Agilex® 7 FPGA PCIe Attach Reference FIM
 
 Note: Source code for BMC RTL/Firmware that works with this reference FIM can be obtained by contacting your Intel Sales Representative.
 
-Click here for the [OFS Collateral for Agilex® SoC Attach Reference FIM](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/) documentation collection.
+Click here for the [OFS Collateral for Agilex® SoC Attach Reference FIM](https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_agx7_soc_attach) documentation collection.
 
 
 <br>
 
 
-**Figure 3-4: OFS FIM Targeting Intel<sup>&reg;</sup> Stratix<sup>&reg;</sup> 10 FPGA PCIe Attach**
+**Figure 3-5: OFS FIM Targeting Stratix<sup>&reg;</sup> 10 FPGA PCIe Attach**
 
 ![](../../../d5005/reference_manuals/ofs_fim/images/FIM-s10-OFS.png)
 
@@ -248,7 +263,7 @@ Click here for the [OFS Collateral for Agilex® SoC Attach Reference FIM](https:
 |Target Board  | [Intel® FPGA Programmable Acceleration Card D5005](https://www.intel.com/content/www/us/en/docs/programmable/683568/current/introduction.html)|
 
 
-Click here for the [OFS Collateral for Stratix® 10 FPGA PCIe Attach Reference FIM](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/) documentation.
+Click here for the [OFS Collateral for Stratix® 10 FPGA PCIe Attach Reference FIM](https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_s10_pcie_attach) documentation.
 
 
 ## **4 Review Release Notes**   
@@ -264,21 +279,21 @@ Before beginning your design, read the release notes for each repository you are
 
 When you are ready to begin development you will want to ensure you have any other setup requirements satisfied by reviewing instructions in the corresponding FIM Developer Guide and if you are implementing a OneAPI Board Support Package, the oneAPI ASP Getting Started User Guide as well.
 
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
     * Can be used with Agilex® 7 FPGA R-Series Development Kit (2xR-Tile, 1xF-Tile)
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
     * Can be used with Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
     * Can be used with Intel® FPGA SmartNIC N6001-PL
-* [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)
+* [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)
     * Can be used with Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL 
-* [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]
+* [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/)
     * Can be used with Intel® FPGA PAC D5005
 
 
 For oneAPI setup: 
 
-* [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
+* [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
     * Can be used with:<br>
             - Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
             - Intel® FPGA SmartNIC N6001-PL
@@ -297,38 +312,38 @@ The FIM Developer Guides for each reference FIM show you how to make these chang
 
 If you are also interested in testing different examples for the Acceleration Functional Unit (AFU) or workload region of your design or creating your own AFU design, you can refer to the corresponding **AFU Developer Guides**:
 
-* [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/)
-* [Workload Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)
-* [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
+* [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/)
+* [Workload Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)
+* [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
 
 ## **7 Simulate and Debug**
 
-Setup and test files to perform system-level Universal Verification Methodology (UVM) testing are provided in each FIM RTL repository.  Please refer to the corresponding **Simulation User Guide** for details on test bench architecture, setup and testing.
+Setup and test files to perform system-level Universal Verification Methodology (UVM) testing are provided in each FIM RTL repository.  Please refer to the corresponding **UVM Simulation User Guide** for details on test bench architecture, setup and testing.
 
-* [Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/)
-* [Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/)
-* [Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.1-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)
+* [UVM Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/)
+* [UVM Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/)
+* [UVM Simulation User Guide: OFS for Stratix® 10 PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/)
 
 ## **8 Optional: Build OneAPI Accelerator Support Package (ASP)**
 
 If you are considering providing oneAPI support for your custom board design, you must integrate the oneAPI ASP hardware and software components into your design.  Reference the following documents to learn about the architecture and implementation flow for the oneAPI ASP with an OFS design.
 
-* [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
-* [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/)
+* [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
+* [oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/)
 
 ## **9 Optional: Driver or OFS Software Tool Modifications**
 
-As you add or remove interfaces to your custom design, you may need to modify or enhance existing drivers that accompany the OFS reference design.  Additionally, you may decide you want to create additional utilities or plugins leveraging the OFS software infrastructure.  In this case, refer to the [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) to learn more about the underlying driver and software architecture and how to make modifications.
+As you add or remove interfaces to your custom design, you may need to modify or enhance existing drivers that accompany the OFS reference design.  Additionally, you may decide you want to create additional utilities or plugins leveraging the OFS software infrastructure.  In this case, refer to the [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) to learn more about the underlying driver and software architecture and how to make modifications.
 
 Additionally, for guidance on using a Kernel-based Virtual Machine with OFS, refer to our KVM User Guide. 
 
-[KVM User Guide: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_kvm/ug_kvm/)
+[KVM User Guide: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/ug_kvm/ug_kvm/)
 
 ## **10 Test and Deploy**
 
 When testing and deploying your platform you are encouraged to modify and tailor the evaluation scripts you used in **Section 2** to assist in automating your continuous integration flow.  You may also want to refer to our Docker User Guide to understand how to use Docker for Development and Deployment.
 
-* [Docker User Guide: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/ug_docker/ug_docker/)
+* [Docker User Guide: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/ug_docker/ug_docker/)
 
 
 ## Notices & Disclaimers
@@ -345,5 +360,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/common/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

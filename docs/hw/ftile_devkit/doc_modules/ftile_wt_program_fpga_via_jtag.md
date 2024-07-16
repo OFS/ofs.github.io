@@ -62,7 +62,7 @@ Steps:
   quartus_pgmw
   ```
 
-  ![quartus_pgmw](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw.png)
+  ![quartus_pgmw](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw.png)
 
 1. Click **Hardware Setup** to open the Hardware Setup dialog window.
 
@@ -70,7 +70,7 @@ Steps:
 
   2. In the **Hardware frequency** field enter `16000000` Hz
 
-      ![quartus_pgmw_hardware_setup](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_hardware_setup.png)
+      ![quartus_pgmw_hardware_setup](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_hardware_setup.png)
 
   3. Click **Close**
 
@@ -78,17 +78,17 @@ Steps:
 
 3. If prompted, select the AGFB027R24C2E2VR2 device. The JTAG chain should show the device.
 
-  ![quartus_pgmw_device_chain](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_device_chain.png)
+  ![quartus_pgmw_device_chain](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_device_chain.png)
 
 9. Right click the AGFB027R24C2E2VR2 row and selct **Change File**.
 
-  ![quartus_pgmw_change_file](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_change_file.png)
+  ![quartus_pgmw_change_file](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_change_file.png)
 
 1.  In the **Select New Programming File** window that opens, select  `ofs_top_hps.sof` and click **Open**.
 
 2.  Check the **Program/Configure** box for the AGFB027R24C2E2VR2 row, then click **Start**. Wait for the **Progress** bar to show `100% (Success)`.
 
-  ![quartus_pgmw_success](/docs/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_success.png)
+  ![quartus_pgmw_success](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_success.png)
 
 12. Close the Quartus Programmer GUI.
 
@@ -120,9 +120,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 0x5010202BE8C93B9 (TBD)
+  Bitstream Id                     : 360571656856467345
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : d8fd88a7-8683-57ba-8be6-a1e058b7d4ed (TBD)
+  Pr Interface Id                  : 98ed516f-d24d-5b71-ae12-e78cd641e4be
   Boot Page                        : N/A
   ```
 

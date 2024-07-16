@@ -1,4 +1,4 @@
-# **FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Intel® Stratix 10® FPGA**
+# **FPGA Interface Manager Technical Reference Manual: Open FPGA Stack for Stratix 10® FPGA**
 
 
 
@@ -12,7 +12,7 @@
 
 
 This document describes the hardware architecture of the​ Open FPGA Stack (OFS)
-targeting the Intel<sup>&reg;</sup> Stratix 10 FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
+targeting the Stratix 10 FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
@@ -52,7 +52,9 @@ The key components of OFS include:
 -   Target development platforms such as Intel-branded Programmable Acceleration Cards (PACs), Acceleration Development Platforms (ADPs) and third-party platforms.
 
 - Board Management Controller RTL and firmware that supports telemetry monitoring, remote configuration updates and most importantly a root of trust for the platform.
-
+<!--
+- Source accessible, modular FPGA Interface  manager (FIM) RTL with a UVM infrastructure and unit tests that can be leveraged for your own custom FIM design
+-->
 
 - Source accessible, modular FPGA Interface  manager (FIM) RTL with unit tests that can be leveraged for your own custom FIM design
 
@@ -62,7 +64,7 @@ The key components of OFS include:
 
 - The OneAPI shim provides a layer that is used by the OneAPI runtime to communicate with the kernel.
 
-
+<!--- Accelerator simulation through UVM -->
 
 -   OPAE software development kit (APIs, upstreamed Linux drivers and software tools)
 
@@ -71,9 +73,11 @@ The key components of OFS include:
 
 
 
-<p>The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Intel Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Intel sales representative.</p>
+<p>The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Altera Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Altera sales representative.</p>
 
-**Table 1-2 OFS GitHub Repositories** (<https://github.com/OFS/>)
+**Table 1-2 OFS GitHub Repositories**
+
+OFS GitHub repositories can be found in the [OFS](https://github.com/OFS).
 
 | Repository| Contains                                                               |
 |:--------------------------:|------------------------------------------------------------------------|
@@ -83,7 +87,9 @@ The key components of OFS include:
 <p> The OPAE software GitHub site is fully opensource and contains resources for both software and workload developers.</p>
 
 
-**Table 1-3 OPAE Public Git Repositories** (<https://github.com/OFS)>
+**Table 1-3 OPAE Public Git Repositories**
+
+OPAE GitHub repositories can be found in the [OFS](https://github.com/OFS).
 
   | OPAE Git Repository Folder |  Contains|
   |:-:|-------------------------------------|
@@ -98,7 +104,7 @@ frameworks in a GitHub repository allows you to easily customize your own
 designs with the latest versions.
 
 
-Most hardware and software ingredients are available in our OFS GitHub location.  For access to the board management controller firmware and RTL or our security guide for OFS, please contact a local Intel sales representative. 
+Most hardware and software ingredients are available in our OFS GitHub location.  For access to the board management controller firmware and RTL or our security guide for OFS, please contact a local Altera sales representative. 
 
 ### **1.3 OFS Features**
 
@@ -117,7 +123,7 @@ The AFU partition is provided for custom acceleration workloads and may contain 
 
 #### **1.3.1 FPGA Interface Manager (FIM)**
 
-The updated OFS architecture for Stratix 10® FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are: 
+The updated OFS architecture for Stratix® 10 FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are: 
 
 * PCIe Subsystem
 * HSSI Subsystem
@@ -132,11 +138,11 @@ The AFU Region provides design space for custom workloads and contains both stat
 
 Note that as discussed previously, the BMC RTL and firmware, the OFS OPAE software stack and support for building your own customer board support package are also provided in separate OFS repositories.
 
-**Figure 1-2 OFS for Intel Stratix 10 Block Diagram**
+**Figure 1-2 OFS for Stratix 10 Block Diagram**
 
 ![base-shell](images/BaseShell.png)
 
-The table below details the features of the OFS release targeting the Stratix 10® FPGA .
+The table below details the features of the OFS release targeting the Stratix® 10 FPGA .
 
 **Table 1-4 Features**
 <table>
@@ -160,7 +166,7 @@ The table below details the features of the OFS release targeting the Stratix 10
         </tr>
  <tr>
             <td>HSSI</td>
-            <td>1 Arm* AMBA* 4 AXI4-Stream channel of 10G Ethernet, using the low latency Ethernet 10G MAC Intel FPGA IP interfacing to an E-tile PHY.
+            <td>1 Arm* AMBA* 4 AXI4-Stream channel of 10G Ethernet, using the low latency Ethernet 10G MAC FPGA IP interfacing to an E-tile PHY.
 </td>
             <td>-</td>
         </tr>
@@ -217,7 +223,7 @@ Each FME feature exposes its capability to host software drivers through
 a device feature header (DFH) register found at the beginning of its control
 status register (CSR) space. The FME CSR maps to physical function 0
 (PF0) Base address register 0 (BAR0) so that software can access it
-through a single PCIe link.  For more information about DFHs, refer to the [Device Feature Header (DFH) structure](https://ofs.github.io/23-4/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure).
+through a single PCIe link.  For more information about DFHs, refer to the [Device Feature Header (DFH) structure](https://ofs.github.io/ofs-2024.1-1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/#721-device-feature-header-dfh-structure).
 
 ##### **Streaming Datapath**
 
@@ -258,7 +264,7 @@ interface abstractions in the AFU region of the design.
 #### **1.3.4 OPAE SDK FPGA Platform Feature Discovery** 
 
 The OPAE C library in the OPAE software development kit is built on top
-of the OPAE Intel FPGA driver stack that abstracts the hardware and
+of the OPAE FPGA driver stack that abstracts the hardware and
 operating system specific details of the platform to the host. The FIM
 implements a DFH linked list to allow an FPGA platform driver running on
 the host to discover FME, port and AFU features. This model is similar
@@ -288,7 +294,7 @@ traversing the DFH registers.
 OFS provides FIM designs you can use as a starting point for your
 own custom design. These designs target a specific programmable
 acceleration card or development kit and exercise key FPGA device
-interfaces. The Intel Stratix<sup>&reg;</sup> 10 code line for OFS targets the Intel FPGA PAC D5005.  FIM designs are released to [OFS D5005 FIM Github Branch](https://github.com/OFS/ofs-d5005) for evaluation and use.  
+interfaces. The Stratix<sup>&reg;</sup> 10 code line for OFS targets the Intel FPGA PAC D5005.  FIM designs are released to [OFS D5005 FIM Github Branch](https://github.com/OFS/ofs-d5005) for evaluation and use.  
 
 #### **1.3.6 FIM Simulation**
 
@@ -336,7 +342,7 @@ Depending on your design goals, you can present peripherals to software as:
 
 ## **3 PCIe Interface**
 
-The FIM's H-tile PCIe* hard IP is a Gen3x16 design.  The IP supports SR-IOV and is configured to provide one PF and three VFs.  Native PCIe TLP packets are sent through the PCIe using Arm AMBA 4 AXI-4 Stream Protocol.  Before they reach the AFU, however, the packets go through an adapter that converts any headers to a data mover format that is forward compatible with Intel Agilex FPGA devices and beyond.   
+The FIM's H-tile PCIe* hard IP is a Gen3x16 design.  The IP supports SR-IOV and is configured to provide one PF and three VFs.  Native PCIe TLP packets are sent through the PCIe using Arm AMBA 4 AXI-4 Stream Protocol.  Before they reach the AFU, however, the packets go through an adapter that converts any headers to a data mover format that is forward compatible with Agilex FPGA devices and beyond.   
 
 **Figure 3-1 OFS FIM RX-TX Datapath**
 
@@ -350,7 +356,7 @@ Some key features of the PCIe interface are:
 <thead>
 <tr>
 <th align="center">Feature</th>
-<th align="center">OFS for Intel Stratix 10 Configuration</th>	
+<th align="center">OFS for Stratix 10 Configuration</th>	
 </tr>
 </thead>
 <tbody><tr><td>Mode</td>	
@@ -429,7 +435,7 @@ The Arm AMBA 4 AXI4 interfaces to the AFU use the `VALID` and `READY` signal for
 ### **3.4 Arm AMBA 4 AXI4-Stream Interface**
 
 
-   The table below shows the high-level signal mapping of the channels for the OFS for Intel Stratix 10 FPGA.  If you have previously used the OFS EA architecture, that mapping is provided as a comparison as well in this table.  
+   The table below shows the high-level signal mapping of the channels for the OFS for Stratix 10 FPGA.  If you have previously used the OFS EA architecture, that mapping is provided as a comparison as well in this table.  
 
 **Table 3-1 AXI4-Stream RX Channel**
 
@@ -768,7 +774,7 @@ The default mapping is shown below:
 </tbody>
 </table>
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [Intel® FPGA Interface Manager Developer Guide: Open Stack for Intel® Stratix 10®].
+For information on how to modify the PF/VF mapping for your own design, refer to the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
 ### **6.6 Unified Tag Remapping**
 
@@ -1227,7 +1233,7 @@ The CSR for the EMIF feature is memory mapped to the FME BAR region. Following t
 
 
 The FIM exposes 576-bits of Avalon Memory-Mapped data to the AFU, with 512-bit data and additional 64 bits that can either be used for additional metadata, parity or ECC. The AFU has the flexibility to decide the use of the extra 64 bits of data.  The ECC soft IP is not enabled in the EMIF IP to allow for the afore-mentioned flexibility. AFU developers can implement the ECC logic in the AFU by making use of the extra 64-bit of data. 
-Avalon Memory-Mapped is the native interface protocol used by Intel EMIF IP. AFU developers who desire other interface protocol in their designs over Avalon Memory-Mapped, such as AXI4 Memory-Mapped, can leverage the bridge in the PIM library. 
+Avalon Memory-Mapped is the native interface protocol used by EMIF IP. AFU developers who desire other interface protocol in their designs over Avalon Memory-Mapped, such as AXI4 Memory-Mapped, can leverage the bridge in the PIM library. 
 
 ## **12 HSSI Subsystem**
 
@@ -1308,7 +1314,7 @@ The HSSI subsystem provides the following interfaces to the AFU region:
 
 The he-hssi uses the APF interface for HSSI CSR (MMIO) accesses. The AXI4-Stream Ethernet data and side band interface along with Ethernet clocks communicate directly to the he-hssi module in the AFU region through platform independent data structures provided by the PIM.  Even if you implement a different MAC you typically can leverage these data structures defined in the hssi/inc/ofs_fim_eth_avst_if.sv file [here](https://github.com/OFS/ofs-d5005) without modification.
 
-While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file h[here](https://github.com/OFS/ofs-d500). Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.
+While the platform-independent interfaces in ofs_fim_eth_if.sv are convenient containers for passing data streams through the design hierarchy, both the MAC and AFU traffic generator require platform-specific data types. The payloads of the streams in ofs_fim_eth_if.sv are defined in platform-specific structures, with fields that are MAC-specific. In this 10GbE reference design, the payload datatypes are defined in the ipss/hssi/s10/includes/ofs_fim_eth_plat_if_pkg.sv file in the [OFS D5005 FIM Github Branch](https://github.com/OFS/ofs-d5005). Implementers connecting a new MAC should generally edit only ofs_fim_eth_plat_if_pkg.sv when defining payloads.
 
 ####  **12.2.3 HSSI Sideband Interface**
 
@@ -1325,7 +1331,7 @@ Platform specific details for the 10GbE example are from the ipss/hssi/s10/inclu
 #### **12.2.4 Reconfiguration Interfaces**
 
 
-The reconfiguration interface in the OFS EA design consists of abstracted and consolidated memory-mapped transceiver reconfiguration interfaces that are exposed to the HSSI CSRs. The reconfiguration interface directly exposes the address space of the MAC and PHY IPs in order to allow a software driver to perform dynamic reconfiguration of those IPs (i.e. read/write access to the Native PHY CSRs). Therefore, to use this interface you must be familiar with the CSR memory maps of the corresponding Intel IP cores. 
+The reconfiguration interface in the OFS EA design consists of abstracted and consolidated memory-mapped transceiver reconfiguration interfaces that are exposed to the HSSI CSRs. The reconfiguration interface directly exposes the address space of the MAC and PHY IPs in order to allow a software driver to perform dynamic reconfiguration of those IPs (i.e. read/write access to the Native PHY CSRs). Therefore, to use this interface you must be familiar with the CSR memory maps of the corresponding IP cores. 
 
 The table below summarizes all the ports associated with Reconfiguration Interfaces. 
 
@@ -1410,7 +1416,7 @@ The HSSI CSR Map can be found in the ipss/hssi/s10/hssi_ss_csr.xls file [OFS D50
 
  HE-HSSI is an Ethernet AFU that handles client side ethernet traffic. The reference HE-HSSI has following features:
 
-* HE-HSSI wraps the 10G Ethernet AFU that was provided in the OFS EA FIM with a wrapper that provides an E-tile compatible interface with OFS for Intel Stratix 10 and Intel Agilex FPGAs.
+* HE-HSSI wraps the 10G Ethernet AFU that was provided in the OFS EA FIM with a wrapper that provides an E-tile compatible interface with OFS for Stratix 10 and Agilex FPGAs.
 * Includes 10GbE traffic generator and checker (monitor)
 * Provides pause signals to the HSSI subsystem for XON and XOFF generation
 * It can generate traffic or incoming traffic that can be looped back into transmit path by enabling loopback mode, which will bypass traffic generator
@@ -1473,7 +1479,7 @@ To read a register offset in the MAC/PHY write the offset to the regaddr file as
 #### **12.3.2	HSSI User Space Tool**
 
 
-The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  [OPAE SDK Branch](https://github.com/OFS/opae-sdk/tree/2.12.0-4).
+The HSSI user space application exports a control interface to the HSSI AFU's packet generator logic. Context-sensitive help is given by the --help option, doc/src/fpga_tools/hssi/hssi.md,  [OPAE SDK Branch](https://github.com/OFS/opae-sdk/tree/2.12.0-5).
 <pre><code>$ hssi --help
 </pre></code>
 
@@ -1488,14 +1494,15 @@ You can either leverage Ethernet example designs from platform designer or use y
 ## **13 Partial Reconfiguration**
 
 
-Partial Reconfiguration (PR) is an Intel FPGA technology that allows user to reconfigure parts of the FPGA device dynamically, while the remainder of the device continues to operate. In a non-partial reconfiguration flow, any change to the design requires full reprogramming of the entire configuration RAM (CRAM) arrays in the device. With partial reconfiguration, you can dynamically reprogram one or more CRAM frames. A partial reconfiguration design has a static region, and one or more PR regions, which can be modified to implement new logic. The portion of the CRAM on the chip to be reconfigured is contained within a PR region.
+Partial Reconfiguration (PR) is an Altera FPGA technology that allows user to reconfigure parts of the FPGA device dynamically, while the remainder of the device continues to operate. In a non-partial reconfiguration flow, any change to the design requires full reprogramming of the entire configuration RAM (CRAM) arrays in the device. With partial reconfiguration, you can dynamically reprogram one or more CRAM frames. A partial reconfiguration design has a static region, and one or more PR regions, which can be modified to implement new logic. The portion of the CRAM on the chip to be reconfigured is contained within a PR region.
 For the PR flow, the design should be partitioned into static region and reconfigurable region. The static region is the area of your FPGA that is not reconfigured without reprogramming the entire FPGA. An area of the chip that you plan to partially reconfigure is a PR region. 
 
 The Port Gasket contains all the PR specific modules and logic, such as PR slot reset/freeze control, user clock, remote STP etc. For this reference example only one PR slot is supported.
 The following figure depicts the high level view of the Port Gasket:
 
 **Figure 13-1 Partial Reconfiguration Gasket**
-<img src="images/ofs-pr-gasket.png" alt="drawing" style="width:350px">
+
+![ofs-pr-gasket](images/ofs-pr-gasket.png)
 
 ![hssi-he-hssi-clks](images/ofs-he-hssi-clks.png)
 
@@ -1664,7 +1671,7 @@ An AFU MMIO Response timeout functions in the same manner described in the [MMIO
 ## **15 Design Guidance**
 
 
-The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the FPGA Interface Manager Developer Guide: Open FPGA Stack for Intel Stratix 10
+The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the FPGA Interface Manager Developer Guide: Open FPGA Stack for Stratix 10
 
 **Table 15-1 Features**
 
@@ -1705,7 +1712,7 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
         </tr>
 
 
-For more information on modifying the FIM, refer to the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs].
+For more information on modifying the FIM, refer to the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/).
 
 
 
@@ -1723,8 +1730,8 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->
 
 
 

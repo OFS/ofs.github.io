@@ -1,10 +1,9 @@
 # oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack
 
-
-
-
-
-
+<!-- include ./docs/hw/n6001/doc_modules/links.md -->
+<!-- include ./docs/hw/d5005/doc_modules/links.md -->
+<!-- include ./docs/hw/common/doc_modules/links.md -->
+<!-- include ./docs/hw/doc_modules/links.md -->
 
 ## **1.0 Overview**
 <div id="overview"></div>
@@ -12,18 +11,30 @@
 ### **1.1 About this Document**
 <div id="about_doc"></div>
 
-This document serves as a reference manual for platform designers wanting to enable [oneAPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit.html#gs.jxodgk) support on their Open FPGA Stack(OFS) platforms. The document describes essential hardware and software components required for enabling this design flow using OFS. Implementation details for [`oneapi-asp`](https://github.com/OFS/oneapi-asp) for Open FPGA Stack(OFS) reference platforms is covered towards the end of the document.
+This document serves as a reference manual for platform designers wanting to enable [oneAPI](https://www.intel.com/content/www/us/en/developer/tools/oneapi/base-toolkit.html#gs.jxodgk) support on their Open FPGA Stack(OFS) platforms. The document describes essential hardware and software components required for enabling this design flow using OFS.
 
-> **Note:** Table 1-1 in [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) lists OFS reference platforms.
+Please use table below as a quick reference for the contents in this document.
+
+**Table 1-1: Document Overview**
+
+| Concept | Description | Sections |
+|---------|---------|---------|
+| Overview, Prerequisites | Covers the flow of the document, important terms and prerequisite knowledge for this manual | * [1.0 Overview](#10-overview) <br> * [1.1 About this Document](#11-about-this-document) <br> * [1.2 Terminology](#12-terminology) <br> * [1.3 Prerequisites](#13-prerequisites) |
+| Introduction to the oneAPI FPGA Acceleration Flow using Open FPGA Stack | Covers the introduction to accelerating oneAPI applications on an FPGA platform design using Open FPGA Stack. This gives an overview of the complete stack consisting of the oneAPI application and explains the high level tool . it also covers an introduction to what the oneAPI Accelerator Support Package | [1.4 Introduction to oneAPI on Open FPGA Stack(OFS)](#14-introduction-to-oneapi-on-open-fpga-stackofs) <br> * [1.5 Introduction to oneAPI Accelerator Support Package(ASP)](#15-introduction-to-oneapi-accelerator-support-packageasp) |
+| oneAPI Accelerator Support Package Design Fundamentals | This covers the information on design elements required to ensure the FPGA hardware design is functional with the oneAPI base toolkit. It covers both the components required in hardware design as well as in the software layer that oneAPI runtime requires | * [2.0 XML Files in oneAPI ASP](#20-xml-files-in-oneapi-asp) <br> * [2.1 board_spec.xml File](#21-board_specxml-file) <br> * 2.2 [board_env.xml File](#22-board_envxml-file) <br> * [3.0 oneAPI ASP Hardware](#30-oneapi-asp-hardware) <br> * [3.1 Host to External Memory Interface(EMIF)](#31-host-to-external-memory-interfaceemif) <br> * [3.2 Host to Kernel Interface](#32-host-to-kernel-interface) <br> * [3.3 Kernel to External Memory Interface](#33-kernel-to-external-memory-interface) <br> * [4.0 oneAPI ASP Software](#40-oneapi-asp-software) <br> * [4.1 Memory Mapped Device(MMD) Layer](#41-memory-mapped-devicemmd-layer) <br> * [4.2 Board Utilities](#42-board-utilities) |
+| oneAPI ASP Implementation on OFS Reference Platforms | Provides detailed explanation of the oneAPI ASP design for OFS reference platforms. These sections cover information about the harware as well as software design files in the [`oneapi-asp` repository](https://github.com/OFS/oneapi-asp) | * [5.0 oneapi-asp Implementation Details](#50-oneapi-asp-implementation-details) <br> * [5.1 oneapi-asp Directory Structure](#51-oneapi-asp-directory-structure) <br> * [5.2 oneapi-asp Build Flow](#52-oneapi-asp-build-flow) <br> * [5.3 oneapi-asp Hardware Implementation](#53-oneapi-asp-hardware-implementation) <br> * [5.4 oneapi-asp Memory Mapped Device(MMD) Layer Implementation](#54-oneapi-asp-memory-mapped-devicemmd-layer-implementation) <br> * [5.5 oneapi-asp Utilities Implementation](#55-oneapi-asp-utilities-implementation) |
+| Appendix | This currently has information about additional features provided in the [`oneapi-asp` repository](https://github.com/OFS/oneapi-asp). Appendix A covers debug capabilities in the MMD.  | * [Appendix A: Memory Mapped Device(MMD) Layer Debug Variables](#appendix-a-memory-mapped-devicemmd-layer-debug-variables)  |
+
+> **Note:** Table 1-1 in [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) lists OFS reference platforms.
 
 For more information about developing application kernels for FPGA using oneAPI Base Toolkit (Base Kit) refer to [Intel® FPGA Add-on for oneAPI Base Toolkit](https://www.intel.com/content/www/us/en/developer/tools/oneapi/fpga.html#gs.jxoidi) webpage.
 
 ### **1.2 Terminology**
 <div id="terminology"></div>
 
-This table defines some of the common terms used when discussing OFS. 
+This table defines some of the common terms used when discussing OFS. <!-- TODO: merge with glossary -->
 
-**Table 1-1: Terminology**
+**Table 1-2: Terminology**
 
 | Term  | Abbreviation | Description |
 |---------|---------|---------|
@@ -32,7 +43,7 @@ This table defines some of the common terms used when discussing OFS.
 | FPGA Interface Manager | FIM | Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs.  The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.|
 | High Level Design | HLD | For the purpose of this guide, this term refers to designing with High Level Design tools like oneAPI Base Toolkit (Base Kit). |
 | oneAPI Accelerator Support Package | oneAPI ASP | A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and other OFS hardware, software components. oneAPI ASP hardware components and oneAPI kernel form the AFU region of a oneAPI system in OFS. |
-| Intel® FPGA Basic Building Blocks | BBB | Basic Building Blocks (BBB) for Intel® FPGAs is a suite of application building blocks and shims like Memory Properties Factory (MPF). |
+| Intel® FPGA Basic Building Blocks | BBB | Basic Building Blocks (BBB) for Altera® FPGAs is a suite of application building blocks and shims like Memory Properties Factory (MPF). |
 | BBB Memory Properties Factory | BBB MPF | Intel® FPGA BBB MPF block provides features like virtual to physical address (VTP), ordering read responses, read/write hazard detection, and masked (partial) writes. `oneapi-asp` uses MPF VTP feature. |
 | Open Programmable Acceleration Engine Software Development Kit | OPAE SDK | A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. |
 | Platform Interface Manager | PIM | An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols. |
@@ -43,7 +54,7 @@ This table defines some of the common terms used when discussing OFS.
 | Installable Client Driver | ICD | [Intel® FPGA Runtime for OpenCL™ Software Technology](https://github.com/intel/fpga-runtime-for-opencl) supports the OpenCL ICD extension from the Khronos Group™. The OpenCL ICD extension allows you to have multiple OpenCL implementations on your system. With the OpenCL ICD Loader Library, you may choose from a list of installed platforms and execute OpenCL API calls that are specific to your OpenCL implementation of choice. |
 | FPGA Client Driver | FCD | [Intel® FPGA Runtime for OpenCL™ Software Technology](https://github.com/intel/fpga-runtime-for-opencl) supports FPGA Client Driver(FCD) extension. FCD allows the runtime to automatically find and load the oneAPI ASP libraries at host run time |
 
-> **Note:** `oneapi-asp` was referred to as `ofs-hld-shim` in OFS (Agilex & Stratix 10 OFS) and OpenCL AFU Shim (`ofs-opencl-afu-shim`) in OFS early access(EA) release (for Stratix 10® FPGA with Intel® FPGA PAC D5005 as reference platform).
+> **Note:** `oneapi-asp` was referred to as `ofs-hld-shim` in OFS (for Agilex® 7 FPGA & Stratix® 10 FPGA) and OpenCL AFU Shim (`ofs-opencl-afu-shim`) in OFS early access(EA) release (for Stratix® 10 FPGA with Intel® FPGA PAC D5005 as reference platform).
 
 ### **1.3 Prerequisites**
 <div id="prereq"></div>
@@ -52,23 +63,23 @@ The content in this manual requires readers to be familiar with:
 
 * [Hardware and software components of Open FPGA Stack](https://github.com/OFS), especially the following:
   * FPGA Interface Manager(FIM)
-    * Stratix 10® FPGA:
-      * [Shell Technical Reference Manual: OFS for Stratix® 10 PCIe Attach FPGAs]
-      * [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]
+    * Stratix® 10 FPGA:
+      * [Shell Technical Reference Manual: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/)
+      * [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/)
     * Agilex® 7 FPGA:
-      * [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/)
-      * [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
-      * [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
-      * [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
+      * [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/)
+      * [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+      * [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
+      * [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
   * Accelerator Functional Unit(AFU)
-    * Stratix 10® FPGA: [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
-    * Agilex® 7 FPGA: [AFU Development Guide: Open FPGA Stack for Intel® Agilex® PCIe Attach FPGAs]
-  * [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) (OPAE SDK and Linux-DFL section)
+    * Stratix® 10 FPGA: [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
+    * Agilex® 7 FPGA: [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/)
+  * [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) (OPAE SDK and Linux-DFL section)
   * [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb)
 
 In addition to above, developers must be familiar with the following tools & concepts:
 
-* [Quartus® Prime Design Software](https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/user-guides.html) (Quartus® software revisions, Platform Designer, compilation Flows, timing analysis, compilation reports, understanding FPGA resource utilization, programming Intel® FPGAs) 
+* [Quartus® Prime Design Software](https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/user-guides.html) (Quartus® software revisions, Platform Designer, compilation Flows, timing analysis, compilation reports, understanding FPGA resource utilization, programming Altera® FPGAs) 
 * [Partial Reconfiguration (PR)](https://www.intel.com/content/www/us/en/software/programmable/quartus-prime/partial-reconfiguration.html)
 * FPGA Peripheral IPs (PCIe, External Memory IP, Ethernet IP) 
 * [Avalon® Interface](https://www.intel.com/content/www/us/en/docs/programmable/683091/current/introduction-to-the-interface-specifications.html)
@@ -77,7 +88,7 @@ In addition to above, developers must be familiar with the following tools & con
 * C++ 
 * [Familiarity with SYCL](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/current/data-parallelism-in-c-using-sycl.html) 
 * Familiarity with [oneAPI compilation process for FPGAs](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/current/fpga-flow.html) & [oneAPI code samples](https://github.com/oneapi-src/oneAPI-samples) 
-* Familiarity with [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
+* Familiarity with [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
 
 ### **1.4 Introduction to oneAPI on Open FPGA Stack(OFS)**
 <div id="intro_oneapi_ofs"></div>
@@ -85,7 +96,7 @@ In addition to above, developers must be familiar with the following tools & con
 The [Intel® oneAPI Base Toolkit (Base Kit)](https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html) is a core set of tools and libraries for developing high-performance, data-centric applications across diverse architectures (CPUs, GPUs and FPGAs). It features an industry-leading C++ compiler that implements SYCL, an evolution of C++ for heterogeneous computing.
 
 Figure 1-1 shows the high-level representation of oneAPI application developers using FPGAs for acceleration. The runtime flow consists of a host code running on a processor and an application kernel code running on an FPGA. Open FPGA Stack enables vendors to enable support for this flow on their platforms.
- 
+
 **Figure 1-1: oneAPI Application on OFS Platforms**
 
 
@@ -94,11 +105,11 @@ Figure 1-1 shows the high-level representation of oneAPI application developers 
 
 oneAPI Base Toolkit (Base Kit) consists of a compiler and runtime environment. The compiler converts a SYCL kernel (FPGA application code) into a hardware circuit. This hardware circuit requires additional logic to communicate with the runtime and FPGA board peripherals. This additional logic is provided by *oneAPI Accelerator Support Package(oneAPI ASP)*. oneAPI ASP consists of hardware components that enable this generated hardware circuit to communicate with the host processor as well as software components that enable the runtime to identify and communicate with the kernel.
 
-Figure 1-2 shows the workload design steps and steps in which the oneAPI Base Toolkit (Base Kit) requires oneAPI ASP as input. For more information about workload development and how workload developers target a specific platform during compilation, refer to [Intel oneAPI Programming Guide](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/current/fpga-flow.html) and [Intel oneAPI FPGA Handbook](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current.html). The next section introduces oneAPI ASP.
- 
+Figure 1-2 shows the workload design steps and steps in which the oneAPI Base Toolkit (Base Kit) requires oneAPI ASP as input. For more information about workload development and how workload developers target a specific platform during compilation, refer to [Intel oneAPI Programming Guide](https://www.intel.com/content/www/us/en/docs/oneapi/programming-guide/current/fpga-flow.html) and [Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current.html). The next section introduces oneAPI ASP.
+
 **Figure 1-2: High Level Design Flow for FPGAs with oneAPI Base Toolkit (Base Kit)**
 
-
+<!-- <img src="images/HLD_Design_Flow.PNG" alt-text="Image_HLD_Design_Flow" style="width:650px"> -->
 
 ![Image_HLD_Design_Flow](images/HLD_Design_Flow.PNG)
 
@@ -108,10 +119,10 @@ Figure 1-2 shows the workload design steps and steps in which the oneAPI Base To
 As mentioned in previous section, oneAPI ASP is a collection of hardware and software components that interface with the hardware circuit generated by the oneAPI compiler. The hardware circuit generated by the oneAPI compiler from a oneAPI kernel is referred to as the `kernel system`. While the `kernel system` consists of logic controlled by the workload developer's specifications, the `kernel system` *interfaces* are generated by the oneAPI compiler based on specifications provided by the oneAPI ASP designer. These specifications are input to the compiler using *XML files* (discussed in section 2.0).
 
 > **Note:** All the interfaces generated by the oneAPI compiler are [Avalon® Interfaces](https://www.intel.com/content/www/us/en/docs/programmable/683091/current/introduction-to-the-interface-specifications.html).
- 
+
 **Figure 1-3: Kernel System Interfaces**
 
-
+<!-- <img src="images/HW_Design_Overview.PNG" alt-text="Image_Hardware_Design_Overvew" style="width:650px"> -->
 
 ![Image_Hardware_Design_Overvew](images/HW_Design_Overview.PNG)
 
@@ -128,7 +139,7 @@ oneAPI ASP hardware components can be divided into 3 categories:
 1. RTL components: constituting various interface logic, for example, host to External Memory Interface (EMIF), kernel to EMIF interface, host to kernel interface, kernel to host memory interface as well as additional components to handle kernel control signals and perform Direct Memory Access (DMA)
 2. XML files: for describing hardware interfaces and compilation environment to oneAPI Base Toolkit (Base Kit)
 3. Scripts: to control compile flow
- 
+
 In addition to the hardware components, a software layer is required for handling I/O operations between oneAPI runtime and the board. The oneAPI ASP software layer can be divided into 2 categories:
 
 1. Memory Mapped Device (MMD) Layer: required by the host & runtime to communicate with the oneAPI kernel & other oneAPI ASP hardware registers
@@ -137,10 +148,10 @@ In addition to the hardware components, a software layer is required for handlin
 The MMD uses API provided by [OPAE SDK](https://github.com/OFS/opae-sdk) to communicate with the device. The FPGA driver is provided by the [linux-DFL](https://github.com/OFS/linux-dfl) kernel driver.
 
 Figure 1-4 shows how the above oneAPI ASP components tie into Open FPGA Stack.
-  
+
 **Figure 1-4: Open FPGA Stack (OFS) components**
 
-
+<!-- <img src="images/Open_FPGA_Stack.PNG" alt-text="Image_Open_FPGA_Stack" style="width:650px"> -->
 
 ![Image_Open_FPGA_Stack](images/Open_FPGA_Stack.PNG)
 
@@ -162,7 +173,7 @@ Elements of board_spec.xml file are summarized in table 2-1. Each element has ad
 
 **Figure 2-1: `board_spec.xml` File Structure**
 
-
+<!-- <img src="images/board_spec.xml.png" alt-text="Board_sepc.xml File Structure" style="width:650px"> -->
 
 ![Board_sepc.xml File Structure](images/board_spec.xml.png)
 
@@ -180,7 +191,7 @@ Elements of board_spec.xml file are summarized in table 2-1. Each element has ad
 
 The compiler expects a separate `board_spec.xml` file for every board variant a platform supports. Board variants are different hardware design implementations for the same platform, a oneAPI ASP can have multiple board variants. A oneAPI kernel developer can select the board variant suitable for their application at compile time.
 
-A `board_spec.xml` file must be located at the top most level of each board variant's hardware directory (the hardware directory is specified by `board_env.xml`, please refer to section 2.2 for details on `hardware` element). For example, a separate `board_spec.xml` file for each board variant for OFS reference platforms is located in `oneapi-asp/Platform-Name/hardware/Board-Variant/` directory, where `Platform-Name` is `n6001`, `fseries-dk`, `iseries-dk` for Agilex OFS and `d5005` for Stratix 10 OFS.
+A `board_spec.xml` file must be located at the top most level of each board variant's hardware directory (the hardware directory is specified by `board_env.xml`, please refer to section 2.2 for details on `hardware` element). For example, a separate `board_spec.xml` file for each board variant for OFS reference platforms is located in `oneapi-asp/Platform-Name/hardware/Board-Variant/` directory, where `Platform-Name` is `n6001`, `fseries-dk`, `iseries-dk` for OFS targeting Agilex® 7 FPGA and `d5005` for OFS targeting Stratix® 10 FPGA.
 
 #### **2.1.1 board Element**
 <div id="board_element"></div>
@@ -200,7 +211,7 @@ Example below shows the `board` element populated for a board designed with Quar
 
 **Figure 2-2: `board` Element**
 
-
+<!-- <img src="images/board_element.png" alt-text="Board Element Example" style="width:650px"> -->
 
 ![Board Element Example](images/board_element.png)
 
@@ -229,7 +240,7 @@ There can be multiple `compile` elements for the different compilation flows tha
 
 **Figure 2-3: `compile` Element**
 
-
+<!-- <img src="images/compile_element.png" alt-text="Compile Element Example" style="width:650px"> -->
 
 ![Compile Element Example](images/compile_element.png)
 
@@ -251,7 +262,7 @@ Example below shows the `device` element added for a Agilex® 7 FPGA based platf
 
 **Figure 2-4: `device` Element**
 
-
+<!-- <img src="images/device_element.png" alt-text="Device Element Example" style="width:650px"> -->
 
 ![Device Element Example](images/device_element.png)
 
@@ -282,12 +293,12 @@ Example for how the `interface` attribute is used in `global_mem` and `interface
 ##### **2.1.4.1 port Parameter**
 <div id=port_parameter></div>
 
-
+<!-- TODO: should port and interface be elements or attributes or parameters?-->
 
 As mentioned in Table 2-5, port parameter can be defined either inline in `interface` attribute or as a separate element in `interface` attribute. The definition method to use depends on the direction of the port. 
 
 * If the direction of the port is either `read` or `write`, it must be a separate element in `interface` attribute. 
-* If the direction is `readwrite`, port must be inline with the port name in `interface` attribute. No direction specification is required. 
+* If the direction is `readwrite`, port must be inline with the port name in `interface` attribute. No direction specification is required. <!-- TODO: ask engg if the direciton can be readwrite or not supported? if readwrite it "must" be inline?, if can be dierciton add in the table below, ongoing thread - this is confusing as it seems to be written for full stack users -->
 
 Table below shows the `port` element attributes.
 
@@ -300,11 +311,15 @@ Table below shows the `port` element attributes.
 
 Snippet below shows the inline and separate element definitions of `port` parameter.
 
-> **Note:** Direction specification for port is available in oneAPI Base Toolkit (Base Kit) versions 2024.0 and beyond. For versions prior to oneAPI Base Toolkit (Base Kit) version 2024.0, only the default inline definition of port parameter is supported. 
+> **Note:** Direction specification for port is available in oneAPI Base Toolkit (Base Kit) versions 2024.0 and beyond. For versions prior to oneAPI Base Toolkit (Base Kit) version 2024.0, only the default inline definition of port parameter is supported. <!-- TODO: confirm that this is correctly placed here & conveying complete & correct info> 
+
+**Figure 2-5: `port` Parameter Example**
+
+<!-- <img src="images/port_element.png" alt-text="Port Element Example" style="width:650px"> -->
 
 ![Port Element Example](images/port_element.png)
 
-Examples for `global_mem` and `interfaces` elements in sections below use the inline definition of port.  
+Examples for `global_mem` and `interfaces` elements in sections below use the inline definition of port. <!-- TODO: ask engg where in full stack is the separate element useful--> 
 
 #### **2.1.5 global_mem Element**
 <div id="global_mem_element"></div>
@@ -332,11 +347,11 @@ Example below shows a `global_mem` element configuration for a kernel system con
 
 **Figure 2-6: Memory Connection Example Block Diagram and Corresponding `global_mem` Element in `board_spec.xml`**
 
-
+<!-- <img src="images/Memory_Connection_Example.png" alt-text="Memory Connection Example" style="width:650px"> -->
 
 ![Memory Connection Example](images/Memory_Connection_Example.png)
 
-
+<!-- <img src="images/global_mem_element.png" alt-text="global_mem Element" style="width:650px"> -->
 
 ![global_mem Element](images/global_mem_element.png)
 
@@ -345,7 +360,7 @@ Example below shows a `global_mem` element configuration for a kernel system con
 
 A board can have a single memory bank, multiple memory banks of the same type (e.g. 4 banks of DDR4) or different banks of different types.
 
-The partitioning of memory for oneAPI kernel developers is explained in the [Intel oneAPI FPGA Handbook](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/global-memory-accesses-optimization.html). The global memory configuration required by an application kernel must match the configuration in board_spec.xml as the compiler uses this information to generate a suitable architecture for the application.
+The partitioning of memory for oneAPI kernel developers is explained in the [Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/global-memory-accesses-optimization.html). The global memory configuration required by an application kernel must match the configuration in board_spec.xml as the compiler uses this information to generate a suitable architecture for the application.
 The different memory configurations are
 
 * A single global memory region (possible with same type of memory banks)
@@ -357,7 +372,7 @@ The different memory configurations are
 For boards with multiple memory banks of the same type, designers can configure these as a single contiguous global memory region. This is done by specifying each memory interface within a single global_mem element.
 Figure 2-6 showed 4 DDR4 memory banks configured as a single global memory region.
 
-With this configuration, FPGA application developers have the option to use contiguous memory region in an interleaved or a non-interleaved fashion. Even with contiguous memory regions, kernel developers can partition data buffers across the banks/memory channels. Please refer to [Global Memory Access Optimization section in Intel oneAPI FPGA Handbook](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/global-memory-accesses-optimization.html) for more details on these partitioning techniques.
+With this configuration, FPGA application developers have the option to use contiguous memory region in an interleaved or a non-interleaved fashion. Even with contiguous memory regions, kernel developers can partition data buffers across the banks/memory channels. Please refer to [Global Memory Access Optimization section in Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/global-memory-accesses-optimization.html) for more details on these partitioning techniques.
 
 ###### **2.1.5.1.2 Heterogeneous Memory**
 <div id="het_mem"></div>
@@ -368,24 +383,24 @@ Figure 2-7 shows heterogeneous configurations and the `global_mem` element struc
 
 **Figure 2-7: Heterogeneous Memory Example Block Diagram and Corresponding `global_mem` Element in `board_spec.xml`**
 
-
+<!-- <img src="images/Heterogeneous_memory_block_dia.png" alt-text="Heterogeneous Memory Example Block Diagram" style="width:650px"> -->
 
 ![Heterogeneous Memory Example Block Diagram](images/Heterogeneous_memory_block_dia.png)
 
-
+<!-- <img src="images/Heterogeneous_memory_example.png" alt-text="Heterogeneous Memory Example" style="width:650px"> -->
 
 ![Heterogeneous Memory Example](images/Heterogeneous_memory_example.png)
 
-**Unified Shared Memory**
+###### **2.1.5.1.3 Unified Shared Memory**
 <div id="usm"></div>
 
-For applications that require [USM](https://oneapi-src.github.io/DPCPP_Reference/usm.html) support, the board_spec.xml must specify host and device memories in a heterogeneous manner.
+For applications that require [USM](https://link.springer.com/chapter/10.1007/978-1-4842-5574-2_6) support, the board_spec.xml must specify host and device memories in a heterogeneous manner.
 The `allocation_type` must be `host` for global memory region on the host processor. The `allocation_type` must be set to `device` for global memory on the FPGA board.
 Example below extends the board_spec.xml snippet in figure 2-6 to add a `global_mem` element for the kernel system to host processor memory interface.
 
 **Figure 2-8: `global_mem` Element Example for Unified Shared Memory(USM)**
 
-
+<!-- <img src="images/USM_global_mem_example.png" alt-text="Unified Shared Memory global_mem element example" style="width:650px"> -->
 
 ![Unified Shared Memory global_mem element example](images/USM_global_mem_example.png)
 
@@ -396,7 +411,7 @@ The host element of the board_spec.xml file provides information on the interfac
 
 **Figure 2-9: `host` Element Example**
 
-
+<!-- <img src="images/host_element.png" alt-text="host element example" style="width:650px"> -->
 
 ![host element example](images/host_element.png)
 
@@ -416,7 +431,7 @@ Figure below shows example of `interfaces` element.
 
 **Figure 2-10: `interfaces` Element Example**
 
-
+<!-- <img src="images/interfaces_element.png" alt-text="Interfaces element example" style="width:650px"> -->
 
 ![Interfaces element example](images/interfaces_element.png)
 
@@ -435,26 +450,26 @@ Figure below shows example of `interfaces` element.
 
 The `channels` element provides channels for streaming data directly between kernel and I/O. Each channel (implemented using Avalon-ST specification) must be connected to the kernel via the `interface` attribute. The channel interface only supports data, and valid and ready Avalon-ST signals. The I/O channel defaults to 8-bit symbols and big-endian ordering at the interface level.
 
-Figure below shows an example of `channels` element for a single channel with a width of 64 bits. The `chan_id` attribute identified helps identify the port in the generated `kernel_system`. Refer to [section 2.1.4](#214-interface-attribute) for more information about the `interface` attribute parameters. Additional interface attributes can be added for additional channels. 
+Figure below shows an example of `channels` element for a single channel with a width of 64 bits. The `chan_id` attribute identified helps identify the port in the generated `kernel_system`. Refer to [section 2.1.4](#214-interface-attribute) for more information about the `interface` attribute parameters. Additional interface attributes can be added for additional channels. <!-- TODO: Maybe add this to getting started as this does not seem right place . Please refer to TODO :AppNOTE for an example of adding multiple -->
 
 **Figure 2-11: `channels` Element Example**
 
-
+<!-- <img src="images/channels_element.png" alt-text="Channels element example" style="width:650px"> -->
 
 ![Channels element example](images/channels_element.png)
 
-For more information about kernel development using channels, refer to *I/O Pipes* section in [Intel oneAPI FPGA Handbook](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/i-o-pipes.html).
+For more information about kernel development using channels, refer to *I/O Pipes* section in [Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/i-o-pipes.html).
 
 ### **2.2 `board_env.xml` File**
 <div id="board_env"></div>
 
-The `board_env.xml` file is used by the oneAPI toolkit to set up the board installation that enables the compiler to target a specific accelerator platform. The board_env.xml file must be located in the top most level of the oneAPI ASP for each platform. For example, the `board_env.xml` for oneAPI ASP for OFS reference platforms is located in the `oneapi-asp/Platform-Name` folder, where `Platform-Name` is `n6001`, `fseries-dk`, `iseries-dk` for Agilex OFS and `d5005` for Stratix 10 OFS.
+The `board_env.xml` file is used by the oneAPI toolkit to set up the board installation that enables the compiler to target a specific accelerator platform. The board_env.xml file must be located in the top most level of the oneAPI ASP for each platform. For example, the `board_env.xml` for oneAPI ASP for OFS reference platforms is located in the `oneapi-asp/Platform-Name` folder, where `Platform-Name` is `n6001`, `fseries-dk`, `iseries-dk` for OFS targeting Agilex® 7 FPGA and `d5005` for OFS targeting Stratix® 10 FPGA.
 
 A sample board_env.xml file is shown below. Table 2-10 explains the elements of this file.
 
 **Figure 2-12: `board_env.xml` File Structure**
 
-
+<!-- <img src="images/board_env.xml.png" alt-text="Board_env.xml File Structure" style="width:650px"> -->
 
 ![Board_env.xml File Structure](images/board_env.xml.png)
 
@@ -470,7 +485,7 @@ A sample board_env.xml file is shown below. Table 2-10 explains the elements of 
 | linklibs | A string that specifies the libraries the oneAPI runtime must link against to use the MMD layer available with the board |
 | utilbindir | Directory in which the runtime expects to locate board utility executables (i.e. install, uninstall, program, diagnose, flash) <br>> **Note:** You can use %b to reference your oneAPI ASP directory and provide path relative to oneAPI ASP directory, for example, if the utilities are located in `linux64/libexec` folder in oneAPI ASP, the path would be `%b/linux64/libexec` |
 
-
+<!-- TODO: add %a under linkflags - OpenCL runtime library location in oneAPI installation directory?-->
 
 ## **3.0 oneAPI ASP Hardware**
 <div id="oneAPI_asp_hw"></div>
@@ -486,7 +501,7 @@ Figure 1-3 shows 5 different paths, summarized below:
 * Kernel to HSSI: Consisting of RTL to handle data streaming between kernel and I/O
 
 Please note that the `kernel system` generated by oneAPI compiler has Avalon® interfaces. OFS FIM has AXI interfaces. Additional logic blocks from Platform Interface Manager are used to handle protocol conversions. Please refer to section 5.3.1 for more details on PIM.
-The next few sections cover some of the important IP components  required to enable kernel communications with host and board peripherals. More design implementation details are covered in section 5.0.
+The next few sections cover some of the important IP components <!--TODO: 2024.1 review location - provided by oneAPI Base Toolkit (Base Kit) installation that are --> required to enable kernel communications with host and board peripherals. More design implementation details are covered in section 5.0.
 
 ### **3.1 Host to External Memory Interface(EMIF)**
 <div id="host_to_emif"></div>
@@ -495,7 +510,7 @@ The host to EMIF datapath consists of a PCIe Subsytem(SS), EMIF Subsystem locate
 
 PCIe Subsystem(SS) has the PCIe IP and additional logic to handle PCIe packet format and routing. FIM handles routing signals received from host to the user design located in a region referred to as Accelerator Functional Unit(AFU) (the `Kernel system` resides in the AFU).
 
-> **Note:** For more information about the PCIe SS, please refer to [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_qs_pcie_ss.pdf)
+> **Note:** For more information about the PCIe SS, please refer to [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf)
 
 The External Memory Interface Subsystem (EMIF SS) consists of EMIF IP and additional logic for handling transfers between AFU and on-board memories.
 
@@ -503,7 +518,7 @@ The External Memory Interface Subsystem (EMIF SS) consists of EMIF IP and additi
 
 Large buffers of data are usually transferred between host and on-board memory in oneAPI applications. This necessitates a Direct Memory Access(DMA) Engine between host and on-board memory. In oneAPI ASP designs for OFS reference platform, this DMA engine is placed in the AFU region. 
 
-As described in section 2.1.5.1, there are different configurations for memories on board. In addition to above, figure 1-3 also shows an additional IP in the host to memory datapath, called *Memory Bank Divider*. This IP is used for handling one of the most commonly used configurations, i.e. configuring multiple memory banks of same type as a contiguous memory region. In this case, the kernel has a contiguous view of the memory and data can be interleaved across the different memory channels. The host must also have the same view of the memory in order to ensure read and write transactions from correct addresses.
+As described in section 2.1.5.1, there are different configurations for memories on board. In addition to above, figure 1-3 also shows an additional IP in the host to memory datapath, called *Memory Bank Divider*. This IP <!-- TODO: review location in 2024.1 - is a part of oneAPI Base Toolkit (Base Kit) installation and -->is used for handling one of the most commonly used configurations, i.e. configuring multiple memory banks of same type as a contiguous memory region. In this case, the kernel has a contiguous view of the memory and data can be interleaved across the different memory channels. The host must also have the same view of the memory in order to ensure read and write transactions from correct addresses.
 
 #### **3.1.1 Memory Bank Divider**
 <div id="ocl_mem_divider"></div>
@@ -514,15 +529,15 @@ The following image shows the IP interfaces. Table 3-2 provides more information
 
 **Figure 3-1: Memory Bank Divider IP**
 
-
+<!-- <img src="images/ocl_mem_divider_block_dia.png" alt-text="Memory Bank Divider IP Block Diagram" style="width:650px"> -->
 
 ![Memory Bank Divider IP Block Diagram](images/ocl_mem_divider_block_dia.png)
 
 This IP is currently made available as part of the `oneapi-asp` located in `oneapi-asp/common/hardware/common/build/ip` folder (`memory_bank_divider_hw.tcl`). The IP can be instantiated in a top level system by passing values to the parameters as shown in snippet below. Table 3-1 provides more information on the parameters. The oneAPI ASP for OFS reference platforms instantiates this IP in a similar way. Refer to section 5.0 for more information on implementation details for oneAPI ASP for OFS reference platforms.
 
+<!-- > **Note:** The IP can be instantiated in a top level platform designer system by adding the above location to Quartus Projects IP search path if a user wishes to start a oneAPI ASP design from scratch in GUI. -->
 
-
-
+<!-- TODO: ask engg what is this version ?, also async reset is missing from parameter table -ask info- also why is async reset & sync reset not boolean -->
 <pre>
     add_instance memory_bank_divider memory_bank_divider &ltversion&gt
     set_instance_parameter_value memory_bank_divider {NUM_BANKS} {number-of-memory-banks}
@@ -566,7 +581,7 @@ This IP is currently made available as part of the `oneapi-asp` located in `onea
 ### **3.2 Host to Kernel Interface**
 <div id="host_to_kern"></div>
 
-The host exchanges control signals with kernel with the help of an additional oneAPI ASP IP . The control signals coming from the host are on a different clock domain (PCIe clock) while the kernel runs on different clock frequency . The *Kernel Interface* IP handles the clock domain crossing for these control signals as well as handles communication with kernel CSR, interrupts and generates the reset for oneAPI kernel.
+The host exchanges control signals with kernel with the help of an additional oneAPI ASP IP <!-- TODO 2024.1 review location - provided as part of oneAPI Base Toolkit (Base Kit) installation-->. The control signals coming from the host are on a different clock domain (PCIe clock) while the kernel runs on different clock frequency . The *Kernel Interface* IP handles the clock domain crossing for these control signals as well as handles communication with kernel CSR, interrupts and generates the reset for oneAPI kernel.
 All oneAPI ASP designs must instantiate *Kernel Interface* IPs to ensure the kernel functions correctly.
 
 #### **3.2.1 Kernel Interface**
@@ -578,22 +593,23 @@ The following image shows the IP interfaces. Table 3-4 provides more information
 
 **Figure 3-2: Kernel Interface IP**
 
-
+<!-- <img src="images/ocl_kern_intf_block_dia.png" alt-text="Kernel Interface IP Block Diagram" style="width:650px"> -->
 
 ![Kernel Interface IP Block Diagram](images/ocl_kern_intf_block_dia.png)
 
 This IP is currently made available as part of the `oneapi-asp` located in `oneapi-asp/common/hardware/common/build/ip` folder (`kernel_interface_hw.tcl`). The IP can be instantiated in a top level system by passing values to the parameters as shown in snippet below. Table 3-3 provides more information on the parameter. The oneAPI ASP for OFS reference platforms instantiates this IP in a similar way. Refer to section 5.0 for more information on implementation details for oneAPI ASP for OFS reference platforms.
 
-
+<!-- > **Note:** The IP can be instantiated in a top level platform designer system by adding the above location to Quartus Projects IP search path if a user wishes to start a oneAPI ASP design from scratch in GUI. -->
 
 <pre>
     add_instance kernel_interface kernel_interface &ltversion&gt
     set_instance_parameter_value kernel_interface {NUM_GLOBAL_MEMS} {value}
 </pre>
 
+<!--
+> \***Note:** Kernel Interface IPs are device specific. There are different IPs for Stratix® 10 FPGA and Agilex® 7 FPGA device families. Please refer to hardware designs for oneAPI ASP for OFS reference platforms to view device specific instantiations for Kernel Interface IPs.<br>* [Stratix 10 OFS `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/d5005)<br>* [Agilex OFS `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/n6001) -->
 
-
-
+<!--TODO: there may not be different IPs in future release (after OFS 2023.2 release) of oneAPI ASP - confirm which release this is resolved & update doc in that OFS release. Done removed note in 2024.1 as no longer device specific-->
 
 **Table 3-3: Parameter Settings for the Kernel Interface Component**
 
@@ -621,10 +637,20 @@ This IP is currently made available as part of the `oneapi-asp` located in `onea
 <div id="kern_to_emif"></div>
 
 The kernel system masters the interface from kernel to external memory. oneAPI compiler generates kernel system memory interface logic (e.g. Load-Store Unit) according to the global memory configuration and `interface` specifications in `board_spec.xml` file.
-The kernel system operates at kernel clock, hence, oneAPI ASP developers must handle clock domain crossing from kernel to EMIF clock domain.
+The kernel system operates at kernel clock<!--(see next section for more information)-->, hence, oneAPI ASP developers must handle clock domain crossing from kernel to EMIF clock domain.
 
 For implementation details for all datapaths discussed above, please refer to section 5.3.
 
+<!--
+### **3.4 Clocks in oneAPI ASP**
+<div id="ccb"></div>
+Different interfaces operate at different clocks in the design. For example, the PCIe interface from FIM to AFU and the FIM components on host to AFU path operate at the PCIe clock and the components in EMIF SS operate at the external memory clock.
+In addition to this, the kernel system expects a clock input. The oneAPI ASP developer is expected to handle this clock input requirement as well clock domain crossings in the design.
+In all oneAPI ASPs for OFS reference platforms, the input clock to kernel is a derived clock frequency, referred to as the `kernel clock` or kernel fmax (signal name is kernel_clk in all reference designs). The reason for a derived clock frequency is to guarantee timing closure for oneAPI application kernels. At the time of oneAPI ASP design, the oneAPI application kernel logic is unknown. During ASP design, a fixed clock frequency is set for this clock [TODO: need review]. A script is included in the `oneapi-asp` to calculate the best fmax at oneAPI kernel compile time. This script also calculates the PLL settings to ensure the kernel clock is programmed correcly on-board. For more information on how this script is invoked at compile time, refer to section 5.3.5.
+> **Note:** The oneAPI ASP designer must ensure the oneAPI ASP design is timing clean.
+The oneAPI ASP designer must also handle all clock domain crossings in the design (e.g. from host to EMIF, kernel to EMIF). Quartus® Prime Pro Edition Software has clock crossing bridges available in the Platform Designer IP catalog, which can be used to handle the clock crossing from host to EMIF. For the kernel to EMIF path, Intel recommends using a clock crossing bridged provided as part of oneAPI Base Toolkit (Base Kit) installation. This component is called `ACL AVMM Clock Crossing Bridge`. Please refer to [hardware designs for `oneapi-asp`](https://github.com/OFS/oneapi-asp/tree/master/n6001) for OFS reference platforms to view `ACL AVMM Clock Crossing Bridge` instantiation.
+> **Note:** The *Kernel Interface* IP handles clock domain crossing for *control* signals from host to kernel.
+-->
 
 
 ## **4.0 oneAPI ASP Software**
@@ -651,7 +677,7 @@ A header file, called `aocl_mmd.h`, has the list of MMD API calls that must be i
 6. Free memory if allocation done in step 4
 7. Close device. No further operations permitted until subsequent open device call
 
-Table below summarizes all APIs listed in `aocl_mmd.h`.  
+Table below summarizes all APIs listed in `aocl_mmd.h`. <!--TODO: that can be impletemented to support various runtime capabilities check with runtime team - how does it use the API exactly?--> 
 
 **Table 4-1: Summary of MMD API from `aocl_mmd.h`**
 
@@ -679,7 +705,7 @@ Table below summarizes all APIs listed in `aocl_mmd.h`.
 | aocl_mmd_shared_alloc | Allocate shared memory between the host and the FPGA |
 | aocl_mmd_shared_migrate | Handle migration of non-concurrent shared allocations any time the accessor of the allocation changes |
 
-
+<!-- TODO: at some point add the enums to add to this doc - the API descriptions dont make much sense wihout enums and the various structs explained or request a propoer doxygen for this, which we can point to -->
 
 Sections below cover more details for each API (expected arguments, return values). Section 5.4 discusses more about the implementation of the MMD layer APIs in oneAPI ASPs for OFS reference platforms.
 
@@ -714,7 +740,8 @@ The `aocl_mmd_get_offline_info` function obtains offline information about the b
 | AOCL_MMD_VENDOR_NAME | Name of board vendor | char* |
 | AOCL_MMD_VENDOR_ID | An integer board vendor ID | int |
 | AOCL_MMD_USES_YIELD | A value of 0 instructs the runtime to suspend user's processes. The runtime resumes these processes after it receives an event update (for example, an interrupt) from the MMD layer.<br>A value of 1 instructs the runtime to continuously call the `aocl_mmd_yield` function while it waits for events to complete.<br>**CAUTION**: Setting `AOCL_MMD_USES_YIELD` to 1 might cause high CPU utilization if the `aocl_mmd_yield` function does not suspend the current thread. | int |
-
+<!--| AOCL_MMD_MEM_TYPES_SUPPORTED TODO: ask engg - this entire row & all bullets needs to be redone for oneAPI USM - yes - see doc comments for OFS 2023.2 ? | A bit field listing all memory types that the custom platform supports. You may combine the following enum values in this bit field:<br>
+* AOCL_MMD_PHYSICAL_MEMORY: Custom Platform includes IP to communicate directly with physical memory (for example, DDR and QDR).<br> * AOCL_MMD_SVM_COARSE_GRAIN_BUFFER: Custom Platform supports both the caching of  TODO: ask engg - what for USM? shared virtual memory (SVM) pointer data for OpenCL cl_mem objects and the requirement of explicit user function calls to synchronize the cache between the host processor and the FPGA.<br> > **Note**: TODO: ask engg - what for USM? Currently, Intel® does not support this level of SVM except for a subset of AOCL_MMD_SVM_FINE_GRAIN_SYSTEM support.<br> * AOCL_MMD_SVM_FINE_GRAIN_BUFFER: Custom Platform supports caching of SVM pointer data for individual bytes. To synchronize the cache between the host processor and the FPGA, the Custom Platform requires information from the host runtime collected during pointer allocation. After an SVM pointer receives this additional data, the board interface synchronizes the cache between the host processor and the FPGA automatically.<br> > **Note**: Currently, Intel® does not support this level of SVM except for a subset of AOCL_MMD_SVM_FINE_GRAIN_SYSTEM support.<br> * AOCL_MMD_SVM_FINE_GRAIN_SYSTEM: Custom Platform supports caching of SVM pointer data for individual bytes and it does not require additional information from the runtime to synchronize the cache between the host processor and the FPGA. The board interface synchronizes the cache between the host processor and the FPGA automatically for all SVM pointers.<br>**Attention**: Intel® 's support for this level of SVM is preliminary. Some features might not be fully supported. | int (bit field) |-->
 
 2. `param_value_size`: Size of the `param_value` field in bytes. This size_t value should match the size of the expected return type that the enum definition indicates.
 For example, if `AOCL_MMD_NUM_BOARDS` returns a value of type int, set the `param_value_size` to sizeof (int). You should see the same number of bytes returned in the `param_size_ret` argument.
@@ -781,7 +808,7 @@ For example, if AOCL_MMD_TEMPERATURE returns a value of type float, set the `par
 
 5. `param_size_ret`: A pointer argument of type size_t* that receives the number of bytes of returned data.
 
-**Capability Values** 
+**Capability Values** <!-- TODO : ask engg - not clear how this related to this section - is it the capabilities rows in table above?-->
 
 **Table 4-4: Capability Values for `aocl_mmd_get_info` Function**
 
@@ -857,7 +884,7 @@ When the device internals identify an asynchronous kernel event (for example, a 
 **Syntax**
 
 <pre>
-    
+
     int aocl_mmd_set_interrupt_handler (
         int handle, 
         aocl_mmd_interrupt_handler_fn fn,
@@ -870,11 +897,11 @@ When the device internals identify an asynchronous kernel event (for example, a 
 1. `handle`: A positive int value representing the handle to the board obtained from the `aocl_mmd_open()` call.
 
 2. `fn`: The callback function to invoke when a kernel interrupt occurs. The `fn` argument is of type `aocl_mmd_interrupt_handler_fn`, which is defined as follows:
- 
+
 <pre>
     typedef void (*aocl_mmd_interrupt_handler_fn)( int handle, void* user_data );
 </pre>
- 
+
 3. `user_data`: The void* type user-provided data that passes to `fn` when it is called.
 
 **Return Value**
@@ -920,13 +947,13 @@ The `aocl_mmd_set_device_interrupt_handler` function sets the device interrupt h
         void *user_private_info;
         size_t user_cb;
     } aocl_mmd_interrupt_info;
-    
+
 </pre>
 
 Where:
 
 * `exception_type` acts as a bitfield that contains exactly one bit, corresponding to an exception number.
-* `user_private_info` and `user_cb` represent pointers to binary data that the OpenCL implementation return. These pointers log additional information that is helpful for debugging the error.
+* `user_private_info` and `user_cb` represent pointers to binary data that the OpenCL<!--TODO: correct to say OpenCL here?--> implementation return. These pointers log additional information that is helpful for debugging the error.
 
 3. `user_data`: The void* type user-provided data that passes to `fn` when it is called.
 
@@ -1174,7 +1201,7 @@ The `aocl_mmd_hostchannel_destroy` function destroys the channel interface.
     int aocl_mmd_hostchannel_destroy (
         int handle,
         int channel )
-    
+
 </pre>
 
 **Function Arguments**
@@ -1327,7 +1354,7 @@ Once the device has signaled completion through the `aocl_mmd_interrupt_handler_
 
 4. `alignment`: The alignment (in bytes) of the allocation.
 
-5. `properties`: Specifies additional information about the allocated memory, described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero.  For example, [<property1>, <value1>, <property2>, <value2>, 0]
+5. `properties`: Specifies additional information about the allocated memory, described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero. <!-- TODO: where desribed? Supported values are described above.--> For example, [<property1>, <value1>, <property2>, <value2>, 0]
 
 6. `error`: The error code defined by AOCL_MMD_ERROR*:
 
@@ -1391,7 +1418,7 @@ Allocate memory that is owned by the device. This pointer can only be accessed b
 
 3. `alignment`: The alignment (in bytes) of the memory region.
 
-4. `properties`: Specifies additional information about the allocated memory, described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero.  For example, [<property1>, <value1>, <property2>, <value2>, 0]
+4. `properties`: Specifies additional information about the allocated memory, described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero. <!-- TODO: where desribed? Supported values are described above.--> For example, [<property1>, <value1>, <property2>, <value2>, 0]
 
 **Return Value**
 
@@ -1429,7 +1456,7 @@ Shared allocations can migrate between the host and one or more associated devic
 
 3. `alignment`: The alignment (in bytes) of the allocation.
 
-4. `properties`: Specifies additional information about the allocated memory described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero.  For example, [<property1>, <value1>, <property2>, <value2>, 0]
+4. `properties`: Specifies additional information about the allocated memory described by a property type name and its corresponding value. Each property type name is immediately followed by the corresponding desired value. The list is terminated with a zero. <!-- TODO: where desribed? Supported values are described above. --> For example, [<property1>, <value1>, <property2>, <value2>, 0]
 
 5. `error`: The error code defined by AOCL_MMD_ERROR*.
 
@@ -1443,7 +1470,7 @@ Shared allocations can migrate between the host and one or more associated devic
 
 If the `aocl_mmd_shared_alloc` function executes successfully, the return value is a valid pointer value. Otherwise, the return value is NULL.
 
-
+<!-- TODO: merge redundant sections in the _alloc APIs -->
 
 #### **4.1.21 `aocl_mmd_shared_migrate`**
 <div id="aocl_mmd_shared_migrate"></div>
@@ -1495,7 +1522,7 @@ Table 4-6 shows the subcommands that `aocl` utility provides for FPGA platforms.
 |---------|---------|---------|
 | install | Install board into the host system. This installs the FPGA Client Driver (FCD) for your FPGA platform. FCD allows runtime to find and load the FPGA platform libraries at runtime | aocl install `path-to-FPGA-platform-oneapi-asp` |
 | uninstall | Uninstall board from the host system. Removes FCD. | aocl uninstall `path-to-FPGA-platform-oneapi-asp` |
-| initialize | Configure a default FPGA image onto the board. For more information about initialization refer to [Intel oneAPI FPGA Handbook](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/fpga-board-initialization.html) | Two methods are available to initalize the board:<br> 1. aocl initialize `device-name` `board-variant`<br> 2. aocl initialize `device-name` `oneAPI fat binary`<br> > **Note:** The second option requires oneAPI Base Toolkit (Base Kit) version 2024.0 & above as well as 2023.3 OFS Release for oneAPI Accelerator Support Package and above |
+| initialize | Configure a default FPGA image onto the board. For more information about initialization refer to [Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/fpga-board-initialization.html) | Two methods are available to initalize the board:<br> 1. aocl initialize `device-name` `board-variant`<br> 2. aocl initialize `device-name` `oneAPI fat binary`<br> > **Note:** The second option requires oneAPI Base Toolkit (Base Kit) version 2024.0 & above as well as 2023.3 OFS Release for oneAPI Accelerator Support Package and above |
 | program | Configure a new FPGA image onto the board | aocl program `device-name` `aocx file`|
 | diagnose | Runs ICD and FCD diagnostics followed by querying devices in installed platforms. If a `device-name` is specified in the call, it run board vendor's test program for the FPGA platform | * aocl diagnose : This queries the devices in FPGA platform and supplies a list of valid strings assigned to the list of devices <br> * aocl diagnose `device-name` : This runs full diagnostic test on the FPGA platform |
 
@@ -1526,10 +1553,12 @@ For more information about the implementation of these routines in oneAPI ASPs f
 ## **5.0 `oneapi-asp` Implementation Details**
 <div id="oneAPI_asp_impl"></div>
 
-`oneapi-asp` in the OFS has four reference platform releases, one is based on Stratix 10® FPGA and the other three are based on Agilex® 7 FPGA.
+`oneapi-asp` in the OFS has four reference platform releases, one is based on Stratix® 10 FPGA and the other three are based on Agilex® 7 FPGA.
 This chapter aims to explain the architecture and current implementation details of `oneapi-asp` for these platforms. The `oneapi-asp` repository is located [here](https://github.com/OFS/oneapi-asp/tree/master).
 
 The next section explains the `oneapi-asp` directory structure, followed by sections on hardware and MMD layers.
+
+
 
 ### **5.1 `oneapi-asp` Directory Structure**
 <div id="oneAPI_asp_dir"></div>
@@ -1552,9 +1581,9 @@ As described in section 2.0, oneAPI compiler & runtime use the `board_env.xml` a
 
 </pre>
 
-Snippet above shows a sample board_env.xml file, the corresponding oneAPI ASP directory structure must match the following format. Table 5-1 provides details on each folder. 
+Snippet above shows a sample `board_env.xml` file, the corresponding oneAPI ASP directory structure must match the following format. Table 5-1 provides details on each folder. 
 
-In addition to below folders, [oneAPI ASP for OFS reference platforms](https://github.com/OFS/oneapi-asp) have another folder called `commmon` (`oneapi-asp/common`) containing the hardware files common across all reference platforms (`oneapi-asp/common/hardware`) and source code for the software layer, i.e. MMD & board utilities ( `oneapi-asp/common/source`). This is because the software layer is compatible with both Stratix 10 and Agilex 7 PCIe attach reference platform ASPs. 
+In addition to below folders, [oneAPI ASP for OFS reference platforms](https://github.com/OFS/oneapi-asp) have another folder called `commmon` (`oneapi-asp/common`) containing the hardware files common across all reference platforms (`oneapi-asp/common/hardware`) and source code for the software layer, i.e. MMD & board utilities ( `oneapi-asp/common/source`). This is because the software layer is compatible with both Stratix® 10 FPGA and Agilex® 7 FPGA PCIe attach reference platform ASPs. 
 
 <pre>
     oneapi-asp/Platform-Name/
@@ -1567,7 +1596,7 @@ In addition to below folders, [oneAPI ASP for OFS reference platforms](https://g
 
 > **Note:**<br> In addition to above folders, oneAPI ASPs for OFS reference platforms have additional directories called `scripts` (in `oneapi-asp/common` and `oneapi-asp/Platform-Name`) which contains helper scripts for platform generation and `oneapi-asp/common/bringup` folder which contains a sample for board bring up. Please refer to the README for each reference platform in the oneASP-asp repository for more information on these additional folders. <br> * README for `oneapi-asp` targeting Intel® FPGA PAC D5005 reference platform: [README](https://github.com/OFS/oneapi-asp/blob/master/d5005/README.md) <br> * README for `oneapi-asp` targeting Intel® FPGA SmartNIC N6001-PL reference platform: [README](https://github.com/OFS/oneapi-asp/blob/master/n6001/README.md) <br> * README for `oneapi-asp` targeting Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):[README](https://github.com/OFS/oneapi-asp/blob/master/fseries-dk/README.md) <br> * README for `oneapi-asp` targeting Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile): [README](https://github.com/OFS/oneapi-asp/blob/master/iseries-dk/README.md)
 
-The `Platform-Name` is used for identifying the platform and can be alphanumeric value decided by the platform developer. For example, `Platform-Name` `d5005` is used for `oneapi-asp` for Stratix 10® FPGA as the reference platform is Intel® FPGA PAC D5005.
+The `Platform-Name` is used for identifying the platform and can be alphanumeric value decided by the platform developer. For example, `Platform-Name` `d5005` is used for `oneapi-asp` for Stratix® 10 FPGA as the reference platform is Intel® FPGA PAC D5005.
 
 **Table 5-1: Directory Contents**
 
@@ -1599,15 +1628,13 @@ oneapi-asp/
 
 **Table 5-2: `hardware` Folder Contents**
 
-
-
 | Files/Folder (path relative to `oneapi-asp/`) | Description  |
 |---------|---------|
-| `common/hardware` | Contains hardware design files common to all reference platforms including Quartus® software Settings Files (\*.qsf), IP files, common RTL code (\*.v, \*.sv) as well as scripts to control compile flow |
+| `common/hardware` | Contains hardware design files common to all reference platforms including Quartus® software Settings Files (\*.qsf), IP files (\*.v, \*_hw.tcl), common RTL code (\*.v, \*.sv) as well as scripts to control compile flow |
 | `Platform-Name/hardware/common/build` | Contains platform specific hardware design files (common to each board variant for a platform) including \*.sv, \*.sdc, Quartus® software ini settings file as well as scripts to control compile flow |
 | `Platform-Name/hardware/board-variant-1/build` | Contains board variant specific hardware design files like variant specific Verilog header file (\*.vh), oneapi_afu.json, \*.tcl |
 | `Platform-Name/hardware/board-variant-1/board_spec.xml` | Defines compile flow, global memory, kernel interfaces. Please see section 2.1 for more information about `board_spec.xml` file |
-| `Platform-Name/hardware/board-variant-1/part-number_dm.xml` | Device Model file for Intel® FPGA part on the target platform. The name must be of the format `part-number`_dm.xml. This file has the total resources available on the device. <br>> **Note:** The device model files provided as part of the oneAPI Base Toolkit (Base Kit) installation are located in `$INTELFPGAOCLSDKROOT/share/models/dm`, where INTELFPGAOCLSDKROOT is set by the `setvars.sh` environment setup script provided by [oneAPI toolkit](https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/current/prerequisites.html). If the device model file for your part number is not included in `$INTELFPGAOCLSDKROOT/share/models/dm`, it must be created and placed in the same folder as `board_spec.xml`. In oneapi-asp for reference platforms, this file only exists for platforms whose target device model files are not provided by oneAPI Base Toolkit (Base Kit) installation. |
+| `Platform-Name/hardware/board-variant-1/part-number_dm.xml` | Device Model file for Altera® FPGA part on the target platform. The name must be of the format `part-number`_dm.xml. This file has the total resources available on the device. <br>> **Note:** The device model files provided as part of the oneAPI Base Toolkit (Base Kit) installation are located in `$INTELFPGAOCLSDKROOT/share/models/dm`, where INTELFPGAOCLSDKROOT is set by the `setvars.sh` environment setup script provided by [oneAPI toolkit](https://www.intel.com/content/www/us/en/docs/oneapi/installation-guide-linux/current/prerequisites.html). If the device model file for your part number is not included in `$INTELFPGAOCLSDKROOT/share/models/dm`, it must be created and placed in the same folder as `board_spec.xml`. In oneapi-asp for reference platforms, this file only exists for platforms whose target device model files are not provided by oneAPI Base Toolkit (Base Kit) installation. |
 
 #### **5.1.2 common/source Folder**
 <div id="source_dir"></div>
@@ -1664,13 +1691,13 @@ Figure 1-3 shows a high level overview of the hardware design and Figure 1-4 sho
 
 The [`oneapi-asp` repository](https://github.com/OFS/oneapi-asp) contains source files for components that reside in the AFU region for each reference platform. `oneapi-asp` expects a compiled FIM netlist and a corresponding PR tree. The FIM database is copied to the `oneapi-asp` during ASP *build* flow (`oneapi-asp/Platform-Name/scripts/build-asp.sh`) and ASP *compile* scripts import the FIM database during oneAPI kernel compilation.
 
-> **Notes:** <br> 1. FIM developer guide outlines steps to compile a FIM and generate PR tree, please refer to section 1.3 for links to FIM developer guides<br> 2. The steps to build `oneapi-asp` using PR tree and `build-asp.sh` script are covered in the [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
+> **Notes:** <br> 1. FIM developer guide outlines steps to compile a FIM and generate PR tree, please refer to section 1.3 for links to FIM developer guides<br> 2. The steps to build `oneapi-asp` using PR tree and `build-asp.sh` script are covered in the [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/)
 
 The following figure shows the `oneapi-asp` *build* process.
 
 **Figure 5-1: `oneapi-asp` Build Flow**
 
-
+<!-- <img src="images/oneAPI-asp_build_flow.png" alt-text="oneapi-asp Build Flow Image" style="width:650px"> -->
 
 ![oneapi-asp Build Flow Image](images/oneAPI-asp_build_flow.png)
 
@@ -1680,8 +1707,8 @@ The following figure shows the `oneapi-asp` *build* process.
 |---------|---------|---------|
 | 1 | OFS_PLATFORM_AFU_BBB | Should point to location where ofs-platform-afu-bbb repository is cloned, if this variable is not set, `build-asp.sh` script clones the repository |
 | 2 | OPAE_PLATFORM_ROOT | Must point to the PR tree generated during FIM build, this is a required variable and build flow fails without this |
-| 3 | LIBOPAE_C_ROOT | Should point to the installation location for OPAE libraries (please see [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) for more information on this variable setting), `build-opae.sh` script is used to clone & build OPAE library if this variable is not set.  |
-| 4 | OPAE_SDK_REPO_BRANCH | If `LIBOPAE_C_ROOT` is not set, it is recommended to set this variable to indicate the OPAE SDK branch to be used for building OPAE libraries.<br> > **Note:** `build-opae.sh` always clones the master branch if `OPAE_SDK_REPO_BRANCH` environment variable is not set. If you do not have the OPAE SDK installed, please ensure the `OPAE_SDK_REPO_BRANCH` is set to point to the OPAE release tag matching the [release notes](https://github.com/orgs/OFS/discussions) for the OFS release you are using. Please refer to [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) for more information on environment variable and build steps |
+| 3 | LIBOPAE_C_ROOT | Should point to the installation location for OPAE libraries (please see [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) for more information on this variable setting), `build-opae.sh` script is used to clone & build OPAE library if this variable is not set.  |
+| 4 | OPAE_SDK_REPO_BRANCH | If `LIBOPAE_C_ROOT` is not set, it is recommended to set this variable to indicate the OPAE SDK branch to be used for building OPAE libraries.<br> > **Note:** `build-opae.sh` always clones the master branch if `OPAE_SDK_REPO_BRANCH` environment variable is not set. If you do not have the OPAE SDK installed, please ensure the `OPAE_SDK_REPO_BRANCH` is set to point to the OPAE release tag matching the [release notes](https://github.com/orgs/OFS/discussions) for the OFS release you are using. Please refer to [oneAPI Accelerator Support Package (ASP): Getting Started User Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/) for more information on environment variable and build steps |
 
 The scripts required for `oneapi-asp` *build* that are common to all OFS reference platforms are located in `oneapi-asp/common/scripts` and build scripts specific to individual platforms are located in `oneapi-asp/Platform-Name/scripts` folders in the `oneapi-asp` repository, where `Platform-Name` is:
 
@@ -1701,46 +1728,48 @@ This section goes deeper into the current hardware architecture of the `oneapi-a
 
 Figure 1-3 shows a high level overview of the hardware design. OFS reference platforms have different `board variants` enabling the different paths shown in Figure 1-3. Table below summarizes the board variants and paths enabled in the oneAPI ASP reference design for each. The Path numbers in the table match the ones in Figure 1-3. Figure 5-2 to 5-5 show the detailed diagram for `oneapi-asp` components in each of these board variants.
 
+
+
 **Table 5-6: OFS Reference Platform Board Variants**
 
 | # | Device | Board Variant | Host to EMIF with DMA Engine (Path 1) | Host to Kernel Interface (Path 2) | Kernel to EMIF (Path 3) | Kernel to Unified Shared Memory (Path 4) | Kernel to HSSI (Path 5) | Figure # |
 |---------|---------|---------|---------|---------|---------|---------|---------|---------|
-| 1 | Agilex® 7 FPGA <br> Stratix 10® FPGA | Agilex OFS : <br> * ofs_n6001 <br> * ofs_fseries-dk <br> * ofs_iseries-dk <br> Stratix 10 OFS : <br> * ofs_d5005 |  Yes | Yes | Yes | No | No | 5-2 |
-| 2 | Agilex® 7 FPGA <br> Stratix 10® FPGA | Agilex OFS : <br> * ofs_n6001_usm <br> * ofs_fseries-dk_usm <br> * ofs_iseries-dk_usm <br> Stratix 10 OFS : <br> * ofs_d5005_usm | Yes | Yes | Yes | Yes | No | 5-3 |
-| 3 | Agilex® 7 FPGA | Agilex OFS : <br> * ofs_n6001_iopies | Yes | Yes | Yes | No | Yes | 5-4 |
-| 4 | Agilex® 7 FPGA| Agilex OFS : <br> * ofs_n6001_usm_iopipes | Yes | Yes | Yes | Yes | Yes | 5-5 |
+| 1 | Agilex® 7 FPGA <br> Stratix® 10 FPGA | `oneapi-asp` for Agilex® 7 FPGA : <br> * ofs_n6001 <br> * ofs_fseries-dk <br> * ofs_iseries-dk <br> `oneapi-asp` for Stratix® 10 FPGA : <br> * ofs_d5005 |  Yes | Yes | Yes | No | No | 5-2 |
+| 2 | Agilex® 7 FPGA <br> Stratix® 10 FPGA | `oneapi-asp` for Agilex® 7 FPGA : <br> * ofs_n6001_usm <br> * ofs_fseries-dk_usm <br> * ofs_iseries-dk_usm <br> `oneapi-asp` for Stratix® 10 FPGA : <br> * ofs_d5005_usm | Yes | Yes | Yes | Yes | No | 5-3 |
+| 3 | Agilex® 7 FPGA | `oneapi-asp` for Agilex® 7 FPGA : <br> * ofs_n6001_iopies | Yes | Yes | Yes | No | Yes | 5-4 |
+| 4 | Agilex® 7 FPGA| `oneapi-asp` for Agilex® 7 FPGA : <br> * ofs_n6001_usm_iopipes | Yes | Yes | Yes | Yes | Yes | 5-5 |
 
 > **Note:** Please see `oneapi-asp/Platform-Name/hardware` folder for the board variants for each OFS reference platform.
 
 **Figure 5-2: `oneapi-asp` Reference Platform Hardware Design - Board Variant #1**
 
+<!-- <img src="images/HW_Implementation_Details.png" alt-text="Hardware Design" style="width:650px"> -->
 
-
-
+<!-- not rendering correctly <img src="images/HW_Implementation_Details.png" style="zoom:200%;" /> -->
 
 ![Hardware Design](images/HW_Implementation_Details.png)
 
 **Figure 5-3: `oneapi-asp` Reference Platform with USM Hardware Design - Board Variant #2**
 
-
+<!-- <img src="images/HW_USM_Implementation_Details.png" alt-text="Hardware Design with USM Support" style="width:650px"> -->
 
 ![Hardware Design with USM Support](images/HW_USM_Implementation_Details.png)
 
 **Figure 5-4: `oneapi-asp` Reference Platform with IO Pipes Hardware Design - Board Variant #3**
 
-
+<!-- <img src="images/HW_IOPipes_Implementation_Details.png" alt-text="Hardware Design with IO Pipes" style="width:650px"> -->
 
 ![Hardware Design with IO Pipes](images/HW_IOPipes_Implementation_Details.png)
 
 **Figure 5-5: `oneapi-asp` Reference Platform with IO Pipes and USM Hardware Design - Board Variant #4**
 
-
+<!-- <img src="images/HW_USM_IOPipes_Implementation_Details.png" alt-text="Hardware Design with IO Pipes and USM" style="width:650px"> -->
 
 ![Hardware Design with IO Pipes and USM](images/HW_USM_IOPipes_Implementation_Details.png)
 
 The `ofs_plat_afu.sv` is the top level entity for the `oneapi-asp`.
 
-Hardware design files that are common for all OFS reference platforms (for the components inside `ofs_plat_afu` module) are located in `oneapi-asp/common/hardware/common/build` and hardware design file specific to the individual platforms are located in the `oneapi-asp/Platform-Name/hardware/Board-Variant/build` directory. The common files are copied to the `oneapi-asp/Platform-Name/hardware/Board-Variant` folder during oneapi-asp build flow. The FIM database files imported during `oneapi-asp` build (section 5.2) are located in `oneapi-asp/Platform-Name/hardware/Board-Variant/fim_platform` directory.
+Hardware design files that are common for all OFS reference platforms (for the components inside `ofs_plat_afu` module) are located in `oneapi-asp/common/hardware/common/build` and hardware design file specific to the individual platforms are located in the `oneapi-asp/Platform-Name/hardware/Board-Variant/build` directory. The common files are copied to the `oneapi-asp/Platform-Name/hardware/Board-Variant` folder during `oneapi-asp` build flow. The FIM database files imported during `oneapi-asp` build (section 5.2) are located in `oneapi-asp/Platform-Name/hardware/Board-Variant/fim_platform` directory.
 
 Tables 5-7 give a brief description of the important design files in all board variants, the location for these files shown in table 5-7 is post `oneapi-asp` build flow.
 
@@ -1751,6 +1780,7 @@ Tables 5-7 give a brief description of the important design files in all board v
 | afu_ip.qsf |  Adds platform specific settings & design files, this file is sourced in the oneapi-asp revision being compiled (e.g.`afu_flat.qsf`) |
 | mpf_vtp.qsf | Adds IP components from Intel® FPGA BBB (see section 5.3.2 below for information about use of MPF blocks from Intel® FPGA BBB) repository used in the design |
 | asp_design_files.tcl | Adds design files to the project, this file is source in `afu_ip.qsf` |
+| oneapi_afu.json | Accelerator Description File that describes the metadata associated with a oneAPI ASP. The Open Programmable Accelerator Engine (OPAE) uses this metadata during reconfiguration<br> > **Note:** For more information about use of a JSON file for storing meadata for an AFU, refer to *Accelerator Description File* section in [PIM Based AFU Developer Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/ug_dev_pim_based_afu/) |
 | ip | Contains the HW TCL and Verilog source code files for IP components used in the hardware design |
 | scripts | Contains scripts to control oneAPI kernel and asp Quartus® software compile flow (see section 5.3.5 for more information on compile flow) |
 | rtl | Contains the SystemVerilog and Verilog design files shown in figures 5-2 to 5-5 above  |
@@ -1766,9 +1796,8 @@ Tables 5-7 give a brief description of the important design files in all board v
 | ofs_asp.sdc | Contains clock group constraints for all clocks in oneAPI ASP |
 | ../fim_platform | Contains Platform Interface Manager(PIM) and FIM database used in the design. See PIM subtopic below |
 
-
-
-
+<!--| ofs_pr_afu.qsf TODO: correct - check if real file or symbolic link also not at build level - this is become confusing now - because it no longer matches XML - left the last line out, should mention copied to afu_flat.qsf?? | Quartus® software Settings File for revision to be compiled by default. <!--The name (`afu_flat.qsf`) matches `revision` attibute in `compile` element in `board_spec.xml` file |-->
+<!--| reset.sdc |  TODO - see comments in OFS 2023.2 doc review |-->
 
 The hardware implementation diagrams show a PF/VF Mux/De-mux module in the AFU region. The PF/VF mux routes packets to AFU component based on `pf_num` and `vf_num` information in PCIe TLP header. For more information about the PF/VF mux, please refer to the PF/VF Mapping details in *FPGA Interface Manager Technical Reference Manual* for your target device (links are available in section 1.3). 
 
@@ -1776,16 +1805,16 @@ The `oneapi-asp` resides inside the AFU region and, depending on the FIM configu
 
 **Table 5-8: PF/VF Mapping in `oneapi-asp`**
 
-| Device | FIM Configuration* | PF/VF Mapping  in `oneapi-asp` |
+| Target Device for OFS | FIM Configuration* | PF/VF Mapping  in `oneapi-asp` |
 |---------|---------|---------|
-| Stratix 10 OFS | Default | PF0-VF1 |
-| Agilex OFS | Default | PF0-VF0 |
-| Agilex OFS | Compiled using `<n6001/iseries-dk>_1pf_1vf.ofss`, i.e. PCIe Subsystem configuration is set to PF0 with 1 VF | PF0-VF0 |
-| Agilex OFS | Compiled using `n6001_2pf.ofss`, i.e. PCIe Subsystem configuration is set to two physical functions PF0 and PF1 | PF1 |
+| Stratix® 10 FPGA | Default | PF0-VF1 |
+| Agilex® 7 FPGA | Default | PF0-VF0 |
+| Agilex® 7 FPGA | Compiled using `<n6001/iseries-dk>_1pf_1vf.ofss`, i.e. PCIe Subsystem configuration is set to PF0 with 1 VF | PF0-VF0 |
+| Agilex® 7 FPGA | Compiled using `n6001_2pf.ofss`, i.e. PCIe Subsystem configuration is set to two physical functions PF0 and PF1 | PF1 |
 
 > \***Note:** For more information on different FIM configurations & how to compile these, please refer to *FPGA Interface Manager(FIM) Developer Guides for Open FPGA Stack* for your target device (links are available in section 1.3).
 
-Sections below provide some more information on some blocks in the hardware design block diagram shown above. Refer to section 3.1 for more information about `Memory Bank Divider` and to section 3.2 for information about `Kernel Interface`. 
+Sections below provide some more information on some blocks in the hardware design block diagram shown above. Refer to section 3.1 for more information about `Memory Bank Divider` and to section 3.2 for information about `Kernel Interface`. <!-- TODO: cover missing blocks like the ID registers, avmm_wr_gen_inst, irq_ctrl, clock crossing info in chap 4-->
 
 #### **5.3.1 Platform Interface Manager(PIM)**
 <div id="pim"></div>
@@ -1803,7 +1832,7 @@ The Direct Memory Access(DMA) module is located in the host to EMIF datapath in 
 
 **Figure 5-7: DMA Controller Block Diagram**
 
-
+<!-- <img src="images/dma_controller_top.png" alt-text="Image DMA Controller Block Diagram" style="width:650px"> -->
 
 ![Image DMA Controller Block Diagram](images/dma_controller_top.png)
 
@@ -1840,29 +1869,68 @@ To start a data transfer, the data transfer module requires following informatio
 
 As described in table 5-7, the `board_hw.tcl` contains the `Kernel Interface` IP instantiation, register to store board AFU ID and `ddr_board` system instantiation. The `board_hw.tcl` component has a few parameters that can be used to control the internal composition. Snippet below shows the portion of the TCL script adding these parameters. These are described in table below. 
 
+`board_hw.tcl` sources another file called `parameters.tcl`, this file is located in `oneapi-asp/Platform-Name/hardware/Board-Variant/build` directory and contains different values for the parameters based on the board variant. All the parameters in the `board_hw.tcl` derive their value from respective values in `parameters.tcl`(all variables starting with `p_<parameter-name>`) for each board variant when the `oneapi-asp` is built. <!-- TODO: confirm this The generated board_hw.tcl file is placed in `oneapi-asp/Platform-Name/hardware/Board-Variant/build`-->
+
 <pre>
 
-# +-----------------------------------
-# | parameters
-# |
-add_parameter NUMBER_OF_MEMORY_BANKS INTEGER 4
-set_parameter_property NUMBER_OF_MEMORY_BANKS DEFAULT_VALUE 4
-set_parameter_property NUMBER_OF_MEMORY_BANKS DISPLAY_NAME "Number of Memory Banks"
-set_parameter_property NUMBER_OF_MEMORY_BANKS AFFECTS_ELABORATION true
+ +-----------------------------------
+ | parameters
+ |
+source parameters.tcl
 
-add_parameter MEMORY_BANK_ADDRESS_WIDTH INTEGER 32
-set_parameter_property MEMORY_BANK_ADDRESS_WIDTH DEFAULT_VALUE 32
-set_parameter_property MEMORY_BANK_ADDRESS_WIDTH DISPLAY_NAME "Memory Bank Address Width"
-set_parameter_property MEMORY_BANK_ADDRESS_WIDTH AFFECTS_ELABORATION true
+add_parameter AFU_ID_H STD_LOGIC_VECTOR $p_AFU_ID_H
+set_parameter_property AFU_ID_H DEFAULT_VALUE $p_AFU_ID_H
+set_parameter_property AFU_ID_H DISPLAY_NAME &quotAFU ID H&quot
+set_parameter_property AFU_ID_H AFFECTS_ELABORATION true
+ 
+add_parameter AFU_ID_L STD_LOGIC_VECTOR $p_AFU_ID_L
+set_parameter_property AFU_ID_L DEFAULT_VALUE $p_AFU_ID_L
+set_parameter_property AFU_ID_L DISPLAY_NAME &quotAFU ID L&quot
+set_parameter_property AFU_ID_L AFFECTS_ELABORATION true
+ 
+add_parameter IOPIPE_SUPPORT BOOLEAN $p_IOPIPE_SUPPORT
+set_parameter_property IOPIPE_SUPPORT DEFAULT_VALUE $p_IOPIPE_SUPPORT
+set_parameter_property IOPIPE_SUPPORT DISPLAY_NAME &quotIO Pipe Support&quot
+set_parameter_property IOPIPE_SUPPORT AFFECTS_ELABORATION true
+ 
+add_parameter NUMBER_OF_DMA_CHANNELS INTEGER $p_NUMBER_OF_DMA_CHANNELS
+set_parameter_property NUMBER_OF_DMA_CHANNELS DEFAULT_VALUE $p_NUMBER_OF_DMA_CHANNELS
+set_parameter_property NUMBER_OF_DMA_CHANNELS DISPLAY_NAME &quotNumber of DMA Channels&quot
+set_parameter_property NUMBER_OF_DMA_CHANNELS AFFECTS_ELABORATION true
 
-add_parameter SNOOP_PORT_ENABLE BOOLEAN false
-set_parameter_property SNOOP_PORT_ENABLE DEFAULT_VALUE false
-set_parameter_property SNOOP_PORT_ENABLE DISPLAY_NAME "Enable Snoop Port"
+add_parameter SNOOP_PORT_ENABLE BOOLEAN $p_SNOOP_PORT_ENABLE
+set_parameter_property SNOOP_PORT_ENABLE DEFAULT_VALUE $p_SNOOP_PORT_ENABLE
+set_parameter_property SNOOP_PORT_ENABLE DISPLAY_NAME &quotEnable Snoop Port&quot
 set_parameter_property SNOOP_PORT_ENABLE AFFECTS_ELABORATION true
 
-add_parameter MBD_TO_MEMORY_PIPE_STAGES INTEGER 0
-set_parameter_property MBD_TO_MEMORY_PIPE_STAGES DEFAULT_VALUE 0
-set_parameter_property MBD_TO_MEMORY_PIPE_STAGES DISPLAY_NAME "MBD to Memory Pipeline Stages"
+add_parameter NUMBER_OF_MEMORY_BANKS INTEGER $p_NUMBER_OF_MEMORY_BANKS
+set_parameter_property NUMBER_OF_MEMORY_BANKS DEFAULT_VALUE $p_NUMBER_OF_MEMORY_BANKS
+set_parameter_property NUMBER_OF_MEMORY_BANKS DISPLAY_NAME &quotNumber of Memory Banks&quot
+set_parameter_property NUMBER_OF_MEMORY_BANKS AFFECTS_ELABORATION true
+
+add_parameter MEMORY_BANK_ADDRESS_WIDTH INTEGER $p_MEMORY_BANK_ADDRESS_WIDTH
+set_parameter_property MEMORY_BANK_ADDRESS_WIDTH DEFAULT_VALUE $p_MEMORY_BANK_ADDRESS_WIDTH
+set_parameter_property MEMORY_BANK_ADDRESS_WIDTH DISPLAY_NAME &quotMemory Bank Address Width&quot
+set_parameter_property MEMORY_BANK_ADDRESS_WIDTH AFFECTS_ELABORATION true
+
+add_parameter DATA_WIDTH INTEGER $p_DATA_WIDTH
+set_parameter_property DATA_WIDTH DEFAULT_VALUE $p_DATA_WIDTH
+set_parameter_property DATA_WIDTH DISPLAY_NAME &quotData Width&quot
+set_parameter_property DATA_WIDTH AFFECTS_ELABORATION true
+
+add_parameter MAX_BURST_SIZE INTEGER $p_MAX_BURST_SIZE
+set_parameter_property MAX_BURST_SIZE DEFAULT_VALUE $p_MAX_BURST_SIZE
+set_parameter_property MAX_BURST_SIZE DISPLAY_NAME &quotMaximum Burst Size&quot
+set_parameter_property MAX_BURST_SIZE AFFECTS_ELABORATION true
+
+add_parameter KERNEL_GLOBALMEM_WAITREQUEST_ALLOWANCE INTEGER $p_KERNEL_GLOBALMEM_WAITREQUEST_ALLOWANCE
+set_parameter_property KERNEL_GLOBALMEM_WAITREQUEST_ALLOWANCE DEFAULT_VALUE $p_KERNEL_GLOBALMEM_WAITREQUEST_ALLOWANCE
+set_parameter_property KERNEL_GLOBALMEM_WAITREQUEST_ALLOWANCE DISPLAY_NAME &quotKernel to global memory waitrequest allowance&quot
+set_parameter_property KERNEL_GLOBALMEM_WAITREQUEST_ALLOWANCE AFFECTS_ELABORATION true
+
+add_parameter MBD_TO_MEMORY_PIPE_STAGES INTEGER $p_MBD_TO_MEMORY_PIPE_STAGES
+set_parameter_property MBD_TO_MEMORY_PIPE_STAGES DEFAULT_VALUE $p_MBD_TO_MEMORY_PIPE_STAGES
+set_parameter_property MBD_TO_MEMORY_PIPE_STAGES DISPLAY_NAME &quotMBD to Memory Pipeline Stages&quot
 set_parameter_property MBD_TO_MEMORY_PIPE_STAGES AFFECTS_ELABORATION true
 
 </pre>
@@ -1874,31 +1942,38 @@ set_parameter_property MBD_TO_MEMORY_PIPE_STAGES AFFECTS_ELABORATION true
 | AFU_ID_H | AFU ID H | Upper 32 bits of the board AFU ID. <br> > **Note:** The board AFU ID is used by the MMD layer during board discovery |
 | AFU_ID_L | AFU ID L | Lower 32 bits of the board AFU ID. |
 | IOPIPE_SUPPORT | IO Pipe Support | Boolean value used to determine if the `oneapi-asp` has IO pipes support. This must be set to true for `oneapi-asp` board variant that has the `channels` element defined in the `board_spec.xml`. Table 5-6 shows the OFS reference platform board variants that have IO pipes enabled. To ensure correct functionality, the HSSI susbsystem in the FIM must support the settings in the `oneapi-asp`. For more information about `channels` element refer to section 2.1.8 |
-| NUMBER_OF_MEMORY_BANKS | Number of Memory Banks | The number of homogenous memory banks in the global memory. This value is used for paramterizing the `ddr_board` system. The `ddr_board` system in `oneapi-asp` for OFS reference platforms has only one global memory (of type DDR4) and a single `Memory Bank Divider` instantiated. This limits the number of memory banks allowed to 1,2,4 or 8 values (`Memory Bank Divider` IP requirement). To expand global memory beyond this range, additional `Memory Bank Didvider` IP will need to be instantiated and connected in `ddr_board_hw.tcl`. For more information about `Memory Bank Divider`, please refer to section 3.1.1 |
-| MEMORY_BANK_ADDRESS_WIDTH | Memory Bank Address Width | This is the total addressable width for a single memory bank/interface in the global memory. For example, if the global memory consists of 32 GB on-board DDR4 memory with four 8 GB memory banks, then this memory bank address width parameter must be set to 33 (single 8 GB channel is considered). This value is used for paramterizing the `ddr_board` system. | 
+| NUMBER_OF_DMA_CHANNELS | Number of DMA Channels | Reserved for future use <br> > Note: oneapi-asp tag ofs-2024.2-1 supports only 1 DMA channel|
 | SNOOP_PORT_ENABLE | Enable Snoop Port | Used to enable the `acl_asp_snoop` port for `Memory Bank Divider`, for more information about `acl_asp_snoop` port, refer to Table 3-2 |
+| NUMBER_OF_MEMORY_BANKS | Number of Memory Banks | The number of homogenous memory banks in the global memory. This value is used for parameterizing the `ddr_board` system. The `ddr_board` system in `oneapi-asp` for OFS reference platforms has only one global memory (of type DDR4) and a single `Memory Bank Divider` instantiated. This limits the number of memory banks allowed to 1,2,4 or 8 values (`Memory Bank Divider` IP requirement). To expand number of banks in a global memory beyond this range, additional `Memory Bank Didvider` IP will need to be instantiated and connected in `ddr_board_hw.tcl`. For more information about `Memory Bank Divider`, please refer to section 3.1.1 |
+| MEMORY_BANK_ADDRESS_WIDTH | Memory Bank Address Width | This is the total addressable width for a single memory bank/interface in the global memory. For example, if the global memory consists of 32 GB on-board DDR4 memory with four 8 GB memory banks, then this memory bank address width parameter must be set to 33 (single 8 GB channel is considered). This value is used for parameterizing the `ddr_board` system. | 
+| DATA_WIDTH | Data Width | This is the width of the data bus for a single single memory bank/interface in the global memory to the oneAPI kernel |
+| MAX_BURST_SIZE | Maximum Burst Size | Maximum burst size for the pipeline bridges in the host to memory as well as kernel to memory data path |
+| KERNEL_GLOBALMEM_WAITREQUEST_ALLOWANCE | Kernel to global memory waitrequest allowance | This is the waitrequest_allowance for the clock crossing bridge in the kernel to memory data path <br> > **Note:** For more information about `waitrequest_allowance` refer to section 2.1.4 on interface attribute |
 | MBD_TO_MEMORY_PIPE_STAGES | MBD to Memory Pipeline Stages | Value is used to set the number of Avalon-MM pipeline bridges between Memory Bank Divider and the PCIe clock domain to EMIF clock domain clock crossing bridge |
 
-The internal component instantiations and connections are done in the composition callback (`compose` procedure) in `board_hw.tcl`. The above parameter values are used for the `ddr_board` instantiation. 
+The internal component instantiations and connections are done in the composition callback (`compose` procedure) in `board_hw.tcl`. <!-- TODO: no longer true in 2024.2 right? - all derive from parameters.tcl The above parameter values are used for the `ddr_board` instantiation. -->
 
 For more information about the different component commands and callback used in `board_hw.tcl`, `ddr_board_hw.tcl` and `ddr_channel.tcl`, please refer to the [Quartus® Prime Pro Edition User Guide: Platform Designer](https://www.intel.com/content/www/us/en/docs/programmable/683609/current/component-interface-tcl-reference.html)(*Component Interface Tcl Reference* section)
+
+<!-- TODO: tell Berni MAX_BURST_SIZE is not really sourced from the board_hw.tcl but from parameters.tcl then why even passing the params to ddr_board_hw.tcl in board_hw.tcl - confusing and redundant-->
+<!-- TODO: review the max burst size info added-->
 
 #### **5.3.4 User Datagram Protocol(UDP) Engine**
 <div id="udp_engine"></div>
 
-I/O pipes allow kernel to stream data directly using HSSI. To demonstrate this functionality, reference design in `oneapi-asp` repository (refer to Figure 5-4 and 5-5) has a UDP protocol engine to allow transmitting UDP/IP packets over HSSI..
+I/O pipes allow kernel to stream data directly using HSSI. To demonstrate this functionality, reference design in `oneapi-asp` repository (refer to Figure 5-4 and 5-5) has a UDP protocol engine to allow transmitting UDP/IP packets over HSSI.<!-- TODO: Ensure this is correct-->.
 
 Figure below shows a simple block diagram of the UDP engine.
 
 **Figure 5-8: UDP Offload Engine**
 
-
+<!-- <img src="images/udp_engine.png" alt-text="UDP Offload Engine" style="width:650px"> -->
 
 ![UDP Offload Engine](images/udp_engine.png)
 
 The UDP engine consists of a separate receive (`rx`) and trasmit (`tx`) path. The following functionalilty is performed by this reference design engine:
 
-* Implements an Address Resolution Protocol (ARP) functionality to respond to be able to send & respond to ARP requests. This is needed for routing between different subnets using a gateway. 
+* Implements an Address Resolution Protocol (ARP) functionality to respond to be able to send & respond to ARP requests. This is needed for routing between different subnets using a gateway. <!-- TODO: understand this -->
 * Packetizes data from kernel to add the required header information (for MAC, IP & UDP layers) 
 * Extracts data from packets received by removing header information
 * Handles clock crossing between kernel clock and Ethernet MAC clock domains
@@ -1907,7 +1982,7 @@ The source files for UDP engine used in `oneapi-asp` for OFS reference platform 
 
 > **Note:** The same engine is used in the board variant with USM shown in Figure 5-5. 
 
-
+<!-- TODO: any limitations of this UDP engine that should be mentioned? - like the no local ARP table, no checksum?-->
 
 #### **5.3.5 Hardware Compile Flow**
 <div id="compile_flow"></div>
@@ -1916,7 +1991,7 @@ Figure below shows the compile flow overview; the oneAPI compiler generated hard
 
 **Figure 5-9: oneAPI Compile Flow Overview**
 
-
+<!-- <img src="images/Compile_Flow_Overvew.PNG" alt-text="Image_Compile_Flow_Overvew" style="width:650px"> -->
 
 ![Image_Compile_Flow_Overvew](images/Compile_Flow_Overvew.PNG)
 
@@ -1924,7 +1999,7 @@ The oneAPI compiler uses the `board_spec.xml` to get more information about the 
 
 **Figure 5-10: Compilation Scripts in `oneapi-asp`**
 
-
+<!-- <img src="images/Compile_flow_scripts.png" alt-text="Compile Flow Scripts Image" style="width:650px"> -->
 
 ![Compile Flow Scripts Image](images/Compile_flow_scripts.png)
 
@@ -1937,7 +2012,7 @@ Table 5-11 summarizes notes for reference numbers 1-2 marked in figure above.
 | 1 | revision_name is `afu_flat` for `oneapi-asps` for OFS reference platforms |
 | 2 | `gen-asp-quartus-report.tcl` script generates a report (`acl_quartus_report.txt`) containing resource utilization and kernel clock frequency summary |
 
-
+<!--TODO: ask engg - how is pll data input into the aocx? s-->
 
 ### **5.4 `oneapi-asp` Memory Mapped Device(MMD) Layer Implementation**
 <div id="mmd_impl"></div>
@@ -1986,7 +2061,7 @@ The implementation of these APIs is in `oneapi-asp/common/source/host/mmd.cpp`. 
 | zlib_inflate.h<br>zlib_inflate.c | Function declaration(.h) and definition(.c) for decompressing bitstream data |
 | CMakeLists.txt | CMakeLists.txt file for building MMD source code |
 
-
+<!-- TODO : get review from from engg of mmd_iopipes -->
 
 The build flow scripts build the MMD library, i.e. `libintel_opae_mmd`, and place them in `oneapi-asp/Platform-Name/linux64/lib` folder. The MMD library is specified as part of `mmdlib`, `linklibs` element in `board_env.xml` and used at runtime (refer to section 5-1 for sample `board_env.xml` file and section 2.2 for more information about `board_env.xml` elements).
 
@@ -1995,7 +2070,7 @@ The build flow scripts build the MMD library, i.e. `libintel_opae_mmd`, and plac
 
 The MMD layer uses API from OPAE SDK for various device operations. Hence, the MMD layers requires OPAE library to be loaded to execute successfully. The `mmdlib` element specifies the `libopae-c` library to be loaded before the MMD library (demonstrated in sample `board_env.xml` in section 5-1).
 
-> **Note:** Please refer to [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for more information about OPAE SDK API. The document also has information about linux-dfl driver.
+> **Note:** Please refer to [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for more information about OPAE SDK API. The document also has information about linux-dfl driver.
 
 **Use of Memory Properties Factory(MPF) library in MMD**
 <div id="mpf_in_mmd"></div>
@@ -2032,15 +2107,15 @@ Brief descriptions for the source code files are given in table below.
 | setup_permissions.sh | Helper script to configure correct device port permissions, make changes to allow users to lock pages in memory and set the hugepages required for the software stack to function correctly. The helper script is used by `install`, `initialize` routines |
 | install | install routine invokes the `setup_permissions.sh` script after the FPGA Client Driver (FCD) is setup by the runtime  |
 | uninstall | uninstall routine reverts the port permission, memory locking and hugepage setting changes performed by `install` routine and is invoked by runtime after the FCD is removed by runtime |
-| initialize | initialize routine performs the following steps:<br> * looks for the initialization binary for the board variant to be initialized<br> * extracts the FPGA hardware configuration file from the oneAPI fat binary using `clang-offload-extract` command provided by oneAPI Base Toolkit (Base Kit) version 2024.0 and beyond <br> * invokes the `setup_permissions.sh` script to set correct device permissions<br> * performs partial reconfiguration of the FPGA device by invoking `program` routine with the initialization bitstream as an argument <br> >**Note:** For more information about how `initialize` utility extracts FPGA hardware configuration file from oneAPI fat binary, refer to [Intel oneAPI® FPGA Handbook](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/extracting-the-fpga-hardware-configuration-aocx.html) |
-| program | `program` routine allocates memory and loads the supplied initialization bitstream in memory followed by a call to reprogramming function provided by `oneapi-asp's` MMD library. The MMD library uses `fpgaReconfigureSlot` API provided by OPAE library to perform device reconfiguration<br>> **Note:** Please refer to [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.1-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for more information about OPAE SDK API |
+| initialize | initialize routine performs the following steps:<br> * looks for the initialization binary for the board variant to be initialized<br> * extracts the FPGA hardware configuration file from the oneAPI fat binary using `clang-offload-extract` command provided by oneAPI Base Toolkit (Base Kit) version 2024.0 and beyond <br> * invokes the `setup_permissions.sh` script to set correct device permissions<br> * performs partial reconfiguration of the FPGA device by invoking `program` routine with the initialization bitstream as an argument <br> >**Note:** For more information about how `initialize` utility extracts FPGA hardware configuration file from oneAPI fat binary, refer to [Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs](https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current/extracting-the-fpga-hardware-configuration-aocx.html) |
+| program | `program` routine allocates memory and loads the supplied initialization bitstream in memory followed by a call to reprogramming function provided by `oneapi-asp's` MMD library. The MMD library uses `fpgaReconfigureSlot` API provided by OPAE library to perform device reconfiguration<br>> **Note:** Please refer to [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for more information about OPAE SDK API |
 | diagnose | `diagnose` routine scans for the available devices for the installed platform and performs DMA transactions between host & device. It also reports the DMA transfer bandwidth. `diagnose` routine uses functions provided by the MMD library for scanning & opening connection to available devices |
 
 ## **Appendix**
 <div id="appendix"></div>
 
 ### **Appendix A: Memory Mapped Device(MMD) Layer Debug Variables**
-<div id="appendix"></div>
+<div id="appendixA"></div>
 
 The Memory Mapped Device(MMD) layer provides debug capability for custom ASP and oneAPI application developers. Snippet below shows how to set the variable and table below documents the environment variables that can be used to get debug information from the MMD layer at runtime.
 
@@ -2061,6 +2136,8 @@ export MMD_&ltDMA/ENABLE/PROGRAM&gt_DEBUG = 1
 
 In addition to the debug variables provided by the MMD layer, there are debug variables provided by the Intel® FPGA Runtime for OpenCL™ Software Technology used in oneAPI base toolkit. For a full list of runtime debug variables, please refer to the Intel® FPGA Runtime for OpenCL™ Software Technology [README](https://github.com/intel/fpga-runtime-for-opencl?tab=readme-ov-file#debug-environment-variables).
 
+
+
 ## **Document Revision History**
 <div id="doc_rev_history"></div>
 
@@ -2070,9 +2147,10 @@ In addition to the debug variables provided by the MMD layer, there are debug va
 | September 15, 2023 | 2023.2 | 1. Section 1:<br> * Updated Figure 1-3 to add HSSI path<br> 2. Section 2:<br> * Added `channels` element in figure 2-1 and table 2-1, added information about board variants below this table<br> * Added Section 2.1.8 on `channels` element<br> 3. Section 4:<br> * Added information about MMD API (table 4-1) and new sections 4.1.1 to 4.1.21<br> 4. Section 5:<br> * Moved `oneapi-asp` build flow information into new section 5.2<br> * Added new table 5-6 with oneAPI ASP board variants information<br> * Added hardware design diagrams and information about new board variants with I/O pipes support (Hardware Design with IO Pipes and Hardware Design with IO Pipes and USM)<br> * Updated hardware design diagrams to show PF/VF Mux/De-mux and added information about PF/VF mapping in section 5.3<br> * Added new section on UDP engine (section 5.3.4)<br> * Updated figure 5-10 to remove `import_opencl_kernel.tcl` and `add_bbb_to_pr_project.tcl`<br> * Updated table 5-13 to add `mmd_iopipes.h` and `mmd_iopipes.cpp` files |
 | Dec 13, 2023 | 2023.3-1 | 1. Section 2:<br> * Update table 2-5 to add information about port parameter<br> * Added new section 2.1.4.1 on port parameter<br> * Update table & figure numbers<br> * Changed "master" and "slave" ports to "host" & "agent" ports in figures<br> 2. Section 4:<br> * Added new executable call supported by initialize utility<br> 3. Section 5:<br> * Updated `initialize` utility information to add `clang-offload-extract`command usage<br> * Updated table with hardware design files information, added information about ofs_asp.sdc<br> * Updated compile flow diagram, added information about new `gen-asp-quartus-report.tcl` script<br> * Updated hardware implementation diagrams for signal name and IP name changes, replaced `mem_if_vtp` block with `host_mem_if_vtp`<br> * Updated `OpenCL Memory Bank Divider` to `Memory Bank Divider`<br> * Updated `OpenCL Kernel Interface` to `Kernel Interface` |
 | Feb 2, 2024 | 2023.3-2 | 1. Section 5:<br> * Updated Table 5-8 to add PF/VF mapping for different FIM configurations |
-|  | 2024.1 | 1. Section 1:<br> * Added links for FIM developer guides for Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)<br> * Added link to Intel oneAPI FPGA Handbook<br> * Updated figure 1-3 to rename `OpenCL Memory Bank Divider` to `Memory Bank Divider`<br> 2. Section 2:<br> * Replaced links to FPGA Optimization Guide for Intel® oneAPI Toolkits with links to Intel oneAPI FPGA Handbook<br> * Fixed format for table 2-6 <br> * Updated figure 2-6 to rename `OpenCL Memory Bank Divider` to `Memory Bank Divider`<br> 3. Section 3:<br> * Updated `Memory Bank Divider`section to add information about `memory_bank_divider_hw.tcl`. Replaced figure showing GUI for the IP with parameters in `memory_bank_divider_hw.tcl` and added information about these parameters in table 3-1 <br> * Updated port name `acl_bsp_snoop` to `acl_asp_snoop`and `acl_bsp_memorg_host` to `acl_asp_memorg_host` in table 3-2<br> * Updated `Kernel Interface` section to add information about `kernel_interface_hw.tcl`. Replaced figure showing GUI for the IP with parameters in `kernel_interface_hw.tcl` and added information about these parameters in table 3-3<br> 4. Section 5:<br> * Replaced `board_env.xml` figure with code snippet<br> * Added links to README for `fseries-dk` & `iseries-dk` oneapi-asp folders in section 5.1<br> * Updated directory structure in section 5.1 and added information about design files common to oneapi-asp for OFS reference platforms<br> * Update file paths in table 5-2<br> * Update section for script file name changes from `build-bsp.sh` to `build-asp.sh`, `setup-bsp.py` to `setup-asp.py`, `build-bsp-sw.sh` to `build-asp-sw.sh`<br> * Updated figure 5-2 to add a step in `build-asp.sh` script to copy common files to platform directory<br> * Added Note on `OPAE_SDK_REPO_BRANCH` environment variable in table 5-5<br> * Added new OFS reference platforms (`fseries-dk` and `iseries-dk`) in table 5-6<br> * Update section for design file name changes from `board.qsys` to `board_hw.tcl`, `ddr_board.qsys` to `ddr_board_hw.tcl`, `ddr_channel.qsys` to `ddr_channel_hw.tcl`, `bsp_logic.sv` to `asp_logic.sv`, `bsp_design_files.tcl` to `asp_design_files.tcl`<br> * Updated signal names `bsp_mem_if` to `asp_mem_if`, `acl_bsp_memorg_host` to `acl_asp_memorg_host`, `host_mem_if_pa_bsp` to `host_mem_if_pa_asp`<br> * Updated hardware implementation diagrams (figure 5-2 to 5-5) for new file, signal names<br> * Added information about RTL files to table 5-7<br> * Added `iseries-dk_1pf_1vf.ofss` in table 5-8<br> * Fixed section 5.3.1 header and added more information about PIM blocks in section 5.3.1<br> * Added new section 5.3.3 on `board_hw.tcl`<br> * Updated figure 5-10 to add information about `ip-deploy` and `qsys-generate` for `board_hw.tcl`<br> 5. Appendix: <br> * Added appendix section with MMD debug variable information |
+| Mar 19, 2024 | 2024.1 | 1. Section 1:<br> * Added links for FIM developer guides for Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)<br> * Added link to Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs<br> * Updated figure 1-3 to rename `OpenCL Memory Bank Divider` to `Memory Bank Divider`<br> 2. Section 2:<br> * Replaced links to FPGA Optimization Guide for Intel® oneAPI Toolkits with links to Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs<br> * Fixed format for table 2-6 <br> * Updated figure 2-6 to rename `OpenCL Memory Bank Divider` to `Memory Bank Divider`<br> * Replaced broken link for USM (Unified Shared Memory) <br> 3. Section 3:<br> * Updated `Memory Bank Divider`section to add information about `memory_bank_divider_hw.tcl`. Replaced figure showing GUI for the IP with parameters in `memory_bank_divider_hw.tcl` and added information about these parameters in table 3-1 <br> * Updated port name `acl_bsp_snoop` to `acl_asp_snoop`and `acl_bsp_memorg_host` to `acl_asp_memorg_host` in table 3-2<br> * Updated `Kernel Interface` section to add information about `kernel_interface_hw.tcl`. Replaced figure showing GUI for the IP with parameters in `kernel_interface_hw.tcl` and added information about these parameters in table 3-3<br> 4. Section 5:<br> * Replaced `board_env.xml` figure with code snippet<br> * Added links to README for `fseries-dk` & `iseries-dk` oneapi-asp folders in section 5.1<br> * Updated directory structure in section 5.1 and added information about design files common to oneapi-asp for OFS reference platforms<br> * Update file paths in table 5-2<br> * Update section for script file name changes from `build-bsp.sh` to `build-asp.sh`, `setup-bsp.py` to `setup-asp.py`, `build-bsp-sw.sh` to `build-asp-sw.sh`<br> * Updated figure 5-2 to add a step in `build-asp.sh` script to copy common files to platform directory<br> * Added Note on `OPAE_SDK_REPO_BRANCH` environment variable in table 5-5<br> * Added new OFS reference platforms (`fseries-dk` and `iseries-dk`) in table 5-6<br> * Update section for design file name changes from `board.qsys` to `board_hw.tcl`, `ddr_board.qsys` to `ddr_board_hw.tcl`, `ddr_channel.qsys` to `ddr_channel_hw.tcl`, `bsp_logic.sv` to `asp_logic.sv`, `bsp_design_files.tcl` to `asp_design_files.tcl`<br> * Updated signal names `bsp_mem_if` to `asp_mem_if`, `acl_bsp_memorg_host` to `acl_asp_memorg_host`, `host_mem_if_pa_bsp` to `host_mem_if_pa_asp`<br> * Updated hardware implementation diagrams (figure 5-2 to 5-5) for new file, signal names<br> * Added information about RTL files to table 5-7<br> * Added `iseries-dk_1pf_1vf.ofss` in table 5-8<br> * Fixed section 5.3.1 header and added more information about PIM blocks in section 5.3.1<br> * Added new section 5.3.3 on `board_hw.tcl`<br> * Updated figure 5-10 to add information about `ip-deploy` and `qsys-generate` for `board_hw.tcl`<br> 5. Appendix: <br> * Added appendix section with MMD debug variable information |
+| | 2024.2 | 1. Section 1:<br> * Added document overview table (Table 1-1)<br> 2. Section 2:<br> * Added a section number 2.1.5.1.3 to `Unified Shared Memory Section`<br> 3. Section 5:<br> * Added information about `oneapi_afu.json` to table 5-7<br> * Added information about new parameters in `board_hw.tcl` in table 5-10(NUMBER_OF_DMA_CHANNELS, DATA_WIDTH, MAX_BURST_SIZE, KERNEL_GLOBALMEM_WAITREQUEST_ALLOWANCE) and `parameters.tcl`  |
 
-
+<!--TODO: ask if ok to add the "oneAPI" in front of the IP names - probably needs to change with transition to Altera-->
 
 ## Notices & Disclaimers
 
