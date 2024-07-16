@@ -21,6 +21,8 @@ Python command interpreter, along with some Python bindings that provide
 a means to access Configuration and Status Registers (CSRs) that reside
 on the PCIe device.
 
+*Note: `opae.io` peek/poke will call `fpgaEnumerate()` internally and so a reset will be asserted on the AFU region. You can avoid initializing these registers by passing `opae.io` a python script directly.*
+
 ```opae.io``` has two operating modes: command line mode and interactive
 mode.
 

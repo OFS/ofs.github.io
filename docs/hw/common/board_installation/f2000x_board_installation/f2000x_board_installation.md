@@ -1,10 +1,10 @@
-# Board Installation Guidelines: Intel® IPU Platform F2000X-PL
+# Board Installation Guidelines: IPU Platform F2000X-PL
 
-Last updated: **March 20, 2024** 
+Last updated: **July 16, 2024** 
 
 ## 1.0 About this Document
 
-The purpose of this document is to help users prepare their server and install the Intel® IPU Platform F2000X-PL. After reviewing this document, a user shall be able to:
+The purpose of this document is to help users prepare their server and install the IPU Platform F2000X-PL. After reviewing this document, a user shall be able to:
 
 - Set up their server environment according to the Best Known Configuration (BKC)
 - Install an F2000X device into a supported server platform
@@ -12,7 +12,7 @@ The purpose of this document is to help users prepare their server and install t
 
 ### 1.1 Audience
 
-The information in this document is intended for customers evaluating the Intel® IPU Platform F2000X-PL. The card is an acceleration development platform (ADP) intended to be used as a starting point for evaluation and development. This document will cover key topics related to server bring-up and physical platform installation, with links for deeper dives on the topics discussed therein.
+The information in this document is intended for customers evaluating the IPU Platform F2000X-PL. The card is an acceleration development platform (ADP) intended to be used as a starting point for evaluation and development. This document will cover key topics related to server bring-up and physical platform installation, with links for deeper dives on the topics discussed therein.
 
 *Note: Code command blocks are used throughout the document. Comments are preceded with '#'. Full command output may not be shown.*
 
@@ -46,22 +46,24 @@ The information in this document is intended for customers evaluating the Intel�
 | VFIO       | Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to user space. |
 
 #### Table 2: Related Documentation
-| Name| Location|
-| -----| -----|
-| Platform Evaluation Script: Open FPGA Stack for Intel Agilex 7 FPGA| [link](https://ofs.github.io/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/)|
-| FPGA Interface Manager Technical Reference Manual for Intel Agilex 7 SoC Attach: Open FPGA Stack| [link](https://ofs.github.io/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs)|
-| Software Reference Manual: Open FPGA Stack| [link](https://ofs.github.io/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/)|
-| Intel® FPGA Interface Manager Developer Guide: Intel Agilex 7 SoC Attach: Open FPGA Stack| [link](https://ofs.github.io/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/)|
-| Intel® Accelerator Functional Unit Developer Guide: Open FPGA Stack for Intel® Agilex® 7 FPGAs SoC Attach| [link](https://ofs.github.io/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)|
-| Security User Guide: Intel Open FPGA Stack| [link](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) |
-| Virtual machine User Guide: Open FPGA Stack + KVM| [link](https://ofs.github.io/hw/common/user_guides/ug_kvm/ug_kvm/)|
-| Docker User Guide: Open FPGA Stack: Intel® Open FPGA Stack| [link](https://ofs.github.io/hw/common/user_guides/ug_docker/ug_docker/)|
-| Release Notes| [link](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2023.1-1) - under "Important Notes"|
-| Board Management Controller User Guide v1.1.9 (Pre-Release): Intel IPU Platform F2000X-PL| Work with your Intel sales representative for access|
+| Name |
+| --- |
+| [Automated Evaluation User Guide: OFS for Agilex® 7 SoC Attach FPGAs] | 
+| [Shell Technical Reference Manual: OFS for Agilex® 7 SoC Attach FPGAs] |
+| [Software Reference Manual: Open FPGA Stack] |
+| [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs] |
+| [Workload Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs] |
+| [Security User Guide: Open FPGA Stack] |
+| [KVM User Guide: Open FPGA Stack] |
+| [Docker User Guide: Open FPGA Stack] |
+| [OFS 2024.1 F2000X-PL Release Notes] - under "Important Notes"|
+| Cyclone® 10 LP Board Management Controller (BMC) User Guide for Intel® IPU F2000X-PL v1.2.4 (Document ID: 789706) <sup>**1**</sup> | 
+
+<sup>**1**</sup> Work with your Altera sales representative for access.
 
 ### 1.2 Server Requirements
 
-The following requirements must be met when purchasing a server to support the Intel® IPU Platform F2000X-PL.
+The following requirements must be met when purchasing a server to support the IPU Platform F2000X-PL.
 
 #### 1.2.1 Host Server Specifications
 
@@ -72,7 +74,7 @@ The host server must meet the following minimal specifications:
 
 #### 1.2.2 Host BIOS
 
-Te Host BIOS settings known to work with the Intel® IPU Platform F2000X-PL:
+Te Host BIOS settings known to work with the IPU Platform F2000X-PL:
 
 - PCIe slot width must be **x16**
 - PCIe slot speed must be **4**
@@ -85,11 +87,11 @@ Specific BIOS paths are not listed here, as they can differ between BIOS vendors
 
 While many host Linux kernel and OS distributions may work with this design, only the following configuration(s) have been tested:
 
-- Ubuntu 22.04, 6.1-lts
+- Ubuntu 22.04 LTS, 6.1.78-dfl
 
 ### 1.3 Server Forced Air Cooling
 
-The Intel® IPU Platform F2000X-PL is a high-performance processing card with a
+The IPU Platform F2000X-PL is a high-performance processing card with a
 passive heat sink to dissipate device heat and must be installed
 in a server with sufficient forced airflow cooling to keep all devices
 operating below maximum temperature. The table below lists the
@@ -101,13 +103,13 @@ thermal terms and descriptions used in thermal analysis.
 | ---                         |  ---                                  |
 | Cubic Feet per Minute (CFM) | Volumetric airflow rate, in cubic feet per minute, of air passing through faceplate. |
 | T<sub>j</sub>                        | FPGA Junction Temperature             |
-| T<sub>LA</sub>                       | Local Ambient temperature. Temperature of forced air as it enters the Intel® IPU Platform F2000X-PL. &nbsp; **Note:** In many systems, this is higher than the room ambient due to  heating effects of chassis components.  |
+| T<sub>LA</sub>                       | Local Ambient temperature. Temperature of forced air as it enters the IPU Platform F2000X-PL. &nbsp; **Note:** In many systems, this is higher than the room ambient due to  heating effects of chassis components.  |
 
 **Note:** The FPGA junction temperature must not exceed 100°C. The case
 temperature of the QSFP modules must meet the module vendor's
 specification.
 
-**Note:** The table below provides the thermal targets for which the Intel® IPU Platform F2000X-PL
+**Note:** The table below provides the thermal targets for which the IPU Platform F2000X-PL
 was designed. As a card manufacturer, you must
 qualify your own production cards.
 
@@ -118,18 +120,19 @@ The airflow requirements for optimal heat sink performance at minimum is
 characteristic of CAT 3 servers or PCIe SIG Level 7 thermal profiles, in
 both, forward & reverse flow, see figure below:
 
-![](./images/air_temp_vs_flowrate.PNG) ![](./images/modified_pcie_sig.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png)
 
-As the Intel® IPU Platform F2000X-PL is a development platform, it is not
+As the IPU Platform F2000X-PL is a development platform, it is not
 integrated into the server baseband management controller closed loop
 cooling control. It is strongly recommended that you set your server's
-fan settings to run constantly at 100% with the server chassis lid closed to prevent unwanted Intel® IPU Platform F2000X-PL thermal shutdown.
+fan settings to run constantly at 100% with the server chassis lid closed to prevent unwanted IPU Platform F2000X-PL thermal shutdown.
 
 ### 1.4 External Connections
 
 #### Figure 1: External Connections
 
-![](./images/external_connections.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/external_connections.png)
 
 The items listed Table 6 in are known to work for external connectivity. Specific links are given for convenience, other products may be used but have not been tested.
 
@@ -143,7 +146,7 @@ The items listed Table 6 in are known to work for external connectivity. Specifi
 |QSFP DAC Cable             |                         FS.com Generic 2m 100G QSP28 Passive Direct Attach Copper |  [QSFP28 DAC](https://www.fs.com/products/74661.html?attribute=10134&id=197229)|
 |(optional) Intel FPGA Download Cable II            |           PL-USB2-BLASTER                  |                            [USB-Blaster II](https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html)|
 
-### 1.5 Preparing the Intel® IPU Platform F2000X-PL for Installation
+### 1.5 Preparing the IPU Platform F2000X-PL for Installation
 
 Turn the board over to back side and remove the Kapton tape covering
 switches **SW2** and **SW3** and make sure the switches are set as shown in
@@ -161,11 +164,11 @@ switches **SW2** and **SW3** and make sure the switches are set as shown in
 
 #### Figure 2: Board Switch Settings
 
-![](../../dev_guides/fim_dev/images/f2000x_switch_locations.png)
+![](/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/images/f2000x_switch_locations.png)
 
 #### 1.5.1 USB to Serial Adapter
 
-The Intel® IPU Platform F2000X-PL has a serial UART for access located on
+The IPU Platform F2000X-PL has a serial UART for access located on
 back edge of the board. This connection is useful for making BIOS and
 boot settings and for monitoring the SoC. In most servers, you will need
 to remove a riser card and route the USB to serial cable and (optional) Intel FPGA
@@ -174,18 +177,18 @@ installed. See *Figure 3* for an example of cable routing.
 
 #### Figure 3: Cable Routing
 
-![](./images/cablerouting.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/cablerouting.png)
 
 The USB to serial connection is shown in *Figure 4* where the White wire
 is TXD, Black wire is ground and Green wire is RXD.
 
 #### Figure 4: USB to Serial Adapter connection
 
-![](./images/serialadapterconnection.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/serialadapterconnection.png)
 
 #### 1.5.2 IPU JTAG
 
-The Intel® IPU Platform F2000X-PL provides a 10 pin JTAG header for FPGA and
+The IPU Platform F2000X-PL provides a 10 pin JTAG header for FPGA and
 Cyclone 10 Board Management Controller development work using a [Intel
 FPGA Download Cable
 II](https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html).
@@ -196,26 +199,26 @@ riser while programming.
 
 #### Figure 5: USB Blaster II Connection
 
-![](./images/usblasterIIconnection.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/usblasterIIconnection.png)
 
 #### Figure 6: USB Blaster II Installation
 
-![](./images/blasterinserver.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/blasterinserver.png)
 
 #### 1.5.3 Power
 
-The Intel® IPU Platform F2000X-PL must receive power from both the 12 V and 3.3V
+The IPU Platform F2000X-PL must receive power from both the 12 V and 3.3V
 PCIe slot and the 12 V Auxiliary 2×4 power connector. The board does not power up if any of the 12 V and 3.3 V PCIe slot,
 or 12 V Auxiliary power sources are disconnected.
 
 PCIe specifications define 12 V Auxiliary power connector pin
-assignment. The Intel® IPU Platform F2000X-PL implements an 8-position right
+assignment. The IPU Platform F2000X-PL implements an 8-position right
 angle (R/A) through-hole PCB header assembly on the top right side of
 the board as depicted in the picture below.
 
 #### Figure 7: 12V PCIe AUX Connector Location
 
-![](./images/12vpcieconnector.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/12vpcieconnector.png)
 
 Refer the table below for pinout details.
 
@@ -236,7 +239,7 @@ See Auxiliary power connection in *Figure 8*.
 
 #### Figure 8: Auxiliary Power Connection
 
-![](./images/auxpowerconnector.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/auxpowerconnector.png)
 
 #### 1.5.4 USB Hub Connection
 
@@ -246,14 +249,14 @@ hub. See *Figure 9*.
 
 #### Figure 9: USB Hub Connection
 
-![](./images/usbhubconnection.png)
+![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/usbhubconnection.png)
 
 #### 1.5.5 Creating a Bootable USB Flash Drive for the SoC
 
 Connect your flash drive to an available Linux host. In this section the USB will set up to be used as a secondary boot source for the SoC and will also be used to update the NVMe from which the ICX-D SoC boots in section [2.1 Updating the F2000X-PL ICX-D SoC NVMe](#21-updating-the-f2000x-pl-icxd-soc-nvme).
 
 You will load the latest pre-compiled Yocto `core-image-minimal` WIC image into USB flash. This image can be downloaded from
-[2023.3 OFS Release for Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1), under assets, or compiled from [meta-ofs](https://github.com/OFS/meta-ofs/releases/tag/ofs-2024.1-2). Compilation is discussed in section [4.0 Compiling a Custom Yocto SoC Image](#40-compiling-a-custom-yocto-soc-image).
+[ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1), under assets, or compiled from [meta-ofs](https://github.com/OFS/meta-ofs/releases/tag/ofs-2024.1-2). Compilation is discussed in section [4.0 Compiling a Custom Yocto SoC Image](#40-compiling-a-custom-yocto-soc-image).
 
 1. Insert a 64 GB or larger USB Flash Drive into the USB slot of a computer/server you can use to format the drive. The following instructions assume you are using some flavor of GNU+Linux. You need sudo access privileges on this machine.
 
@@ -361,4 +364,4 @@ You will load the latest pre-compiled Yocto `core-image-minimal` WIC image into 
     $ cp core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic /mnt
     ```
 
-Remove the USB flash from the Linux computer and install the flash drive in the USB hub attached to the Intel® IPU Platform F2000X-PL.
+Remove the USB flash from the Linux computer and install the flash drive in the USB hub attached to the IPU Platform F2000X-PL.

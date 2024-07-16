@@ -1,4 +1,4 @@
-# Platform Evaluation Script: Open FPGA Stack for Intel Stratix 10 FPGA
+# Platform Evaluation Script: Open FPGA Stack for Stratix 10 FPGA
 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
@@ -46,17 +46,17 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 
 | Component | Version |  Description |
 | --------- | ------- | -------|
-| FPGA Platform | [Intel® FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html) | Intel platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: ofs-d5005](https://github.com/OFS/ofs-d5005), [Tag: release/ofs-2024.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1) | OFS Shell RTL for Intel Stratix 10 FPGA (targeting Intel® FPGA PAC D5005) |
+| FPGA Platform | [Intel® FPGA PAC D5005](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/pac/d5005.html) | Stratix 10 platform you can use for your custom board development |
+| OFS FIM Source Code| [Branch: ofs-d5005](https://github.com/OFS/ofs-d5005/tree/release/ofs-2024.1), [Tag: ofs-2024.1-1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1) | OFS Shell RTL for Stratix 10 FPGA (targeting Intel® FPGA PAC D5005) |
 | OFS FIM Common| [Branch: ofs-2024.1-1](https://github.com/OFS/ofs-fim-common), [Tag: ofs-2024.1-1](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1) | Common RTL across all OFS-based platforms |
 | AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag: ofs-examples-ofs-2024.1-1](https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.12.0-4](https://github.com/OFS/opae-sdk/tree/2.12.0-4), [Tag: 2.12.0-4](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-4) | Open Programmable Acceleration Engine Software Development Kit |
+| OPAE SDK | [Branch: 2.12.0-5](https://github.com/OFS/opae-sdk/tree/2.12.0-5), [Tag: 2.12.0-5](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5) | Open Programmable Acceleration Engine Software Development Kit |
 | Kernel Drivers | [Branch: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2024.1-6.1-2), [Tag: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.12.0-4](https://github.com/OFS/opae-sim/releases/tag/2.12.0-4) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Intel Quartus Prime Pro Edition Design Software | 23.4 [Intel® Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html) | Software tool for Intel FPGA Development|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.12.0-5](https://github.com/OFS/opae-sim/releases/tag/2.12.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Quartus Prime Pro Edition Design Software | 23.4 [Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html) | Software tool for FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2024.1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2024.1-1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1) official release drop on GitHub.
 
 <br>
 
@@ -98,9 +98,9 @@ By following the setup steps and using the OFS evaluation script you can quickly
 
 This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
-* Intel Quartus<sup>&reg;</sup> Prime Pro Software
-* Synopsys<sup>&reg;</sup> VCS Simulator
-* Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator
+* Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 4.1 of the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/). 
+* Synopsys<sup>&reg;</sup> VCS Simulator : The simulator can be downloaded in the Synopsys page [here](https://www.synopsys.com/verification/simulation/vcs.html)
+* Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator : The simulator can be downloaded in the Siemens page [here](https://eda.sw.siemens.com/en-US/ic/questa/simulation/advanced-simulator/)
 
 **Figure 2-1 Folder Hierarchy for Software Tools**
 
@@ -108,155 +108,147 @@ This script uses the following set of software tools which should be installed u
 
 
 
-1. You must create a directory named "ofs-X.X.X" where the X represents the current release number, for example ofs-2024.1-1. 
-
-2. You must clone the required OFS repositories as per Figure 2-2 . Please refer to the BKC table for locations., Please go to [OFS Getting Started User Guide] for the instructions for the BKC installation.
-
-3. Once the repositories are cloned, copy the evaluation script (ofs_d5005_eval.sh) which is located at [eval_scripts] beneath the ofs-2024.1-1 directory location as shown in the example below:
-
-**Figure 2-2 Directory Structure for OFS Project**
-
-```sh
-## ofs-2024.1-1
-##  -> examples-afu
-##  -> linux-dfl
-##  -> ofs-d5005
-##  -> oneapi-asp
-##  -> oneAPI-samples
-##  -> opae-sdk
-##  -> opae-sim
-##  -> ofs_d5005_eval.sh
+1. Download tar(scripts_ofs-2024.1-1_external.tar.gz) from the assets tab of the [release page](https://github.com/OFS/ofs-d5005/releases)
+2. Untar to folder using the following command
 ```
+ tar -xvf scripts_ofs-2024.1-1_external.tar.gz
+````
+ 
+3. The folder structure containing the clone script (ofs-clone_repositories.sh) and evaluation script (ofs_d5005_eval.sh) is as shown in the figure 2-2
 
+**Figure 2-2 Directory Structure for the clone script**
 
-4. Open the README file named (README_ofs_D5005_eval.txt) which is located at [eval_scripts] which informs the user which sections to modify in the script prior to building the FIM and running hardware, software and simulation tests. 
-
-### **2.2 Intel® FPGA PAC D5005 Evaluation Script modification**
-
-
-
-To adapt this script to the user environment please follow the instructions below which explains which line numbers to change in the ofs_d5005_eval.sh script.
-
-### **User Directory Creation**
-
-The user must create the top-level source directory and then clone the OFS repositories
-    
-
-```sh
-mkdir ofs-2024.1-1
+``` sh
+## ofs_scripts
+##      -> host_chan_mmio.stp
+##      -> ofs_d5005_eval.sh
+##      -> README_ofs_d5005_eval.txt
+## ofs-clone_repositories.sh
 ```
-
-In the example above we have used ofs-2024.1-1 as the directory name
-
-
-### **Set-Up Proxy Server (lines 65-67)**
-
-Please enter the location of your proxy server to allow access to external internet to build software packages.
-
+4. Open the clone script ofs-clone_repositories.sh in any text editor
+5. Please enter the location of your proxy server to allow access to external internet to build software packages. (lines 6-8)
+   
 Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
     
-```sh
-export http_proxy=<user_proxy>
-export https_proxy=<user_proxy>
-export no_proxy=<user_proxy>
+    export http_proxy=<user_proxy>
+    export https_proxy=<user_proxy>
+    export no_proxy=<user_proxy> 
+   
+6. Please enter the license file locations (lines 11-13) for the following tool variables
+```
+    export LM_LICENSE_FILE=<user_license>
+    export DW_LICENSE_FILE=<user_license>
+    export SNPSLMD_LICENSE_FILE=<user_license>
 ```
 
-### **License Files (lines 70-72)**
-
-Please enter the the license file locations for the following tool variables
-
-
-```sh
-export LM_LICENSE_FILE=<user_license>
-export DW_LICENSE_FILE=<user_license>
-export SNPSLMD_LICENSE_FILE=<user_license>
+7. Add the name of the directory where you want the platform repositories to be cloned (line 19)
+```
+export OFS_RELEASE=ofs-2024.1-1
 ```
 
-### **Tools Location (line 85, 86, 87, 88)**
+8. After setting the required variables, source the clone script based on which platform you want to test
+```
+source ofs-clone_repositories.sh
+```
+9.  The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-3.
+        
+**Figure 2-3 Directory Structure for OFS Project**
+
+![](images/ofs_clone_menu.png)
+
+10. Once the repositories are cloned, navigate to the directory where you cloned
+```
+cd ofs-2024.1-1
+```
+
+11. After cloning, the OFS repositories cloned will look as per Figure 2-4.
+
+
+**Figure 2-4 Directory Structure for OFS Project**
+```sh
+## ofs-2024.1-1
+##  d5005(OFS platform)
+##   -> examples-afu
+##   -> ofs-d5005
+##   -> oneapi-asp
+##   -> oneAPI-samples
+##   -> opae-sim
+##   -> opae-sdk
+##   -> linux-dfl
+##   -> ofs_d5005_eval.sh
+##   -> README_ofs_d5005_eval.txt
+##   -> host_chan_mmio.stp
+``` 
+
+12. Once the repositories are cloned, in the platform specific evaluation script, for e.g., in ofs_d5005_eval.sh, please follow the instructions below which explains which line numbers to change to adapt this script to the user environment. 
+
+a)  Set-Up Proxy Server (lines 67-69)
+
+Please enter the location of your proxy server to allow access to external internet to build software packages.
+    
+    export http_proxy=<user_proxy>
+    export https_proxy=<user_proxy>
+    export no_proxy=<user_proxy>
+
+b) Tools Location (line 87, 88, 89, 90)
 
 Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
 
+    export QUARTUS_TOOLS_LOCATION=/home
+    export SYNOPSYS_TOOLS_LOCATION=/home
+    export QUESTASIM_TOOLS_LOCATION=/home
+    export ONEAPI_TOOLS_LOCATION=/opt
 
-```sh
-export QUARTUS_TOOLS_LOCATION=/home
-export SYNOPSYS_TOOLS_LOCATION=/home
-export QUESTASIM_TOOLS_LOCATION=/home
-export ONEAPI_TOOLS_LOCATION=/opt
-```
+In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools 
 
-
-### **Quartus Tools Version (line 93)**
-
-Set version of Quartus
-
-
-```sh
-export QUARTUS_VERSION=23.4
-```
-
-In the example above "23.4" is used as the Quartus tools version
-
-
-### **OPAE Tools (line 106)**
-
-change OPAE SDK VERSION<br>
-
-
-```sh
-export OPAE_SDK_VERSION=2.12.0-4
-```
-
-In the example above "2.12.0-4" is used as the OPAE SDK tools version
-
-
-### **PCIe (Bus Number) (lines 231 and 238)**
+c) PCIe (Bus Number)
 
 The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
 
-```sh
-export ADP_CARD0_BUS_NUMBER=b1
-```
+    export OFS_CARD0_BUS_NUMBER=b1
 
  The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerator card plugged into a server. 
 
-```sh
-lspci | grep acc
+    lspci | grep acc
+    
+    b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
+    b1:00.1 Processing accelerators: Intel Corporation Device bcce<br>
+    b1:00.2 Processing accelerators: Intel Corporation Device bcce<br>
+    b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
+    b1:00.4 Processing accelerators: Intel Corporation Device bcce<br>
 
-86:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
-```
+The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
 
-The result identifies the card as being assigned "86" as the bus number so the entry in the script changes to
+    export OFS_CARD0_BUS_NUMBER=b1
 
-```sh
-export ADP_CARD0_BUS_NUMBER=86
-```
+The user can also run the following command on the ofs_d5005_eval.sh script to automatically change the bus number to b1 in the ofs_d5005_eval.sh script.
 
-The user can also run the following command on the ofs_d5005_eval.sh script to automatically change the bus number to 86 in the ofs_d5005_eval.sh script.
-
-grep -rli '86' * | xargs -i@ sed -i '86' @
+grep -rli 'b1' * | xargs -i@ sed -i 'b1' @
 
 if the bus number is 85 for example 
 
-85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
+    85:00.1 Processing accelerators: Intel Corporation Device bcce<br>
+    85:00.2 Processing accelerators: Intel Corporation Device bcce<br>
+    85:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
+    85:00.4 Processing accelerators: Intel Corporation Device bcce<br>
 
 the command to change to 85 in the evaluation script would be
 
-grep -rli '86' * | xargs -i@ sed -i '85' @
+grep -rli 'b1' * | xargs -i@ sed -i '85' @
+
+### **OFS Platform (Example:= n6000, n6001, fseries-dk, iseries-dk, custom_board) choice (line 173)**
+
+The script is designed to accommodate many OFS platform choices eg, n6000, n6001, fseries-dk, iseries-dk or a custom_board of your choice. By default the script defaults to n6001 as shown below and is set by a variable on line 173 of the ofs_d5005_eval.sh script.
+
+      export OFS_PLATFORM=n6001
+
+but the user can switch platform by changing the OFS_PLATFORM variable, so for example if the user wants to switch to the i-series development kit the command would be
+
+      export OFS_PLATFORM=iseries-dk
 
 The ofs_d5005_eval.sh script has now been modified to the server set-up and the user can proceed to build, compile and simulate the OFS stack
-
 <br>
-
-## **3 Using the Evaluation Script**
-
-
-### **3.1 Overview**
-
-
-
-The evaluation script focuses on different evaluation areas. Each of these menu options is described in the next section.  
-
-The figure below shows a snapshot of the full evaluation script menu showing all 57 options and each one of 10 sub-menus which focus on different areas of evaluation. Each of these menu options is described in the next section.
 
 
 **Figure 3-1 ofs_d5005_eval.sh Evaluation Menu**
@@ -267,7 +259,7 @@ The figure below shows a snapshot of the full evaluation script menu showing all
 
 
 
-By selecting "List of Documentation for ADP Intel® FPGA PAC D5005 Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the intel-ofs-docs tag that corresponds to your OFS version.
+By selecting "List of Documentation for ADP Intel® FPGA PAC D5005 Project," a list of links to the latest OFS documentation appears. Note that these links will take you to documentation for the most recent release which may not correspond to the release version you are evaluating. To find the documentation specific to your release, ensure you clone the OFS tag that corresponds to your OFS version.
 
 By selecting "Check Versions of Operating System and Quartus Premier Design Suite", the tool verifies correct Operating System, Quartus version, kernel parameters, license files and paths to installed software tools.
 
@@ -276,7 +268,7 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
 
 | Menu Option                                                  | Example Output                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 1 - List of Documentation for ADP D5005 Project | Open FPGA Stack Overview Guides you through the setup and build steps to evaluate the OFS solution [https://ofs.github.io](https://ofs.github.io/) |
+| 1 - List of Documentation for ADP d5005 Project | Open FPGA Stack Overview Guides you through the setup and build steps to evaluate the OFS solution [https://ofs.github.io](https://ofs.github.io/) |
 | 2 - Check versions of Operating System and Quartus Premier Design Suite (QPDS) | Checking Linux release <br />Linux version 6.1.78-dfl <br /><br />Checking RedHat release <br />Red Hat Enterprise Linux release RHEL 8.6  <br /><br />Checking Ubuntu release cat: /etc/lsb-release: No such file or directory  <br /><br />Checking Kernel parameters <br />BOOT_IMAGE=(hd0,msdos1)/vmlinuz-6.1.78-dfl-2023.4-1 root=/dev/mapper/rhel-root ro crashkernel=auto resume=/dev/mapper/rhel-swap rd.lvm.lv=rhel/root rd.lvm.lv=rhel/swap rhgb quiet intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200  <br /><br />Checking Licenses LM_LICENSE_FILE is set to port@socket number:port@socket number DW_LICENSE_FILE is set to port@socket number:port@socket number SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number  <br /><br />Checking Tool versions QUARTUS_HOME is set to /home/intelFPGA_pro/23.4/quartus QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/23.4/quartus IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/23.4/quartus/../ip QSYS_ROOTDIR is set to /home/intelFPGA_pro/23.4/quartus/../qsys/bin  <br />Checking QPDS Patches Quartus Prime Shell Version 23.4 |
 
 
@@ -290,12 +282,12 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
 
 | Menu Option                                                  | Example Output                                               |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 3 - Identify Acceleration Development Platform (ADP) D5005 Hardware via PCIe | PCIe card detected as 86:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01) Host Server is connected to SINGLE card configuration |
-| 4 - Identify the Board Management Controller (BMC) Version and check BMC sensors | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** BMC SENSORS ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD |
-| 5 - Identify the FPGA Management Engine (FME) Version        | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** FME ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD<br/>Boot Page : user |
-| 6 - Check Board Power and Temperature                        | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** POWER ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD<br/>( 1) VCCERAM Voltage : 0.90 Volts<br/>etc ......................<br/><br/>Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** TEMP ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD<br/>( 1) VCCT Temperature : 57.00 Celsius<br/>etc ...................... |
+| 3 - Identify Acceleration Development Platform (ADP) d5005 Hardware via PCIe | PCIe card detected as 86:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01) Host Server is connected to SINGLE card configuration |
+| 4 - Identify the Board Management Controller (BMC) Version and check BMC sensors | Intel FPGA Programmable Acceleration Card d5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.8<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** BMC SENSORS ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511860124977321<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : a195b6f7-cf23-5a2b-8ef9-1161e184ec4e |
+| 5 - Identify the FPGA Management Engine (FME) Version        | Intel FPGA Programmable Acceleration Card d5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.8<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** FME ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511860124977321<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : a195b6f7-cf23-5a2b-8ef9-1161e184ec4e<br/>Boot Page : user |
+| 6 - Check Board Power and Temperature                        | Intel FPGA Programmable Acceleration Card d5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.8<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** POWER ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511860124977321<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : a195b6f7-cf23-5a2b-8ef9-1161e184ec4e<br/>( 1) VCCERAM Voltage : 0.90 Volts<br/>etc ......................<br/><br/>Intel FPGA Programmable Acceleration Card d5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.8<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** TEMP ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511860124977321<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : a195b6f7-cf23-5a2b-8ef9-1161e184ec4e<br/>( 1) VCCT Temperature : 57.00 Celsius<br/>etc ...................... |
 | 7 - Check Accelerator Port status                            | //****** PORT ******// Object Id : 0xEF00000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00 |
-| 8 - Check MAC and PHY status                                 | Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** MAC ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD<br/>MAC address : 64:4c:36:f:44:1f<br/><br/>Intel FPGA Programmable Acceleration Card D5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.14<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** PHY ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : TBD<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : TBD |
+| 8 - Check MAC and PHY status                                 | Intel FPGA Programmable Acceleration Card d5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.8<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** MAC ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511860124977321<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : a195b6f7-cf23-5a2b-8ef9-1161e184ec4e<br/>MAC address : 64:4c:36:f:44:1f<br/><br/>Intel FPGA Programmable Acceleration Card d5005<br/>Board Management Controller, MAX10 NIOS FW version: 2.0.8<br/>Board Management Controller, MAX10 Build version: 2.0.8<br/>//****** PHY ******//<br/>Object Id : 0xF000000<br/>PCIe s:b:d.f : 0000:86:00.0<br/>Vendor Id : 0x8086<br/>Device Id : 0xBCCE<br/>SubVendor Id : 0x8086<br/>SubDevice Id : 0x138D<br/>Socket Id : 0x00<br/>Ports Num : 01<br/>Bitstream Id : 288511860124977321<br/>Bitstream Version : 4.0.1<br/>Pr Interface Id : a195b6f7-cf23-5a2b-8ef9-1161e184ec4e |
 
 ### **3.1.3 FIM/PR BUILD MENU**
 
@@ -308,7 +300,7 @@ Builds FIM, Partial Reconfiguration Region and Remote Signal Tap
 
 | Menu Option                                                  | Description                                                  |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 9 - Check ADP software versions for ADP Intel® FPGA PAC D5005 Project | OFS_ROOTDIR is set to /home/user_area/ofs-2024.1-1/ofs-d5005<br />OPAE_SDK_REPO_BRANCH is set to release/2.12.0-4 <br />OPAE_SDK_ROOT is set to /home/user_area/ofs-2024.1-1/ofs-d5005/../opae-sdk <br />LD_LIBRARY_PATH is set to /home/user_area/ofs-2024.1-1/ofs-d5005/../opae-sdk/lib64: |
+| 9 - Check ADP software versions for ADP Intel® FPGA PAC D5005 Project | OFS_ROOTDIR is set to /home/user_area/ofs-2024.1-1/ofs-d5005<br />OPAE_SDK_REPO_BRANCH is set to release/2.12.0-5 <br />OPAE_SDK_ROOT is set to /home/user_area/ofs-2024.1-1/ofs-d5005/../opae-sdk <br />LD_LIBRARY_PATH is set to /home/user_area/ofs-2024.1-1/ofs-d5005/../opae-sdk/lib64: |
 | 10 - Build FIM for Intel® FPGA PAC D5005 Hardware           | This option builds the FIM based on the setting for the $ADP_PLATFORM, $FIM_SHELL environment variable. <br />Check these variables in the following file ofs_d5005_eval.sh |
 | 11 - Check FIM Identification of FIM for Intel® FPGA PAC D5005 Hardware | The FIM is identified by the following file fme-ifc-id.txt located at $OFS_ROOTDIR/$FIM_WORKDIR/syn/syn_top/ |
 | 12 - Build Partial Reconfiguration Tree for Intel® FPGA PAC D5005 Hardware | This option builds the Partial Reconfiguration Tree which is needed for AFU testing/development and also for the OneAPI build flow |
@@ -334,7 +326,7 @@ The following submenu allows you to:
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | 16 - Program BMC Image into Intel® FPGA PAC D5005 Hardware  | The user must place a new BMC flash file in the following directory $OFS_ROOTDIR/bmc_flash_files. Once the user executes this option a new BMC image will be programmed. A remote system upgrade command is initiated to store the new BMC image |
 | 17 - Check Boot Area Flash Image from Intel® FPGA PAC D5005 Hardware | This option checks which location area in FLASH the image will boot from, the default is user1  Boot Page : user1 |
-| 18 - Program FIM Image into user1 area for Intel® FPGA PAC D5005 Hardware | This option programs the FIM image "D5005_page1_unsigned.bin" into user1 area in flash |
+| 18 - Program FIM Image into user1 area for Intel® FPGA PAC D5005 Hardware | This option programs the FIM image "d5005_page1_unsigned.bin" into user1 area in flash |
 | 19 - Initiate Remote System Upgrade (RSU) from user1 Flash Image into Intel® FPGA PAC D5005 Hardware | This option initiates a Remote System Upgrade and soft reboots the server and re-scans the PCIe bus for the new image to be loaded  <br /><br />2022-12-13 07:31:33,244 - [[pci_address(0000:86:00.0), pci_id(0x8086, 0xbcce, 0x8086, 0x138d)]] performing RSU operation <br />2022-12-13 07:31:33,249 - [[pci_address(0000:85:00.0), pci_id(0x8086, 0x2030, 0x1590, 0x00ea)]] removing device from PCIe bus <br />2022-12-13 07:31:34,333 - waiting 10.0 seconds for boot <br />2022-12-13 07:31:44,344 - rescanning PCIe bus: /sys/devices/pci0000:85/pci_bus/0000:85 2022-12-13 07:31:44,377 - RSU operation complete |
 | 20 - Check PF/VF Mapping Table, vfio-pci driver binding and accelerator port status | This option checks the current vfio-pci driver binding for the PF's and VF's |
 | 21 - Unbind vfio-pci driver                                  | This option unbinds the vfio-pci driver for the PF's and VF's |
@@ -464,7 +456,7 @@ For this menu, a user can run a sequence of tests (compilation, build and simula
 
 | Menu Option                                                  | Result                                                       |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| 57 - Build and Simulate Complete Intel® FPGA PAC D5005  Project | Generating Log File with date and timestamp Log file written to /home/user_area/ofs-2024.1-1/log_files/D5005_log_2022_11_10-093649/ofs-d5005_eval.log |
+| 57 - Build and Simulate Complete Intel® FPGA PAC D5005  Project | Generating Log File with date and timestamp Log file written to /home/user_area/ofs-2024.1-1/log_files/d5005_log_2022_11_10-093649/ofs-d5005_eval.log |
 
 **Definition of Multi-Test Set-up**
 
@@ -546,5 +538,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

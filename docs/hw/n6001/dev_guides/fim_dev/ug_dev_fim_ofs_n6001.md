@@ -1,6 +1,6 @@
-# FPGA Interface Manager Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6000-PL / Intel® FPGA SmartNIC N6001-PL PCIe Attach
+# Shell Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6000-PL / Intel® FPGA SmartNIC N6001-PL PCIe Attach
 
-Last updated: **March 20, 2024** 
+Last updated: **July 16, 2024** 
 
 ## **1. Introduction**
 
@@ -19,56 +19,56 @@ The *FIM Development Walkthroughs Table* lists all of the walkthroughs provided 
 
 | Walkthrough Name | Category |
 | --- | --- |
-| [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
-| [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) | Setup |
-| [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) | Setup |
-| [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) | Setup |
-| [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) | Compilation |
-| [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) | Compilation |
-| [Change the Compilation Seed](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2271-walkthrough-change-the-compilation-seed) | Compilation |
-| [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#321-walkthrough-run-individual-unit-level-simulation) | Simulation |
-| [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#331-walkthrough-run-regression-unit-level-simulation) | Simulation |
-| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
-| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
-| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) | Customization |
-| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
-| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
-| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
-| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
-| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) | Customization |
-| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) | Customization |
-| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) | Customization |
-| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) | Customization |
-| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) | Customization |
-| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) | Customization |
-| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) | Customization |
-| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) | Customization |
-| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) | Customization |
-| [Remove the HPS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) | Customization |
-| [Set up JTAG](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) | Configuration |
-| [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
-| [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) | Configuration |
+| [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1311-walkthrough-install-quartus-prime-pro-software) | Setup |
+| [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) | Setup |
+| [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) | Setup |
+| [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) | Setup |
+| [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) | Compilation |
+| [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim) | Compilation |
+| [Change the Compilation Seed](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2271-walkthrough-change-the-compilation-seed) | Compilation |
+| [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#321-walkthrough-run-individual-unit-level-simulation) | Simulation |
+| [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#331-walkthrough-run-regression-unit-level-simulation) | Simulation |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) | Customization |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) | Customization |
+| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) | Customization |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) | Customization |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) | Customization |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) | Customization |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) | Customization |
+| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) | Customization |
+| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) | Customization |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) | Customization |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) | Customization |
+| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) | Customization |
+| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) | Customization |
+| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) | Customization |
+| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) | Customization |
+| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) | Customization |
+| [Remove the HPS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) | Customization |
+| [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) | Configuration |
+| [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) | Configuration |
+| [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) | Configuration |
 
 #### **1.1.1 Knowledge Pre-Requisites**
 
 It is recommended that you have the following knowledge and skills before using this developer guide.
 
-* Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2024.1-1).
-* Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2023.3-2) for the Intel Agilex 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
-* Review of [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)].
-* FPGA compilation flows using Intel® Quartus® Prime Pro Edition.
-* Static Timing closure, including familiarity with the Timing Analyzer tool in Intel® Quartus® Prime Pro Edition, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
+* Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2024.2-1).
+* Review the [release notes](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1) for the Agilex® 7 PCIe Attach Reference Shells, with careful consideration of the **Known Issues**.
+* Review of [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/).
+* FPGA compilation flows using Quartus® Prime Pro Edition Software.
+* Static Timing closure, including familiarity with the Timing Analyzer tool in Quartus® Prime Pro Edition Software, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 * RTL (System Verilog) and coding practices to create synthesized logic.
 * RTL simulation tools.
-* Intel® Quartus® Prime Pro Edition Signal Tap Logic Analyzer tool software.
+* Quartus® Prime Pro Edition Software Signal Tap Logic Analyzer tool software.
 
 ### **1.2. FIM Development Theory**
 
 This section will help you understand how the OFS Agilex PCIe Attach FIM can be developed to fit your design goals.
 
-The [Default FIM Features](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#121-default-fim-features) section provides general information about the default features of the OFS Agilex PCIe Attach FIM so you can become familiar with the default design. For more detailed information about the FIM architecture, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+The [Default FIM Features](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#121-default-fim-features) section provides general information about the default features of the OFS Agilex PCIe Attach FIM so you can become familiar with the default design. For more detailed information about the FIM architecture, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
-The [Customization Options](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#122-customization-options) section then gives suggestions of how this default design can be customized. Step-by-step walkthroughs for many of the suggested customizations are later described in the [FIM Customization](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4-fim-customization) section.
+The [Customization Options](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#122-customization-options) section then gives suggestions of how this default design can be customized. Step-by-step walkthroughs for many of the suggested customizations are later described in the [FIM Customization](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4-fim-customization) section.
 
 FIM development for a new acceleration card generally consists of the following steps:
 
@@ -88,7 +88,7 @@ FIM development for a new acceleration card generally consists of the following 
   1. FPGA device pin assignment
   2. Create logic lock regions
   3. Create of timing constraints
-  4. Create Intel Quartus Prime Pro FIM test project and validate:
+  4. Create Quartus Prime Pro FIM test project and validate:
     1. Placement
     2. Timing constraints
     3. Build script process
@@ -114,7 +114,7 @@ The top level block diagram for the OFS Agilex PCIe Attach reference design is s
 
 *Figure: OFS Agilex PCIe Attach FIM Top-Level Diagram*
 
-![top_level_diagram](images/n6001_pcie_attach_top_level_diagram.png)
+![top_level_diagram](/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/images/n6001_pcie_attach_top_level_diagram.png)
 
 #### **1.2.1.2 Interfaces**
 
@@ -144,11 +144,11 @@ The *FIM Subsystems* Table  describes the Platform Designer IP subsystems used i
 
 | Subsystem | User Guide | Document ID |
 | --- | --- | --- |
-| PCIe Subsystem | [PCIe Subsystem Intel FPGA IP User Guide for Intel Agilex OFS](https://www.intel.com/content/www/us/en/secure/content-details/690604/pcie-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=690604&DocID=690604) | N/A |
+| PCIe Subsystem | [AXI Streaming IP for PCI Express User Guide](https://www.intel.com/content/www/us/en/docs/programmable/790711/23-4-1-0-0/introduction.html) | 790711 |
 | Memory Subsystem | [Memory Subsystem Intel FPGA IP User Guide for Intel Agilex OFS](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148) | 686148<sup>**[1]**</sup> |
 | Ethernet Subsystem | [Ethernet Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/docs/programmable/773413/23-1-22-5-0/ethernet-subsystem-intel-fpga-ip-overview.html) | 773413<sup>**[1]**</sup> |
 
-<sup>**[1]**</sup> You must log in to myIntel and request entitled access.
+<sup>**[1]**</sup> You must request entitled access to these documents.
 
 #### **1.2.1.4 Host Exercisers**
 
@@ -181,7 +181,7 @@ The OFS Agilex PCIe Attach n6001 FIM uses AXI4-Lite interconnect logic named the
 | 0x70000 – 0x7FFFF | 56K | PR Gasket:4K= PR Gasket DFH, control and status4K= Port DFH4K=User Clock52K=Remote STP
 | 0x80000 – 0x80FFF | 4K | AFU Error Reporting
 
-*Table: BPF Address Mapping*
+*Table: BPF Address Map*
 
 | Address | Size (Bytes) | Feature |
 | --- | --- | --- |
@@ -202,36 +202,36 @@ OFS is designed to be easily customizable to meet your design needs. The *OFS FI
 
 | Walkthrough Name |
 | --- |
-| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
-| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
-| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
-| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
-| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) |
-| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
-| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) |
-| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) |
-| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) |
-| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) |
-| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
-| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
-| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
-| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
-| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
-| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
-| [Remove the HPS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) |
+| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
+| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
+| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
+| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
+| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
+| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
+| [Remove the HPS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) |
 
-
-
-
-
-
-
+<!-- | | Change I/O assignments | N/A | -->
+<!-- | | Port code to another platform | N/A | -->
+<!-- | | Modify Memory Subsystem Settings | N/A | -->
+<!-- | | Modify Memory Interface speed/width | N/A | -->
+<!-- | | Modify Ethernet Subsystem Settings | N/A | -->
+<!-- | | Modify Memory Subsystem to add an additional channel | N/A | -->
 
 ### **1.3 Development Environment**
 
 This section describes the components required for OFS FIM development, and provides a walkthrough for setting up the environment on your development machine.
 
-Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up the environment for deployment machines.
+Note that your development machine may be different than your deployment machine where the FPGA acceleration card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Please see the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up the environment for deployment machines.
 
 #### **1.3.1 Development Tools**
 
@@ -241,18 +241,18 @@ The *Development Environment Table* describes the Best Known Configuration (BKC)
 
 | Component | Version | Installation Walkthrough |
 | --- | --- | --- |
-| Operating System | RedHatEnterprise Linux® (RHEL) 8.6 | N/A |
-| Intel Quartus Prime Software | Quartus Prime Pro Version 23.4 for Linux + Patches 0.17 patch (PCIe) | Section 1.3.1.1 |
+| Operating System | RedHat® Enterprise Linux® (RHEL) 8.10 | N/A |
+| Quartus® Prime Pro Edition Software | Quartus Prime Pro Version 24.1 for Linux + Patches 0.18, 0.26 | Section 1.3.1.1 |
 | Python | 3.6.8 or later | N/A |
-| GCC | 7.4.0 or later | N/A |
+| GCC | 8.5.0 or later | N/A |
 | cmake | 3.15 or later | N/A |
-| FIM Source Files | ofs-2024.1-1 | Section 1.3.2.1 |
+| FIM Source Files | ofs-2024.2-1 | Section 1.3.2.1 |
 
 ##### **1.3.1.1 Walkthrough: Install Quartus Prime Pro Software**
 
-**Intel Quartus Prime Pro Version 23.4** is verified to work with the latest OFS release ofs-2024.1-1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
+**Intel Quartus Prime Pro Version 24.1** is verified to work with the latest OFS release ofs-2024.2-1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
 
-Use RedHatEnterprise Linux® (RHEL) 8.6 for compatibility with your development flow and also testing your FIM design in your platform. 
+Use RedHat® Enterprise Linux® (RHEL) 8.10 for compatibility with your development flow and also testing your FIM design in your platform. 
 
 Prior to installing Quartus:
 
@@ -285,7 +285,7 @@ Prior to installing Quartus:
 
 4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1). The patches for this release are 0.17 patch (PCIe).
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1). The patches for this release are 0.18, 0.26.
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -294,25 +294,25 @@ Prior to installing Quartus:
   export PATH=<Quartus install directory>/qsys/bin:$PATH
   ```
 
-  For example, if the Quartus install directory is /home/intelFPGA_pro/23.4 then the new line is:
+  For example, if the Quartus install directory is /home/intelFPGA_pro/24.1 then the new line is:
 
   ```bash
-  export PATH=/home/intelFPGA_pro/23.4/quartus/bin:$PATH
-  export PATH=/home/intelFPGA_pro/23.4/qsys/bin:$PATH
+  export PATH=/home/intelFPGA_pro/24.1/quartus/bin:$PATH
+  export PATH=/home/intelFPGA_pro/24.1/qsys/bin:$PATH
   ```
 
 7. Verify, Quartus is discoverable by opening a new shell:
 
   ```
   $ which quartus
-  /home/intelFPGA_pro/23.4/quartus/bin/quartus
+  /home/intelFPGA_pro/24.1/quartus/bin/quartus
   ```
 
 
 
 #### **1.3.2 FIM Source Files**
 
-The source files for the OFS Agilex PCIe Attach FIM are provided in the following repository: [https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1).
+The source files for the OFS Agilex PCIe Attach FIM are provided in the following repository: [https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1).
 
 Some essential directories in the repository are described as follows:
 
@@ -361,7 +361,7 @@ ofs-agx7-pcie-attach
 
 ##### **1.3.2.1 Walkthrough: Clone FIM Repository**
 
-Perform the following steps to clone the OFS Agilex PCIe Attach FIM Repository:
+Perform the following steps to clone the OFS Agilex® 7 PCIe Attach FIM Repository:
 
 1. Create a new directory to use as a clean starting point to store the retrieved files.
     ```bash
@@ -369,14 +369,28 @@ Perform the following steps to clone the OFS Agilex PCIe Attach FIM Repository:
     cd OFS_BUILD_ROOT
     export OFS_BUILD_ROOT=$PWD
     ```
+
 2. Clone GitHub repository using the HTTPS git method
     ```bash
     git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
     ```
+
 3. Check out the correct tag of the repository
     ```bash
     cd ofs-agx7-pcie-attach
-    git checkout --recurse-submodules tags/ofs-2024.1-1
+    git checkout --recurse-submodules tags/ofs-2024.2-1
+    ```
+
+4. Ensure that `ofs-common` has been cloned as well
+
+    ```bash
+    git submodule status
+    ```
+
+    Example output:
+
+    ```bash
+    ofs-common (ofs-2024.2-1)
     ```
 
 #### **1.3.3 Environment Variables**
@@ -439,14 +453,17 @@ Perform the following steps to set the required environment variables. These env
 
   # Set Verification Tools variables (if running simulations)
   export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/vip_Q-2020.03A
-  export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm
-  export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel
+  export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.N6001_SIM_VCS_VER_SH }}/linux64/rhel/etc/uvm
+  export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.N6001_SIM_VCS_VER_SH }}/linux64/rhel
   export MTI_HOME=$QUARTUS_ROOTDIR/../questa_fse
   export VERDIR=$OFS_ROOTDIR/verification
   export VIPDIR=$VERDIR
 
+  # Set OPAE variables
+  export OPAE_SDK_REPO_BRANCH=release/2.13.0
+
   # Set PATH to include compilation and simulation tools
-  export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/../qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
+  export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/../qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$OFS_ROOTDIR/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
   ```
 
 
@@ -454,7 +471,7 @@ Perform the following steps to set the required environment variables. These env
 
 This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
 
-1. Ensure that Quartus Prime Pro Version 23.4 for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
+1. Ensure that Quartus Prime Pro Version 24.1 for Linux with Agilex® 7 FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions.
 
   1. Verify version number
 
@@ -466,8 +483,7 @@ This walkthrough guides you through the process of setting up your development e
 
       ```bash
       Quartus Prime Shell
-      Version 23.4 Build 94 06/14/2023 SC Pro Edition
-      Copyright (C) 2023  Intel Corporation. All rights reserved.
+      Version 24.1 SC Pro Edition
       ```
 
 2. Ensure that all support tools are installed on your development machine, and that they meet the version requirements.
@@ -486,7 +502,7 @@ This walkthrough guides you through the process of setting up your development e
       Python 3.6.8
       ```
 
-  2. GCC 7.4.0 or later
+  2. GCC 8.5.0 or later
 
     1. Verify version number
 
@@ -497,7 +513,7 @@ This walkthrough guides you through the process of setting up your development e
       Example output:
 
       ```bash
-      gcc (GCC) 7.4.0
+      gcc (GCC) 8.5.0
       ```
 
   3. cmake 3.15 or later
@@ -514,7 +530,7 @@ This walkthrough guides you through the process of setting up your development e
       cmake version 3.15
       ```
 
-3. Clone the ofs-agx7-pcie-attach repository. Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+3. Clone the ofs-agx7-pcie-attach repository. Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
 4. Install UART IP license patch `.02`.
 
@@ -530,18 +546,18 @@ This walkthrough guides you through the process of setting up your development e
     sudo ./quartus-0.0-0.02iofs-linux.run
     ```
 
-5. Install Quartus Patches 0.17 patch (PCIe). All required patches are provided in the **Assets** of the OFS FIM Release: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.1-1
+5. Install Quartus Patches 0.18, 0.26. All required patches are provided in the **Assets** of the OFS FIM Release: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
 
-  1. Extract and unzip the `patch-agx7-2024-1.tar.gz` file.
+  1. Extract and unzip the `patch-agx7-2024-2-1.tar.gz` file.
 
     ```bash
-    tar -xvzf patch-agx7-2024-1.tar.gz
+    tar -xvzf patch-agx7-2024-2-1.tar.gz
     ```
 
   2. Run each patch `.run` file. As an example:
 
     ```bash
-    sudo ./quartus-23.4-0.17-linux.run
+    sudo ./quartus-24.1-0.18-linux.run
     ```
 
 6. Verify that patches have been installed correctly. They should be listed in the output of the following command.
@@ -550,7 +566,7 @@ This walkthrough guides you through the process of setting up your development e
   quartus_sh --version
   ```
 
-5. Set required environment variables. Refer to the [Set Environment Variables] section for step-by-step instructions.
+5. Set required environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 This concludes the walkthrough for setting up your development environment. At this point you are ready to begin FIM development.
 
@@ -558,13 +574,15 @@ This concludes the walkthrough for setting up your development environment. At t
 
 This section describes the process of compiling OFS FIM designs using the provided build scripts. It contains two main sections:
 
-* [Compilation Theory](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#21-compilation-theory) - Describes the theory behind FIM compilation
-* [Compilation Flows](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#22-compilation-flows) - Describes the process of compiling a FIM
+* [Compilation Theory](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#21-compilation-theory) - Describes the theory behind FIM compilation
+* [Compilation Flows](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#22-compilation-flows) - Describes the process of compiling a FIM
 
 The walkthroughs provided in this section are:
 
-* [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim)
-* [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim)
+* [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim)
+* [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#226-walkthrough-manually-generate-ofs-out-of-tree-pr-fim)
+* [Change the Compilation Seed](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2271-walkthrough-change-the-compilation-seed)
+
 
 ### **2.1 Compilation Theory**
 
@@ -590,106 +608,100 @@ build_top.sh [-k] [-p] [-e] [--stage=<action>] [--ofss=<ip_config>] <build_targe
 | `-p` | None | When set, and if the FIM supports partial reconfiguration, a PR template tree is generated at the end of the FIM build. The PR template tree is located in the top of the work directory but is relocatable and uses only relative paths. See $OFS_ROOTDIR/syn/common/scripts generate_pr_release.sh for details. | Optional |
 | `-e` | None | Run only Quartus analysis and elaboration. It completes the `setup` stage, passes `-end synthesis` to the Quartus compilation flow and exits without running the `finish` stage. | Optional |
 | `--stage` | `all` \| `setup` \| `compile` \| `finish` | Controls which portion of the OFS build is run.</br>&nbsp;&nbsp;- `all`: Run all build stages (default)</br>&nbsp;&nbsp;- `setup`: Initialize a project in the work directory</br>&nbsp;&nbsp;- `compile`: Run the Quartus compilation flow on a project that was already initialized with `setup`</br>&nbsp;&nbsp;- `finish`: Complete OFS post-compilation tasks, such as generating flash images and, if `-p` is set, generating a release. | Optional |
-| `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. This parameter is consumed during the setup stage and IP is updated only inside the work tree. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | Optional |
+| `--ofss` | `<ip_config>.ofss` \| `nodefault` | OFS Settings. OFSS files are used to modify IP in the design. This parameter is consumed during the setup stage and IP is updated only inside the work tree. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. If no OFSS files are provided, the script will default to using the <build_target>.ofss file to configure the design. You may specify `--ofss nodefault` to prevent the script from using the default OFSS configuration; the resulting build will only use the source files as-is, plus any OFSS files you specify. | Optional |
 | `<build_target>` | `n6000` \| `n6001` \| `fseries-dk` \| `iseries-dk` | Specifies which board is being targeted. | Required |
 | `<fim_options>` | `flat` \| `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` \| `no_hssi` | Used to change how the FIM is built.</br>&nbsp;&nbsp;&bull; `flat` - Compiles a flat design (no PR assignments). This is useful for bringing up the design on a new board without dealing with PR complexity.</br>&nbsp;&nbsp;&bull; `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>&nbsp;&nbsp;&bull; `no_hssi` - Removes the HSSI-SS from the FIM. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:flat,null_he_lb,null_he_hssi` | Optional | 
 | `<work_dir_name>` | String | Specifies the name of the work directory in which the FIM will be built. If not specified, the default target is `$OFS_ROOTDIR/work` | Optional |
 
-Refer to [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) which provides step-by-step instructions for running the `build_top.sh` script with some of the different available options.
+
+Refer to [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) which provides step-by-step instructions for running the build_top.sh script with some of the different available options.
 
 #### **2.1.1.1 Build Work Directory**
+
 
 The build script copies source files from the existing cloned repository into the specified work directory, which are then used for compilation. As such, any changes made in the base source files will be included in all subsequent builds, unless the `-k` option is used, in which case an existing work directories files are used as-is. Likewise, any changes made in a work directory is only applied to that work directory, and will not be updated in the base repository by default. When using OFSS files to modify the design, the build script will create a work directory and make the modifications in the work directory.
 
 #### **2.1.1.2 Null Host Exercisers**
 
-An HE_NULL FIM refers to a design with one, some, or all of the Host Exercisers replaced by `he_null` blocks. The `he_null` is a minimal block with CSRs that responds to PCIe MMIO requests in order to keep PCIe alive. You may use any of the build flows (flat, in-tree, out-of-tree) with the HE_NULL compile options. The HE_NULL compile options are as follows:
+When using the `he_null_x` command command line options, the specified Host Exerciser is replaced by an `he_null` block. The `he_null` is a minimal block with CSRs that responds to PCIe MMIO requests in order to keep PCIe alive. You may use any of the build flows (flat, in-tree, out-of-tree) with the HE_NULL compile options. The HE_NULL compile options are as follows:
 
 * `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`
 * `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`
 * `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`
 * `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`
 
-The [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section gives step-by-step instructions for this flow.
 
+
+The [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section gives step-by-step instructions for this flow.
 
 #### **2.1.2 OFSS File Usage**
 
-The OFS FIM build script can use OFSS files to easily customize design IP prior to compilation using preset configurations. The OFSS files specify certain parameters for different IPs. Using OFSS is provided as a convenience feature for building FIMs. The *Provided OFSS Files* table below describes the pre-made OFSS files for the n6001 that can be found in the `$OFS_ROOTDIR/tools/ofss_config` directory. Only the OFSS files listed in this table are compatible with the n6001 In order to compile an n6001 FIM, you must supply OFSS files corresponding to each IP that is present in your design.
+The OFS FIM build script uses OFSS files to configure the design IP prior to compilation using preset configurations. The OFSS files specify certain parameters for different IPs. Using OFSS is provided as a convenience feature for building different FIM configurations. You can specify the IP OFSS files you wish to use on the command line, by editing the default Platform OFSS file, or by creating a custom Platform OFSS file and calling it on the command line. Any IP OFSS file type not explicitly specified will default to the one defined in the default Platform OFSS file.
 
-*Table: Provided OFSS Files*
+##### **2.1.2.1 Top Level OFSS File**
 
-| OFSS File Name | Location | Type | Description | Supported Board |
-| --- | --- | --- | --- | --- |
-| `n6001.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `n6001_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_host.ofss`</br> &nbsp;&nbsp;&bull; `iopll.ofss`</br> &nbsp;&nbsp;&bull; `memory.ofss` | N6001 |
-| `n6001_2pf.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `n6001_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_2pf.ofss`</br> &nbsp;&nbsp;&bull; `iopll.ofss`</br> &nbsp;&nbsp;&bull; `memory.ofss` | N6001 |
-| `n6001_1pf_1vf.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `n6001_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_1pf_1vf.ofss`</br> &nbsp;&nbsp;&bull; `iopll.ofss`</br> &nbsp;&nbsp;&bull; `memory.ofss` | N6001 |
-| `n6000.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top | Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `n6000_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_host_n6000.ofss`</br> &nbsp;&nbsp;&bull; `iopll_n6000.ofss`</br> &nbsp;&nbsp;&bull; `hssi_4x100.ofss` | N6000 |
-| `n6001_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | ofs | Defines certain attributes of the design, including the platform name, device family, fim type, part number, and device ID. | N6001 |
-| `n6000_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | ofs | Defines certain attributes of the design, including the platform name, device family, fim type, part number, and device ID. | N6000 |
-| `pcie_host.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem for the N6001 with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (3 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs)</br>&nbsp;&nbsp;&bull; PF2 (0 VFs)</br>&nbsp;&nbsp;&bull; PF3 (0 VFs)</br>&nbsp;&nbsp;&bull; PF4 (0 VFs) | N6001 |
-| `pcie_2pf.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (0 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs) | N6001 |
-| `pcie_1pf_1vf.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (1 VF) | N6001 |
-| `pcie_host_n6000.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem for the N6000 with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (3 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs)</br>&nbsp;&nbsp;&bull; PF2 (0 VFs)</br>&nbsp;&nbsp;&bull; PF3 (0 VFs)</br>&nbsp;&nbsp;&bull; PF4 (0 VFs) | N6001 |
-| `iopll.ofss` | `$OFS_ROOTDIR/tools/ofss_config/iopll` | iopll | Sets the IOPLL frequency to `470 MHz` | N6001 |
-| `iopll_n6000.ofss` | `$OFS_ROOTDIR/tools/ofss_config/iopll` | iopll | Sets the IOPLL frequency to `350 MHz` | N6000 |
-| `memory.ofss` | `$OFS_ROOTDIR/tools/ofss_config/memory` | memory | Defines the memory IP preset file to be used during the build as `n6001` | N6001 \| N6000 <sup>**[1]**</sup> |
-| `hssi_8x25.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 8x25 GbE | N6001 |
-| `hssi_8x10.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 8x10 GbE | N6001 |
-| `hssi_2x100.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 2x100 GbE | N6001 |
-| `hssi_4x100.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 4x100 GbE | N6000 |
+Top-level OFSS files are OFSS files that contain a list of IP OFSS files that will be used during compilation when the Top-level OFSS file is provided to the build script. You may make your own custom Top-level OFSS files for convenient compilation. The *Provided Top-level OFSS Files* table describes the Top-level OFSS files that are provided to you. 
 
-<sup>**[1]**</sup> The `memory.ofss` file can be used for the N6000, however, the default N6000 FIM does not implement the Memory Sub-system. Refer to Section 4.7.2 for step-by-step instructions on how to enable the Memory sub-system
+Top-level OFSS files contain a `[default]` header, followed by all of the IP OFSS files that will be used by the build script when this Platform OFSS file is called. Ensure that any environment variables (e.g. `$OFS_ROOTDIR`) are set correctly. The OFSS Config tool uses breadth first search to include all of the specified OFSS files; the ordering of OFSS files does not matter.
 
-There can typically be three sections contained within an OFSS file.
-
-* **`[include]`**
-
-  * This section of an OFSS file contains elements separated by a newline, where each element is the path to an OFSS file that is to be included for configuration by the OFSS Configuration Tool. Ensure that any environment variables (e.g. `$OFS_ROOTDIR`) is set correctly. The OFSS Config tool uses breadth first search to include all of the specified OFSS files; the ordering of OFSS files does not matter
-
-* **`[ip]`**
-
-  * This section of an OFSS file contains a key value pair that allows the OFSS Config tool to determine which IP configuration is being passed in. The currently supported values of IP are `ofs`, `iopll`, `pcie`, `memory`, and `hssi`.
-
-* **`[settings]`**
-
-  * This section of an OFSS file contains IP specific settings. Refer to an existing IP OFSS file to see what IP settings are set. For the IP type `ofss``, the settings will be information of the OFS device (platform, family, fim, part #, device_id)
-
-##### **2.1.2.1 Platform OFSS File**
-
-The `<platform>.ofss` file (e.g. `$OFS_ROOTDIR/tools/ofss_config/n6001.ofss`) is the platform level OFSS wrapper file. This is typically the OFSS file that is provided to the build script. It only contains an `include` section which lists all other OFSS files that are to be used when the `<platform>.ofss` file is passed to the build script.
-
-The generic structure of a `<platform>.ofss` file is as follows:
+The general structure of a Top-level OFSS file is as follows:
 
 ```bash
-[include]
-<PATH_TO_PLATFORM_BASE_OFSS_FILE>
+[default]
+<PATH_TO_BASE_OFSS_FILE>
 <PATH_TO_PCIE_OFSS_FILE>
 <PATH_TO_IOPLL_OFSS_FILE>
 <PATH_TO_MEMORY_OFSS_FILE>
 <PATH_TO_HSSI_OFSS_FILE>
 ```
 
-##### **2.1.2.2 OFS IP OFSS File**
+Any IP OFSS file types that are not explicitly defined by the user will default to using the IP OFSS files specified in the default Top-level OFSS file of the target board. The default Top-level OFSS file for each target is `/tools/ofss_config/<target_board>.ofss`. You can use the `--ofss nodefault` option to prevent the build script from using the default Top-level OFSS file. You can still provide other OFSS files while using the `nodefault` option, e.g. `--ofss nodefault tools/ofss_config/pcie/pcie_host_2link.ofss` will implement the settings within `pcie_host_2link.ofss`, and will not use any default settings for the other IP types.
 
-An OFSS file with IP type `ofs` (e.g. `$OFS_ROOTDIR/tools/ofss_config/n6001_base.ofss`) contains board specific information for the target board.
+*Table: Provided Top-Level OFSS Files*
+
+| OFSS File Name | Location | Type | Description | Supported Board |
+| --- | --- | --- | --- | --- |
+| `n6001.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top-level | This is the default for N6001. Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `n6001_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_host.ofss`</br> &nbsp;&nbsp;&bull; `iopll_500MHz.ofss`</br> &nbsp;&nbsp;&bull; `memory.ofss`</br> &nbsp;&nbsp;&bull; `hssi_8x25.ofss` | N6001 |
+| `n6000.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top-level | This is the default for N6000. Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `n6000_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_host_n6000.ofss`</br> &nbsp;&nbsp;&bull; `iopll_350MHz.ofss`</br> &nbsp;&nbsp;&bull; `hssi_4x100.ofss` | N6000 |
+| `fseries-dk.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top-level | This is the default for fseries-dk. Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `fseries-dk_base.ofss`</br> &nbsp;&nbsp;&bull; `pcie_host.ofss`</br> &nbsp;&nbsp;&bull; `iopll_500MHz.ofss`</br> &nbsp;&nbsp;&bull; `memory_ftile.ofss`</br> &nbsp;&nbsp;&bull; `hssi_8x25_ftile.ofss` | fseries-dk |
+| `iseries-dk.ofss` | `$OFS_ROOTDIR/tools/ofss_config` | Top-level | This is the default for iseries-dk. Includes the following OFSS files:</br> &nbsp;&nbsp;&bull; `iseries-dk_base.ofss` </br> &nbsp;&nbsp;&bull; `pcie_host.ofss`</br> &nbsp;&nbsp;&bull; `iopll_500MHz.ofss`</br> &nbsp;&nbsp;&bull; `memory_rtile.ofss`</br> &nbsp;&nbsp;&bull; `hssi_8x25_ftile.ofss` | iseries-dk |
+
+
+##### **2.1.2.2 Base OFSS File**
+
+An OFSS file with IP type `ofs` contains board specific information for the target board. It defines certain attributes of the design, including the platform name, device family, fim type, part number, and device ID. It can also contain settings for system information like PCIe generation and subsystem device IDs. Note that PCIe settings defined in the PCIe OFSS file will take precedence over any PCIe settings defined in the Base OFSS file.
 
 Currently supported configuration options for an OFSS file with IP type `ofs` are described in the *OFS IP OFSS File Options* table.
 
 *Table: OFS IP OFSS File Options*
 
-| Section | Parameter | n6001 Default Value | n6000 Default Value |
+| Section | Parameter | n6001 Default Value | n6000 Default Value | fseries-dk Default Value | iseries-dk Default Value |
+| --- | --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `ofs` | `ofs` | `ofs` | `ofs` |
+| `[settings]` | `platform` | `n6001` | `n6000` | `n6001` | `n6001` |
+| | `family` | `agilex` | `agilex` | `agilex` | `agilex` |
+| | `fim` | `base_x16` | `base_x16` | `base_x16` | `base_x16` |
+| | `part` | `AGFB014R24A2E2V` | `AGFB014R24A2E2V` | `AGFB027R24C2E2VR2` | `AGIB027R29A1E2VR3` |
+| | `device_id` | `6001` | `6000` | `6001` | `6001` |
+| `[pcie.settings]` | `pcie_gen` | `4` | `4` | `4` | `5` |
+| `[pcie]` | `subsys_dev_id` | `1771` | `1770` | `1` | `1` |
+| | `exvf_subsysid` | `1771` | `1770` | `1` | `1` |
+
+The *Provided Base OFSS Files* table describes the Base OFSS files that are provided to you.
+
+*Table: Provided Base OFSS Files*
+
+| OFSS File Name | Location | Type | Supported Board |
 | --- | --- | --- | --- |
-| `[ip]` | `type` | `ofs` | `ofs` |
-| `[settings]` | `platform` | `n6001` | `n6000` |
-| | `family` | `agilex` | `agilex` |
-| | `fim` | `base_x16` | `base_x16` |
-| | `part` | `AGFB014R24A2E2V` | `${{ env.N6000_MPN }}` |
-| | `device_id` | `6001` |`6000` |
+| `n6001_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config/base` | ofs | N6001 |
+| `n6000_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config/base` | ofs | N6000 |
+| `fseries-dk_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config/base` | ofs | fseries-dk |
+| `iseries-dk_base.ofss` | `$OFS_ROOTDIR/tools/ofss_config/base` | ofs | iseries-dk |
 
-##### **2.1.2.3 PCIe IP OFSS File**
 
-An OFSS file with IP type `pcie` (e.g. `$OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host.ofss`) is used to configure the PCIe-SS in the FIM.
+##### **2.1.2.3 PCIe OFSS File**
+
+An OFSS file with IP type `pcie` is used to configure the PCIe-SS and PF/VF MUX in the FIM.
 
 The PCIe OFSS file has a special section type (`[pf*]`) which is used to define physical functions (PFs) in the FIM. Each PF has a dedicated section, where the `*` character is replaced with the PF number. For example, `[pf0]`, `[pf1]`, etc. For reference FIM configurations, you must have at least 1 PF with 1VF, or 2PFs. This is because the PR region cannot be left unconnected. PFs must be consecutive. The *PFVF Limitations* table describes the supported number of PFs and VFs.
 
@@ -697,42 +709,63 @@ The PCIe OFSS file has a special section type (`[pf*]`) which is used to define 
 
 | Parameter | Value |
 | --- | --- |
-| Min # of PFs | 1 (on PF0) |
+| Min # of PFs | 1 PF if 1 or more VFs present \| 2 PFs if 0 VFs present (PFs must start at PF0) |
 | Max # of PFs | 8 |
-| Min # of VFs | 0 (if 2PFs are used) |
+| Min # of VFs | 0 VFs if 2 or more PFs present \| 1 VF if only 1 PF present |
 | Max # of VFs | 2000 distributed across all PFs |
 
 Currently supported configuration options for an OFSS file with IP type `pcie` are described in the *PCIe IP OFSS File Options* table.
 
 *Table: PCIe IP OFSS File Options*
 
-| Section | Parameter | Options | Description |
-| --- | --- | --- | --- |
-| `[ip]` | `type` | `pcie` | Specifies that this OFSS file configures the PCIe-SS |
-| `[settings]` | `output_name` | `pcie_ss` | Specifies the output name of the PCIe-SS IP |
-| | `preset` | *String* | OPTIONAL - Specifies the name of a PCIe-SS IP presets file to use when building the FIM. When used, a presets file will take priority over any other parameters set in this OFSS file. |
-| `[pf*]` | `num_vfs` | Integer | Specifies the number of Virtual Functions in the current PF |
-| | `bar0_address_width` | Integer | |
-| | `bar4_address_width` | Integer | |
-| | `vf_bar0_address_width` | Integer | |
-| | `ats_cap_enable` | `0` \| `1` | |
-| | `vf_ats_cap_enable` | `0` \| `1` | |
-| | `prs_ext_cap_enable` | `0` \| `1` | |
-| | `pasid_cap_enable` | `0` \| `1` | |
-| | `pci_type0_vendor_id` | 32'h Value | `0x00008086` | |
-| | `pci_type0_device_id` | 32'h Value | `0x0000bcce` | |
-| | `revision_id` | 32'h Value | `0x00000001` | |
-| | `class_code` | 32'h Value | `0x00120000` | |
-| | `subsys_vendor_id` | 32'h Value | `0x00008086` | |
-| | `subsys_dev_id` | 32'h Value | `0x00001771` | |
-| | `sriov_vf_device_id` | 32'h Value | `0x0000bccf` | |
-| | `exvf_subsysid` | 32'h Value | `0x00001771` | |
+| Section | Parameter | Options | Description | n6001 Default Value | n6000 Default Value | fseries-dk Default Value | iseries-dk Default Value |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `pcie` | Specifies that this OFSS file configures the PCIe-SS | `pcie` | `pcie` | `pcie` | `pcie` |
+| `[settings]` | `output_name` | `pcie_ss` | Specifies the output name of the PCIe-SS IP | `pcie_ss` | `pcie_ss` | `pcie_ss` | `pcie_ss` |
+| | `ip_component` |  `intel_pcie_ss_axi` \| `pcie_ss` | Specifies the PCIe SS IP that will be used. </br> &nbsp;&nbsp;&bull; `intel_pcie_ss_axi`: AXI Streaming Intel FPGA IP for PCI Express </br> &nbsp;&nbsp;&bull; `pcie_ss`: Intel FPGA IP Subsystem for PCI Express | `intel_pcie_ss_axi` | `intel_pcie_ss_axi` | `intel_pcie_ss_axi` | `intel_pcie_ss_axi` | `intel_pcie_ss_axi` |
+| | `preset` | *String* | OPTIONAL - Specifies the name of a PCIe-SS IP presets file to use when building the FIM. When used, a presets file will take priority over any other parameters set in this OFSS file. | N/A | N/A | N/A | N/A |
+| `[pf*]` | `num_vfs` | Integer | Specifies the number of Virtual Functions in the current PF | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `bar0_address_width` | Integer | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `bar4_address_width` | Integer | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `vf_bar0_address_width` | Integer | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `ats_cap_enable` | `0` \| `1` | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `vf_ats_cap_enable` | `0` \| `1` | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `prs_ext_cap_enable` | `0` \| `1` | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `pasid_cap_enable` | `0` \| `1` | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `pci_type0_vendor_id` | 32'h Value | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `pci_type0_device_id` | 32'h Value | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `revision_id` | 32'h Value | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `class_code` | 32'h Value | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `subsys_vendor_id` | 32'h Value | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `subsys_dev_id` | 32'h Value | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `sriov_vf_device_id` | 32'h Value | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
+| | `exvf_subsysid` | 32'h Value | | Variable<sup>**[1]**</sup> | Variable<sup>**[2]**</sup> | Variable<sup>**[1]**</sup> | Variable<sup>**[1]**</sup> |
 
-The default values for all PCIe-SS parameters (that are not defined in the PCIe IP OFSS file) are defined in `$OFS_ROOTDIR/ofs-common/tools/ofss_config/ip_params/pcie_ss_component_parameters.py`. When using a PCIe IP OFSS file during compilation, the PCIe-SS IP that is used will be defined based on the values in the PCIe IP OFSS file plus the parameters defined in `pcie_ss_component_parameters.py`.
 
-##### **2.1.2.4 IOPLL IP OFSS File**
+> <sup>**[1]**</sup> Refer to `pcie_host.ofss`
 
-An OFSS file with IP type `iopll` (e.g. `$OFS_ROOTDIR/tools/ofss_config/iopll/iopll.ofss`) is used to configure the IOPLL in the FIM.
+> <sup>**[2]**</sup> Refer to `pcie_host_n6000.ofss`
+
+Any parameter that is not specified in the PCIe OFSS file will default to the values defined in `$OFS_ROOTDIR/ofs-common/tools/ofss_config/ip_params/pcie_ss_component_parameters.py`. When using a PCIe IP OFSS file during compilation, the PCIe-SS IP that is used will be defined based on the values in the PCIe IP OFSS file plus the parameters defined in `pcie_ss_component_parameters.py`.
+
+The *Provided PCIe OFSS Files* table describes the PCIe OFSS files that are provided to you.
+
+*Table: Provided PCIe OFSS Files*
+
+| OFSS File Name | Location | Type | Description | Supported Boards |
+| --- | --- | --- | --- | --- |
+| `pcie_host.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (3 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs)</br>&nbsp;&nbsp;&bull; PF2 (0 VFs)</br>&nbsp;&nbsp;&bull; PF3 (0 VFs)</br>&nbsp;&nbsp;&bull; PF4 (0 VFs) | N6001 \| fseries-dk \| iseries-dk |
+| `pcie_host_1pf_1vf.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration: </br>&nbsp;&nbsp;&bull; PF0 (1 VF) | N6001 \| fseries-dk \| iseries-dk |
+| `pcie_host_2link.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; 2x8 PCIe</br>&nbsp;&nbsp;&bull; PF0 (3 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs)</br>&nbsp;&nbsp;&bull; PF2 (0 VFs)</br>&nbsp;&nbsp;&bull; PF3 (0 VFs)</br>&nbsp;&nbsp;&bull; PF4 (0 VFs) | iseries-dk |
+| `pcie_host_2link_1pf_1vf.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration: </br>&nbsp;&nbsp;&bull; 2x8 PCIe</br>&nbsp;&nbsp;&bull; PF0 (1 VF)| iseries-dk |
+| `pcie_host_2pf.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (0 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs) | N6001 \| fseries-dk \| iseries-dk |
+| `pcie_host_gen4.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (3 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs)</br>&nbsp;&nbsp;&bull; PF2 (0 VFs)</br>&nbsp;&nbsp;&bull; PF3 (0 VFs)</br>&nbsp;&nbsp;&bull; PF4 (0 VFs) | iseries-dk |
+| `pcie_host_n6000.ofss` | `$OFS_ROOTDIR/tools/ofss_config/pcie` | pcie | Defines the PCIe Subsystem for the N6000 with the following configuration:</br>&nbsp;&nbsp;&bull; PF0 (3 VFs)</br>&nbsp;&nbsp;&bull; PF1 (0 VFs)</br>&nbsp;&nbsp;&bull; PF2 (0 VFs)</br>&nbsp;&nbsp;&bull; PF3 (0 VFs)</br>&nbsp;&nbsp;&bull; PF4 (0 VFs) | N6001 |
+
+
+##### **2.1.2.4 IOPLL OFSS File**
+
+An OFSS file with IP type `iopll` is used to configure the IOPLL in the FIM.
 
 The IOPLL OFSS file has a special section type (`[p_clk]`) which is used to define the IOPLL clock frequency.
 
@@ -740,18 +773,27 @@ Currently supported configuration options for an OFSS file with IP type `iopll` 
 
 *Table: IOPLL OFSS File Options*
 
-| Section | Parameter | Options | Description |
-| --- | --- | --- | --- |
-| `[ip]` | `type` | `iopll` | Specifies that this OFSS file configures the IOPLL |
-| `[settings]` | `output_name` | `sys_pll` | Specifies the output name of the IOPLL. |
-| | `instance_name` | `iopll_0` | Specifies the instance name of the IOPLL. |
-| `[p_clk]` | `freq` | Integer: 250 - 470 | Specifies the IOPLL clock frequency in MHz. |
+| Section | Parameter | Options | Description | n6001 Default Value | n6000 Default Value | fseries-dk Default Value | iseries-dk Default Value |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `iopll` | Specifies that this OFSS file configures the IOPLL | `iopll` | `iopll` | `iopll` | `iopll` |
+| `[settings]` | `output_name` | `sys_pll` | Specifies the output name of the IOPLL. | `sys_pll` | `sys_pll` | `sys_pll` | `sys_pll` |
+| | `instance_name` | `iopll_0` | Specifies the instance name of the IOPLL. | `iopll_0` | `iopll_0` | `iopll_0` | `iopll_0` |
+| `[p_clk]` | `freq` | Integer: 250 - 500 | Specifies the IOPLL clock frequency in MHz. | `500` | `350` | `500` | `500` |
 
->**Note:** The following frequencies have been tested on reference boards: 350MHz, 400MHz, 470MHz.
+The *Provided IOPLL OFSS Files* table describes the IOPLL OFSS files that are provided to you.
 
-##### **2.1.2.5 Memory IP OFSS File**
+*Table: Provided IOPLL OFSS Files*
 
-An OFSS file with IP type `memory` (e.g. `$OFS_ROOTDIR/tools/ofss_config/memory/memory.ofss`) is used to configure the Memory-SS in the FIM.
+| OFSS File Name | Location | Type | Description | Supported Board |
+| --- | --- | --- | --- | --- |
+| `iopll_500MHz.ofss` | `$OFS_ROOTDIR/tools/ofss_config/iopll` | iopll | Sets the IOPLL frequency to `500 MHz` | N6001 \| fseries-dk \| iseries-dk |
+| `iopll_470MHz.ofss` | `$OFS_ROOTDIR/tools/ofss_config/iopll` | iopll | Sets the IOPLL frequency to `470 MHz` | N6001 \| fseries-dk \| iseries-dk |
+| `iopll_350MHz.ofss` | `$OFS_ROOTDIR/tools/ofss_config/iopll` | iopll | Sets the IOPLL frequency to `350 MHz` | N6001 \| N6000 \| fseries-dk \| iseries-dk |
+
+
+##### **2.1.2.5 Memory OFSS File**
+
+An OFSS file with IP type `memory` is used to configure the Memory-SS in the FIM.
 
 The Memory OFSS file specifies a `preset` value, which selects a presets file (`.qprs`) to configure the Memory-SS.
 
@@ -759,35 +801,66 @@ Currently supported configuration options for an OFSS file with IP type `memory`
 
 *Table: Memory OFSS File Options*
 
-| Section | Parameter | Options | Description |
-| --- | --- | --- | --- |
-| `[ip]` | `type` | `memory` | Specifies that this OFSS file configures the Memory-SS |
-| `[settings]` | `output_name` | `mem_ss_fm` | Specifies the output name of the Memory-SS. |
-| | `preset` | `n6001` \| *String*<sup>**[1]**</sup> | Specifies the name of the `.qprs` presets file that will be used to build the Memory-SS. |
+| Section | Parameter | Options | Description | n6001 Default Value | n6000 Default Value | fseries-dk Default Value | iseries-dk Default Value |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `memory` | Specifies that this OFSS file configures the Memory-SS | `memory` | N/A | `memory` | `memory` |
+| `[settings]` | `output_name` | `mem_ss_fm` | Specifies the output name of the Memory-SS. | `mem_ss_fm` | N/A | `mem_ss_fm` | `mem_ss_fm` |
+| | `preset` | *String*<sup>**[1]**</sup> | Specifies the name of the `.qprs` presets file that will be used to build the Memory-SS. | `n6001` | N/A | `fseries-dk` | `iseries-dk` |
 
 <sup>**[1]**</sup> You may generate your own `.qprs` presets file with a unique name using Quartus. 
 
 Memory-SS presets files are stored in the `$OFS_ROOTDIR/ipss/mem/qip/presets` directory.
 
+The *Provided Memory OFSS Files* table describes the Memory OFSS files that are provided to you.
+
+*Table: Provided Memory OFSS Files*
+
+| OFSS File Name | Location | Type | Description | Supported Board |
+| --- | --- | --- | --- | --- |
+| `memory.ofss` | `$OFS_ROOTDIR/tools/ofss_config/memory` | memory | Defines the memory IP preset file to be used during the build as: | N6001 \| N6000 <sup>**[1]**</sup> |
+| `memory_ftile.ofss` | `$OFS_ROOTDIR/tools/ofss_config/memory` | memory | Defines the memory IP preset file to be used during the build as `fseries-dk` | fseries-dk |
+| `memory_rtile.ofss` | `$OFS_ROOTDIR/tools/ofss_config/memory` | memory | Defines the memory IP preset file to be used during the build as `iseries-dk` | iseries-dk |
+| `memory_rtile_no_dimm.ofss` | `$OFS_ROOTDIR/tools/ofss_config/memory` | memory | Defines the memory IP preset file to be used during the build as `iseries-dk` | iseries-dk |
+
+<sup>**[1]**</sup> The `memory.ofss` file can be used for the N6000, however, the default N6000 FIM does not implement the Memory Sub-system. Refer to Section 4.7.2 for step-by-step instructions on how to enable the Memory sub-system
+
+
 ##### **2.1.2.6 HSSI IP OFSS File**
 
-An OFSS file with IP type `hssi` (e.g. `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_8x25.ofss`) is used to configure the Ethernet-SS in the FIM.
+An OFSS file with IP type `hssi` is used to configure the Ethernet-SS in the FIM.
 
 Currently supported configuration options for an OFSS file with IP type `hssi` are described in the *HSSI OFSS File Options* table.
 
 *Table: HSSI OFSS File Options*
 
-| Section | Parameter | Options | Description |
-| --- | --- | --- | --- |
-| `[ip]` | `type` | `hssi` | Specifies that this OFSS file configures the Ethernet-SS |
-| `[settings]` | `output_name` | `hssi_ss` | Specifies the output name of the Ethernet-SS |
-| | `num_channels` | Integer | Specifies the number of channels. |
-| | `data_rate` | `10GbE` \| `25GbE` \| `100GCAUI-4` | Specifies the data rate |
-| | `preset` | None \| *String*<sup>**[1]**</sup> | OPTIONAL - Selects the platform whose preset `.qprs` file will be used to build the Ethernet-SS. When used, this will overwrite the other settings in this OFSS file. |
+| Section | Parameter | Options | Description | n6001 Default Value | n6000 Default Value | fseries-dk Default Value | iseries-dk Default Value |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| `[ip]` | `type` | `hssi` | Specifies that this OFSS file configures the Ethernet-SS | `hssi` | `hssi` | `hssi` | `hssi` |
+| `[settings]` | `output_name` | `hssi_ss` | Specifies the output name of the Ethernet-SS | `hssi_ss` | `hssi_ss` | `hssi_ss` | `hssi_ss` |
+| | `num_channels` | Integer | Specifies the number of channels. | `8` | `4` | `8` | `8` |
+| | `data_rate` | `10GbE` \| `25GbE` \| `100GCAUI-4` \| `200GAUI-4` \| `400GAUI-8` | Specifies the data rate<sup>**[1]**</sup> | `25GbE` | `100GCAUI-4` | `25GbE` | `25GbE` |
+| | `preset` | None \| `fseries-dk` \| `200g-fseries-dk` \| `400g-fseries-dk` \| *String*<sup>**[1]**</sup> | OPTIONAL - Selects the platform whose preset `.qprs` file will be used to build the Ethernet-SS. When used, this will overwrite the other settings in this OFSS file. | N/A | N/A | N/A | N/A |
 
-<sup>**[1]**</sup> You may generate your own `.qprs` presets file with a unique name using Quartus. 
+<sup>**[1]**</sup> The presets file will take priority over the `data_rate` parameter, so this value will not take effect if using a presets file.
+
+<sup>**[2]**</sup> You may generate your own `.qprs` presets file with a unique name using Quartus. 
 
 Ethernet-SS presets are stored in  `$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/presets` directory.
+
+The *Provided HSSI OFSS Files* table describes the HSSI OFSS files that are provided to you.
+
+*Table: Provided HSSI OFSS Files*
+
+| OFSS File Name | Location | Type | Description | Supported Board |
+| --- | --- | --- | --- | --- |
+| `hssi_8x10.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 8x10 GbE | N6001 |
+| `hssi_8x25.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 8x25 GbE | N6001 |
+| `hssi_2x100.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 2x100 GbE | N6001 |
+| `hssi_1x400_ftile.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be F-Tile 1x400 GbE | iseries-dk |
+| `hssi_4x100.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 4x100 GbE | N6000 |
+| `hssi_8x25_ftile.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be F-Tile 8x25 GbE | fseries-dk \| iseries-dk |
+| `hssi_2x200_ftile.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP to be 2x200 GbE | iseries-dk |
+
 
 #### **2.1.3 OFS Build Script Outputs**
 
@@ -814,27 +887,27 @@ The output files include programmable images and compilation reports. The *OFS B
 
 ### **2.2 Compilation Flows**
 
-This section provides information for using the build script to generate different FIM types. Walkthroughs are provided for each compilation flow. These walkthroughs require that the development environment has been set up as described in the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) section.
+This section provides information for using the build script to generate different FIM types. Walkthroughs are provided for each compilation flow. These walkthroughs require that the development environment has been set up as described in the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) section.
 
 #### **2.2.1 Flat FIM**
 
-A flat FIM is compiled such that there is no partial reconfiguration region, and the entire design is built as a flat design. This is useful for compiling new designs without worrying about the complexity introduced by partial reconfiguration. The flat compile removes the PR region and PR IP; thus, you cannot use the `-p` build flag when using the `flat` compile setting. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+A flat FIM is compiled such that there is no partial reconfiguration region, and the entire design is built as a flat design. This is useful for compiling new designs without worrying about the complexity introduced by partial reconfiguration. The flat compile removes the PR region and PR IP; thus, you cannot use the `-p` build flag when using the `flat` compile setting. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
 
 #### **2.2.2 In-Tree PR FIM**
 
-An In-Tree PR FIM is the default compilation if no compile flags or compile settings are used. This flow will compile the design with the partial reconfiguration region, but it will not create a relocatable PR directory tree to aid in AFU development. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+An In-Tree PR FIM is the default compilation if no compile flags or compile settings are used. This flow will compile the design with the partial reconfiguration region, but it will not create a relocatable PR directory tree to aid in AFU development. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
 
 #### **2.2.3 Out-of-Tree PR FIM**
 
 An Out-of-Tree PR FIM will compile the design with the partial reconfiguration region, and will create a relocatable PR directory tree to aid in AFU workload development. This is especially useful if you are developing a FIM to be used by another team developing AFU workloads. This is the recommended build flow in most cases. There are two ways to create the relocatable PR directory tree:
 
-* Run the FIM build script with the `-p` option. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+* Run the FIM build script with the `-p` option. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
 * Run the `generate_pr_release.sh` script after running the FIM build script. Refer to the **Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM** Section step-by-step instructions for this flow.
 
 In both cases, the `generate_pr_release.sh` is run to create the relocatable build tree. This script is located at `$OFS_ROOTDIR/ofs-common/scripts/common/syn/generate_pr_release.sh`. Usage for this script is as follows:
 
 ```bash
-generate_pr_release.sh -t <PATH_OF_RELOCATABLE_PR_TREE> <BOARD_TARGET> <WORK_DIRECTORY>
+generate_pr_release.sh -t <tgt dir> [-f] <build target> <work dir name>
 ```
 
 The *Generate PR Release Script Options* table describes the options for the `generate_pr_release.sh` script.
@@ -843,9 +916,10 @@ The *Generate PR Release Script Options* table describes the options for the `ge
 
 | Parameter | Options | Description |
 | --- | --- | --- |
-| `<PATH_OF_RELOCATABLE_PR_TREE>` | String | Specifies the location of the relocatable PR directory tree to be created. |
-| `<BOARD_TARGET>` | `n6001` \| `n6000` \| `fseries-dk` \| `iseries-dk` | Specifies the name of the board target. |
-| `<WORK_DIRECTORY>` | String | Specifies the existing work directory from which the relocatable PR directory tree will be created from. |
+| `<tgt dir>` | String | Specifies the location of the relocatable PR directory tree to be created. |
+| `[-f]` | - | If <tgt dir> exists, the script will abort unless -f is specified. |
+| `<build target>` | `n6001` \| `n6000` \| `fseries-dk` \| `iseries-dk` | Specifies the name of the board target. |
+| `<work dir name>` | String | Specifies the existing work directory from which the relocatable PR directory tree will be created from. |
 
 After generating the relocatable build tree, it is located in the `$OFS_ROOTDIR/<WORK_DIRECTORY>/pr_build_template` directory (or the directory you specified if generated separately). The contents of this directory have the following structure:
 
@@ -868,90 +942,123 @@ After generating the relocatable build tree, it is located in the `$OFS_ROOTDIR/
 └── ├── ├── ofs_top.sof
 ```
 
+#### **2.2.4 HE_NULL FIM**
+
+An HE_NULL FIM refers to a design with one, some, or all of the Host Exercisers replaced by `he_null` blocks. The `he_null` is a minimal block with CSRs that responds to PCIe MMIO requests in order to keep PCIe alive. You may use any of the build flows (flat, in-tree, out-of-tree) with the HE_NULL compile options. The HE_NULL compile options are as follows:
+
+* `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`
+* `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`
+* `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`
+* `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`
+
+The [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section gives step-by-step instructions for this flow.
+
 #### **2.2.5 Walkthrough: Compile OFS FIM**
 
 Perform the following steps to compile the OFS Agilex PCIe Attach FIM for n6001 or n6000:
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the root directory.
 
-    ```bash
-    cd $OFS_ROOTDIR
-    ```
+  ```bash
+  cd $OFS_ROOTDIR
+  ```
 
-4. Run the `build_top.sh` script with the desired compile options. Some examples are provided:
+4. Run the `build_top.sh` script with the desired compile options. The following is used build the default n6001 design:
 
-  * Out-of-Tree PR FIM using OFSS (Standard Flow)
+  ```bash
+  ./ofs-common/scripts/common/syn/build_top.sh n6001 work_n6001
+  ```
+
+  Example build commands for different configurations:
+
+  * Partial Reconfiguration (PR) Enabled FIM with Relocatable PR Tree (Standard Flow)
 
     * N6001
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss n6001 work_n6001_oot_pr
+      ./ofs-common/scripts/common/syn/build_top.sh -p n6001 work_n6001
+      ```
+
+      or
+
+      ```bash
+      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss $OFS_ROOTDIR/tools/ofss_config/n6001.ofss n6001 work_n6001
+      ```
+
+      > Note: If no OFSS file is specified, the build script will use the n6001.ofss file by default when the build target is n6001.
+
+    * N6000
+
+      ```bash
+      ./ofs-common/scripts/common/syn/build_top.sh -p n6000 work_n6000
+      ```
+
+      or
+
+      ```bash
+      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss $OFS_ROOTDIR/tools/ofss_config/n6000.ofss n6001 work_n6001
+      ```
+
+      > Note: If no OFSS file is specified, the build script will use the n6000.ofss file by default when the build target is n6000.
+
+  * Partial Reconfiguration (PR) Enabled FIM without Relocatable PR Tree
+
+    * N6001
+
+      ```bash
+      ./ofs-common/scripts/common/syn/build_top.sh n6001 work_n6001_in_tree_pr
       ```
 
     * N6000
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6000.ofss n6000 work_n6000_oot_pr
+      ./ofs-common/scripts/common/syn/build_top.sh n6000 work_n6000_in_tree_pr
       ```
 
-  * Flat FIM using OFSS
+  * Flat FIM (No PR)
 
     * N6001
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001:flat work_n6001_flat
+      ./ofs-common/scripts/common/syn/build_top.sh n6001:flat work_n6001_flat
       ```
 
     * N6000
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6000.ofss n6000:flat work_n6000_flat
+      ./ofs-common/scripts/common/syn/build_top.sh n6000:flat work_n6000_flat
       ```
 
-  * In-Tree PR FIM using OFSS
+  * Flat FIM with Host Exercisers Removed
 
     * N6001
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001 work_n6001_in_tree_pr
+      ./ofs-common/scripts/common/syn/build_top.sh n6001:flat,null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6001_flat_null_he
       ```
 
     * N6000
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6000.ofss n6000 work_n6000_in_tree_pr
+      ./ofs-common/scripts/common/syn/build_top.sh n6000:flat,null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6000_flat_null_he
       ```
 
-  * Flat FIM using OFSS with Host Exercisers Removed
+  * Partial Reconfiguration (PR) Enabled FIM built from source files with Relocatable PR Tree (Standard Flow)
 
     * N6001
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001:flat,null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6001_flat
-      ```
-
-    * N6000
-
-      ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6000.ofss n6000:flat,null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6000_flat
-      ```
-
-  * In-Tree PR FIM using Source
-
-    * N6001
-
-      ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh n6001 work_n6001
+      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss nodefault n6001 work_n6001
       ```
 
     * N6000 - Not supported by default configuration
@@ -974,15 +1081,17 @@ Steps:
 
 #### **2.2.6 Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM**
 
+This walkthrough describes how to manually generate an Out-Of-Tree PR FIM. This can be automatically done for you if you run the build script with the `-p` option. This process is not applicable if you run the build script with the `flat` option.
+
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the root directory.
 
@@ -995,13 +1104,13 @@ Steps:
   * N6001
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001 work_n6001
+    ./ofs-common/scripts/common/syn/build_top.sh n6001 work_n6001
     ```
 
   * N6000
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6000.ofss n6000 work_n6000
+    ./ofs-common/scripts/common/syn/build_top.sh n6000 work_n6000
     ```
 
 5. Run the `generate_pr_release.sh` script to create the relocatable PR tree.
@@ -1028,13 +1137,13 @@ Perform the following steps to change the compilation seed for the FIM build.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Edit the `SEED` assignment in the `$OFS_ROOTDIR/syn/board/<board_name>/syn_top/ofs_top.qsf` file to your desired seed value. The value can be any non-negative integer value.
 
@@ -1048,7 +1157,7 @@ Steps:
   set_global_assignment -name SEED 1
   ```
 
-4. Build the FIM. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section for instructions.
+4. Build the FIM. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section for instructions.
 
 ## **3. FIM Simulation**
 
@@ -1061,6 +1170,48 @@ Unit level simulation of key components in the FIM is provided for verification 
 
 The Unit Level simulations work with Synopsys VCS/VCSMX or Mentor Graphics Questasim simulators. The scripts to run each unit level simulation are located in `$OFS_ROOTDIR/sim/unit_test`. Each unit test directory contains a README which describes the test in detail.
 
+Refer to the *Supported Unit Tests* table for a list of the supported unit tests.
+
+*Table: Supported Unit Tests*
+
+| Test Name | Description | n6001 | n6000 | fseries-dk | iseries-dk |
+| --- | --- | :---: | :---: | :---: | :---: |
+| bfm_test | This is the unit test for PCIe BFM. The test uses HE-LB to perform memory loopback between FIM and the host. | &check; | &check; | &check; | &check; |
+| csr_test | This is the unit test for FIM CSR access and AFU memory write/read<br><br>The Verilog macro 'SIM_USE_PCIE_DUMMY_CSR' is enabled to switch to a dummy CSR instance in pcie_top.<br><br>The dummy CSR implements full RW registers which is useful to test MMIO write/read burst to FIM CSR region.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; MMIO write 32-bit address and 64-bit address (FIM and AFU)<br>&nbsp;&nbsp;&bull; MMIO read 32-bit address and 64-bit address (FIM and AFU)<br>&nbsp;&nbsp;&bull; Simple memory loopback test using he_lb - this is similar to simple_test_pcie except that it uses a simple pcie BFM | &check; | &check; | &check; | &check; |
+| dfh_walker | This is the unit test for FME DFH walking  | &check; | &check; | &check; | &check; |
+| flr | This is the unit test for PCIe PF/VF FLR.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; PF FLR request and response<br>&nbsp;&nbsp;&bull; VF FLR request and response | &check; | &check; | &check; | &check; |
+| fme_csr_access | This is the a unit test for the register access logic for $OFS_ROOTDIR/ofs-common/src/common/fme/fme_csr.sv<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; Ensures CSR registers do not have any unknown "x" bits.<br>&nbsp;&nbsp;&bull; Checks that CSR register read accesses to not return with any unknown "x" bits.<br>&nbsp;&nbsp;&bull; Returning read and write AXI responses to CSR register addresses are checked to make sure all return with "RESP_OKAY".<br>&nbsp;&nbsp;&bull; Checks that all register access types operate correctly:<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Lower 32-bit read/writes.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Upper 32-bit read/writes.<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Full 64-bit read/writes.<br>&nbsp;&nbsp;&bull;  Checks all non-CSR reads return with all zeros. | &check; | &check; | &check; | &check; |
+| fme_csr_directed | This is the unit test for $OFS_ROOTDIR/ofs-common/src/common/fme/fme_csr.sv<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; MMIO reads to FME registers.<br>&nbsp;&nbsp;&bull; MMIO writes to FME registers.<br>&nbsp;&nbsp;&bull; Test of Register bit attributes.<br>&nbsp;&nbsp;&bull; Test of update/status values read from FME inputs through FME registers.<br>&nbsp;&nbsp;&bull; Test of update/control values written to FME registers and driven on FME outputs.<br>&nbsp;&nbsp;&bull; Test of reads/writes outside of valid register range in valid FME Ranges. | &check; | &check; | &check; | &check; |
+| he_lb_test | This is the unit test for HE_LPBK. The test uses HE-LB to perform memory loopback between FIM and the host. | &check; | &check; | &check; | &check; |
+| he_mem_lb_test | This is the unit test for HE_LPBK. The test uses HE-LB to perform memory loopback between FIM and the host. | &check; | &check; | &check; | &check; |
+| he_null_test | This is the unit test for HE-NULL Exerciser. The test issues basic mmio Rd/Wr requests targetting HE-NULL CSRs. | &check; | &check; | &check; | &check; |
+| hssi_csr_test |This is the unit test for HE_HSSI/HSSI SS CSR access test | &check; | &check; | &check; | &check; |
+| hssi_kpi_test | This is the unit test for HE_HSSI/HSSI SS CSR access and HSSI traffic test.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; MMIO write 32-bit address and 64-bit address<br>&nbsp;&nbsp;&bull; Simple ethernet traffic loopback test using HE_HSSI | &check; | &check; | &check; | &check; |
+| hssi_test | This is the unit test for HE_HSSI/HSSI SS CSR access and HSSI traffic test.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; MMIO write 32-bit address and 64-bit address<br>&nbsp;&nbsp;&bull; Simple ethernet traffic loopback test using HE_HSSI | &check; | &check; | &check; | &check; |
+| indirect_csr | This is the unit test for axi4lite_indirect_csr_if module.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; Indirect CSR write<br>&nbsp;&nbsp;&bull; Indirect CSR read | &check; | &check; | &check; | &check; |
+| mem_ss_csr_test | This is the unit test for the Mem SS CSRs. It checks the contents of the EMIF DFH and MemSS CSRs and compares them to the expected startup configuration. | &check; | &check; | &check; | &check; |
+| mem_ss_rst_test | This is the unit test for the Mem SS reset sequence. It enables the reset port on the Mem SS so that a reset is performed after EMIF initialization/calibration. | &check; | &check; | &check; | &check; |
+| mem_tg_test | This is the unit test for HE-MEM Traffic generators. The test exercises MMIO access to the HE-MEM TG AFU at PF2 VF2 and runs the traffic generators to test the memory interface. | &check; | &check; | &check; | &check; |
+| pcie_ats_basic_test | This is a basic test of PCIe ATS messages and ATS invalidation handling.<br><br>PCIe ATS must be enabled in the FIM Quartus project being simulated. If ATS is not enabled the test will pass but do nothing.<br><br>The FIM has an ATS invalidation handler that generates responses for AFUs that are not holding address translations. The test begins by sending an inval to each AFU in the port gasket and confirms that the FIM responds. It then requests ATS translations on each port and confirms they are successful. After that, more ATS invalidations are sent and the test confirms that the AFUs see them and respond -- not the FIM. | &check; | &check; | &check; | &check; |
+| pcie_csr_test | This is the unit test for PCIE CSR access.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; MMIO access 32-bit address and 64-bit address to PCIe CSR<br>&nbsp;&nbsp;&bull; MMIO access 32-bit address and 64-bit address to unused PCIe CSR region | &check; | &check; | &check; | &check; |
+| pf_vf_access_test | This is the unit test for PCIe PF/VF MMIO. Each function has a feature GUID at offset 0x8 with an associated register map. For testing CSR access we only exercise a single 64b scratchpad who's offset is determined from the GUID.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; PF MMIO request and response<br>&nbsp;&nbsp;&bull; VF MMIO request and response | &check; | &check; | &check; | &check; |
+| pmci_csr_test | This is the unit test for PMCI CSR access.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; MMIO access 32-bit address and 64-bit address to PMCI CSR<br>&nbsp;&nbsp;&bull; MMIO access 32-bit address and 64-bit address to unused PMCI CSR region | &check; | &check; | | |
+| pmci_mailbox_test | This is the unit test for PMCI M10 accessible registers and RW mailbox registers.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; Accessing PMCI RW mailbox register through SPI loopback | &check; | &check; | | |
+| pmci_rd_default_value_test | This is the unit test for PMCI Flash Write Read access.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; PMCI Flash Write Read<br>&nbsp;&nbsp;&bull; accessing PMCI mailbox register through SPI loopback | &check; | &check; | | |
+| pmci_ro_mailbox_test | This is the unit test for PMCI RO mailbox registers.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; accessing PMCI RO mailbox register through SPI loopback | &check; | &check; | | |
+| pmci_vdm_b2b_drop_err_scenario_test | This is the unit test for error testing of MCTP Back to back Drop scenario.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; RX payload will be sent back to back immediately to test this condition.<br>&nbsp;&nbsp;&bull; PMCI_SS requires some time to process the previous packets before sending this packet since this criteria is not met it will drop the present packet. | &check; | &check; | | |
+| pmci_vdm_len_err_scenario_test | This is the unit test for Error scenario testing of MCTP VDM packets.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; Error scenario related to length is tested in this testcase. Scenarios include packet length greater than MCTP_BASELINE_MTU, packet length equal to 0. | &check; | &check; | | |
+| pmci_vdm_mctp_mmio_b2b_test | This is the unit test for MCTP VDM packets and CSR transactions sent back to back.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; MCTP RX transactions are done b2b with CSR transactions. | &check; | &check; | | |
+| pmci_vdm_multipkt_error_scenario_test | This is the unit test for multipacket error scenarios in case of MCTP VDM messages.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; This testcase covers error scenarios for MCTP VDM multipackets.<br>&nbsp;&nbsp;&bull; Various scenarios include<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Multipacket with NO EOM<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Multipacket with NO SOM<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Singlepacket with NO SOM<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Multipacket with Middle packet having greater length than the first packet<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Multipacket with Last packet having greater lenght than previous packets. | &check; | &check; | | |
+| pmci_vdm_multipkt_tlp_err_test | This is the unit test for checking Error scnearios in multipacket MCTP VDM packets.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; This test covers certain error scenarios for multipacket VDM messages<br>&nbsp;&nbsp;&bull; Error scenarios include:<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Multipackets with different deid,seid,tag,pkt_sequence number etc | &check; | &check; | | |
+| pmci_vdm_tlp_error_scenario_test | This is the unit test for covering certain tlp error for single MCTP VDM packets.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; Error scenarios include invalid tlp fields for DW0,DW1,DW3 like invalid t9,t8,tc,at,ep,attr,MCTP header version ,tag fields,invalid DEID | &check; | &check; | | |
+| pmci_vdm_tx_rx_all_random_lpbk_test | This testcase is written just to cover certain fields like randomizing seid,msg_tag,target_id etc. It is functionally equivalent to pmci_vdm_tx_rx_lpbk_test. | &check; | &check; | | |
+| pmci_vdm_tx_rx_all_toggle_test | This testcase is added for improving coverage for MCTP VDM packets TX/RX flow. Functionally same as pmci_vdm_tx_rx_lpbk_test. | &check; | &check; | | |
+| pmci_vdm_tx_rx_lpbk_test | This is the unit test for MCTP VDM packets TX/RX flow<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; BMC component ( inside Testbench) will intiate a MCTP txn with 16DW in TX path.<br>&nbsp;&nbsp;&bull; This MCTP VDM packets will be formed in PMCI_SS and will be sent to PCIe top (through mctp_tx_bridge).<br>&nbsp;&nbsp;&bull; These transaction will be looped back at PCIe top (PCIe BFM) and will be sent back in the RX path.<br>&nbsp;&nbsp;&bull; RX and TX payload comparison is done at BMC side.<br>&nbsp;&nbsp;&bull; BMC->PMCI->PCIe->PMCI->BMC ( flow of packets). | &check; | &check; | | |
+| port_gasket_test | This is the unit test for pg_csr block and it's connectivity to fabric. The test issues mmio Rd/Wr requests targetting the csrs in port_gasket. This test does not do any functional testing of partial reconfiguration, user clock or remote stp. | &check; | &check; | &check; | &check; |
+| qsfp_test | This is the unit test for QSFP contrtoller CSR access.<br><br>It covers the following test scenarios:<br>&nbsp;&nbsp;&bull; MMIO read-write to common csr with 64-bit address | &check; | &check; | &check; | &check; |
+| remote_stp_test | This is the unit test for remote stp. It covers mmio read access to remote_stp registers.  | &check; | &check; | &check; | &check; |
+| uart_csr | This is the unit test for UART CSR accesses. | &check; | &check; | &check; | &check; |
 
 
 ### **3.1 Simulation File Generation**
@@ -1083,17 +1234,15 @@ The *Gen Sim Files Script Options* table describes the options for the `gen_sim_
 
 | Field | Options | Description | Requirement |
 | --- | --- | --- | --- |
-| `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | Platform Dependent<sup>**[1]**</sup> |
+| `--ofss` | `<ip_config>.ofss` \| `nodefault` | OFS Settings. OFSS files are used to modify IP in the design. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. If no OFSS files are provided, the script will default to using the <build_target>.ofss file to configure the design. You may specify `--ofss nodefault` to prevent the script from using the default OFSS configuration; the resulting build will only use the source files as-is, plus any OFSS files you specify. | Optional |
 | `<build_target>` | `n6001` \| `n6000` \| `fseries-dk` \| `iseries-dk` | Specifies which board is being targeted. | Required |
 | `<fim_options>` | `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` | Used to change how the FIM is built.</br>&nbsp;&nbsp;- `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;- `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;- `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:null_he_lb,null_he_hssi` | Optional | 
 | `<device>` | string | Specifies the device ID for the target FPGA. If not specified, the default device is parsed from the `QSF` file for the project. | Optional |
 | `<family>` | string | Specifies the family for the target FPGA. If not specified, the default family is parsed from the `QSF` file for the project. | Optional |
 
-<sup>**[1]**</sup> Using OFSS is required for the N6000, F-Series Development Kit (2xF-Tile), and the I-Series Development Kit (2xR-Tile, 1xF-Tile).
+Refer to the [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#321-walkthrough-run-individual-unit-level-simulation) section for an example of the simulation files generation flow.
 
-Refer to the [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#321-walkthrough-run-individual-unit-level-simulation) section for an example of the simulation files generation flow.
-
-When running regression tests, you may use the `-g` command line argument to generate simulation files; refer to the [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#331-walkthrough-run-regression-unit-level-simulation) section for step-by-step instructions.
+When running regression tests, you may use the `-g` command line argument to generate simulation files automatically; refer to the [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#331-walkthrough-run-regression-unit-level-simulation) section for step-by-step instructions.
 
 ### **3.2 Individual Unit Tests**
 
@@ -1141,13 +1290,13 @@ Perform the following steps to run an individual unit test.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the simulation directory.
 
@@ -1160,21 +1309,23 @@ Steps:
   * N6001
 
     ```bash
-    ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/n6001.ofss n6001
+    ./gen_sim_files.sh n6000
     ```
 
   * N6000
 
     ```bash
-    ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/n6000.ofss n6000
+    ./gen_sim_files.sh n6000
     ```
 
 5. Navigate to the common simulation directory
+
   ```bash
   cd $OFS_ROOTDIR/ofs-common/scripts/common/sim
   ```
 
 6. Run the desired unit test using your desired simulator
+
   * Using VCS
 
     ```bash
@@ -1248,7 +1399,7 @@ The *Regression Unit Test Script Options* table describes the options for the `r
 | `-k` \| `--pack` | `all` \| `fme` \| `he` \| `hssi` \| `list` \| `mem` \| `pmci` | Test package to run during regression. The "list" option will look for a text file named "list.txt" in the "unit_test" directory for a text list of tests to run (top directory names). The default test package is `all`. |
 | `-s` \| `--sim` | `vcs` \| `vcsmx` \| `msim` | Specifies the simulator used for the regression tests. The default simulator is `vcs` |
 | `-g` \| `--gen_sim_files` | N/A | Generate simulation files. This only needs to be done once per repo update. This is the equivalent of running the `gen_sim_files.sh` script. |
-| `-o` \| `--ofss` | `<ip_config>` | Used to modify IP, such as the PCIe SS, using .ofss configuration files. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. | 
+| `-o` \| `--ofss` | `<ip_config>.ofss` \| `nodefault` | OFS Settings. OFSS files are used to modify IP in the design. More than one .ofss file may be passed to the `--ofss` switch by concatenating them separated by commas. For example: `--ofss config_a.ofss,config_b.ofss`. If no OFSS files are provided, the script will default to using the <build_target>.ofss file to configure the design. You may specify `--ofss nodefault` to prevent the script from using the default OFSS configuration; the resulting build will only use the source files as-is, plus any OFSS files you specify. | Optional |
 | `-b` \| `--board_name` | `n6001` \| `n6000` \| `fseries-dk` \| `iseries-dk` | Specifies the board target |
 | `-e` \| `--email_list` | String | Specifies email list to send results to multiple recipients |
 
@@ -1270,113 +1421,159 @@ The simulation waveform database is saved as vcdplus.vpd for post simulation rev
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-3. Navigate to the unit test scripts directory.
+3. Create a test list file to only run the unit level simulations that are supported for the target boards.
+
+  ```bash
+  touch $OFS_ROOTDIR/sim/unit_test/list.txt
+  ```
+
+  Copy the following list into the new file. You may remove tests from this list as desired.
+
+  ```bash
+  ./bfm_test/set_params.sh
+  ./csr_test/set_params.sh
+  ./dfh_walker/set_params.sh
+  ./flr/set_params.sh
+  ./fme_csr_access/set_params.sh
+  ./fme_csr_directed/set_params.sh
+  ./he_lb_test/set_params.sh
+  ./he_mem_lb_test/set_params.sh
+  ./he_null_test/set_params.sh
+  ./hssi_csr_test/set_params.sh
+  ./hssi_kpi_test/set_params.sh
+  ./hssi_test/set_params.sh
+  ./indirect_csr/set_params.sh
+  ./mem_ss_csr_test/set_params.sh
+  ./mem_ss_rst_test/set_params.sh
+  ./mem_tg_test/set_params.sh
+  ./pcie_ats_basic_test/set_params.sh
+  ./pcie_csr_test/set_params.sh
+  ./pcie_ss_axis_components/set_params.sh
+  ./pf_vf_access_test/set_params.sh
+  ./pmci_csr_test/set_params.sh
+  ./pmci_mailbox_test/set_params.sh
+  ./pmci_rd_default_value_test/set_params.sh
+  ./pmci_ro_mailbox_test/set_params.sh
+  ./pmci_vdm_b2b_drop_err_scenario_test/set_params.sh
+  ./pmci_vdm_len_err_scenario_test/set_params.sh
+  ./pmci_vdm_mctp_mmio_b2b_test/set_params.sh
+  ./pmci_vdm_multipkt_error_scenario_test/set_params.sh
+  ./pmci_vdm_multipkt_tlp_err_test/set_params.sh
+  ./pmci_vdm_tlp_error_scenario_test/set_params.sh
+  ./pmci_vdm_tx_rx_all_random_lpbk_test/set_params.sh
+  ./pmci_vdm_tx_rx_all_toggle_test/set_params.sh
+  ./pmci_vdm_tx_rx_lpbk_test/set_params.sh
+  ./port_gasket_test/set_params.sh
+  ./qsfp_test/set_params.sh
+  ./remote_stp_test/set_params.sh
+  ./uart_csr/set_params.sh
+  ```
+
+4. Navigate to the unit test scripts directory.
 
   ```bash
   cd $OFS_ROOTDIR/sim/unit_test/scripts
   ```
 
-4. Run regression test with the your desired options. For example, to simulate with the options to generate simulation files, run locally, use 8 processes, run all tests, use VCS simulator, and target the desired board:
+5. Run regression test with the your desired options. For example, to simulate with the options to generate simulation files, run locally, use 8 processes, run all tests, use VCS simulator, and target the desired board:
 
   * N6001
 
     ```bash
-    python regress_run.py --ofss $OFS_ROOTDIR/tools/ofss_config/n6001.ofss -g -l -n 8 -k all -s vcs -b n6001
+    python regress_run.py -g -l -n 8 -k list -s vcs -b n6001
     ```
 
   * N6000
 
     ```bash
-    python regress_run.py --ofss $OFS_ROOTDIR/tools/ofss_config/n6000.ofss -g -l -n 8 -k all -s vcs -b n6000
+    python regress_run.py -g -l -n 8 -k list -s vcs -b n6000
     ```
 
-5. Once all tests are complete, check that the tests have passed.
+  > **Note:** You may run all available tests by using `-k all` instead of creating and using `-k list`, however not all tests are supported depending on the target board.
+
+6. Once all tests are complete, check that the tests have passed.
 
   Example output:
 
   ```bash
-  2024-02-15 16:06:47,362: Passing Unit Tests:38/38 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  2024-02-15 16:06:47,362:    bfm_test:............................. PASS -- Time Elapsed:0:00:56.125802
-  2024-02-15 16:06:47,362:    csr_test:............................. PASS -- Time Elapsed:0:01:14.072803
-  2024-02-15 16:06:47,362:    dfh_walker:........................... PASS -- Time Elapsed:0:01:00.565714
-  2024-02-15 16:06:47,362:    flr:.................................. PASS -- Time Elapsed:0:00:57.453471
-  2024-02-15 16:06:47,362:    fme_csr_access:....................... PASS -- Time Elapsed:0:00:38.447496
-  2024-02-15 16:06:47,362:    fme_csr_directed:..................... PASS -- Time Elapsed:0:00:47.593359
-  2024-02-15 16:06:47,362:    he_lb_test:........................... PASS -- Time Elapsed:0:01:51.150977
-  2024-02-15 16:06:47,362:    he_mem_lb_test:....................... PASS -- Time Elapsed:0:01:55.940398
-  2024-02-15 16:06:47,363:    he_null_test:......................... PASS -- Time Elapsed:0:09:34.463979
-  2024-02-15 16:06:47,363:    hssi_csr_test:........................ PASS -- Time Elapsed:0:07:18.181326
-  2024-02-15 16:06:47,363:    hssi_kpi_test:........................ PASS -- Time Elapsed:5:45:38.792493
-  2024-02-15 16:06:47,363:    hssi_test:............................ PASS -- Time Elapsed:5:48:39.722731
-  2024-02-15 16:06:47,363:    indirect_csr:......................... PASS -- Time Elapsed:0:00:42.677518
-  2024-02-15 16:06:47,363:    mem_ss_csr_test:...................... PASS -- Time Elapsed:0:00:56.534377
-  2024-02-15 16:06:47,363:    mem_ss_rst_test:...................... PASS -- Time Elapsed:0:00:55.852359
-  2024-02-15 16:06:47,363:    mem_tg_test:.......................... PASS -- Time Elapsed:0:00:55.624567
-  2024-02-15 16:06:47,363:    pcie_ats_basic_test:.................. PASS -- Time Elapsed:0:00:58.659382
-  2024-02-15 16:06:47,363:    pcie_csr_test:........................ PASS -- Time Elapsed:0:00:58.918341
-  2024-02-15 16:06:47,363:    pf_vf_access_test:.................... PASS -- Time Elapsed:0:00:57.045204
-  2024-02-15 16:06:47,363:    pmci_csr_test:........................ PASS -- Time Elapsed:0:01:05.479277
-  2024-02-15 16:06:47,363:    pmci_mailbox_test:.................... PASS -- Time Elapsed:0:02:34.899524
-  2024-02-15 16:06:47,363:    pmci_multi_master_test:............... PASS -- Time Elapsed:0:41:09.670790
-  2024-02-15 16:06:47,363:    pmci_qsfp_telemetry_test:............. PASS -- Time Elapsed:0:40:07.885015
-  2024-02-15 16:06:47,363:    pmci_rd_default_value_test:........... PASS -- Time Elapsed:0:01:06.944379
-  2024-02-15 16:06:47,363:    pmci_ro_mailbox_test:................. PASS -- Time Elapsed:0:10:48.580894
-  2024-02-15 16:06:47,363:    pmci_vdm_b2b_drop_err_scenario_test:.. PASS -- Time Elapsed:0:09:11.081908
-  2024-02-15 16:06:47,363:    pmci_vdm_len_err_scenario_test:....... PASS -- Time Elapsed:0:14:43.763718
-  2024-02-15 16:06:47,363:    pmci_vdm_mctp_mmio_b2b_test:.......... PASS -- Time Elapsed:0:01:45.543515
-  2024-02-15 16:06:47,363:    pmci_vdm_multipkt_error_scenario_test: PASS -- Time Elapsed:1:42:53.665294
-  2024-02-15 16:06:47,363:    pmci_vdm_multipkt_tlp_err_test:....... PASS -- Time Elapsed:0:21:01.225008
-  2024-02-15 16:06:47,363:    pmci_vdm_tlp_error_scenario_test:..... PASS -- Time Elapsed:0:20:36.006368
-  2024-02-15 16:06:47,363:    pmci_vdm_tx_rx_all_random_lpbk_test:.. PASS -- Time Elapsed:0:11:11.355724
-  2024-02-15 16:06:47,363:    pmci_vdm_tx_rx_all_toggle_test:....... PASS -- Time Elapsed:0:08:15.821700
-  2024-02-15 16:06:47,363:    pmci_vdm_tx_rx_lpbk_test:............. PASS -- Time Elapsed:0:08:25.528899
-  2024-02-15 16:06:47,363:    port_gasket_test:..................... PASS -- Time Elapsed:0:00:59.764194
-  2024-02-15 16:06:47,363:    qsfp_test:............................ PASS -- Time Elapsed:0:07:09.847066
-  2024-02-15 16:06:47,363:    remote_stp_test:...................... PASS -- Time Elapsed:0:01:01.852028
-  2024-02-15 16:06:47,363:    uart_csr:............................. PASS -- Time Elapsed:0:01:26.403271
-  2024-02-15 16:06:47,363: Failing Unit Tests: 0/38 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  2024-02-15 16:06:47,363: >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-  2024-02-15 16:06:47,363:       Number of Unit test results captured: 38
-  2024-02-15 16:06:47,363:       Number of Unit test results passing.: 38
-  2024-02-15 16:06:47,363:       Number of Unit test results failing.:  0
-  2024-02-15 16:06:47,363:     End Unit regression running at date/time................: 2024-02-15 16:06:47.363814
-  2024-02-15 16:06:47,363:     Elapsed time for Unit regression run....................: 5:58:50.474807
-
+  Passing Unit Tests:37/37 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+     bfm_test:............................. PASS -- Time Elapsed:0:01:09.697671
+     csr_test:............................. PASS -- Time Elapsed:0:01:25.629880
+     dfh_walker:........................... PASS -- Time Elapsed:0:01:10.426995
+     flr:.................................. PASS -- Time Elapsed:0:01:09.624240
+     fme_csr_access:....................... PASS -- Time Elapsed:0:00:37.512457
+     fme_csr_directed:..................... PASS -- Time Elapsed:0:00:45.458114
+     he_lb_test:........................... PASS -- Time Elapsed:0:02:07.375008
+     he_mem_lb_test:....................... PASS -- Time Elapsed:0:38:52.066694
+     he_null_test:......................... PASS -- Time Elapsed:0:01:04.939156
+     hssi_csr_test:........................ PASS -- Time Elapsed:0:06:23.029516
+     hssi_kpi_test:........................ PASS -- Time Elapsed:2:29:26.521521
+     hssi_test:............................ PASS -- Time Elapsed:2:26:59.511113
+     indirect_csr:......................... PASS -- Time Elapsed:0:00:53.041156
+     mem_ss_csr_test:...................... PASS -- Time Elapsed:0:18:43.020948
+     mem_ss_rst_test:...................... PASS -- Time Elapsed:0:37:35.095748
+     mem_tg_test:.......................... PASS -- Time Elapsed:0:25:07.194488
+     pcie_ats_basic_test:.................. PASS -- Time Elapsed:0:01:08.777231
+     pcie_csr_test:........................ PASS -- Time Elapsed:0:01:10.284642
+     pcie_ss_axis_components:.............. PASS -- Time Elapsed:0:02:06.266695
+     pf_vf_access_test:.................... PASS -- Time Elapsed:0:01:08.948374
+     pmci_csr_test:........................ PASS -- Time Elapsed:0:01:16.863665
+     pmci_mailbox_test:.................... PASS -- Time Elapsed:0:02:40.877768
+     pmci_rd_default_value_test:........... PASS -- Time Elapsed:0:01:13.951152
+     pmci_ro_mailbox_test:................. PASS -- Time Elapsed:0:08:40.948176
+     pmci_vdm_b2b_drop_err_scenario_test:.. PASS -- Time Elapsed:0:08:53.753526
+     pmci_vdm_len_err_scenario_test:....... PASS -- Time Elapsed:0:14:18.816711
+     pmci_vdm_mctp_mmio_b2b_test:.......... PASS -- Time Elapsed:0:01:55.465110
+     pmci_vdm_multipkt_error_scenario_test: PASS -- Time Elapsed:1:37:57.808918
+     pmci_vdm_multipkt_tlp_err_test:....... PASS -- Time Elapsed:0:20:29.416693
+     pmci_vdm_tlp_error_scenario_test:..... PASS -- Time Elapsed:0:19:57.978144
+     pmci_vdm_tx_rx_all_random_lpbk_test:.. PASS -- Time Elapsed:0:10:54.756589
+     pmci_vdm_tx_rx_all_toggle_test:....... PASS -- Time Elapsed:0:07:54.360796
+     pmci_vdm_tx_rx_lpbk_test:............. PASS -- Time Elapsed:0:08:13.492743
+     port_gasket_test:..................... PASS -- Time Elapsed:0:01:09.992123
+     qsfp_test:............................ PASS -- Time Elapsed:0:05:48.597337
+     remote_stp_test:...................... PASS -- Time Elapsed:0:01:12.008778
+     uart_csr:............................. PASS -- Time Elapsed:0:01:33.400947
+  Failing Unit Tests: 0/37 >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+      Number of Unit test results captured: 37
+      Number of Unit test results passing.: 37
+      Number of Unit test results failing.:  0
   ```
 
 ## **4. FIM Customization**
 
-This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 *Table: OFS FIM Customization Examples*
 
 | Walkthrough Name |
 | --- |
-| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
-| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
-| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
-| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
-| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) |
-| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
-| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) |
-| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) |
-| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) |
-| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) |
-| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
-| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
-| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
-| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
-| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
-| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
-| [Remove the HPS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#416-walkthrough-debug-the-fim-with-signal-tap) |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4431-walkthrough-modify-the-pcie-sub-system-and-pfvf-mux-configuration-using-ofss) |
+| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#451-walkthrough-create-a-minimal-fim) |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
+| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
+| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
+| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
+| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
+| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
+| [Remove the HPS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) |
 
 ### **4.1 Adding a new module to the FIM**
 
@@ -1389,6 +1586,8 @@ If you intend to add a new module to the FIM area, then you will need to inform 
 See FPGA Device Feature List (DFL) Framework Overview for a description of the software process to read and process the linked list of Device Feature Header (DFH) CSRs within a FPGA.
 
 This example will add a `hello_fim` module to the design. The Hello FIM example adds a simple DFH register and 64bit scratchpad register connected to the Board Peripheral Fabric (BPF) that can be accessed by the Host. You can use this example as the basis for adding a new feature to your FIM.
+
+For the purposes of this example, the `hello_fim` module instantiation sets the DFH feature ID (`FEAT_ID`) to 0x100 which is not currently defined. Using an undefined feature ID will result in no driver being used. Normally, a defined feature ID will be used to associate a specific driver with the FPGA module. Refer to the [Device Feature List Feature IDs](https://github.com/OFS/dfl-feature-id/blob/main/dfl-feature-ids.rst) for a list of DFL feature types and IDs. If you are adding a new module to your design, make sure the Type/ID pair does not conflict with existing Type/ID pairs. You may reserve Type/ID pairs by submitting a pull request at the link above.
 
 The Hello FIM design can be verified by Unit Level simulation, Universal Verification Methodology (UVM) simulation, and running in hardware on the n6001 card. The process for these are described in this section.
 
@@ -1442,13 +1641,13 @@ Perform the following steps to add a new module to the OFS FIM that can be acces
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Make `hello_fim` source directory
 
@@ -1507,8 +1706,8 @@ Steps:
   module hello_fim_top  #(
      parameter ADDR_WIDTH  = 12, 
      parameter DATA_WIDTH = 64, 
-     parameter bit [11:0] FEAT_ID = 12'h001,
-     parameter bit [3:0]  FEAT_VER = 4'h1,
+     parameter bit [11:0] FEAT_ID = 12'h100,
+     parameter bit [3:0]  FEAT_VER = 4'h0,
      parameter bit [23:0] NEXT_DFH_OFFSET = 24'h1000,
      parameter bit END_OF_LIST = 1'b0
   )(
@@ -1654,8 +1853,8 @@ Steps:
 
   ```verilog
   module hello_fim_com #(
-    parameter bit [11:0] FEAT_ID = 12'h001,
-    parameter bit [3:0]  FEAT_VER = 4'h1,
+    parameter bit [11:0] FEAT_ID = 12'h100,
+    parameter bit [3:0]  FEAT_VER = 4'h0,
     parameter bit [23:0] NEXT_DFH_OFFSET = 24'h1000,
     parameter bit END_OF_LIST = 1'b0
   )(
@@ -1977,13 +2176,13 @@ Steps:
     * N6001
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss n6001 work_n6001_hello_fim
+      ./ofs-common/scripts/common/syn/build_top.sh -p n6001 work_n6001_hello_fim
       ```
 
     * N6000
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6000.ofss n6000 work_n6000_hello_fim
+      ./ofs-common/scripts/common/syn/build_top.sh -p n6000 work_n6000_hello_fim
       ```
 
 #### **4.1.3 Walkthrough: Modify and run unit tests for a FIM that has a new module**
@@ -1992,13 +2191,13 @@ Perform the following steps to modify the unit test files to support a FIM that 
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
+1. This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 2. Modify `$OFS_ROOTDIR/sim/unit_test/dfh_walker/test_csr_defs.sv`
 
@@ -2075,13 +2274,13 @@ Steps:
     * N6001
 
       ```bash
-      ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/n6001.ofss n6001
+      ./gen_sim_files.sh n6001
       ```
 
     * N6000
 
       ```bash
-      ./gen_sim_files.sh --ofss=$OFS_ROOTDIR/tools/ofss_config/n6000.ofss n6000
+      ./gen_sim_files.sh n6000
       ```
 
 4. Run DFH Walker Simulation
@@ -2156,9 +2355,9 @@ Perform the following steps to modify the UVM simulation files to support the He
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
+* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
 
 Steps:
 
@@ -2344,7 +2543,7 @@ Steps:
 
     > **Note:** The default N6000 shell has the Memory Sub-System removed, so the `DISABLE_EMIF` flag must be set when running UVM simulations. If you add the Memory Sub-System back to the shell design, you must run this command without the `DISABLE_EMIF` flag.
 
-8. Verify the DFH Walker test results. Run the following commands to show the result of the scratchpad register and Hello FIM ID register. You can see the "Data match" message indicating that the registers are successfuly verified.
+8. Verify the MMIO test results. Run the following commands to show the result of the scratchpad register and Hello FIM ID register. You can see the "Data match" message indicating that the registers are successfuly verified.
 
     ```bash
     cd $VERDIR/sim/mmio_test
@@ -2364,9 +2563,9 @@ Perform the following steps to program and hardware test a FIM that has had a ne
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
-* This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
+* This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
 
 Steps:
 
@@ -2393,12 +2592,12 @@ Steps:
     Example output:
 
     ```bash
-    1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+    a791757d-38a6-5159-a7fc-e1a61157a07b
     ```
 
 2. Switch to your deployment environment.
 
-3. Program the FPGA with the Hello FIM image. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
+3. Program the FPGA with the Hello FIM image. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
 
 4. Run `fpgainfo` to determine the PCIe B:D.F of your board, and to verify the PR Interface ID matches the ID you found in Step 1.
 
@@ -2410,8 +2609,8 @@ Steps:
 
   ```bash
   Intel Acceleration Development Platform N6001
-  Board Management Controller NIOS FW version: 3.15.0
-  Board Management Controller Build version: 3.15.0
+  Board Management Controller NIOS FW version: 3.15.2
+  Board Management Controller Build version: 3.15.2
   PBA: B#FB2CG1@AGF14-A0P2
   MMID: 217000
   SN: Q171211700050
@@ -2425,9 +2624,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422 (TBD)
+  Bitstream Id                     : 360571656856467345
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+  Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -2569,17 +2768,17 @@ The following steps guide you through the process of adding a Signal Tap instanc
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
-* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
+* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
 
 Perform the following steps in your development environment:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Synthesize the design using the `-e` build script option. You may skip this step if you are using a pre-synthesized design.
 
@@ -2594,16 +2793,16 @@ Perform the following steps in your development environment:
     * N6001
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh -e --ofss tools/ofss_config/n6001.ofss n6001 work_hello_fim_with_stp
+      ./ofs-common/scripts/common/syn/build_top.sh -e n6001 work_hello_fim_with_stp
       ```
 
     * N6000
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh -e --ofss tools/ofss_config/n6000.ofss n6000 work_hello_fim_with_stp
+      ./ofs-common/scripts/common/syn/build_top.sh -e n6000 work_hello_fim_with_stp
       ```
 
-4. Open the design in Quartus. The **Compilation Dashboard** should show that the `Analysis & Synthesis` step has completed.
+4. Open the design in Quartus. The **Compilation Dashboard** should show that the `Analysis & Elaboration` step has completed.
 
   * N6001
 
@@ -2617,7 +2816,7 @@ Perform the following steps in your development environment:
     quartus $OFS_ROOTDIR/work_hello_fim_with_stp/syn/board/n6000/syn_top/ofs_top.qpf
     ```
 
-  ![synthesis_compilation_dashboard](images/synthesis_compilation_dashboard.png)
+    ![synthesis_compilation_dashboard](images/synthesis_compilation_dashboard.png)
 
   > **Note:** If a full compile has been done in the work directory you are using, you may need to switch from the `ofs_pr_afu` view to the `ofs_top` view.
 
@@ -2649,15 +2848,11 @@ Perform the following steps in your development environment:
   
     1. In the **Named** field, enter `csr_lite_if*`. In the **Look In** field, select `hello_fim_top_inst`.
 
-    2. Add the desired nets. In the **Object type** field select `net`. Select the nets that appear in the **Matching Nodes** box. Click the **>** button to add them to the **Nodes Found** box.
+    2. Select the nets that appear in the **Matching Nodes** box. Click the **>** button to add them to the **Nodes Found** box.
 
       ![](images/stp_traced_signals_hello_fim_nets.png)
     
-    3. Add the desired net busses. In the **Object type** field select `net_bus`. Select the busses that appear in the **Matching Nodes** box. Click the **>** button to add them to the **Nodes Found** box.
-    
-      ![](images/stp_traced_signals_hello_fim_net_busses.png)
-
-    4. Click Insert and close the Node Finder dialog.
+    3. Click Insert and close the Node Finder dialog.
 
   6. To provide a unique name for your Signal Tap instance, select "auto_signaltap_0", right-click, and select **Rename Instance (F2)**. Provide a descriptive name for your instance, for example, `stp_for_hello_fim`.
   
@@ -2666,7 +2861,6 @@ Perform the following steps in your development environment:
   7. Save the newly created Signal Tap file, in the `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/board/n6001/syn_top/` directory, and give it the same name as the instance. Ensure that the **Add file to current project** checkbox is ticked.
 
     ![](images/save_STP_hello_fim.png)
-
 
   8. In the dialog that pops up, click "Yes" to add the newly created Signal Tap file to the project settings files.
 
@@ -2687,13 +2881,13 @@ Perform the following steps in your development environment:
   * N6001
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh -p -k --ofss tools/ofss_config/n6001.ofss n6001 work_hello_fim_with_stp
+    ./ofs-common/scripts/common/syn/build_top.sh -p -k n6001 work_hello_fim_with_stp
     ```
 
   * N6000
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh -p -k --ofss tools/ofss_config/n6000.ofss n6000 work_hello_fim_with_stp
+    ./ofs-common/scripts/common/syn/build_top.sh -p -k n6000 work_hello_fim_with_stp
     ```
 
 8. Ensure that the compile completes successfully and meets timing.
@@ -2714,11 +2908,11 @@ Perform the following steps in your development environment:
     ***********************************
     ```
 
-9. Set up a JTAG connection to the n6001 or n6000. Refer to [Set up JTAG](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
+9. Set up a JTAG connection to the n6001 or n6000. Refer to [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
 10. Copy the `ofs_top.sof` and `stp_for_hello_fim.stp` files to the machine which is connected to the n6001/n6000 via JTAG.
 
-11. From the JTAG connected machine, program the `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/board/<board_target>/syn_top/output_files/ofs_top.sof` image to the n6001 or n6000 FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) section for step-by-step programming instructions.
+11. From the JTAG connected machine, program the `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/board/<board_target>/syn_top/output_files/ofs_top.sof` image to the n6001 or n6000 FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) section for step-by-step programming instructions.
 
 12. Open the Quartus Signal Tap GUI
 
@@ -2758,6 +2952,22 @@ Perform the following steps in your development environment:
 
 ### **4.2 Preparing FIM for AFU Development**
 
+#### **4.2.1 Changing the AFU in the FIM Port Gasket**
+
+In the FIM build, the standard AFUs in the port gasket can be replaced with PIM-based AFUs, wrapped by the ofs_plat_afu() top-level module. Before invoking build_top.sh, set the environment variable AFU_WITH_PIM to the path of a sources text file -- the same sources file from examples such as sources.txt in hello_world:
+
+  ```bash
+  export AFU_WITH_PIM=<path to>/tutorial/afu_types/01_pim_ifc/hello_world/hw/rtl/axi/sources.txt
+  ```
+
+When set during the build_top.sh setup stage, the FIM build is configured to load the specified AFU. PR will continue to work, if enabled. The only difference with AFU_WITH_PIM is the change to the AFUs present at power-on. Keep in mind that the default exercisers were chosen to attach to all devices and force reasonable routing decisions during the FIM build across the PR boundary. AFU_WITH_PIM is best used for FIMs that disable PR.
+
+Configuration of the user clock from an AFU's JSON file is ignored in a FIM build.
+
+The AFU_WITH_PIM setting matters only during the setup stage of build_top.sh. It is not consumed by later stages.
+
+#### **4.2.2 Compiling the FIM in preparation for designing your AFU**
+
 To save area, the default Host Excercisers in the FIM can be replaced by a "he_null" blocks. There are a few things to note:
 
 * "he_null" is a minimal block with registers that responds to PCIe MMIO request. MMIO responses are required to keep PCIe alive (end points enabled in PCIe-SS needs service downstream requests).
@@ -2765,19 +2975,19 @@ To save area, the default Host Excercisers in the FIM can be replaced by a "he_n
 * The options supported are `null_he_lb`, `null_he_hssi`, `null_he_mem` and `null_he_mem_tg`. Any combination and order can be enabled at the same time. 
 * Finer grain control is provided for you to, for example, turn off only the exercisers in the Static Region in order to save area.
 
-#### **4.2.1 Walkthrough: Compile the FIM in preparation for designing your AFU**
+##### **4.2.2.1 Walkthrough: Compile the FIM in preparation for designing your AFU**
 
 Perform the following steps to compile a FIM for where the exercisers are removed and replaced with an he_null module while keeping the PF/VF multiplexor connections.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Walkthrough: Set Up Development Environment] Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Walkthrough: Clone FIM Repository] section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Walkthrough: Set Development Environment Variables] section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Compile the FIM with the HE_NULL compile options
 
@@ -2792,13 +3002,13 @@ Steps:
     * N6001
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6001
+      ./ofs-common/scripts/common/syn/build_top.sh -p n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6001
       ```
 
     * N6000
 
       ```bash
-      ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6000.ofss n6000:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6000
+      ./ofs-common/scripts/common/syn/build_top.sh -p n6000:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6000
       ```
 
 ### **4.3 Partial Reconfiguration Region**
@@ -2850,13 +3060,13 @@ The coordinates of the top right corner of the lock regions are computed indirec
   Y1 = Y0 + Height
   ```
 
-4. Make changes to the pr_assignments.tcl based on your findings in Quartus Chip Planner. You can modify the size and location of existing lock regions or add new ones and assign them to the AFU PR partition.
+3. Make changes to the partial reconfiguraton region in the `$OFS_ROOTDIR/syn/board/n6001/setup/pr_assignments.tcl` file. You can modify the size and location of existing lock regions or add new ones and assign them to the AFU PR partition.
 
-5. Build your FIM and create the PR relocatable build tree using the `build_top.sh` script. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section for step-by-step compilation instructions.
+4. Build your FIM and create the PR relocatable build tree using the `build_top.sh` script. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section for step-by-step compilation instructions.
 
-6. Analyze the resource utilization report per partition produced after recompiling the FIM.
+5. Analyze the resource utilization report per partition produced after recompiling the FIM.
 
-7. Perform further modification to the PR regions until the results are satisfactory. Make sure timing constraints are met.
+6. Perform further modification to the PR regions until the results are satisfactory. Make sure timing constraints are met.
 
 For more information on how to optimize the floor plan of your Partial Reconfiguration design refer to the following online documentation.
 
@@ -2868,8 +3078,8 @@ For more information on how to optimize the floor plan of your Partial Reconfigu
 
 The PCIe sub-system IP and PF/VF MUX can be modified either using the OFSS flow or the IP Presets flow. The OFSS flow supports a subset of all available PCIe Sub-system settings, while the IP Preset flow can make any available PCIe Sub-system settings change. With PCIe-SS modifcations related to the PFs and VFs, the PF/VF MUX logic is automatically configured based on the PCIe-SS configuration when using OFSS. The sections below describe each flow.
 
-* [PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#443-pcie-configuration-using-ofss)
-* [PCIe Configuration Using IP Presets]
+* [PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#443-pcie-configuration-using-ofss)
+* [PCIe Sub-System configuration Using IP Presets](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#444-pcie-sub-system-configuration-using-ip-presets)
 
 #### **4.4.1 PF/VF MUX Configuration**
 
@@ -2881,10 +3091,14 @@ For reference FIM configurations, you must have at least 1 PF with 1VF, or 2PFs.
 
 | Parameter | Value |
 | --- | --- |
-| Min # of PFs | 1 (on PF0) |
+| Min # of PFs | 1 (if at least 1 VF present) \| 2 (if no VFs present) |
 | Max # of PFs | 8 |
-| Min # of VFs | 1 on PF0 (0 if 2PFs present) |
+| Min # of VFs | 1 on PF0 (if only 1 PF present) \| 0 (if 2PFs present) |
 | Max # of VFs | 2000 distributed across all PFs |
+
+Note that as the number of VFs goes up, timing closure can become more difficult.
+
+The scripts provided in ${OFS_ROOTDIR}/ofs-common/tools/ofss_config allows you to easily reconfigure the number of PFs and VFs, bar addresses, vendor/device ID values and more.  The PCIe Subsystem IP parameters that can be modified can be seen by reviewing ${OFS_ROOTDIR}/ofs-common/tools/ofss_config/ip_params/pcie_ss_component_parameters.py 
 
 New PF or VF instances will automatically have a null_afu module instantiated and connected to the new PF or VF.
 
@@ -2933,15 +3147,15 @@ Perform the following steps to modify the PF/VF MUX configuration.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. View the default PCIe OFSS file contents. For example, the n6001 default PCIe OFSS configuration is defined in the `$OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host.ofss` file.
 
@@ -3000,31 +3214,21 @@ Steps:
   num_vfs = 2
   ```
 
-6. Edit the top level OFSS file to use the new PCIe OFSS file `pcie_pf_vf_mod.ofss`. In this example, we will edit the n6001 top level OFSS file `$OFS_ROOTDIR/tools/ofss_config/n6001.ofss`.
-
-  ```bash
-  [include]
-  "$OFS_ROOTDIR"/tools/ofss_config/n6001_base.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_pfvf_mod.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
-  ```
-
-7. Compile the FIM. In this example we are targeting the n6001 board.
+6. Compile the FIM with the new PCIe OFSS file. In this example we are targeting the n6001 board.
 
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss n6001 work_n6001_pfvf_mod
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/pcie/pcie_pfvf_mod.ofss n6001 work_n6001_pfvf_mod
   ```
 
-8. Copy the resulting `$OFS_ROOTDIR/work_n6001_pfvf_mod/syn/board/n6001/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
+7. Copy the resulting `.bin` user 1 image to your deployment environmenment.
 
-9. Switch to your deployment environment.
+8. Switch to your deployment environment.
 
-10. Program the `.bin` image to the n6001 FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
+9. Program the `.bin` image to the n6001 FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
 
-11. Verify the number of VFs on the newly added PF8. In this example, we defined 2 VFs on PF5 in Step 5.
+10. Verify the number of VFs on the newly added PF8. In this example, we defined 2 VFs on PF5 in Step 5.
 
   ```bash
   sudo lspci -vvv -s 98:00.5 | grep VF
@@ -3038,7 +3242,7 @@ Steps:
   VF Migration: offset: 00000000, BIR: 0
   ```
 
-12. Verify communication with the newly added PF5. New PF/VF are seamlessly connected to their own CSR stub, which can be read at DFH Offset 0x0. You can bind to the function and perform `opae.io peek` commands to read from the stub CSR. Similarly, perform `opae.io poke` commands to write into the stub CSRs. Use this mechanism to verify that the new PF/VF Mux configuration allows to write and read back values from the stub CSRs. 
+11. Verify communication with the newly added PF5. New PF/VF are seamlessly connected to their own CSR stub, which can be read at DFH Offset 0x0. You can bind to the function and perform `opae.io peek` commands to read from the stub CSR. Similarly, perform `opae.io poke` commands to write into the stub CSRs. Use this mechanism to verify that the new PF/VF Mux configuration allows to write and read back values from the stub CSRs. 
 
 The GUID for every new PF/VF CSR stub is the same.
 
@@ -3077,26 +3281,26 @@ The general flow for using IP Presets to modify he PCIe Sub-system is as follows
 4. Create an PCIe OFSS file that uses the IP Presets file.
 5. Build the FIM with the PCIe OFSS file from Step 4.
 
-##### **4.4.4.1 Walkthrough: Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets**
+##### **4.4.4.1 Walkthrough: Modify PCIe Sub-System Configuration Using IP Presets**
 
-Perform the following steps to use an IP preset file to configure the PCIe Sub-system and PF/VF MUX. In this example, we will change the Revision ID of PF0. While this modification can be done with the OFSS flow, this walkthrough is intended to show the procedure for making any PCIe configuration change using IP presets. This walkthrough targets the n6001, but similar steps can be applied to the n6000.
+Perform the following steps to use an IP preset file to configure the PCIe Sub-system and PF/VF MUX. In this example, we will change the Revision ID on PF0. While this modification can be done with the OFSS flow, this walkthrough is intended to show the procedure for making any PCIe configuration change using IP presets. This walkthrough targets the n6001, but similar steps can be applied to the n6000.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment to test the design. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment to test the design. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-3. [OPTIONAL] Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the target board. In this example we will target the n6001.
+3. Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the target board. In this example we will target the n6001.
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/n6001.ofss n6001 work_n6001
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup n6001 work_n6001
   ```
 
 4. Open the PCIe-SS in the work directory using Quartus Parameter Editor. If you performed Step 3, open the PCIe-SS IP from the work directory; otherwise, open the PCIe-SS IP from the source files.
@@ -3105,7 +3309,7 @@ Steps:
   qsys-edit $OFS_ROOTDIR/work_n6001/ipss/pcie/qip/pcie_ss.ip
   ```
 
-5. Modify the settings as desired. In this example we are changing the **Device ID** to `0xbccf` and the **Revision ID** to `0x2`. In the **IP Parameter Editor**, scroll down and expand the **PCIe Interfaces Ports Settings -> Port 0 -> PCIe0 Device Identification Registers -> PCIe0 PF0 IDs** tab and make these changes.
+5. Modify the settings as desired. In this example we are changing **Revision ID** to `0x2`. In the **IP Parameter Editor**, scroll down and expand the **PCIe Interfaces Ports Settings -> Port 0 -> PCIe0 Device Identification Registers -> PCIe0 PF0 IDs** tab and make these changes.
 
   ![pcie_ss_mod](images/pcie_ss_mod.png)
 
@@ -3127,9 +3331,9 @@ Steps:
 
     ![](images/preset_ip_path_no.png)
 
-9. Close **IP Parameter Editor** without saving or generating HDL.
+7. Close **IP Parameter Editor** without saving or generating HDL.
 
-10. Create a new PCIe OFSS file in the `$OFS_ROOTDIR/tools/ofss_config/pcie` directory. For example:
+8. Create a new PCIe OFSS file in the `$OFS_ROOTDIR/tools/ofss_config/pcie` directory. For example:
 
   ```bash
   touch $OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host_mod_preset.ofss
@@ -3146,34 +3350,52 @@ Steps:
   preset = n6001-rev2
   ```
 
-11. Edit the `$OFS_ROOTDIR/tools/ofss_config/n6001.ofss` file to call new OFSS file created in Step 10.
-
-  ```
-  [include]
- "$OFS_ROOTDIR"/tools/ofss_config/n6001_base.ofss
- "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host_mod_preset.ofss
- "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
- "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
-  ```
-
-12. Compile the design with the modified n6001.ofss file.
+9. Compile the design with the modified new `pcie_host_mod_preset.ofss` file.
 
   ```bash
-  cd $OFS_ROOTDIR
-  
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss,tools/ofss_config/hssi/hssi_8x25.ofss n6001 work_n6001_pcie_mod
+  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/pcie/pcie_host_mod_preset.ofss n6001 work_n6001_pcie_mod
   ```
 
-
-9. Copy the resulting `$OFS_ROOTDIR/work_n6001_pcie_mod/syn/board/n6001/syn_top/output_files/ofs_top_hps.sof` image to your deployment environmenment for JTAG programming, or copy a `bin` file (e.g. `ofs_top_page1_unsigned_user1.bin`) for RSU programming.
+10. Copy the resulting `$OFS_ROOTDIR/work_n6001_pcie_mod/syn/board/n6001/syn_top/output_files/ofs_top_hps.sof` image to your deployment environmenment for JTAG programming, or copy a `bin` file (e.g. `ofs_top_page1_unsigned_user1.bin`) for RSU programming.
 
   >**Note:** OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to program the FPGA via JTAG to load the test FPGA image.  If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command `fpgasupdate`.
 
-10. Switch to your deployment environment.
+11. Switch to your deployment environment.
 
-11. Program the image to the n6001 FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step JTAG programming instructions, or the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step RSU programming instructions.
+12. Program the image to the n6001 FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step JTAG programming instructions, or the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step RSU programming instructions.
 
-16. Use `lspci` to verify that the PCIe changes have been implemented.
+13. Determing the PCIe B:D.F of your board. You may use the OPAE command `fpgainfo fme` to determine this.
+
+  ```bash
+  fpgainfo fme
+  ```
+
+  Example output:
+
+  ```bash
+  Intel Acceleration Development Platform N6001
+  Board Management Controller NIOS FW version: 3.15.2
+  Board Management Controller Build version: 3.15.2
+  //****** FME ******//
+  Interface                        : DFL
+  Object Id                        : 0xEF00000
+  PCIe s:b:d.f                     : 0000:98:00.0
+  Vendor Id                        : 0x8086
+  Device Id                        : 0xBCCE
+  SubVendor Id                     : 0x8086
+  SubDevice Id                     : 0x1771
+  Socket Id                        : 0x00
+  Ports Num                        : 01
+  Bitstream Id                     : 360571656856467345
+  Bitstream Version                : 5.0.1
+  Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
+  Boot Page                        : user1
+  Factory Image Info               : bdea3c8cdf144c7c227b416cac1358f7
+  User1 Image Info                 : bbe54f1804c88bbd5a555b072c9f5d80
+  User2 Image Info                 : bdea3c8cdf144c7c227b416cac1358f7
+  ```
+
+14. Use `lspci` to verify that the PCIe changes have been implemented.
 
   ```bash
   lspci -nvmms 98:00.0
@@ -3188,46 +3410,46 @@ Steps:
   Device: bcce
   SVendor:        8086
   SDevice:        1771
-  PhySlot:        1-1
+  PhySlot:        1
   Rev:    02
   NUMANode:       1
-  IOMMUGroup:     8
+  IOMMUGroup:     180
   ```
 
 ### **4.5 Minimal FIM**
 
-In a minimal FIM, the exercisers and Ethernet subsystem are removed from the design, and the AFU PR area is expanded to make use of the available area previously used by the removed components. This minimal FIM is useful for HDL applications.
+In a minimal FIM, the exercisers and Ethernet subsystem are removed from the design, the PF/VF configuration is reduced to either 2PF/0VF or 1PF/1VF, and the AFU PR area is expanded to make use of the available area previously used by the removed components.
 
-There are two types of provided minimal FIMs:
+There are two pre-provided PCIe configurations that can be used to create minimal FIM:
 
-* 2PF: this minimal FIM has two physical functions, with the APF/BPF on PF0, and the AFU PR region on PF1.
+* 2PF: this PCIe configuration has two physical functions, with the APF/BPF on PF0, and the AFU PR region on PF1.
 
     ![](images/minimal_fim_2pf_block_diagram.png)
 
-* 1PF/1VF: This minmal FIM has a single physical function, with the APF/BPF on PF0, and the AFU PR region on PF0-VF0.
+* 1PF/1VF: This PCIe configuration has a single physical function, with the APF/BPF on PF0, and the AFU PR region on PF0-VF0.
 
     ![](images/minimal_fim_1pf_1vf_block_diagram.png)
 
-The FIM source repository contains OFSS file that can be used to build the two different types of minimal FIM.
+The FIM source repository contains OFSS file that can be used to configure the PCIe IP for the minimal FIM.
 
-* `$OFS_ROOTDIR/tools/ofss_config/n6001_2pf.ofss`
-* `$OFS_ROOTDIR/tools/ofss_config/n6001_1pf_1vf.ofss`
+* `$OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host_2pf.ofss`
+* `$OFS_ROOTDIR/tools/ofss_config/pcie/pcie_host_1pf_1vf.ofss`
 
 #### **4.5.1 Walkthrough: Create a Minimal FIM**
 
-Perform the following steps to create a Minimal FIM.
+Perform the following steps to create a Minimal FIM. A minimal FIM is one that has the host exercisers and ethernet subsystem removed. This frees up resources that can be used.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment for hardware testing. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/ofs-2024.2-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. [N6001 ONLY] The OFS FIM repo provides a PR assignments TCL file which optimizes the PR region for the minimal FIM. Copy the minimal PR assignments TCL file into the `pr_assignments.tcl` file location for use in the FIM build process.
 
@@ -3243,31 +3465,31 @@ Steps:
       cp $OFS_ROOTDIR/syn/board/n6001/setup/pr_assignments_slim.tcl $OFS_ROOTDIR/syn/board/n6001/setup/pr_assignments.tcl
       ```
 
-4. Compile the FIM with Null HEs compile option, the No HSSI compile option, and the desired configuration OFSS file.
+4. Compile the FIM with Null HEs compile option, the No HSSI compile option, and the desired PCIe PF/VF configuration.
 
   ```bash
   cd $OFS_ROOTDIR
   ```
 
-  * For 2PF Minimal FIM
+  * 2PF Minimal FIM
     
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001_2pf.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6001_minimal_fim
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/pcie/pcie_host_2pf.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_n6001_minimal_fim
     ```
 
-  * For 1PF/1VF Minimal FIM
+  * 1PF/1VF Minimal FIM
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001_1pf_1vf.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg work_n6001_minimal_fim
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/pcie/pcie_host_1pf_1vf.ofss n6001:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_n6001_minimal_fim
     ```
 
-5. Review the `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A] *Table A-4* for the expected utilization for this Minimal FIM.
+5. Review the `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.fit.rpt` utilization report to see the utilization statistics for the Minimal fim. Refer to [Appendix A: Resource Utilization Tables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#appendix-a-resource-utilization-tables) *Table A-4* for the expected utilization for this Minimal FIM.
 
-6. Copy the resulting `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top.sof` image to your deployment environmenment.
+6. Copy the resulting `$OFS_ROOTDIR/work_n6001_minimal_fim/syn/board/n6001/syn_top/output_files/ofs_top_page1_unsigned_user1.bin` image to your deployment environmenment.
 
 7. Switch to your deployment environment, if different than your development environment.
 
-8. Program the `.bin` image to the n6001 FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
+8. Program the `.bin` image to the n6001 FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
 
 9. Verify the minimal FIM design on the board.
 
@@ -3503,13 +3725,13 @@ Perform the following steps to migrate your design to target a different Agilex 
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Modify the `part` field in the `$OFS_ROOTDIR/tools/ofss_config/n6001_base.ofss` file to use `AGFB022R25A2E2V`. This is only necessary if you are using the OFSS flow.
 
@@ -3553,122 +3775,116 @@ Steps:
   set_global_assignment -name DEVICE AGFB022R25A2E2V
   ```
 
-7. If you are changing to a device with a different package, you must change the pin assignments in the location files. If you would like Quartus to attempt to pin out the design automatically, you may remove all pin assignments instead. Typically you will be required to set certain pins manually in order to guide Quartus for a successful compile (e.g. transceiver reference clocks). In this example we will start by commenting out all of the pin constraints in the following files and attempt to let Quartus pin out the design as much as possibe:
+7. If you are changing to a device with a different package, you must change the pin assignments in the location files. If you would like Quartus to attempt to pin out the design automatically, you may remove all pin assignments instead. Typically you will be required to set certain pins manually in order to guide Quartus for a successful compile (e.g. transceiver reference clocks).
 
-  ```bash
-  $OFS_ROOTDIR/syn/board/n6001/setup/emif_loc.tcl
-  $OFS_ROOTDIR/syn/board/n6001/setup/hps_loc.tcl
-  $OFS_ROOTDIR/syn/board/n6001/setup/pmci_loc.tcl
-  $OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl
-  ```
+  1. Comment out all of the pin constraints in the following files and attempt to let Quartus pin out the design as much as possibe:
 
-  For example:
+    * `$OFS_ROOTDIR/syn/board/n6001/setup/emif_loc.tcl`
+    * `$OFS_ROOTDIR/syn/board/n6001/setup/hps_loc.tcl`
+    * `$OFS_ROOTDIR/syn/board/n6001/setup/pmci_loc.tcl`
+    * `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl`
+
+  2. Identify the pins you wish to assign prior to compiling. In this example, we will re-pin some of the reference clocks to help guide the fitter. Refer to the [Pin-Out Files for Altera FPGAs](https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html) for the pin list of your device. In this example, the *Migration Re-Pin Mapping* table below shows the pins we will re-pin in the constraints files.
   
-  ```bash
-  #set_location_assignment PIN_CU26 -to hssi_rec_clk[0]
-  ```
+    *Table: Migration Re-Pin Mapping*
+    
+    | Pin Name | FIM Signal Name | AGF 014 R24A Pin # | AGF 022 R25A Pin # |
+    | --- | --- | --- | --- |
+    | REFCLK_GXER9A_CH0p | `cr3_cpri_reflclk_clk[0]`           | PIN_AT13 | PIN_CE18 |
+    | REFCLK_GXER9A_CH0n | `"cr3_cpri_reflclk_clk[0](n)"`      | PIN_AP13 | PIN_CA18 |
+    | REFCLK_GXER9A_CH1p | `cr3_cpri_refclk_clk[1]`            | PIN_AR14 | PIN_CC19 |
+    | REFCLK_GXER9A_CH1n | `"cr3_cpri_refclk_clk[1](n)"`       | PIN_AN14 | PIN_BW19 |
+    | REFCLK_GXER9A_CH2p | `cr3_cpri_refclk_clk[2]`            | PIN_AJ12 | PIN_BL17 |
+    | REFCLK_GXER9A_CH2n | `"cr3_cpri_refclk_clk[2](n)"`       | PIN_AH11 | PIN_BJ15 |
+    | REFCLK_GXER9A_CH3p | `qsfp_ref_clk`                      | PIN_AK13 | PIN_BN18 |
+    | REFCLK_GXER9A_CH3n | `"qsfp_ref_clk(n)"`                 | PIN_AH13 | PIN_BJ18 |
+    | REFCLK_GXER9A_CH4p | `cr3_cpri_reflclk_clk_184_32m`      | PIN_AJ14 | PIN_BL19 |
+    | REFCLK_GXER9A_CH4n | `"cr3_cpri_reflclk_clk_184_32m(n)"` | PIN_AL14 | PIN_BR19 |
+    | REFCLK_GXER9A_CH5p | `cr3_cpri_reflclk_clk_153_6m`       | PIN_AR16 | PIN_CC21 |
+    | REFCLK_GXER9A_CH5n | `"cr3_cpri_reflclk_clk_153_6m(n)"`  | PIN_AN16 | PIN_BW21 |
+    | REFCLK_GXPL10A_CH0n | `"PCIE_REFCLK0(n)"`                 | PIN_AH49 | PIN_DD56 |
+    | REFCLK_GXPL10A_CH0p | `PCIE_REFCLK0`                      | PIN_AJ48 | PIN_DF57 |
+    | REFCLK_GXPL10A_CH2n | `"PCIE_REFCLK1(n)"`                 | PIN_AD49 | PIN_CT56 |
+    | REFCLK_GXPL10A_CH2p | `PCIE_REFCLK1`                      | PIN_AE48 | PIN_CV57 |
 
-8. Identify the pins you wish to assign prior to compiling. In this example, we will re-pin some of the reference clocks to help guide the fitter. Refer to the [Pin-Out Files for Intel FPGAs](https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html) for the pin list of your device. In this example, the *Migration Re-Pin Mapping* table below shows the pins we will re-pin in the constraints files.
-
-  *Table: Migration Re-Pin Mapping*
+  3. Re-pin the pins identified in the previous step in the `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl` file for the new pinout.
   
-  | Pin Name | FIM Signal Name | AGF 014 R24A Pin # | AGF 022 R25A Pin # |
-  | --- | --- | --- | --- |
-  | REFCLK_GXER9A_CH0p | `cr3_cpri_reflclk_clk[0]`           | PIN_AT13 | PIN_CE18 |
-  | REFCLK_GXER9A_CH0n | `"cr3_cpri_reflclk_clk[0](n)"`      | PIN_AP13 | PIN_CA18 |
-  | REFCLK_GXER9A_CH1p | `cr3_cpri_refclk_clk[1]`            | PIN_AR14 | PIN_CC19 |
-  | REFCLK_GXER9A_CH1n | `"cr3_cpri_refclk_clk[1](n)"`       | PIN_AN14 | PIN_BW19 |
-  | REFCLK_GXER9A_CH2p | `cr3_cpri_refclk_clk[2]`            | PIN_AJ12 | PIN_BL17 |
-  | REFCLK_GXER9A_CH2n | `"cr3_cpri_refclk_clk[2](n)"`       | PIN_AH11 | PIN_BJ15 |
-  | REFCLK_GXER9A_CH3p | `qsfp_ref_clk`                      | PIN_AK13 | PIN_BN18 |
-  | REFCLK_GXER9A_CH3n | `"qsfp_ref_clk(n)"`                 | PIN_AH13 | PIN_BJ18 |
-  | REFCLK_GXER9A_CH4p | `cr3_cpri_reflclk_clk_184_32m`      | PIN_AJ14 | PIN_BL19 |
-  | REFCLK_GXER9A_CH4n | `"cr3_cpri_reflclk_clk_184_32m(n)"` | PIN_AL14 | PIN_BR19 |
-  | REFCLK_GXER9A_CH5p | `cr3_cpri_reflclk_clk_153_6m`       | PIN_AR16 | PIN_CC21 |
-  | REFCLK_GXER9A_CH5n | `"cr3_cpri_reflclk_clk_153_6m(n)"`  | PIN_AN16 | PIN_BW21 |
-  | REFCLK_GXPL10A_CH0n | `"PCIE_REFCLK0(n)"`                 | PIN_AH49 | PIN_DD56 |
-  | REFCLK_GXPL10A_CH0p | `PCIE_REFCLK0`                      | PIN_AJ48 | PIN_DF57 |
-  | REFCLK_GXPL10A_CH2n | `"PCIE_REFCLK1(n)"`                 | PIN_AD49 | PIN_CT56 |
-  | REFCLK_GXPL10A_CH2p | `PCIE_REFCLK1`                      | PIN_AE48 | PIN_CV57 |
+    ```bash
+    set_location_assignment PIN_BN18 -to qsfp_ref_clk
+    set_location_assignment PIN_BJ18 -to "qsfp_ref_clk(n)"
+    set_location_assignment PIN_CC19 -to cr3_cpri_refclk_clk[1]
+    set_location_assignment PIN_BW19 -to "cr3_cpri_refclk_clk[1](n)"
+    set_location_assignment PIN_BL17 -to cr3_cpri_refclk_clk[2]
+    set_location_assignment PIN_BJ15 -to "cr3_cpri_refclk_clk[2](n)"
+    set_location_assignment PIN_CE18 -to cr3_cpri_reflclk_clk[0]
+    set_location_assignment PIN_CA18 -to "cr3_cpri_reflclk_clk[0](n)"
+    set_location_assignment PIN_BL19 -to cr3_cpri_reflclk_clk_184_32m
+    set_location_assignment PIN_BR19 -to "cr3_cpri_reflclk_clk_184_32m(n)"
+    set_location_assignment PIN_CC21 -to cr3_cpri_reflclk_clk_153_6m
+    set_location_assignment PIN_BW21 -to "cr3_cpri_reflclk_clk_153_6m(n)"
+    
+    set_location_assignment PIN_DD56 -to "PCIE_REFCLK0(n)"
+    set_location_assignment PIN_DF57 -to PCIE_REFCLK0
+    set_location_assignment PIN_CT56 -to "PCIE_REFCLK1(n)"
+    set_location_assignment PIN_CV57 -to PCIE_REFCLK1
+    ```
 
-9. Re-pin the reference clocks defined in `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl`
-
-  ```bash
-  set_location_assignment PIN_BN18 -to qsfp_ref_clk
-  set_location_assignment PIN_BJ18 -to "qsfp_ref_clk(n)"
-  set_location_assignment PIN_CC19 -to cr3_cpri_refclk_clk[1]
-  set_location_assignment PIN_BW19 -to "cr3_cpri_refclk_clk[1](n)"
-  set_location_assignment PIN_BL17 -to cr3_cpri_refclk_clk[2]
-  set_location_assignment PIN_BJ15 -to "cr3_cpri_refclk_clk[2](n)"
-  set_location_assignment PIN_CE18 -to cr3_cpri_reflclk_clk[0]
-  set_location_assignment PIN_CA18 -to "cr3_cpri_reflclk_clk[0](n)"
-  set_location_assignment PIN_BL19 -to cr3_cpri_reflclk_clk_184_32m
-  set_location_assignment PIN_BR19 -to "cr3_cpri_reflclk_clk_184_32m(n)"
-  set_location_assignment PIN_CC21 -to cr3_cpri_reflclk_clk_153_6m
-  set_location_assignment PIN_BW21 -to "cr3_cpri_reflclk_clk_153_6m(n)"
+  4. Un-comment the instance assignemnts for the transceiver reference clocks defined in `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl`.
   
-  set_location_assignment PIN_DD56 -to "PCIE_REFCLK0(n)"
-  set_location_assignment PIN_DF57 -to PCIE_REFCLK0
-  set_location_assignment PIN_CT56 -to "PCIE_REFCLK1(n)"
-  set_location_assignment PIN_CV57 -to PCIE_REFCLK1
-  ```
+    ```bash
+    set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to qsfp_ref_clk
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to qsfp_ref_clk
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=disable_3p3v_tol" -to qsfp_ref_clk
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to qsfp_ref_clk
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=156250000" -to qsfp_ref_clk
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to qsfp_ref_clk
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=TRUE" -to qsfp_ref_clk
+    set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_refclk_clk[1]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_refclk_clk[1]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=disable_3p3v_tol" -to cr3_cpri_refclk_clk[1]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_refclk_clk[1]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=184320000" -to cr3_cpri_refclk_clk[1]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_refclk_clk[1]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_refclk_clk[1]
+    set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_refclk_clk[2]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_refclk_clk[2]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=disable_3p3v_tol" -to cr3_cpri_refclk_clk[2]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_refclk_clk[2]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=153600000" -to cr3_cpri_refclk_clk[2]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_refclk_clk[2]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_refclk_clk[2]
+    set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_reflclk_clk[0]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_reflclk_clk[0]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=disable_3p3v_tol" -to cr3_cpri_reflclk_clk[0]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_reflclk_clk[0]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=245760000" -to cr3_cpri_reflclk_clk[0]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_reflclk_clk[0]
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_reflclk_clk[0]
+    set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_reflclk_clk_184_32m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_reflclk_clk_184_32m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=enable_3p3v_tol" -to cr3_cpri_reflclk_clk_184_32m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_reflclk_clk_184_32m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=184320000" -to cr3_cpri_reflclk_clk_184_32m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_reflclk_clk_184_32m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_reflclk_clk_184_32m
+    set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_reflclk_clk_153_6m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_reflclk_clk_153_6m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=enable_3p3v_tol" -to cr3_cpri_reflclk_clk_153_6m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_reflclk_clk_153_6m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=153600000" -to cr3_cpri_reflclk_clk_153_6m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_reflclk_clk_153_6m
+    set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_reflclk_clk_153_6m
+    ```
 
-10. Un-comment the instance assignemnts for the transceiver reference clocks defined in `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl`.
-
-  ```bash
-  set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to qsfp_ref_clk
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to qsfp_ref_clk
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=disable_3p3v_tol" -to qsfp_ref_clk
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to qsfp_ref_clk
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=156250000" -to qsfp_ref_clk
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to qsfp_ref_clk
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=TRUE" -to qsfp_ref_clk
-  set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_refclk_clk[1]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_refclk_clk[1]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=disable_3p3v_tol" -to cr3_cpri_refclk_clk[1]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_refclk_clk[1]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=184320000" -to cr3_cpri_refclk_clk[1]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_refclk_clk[1]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_refclk_clk[1]
-  set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_refclk_clk[2]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_refclk_clk[2]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=disable_3p3v_tol" -to cr3_cpri_refclk_clk[2]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_refclk_clk[2]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=153600000" -to cr3_cpri_refclk_clk[2]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_refclk_clk[2]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_refclk_clk[2]
-  set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_reflclk_clk[0]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_reflclk_clk[0]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=disable_3p3v_tol" -to cr3_cpri_reflclk_clk[0]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_reflclk_clk[0]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=245760000" -to cr3_cpri_reflclk_clk[0]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_reflclk_clk[0]
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_reflclk_clk[0]
-  set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_reflclk_clk_184_32m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_reflclk_clk_184_32m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=enable_3p3v_tol" -to cr3_cpri_reflclk_clk_184_32m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_reflclk_clk_184_32m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=184320000" -to cr3_cpri_reflclk_clk_184_32m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_reflclk_clk_184_32m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_reflclk_clk_184_32m
-  set_instance_assignment -name IO_STANDARD "DIFFERENTIAL LVPECL" -to cr3_cpri_reflclk_clk_153_6m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_termination=enable_term" -to cr3_cpri_reflclk_clk_153_6m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_enable_3p3v=enable_3p3v_tol" -to cr3_cpri_reflclk_clk_153_6m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_disable_hysteresis=enable_hyst" -to cr3_cpri_reflclk_clk_153_6m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_input_freq=153600000" -to cr3_cpri_reflclk_clk_153_6m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_powerdown_mode=false" -to cr3_cpri_reflclk_clk_153_6m
-  set_instance_assignment -name HSSI_PARAMETER "refclk_divider_use_as_bti_clock=FALSE" -to cr3_cpri_reflclk_clk_153_6m
-  ```
-
-11. Compile a flat design. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you determine the correct pinout for your design.
+8. Compile a flat design. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you determine the correct pinout for your design.
 
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001:flat work_n6001_migrate_device_ofss
+  ./ofs-common/scripts/common/syn/build_top.sh n6001:flat work_n6001
   ```
 
-12. The compile should succeed. If the compile fails with errors relating to the pinout, review the error messages and modify the pinout.
+9. Verify that the build completes successfuly. If the compilation fails with errors relating to the pinout, review the error messages and modify the pinout accordingly. If there are timing violations, try building with a different seed. Refer to the [Change the Compilation Seed](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2271-walkthrough-change-the-compilation-seed) section for instructions on changing the build seed.
 
   ```bash
   ***********************************
@@ -3684,18 +3900,19 @@ Steps:
   ***********************************
   ```
 
-13. After a successful compile, to preserve pin assignemnts youmust hard code the new pin asigments back to the constraints files.
+10. When you are satisfied with the pinout, preserve it by hard-coding the desired pinout back to the followig files:
 
-  ```bash
-  $OFS_ROOTDIR/syn/board/n6001/setup/emif_loc.tcl
-  $OFS_ROOTDIR/syn/board/n6001/setup/hps_loc.tcl
-  $OFS_ROOTDIR/syn/board/n6001/setup/pmci_loc.tcl
-  $OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl
+  * `$OFS_ROOTDIR/syn/board/n6001/setup/emif_loc.tcl`
+  * `$OFS_ROOTDIR/syn/board/n6001/setup/hps_loc.tcl`
+  * `$OFS_ROOTDIR/syn/board/n6001/setup/pmci_loc.tcl`
+  * `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl`
   ```
+
+10. When you are ready to re-incorporate PR into the design, modify the PR region to be compatible with the new device. Refer to the [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#431-walkthrough-resize-the-partial-reconfiguration-region) section for instructions.
 
 ### **4.7 Modify the Memory Sub-System**
 
-OFS allows modifications on the Memory Sub-System in the FIM. This section provides examples walkthroughs for modifiying the Memory-SS.
+OFS allows modifications on the Memory Sub-System in the FIM. This section provides an example walkthrough for modifiying the Memory-SS.
 
 #### **4.7.1 Walkthrough: Modify the Memory Sub-System Using IP Presets With OFSS**
 
@@ -3703,13 +3920,13 @@ This walkthrough will go through the flow of modifying the Memory-SS in the OFS 
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Open the Memory Subsystem `mem_ss.ip` in IP Parameter Editor
 
@@ -3745,13 +3962,13 @@ Steps:
 
   ![](images/mem_ss_preset_new.png)
 
-9. In the **New Preset** window, set the **Name** for the preset. In this case we will name it `n6001-ecc`.
+9. In the **New Preset** window, set the **Name** for the preset. In this case we will name it `n6001`.
 
   ![mem_ss_preset_name](images/mem_ss_preset_name.png)
 
 10. Click the **...** button to select the location for the **Preset file**.
 
-11. In the **Save As** window, change the save location to `$OFS_ROOTDIR/ipss/mem/qip/presets` and change the **File Name** to `n6001-ecc.qprs`. Click **OK**.
+11. In the **Save As** window, change the save location to `$OFS_ROOTDIR/ipss/mem/qip/presets` and change the **File Name** to `n6001.qprs`. Click **OK**.
 
   ![mem_ss_preset_save_as](images/mem_ss_preset_save_as.png)
 
@@ -3818,21 +4035,10 @@ Steps:
   set_location_assignment PIN_L52 -to ddr4_mem[3].dq[39]
   ```
 
- 9. Edit the `$OFS_ROOTDIR/tools/ofss_config/memory/memory.ofss` file to use the `n6001-ecc` preset that was generated previously.
-
-   ```bash
-   [ip]
-   type = memory
-	
-   [settings]
-   output_name = mem_ss_fm
-   preset = n6001-ecc
-   ```
-
-10. Compile the design with the `n6001.ofss` file, which will use the modified `memory.ofss` file.
+10. Compile the design. In this example we are targeting the n6001.
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss,tools/ofss_config/hssi/hssi_8x25.ofss n6001 work_n6001_mem_ecc_preset
+  ./ofs-common/scripts/common/syn/build_top.sh -p n6001 work_n6001_mem_ecc_preset
   ```
 
 #### **4.7.2 Walkthrough: Add or remove the Memory Sub-System**
@@ -3841,19 +4047,19 @@ The Memory Sub-System can be added or removed to the FIM design using the `INCLU
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Edit the `ofs_top.qsf` file to either enable or disable the `INCLUDE_DDR4` macro. Comment out this macro assignemnt if you wish to remove the Memory-SS.
 
-  > **Note:** The default Memory-SS has connections to the HPS. When enabling the Memory-SS, you must either ensure that the `INCLUDE_HPS` and `INCLUDE_UART` macros are also enabled, or you must remove the connections from the Memory-SS to the HPS. Refer to the [Remove the HPS](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) section for step-by-step instructions on removing the HPS from the design.
+  > **Note:** The default Memory-SS has connections to the HPS. When enabling the Memory-SS, you must either ensure that the `INCLUDE_HPS` and `INCLUDE_UART` macros are also enabled, or you must remove the connections from the Memory-SS to the HPS. Refer to the [Remove the HPS](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#491-walkthrough-remove-the-hps) section for step-by-step instructions on removing the HPS from the design.
 
-4. Compile the design. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section for step-by-step instructions.
+4. Compile the design. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) section for step-by-step instructions.
 
 ### **4.8 Modify the Ethernet Sub-System**
 
@@ -3865,68 +4071,49 @@ This section describes the flows for modifying the Ethernet Sub-System. There ar
 
 #### **4.8.1 Walkthrough: Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS**
 
-This walkthrough describes how to use OFSS to configure the Ethernet-SS. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This walkthrough is useful for users who only need to leverage the pre-made, natively supported HSSI OFSS settings.
+This walkthrough describes how to use OFSS to configure the Ethernet-SS. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This walkthrough is useful for users who only need to leverage the pre-made, natively supported HSSI OFSS settings.
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-3. Edit the `$OFS_ROTDIR/tools/ofss_config/<TARGET_BOARD>.ofss` file to use the desired Ethernet-SS OFSS configuration. The pre-provided OFSS configurations are as follows:
-
-  * N6001
-
-    * To select the 2x4x25GbE configuration, include the following line
-
-      ```bash
-      "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x25.ofss
-      ```
-
-    * To select the 2x4x10GbE configuration, include the following line
-
-      ```bash
-      "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x10.ofss
-      ```
-
-    * To select the 2x1x100GbE configuration, include the following line
-
-      ```bash
-      "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_2x100.ofss
-      ```
-
-  * N6000
-
-    * To select the 4x1x100GbE configuration, include the following line
-
-      ```bash
-      "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_4x100.ofss
-      ```
-      
-
-4. Compile the FIM using the target board OFSS file.
-
-  * N6001
+3. Compile the FIM using the desired HSSI configuration.
 
     ```bash
     cd $OFS_ROOTDIR
-
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss n6001 work_n6001
     ```
 
-  * N6000
+  * N6001 - 2x4x25GbE 
 
     ```bash
-    cd $OFS_ROOTDIR
-
-    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6000.ofss n6000 work_n6000
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/hssi/hssi_8x25.ofss n6001 work_n6001
     ```
 
-5. The resulting FIM will contain the Ethernet-SS configuration specified in Step 3. The Ethernet-SS IP in the resulting work directory shows the parameter settings that are used.
+  * N6001 - 2x4x10GbE  
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/hssi/hssi_8x10.ofss.ofss n6001 work_n6001
+    ```
+
+  * N6001 - 2x1x100GbE 
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/hssi/hssi_2x100.ofss n6001 work_n6001
+    ```
+
+  * N6000 - 4x1x100GbE
+
+    ```bash
+    ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/hssi/hssi_4x100.ofss n6000 work_n6000
+    ```
+
+4. The resulting FIM will contain the Ethernet-SS configuration specified in Step 3. The Ethernet-SS IP in the resulting work directory shows the parameter settings that are used.
 
 #### **4.8.2 Walkthrough: Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS**
 
@@ -3936,13 +4123,13 @@ This walkthrough describes how to create an use a custom OFSS file to add channe
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Create a new HSSI OFSS file `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_12x10.ofss` with the following contents.
 
@@ -3956,22 +4143,11 @@ Steps:
   data_rate = 10GbE
   ```
 
-4. Edit the `$OFS_ROOTDIR/tools/ofss_config/n6001.ofss` file to use the new HSSI OFSS file generated in Step 3.
-
-  ```bash
-  [include]
-  "$OFS_ROOTDIR"/tools/ofss_config/n6001_base.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_12x10.ofss
-  ```
-
 5. Identify the which channels will be added. You may use the [E-Tile Channel Placement Tool](https://www.intel.com/content/www/us/en/content-details/652292/intel-e-tile-channel-placement-tool.html?wapkw=e-tile%20channel%20placement%20tool&DocID=652292) to aid in your design. In this example we will add the 4 new 10GbE channels to Channels 8-11.
 
   ![etile_channel_placement_tool](images/etile_channel_placement_tool.png)
 
-6. Based on your channel selection, identify which pins will be used. Refer to the [Pin-Out Files for Intel FPGAs](https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html) determine the required pins for your device. In this example we are targeting the AGFB014R24A2E2V device. Set the pin assignments in the `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl` file.
+6. Based on your channel selection, identify which pins will be used. Refer to the [Pin-Out Files for Altera FPGAs](https://www.intel.com/content/www/us/en/support/programmable/support-resources/devices/lit-dp.html) determine the required pins for your device. In this example we are targeting the AGFB014R24A2E2V device. Set the pin assignments in the `$OFS_ROOTDIR/syn/board/n6001/setup/top_loc.tcl` file.
 
   ```bash
   set_location_assignment PIN_AV7  -to qsfp_serial[2].rx_p[0]
@@ -3985,85 +4161,75 @@ Steps:
   set_location_assignment PIN_BC4 -to qsfp_serial[2].tx_p[3]
   ```
 
-7. Edit the `NUM_QSFP_PORTS` value in the `$OFS_ROOTDIR/ipss/hssi/rtl/inc/ofs_fim_eth_plat_if_pkg.sv` file to `3`.
+7. Change the number of QSFP ports from `2` to `3` in the `$OFS_ROOTDIR/ofs-common/src/fpga_family/agilex/hssi_ss/inc/ofs_fim_eth_plat_if_pkg.sv` file.
 
-  ```bash
-  localparam NUM_QSFP_PORTS       = 3; // QSFP cage on board
+  ```verilog
+  localparam NUM_QSFP_PORTS_USED  = 3; // Number of QSFP cages on board used by target hssi configuration
   ```
 
-8. Compile the design. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you determine the correct pinout for your design.
+8. Edit `$OFS_ROOTDIR/ofs-common/src/fpga_family/agilex/hssi_ss/hssi_wrapper.sv` so that the QSFP LED signals use `NUM_QSFP_PORTS_USED` defined in the previous step.
+
+  ```verilog
+  // Speed and activity LEDS
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_speed_green,       // Link up in Nx25G or 2x56G or 1x100G speed
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_speed_yellow,      // Link up in Nx10G speed
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_activity_green,    // Link up and activity seen
+  output logic [NUM_QSFP_PORTS_USED-1:0]     o_qsfp_activity_red       // LOS, TX Fault etc
+  ```
+
+9. Compile the design using the OFSS file created previously. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you determine the correct pinout for your design.
 
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001:flat work_n6001_12x10
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/hssi/hssi_12x10.ofss n6001:flat work_n6001_12x10
   ```
 
 #### **4.8.3 Walkthrough: Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications**
 
-This walkthrough describes how to use OFSS to first modify the Ethernet-SS, then make additional modifications on top. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This flow is useful for users who whish to leverage pre-made OFSS settings, but make additional modifications not natively supported by OFSS. This walkthorugh targets the n6001, however, similiar steps can be performed on the n6000.
+This walkthrough describes how to use OFSS to first modify the Ethernet-SS, then make additional modifications on top. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This flow is useful for users who whish to leverage pre-made OFSS settings, but make additional modifications not natively supported by OFSS. This walkthorugh targets the n6001, however, similiar steps can be performed on the n6000.
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-3. Edit the `$OFS_ROTDIR/tools/ofss_config/n6001.ofss` file to use the desired Ethernet-SS OFSS configuration starting point.
-
-  * To select 2x4x25GbE configuration, add the following line
-
-    ```bash
-    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x25.ofss
-    ```
-
-  * To select 2x4x10GbE configuration, add the following line
-
-    ```bash
-    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_8x10.ofss
-    ```
-
-  * To select 2x1x100GbE configuration, add the following line
-
-    ```bash
-    "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_2x100.ofss
-    ```
-
-4. Run the `setup` stage of the build script with the OFSS file to create a work directory which contains the Ethernet-SS IP configuration specified in Step 3.
+3. Run the `setup` stage of the build script with the desired HSSI OFSS file to create a work directory whith the desired HSSI configuration. For example, to create a work directory for n6001 with HSSI configuration 8x25 GbE.
 
   ```bash
   cd $OFS_ROOTDIR
 
-  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/n6001.ofss n6001 work_n6001
+  ./ofs-common/scripts/common/syn/build_top.sh --stage setup --ofss tools/ofss_config/hssi/hssi_8x25.ofss n6001 work_n6001
   ```
 
-5. Open the Ethernet-SS IP in Quartus Parameter Editor. The IP settings will match te configuration of the OFSS file defined in Step 3. Make any additional modifications in the Parameter Editor.
+4. Open the Ethernet-SS IP in Quartus Parameter Editor. The IP settings will match te configuration of the OFSS file defined in Step 3. Make any additional modifications in the Parameter Editor.
 
   ```bash
   qsys-edit $OFS_ROOTDIR/work_n6001/ipss/hssi/qip/hssi_ss/hssi_ss.ip
   ```
 
-6. Once you are satisfied with your changes, click the **New...** button in the **Presets** pane of IP Parameter Editor.
+5. Once you are satisfied with your changes, click the **New...** button in the **Presets** pane of IP Parameter Editor.
 
   ![hssi_presets_new](images/hssi_presets_new.png)
 
-7. In the **New Preset** window, create a unique **Name**. In this example the name is `n6001-hssi-presets`.
+6. In the **New Preset** window, create a unique **Name**. In this example the name is `n6001-hssi-presets`.
 
   ![hssi_preset_name](images/hssi_preset_name.png)
 
-8. Click the **...** button to select where to save the preset file. Give it a name, and save it to `$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/presets`
+7. Click the **...** button to select where to save the preset file. Give it a name, and save it to `$OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/presets`
 
   ![hssi_presets_save](images/hssi_presets_save.png)
 
-9. Click **Save** in the **New Preset** window. Click **No** when prompted to add the file to the IP search path.
+8. Click **Save** in the **New Preset** window. Click **No** when prompted to add the file to the IP search path.
 
-10. Close out of all Quartus GUIs. You do not need to save or compile the IP.
+9. Close out of all Quartus GUIs. You do not need to save or compile the IP.
 
-11. Create a new HSSI OFSS file in the `$OFS_ROOTDIR/tools/ofss_config/hssi` directory named `hssi_preset_n6001.ofss` with the following contents. Note that the `num_channels` and `data_rate` settings will be overwritten by the contents of the preset file. The `preset` setting must match the name you selected in Step 7.
+10. Create a new HSSI OFSS file in the `$OFS_ROOTDIR/tools/ofss_config/hssi` directory named `hssi_preset_n6001.ofss` with the following contents. Note that the `num_channels` and `data_rate` settings will be overwritten by the contents of the preset file. The `preset` setting must match the name you selected in Step 7.
 
   ```bash
   [ip]
@@ -4076,24 +4242,13 @@ Steps:
   preset = n6001-hssi-presets
   ```
 
-12. Edit the `$OFS_ROOTDIR/tools/ofss_config/n6001.ofss` file to use the new HSSI OFSS file created in Step 10.
+11. Compile the design using the new HSSI OFSS file. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
 
   ```bash
-  [include]
-  "$OFS_ROOTDIR"/tools/ofss_config/n6001_base.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/pcie/pcie_host.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/iopll/iopll.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/memory/memory.ofss
-  "$OFS_ROOTDIR"/tools/ofss_config/hssi/hssi_preset_n6001.ofss
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/hssi/hssi_preset_n6001.ofss n6001:flat work_n6001_hssi_preset
   ```
 
-13. Compile the design using the n6001 OFSS file. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
-
-  ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001:flat work_n6001_hssi_preset
-  ```
-
-14. The resulting FIM will contain the Ethernet-SS configuration specified by the presets file. The Ethernet-SS IP in the resulting work directory shows the parameter settings that are used.
+12. The resulting FIM will contain the Ethernet-SS configuration specified by the presets file. The Ethernet-SS IP in the resulting work directory shows the parameter settings that are used.
 
 #### **4.8.4 Walkthrough: Modify the Ethernet Sub-System Without HSSI OFSS**
 
@@ -4101,37 +4256,37 @@ This walkthrough describes how to modify the Ethernet-SS wihout using OFSS. This
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
-5. Open the Ethernet-SS IP in Quartus Parameter Editor. Make your modifications in the Parameter Editor.
+3. Open the Ethernet-SS IP in Quartus Parameter Editor. Make your modifications in the Parameter Editor.
 
   ```bash
-  qsys-edit $OFS_ROOTDIR/work_n6001/ipss/hssi/qip/hssi_ss/hssi_ss.ip
+  qsys-edit $OFS_ROOTDIR/ipss/hssi/qip/hssi_ss/hssi_ss.ip
   ```
 
-6. Once you are satisfied with your changes, click the **Generate HDL**. Save the design if prompted.
+4. Once you are satisfied with your changes, click the **Generate HDL**. Save the design if prompted.
 
-13. Compile the design.
+5. Compile the design with the `nodefault` option to ensure that the source files are used during compilation. You may specify OFSS files for any component other than the HSSI if desired.
 
-  * If you are not using any other OFSS files in your compilation flow, use the following command to compile. It is recommended to compile a flat design before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
+  * If you are not using any other OFSS files in your compilation flow (i.e. only the source files configuration will be used), use the following command to compile. It is recommended to compile a flat design before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
 
     ```bash
-    ./ofs-common/scripts/common/syn/build_top.sh n6001:flat work_n6001
+    ./ofs-common/scripts/common/syn/build_top.sh --ofss nodefault n6001:flat work_n6001
     ```
 
-  * If you are using OFSS files for other IP in the design, ensure that the top level OFSS file (e.g. `$OFS_ROOTDIR/tools/ofss_config/n6001.ofss`) does not specify an HSSI OFSS file. Then use the following command to compile. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
+  * If you are using OFSS files for other IP in the design, list them after `nodefault`, but ensure that an HSSI OFSS file is not specified. It is recommended to compile a flat design first before incorporating a PR region in the design. This reduces design complexity while you modify the FIM.
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/n6001.ofss n6001:flat work_n6001
+  ./ofs-common/scripts/common/syn/build_top.sh --ofss nodefault, <pcie_ofss_file>,<memory_ofss_file>,<iopll_ofss_file>,<base_ofss_file> n6001:flat work_n6001
   ```
 
-5. The resulting FIM will contain the Ethernet-SS configuration contained in the `hssi_ss.ip` source file.
+6. The resulting FIM will contain the Ethernet-SS configuration contained in the `hssi_ss.ip` source file.
 
 ### **4.9 Modifying the HPS**
 
@@ -4145,13 +4300,13 @@ Perform the following steps to remove the HPS from the FIM design.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Create a Memory Sub-system IP presets file with the connection to the HPS removed.
 
@@ -4169,11 +4324,11 @@ Steps:
 
       ![](images/remove_hps_mem_ss_new_preset.png)
 
-  4. In the **New Preset** window, create a unique preset name. For example, `n6001-mem-no-hps`.
+  4. In the **New Preset** window set the preset name to `n6001`.
 
       ![](images/remove_hps_mem_ss_new_preset_window.png)
 
-  5. Click the **...** button to select the save location of the IP presets file. In the **Save As** window, set the **Look In** field to the memory IP presets directory `$OFS_ROOTDIR/ipss/mem/qip/presets`. Set the **File Name** field to match the name selected in Step 4. Click **OK**.
+  5. Click the **...** button to select the save location of the IP presets file. In the **Save As** window, set the **Look In** field to the memory IP presets directory `$OFS_ROOTDIR/ipss/mem/qip/presets`. Set the **File Name** field to overwrite the existing `mem_presets.qprs` file. Click **OK**.
 
       ![](images/remove_hps_mem_ss_save_as.png)
 
@@ -4182,17 +4337,6 @@ Steps:
        ![](images/remove_hps_mem_ss_ip_path.png)
 
   7. Close **IP Parameter Editor** without saving or generating HDL.
-
-5. Edit the Memory OFSS file `$OFS_ROOTDIR/tools/ofss_config/memory/memory.ofss` to use the IP presets file generated in Step 4.
-
-  ```
-  [ip]
-  type = memory
-
-  [settings]
-  output_name = mem_ss
-  preset = n6001-mem-no-hps
-  ```
 
 6. Edit `$OFS_ROOTDIR/syn/board/n6001/syn_top/ofs_top.qsf` to comment out the `INCLUDE_HPS` and `INCLUDE_UART` macro definitions.
 
@@ -4204,7 +4348,7 @@ Steps:
 7. Build the FIM.
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6001.ofss,tools/ofss_config/hssi/hssi_8x25.ofss n6001 work_n6001_no_hps
+  ./ofs-common/scripts/common/syn/build_top.sh -p n6001 work_n6001_no_hps
   ```
 
 #### **4.9.1 Walkthrough: Add the HPS**
@@ -4213,13 +4357,13 @@ Steps:
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS PCIe Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Edit `$OFS_ROOTDIR/syn/board/n6000/syn_top/ofs_top.qsf` to un-comment the `INCLUDE_DDR4`, `INCLUDE_HPS`, and `INCLUDE_UART` macro definitions.
 
@@ -4233,24 +4377,24 @@ Steps:
 4. Build the FIM.
 
   ```bash
-  ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/n6000.ofss n6000 work_n6000_w_hps
+  ./ofs-common/scripts/common/syn/build_top.sh -p work_n6000_w_hps
   ```
 
 ## **5. FPGA Configuration**
 
-Configuring the Agilex FPGA on the n6001 can be done by Remote System Update (RSU) using OPAE commands, or by programming a `SOF` image to the FPGA via JTAG using Quartus Programer.
+Configuring the Agilex FPGA on the n6001 and n6001 can be done by Remote System Update (RSU) using OPAE commands, or by programming a `SOF` image to the FPGA via JTAG using Quartus Programer.
 
 Programming via RSU will program the flash device on the board for non-volatile image updates. Programming via JTAG will configure the FPGA for volatile image updates.
 
 #### **5.1 Walkthrough: Set up JTAG**
 
-Perform the following steps to set up a JTAG connection to the Intel® FPGA SmartNIC N6001-PL.
+Perform the following steps to set up a JTAG connection to the Intel® FPGA SmartNIC N6001-PL/Intel® FPGA SmartNIC N6001-PL.
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a workstation with Quartus Prime Pro Version 23.4 tools installed, specifically the `jtagconfig` tool.
+* This walkthrough requires a workstation with Quartus Prime Pro Version 24.1 tools installed, specifically the `jtagconfig` tool.
 
 * This walkthrough requires an [Intel FPGA Download Cable II](https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html).
 
@@ -4262,7 +4406,7 @@ Steps:
 
    ![](images/n6000_sw2_position_0_for_agilex_jtag.png)
 
-2. The Intel® FPGA SmartNIC N6001-PL has a 10 pin JTAG header on the top side of the board. Connect an Intel® FPGA Download II Cable to the JTAG header of the Intel® FPGA SmartNIC N6001-PL as shown in picture below. This picture shows the Intel® FPGA SmartNIC N6001-PL card installed in the middle bay, top slot of a SuperMicro® SYS-220HE-FTNR server where the lower slot does not have card installed allowing the Intel® Download II cables to pass through removed the slot access. 
+2. The Intel® FPGA SmartNIC N6001-PL has a 10 pin JTAG header on the top side of the board. Connect an Intel FPGA Download II Cable to the JTAG header of the Intel® FPGA SmartNIC N6001-PL as shown in picture below. This picture shows the Intel® FPGA SmartNIC N6001-PL card installed in the middle bay, top slot of a SuperMicro® SYS-220HE-FTNR server where the lower slot does not have card installed allowing the Intel® FPGA Download II cables to pass through removed the slot access. 
 
   ![](images/n6000_jtag_connection.png)
 
@@ -4300,22 +4444,22 @@ Steps:
 4. Use the `jtagconfig` tool to check that the JTAG chain contains the AGFB014R24A2E2V device.
 
   ```bash
-  <QUARTUS_INSTALL_DIR>/23.4/quartus/bin/jtagconfig
+  <QUARTUS_INSTALL_DIR>/24.1/quartus/bin/jtagconfig
   ```
 
 #### **5.2 Walkthrough: Program the FPGA via JTAG**
 
-This walkthrough describes the steps to program the Agilex FPGA on the Intel® FPGA SmartNIC N6001-PL with a `SOF` image via JTAG.
+This walkthrough describes the steps to program the Agilex FPGA on the Intel® FPGA SmartNIC N6001-PL/Intel® FPGA SmartNIC N6000-PL with a `SOF` image via JTAG.
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
+* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
 
-* This walkthrough requires a JTAG connection to the n6001. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
+* This walkthrough requires a JTAG connection to the n6001. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
-* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel® FPGA SmartNIC N6001-PL is connected via JTAG.
+* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel® FPGA SmartNIC N6001-PL is connected via JTAG. The version of the programmer must be the same as the Quartus version used to build the FIM.
 
 Steps:
 
@@ -4331,8 +4475,8 @@ Steps:
 
   ```bash
   Intel Acceleration Development Platform N6001
-  Board Management Controller NIOS FW version: 3.15.0
-  Board Management Controller Build version: 3.15.0
+  Board Management Controller NIOS FW version: 3.15.2
+  Board Management Controller Build version: 3.15.2
   PBA: B#FB2CG1@AGF14-A0P2
   MMID: 217000
   SN: Q171211700050
@@ -4346,9 +4490,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422 (TBD)
+  Bitstream Id                     : 360571656856467345
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+  Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -4364,6 +4508,8 @@ Steps:
 4. Switch to the machine with JTAG connection to the n6001, if different than your deployment machine.
 
 5. Open the Quartus programmer GUI
+
+  > Note: the Quartus programmer version must be the same as the version of Quartus used to build the design.
 
   ```bash
   quartus_pgmw
@@ -4409,8 +4555,8 @@ Steps:
 
   ```bash
   Intel Acceleration Development Platform N6001
-  Board Management Controller NIOS FW version: 3.15.0
-  Board Management Controller Build version: 3.15.0
+  Board Management Controller NIOS FW version: 3.15.2
+  Board Management Controller Build version: 3.15.2
   PBA: B#FB2CG1@AGF14-A0P2
   MMID: 217000
   SN: Q171211700050
@@ -4424,9 +4570,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422 (TBD)
+  Bitstream Id                     : 360571656856467345
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+  Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -4436,23 +4582,19 @@ Steps:
 
 #### **5.3 Remote System Update**
 
-The OPAE `fpgasupdate` tool can be used to update the Intel Max10 Board Management Controller (BMC) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (PR). The `fpgasupdate` tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the [Security User Guide: Intel Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) for information on created signed images and on programming and managing the root entry hash.  
+The OPAE `fpgasupdate` tool can be used to update the Max10 Board Management Controller (BMC) image and firmware (FW), root entry hash, and FPGA Static Region (SR) and user image (PR). The `fpgasupdate` tool only accepts images that have been formatted using PACsign. If a root entry hash has been programmed onto the board, then you must also sign the image using the correct keys. Refer to the [Security User Guide: Open FPGA Stack](https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/) for information on created signed images and on programming and managing the root entry hash.  
 
 The Intel® FPGA SmartNIC N6001-PL ships with a factory, user1, and user2 programmed image for both the FIM and BMC FW and RTL on all cards. The platform ships with a single FIM image that can be programmed into either user1 or user2, depending in the image selected.
 
 ##### **5.3.1 Walkthrough: Program the FPGA via RSU**
 
-This walkthrough describes the steps to program the Agilex FPGA on the Intel® FPGA SmartNIC N6001-PL with a `BIN` image via JTAG.
+This walkthrough describes the steps to program the Agilex FPGA on the Intel® FPGA SmartNIC N6001-PL with a `BIN` image via RSU.
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
-
-* This walkthrough requires a JTAG connection to the n6001. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2024.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
-
-* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel® FPGA SmartNIC N6001-PL is connected via JTAG.
+* This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
 
 Steps:
 
@@ -4483,9 +4625,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 00x50102023508A422 (TBD)
+  Bitstream Id                     : 360571656856467345
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 1d6beb4e-86d7-5442-a763-043701fb75b7 (TBD)
+  Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
@@ -4548,39 +4690,40 @@ Steps:
 
 | Compilation Hierarchy Node | ALMs needed  | ALM Utilization % | M20Ks | M20K Utilization % |
 | --- | --- | --- | --- | --- |
-| top | 181,018.30 | 37.15 | 784 | 11.03 |
-| afu_top | 104,994.20 | 21.55 | 287 | 4.04 |
-| pcie_wrapper | 36,565.00 | 7.51 | 195 | 2.74 |
-| hssi_wrapper | 20,132.10 | 4.13 | 173 | 2.43 |
-| mem_ss_top | 9,092.80 | 1.87 | 76 | 1.07 |
-| pmci_wrapper | 4,269.30 | 0.88 | 26 | 0.37 |
-| alt_sld_fab_0 | 2,726.90 | 0.56 | 13 | 0.18 |
-| bpf | 1,364.60 | 0.28 | 0 | 0.00 |
-| qsfp_top | 620.10 | 0.13 | 4 | 0.06 |
-| fme_top | 615.30 | 0.13 | 6 | 0.08 |
-| qsfp_top | 614.00 | 0.13 | 4 | 0.06 |
-| rst_ctrl | 17.90 | 0.00 | 0 | 0.00 |
-| sys_pll | 0.50 | 0.00 | 0 | 0.00 |
-| hps_ss | 0.00 | 0.00 | 0 | 0.00 |
+|  | 207715.9  | 42.63 | 689 | 9.69 |
+| PCIE_RST_CTRL.rst_ctrl | 476.7  | 0.1 | 0 | 0.0 |
+| afu_top | 145973.9  | 29.96 | 331 | 4.66 |
+| auto_fab_0 | 2839.6  | 0.58 | 12 | 0.17 |
+| bpf | 1286.6  | 0.26 | 0 | 0.0 |
+| fme_top | 615.7  | 0.13 | 6 | 0.08 |
+| hps_ss | 0.0  | 0.0 | 0 | 0.0 |
+| hssi_wrapper | 22143.5  | 4.55 | 131 | 1.84 |
+| local_mem_wrapper | 8456.9  | 1.74 | 60 | 0.84 |
+| pcie_wrapper | 18449.2  | 3.79 | 114 | 1.6 |
+| pmci_wrapper | 6225.3  | 1.28 | 27 | 0.38 |
+| qsfp_0 | 622.5  | 0.13 | 4 | 0.06 |
+| qsfp_1 | 622.7  | 0.13 | 4 | 0.06 |
+| sys_pll | 0.5  | 0.0 | 0 | 0.0 |
 
 **Table A-2** Minimal FIM Resource Utilization
 
 | Compilation Hierarchy Node | ALMs needed  | ALM Utilization % | M20Ks | M20K Utilization % |
 | --- | --- | --- | --- | --- |
-|  | 103192.5  | 21.18 | 410 | 5.77 |
-| afu_top | 45848.7  | 9.41 | 150 | 2.11 |
-| auto_fab_0 | 1770.1  | 0.36 | 9 | 0.13 |
-| bpf | 1265.8  | 0.26 | 0 | 0.0 |
-| fme_top | 662.4  | 0.14 | 6 | 0.08 |
+|  | 90688.0  | 18.61 | 410 | 5.77 |
+| PCIE_RST_CTRL.rst_ctrl | 384.0  | 0.08 | 0 | 0.0 |
+| afu_top | 49696.4  | 10.2 | 197 | 2.77 |
+| auto_fab_0 | 1742.0  | 0.36 | 8 | 0.11 |
+| bpf | 1380.2  | 0.28 | 0 | 0.0 |
+| fme_top | 667.2  | 0.14 | 6 | 0.08 |
 | hps_ss | 0.0  | 0.0 | 0 | 0.0 |
-| hssi_dummy_csr | 675.5  | 0.14 | 0 | 0.0 |
-| mem_ss_top | 8723.9  | 1.79 | 60 | 0.84 |
-| pcie_wrapper | 38361.7  | 7.87 | 159 | 2.24 |
-| pmci_wrapper | 4509.9  | 0.93 | 26 | 0.37 |
-| qsfp0_dummy_csr | 672.2  | 0.14 | 0 | 0.0 |
-| qsfp1_dummy_csr | 681.7  | 0.14 | 0 | 0.0 |
-| rst_ctrl | 18.0  | 0.0 | 0 | 0.0 |
-| sys_pll | 0.5  | 0.0 | 0 | 0.0 |
+| hssi_dummy_csr | 688.1  | 0.14 | 0 | 0.0 |
+| local_mem_wrapper | 9020.6  | 1.85 | 60 | 0.84 |
+| pcie_wrapper | 18899.2  | 3.88 | 112 | 1.58 |
+| pmci_wrapper | 6838.5  | 1.4 | 27 | 0.38 |
+| qsfp0_dummy_csr | 688.5  | 0.14 | 0 | 0.0 |
+| qsfp1_dummy_csr | 682.4  | 0.14 | 0 | 0.0 |
+| sys_pll | 0.4  | 0.0 | 0 | 0.0 |
+
 
 ### **Appendix B: Glossary**
 
@@ -4632,7 +4775,7 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-
- 
-
+<!-- include ./docs/hw/common/doc_modules/links.md -->
+<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->
 

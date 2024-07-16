@@ -2,7 +2,7 @@
 
 [Quartus Prime Pro Version: 23.1](https://www.intel.com/content/www/us/en/search.html?ws=text#q=quartus%20prime%20pro%2023.1&sort=relevancy)
 
-Last updated: Last updated: **March 20, 2024** 
+Last updated: Last updated: **July 16, 2024** 
 
 ## Glossary
 
@@ -77,7 +77,7 @@ The Intel N6000/1-PL FPGA SmartNIC Platform has a customized build script that c
 
 ### 1.1 Reference Documents
 
-This document pulls much of its information from related Agilex FPGA documentation hosted on [intel.com](intel.com). Reading these references is not required for initial platform bring up, but will serve to further your knowledge of the FPGA SoC boot and configuration process.
+This document pulls much of its information from related Agilex FPGA documentation hosted on [intel.com](https://www.intel.com). Reading these references is not required for initial platform bring up, but will serve to further your knowledge of the FPGA SoC boot and configuration process.
 
 **Table 1. Reference Documents**
 
@@ -91,9 +91,9 @@ This document pulls much of its information from related Agilex FPGA documentati
 
 Intel has provided a set of two pre-compiled ITB images that can be used for exploration and evaluation of the HPS bring-up flow. These images contain the complete SSBL package specific to the board and can be copied to the N6000/1-PL SmartNIC Platform with an HPS enabled FIM loaded. Refer to [**Section 4.1 Example Boot**](#41-example-boot) for an example on how to use the built-in copy engine IP in tandem with the host-side `cpeng` software to transfer an SSBL.
 
-The package is found on the official [OFS 2024.1-1 Release on GitHub](https://github.com/OFS/ofs-n6001/releases/tag/ofs-2024.1-1). Two ITB artifacts are included at the bottom of the page under *Assets* - one with the Vendor Authorized Boot (VAB) certificate included, and one without. Which you choose to load depends on whether the currently loaded FIM requires VAB authentication. [**Section 4.3 Example Boot**](#43-example-boot) contains instructions on the boot flow using these files for platform bring up.
+The package is found on the official [OFS 2024.2-1 Release on GitHub](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1). Two ITB artifacts are included at the bottom of the page under *Assets* - one with the Vendor Authorized Boot (VAB) certificate included, and one without. Which you choose to load depends on whether the currently loaded FIM requires VAB authentication. [**Section 4.3 Example Boot**](#43-example-boot) contains instructions on the boot flow using these files for platform bring up.
 
-The default username for these two images is `root` and the password is empty. A good place to start after loading the ITB is to set up SSH for file transfers and the remote console, as seen in [**8.0 Connecting remotely to the HPS using `ssh`**](8.0-connecting-remotely-to-the-hps-using-`ssh`).
+The default username for these two images is `root` and the password is empty. A good place to start after loading the ITB is to set up SSH for file transfers and the remote console, as seen in [**8.0 Connecting remotely to the HPS using `ssh`**](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/#80-connecting-remotely-to-the-hps-using-ssh).
 
 ## 2.0 Architecture Overview
 
@@ -125,7 +125,7 @@ The HPS is connected to the AFU and implements all the board specific flows that
 
 **Figure 1  Intel Agilex FPGA HPS Peripherals**
 
-![](images/Image1.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image1.png)
 
 The Intel Agilex™ SoC integrates a full-featured Arm<sup>&reg;</sup> Cortex-A53<sup>&reg;</sup> MPCore Processor.
 
@@ -186,7 +186,7 @@ After completion, the HPS boots. All the I/O, including the HPS-allocated I/O, a
 
 **Figure 2. Typical FPGA First Configuration Steps**
 
-![](images/Image2.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image2.png)
 
 The flow includes the Time from Power-on-Reset (TPOR) to boot completion (TBoot\_Complete).
 
@@ -244,11 +244,11 @@ The SSBL + Linux is a part of an itb file and may also be signed with Quartus\_s
 ## 3.0 Environment Setup
 ### 3.1 Building U-Boot
 
-![](images/Image3.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image3.png)
 
 When creating a development environment using `meta-bake.py` both U-Boot and the patches required to work with the Intel N6000/1-PL FPGA SmartNIC Platform are located at */meta-opae-fpga/tools/meta-bake/build/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/build/socfpga_agilex_n6000_defconfig*. To review the required patches applied to U-Boot, navigate to */meta-opae-fpga/tools/meta-bake/build/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/git/patches*. From there, using git commands such as `git status` and `git branch` will show changes to the build environment. 
 
-Currently the *meta-bake* build flow requires a specific environment and software dependencies. Refer to section [6.1 Running meta-bake.py](#61-running-meta-bakepy) for more information. 
+Currently the *meta-bake* build flow requires a specific environment and software dependencies. Refer to section [6.1 Running meta-bake.py](#61-running-meta-bakepy) for more information. Download the script from [meta-opae-fpga](https://github.com/OPAE/meta-opae-fpga/tree/release/ofs-2024.2).
 
 Invoke the `meta-bake.py` build script to build your entire image, including U-Boot.
 
@@ -558,7 +558,7 @@ $ hps heartbeat
 [2021-09-25 01:59:46.723] [heartbeat] [info] heartbeat value: 0x70015
 ```
 
-4. Login to HPS as user, root, with no password over serial connection. This process is covered in [**8.0 Connecting remotely to the HPS using `ssh`**](#8.0-connecting-remotely-to-the-hps-using-`ssh`).
+4. Login to HPS as user, root, with no password over serial connection. This process is covered in [**8.0 Connecting remotely to the HPS using `ssh`**](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/#80-connecting-remotely-to-the-hps-using-ssh).
 
 
 ``` bash
@@ -699,7 +699,9 @@ following confiration data:
 
 ### 6.1 Running meta-bake.py
 
-To create an U-Boot fit and spl image for N6000/1 platforms, run the following command after meeting these setup conditions:
+First, download the script from [meta-opae-fpga](https://github.com/OPAE/meta-opae-fpga/tree/release/ofs-2024.2).
+
+To create a U-Boot fit and spl image for N6000/1 platforms, you must first meet these setup conditions:
 
 - Host PC with Ubuntu 20.04 LTS
   - ARM cross compiler
@@ -778,6 +780,12 @@ $ make
 ### 6.4 Manual VAB Signing
 
 - By default, `meta-bake.py` will sign and certify the proper files for use with VAB. Below is an example on how to perform the manual [VAB Signing Process](https://rocketboards.org/foswiki/Documentation/IntelAgilexSoCSecureBootDemoDesign#:~:text=5.%20Generate%20Signature,qky/software0_cancel3.qky).
+
+First, use `gzip` to compress the follwoing four files before signing: bl31.bin, linux.dtb, rootfs.cpio.gz, and Image. They need to be compressed before you begin the VAB signing process or the image will fail to load through the CPE later on.
+
+```bash
+gzip <filename>
+```
 
 Make sure Quartus already installed and its tools added to environment. Example PATH=$PATH:/home/intelFPGA\pro/21.3/quartus/bin/
 
@@ -893,7 +901,7 @@ $ cd ..
 
 **Figure 3.1 N6000/1 Configs**
 
-![](images/Image4.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image4.png)
 
 If you not see the defconfig desired, please checkout the correct branch version. Example config shown above is socfpga_v2021.10.
 
@@ -912,7 +920,7 @@ reg = <0 0x00000000 0 0x40000000>,<0 0x00000000 0 0x40000000>;
 ```
 **Figure 3.2 Device tree mismatches example**
 
-![](images/Image5.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image5.png)
 
 Refer to 6. Host Side Startup
 
@@ -925,7 +933,7 @@ The error happen (Figure below) when the Images do not sign with VAB.
 
 **Figure 3.3 VAB certificate error example**
 
-![](images/Image6.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image6.png)
 
 ## 7.0 Debugging
 
@@ -1060,33 +1068,33 @@ The following section will walk through the process by which eMMC, I2C, and UART
 
 1. Configure eMMC, I2C, and UAET in Platform Designer. ACtual pin assignments are determined by the WNC board schematic. In Quartus, navigate to the HPS Processor Subsystem Intel Agilex FPGA IP -> Pin Mux and Peripherals -> Advanced -> Advanced IP Placement.
 
-![Pin Planner](images/wnc1.png)
+![Pin Planner](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc1.png)
 
 Check your pin assigments for the eMMC, UART and I2C in the Pin Planner. If these assignments are not present, then they can be found at the following [link](https://github.com/OFS/ofs-n6001/blob/45a7dfbcdac16131aabf392457cfbbd51631888e/syn/setup/hps_loc.tcl#L4). Based on the changes shown above, the UART pins are removed on HPS IO3 and IO4 what are mapped on AG6 and AB1.
 
-![HPS Pin Assignments](images/wnc2.png)
+![HPS Pin Assignments](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc2.png)
 
 2. Click Apply Selections->Generate HDL
 
-![Generate HDL](images/wnc3.png)
+![Generate HDL](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc3.png)
 
 3. Check for instantiation in `top.sv`. Click Generate -> Show Instatiation Template.
 
-![Instatiation Template](images/wnc4.png)
+![Instatiation Template](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc4.png)
 
 The following image demonstrates eMMC and I2C properly instatiated in `top.sv`.
 
-![top.sv Instatiation](images/wnc5.png)
+![top.sv Instatiation](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc5.png)
 
 4. Add the following to the hps_ss modules in `top.sv`.
 
-![hps_ss part 1](images/wnc6.png)
+![hps_ss part 1](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc6.png)
 
-![hps_ss part 2](images/wnc7.png)
+![hps_ss part 2](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc7.png)
 
 5. Compile the design.
 
-![Compile](images/wnc8.png)
+![Compile](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc8.png)
 
 ### 9.2 Configuring the HPS
 
@@ -1097,17 +1105,17 @@ CONFIG_CMD_MMC=y //Enable mmc command tool in uboot
 CONFIG_MMC_DW=y // support DesignWare Memory Card Interface
 ```
 
-![.config changes 1](images/wnc9.png)
+![.config changes 1](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc9.png)
 
-![.config changes 1](images/wnc10.png)
+![.config changes 1](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc10.png)
 
 2. Enable and configure I2C and eMMC in U-Boot (socfpga_agilex_n6000.dts). After building U-Boot with `meta-bake.py`, this file is located at *<build_directory>/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/<version>git/arch/arm/dts/socfpga_agilex_n6000.dts*.
 
-![DTS Changes UBOOT](images/wnc11.png)
+![DTS Changes UBOOT](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc11.png)
 
 3. Enable and configure I2C and eMMC in the Linux device tree (socfpga_agilex_n6000.dts). After building U-Boot with `meta-bake.py`, this file is located at *<build_directory>/agilex-n6000-rootfs/tmp/work-shared/agilex/kernel-source/arch/arm64/boot/dts/intel/socfpga_agilex_n6000.dts*.
 
-![DTS Changes Linux](images/wnc12.png)
+![DTS Changes Linux](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc12.png)
 
 4. Compile Linux by navigating to the directory *agilex-n6000-rootfs/tmp/work/agilex-poky-linux/linux-socfpga-lts/5.10.60-lts+gitAUTOINC+c35d63f9c7-r0/linux-agilex-standard-build* and running the following:
 
@@ -1117,7 +1125,7 @@ $ make -j `nproc` Image dtbs
 
 5. Add the software utilities`util-linux-mkfs e2fsprogs.mke2fs e2fsprogs` in to the Linux RootFS. Thes utilities will be used to create a filsystem (ext4, FAT32, etc.) and partition the eMMC. Make the following changes in *meta-intel-fpga-refdes/recipes-images/poky/n6000-image-minimal.bb*.
 
-![Utility additions](images/wnc13.png)
+![Utility additions](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc13.png)
 
 6. As an output from the Linux compilation from step 4 you will produce the files **Image** and **socfpga_agilex_n6000.dtb**. Transfer both over to the socfpga_agilex_n6000_defconfig directory. Rename **socfpga_agilex_n6000.dtb** to **linux.dtb**. Compile U-Boot by running `make` in directory *agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/build/socfpga_agilex_n6000_defconfig/*. This compilation will produce both `spl/u-boot-spl-dtb.hex` and `u-boot.itb`. 
 
@@ -1138,7 +1146,7 @@ $ hps cpeng -f u-boot.itb
 
 During HPS boot you should see the following message if the eMMC has been properly configured.
 
-![EMMC Boot Message](images/wnc14.png)
+![EMMC Boot Message](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc14.png)
 
 ### 9.3 eMMC Testing from the HPS
 
@@ -1150,7 +1158,7 @@ During HPS boot you should see the following message if the eMMC has been proper
 $ mmc erase 0x400 20
 ```
 
-![](images/wnc15.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc15.png)
 
 Write test data (at 0x00A00000) into the eMMC offset 0x400.
 
@@ -1158,7 +1166,7 @@ Write test data (at 0x00A00000) into the eMMC offset 0x400.
 $ mmc write 0x00A00000 0x400 10
 ```
 
-![](images/wnc16.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc16.png)
 
 Read test data (at 0x00A00040) back from eMMC offset 0x400.
 
@@ -1166,7 +1174,7 @@ Read test data (at 0x00A00040) back from eMMC offset 0x400.
 $ mmc read 0x00A00040 0x400 10
 ```
 
-![](images/wnc17.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc17.png)
 
 Data comparison at memory offset 0x00A00000 and 0x00A00040. Data should match.
 
@@ -1174,7 +1182,7 @@ Data comparison at memory offset 0x00A00000 and 0x00A00040. Data should match.
 $ cmp.l 0x00A00000 0x00A00040 10.
 ```
 
-![](images/wnc18.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc18.png)
 
 **The following memory test was run from Linux running on the HPS.**
 
@@ -1184,19 +1192,20 @@ $ cmp.l 0x00A00000 0x00A00040 10.
 $ fdisk -l
 ```
 
-![](images/nc19.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc19.png)
+
 
 2. Create a primary partition on the eMMC.
 
-![](images/wnc20.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc20.png)
 
 3. Verify the partition has been created.
 
-![](images/wnc21.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc21.png)
 
 4. Format the ext3 filesystem in the partition you just created (p1).
 
-![](images/wnc22.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc22.png)
 
 5. Create the directory `mydata` in /mnt. Mount the eMMC p1 partition to `/mnt/mydata` and verify the filsystem mount was successful.
 
@@ -1206,7 +1215,7 @@ $ mount /dev/mmcblk0p1 /mnt/mydata
 $ df
 ```
 
-![](images/wnc23.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc23.png)
 
 6. Create a new text file and write some data in it - "Hello World!". After the device has been written to run `sync`, unmount eMMC p1 partition and verify the unmount was successful.
 
@@ -1216,7 +1225,7 @@ $ umount /dev/mmcblk0p1
 $ df
 ```
 
-![](images/wnc24.png)
+![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc24.png)
 
 ## layers.yaml Reference ##
 
@@ -1334,7 +1343,7 @@ Below are the Frequently Asked Questions:
 |Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/|
 |Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach| https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/|
 |Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs| https://ofs.github.io/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/|
-|Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/|
+|UVM Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/|
 |FPGA Device Feature List (DFL) Framework Overview| https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview|
 |ofs-platform-afu-bbb| https://github.com/OFS/ofs-platform-afu-bbb|
 |Connecting an AFU to a Platform using PIM| https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md|

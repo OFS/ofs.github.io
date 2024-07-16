@@ -1,4 +1,4 @@
-# Simulation User Guide: Open FPGA Stack for Intel Stratix 10® FPGA
+# UVM Simulation User Guide: Open FPGA Stack for Intel Stratix® 10 FPGA
 
 | Term     | Description                                                  |
 | -------- | ------------------------------------------------------------ |
@@ -229,7 +229,7 @@ To run the tutorial steps in this guide requires the following development envir
 | Item                    | Version                                                      |
 | ----------------------- | ------------------------------------------------------------ |
 | Intel Quartus Prime Pro | Intel Quartus Prime Pro 23.4 |
-| Simulator (VCS)         | Synopsys VCS P-2019.06-SP2-5 or newer for UVM simulation of top level FIM |
+| Simulator (VCS)         | Synopsys VCS S-2021.09-SP1 or newer for UVM simulation of top level FIM |
 | Simulator (Questasim)   | Questasim 2023.4 or newer for UVM simulation of top level FIM |
 
 ## **7.1 UVM Prerequisite**
@@ -246,7 +246,7 @@ Navigate to the location for storage of OFS source, create the top-level source 
 $ mkdir ofs-2024.1-1
 $ cd ofs-2024.1-1
 $ export OFS_BUILD_ROOT=$PWD
-$ git clone --recurse-submodules https://github.com/OFS/ofs-d5005.git
+$ git clone --recurse-submodules https://github.com/OFS/ofs-d5005
 
 Cloning into 'ofs-d5005' ...
 Username for 'https://github.com': <<Enter your git hub username>>
@@ -257,7 +257,7 @@ remote: Enumerating objects:  ....
 Resolving deltas  ..., done.
 
 $ cd ofs-d5005
-$ git checkout tags/release/ofs-2024.1
+$ git checkout tags/ofs-2024.1-1
 ```
 
 Verify that the correct tag/branch have been checked out        
@@ -265,7 +265,7 @@ Verify that the correct tag/branch have been checked out
 ```sh
 $ git describe --tags
 
-$ release/ofs-2024.1
+$ ofs-2024.1-1
 ```
 
 ## **7.2 License Requirements**
@@ -793,5 +793,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
-
+<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

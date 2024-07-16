@@ -3,7 +3,7 @@ Perform the following steps to set the required environment variables. These env
 1. Navigate to the top level directory of the cloned OFS FIM repository.
 
   ```bash
-  cd ${{ env.FIM_REPO }}
+  cd ${{ env.OFS_FIM_REPO }}
   ```
 
 2. Set project variables
@@ -52,12 +52,15 @@ Perform the following steps to set the required environment variables. These env
 
   # Set Verification Tools variables (if running simulations)
   export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/vip_Q-2020.03A
-  export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm
-  export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel
+  export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.SIM_VCS_VER_SH }}/linux64/rhel/etc/uvm
+  export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.SIM_VCS_VER_SH }}/linux64/rhel
   export MTI_HOME=$QUARTUS_ROOTDIR/../questa_fse
   export VERDIR=$OFS_ROOTDIR/verification
   export VIPDIR=$VERDIR
 
+  # Set OPAE variables
+  export OPAE_SDK_REPO_BRANCH=${{ env.OPAE_BRANCH }}
+
   # Set PATH to include compilation and simulation tools
-  export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/../qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$IOFS_BUILD_ROOT/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
+  export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/../qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$OFS_ROOTDIR/opae-sdk/install-opae-sdk/bin:$MTI_HOME/linux_x86_64/:$MTI_HOME/bin/:$DESIGNWARE_HOME/bin:$VCS_HOME/bin:$PATH
   ```

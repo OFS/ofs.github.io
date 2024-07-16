@@ -4,7 +4,7 @@ Pre-requisites:
 
 * This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
 
-* This walkthrough requires a workstation with Quartus Prime Pro Version 23.4 tools installed, specifically the `jtagconfig` tool.
+* This walkthrough requires a workstation with Quartus Prime Pro Version 24.1 tools installed, specifically the `jtagconfig` tool.
 
 * This walkthrough requires an [Intel FPGA Download Cable II].
 
@@ -22,7 +22,7 @@ Steps:
 
   >**Note:** If using the Intel FGPA download Cable on Linux, add the udev rule as described in [Intel FPGA Download Cable Driver for Linux].
 
-3. Set the JTAG chain to select the Agilex® 7 FPGA as the target by writing to the JTAG enable register in the BMC (Register `0x378`). This is done via PMCI registers `0x2040C` and `0x20400`.
+3. Set the JTAG chain to select the ${{ env.DEVICE }} as the target by writing to the JTAG enable register in the BMC (Register `0x378`). This is done via PMCI registers `0x2040C` and `0x20400`.
 
   >**Note:** The commands below are targeted to a board with PCIe B:D.F of 98:00.0. Use the correct PCIe B:D.F of your card.
 
@@ -54,7 +54,7 @@ Steps:
 4. Use the `jtagconfig` tool to check that the JTAG chain contains the AGFB014R24A2E2V device.
 
   ```bash
-  <QUARTUS_INSTALL_DIR>/23.4/quartus/bin/jtagconfig
+  <QUARTUS_INSTALL_DIR>/24.1/quartus/bin/jtagconfig
   ```
 
   Example expected output:

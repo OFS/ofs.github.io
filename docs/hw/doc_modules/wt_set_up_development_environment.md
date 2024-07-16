@@ -1,6 +1,6 @@
 This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
 
-1. Ensure that ${{ env.QUARTUS_PP_VER_L }} for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Walkthrough: Install Quartus Prime Pro Software] section for step-by-step installation instructions.
+1. Ensure that ${{ env.QUARTUS_PRO_VER_L }} for Linux with Intel Agilex FPGA device support is installed on your development machine. Refer to the [Walkthrough: Install Quartus Prime Pro Software] section for step-by-step installation instructions.
 
   1. Verify version number
 
@@ -12,8 +12,8 @@ This walkthrough guides you through the process of setting up your development e
 
       ```bash
       Quartus Prime Shell
-      Version ${{ env.QUARTUS_PP_VER_S }} Build 94 06/14/2023 SC Pro Edition
-      Copyright (C) 2023  Intel Corporation. All rights reserved.
+      Version ${{ env.QUARTUS_PRO_VER_S }} SC Pro Edition
+      Copyright (C) 2024  Intel Corporation. All rights reserved.
       ```
 
 2. Ensure that all support tools are installed on your development machine, and that they meet the version requirements.
@@ -58,7 +58,7 @@ This walkthrough guides you through the process of setting up your development e
       cmake version ${{ env.CMAKE_VER }}
       ```
 
-  4. git with git-lfs ${{ env.GIT_VER }} or later. Refer to the [Walkthrough: Install Git Large File Storage Extension] section for step-by-step instructions on installing the Git Large File Storage (LFS) extension.
+  4. git ${{ env.GIT_VER }} or later.
 
     1. Verify version number
 
@@ -72,7 +72,7 @@ This walkthrough guides you through the process of setting up your development e
       git version ${{ env.GIT_VER }}
       ```
 
-3. Clone the ${{ env.FIM_REPO }} repository. Refer to the [Walkthrough: Clone FIM Repository] section for step-by-step instructions.
+3. Clone the ${{ env.OFS_FIM_REPO }} repository. Refer to the [Walkthrough: Clone FIM Repository] section for step-by-step instructions.
 
 4. Install UART IP license patch `.02`.
 
@@ -88,7 +88,7 @@ This walkthrough guides you through the process of setting up your development e
     sudo ./quartus-0.0-0.02iofs-linux.run
     ```
 
-5. Install Quartus Patches ${{ env.QUARTUS_PATCHES }}. All required patches are provided in the **Assets** of the OFS FIM Release: ${{ env.RELEASE_PATH }}
+5. Install Quartus Patches ${{ env.QUARTUS_PATCHES }}. All required patches are provided in the **Assets** of the OFS FIM Release: ${{ env.OFS_FIM_RELEASE_PAGE_URL }}
 
 6. Verify that patches have been installed correctly. They should be listed in the output of the following command.
 

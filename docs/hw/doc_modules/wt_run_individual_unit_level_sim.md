@@ -59,7 +59,7 @@ Steps:
      test_dfh_walking (id=0) - pass
   Test passed!
   Assertion count: 0
-  $finish called from file "/home/${{ env.FIM_REPO }}/sim/unit_test/scripts/../../bfm/rp_bfm_simple/tester.sv", line 210.
+  $finish called from file "/home/${{ env.OFS_FIM_REPO }}/sim/unit_test/scripts/../../bfm/rp_bfm_simple/tester.sv", line 210.
   $finish at simulation time         356233750000
              V C S   S i m u l a t i o n   R e p o r t
   Time: 356233750000 fs

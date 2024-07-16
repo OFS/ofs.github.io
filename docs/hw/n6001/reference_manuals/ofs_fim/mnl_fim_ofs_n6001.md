@@ -7,7 +7,7 @@
 
 
 This document describes the hardware architecture for the PCIe attach reference FIM of the Open FPGA Stack (OFS)
-targeting the Intel<sup>&reg;</sup> Agilex<sup>&reg;</sup> FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
+targeting the Agilex<sup>&reg;</sup> FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
 
 
 ### **1.2 Glossary**
@@ -79,7 +79,7 @@ The key components of OFS include:
 
 These components are available under the https://github.com/OFS site.
 
-<p>The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Intel Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Intel sales representative.</p>
+<p>The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Altera Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Altera sales representative.</p>
 
 **Table 1-2 OFS Hardware Repositories**
 
@@ -160,14 +160,14 @@ The table provides an overview of the OFS features targeting the Agilex® 7 FPGA
 
 ##### **Subsystem Interfaces**
 
-The PCIe, Memory and Ethernet interfaces in this design use a new flexible subsystem design that provides a standard Arm® AMBA® 4 AXI4 interface.  To access these Intel FPGA IP Subsystem documents. Please go to the links below:
-* [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_qs_pcie_ss.pdf)
-* [Memory Subsystem Intel FPGA IP User Guide](https://github.com/OFS/ofs.github.io/docs/hw/common/user_guides/ug_qs_mem_ss.pdf)
+The PCIe, Memory and Ethernet interfaces in this design use a new flexible subsystem design that provides a standard Arm® AMBA® 4 AXI4 interface.  To access these FPGA IP Subsystem documents. Please go to the links below:
+* [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf)
+* [Memory Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148)
 * [Ethernet Subsystem Intel FPGA IP User Guide](https://cdrdv2-public.intel.com/773414/intelofs-773413-773414.pdf) (public document)
 
 ##### **Hard Processor System (HPS)**
 
-The HPS SoC contains a 64-bit quad core ARM® Cortex®-A53 MPCore with a variety of integrated modules such as on-chip RAM, Ethernet, USB, UARTs and SPI controllers and memory controllers.  For more information about the Intel Agilex HPS, please refer to the [Intel Agilex Hard Processor System Technical Reference Manual](https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/hb/agilex/mnl-1100.pdf).
+The HPS SoC contains a 64-bit quad core ARM® Cortex®-A53 MPCore with a variety of integrated modules such as on-chip RAM, Ethernet, USB, UARTs and SPI controllers and memory controllers.  For more information about the Agilex HPS, please refer to the [Agilex Hard Processor System Technical Reference Manual](https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/hb/agilex/mnl-1100.pdf).
 
 ##### **FPGA Management Engine (FME)**
 
@@ -237,11 +237,11 @@ packet into other protocols such as AXI4 memory-mapped, Avalon<sup>&reg;</sup> s
 
 The FPGA or AFU developer implements these interface abstractions in the AFU region (afu_main) of the design.  
 
-For more information, refer to [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).
+For more information, refer to [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).
 
 #### **1.4.4 Platform Feature Discovery** 
 
-This reference design comes with specific Intel FPGA drivers that are upstreamed to linux-dfl.  These drivers abstract the hardware and operating system specific details of the platform to the host. 
+This reference design comes with specific FPGA drivers that are upstreamed to linux-dfl.  These drivers abstract the hardware and operating system specific details of the platform to the host. 
 
 The FIM implements a device feature header (DFH) at the beginning of each host-discoverable feature in a linked list format that allows an FPGA platform driver running on the host to discover FME, port, and AFU features. 
 
@@ -260,7 +260,7 @@ The software must continue traversing the linked list until it sees the EOL (End
 
 OFS provides FIM designs you can use as a starting point for your own custom design. These designs target a specific programmable acceleration card or development kit and exercise key FPGA device interfaces. 
 
-The Intel Agilex<sup>&reg;</sup> code line for OFS targets the Intel N6001-PL FPGA SmartNIC Platform.  FIM designs are released to <https://github.com/OFS/ofs-agx7-pcie-attach> for evaluation and use. 
+The Agilex<sup>&reg;</sup> code line for OFS targets the Intel N6001-PL FPGA SmartNIC Platform.  FIM designs are released to <https://github.com/OFS/ofs-agx7-pcie-attach> for evaluation and use. 
 
 In addition to the OFS FIM for Agilex that targets the Intel N6001-PL FPGA SmartNIC Platform, vertical market FIMs are available for the Intel N6000-PL SmartNIC Platform. 
 
@@ -280,7 +280,7 @@ Verification components include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found [here](https://github.com/OFS/ofs-agx7-pcie-attach/verification) for evaluation and use. Please refer to the [Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs] for more information.
+The verification infrastructure can be found [here](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2024.2/verification) for evaluation and use. Please refer to the [UVM Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/) for more information.
 
 
 ## **2 OFS High Level Architecture**
@@ -311,7 +311,7 @@ The FIM's PCIe Subsystem is a hierarchical design that targets the P-tile PCIe* 
 
 Some key features of the PCIe interface are:
 
-| Feature                      | OFS for Intel Agilex FPGA PCIe Subsystem Configuration |
+| Feature                      | OFS for Agilex FPGA PCIe Subsystem Configuration |
 | ---------------------------- | :----------------------------------------------------------: |
 | Mode                         |                         PCIe Gen4x16                         |
 | Port Mode                    |                       Native Endpoint                        |
@@ -354,7 +354,7 @@ The PCIe PF, VF and Base Address Register (BAR) configuration can be modified in
 The first 32 bytes of the TLP from the PCIe subsystem denotes the PCIe header. There are two types of header format supported – Power User Mode header and Data Mover mode header. The tuser_vendor[0] bit on the AXI4-Stream channel indicates the header format of the TLP; tuser_vendor[0] =0 indicates Power User Mode header and tuser_vendor[0] =1 indicates Data Mover Mode header.
 
 
-The OFS FIM for Intel Agilex FPGA implements the Data Mover Functional Mode.  With this implementation, the application has the flexibility to use either mode for PCIe transaction, as shown in the following table. For more detailed information about the PCIe Subsystem, see the PCIe Subsystem Intel FPGA User Guide. 
+The OFS FIM for Agilex FPGA implements the Data Mover Functional Mode.  With this implementation, the application has the flexibility to use either mode for PCIe transaction, as shown in the following table. For more detailed information about the PCIe Subsystem, see the PCIe Subsystem FPGA User Guide. 
 
 **Table 3-2 PCIe Subsystem Header Format Support for OFS for Agilex FPGA**
 
@@ -375,7 +375,7 @@ The OFS FIM for Intel Agilex FPGA implements the Data Mover Functional Mode.  Wi
 
 The Power User Format provides user complete control over PCIe Hard IP. The user can implement functionality of interest with finer control over PCIe Transaction Layer Packet (TLP), credit handling and various mode provided by HIP. 
 
-The lower 16 bytes of the Power User Format are standard PCIe header as defined by PCIe specification, and the upper 16 bytes are specific to the PCIe Subsystem Intel FPGA IP. 
+The lower 16 bytes of the Power User Format are standard PCIe header as defined by PCIe specification, and the upper 16 bytes are specific to the PCIe Subsystem FPGA IP. 
 
 **Table 3-3 Power User Header Format**
 
@@ -418,7 +418,7 @@ The interface module provides the following:
 
 ### **3.3 Data Mover Request Cycles**
 
-For Host read request cycles using the OFS FIM for Intel Agilex FPGA:
+For Host read request cycles using the OFS FIM for Agilex FPGA:
 
 * All requests in the RX direction will be MMIO. 
 * Requester ID from the request does get sent to the AFU. It is the AFU's responsibility to send back a completion to the host with the correct completer ID. 
@@ -428,7 +428,7 @@ For Host read request cycles using the OFS FIM for Intel Agilex FPGA:
 * Base address is not sent to the AFU.
 * Local Address field is not used.
 
-For AFU/application request cycles using the OFS FIM for Intel Agilex FPGA:
+For AFU/application request cycles using the OFS FIM for Agilex FPGA:
 
 * All requests in the TX direction will be Memory Read/Write. 
 * The tag must be generated by the AFU/application.
@@ -444,7 +444,7 @@ For AFU/application request cycles using the OFS FIM for Intel Agilex FPGA:
 
 ### **3.4 Data Mover Completion Cycles**
 
-For Host completion cycles using the OFS FIM for Intel Agilex FPGA:
+For Host completion cycles using the OFS FIM for Agilex FPGA:
 
 * All completions in the RX direction will be Data Completions. 
 * Prefix is not supported.
@@ -452,7 +452,7 @@ For Host completion cycles using the OFS FIM for Intel Agilex FPGA:
 * Slot Number is 0.
 * Data packet responses (for Memory Read requests from AFU) from the PCIe SS may come out of order when the size is >64B.
 
-For AFU/application completion cycles using the OFS FIM for Intel Agilex FPGA:
+For AFU/application completion cycles using the OFS FIM for Agilex FPGA:
 * All requests in the TX direction will be Memory Read/Write. 
 * Requester ID is generated within the FIM.
 * That tag must be generated by the AFU/application.
@@ -499,7 +499,11 @@ If you are modifying the APF or BPF connections, you must use Platform Designer 
 
 For modifying the PF/VF mux you must update the tools/pfvf_config_tool/pcie_host.ofss file and run the ofs-fim-common/pfvf_config_tool/gen_ofs_settings.py script to initiate the PCIe SS and PF/VF mux parameters to be regenerated before running the FIm build script.  
 
-For details on these modifications, please refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].  
+For details on these modifications, please refer to the shel developer guide for your target board:
+
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
 
 ### **5.1	AFU Peripheral Fabric (APF)**
 
@@ -557,7 +561,7 @@ The PF/VF mux integration is part of afu_top (`/src/afu_top/mux/top_cfg_pkg.sv`)
 
 Both an A and a B port are passed to each AFU component with a unique PF/VF. You can design your AFU components to send all requests to the primary A port or partition requests across both A and B ports. A typical high-performance AFU sends read requests to the B port and everything else to the A port, giving the arbiter freedom to keep both the host TX and RX channels busy.
 
-In the reference FIM provided for Intel Agilex OFS, the A and B TX trees have been multiplexed down to a single channel for A and another for B. The A/B multiplexer merges them into a single TX stream that will be passed to the tag remapper.
+In the reference FIM provided for Agilex OFS, the A and B TX trees have been multiplexed down to a single channel for A and another for B. The A/B multiplexer merges them into a single TX stream that will be passed to the tag remapper.
 
 The tag remapper provides unique tags as required by the PCIe specification.  Tags are not provided by the PCIe Subsystem FPGA IP.  When creating your own AFU you can leverage this module to generate unique tags.
 
@@ -579,7 +583,7 @@ The default mapping is shown below:
 |HPS Copy Engine Module |PF4|
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
+For information on how to modify the PF/VF mapping for your own design, refer to the [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 ### **5.4 AFU Interface Handler**
 
@@ -829,7 +833,7 @@ THe following table lists the reset outputs from the `rst_ctrl.sv` block.
 The OFS platform supports interrupts through MSI-X feature. The MSI-X Interrupt feature handles FME and AFU interrupts. FME interrupts are primarily used to notify the host of error events happened in the FIM. When any of the bit in the FME error status registers is set, an interrupt request is sent to the MSI-X module. There are FME error status registers for OFS for Agilex FPGA features. 
 An AFU sends interrupt to the MSI-X module in the PCIE SS on the AXI interrupt request channel. The MSI-X table entries and PBA vectors are implemented in the PCIE SS. The PCIE SS supports upto 4096 vectors in "Static MSI-X mode.
 
-Please refer to the [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://ofs.github.io/ofs-2023.3-2/hw/common/user_guides/ug_qs_pcie_ss.pdf) for more information.
+Please refer to the [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf) for more information.
 
 
 ## **10 External Memory Interface (EMIF)**
@@ -898,7 +902,7 @@ For more information about how to reconfigure the Ethernet Subsystem please refe
 
 **Table 11-1: Ethernet Configurations for example OFS FIMs for Agilex FPGAs**
 
-| Parameter                                     | Configuration for PCIe Attach Intel Agilex OFS (2x4x25GbE) |
+| Parameter                                     | Configuration for PCIe Attach Agilex OFS (2x4x25GbE) |
 | --------------------------------------------- | ---------------------------------------------------------- |
 | IP file name                                  | hssi_ss_8x25g                                              |
 | Number of ports enabled                       | 8                                                          |
@@ -938,7 +942,7 @@ To determine which Transceiver Subsystem port maps to the QSFP A and B lanes, pl
 
 **Table 11-2: Transceiver Subsystem Port Mapping**	
 
-| Port number | Configuration for PCIe Attach Intel Agilex OFS (2x4x25GbE) |
+| Port number | Configuration for PCIe Attach Agilex OFS (2x4x25GbE) |
 |:-----------:| ---------------------------------------------------------- |
 | 1           | QSFP-A Lane-0                                              |
 | 2           | QSFP-A Lane-1                                              |
@@ -1038,7 +1042,7 @@ User space OPAE Tools that are part of OPAE SDK provide support for the Ethernet
 ## **12 Partial Reconfiguration**
 
 
-Partial Reconfiguration (PR) is an Intel FPGA technology that allows users to reconfigure parts of the FPGA device dynamically, while the remainder of the device continues to operate. In a non-partial reconfiguration flow, any change to the design requires full reprogramming of the entire configuration RAM (CRAM) arrays in the device. With partial reconfiguration, you can dynamically reprogram one or more CRAM frames. A partial reconfiguration design has a static region, and a PR regions, which can be modified to implement new logic. The portion of the CRAM on the chip to be reconfigured is contained within a PR region.
+Partial Reconfiguration (PR) is an Altera FPGA technology that allows users to reconfigure parts of the FPGA device dynamically, while the remainder of the device continues to operate. In a non-partial reconfiguration flow, any change to the design requires full reprogramming of the entire configuration RAM (CRAM) arrays in the device. With partial reconfiguration, you can dynamically reprogram one or more CRAM frames. A partial reconfiguration design has a static region, and a PR regions, which can be modified to implement new logic. The portion of the CRAM on the chip to be reconfigured is contained within a PR region.
 For the PR flow, your design must be partitioned into static region and reconfigurable region. The static region is the area of your FPGA that is not reconfigured without reprogramming the entire FPGA. An area of the chip that you plan to partially reconfigure is a PR region. 
 
 The Port Gasket contains all the PR specific modules and logic, such as PR slot reset/freeze control, user clock, remote STP etc. For this reference example only one PR slot is supported.
@@ -1156,7 +1160,7 @@ The CSR excel for HE-HSSI module can be found at ofs-common/src/common/he_hssi/H
 
 **13.3 HE-Null Overview**
 
-This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg.  To find out more about these compiler directives, refer to the [Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs].
+This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg.  To find out more about these compiler directives, refer to the [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 **Table 13-1  HE-Null DFH**
 
@@ -1321,13 +1325,15 @@ An AFU MMIO Response timeout functions in the same manner described in the [MMIO
 ## **15 OFS Design Hierarchy**
 
 
-Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-agx7-pcie-attach, release branch ${{ N6001_Release }}.
+Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-agx7-pcie-attach, release branch ${{ N6001_OFS_FIM_BRANCH }}.
 
 ### **15.1 Design Guidance**
 
-The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the F[Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs] for detaaled design guidance. 
+The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the shell devloper guide for your target board for detailed design guidance. 
 
-
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
 
 ## Notices & Disclaimers
 
@@ -1343,4 +1349,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
- 
+<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
+<!-- include ./docs/hw/doc_modules/links.md -->

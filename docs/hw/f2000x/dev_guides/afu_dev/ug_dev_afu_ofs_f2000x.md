@@ -1,6 +1,6 @@
 # **AFU Developer Guide: OFS for Agilex® 7 FPGA SoC Attach FPGAs**
 
-Last updated: **March 20, 2024** 
+Last updated: **July 16, 2024** 
 
 ## **1. Introduction**
 
@@ -17,7 +17,7 @@ This diagram shows the separation of FPGA board interface development from the i
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
   
 
-Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [Shell Developer Guide: OFS for Agilex® 7 SoC Attach]. This guide covers logic in the AFU Main region.
+Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/). This guide covers logic in the AFU Main region.
 
 ### **1.1. Document Organization**
 
@@ -28,7 +28,7 @@ This document is organized as follows:
 - Interfaces and functionality provided in the Agilex® 7 FPGAs SoC Attach FIM
 - Setup of the AFU Development environment
 - Synthesize the AFU example
-- Testing the AFU example on the Intel® IPU Platform F2000X-PL card
+- Testing the AFU example on the IPU Platform F2000X-PL card
 - Hardware/Software co-simulation using ASE
 - Debugging an AFU with Remote Signal Tap
 
@@ -38,7 +38,7 @@ This guide provides theory followed by tutorial steps to solidify your AFU devel
 >
 >**This guide uses the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL as the platform for all tutorial steps. Additionally, this guide and the tutorial steps can be used with other Agilex® 7 FPGAs SoC Attach platforms..**
 >
->**Some of the document links in this guide are specific to the Intel® IPU Platform F2000X-PL .   If using a different platform, please use the associated documentation for your platform as there could be differences in building the FIM and downloading FIM images.**  
+>**Some of the document links in this guide are specific to the IPU Platform F2000X-PL .   If using a different platform, please use the associated documentation for your platform as there could be differences in building the FIM and downloading FIM images.**  
 >
 
 If you have worked with previous Altera® Programmable Acceleration products, you will find out that OFS for Agilex® 7 FPGAs SoC Attach is similar. However, there are differences and you are advised to carefully read and follow the tutorial steps to fully understand the design tools and flow.
@@ -56,7 +56,7 @@ This guide assumes you have the following FPGA logic design-related knowledge an
 * Simulation of complex RTL using industry standard simulators (Synopsys® VCS® or Siemens® QuestaSim®).
 * Signal Tap Logic Analyzer tool in the Quartus® Prime Pro Edition software.
 
-You are strongly encouraged to review the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach].
+You are strongly encouraged to review the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/).
 
 ### **1.3. Acceleration Functional Unit (AFU) Development Flow**
 
@@ -118,20 +118,30 @@ The following resources are available to assist in creating an AFU:
 
 [PIM Core Concepts](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_core_concepts.md) provides details on using the PIM and its capabilities. 
 
-[PIM Based AFU Developer User Guide](https://ofs.github.io/ofs-2024.1-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/) provides details on interfacing your AFU to the FIM using the PIM.
+[PIM Based AFU Developer Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/ug_dev_pim_based_afu/) provides details on interfacing your AFU to the FIM using the PIM.
 
-The [examples AFU](https://github.com/OFS/examples-afu.git) repo provides several AFU examples.  These examples can be run with the current OFS FIM package.  There are three [AFU types](https://github.com/OFS/examples-afu/tree/main/tutorial/afu_types) of examples provided (PIM based, hybrid and native).  Each example provides the following:
+The [examples-afu](https://github.com/OFS/examples-afu.git) repo provides several AFU examples: 
+
+| Example           |  Description            | PIM-based   | Hybrid    | Native   |
+| ----              |  ----                   | ----        | ----      | ----     |  
+| clocks            | Example AFU using user configurable clocks.        | X |   |    |
+| copy_engine       | Example AFU moving data between host channel and a data engine. | X |   |   |
+| dma               | Example AFU moving data between host channel and local memory with a DMA.      | X |   |   |
+| hello_world       | Example AFU sending "Hello World!" to host channel.    | X | X | X |
+| local_memory      | Example AFU reading and writing local memory.          | X | X |   |
+
+These examples can be run with the current OFS FIM package.  There are three [AFU types](https://github.com/OFS/examples-afu/tree/main/tutorial/afu_types) of examples provided (PIM based, hybrid and native).  Each example provides the following:
 
 * RTL, which includes the following interfaces: 
    * [Host Channel](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_ifc_host_channel.md): 
      * Host memory, providing a DMA interface.
      * MMIO, providing a CSR interface.  
    * [Local Memory](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_ifc_local_mem.md)
-* Host software example interfacing to the CSR interface and host memory interface, using the [OPAE C API](https://ofs.github.io/ofs-2024.1-1/sw/fpga_api/prog_guide/readme/#opae-c-api-programming-guide).
+* Host software example interfacing to the CSR interface and host memory interface, using the [OPAE C API](https://ofs.github.io/ofs-2024.2-1/sw/fpga_api/prog_guide/readme/#opae-c-api-programming-guide).
 * Accelerator Description File .json file
 * Source file list
 
-#### **1.3.4. AFU Interfaces Included with Intel® IPU Platform F2000X-PL**
+#### **1.3.4. AFU Interfaces Included with IPU Platform F2000X-PL**
 
 
 The figure below shows the interfaces available to the AFU in this architecture. It also shows the design hierarchy with module names from the fim (top.sv) to the PR region AFU (afu_main.sv).
@@ -158,11 +168,11 @@ A typical development and hardware test environment consists of a development se
 
 Note: both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel® IPU Platform F2000X-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The Intel® IPU Platform F2000X-PL must be fully installed following the [Board Installation Guide: Open FPGA Stack for Agilex® 7 SoC Attach FPGAs]. If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
+This guide uses IPU Platform F2000X-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The IPU Platform F2000X-PL must be fully installed following the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
 
 The following is a summary of the steps to set up for AFU development:
 
-1. Install Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4 for Linux with Agilex device support and required Quartus patches.
+1. Install Quartus Prime Pro Version 23.4 for Linux with Agilex device support and required Quartus patches.
 2. Make sure support tools are installed and meet version requirements.
 3. Install OPAE SDK.
 4. Download the Basic Building Blocks repository.
@@ -174,9 +184,9 @@ Building AFUs with OFS for Agilex requires the build machine to have at least 64
 ### **2.2. Installation of Quartus and required patches**
 
 
-**Intel Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4** is verified to work with the latest OFS release release/ofs-2024.1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
+**Intel Quartus Prime Pro Version 23.4** is verified to work with the latest OFS release ofs-2024.1-1.  However, you have the option to port and verify the release on newer versions of Intel Quartus Prime Pro software.
 
-Use Ubuntu 22.04 for compatibility with your development flow and also testing your FIM design in your platform. 
+Use Ubuntu 22.04 LTS for compatibility with your development flow and also testing your FIM design in your platform. 
 
 Prior to installing Quartus:
 
@@ -209,7 +219,7 @@ Prior to installing Quartus:
 
 4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1). The patches for this release are 0.17 patch (PCIe).
+5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1). The patches for this release are 0.17.
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -246,7 +256,7 @@ The OFS provided Quartus build scripts require the following tools. Verify these
 | Item              |  Version            |
 | ----              |  ----               |
 | Python            | 3.6.8        |
-| GCC               | 7.2.0         |
+| GCC               | 8.5.0         |
 | cmake             | 3.15      |
 | git               | 1.8.3.1     |
 | perl              | 5.8.8                |
@@ -254,10 +264,10 @@ The OFS provided Quartus build scripts require the following tools. Verify these
 
 ### **2.4. Installation of OPAE SDK**
 
-Working with the Intel® IPU Platform F2000X-PL card requires **opae-2.12.0-4**. Follow the instructions in the [Software Installation Guide: Open FPGA Stack for Agilex® 7 SoC Attach FPGAs] to build and install the required OPAE SDK for the Intel® IPU Platform F2000X-PL. Make sure to check out the cloned repository to tag **2.12.0-4** and branch **release/2.12.0**.
+Working with the IPU Platform F2000X-PL card requires **opae-2.12.0-5**. Follow the instructions in the [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) to build and install the required OPAE SDK for the IPU Platform F2000X-PL. Make sure to check out the cloned repository to tag **2.12.0-5** and branch **release/2.12.0**.
 
 ```sh
-$ git checkout tags/2.12.0-4 -b release/2.12.0
+$ git checkout tags/2.12.0-5 -b release/2.12.0
 ```
 
 > Note: The tutorial steps provided in the next sections assume the OPAE SDK is installed in default system locations, under the directory, ```/usr```. In most system configurations, this will allow the OS and tools to automatically locate the OPAE binaries, scripts, libraries and include files required for the compilation and simulation of the FIM and AFUs.
@@ -265,7 +275,7 @@ $ git checkout tags/2.12.0-4 -b release/2.12.0
 
 ### **2.5. Download the Basic Building Blocks repositories**
 
-The ```ofs-platform-afu-bbb``` repository contains the PIM files as well as example PIM-based AFUs that can be used for testing and demonstration purposes. This guide will use the ```host_chan_mmio``` AFU example in the [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb) repository and the ```hello_world``` sample in the [examples AFU](https://github.com/OFS/examples-afu.git) repository to demonstrate how to synthesize, load, simulate, and test a PIM-based AFU using the Intel® IPU Platform F2000X-PL card with the SoC Attach FIM.
+The ```ofs-platform-afu-bbb``` repository contains the PIM files as well as example PIM-based AFUs that can be used for testing and demonstration purposes. This guide will use the ```host_chan_mmio``` AFU example in the [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb) repository and the ```hello_world``` sample in the [examples-afu](https://github.com/OFS/examples-afu.git) repository to demonstrate how to synthesize, load, simulate, and test a PIM-based AFU using the IPU Platform F2000X-PL card with the SoC Attach FIM.
 
 Execute the next commands to clone the BBB repositories.
 
@@ -278,9 +288,11 @@ $ export OFS_BUILD_ROOT=$PWD
   # Clone the ofs-platform-afu-bbb repository.
 $ cd $OFS_BUILD_ROOT
 $ git clone https://github.com/OFS/ofs-platform-afu-bbb.git
+$ cd ofs-platform-afu-bbb
+$ git checkout tags/ofs-2024.1-1
+$ export OFS_PLATFORM_AFU_BBB=$PWD
   
   # Verify retrieval
-$ cd $OFS_BUILD_ROOT/ofs-platform-afu-bbb
 $ ls
 LICENSE  plat_if_develop  plat_if_release  plat_if_tests  README.md
 ```
@@ -296,34 +308,35 @@ The documentation in the [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platf
 
 A relocatable PR build tree is needed to build the AFU partial reconfiguration area for the intended FIM. The tree is relocatable and may be copied to a new location. It does not depend on files in the original FIM build.
 
-You can use the Intel® IPU Platform F2000X-PL release package and download the PR build tree and FIM images, to develop your AFU.  These are located at [OFS-F2000X-PL release](https://github.com/OFS/ofs-f2000x-pl/releases/ofs-2024.1-1)  
+You can use the IPU Platform F2000X-PL release package and download the PR build tree and FIM images, to develop your AFU.  These are located at [OFS-F2000X-PL release](https://github.com/OFS/ofs-f2000x-pl/releases/ofs-2024.1-1)  
 
 Or you can build your own FIM and generate the PR build tree during the process.
 
 To download and untar the pr_build_template:
 
 ```sh
-$ wget https://github.com/OFS/ofs-f2000x-pl/releases/download/ofs-2024.1-1/f2000x-images_ofs-2024-1-1.tar.gz
-$ tar -zxvf f2000x-images_ofs-2024-1-1.tar.gz
-$ cd f2000x-images_ofs-2024-1-1/
+$ cd $OFS_BUILD_ROOT
+$ wget https://github.com/OFS/ofs-f2000x-pl/releases/download/ofs-2024.1-1/f2000x-images_ofs-2024-2.tar.gz
+$ tar -zxvf f2000x-images_ofs-2024-2.tar.gz
+$ cd f2000x-images_ofs-2024-2/
 $ mkdir pr_build_template
-$ tar -zxvf pr_template-f2000x.tar.gz -C ./pr_build_template
+$ tar -zxvf pr_build_template.tar.gz -C ./pr_build_template
 $ cd pr_build_template
 $ export OPAE_PLATFORM_ROOT=$PWD
 
 ```
 
-To build your own FIM and generate the PR build tree for the Intel® IPU Platform F2000X-PL platform, refer the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach] and follow the Out-of-Tree PR FIM build flow.  If you are using a different platform, refer to the Shell Developer Guide for your platform and follow the Out-of-Tree PR FIM build flow.
+To build your own FIM and generate the PR build tree for the IPU Platform F2000X-PL platform, refer the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/) and follow the Out-of-Tree PR FIM build flow.  If you are using a different platform, refer to the Shell Developer Guide for your platform and follow the Out-of-Tree PR FIM build flow.
 
 ### **2.7. Download FIM to FPGA**
 
 
 The AFU requires that the FIM from which the AFU is derived be loaded onto the FPGA.   
 
-If you are using the Intel® IPU Platform F2000X-PL release package downloaded in the previous section, copy the associated FIM files to the SoC:
+If you are using the IPU Platform F2000X-PL release package downloaded in the previous section, copy the associated FIM files to the SoC:
 ```sh
 # On Development Host
-$ cd $OFS_BUILD_ROOT/f2000x-images_ofs-2024-1-1/
+$ cd $OFS_BUILD_ROOT/f2000x-images_ofs-2024-2/
 $ scp ofs_top_page1_unsigned_user1.bin <user>@<SoC IP address>:</remote/directory>
 $ scp ofs_top_page2_unsigned_user2.bin <user>@<SoC IP address>:</remote/directory>
 
@@ -331,7 +344,7 @@ $ scp ofs_top_page2_unsigned_user2.bin <user>@<SoC IP address>:</remote/director
 
 If you are generating your own FIM, use the unsigned FPGA binary images from your FIM build and copy over to the SoC. 
 
-To downlaod the FIM to the Intel® IPU Platform F2000X-PL platform:
+To downlaod the FIM to the IPU Platform F2000X-PL platform:
 ```sh
 # On SoC
 $ sudo fpgasupdate ofs_top_page1_unsigned_user1.bin 
@@ -353,6 +366,9 @@ $ export OFS_BUILD_ROOT=<path to ofs build directory>
 
 # If not already done, export OPAE_PLATFORM_ROOT to the PR build tree directory
 $ export OPAE_PLATFORM_ROOT=<path to pr build tree>
+
+# If not already done, export OFS_PLATFORM_AFU_BBB to the clone of ofs-platform-afu-bbb repository which contains PIM files and AFU examples.
+$ export OFS_PLATFORM_AFU_BBB=<path to ofs-platform-afu-bbb> 
  
 # Quartus Tools
 # Note, QUARTUS_HOME is your Quartus installation directory, e.g. $QUARTUS_HOME/bin contains Quartus executable.
@@ -367,11 +383,6 @@ $ export PATH=$QUARTUS_HOME/bin:$QSYS_ROOTDIR/bin:$QUARTUS_HOME/sopc_builder/bin
 
 # OPAE SDK release
 $ export OPAE_SDK_REPO_BRANCH=release/2.12.0
-      
-# The following environment variables are required for compiling the AFU examples. 
-
-# Location to clone the ofs-platform-afu-bbb repository which contains PIM files and AFU examples.
-$ export OFS_PLATFORM_AFU_BBB=$OFS_BUILD_ROOT/ofs-platform-afu-bbb 
 
 # OPAE and MPF libraries must either be on the default linker search paths or on both LIBRARY_PATH and LD_LIBRARY_PATH.  
 $ export OPAE_LOC=/usr
@@ -482,7 +493,7 @@ Generating host_chan_mmio.gbs
 The previous output indicates the successful compilation of the AFU and the compliance with the timing requirements. Analyze the reports generated in case the design does not meet timing. The timing reports are stored in the directory, ```$OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/afu_dev/build/syn/syn_top/output_files/timing_report```.
 
 
-Once the compilation finishes successfully, load the new ```host_chan_mmio.gbs``` bitstream file into the partial reconfiguration region of the target Intel® IPU Platform F2000X-PL board. Keep in mind, that the loaded image is dynamic - this image is not stored in flash and if the card is power cycled, then the PR region is re-loaded with the default AFU.
+Once the compilation finishes successfully, load the new ```host_chan_mmio.gbs``` bitstream file into the partial reconfiguration region of the target IPU Platform F2000X-PL board. Keep in mind, that the loaded image is dynamic - this image is not stored in flash and if the card is power cycled, then the PR region is re-loaded with the default AFU.
 
 To load the image, perform the following steps:
 
@@ -605,9 +616,6 @@ Accelerator GUID                 : 76d7ae9c-f66b-461f-816a-5428bcebdbc5
 ```sh
 # On Development Host, move to the sw directory of the the host_chan_mmio AFU. This directory holds the source for the host application.
 $ cd $OFS_PLATFORM_AFU_BBB/plat_if_tests/host_chan_mmio/sw
-$ export OPAE_LOC=/usr
-$ export LIBRARY_PATH=$OPAE_LOC/lib:$LIBRARY_PATH
-$ export LD_LIBRARY_PATH=$OPAE_LOC/lib64:$LD_LIBRARY_PATH
 $ make
 # Copy application to SoC
 $ scp host_chan_mmio <user>@<SoC IP address>:</remote/directory>
@@ -639,7 +647,7 @@ Testing 512 bit MMIO writes:
 ### **3.3. Building and running the hello_world example AFU**
 
 
-The platform-independent [examples AFU](https://github.com/OFS/examples-afu.git) repository also provides some interesting example AFUs. In this section, you will compile and execute the PIM based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
+The platform-independent [examples-afu](https://github.com/OFS/examples-afu.git) repository also provides some interesting example AFUs. In this section, you will compile and execute the PIM based ```hello_world``` AFU. The RTL of the ```hello_world``` AFU receives from the host application an address via memory mapped I/O (MMIO) write and generates a DMA write to the memory line at that address. The content written to memory is the string "Hello world!". The host application spins, waiting for the memory line to be updated. Once available, the software prints out the string.
 
 The ```hello_world``` example AFU consists of the following files. The **hw** directory contains the RTL to implement the hardware functionality using CCIP, Avalon, and AXI interfaces. However, this guide will use the AXI version of the AFU to go through the compilation steps. The **sw** directory of the AFU contains the source code of the host application that communicates with the AFU hardware.
 
@@ -672,14 +680,16 @@ hello_world
 
 The following instructions can be used to compile other AFU samples accompanying this repository.
 
-1. If not done already, download and clone the [examples AFU](https://github.com/OFS/examples-afu.git) repository.
+If not done already, download and clone the [examples-afu](https://github.com/OFS/examples-afu.git) repository.
 
 ```sh
 $ cd $OFS_BUILD_ROOT 
 $ git clone https://github.com/OFS/examples-afu.git
+$ cd examples-afu
+$ git checkout tags/ofs-2024.1-1
 ```
 
-2. Compile the ```hello_word``` sample AFU. 
+Compile the ```hello_word``` sample AFU. 
 ```sh
 $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world
 $ afu_synth_setup --source hw/rtl/axi/sources.txt afu_dev
@@ -699,7 +709,7 @@ Generating hello_world.gbs
 
 ```
 
-3. To test the AFU in actual hardware, load the ```hello_world.gbs``` to the Intel® IPU Platform F2000X-PL card. For this step to be successful, the SoC Attach FIM must have already been loaded to the Intel® IPU Platform F2000X-PL card following the steps described in Section 2 of this document.
+To test the AFU in actual hardware, load the ```hello_world.gbs``` to the IPU Platform F2000X-PL card. For this step to be successful, the SoC Attach FIM must have already been loaded to the IPU Platform F2000X-PL card following the steps described in Section 2 of this document.
 
 ```sh
 $ cd $OFS_BUILD_ROOT/examples-afu/tutorial/afu_types/01_pim_ifc/hello_world/afu_dev/
@@ -717,7 +727,7 @@ Partial Reconfiguration OK
 [2022-04-15 20:22:19.75] [INFO    ] Total time: 0:00:00.90
 ```
 
-Set up your Intel® IPU Platform F2000X-PL board to work with the newly loaded ```hello_world.gbs``` file.
+Set up your IPU Platform F2000X-PL board to work with the newly loaded ```hello_world.gbs``` file.
 
 ```sh
 # On SoC
@@ -812,7 +822,7 @@ Accelerator GUID                 : c6aa954a-9b91-4a37-abc1-1d9f0709dcc3
 
 ```
 
-4. Compile and execute the host application of the ```hello_world``` AFU. You should see the application outputs the "Hello world!" message in the terminal.
+Compile and execute the host application of the ```hello_world``` AFU. You should see the application outputs the "Hello world!" message in the terminal.
 
 ```sh
 # On Development Host, move to the sw directory of the hello_world AFU and build application
@@ -870,10 +880,10 @@ In this section you will set up your server to support ASE by independently down
 #### **4.1.1. Install OPAE SDK**
 
 
-The F2000x SKU2 card requires **2.12.0-4**. Follow the instructions in the [Software Installation Guide: Open FPGA Stack for Agilex® 7 SoC Attach FPGAs] to build and install the required OPAE SDK for the Intel® IPU Platform F2000X-PL. Make sure to check out the cloned repository to tag **2.12.0-4** and branch **release/2.12.0**.
+The F2000x SKU2 card requires **2.12.0-5**. Follow the instructions in the [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) to build and install the required OPAE SDK for the IPU Platform F2000X-PL. Make sure to check out the cloned repository to tag **2.12.0-5** and branch **release/2.12.0**.
 
 ```sh
-$ git checkout tags/2.12.0-4 -b release/2.12.0
+$ git checkout tags/2.12.0-5 -b release/2.12.0
 ```
 
 #### **4.1.2 Install ASE Tools**
@@ -1256,10 +1266,74 @@ Right click on the ```hello_afu``` entry to display the drop-down menu. Then, cl
 Remote Signal Tap is currently not supported in F2000x base FIM configuration.
 
 
-## **6. How to modify the PF/VF MUX configuration**
+## **6. Disabling the FLR (Function Level Reset) during AFU Debugging**
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach].
+The `vfio-pci` driver implementation will automatically issue an FLR (Function Level Reset) signal every time a new host application is executed. This signal is triggered whenever an application opens a `/dev/vfio*` file and is expected behavior for the `vfio` driver architecture.
+
+You may also encounter issues while debugging an AFU when executing the OPAE SDK tool `opae.io` with `peek/poke` subcommands, which will automatically set register values if they are connected to a reset. The OPAE SDK function `fpgaReset()` will also not accept devices bound to the `vfio-pci` driver. Both of these behaviors can be worked around if they are not desired.
+
+You can use the following steps to enable / disable FLR for a specific device bound to the `vfio-pci` driver. In this example we will use an OFS enabled PCIe device at BDF af:00.0, and will disable FLR on a VF at address af:00.5.
+
+Disable FLR:
+
+```bash
+cd /sys/bus/pci/devices/0000:ae:00.0/0000:af:00.5
+echo "" > reset_method
+cat reset_method
+```
+
+Enable FLR:
+
+```bash
+cd /sys/bus/pci/devices/0000:ae:00.0/0000:af:00.5
+echo "flr" > reset_method
+cat reset_method
+```
+
+If you wish to manually reset your currently configured AFU without resetting the entire FIM, you can use the OPAE SDK function `fpgaEnumerate()`. This will issue a reset on the AFU's VFIO DEVICE_GROUP. To avoid issuing an FLR to the entire FIM, you need to call this function after disabling FLR as shown above.
+
+If you wish to debug your AFU's register space without changing any of its register values using `opae.io`, you need to execute a `opae.io` compatible python script. An example application is shown below:
+
+```bash
+opae.io --version
+opae.io 1.0.0
+
+sudo opae.io init -d BDF $USER
+opae.io script sample.py
+Value@0x0     = 0x4000000010000000
+Value@0x12060 = 100
+
+```
+
+`Sample.py` contents:
+
+```python
+import sys
+
+def main():
+    # Check opae.io initialization
+    if the_region is None :
+        print("\'opae.io\' initialization has not been performed, please bind the device in question to vfio-pci.")
+        sys.exit(1)
+    v = the_region.read64(0x0)
+    print("Value@0x0     = 0x{:016X}".format(v))
+    the_region.write32(0x12060,100)
+    v = the_region.read32(0x12060)
+    print("Value@0x12060 = {:d}".format(v))
+
+####################################
+
+if __name__ == "__main__":
+    main()
+```
+
+
+
+## **7. How to modify the PF/VF MUX configuration**
+
+
+For information on how to modify the PF/VF mapping for your own design, refer to the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/).
 
 ## Notices & Disclaimers
 
@@ -1275,5 +1349,5 @@ You are responsible for safety of the overall system, including compliance with 
 <sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
 
 OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-
-
+<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
+<!-- include ./docs/hw/doc_modules/links.md -->
