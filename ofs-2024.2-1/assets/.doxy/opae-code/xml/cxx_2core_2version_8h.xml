@@ -15,6 +15,13 @@
       <node id="7">
         <label>string</label>
       </node>
+      <node id="6">
+        <label>opae/types_enum.h</label>
+        <link refid="types__enum_8h"/>
+      </node>
+      <node id="4">
+        <label>stddef.h</label>
+      </node>
       <node id="1">
         <label>docs/sw/include/opae/cxx/core/version.h</label>
         <link refid="cxx_2core_2version_8h"/>
@@ -22,9 +29,6 @@
         </childnode>
         <childnode refid="7" relation="include">
         </childnode>
-      </node>
-      <node id="4">
-        <label>stddef.h</label>
       </node>
       <node id="2">
         <label>opae/types.h</label>
@@ -38,21 +42,17 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="6">
-        <label>opae/types_enum.h</label>
-        <link refid="types__enum_8h"/>
-      </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="2">
+        <label>docs/sw/include/opae/cxx/core.h</label>
+        <link refid="core_8h"/>
+      </node>
       <node id="1">
         <label>docs/sw/include/opae/cxx/core/version.h</label>
         <link refid="cxx_2core_2version_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-      </node>
-      <node id="2">
-        <label>docs/sw/include/opae/cxx/core.h</label>
-        <link refid="core_8h"/>
       </node>
     </invincdepgraph>
     <innerclass refid="classopae_1_1fpga_1_1types_1_1version" prot="public">opae::fpga::types::version</innerclass>

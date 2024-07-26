@@ -2233,22 +2233,22 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#31-ofs-dfl-kernel-driver-installation-environment-setup" class="md-nav__link">
-    3.1 OFS DFL Kernel Driver Installation Environment Setup
+  <a href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup" class="md-nav__link">
+    3.1 OFS DFL Backport Kernel Driver Installation Environment Setup
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#32-building-and-installing-the-ofs-dfl-kernel-drivers-from-source" class="md-nav__link">
-    3.2 Building and Installing the OFS DFL Kernel Drivers from Source
+  <a href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source" class="md-nav__link">
+    3.2 Building and Installing the OFS DFL Backport Kernel Drivers from Source
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages" class="md-nav__link">
-    3.3 Installing the OFS DFL Kernel Drivers from Pre-Built Packages
+  <a href="#33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages" class="md-nav__link">
+    3.3 Installing the OFS DFL Backport Kernel Drivers from Pre-Built Packages
   </a>
   
 </li>
@@ -2324,7 +2324,7 @@
 
 
 <h1 id="software-installation-guide-open-fpga-stack-for-pcie-attach">Software Installation Guide: Open FPGA Stack for PCIe Attach<a class="headerlink" href="#software-installation-guide-open-fpga-stack-for-pcie-attach" title="Permanent link">&para;</a></h1>
-<p>Last updated: <strong>July 16, 2024</strong> </p>
+<p>Last updated: <strong>July 26, 2024</strong> </p>
 <h2 id="10-about-this-document">1.0 About This Document<a class="headerlink" href="#10-about-this-document" title="Permanent link">&para;</a></h2>
 <p>The purpose of this document is to help users get started in setting up their local environments and installing the most recent release of the PCIe Attach software stack on the host. This document will not cover the process of board installation or platform bring-up. After reviewing this document, a user shall be able to:</p>
 <ul>
@@ -2576,7 +2576,7 @@
 <p><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. Applications may be built on top of these frameworks and libraries. The <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software does not cover any out-of-band management interfaces. <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> framework, and instructions on how to port <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver patches to other kernel distributions can be found on <a href="https://github.com/OPAE/linux-dfl/wiki">https://github.com/OPAE/linux-dfl/wiki</a>.</p>
 <p>An in-depth review of the Linux device driver architecture can be found on <a href="https://opae.github.io/latest/docs/drv_arch/drv_arch.html">opae.github.io</a>.</p>
 <p>The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions, and currently only supported the PCIe Attach release. Its usage is detailed in the relevant Quick Start Demonstration Guideline for your platform and will not be covered here.</p>
-<h3 id="31-ofs-dfl-kernel-driver-installation-environment-setup">3.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Driver Installation Environment Setup<a class="headerlink" href="#31-ofs-dfl-kernel-driver-installation-environment-setup" title="Permanent link">&para;</a></h3>
+<h3 id="31-ofs-dfl-backport-kernel-driver-installation-environment-setup">3.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Driver Installation Environment Setup<a class="headerlink" href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup" title="Permanent link">&para;</a></h3>
 <p>All <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel driver primary release code for this release resides in the <a href="https://github.com/OFS/linux-dfl-backport">Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport GitHub repository</a>. This repository is open source and does not require any special permissions to access. It includes a snapshot of the Linux kernel with <em>most</em> of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers included in <code>/drivers/fpga/*</code>. Download, configuration, and compilation will be discussed in this section. Refer back to section <a href="#122-host-server-kernel-and-grub-configuration">1.2.2 Host Server Kernel and GRUB Configuration</a> for a list of supported Operating System(s).</p>
 <p>You can choose to install the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel drivers by either using pre-built binaries created for the <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr> OS, or by building them on your local server. If you decide to use the pre-built packages available on your platform's release page, skip to section <a href="#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages">3.3 Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Drivers from Pre-Built Packages</a>. Regardless of your choice you will need to follow the two steps in this section to prepare your server environment for installation.</p>
 <p>This installation process assumes the user has access to an internet connection to clone specific GitHub repositories, and to satisfy package dependencies.</p>
@@ -2604,20 +2604,30 @@
 <a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
 <a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--user<span class="w"> </span>pybind11<span class="w"> </span>setuptools
 <a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-headers-4.18.0-553.5.1.el8_10.x86_64
-<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-devel-4.18.0-553.5.1.el8_10.x86_64
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-4.18.0-553.5.1.el8_10.x86_64
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-headers-4.18.0-553.5.1.el8_10.x86_64
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-devel-4.18.0-553.5.1.el8_10.x86_64
 </code></pre></div>
 </li>
 </ol>
-<h3 id="32-building-and-installing-the-ofs-dfl-kernel-drivers-from-source">3.2 Building and Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Drivers from Source<a class="headerlink" href="#32-building-and-installing-the-ofs-dfl-kernel-drivers-from-source" title="Permanent link">&para;</a></h3>
+<p>Now you have the choice to either follow the steps in section <a href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source">3.2 Building and Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Source</a> or <a href="#33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages">3.3 Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Pre-Built Packages</a>.</p>
+<h3 id="32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source">3.2 Building and Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Source<a class="headerlink" href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source" title="Permanent link">&para;</a></h3>
+<p>This section assumes you have already read through and followed any relevant environment setup steps in <a href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup">Secion 3.1 3.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Driver Installation Environment Setup</a></p>
 <p>It is recommended you create an empty top level directory for your <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at <code>/home/OFS/</code>. If you have created a different top-level directory, replace this path with your custom path.</p>
+<p>1. Select the 4.18.0-553.5.1.el8_10 kernel as your next boot target on the build machine, then reboot.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># For multiple boots (until overwritten), use the following</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--set-default<span class="w"> </span>/boot/vmlinuz-4.18.0-553.5.1.el8_10.x86_64
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="c1"># Or select the kernel you want during boot time</span>
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>sudo<span class="w"> </span>reboot
+</code></pre></div>
 <p>1. Initialize an empty git repository and clone the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver source code:</p>
 <div class="highlight"><pre><span></span><code>```bash
 mkdir /home/OFS/
 cd /home/OFS/
 git init
 git clone https://github.com/OFS/linux-dfl-backport
-cd /home/OFS/linux-dfl
+cd /home/OFS/linux-dfl-backport
 git checkout tags/intel-1.11.0-2
 ```
 
@@ -2631,76 +2641,20 @@ intel-1.11.0-2
 
 *Note: If two different tagged releases are tied to the same commit, running git describe tags may report the other release&#39;s tag. This is why the match is made explicit.*
 </code></pre></div>
-<p>3. Copy an existing kernel configuration file from <code>/boot</code> and apply the minimal required settings changes.</p>
+<p>3. Build the kernel.</p>
 <div class="highlight"><pre><span></span><code>```bash
-cd /home/OFS/linux-dfl
-cp /boot/config-`uname -r` .config
-cat configs/dfl-config &gt;&gt; .config
-echo &#39;CONFIG_LOCALVERSION=&quot;-dfl&quot;&#39; &gt;&gt; .config
-echo &#39;CONFIG_LOCALVERSION_AUTO=y&#39; &gt;&gt; .config
-sed -i -r &#39;s/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=&quot;&quot;/&#39; .config
-sed -i &#39;/^CONFIG_DEBUG_INFO_BTF/ s/./#&amp;/&#39; .config
-echo &#39;CONFIG_DEBUG_ATOMIC_SLEEP=y&#39; &gt;&gt; .config
-export LOCALVERSION=
+cd /home/OFS/linux-dfl-backport
+make &amp;&amp; make rpm
 ```
 </code></pre></div>
-<p><em>Note:</em> If you wish to add an identifier to the kernel build, edit .config and make your additions to the line CONFIG_LOCALVERSION="<indentifier>".</p>
-<p>4. The above command may report errors resembling <code>symbol value 'm' invalid for CHELSIO_IPSEC_INLINE</code>. These errors indicate that the nature of the config has changed between the currently executing kernel and the kernel being built. The option "m" for a particular kernel module is no longer a valid option, and the default behavior is to simply turn the option off. However, the option can likely be turned back on by setting it to 'y'. If the user wants to turn the option back on, change it to 'y' and re-run "make olddefconfig":</p>
+<p>4. Install the newly compiled RPM package and reboot.</p>
 <div class="highlight"><pre><span></span><code>```bash
-cd /home/OFS/linux-dfl
-echo &#39;CONFIG_CHELSIO_IPSEC_INLINE=y&#39; &gt;&gt; .config
-```
+sudo rpm -i intel-fpga-dfl-dkms-1.11.0-2.2024.07.25.g276007e.noarch.rpm
 
-*Note: To use the built-in GUI menu for editing kernel configuration parameters, you can opt to run `make menuconfig`.*
-</code></pre></div>
-<p>5. Linux kernel builds take advantage of multiple processors to parallelize the build process. Display how many processors are available with the <code>nproc</code> command, and then specify how many make threads to utilize with the <code>-j</code> option. Note that number of threads can exceed the number of processors. In this case, the number of threads is set to the number of processors in the system.</p>
-<div class="highlight"><pre><span></span><code>```bash
-cd /home/OFS/linux-dfl
-make -j $(nproc)
+sudo reboot
 ```
 </code></pre></div>
-<p>6. You have two options to build the source:</p>
-<div class="highlight"><pre><span></span><code>- Using the built-in install option from the kernel Makefile.
-- Locally building a set of RPM/DEP packages.
-
-This first flow will directly install the kernel and kernel module files without the need to create a package first:
-
-```bash
-cd /home/OFS/linux-dfl
-sudo make modules_install -j $(nproc)
-sudo make install
-```
-
-In this second flow, the OFS Makefile contains a few options for package creation:
-
-- rpm: Full kernel and driver installation package for use with Red Hat systems
-- deb: Full kernel and driver installation package for use with Debian systems
-
-If you are concerned about the size of the resulting package and binaries, they can significantly reduce the size of the package and object files by using the make variable INSTALL_MOD_STRIP. If this is not a concern, feel free to skip this step. The below instructions will build a set of binary RPM packages:
-
-```bash
-cd /home/OFS/linux-dfl
-make INSTALL_MOD_STRIP=1 rpm -j `nproc`
-```
-
-If the kernel development package is necessary for other software you plan on installing outside of OFS, you should instead use the build target `rpm-pkg`.
-
-By default, a directory is created in your home directory called `rpmbuild`. This directory will house all the kernel packages which have been built. You need to navigate to the newly built kernel packages and install them. The following files were generated using the build command executed in the previous step:
-
-```bash
-cd ~/rpmbuild/RPMS/x86_64
-ls
-kernel-4.18.0_dfl.x86_64.rpm  kernel-headers-4.18.0_dfl.x86_64.rpm
-sudo dnf localinstall kernel*.rpm
-```
-</code></pre></div>
-<p>7. The system will need to be rebooted in order for changes to take effect. After a reboot, select the newly built kernel as the boot target. This can be done pre-boot using the command <code>grub2-reboot</code>, which removes the requirement for user intervention. After boot, verify that the currently running kernel matches expectation.</p>
-<div class="highlight"><pre><span></span><code>```bash
-uname -r
-4.18.0-dfl
-```
-</code></pre></div>
-<p>8. Verify the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers have been successfully installed by reading version information directly from <code>/lib/modules</code>. Recall that the name of the kernel built as a part of this section is 4.18.0-dfl. If the user set a different name for their kernel, change this path as needed:</p>
+<p>5. Verify the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers have been successfully installed by reading version information directly from <code>/lib/modules</code>. Recall that the name of the kernel built as a part of this section is 4.18.0-dfl. If the user set a different name for their kernel, change this path as needed:</p>
 <div class="highlight"><pre><span></span><code>```bash
 cd /usr/lib/modules/4.18.0-dfl/kernel/drivers/fpga
 ls
@@ -2729,12 +2683,12 @@ fpga_bridge            20480  4 dfl_fme_region,fpga_region,dfl_fme,dfl_fme_br
 fpga_mgr               20480  4 dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme
 ```
 </code></pre></div>
-<p>9. Four kernel parameters must be added to the boot command line for the newly installed kernel. First, open the file <code>grub</code>:</p>
+<p>6. Four kernel parameters must be added to the boot command line for the newly installed kernel. First, open the file <code>grub</code>:</p>
 <div class="highlight"><pre><span></span><code>```bash
 sudo vim /etc/default/grub
 ```
 </code></pre></div>
-<p>10. In the variable <em>GRUB_CMDLINE_LINUX</em> add the following parameters in bold: GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet <strong>intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200</strong>".</p>
+<p>7. In the variable <em>GRUB_CMDLINE_LINUX</em> add the following parameters in bold: GRUB_CMDLINE_LINUX="crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap rhgb quiet <strong>intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200</strong>".</p>
 <p><em>Note: If you wish to instead set hugepages on a per session basis, you can perform the following steps. These settings will be lost on reboot.</em></p>
 <div class="highlight"><pre><span></span><code>```bash
 mkdir -p /mnt/huge 
@@ -2743,30 +2697,35 @@ echo 2048 &gt; /sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_huge
 echo 2048 &gt; /sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepages 
 ```
 </code></pre></div>
-<p>11. Save your edits, then apply them to the GRUB2 configuration file.</p>
+<p>8. Save your edits, then apply them to the GRUB2 configuration file.</p>
 <div class="highlight"><pre><span></span><code>```bash
 sudo grub2-mkconfig
 ```
 </code></pre></div>
-<p>12. Warm reboot. Your kernel parameter changes should have taken affect.</p>
+<p>9. Warm reboot. Your kernel parameter changes should have taken affect.</p>
 <div class="highlight"><pre><span></span><code>```bash
 cat /proc/cmdline
 BOOT_IMAGE=(hd1,gpt2)/vmlinuz-4.18.0-dfl root=/dev/mapper/cl-root ro crashkernel=auto resume=/dev/mapper/cl-swap rd.lvm.lv=cl/root rd.lvm.lv=cl/swap intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200 rhgb quiet
 ```
 </code></pre></div>
 <p>A list of all <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers and their purpose is maintained on the <a href="https://github.com/OFS/linux-dfl/wiki/FPGA-DFL-Driver-Modules#fpga-driver-modules"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Wiki</a>.</p>
-<h3 id="33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages">3.3 Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Drivers from Pre-Built Packages<a class="headerlink" href="#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages" title="Permanent link">&para;</a></h3>
-<p>To use the pre-built Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> packages, you first need to download the files from your chosen platform's release page. You can choose to either install using the SRC RPMs, or to use the pre-built RPM packages targeting the official supported release platform.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>tar<span class="w"> </span>xf<span class="w"> </span>kernel-4.18.0_dfl-1.x86_64-*.tar.gz
-<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>
-<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>kernel-4.18.0_dfl_*.x86_64.rpm<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>kernel-devel-4.18.0_dfl_*.x86_64.rpm<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>kernel-headers-4.18.0_dfl_*.x86_64.rpm
-<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
-<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="c1">### OR</span>
-<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>
-<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>kernel-4.18.0_dfl_*.src.rpm
+<h3 id="33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages">3.3 Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Pre-Built Packages<a class="headerlink" href="#33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages" title="Permanent link">&para;</a></h3>
+<p>This section assumes you have already read through and followed any relevant environment setup steps in <a href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup">Secion 3.1 3.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Driver Installation Environment Setup</a></p>
+<p>To use the pre-built Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> packages, you first need to download the files from your chosen platform's release page under the Artifacts tab. The name will resemble kernel-*.tar.gz. For the backport repository you can also choose to download packages under the GitHub action <a href="https://github.com/OFS/linux-dfl-backport/actions/runs/10046557927">Build dkms packages</a>, although your version will differ from the release version of the software.</p>
+<ol>
+<li>Download and install the pre-built kernel package.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>wget<span class="w"> </span>https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/kernel-4.18.0_dfl_2024.06.14_276007e.tar.gz
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>tar<span class="w"> </span>xf<span class="w"> </span>kernel-4.18.0_dfl_2024.06.14_276007e.tar.gz
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>sudo<span class="w"> </span>rpm<span class="w"> </span>-i<span class="w"> </span>kernel-4.18.0_dfl_2024.06.14_276007e/intel-fpga-dfl-dkms-1.11.0-2.2024.06.14.g276007e.noarch.rpm
+<a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
+<a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Set this kernel as your new default boot target</span>
+<a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--set-default<span class="w"> </span>/boot/vmlinuz-4.18.0-553.5.1.el8_10.x86_64
+<a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>sudo<span class="w"> </span>reboot
 </code></pre></div>
+<p>Continue from step 5 of <a href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source">Section 3.2 Building and Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Source</a>.</p>
 <h2 id="40-opae-software-development-kit">4.0 OPAE Software Development Kit<a class="headerlink" href="#40-opae-software-development-kit" title="Permanent link">&para;</a></h2>
 <p>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> software stack sits in user space on top of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit <a href="https://opae.github.io/latest/index.html">opae.github.io</a>.</p>
 <p>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> source code is contained within a single GitHub repository hosted at the <a href="https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3">OPAE Github</a>. This repository is open source and does not require any permissions to access.</p>
@@ -2820,73 +2779,73 @@ BOOT_IMAGE=(hd1,gpt2)/vmlinuz-4.18.0-dfl root=/dev/mapper/cl-root ro crashkernel
 <ol>
 <li>
 <p>Remove any currently installed OPAE packages.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>remove<span class="w"> </span>opae*
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>remove<span class="w"> </span>opae*
 </code></pre></div>
 </li>
 <li>
 <p>Initialize an empty git repository and clone the tagged <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> source code.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/
-<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>git<span class="w"> </span>init
-<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OFS/opae-sdk<span class="w"> </span>opae-sdk
-<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/opae-sdk
-<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.13.0-3
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>git<span class="w"> </span>init
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OFS/opae-sdk<span class="w"> </span>opae-sdk
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/opae-sdk
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.13.0-3
 </code></pre></div>
 </li>
 <li>
 <p>Verify that the correct tag/branch have been checkout out.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>git<span class="w"> </span>describe<span class="w"> </span>--tags
-<a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="m">2</span>.13.0-3
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>git<span class="w"> </span>describe<span class="w"> </span>--tags
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="m">2</span>.13.0-3
 </code></pre></div>
 </li>
 <li>
 <p>Set up a temporary <code>podman</code> container to build OPAE, which will allow you to customize the python installation without affecting system packages.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>podman
-<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS
-<a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>podman<span class="w"> </span>pull<span class="w"> </span>registry.access.redhat.com/ubi8:8.6
-<a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>podman<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/src:Z<span class="w"> </span>-w<span class="w"> </span>/src<span class="w"> </span>registry.access.redhat.com/ubi8:8.6
-<a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>
-<a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a><span class="c1"># Everything after runs within container:</span>
-<a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>
-<a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="c1"># Enable EPEL</span>
-<a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
-<a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>
-<a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>dnf<span class="w"> </span>install<span class="w"> </span>--enablerepo<span class="o">=</span>codeready-builder-for-rhel-8-x86_64-rpms<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-devel<span class="w"> </span>python3-jsonschema<span class="w"> </span>python3-pyyaml<span class="w"> </span>git<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>make<span class="w"> </span>cmake<span class="w"> </span>libuuid-devel<span class="w"> </span>json-c-devel<span class="w"> </span>hwloc-devel<span class="w"> </span>tbb-devel<span class="w"> </span>cli11-devel<span class="w"> </span>spdlog-devel<span class="w"> </span>libedit-devel<span class="w"> </span>systemd-devel<span class="w"> </span>doxygen<span class="w"> </span>python3-sphinx<span class="w"> </span>pandoc<span class="w"> </span>rpm-build<span class="w"> </span>rpmdevtools<span class="w"> </span>python3-virtualenv<span class="w"> </span>yaml-cpp-devel<span class="w"> </span>libudev-devel<span class="w"> </span>libcap-devel<span class="w"> </span>make<span class="w"> </span>automake<span class="w"> </span>autoconf<span class="w"> </span>libtools
-<a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>
-<a id="__codelineno-21-13" name="__codelineno-21-13" href="#__codelineno-21-13"></a>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--prefix<span class="o">=</span>/usr<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>pybind11
-<a id="__codelineno-21-14" name="__codelineno-21-14" href="#__codelineno-21-14"></a>
-<a id="__codelineno-21-15" name="__codelineno-21-15" href="#__codelineno-21-15"></a>./opae-sdk/packaging/opae/rpm/create<span class="w"> </span>unrestricted
-<a id="__codelineno-21-16" name="__codelineno-21-16" href="#__codelineno-21-16"></a>
-<a id="__codelineno-21-17" name="__codelineno-21-17" href="#__codelineno-21-17"></a><span class="nb">exit</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>podman
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>podman<span class="w"> </span>pull<span class="w"> </span>registry.access.redhat.com/ubi8:8.6
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>podman<span class="w"> </span>run<span class="w"> </span>-ti<span class="w"> </span>-v<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$PWD</span><span class="s2">&quot;</span>:/src:Z<span class="w"> </span>-w<span class="w"> </span>/src<span class="w"> </span>registry.access.redhat.com/ubi8:8.6
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="c1"># Everything after runs within container:</span>
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="c1"># Enable EPEL</span>
+<a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>dnf<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+<a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>
+<a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>dnf<span class="w"> </span>install<span class="w"> </span>--enablerepo<span class="o">=</span>codeready-builder-for-rhel-8-x86_64-rpms<span class="w"> </span>-y<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-devel<span class="w"> </span>python3-jsonschema<span class="w"> </span>python3-pyyaml<span class="w"> </span>git<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>make<span class="w"> </span>cmake<span class="w"> </span>libuuid-devel<span class="w"> </span>json-c-devel<span class="w"> </span>hwloc-devel<span class="w"> </span>tbb-devel<span class="w"> </span>cli11-devel<span class="w"> </span>spdlog-devel<span class="w"> </span>libedit-devel<span class="w"> </span>systemd-devel<span class="w"> </span>doxygen<span class="w"> </span>python3-sphinx<span class="w"> </span>pandoc<span class="w"> </span>rpm-build<span class="w"> </span>rpmdevtools<span class="w"> </span>python3-virtualenv<span class="w"> </span>yaml-cpp-devel<span class="w"> </span>libudev-devel<span class="w"> </span>libcap-devel<span class="w"> </span>make<span class="w"> </span>automake<span class="w"> </span>autoconf<span class="w"> </span>libtools
+<a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>
+<a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>pip3<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--prefix<span class="o">=</span>/usr<span class="w"> </span>pip<span class="w"> </span>setuptools<span class="w"> </span>pybind11
+<a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>
+<a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>./opae-sdk/packaging/opae/rpm/create<span class="w"> </span>unrestricted
+<a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>
+<a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a><span class="nb">exit</span>
 </code></pre></div>
 <p>The following packages will be built in the same directory as <code>create</code>:</p>
 </li>
 <li>
 <p>Install the packages you just created.</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/opae-sdk/packaging/opae/rpm
-<a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>opae-*.src.rpm<span class="w"> </span>
-<a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>-y<span class="w"> </span>opae*.rpm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/opae-sdk/packaging/opae/rpm
+<a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>opae-*.src.rpm<span class="w"> </span>
+<a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>-y<span class="w"> </span>opae*.rpm
 </code></pre></div>
 </li>
 <li>
 <p>Check that all packages have been installed and match expectation:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae
-<a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>opae-2.13.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>opae-debuginfo-2.13.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>opae-debugsource-2.13.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>opae-devel-2.13.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>opae-devel-debuginfo-2.13.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-7" name="__codelineno-23-7" href="#__codelineno-23-7"></a>opae-extra-tools-2.13.0-3.el8.x86_64.rpm
-<a id="__codelineno-23-8" name="__codelineno-23-8" href="#__codelineno-23-8"></a>opae-extra-tools-debuginfo-2.13.0-3.el8.x86_64.rpm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>opae-2.13.0-3.el8.x86_64.rpm
+<a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>opae-debuginfo-2.13.0-3.el8.x86_64.rpm
+<a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>opae-debugsource-2.13.0-3.el8.x86_64.rpm
+<a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>opae-devel-2.13.0-3.el8.x86_64.rpm
+<a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>opae-devel-debuginfo-2.13.0-3.el8.x86_64.rpm
+<a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>opae-extra-tools-2.13.0-3.el8.x86_64.rpm
+<a id="__codelineno-19-8" name="__codelineno-19-8" href="#__codelineno-19-8"></a>opae-extra-tools-debuginfo-2.13.0-3.el8.x86_64.rpm
 </code></pre></div>
 </li>
 </ol>
 <h3 id="42-installing-the-opae-sdk-with-pre-built-packages">4.2 Installing the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> with Pre-Built Packages<a class="headerlink" href="#42-installing-the-opae-sdk-with-pre-built-packages" title="Permanent link">&para;</a></h3>
 <p>You can skip the entire build process and use a set of pre-built binaries supplied by Intel. Visit your chosen platform's release page. Ender the Assets tab you will see a file named opae-2.13.0-3.x86_64-\&lt;\&lt;date>>_\&lt;\&lt;build>>.tar.gz. Download this package and extract its contents:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-24-1" name="__codelineno-24-1" href="#__codelineno-24-1"></a>tar<span class="w"> </span>xf<span class="w"> </span>opae-2.13.0-3.x86_64-*.tar.gz
+<div class="highlight"><pre><span></span><code><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a>tar<span class="w"> </span>xf<span class="w"> </span>opae-2.13.0-3.x86_64-*.tar.gz
 </code></pre></div>
 <p>For a fast installation you can delete the source RPM as it isn't necessary, and install all remaining OPAE RPMs:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>rm<span class="w"> </span>opae-*.src.rpm
-<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>opae*.rpm
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a>rm<span class="w"> </span>opae-*.src.rpm
+<a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>opae*.rpm
 </code></pre></div>
 <h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
 <p>Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
