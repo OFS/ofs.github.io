@@ -93,7 +93,7 @@ An older documentation repository that stopped being the primary API resource af
 
 The [Linux DFL Wiki](https://github.com/OFS/linux-dfl/wiki) page provides and introduction to the topics and design philosophy that goes into DFL enabled driver creation. DFL driver documentation has also been upstreamed into the Linux kernel and can be found under [Documentation/fpga/dfl.rst](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/fpga/dfl.rst?h=master).
 
-The below picture demonstrates the structure of the OFS stack stack at a high level:
+The below picture demonstrates the structure of the Open FPGA Stack at a high level:
 
 ![](./images/ofs_stack.png)
 
