@@ -14,6 +14,16 @@
       <node id="11">
         <label>stdbool.h</label>
       </node>
+      <node id="4">
+        <label>opae/types_enum.h</label>
+        <link refid="types__enum_8h"/>
+      </node>
+      <node id="5">
+        <label>cstdint</label>
+      </node>
+      <node id="9">
+        <label>stdint.h</label>
+      </node>
       <node id="2">
         <label>opae/cxx/core/pvalue.h</label>
         <link refid="pvalue_8h"/>
@@ -36,6 +46,18 @@
         <childnode refid="19" relation="include">
         </childnode>
       </node>
+      <node id="20">
+        <label>map</label>
+      </node>
+      <node id="14">
+        <label>uuid/uuid.h</label>
+      </node>
+      <node id="6">
+        <label>exception</label>
+      </node>
+      <node id="10">
+        <label>stddef.h</label>
+      </node>
       <node id="12">
         <label>opae/utils.h</label>
         <link refid="utils_8h"/>
@@ -43,12 +65,6 @@
         </childnode>
         <childnode refid="13" relation="include">
         </childnode>
-      </node>
-      <node id="5">
-        <label>cstdint</label>
-      </node>
-      <node id="9">
-        <label>stdint.h</label>
       </node>
       <node id="1">
         <label>docs/sw/include/opae/cxx/core/properties.h</label>
@@ -66,46 +82,11 @@
         <childnode refid="22" relation="include">
         </childnode>
       </node>
-      <node id="3">
-        <label>opae/cxx/core/except.h</label>
-        <link refid="except_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-        <childnode refid="5" relation="include">
-        </childnode>
-        <childnode refid="6" relation="include">
-        </childnode>
-      </node>
-      <node id="20">
-        <label>map</label>
-      </node>
-      <node id="7">
-        <label>opae/properties.h</label>
-        <link refid="properties_8h"/>
-        <childnode refid="8" relation="include">
-        </childnode>
-      </node>
-      <node id="14">
-        <label>uuid/uuid.h</label>
-      </node>
-      <node id="4">
-        <label>opae/types_enum.h</label>
-        <link refid="types__enum_8h"/>
-      </node>
-      <node id="6">
-        <label>exception</label>
-      </node>
-      <node id="10">
-        <label>stddef.h</label>
-      </node>
       <node id="22">
         <label>vector</label>
       </node>
       <node id="16">
         <label>array</label>
-      </node>
-      <node id="18">
-        <label>iostream</label>
       </node>
       <node id="8">
         <label>opae/types.h</label>
@@ -119,6 +100,9 @@
         <childnode refid="4" relation="include">
         </childnode>
       </node>
+      <node id="18">
+        <label>iostream</label>
+      </node>
       <node id="19">
         <label>type_traits</label>
       </node>
@@ -128,17 +112,61 @@
       <node id="13">
         <label>stdio.h</label>
       </node>
+      <node id="7">
+        <label>opae/properties.h</label>
+        <link refid="properties_8h"/>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
       <node id="17">
         <label>cstring</label>
       </node>
       <node id="21">
         <label>memory</label>
       </node>
+      <node id="3">
+        <label>opae/cxx/core/except.h</label>
+        <link refid="except_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+      </node>
     </incdepgraph>
     <invincdepgraph>
       <node id="4">
         <label>docs/sw/include/opae/cxx/core.h</label>
         <link refid="core_8h"/>
+      </node>
+      <node id="3">
+        <label>docs/sw/include/opae/cxx/core/errors.h</label>
+        <link refid="errors_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>docs/sw/include/opae/cxx/core/handle.h</label>
+        <link refid="handle_8h"/>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="6">
+        <label>docs/sw/include/opae/cxx/core/events.h</label>
+        <link refid="events_8h"/>
+        <childnode refid="4" relation="include">
+        </childnode>
+      </node>
+      <node id="8">
+        <label>docs/sw/include/opae/cxx/core/sysobject.h</label>
+        <link refid="cxx_2core_2sysobject_8h"/>
       </node>
       <node id="1">
         <label>docs/sw/include/opae/cxx/core/properties.h</label>
@@ -157,34 +185,6 @@
         </childnode>
         <childnode refid="8" relation="include">
         </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="6">
-        <label>docs/sw/include/opae/cxx/core/events.h</label>
-        <link refid="events_8h"/>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="8">
-        <label>docs/sw/include/opae/cxx/core/sysobject.h</label>
-        <link refid="cxx_2core_2sysobject_8h"/>
-      </node>
-      <node id="5">
-        <label>docs/sw/include/opae/cxx/core/handle.h</label>
-        <link refid="handle_8h"/>
-        <childnode refid="6" relation="include">
-        </childnode>
-        <childnode refid="7" relation="include">
-        </childnode>
-        <childnode refid="8" relation="include">
-        </childnode>
-        <childnode refid="4" relation="include">
-        </childnode>
-      </node>
-      <node id="3">
-        <label>docs/sw/include/opae/cxx/core/errors.h</label>
-        <link refid="errors_8h"/>
         <childnode refid="4" relation="include">
         </childnode>
       </node>
