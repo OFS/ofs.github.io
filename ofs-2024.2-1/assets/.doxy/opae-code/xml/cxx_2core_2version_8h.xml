@@ -9,12 +9,12 @@
       <node id="5">
         <label>stdbool.h</label>
       </node>
+      <node id="3">
+        <label>stdint.h</label>
+      </node>
       <node id="6">
         <label>opae/types_enum.h</label>
         <link refid="types__enum_8h"/>
-      </node>
-      <node id="3">
-        <label>stdint.h</label>
       </node>
       <node id="7">
         <label>string</label>

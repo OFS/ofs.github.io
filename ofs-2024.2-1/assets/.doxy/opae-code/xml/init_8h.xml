@@ -17,6 +17,10 @@
       </node>
     </incdepgraph>
     <invincdepgraph>
+      <node id="3">
+        <label>docs/sw/samples/hello_events/hello_events.c</label>
+        <link refid="hello__events_8c"/>
+      </node>
       <node id="2">
         <label>docs/sw/include/opae/fpga.h</label>
         <link refid="fpga_8h"/>
@@ -34,10 +38,6 @@
         <link refid="init_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
-      </node>
-      <node id="3">
-        <label>docs/sw/samples/hello_events/hello_events.c</label>
-        <link refid="hello__events_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
