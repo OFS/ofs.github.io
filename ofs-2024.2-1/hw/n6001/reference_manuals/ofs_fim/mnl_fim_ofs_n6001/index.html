@@ -2624,13 +2624,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#configuring-user-clocks" class="md-nav__link">
-    Configuring User Clocks
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -3062,12 +3055,10 @@ th, td {
 </tbody>
 </table>
 <h3 id="13-introduction-to-open-fpga-stack"><strong>1.3 Introduction to Open FPGA Stack</strong><a class="headerlink" href="#13-introduction-to-open-fpga-stack" title="Permanent link">&para;</a></h3>
-<p>The Open FPGA Stack (<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>) is a modular infrastructure of hardware
-platform components, open source upstreamed software, and broad
-ecosystem support that enables an efficient path to develop a custom FPGA platform.  <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> provides a framework of FPGA synthesizable code, simulation environment and synthesis/simulation scripts. 
-The key components of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> include:</p>
+<p>The Open FPGA Stack (<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>) is a modular infrastructure of hardware platform components, open source upstreamed software, and broad ecosystem support that enables an efficient path to develop a custom FPGA platform.  <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> provides a framework of FPGA synthesizable code, simulation environment and synthesis/simulation scripts. </p>
+<p>The key components of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> include:</p>
 <ul>
-<li>Target development platforms such as Intel-branded Programmable Acceleration Cards (PACs), Acceleration Development Platforms (ADPs) and third-party platforms.</li>
+<li>Target development platforms such as Intel-branded development kits, Acceleration Development Platforms (ADPs), and third-party platforms.</li>
 </ul>
 <ul>
 <li>Board Management Controller RTL and firmware that supports telemetry monitoring and capability for remote configuration updates.</li>
@@ -3076,7 +3067,7 @@ The key components of <abbr title="Open FPGA Stack, A modular collection of hard
 <li>Source accessible, modular FPGA Interface  manager (<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>) RTL with a <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> infrastructure unit tests that can be leveraged for your own custom <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> design. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> can be thought of as the FPGA shell that provides the I/O ring and timing closed management components for the FPGA.</li>
 </ul>
 <ul>
-<li>Basic building blocks for interconnect and PF/VF translation and arbitration; Platform Interface Manager (<abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr>) which provides Avalon<sup>&reg;</sup> bus compliant interfaces.</li>
+<li>Basic building blocks for interconnect and PF/VF translation and arbitration; Platform Interface Manager (<abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr>) which provides Avalon<sup>&reg;</sup> and Arm® AMBA® 4 AXI4 bus compliant interfaces.</li>
 </ul>
 <ul>
 <li><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> examples both in the git repository and workload examples provided by 3<sup>rd</sup> party vendors.</li>
@@ -3361,11 +3352,11 @@ The <abbr title="FPGA Interface Manager, Provides platform management, functiona
 <li>ST2MM module.</li>
 <li>Null Host exerciser (HE_NULL) stub.</li>
 <li>PCIe loopback host exerciser (HE-LB).</li>
-<li>HSSI host exerciser (HE-HSSI).</li>
-<li>Memory Host Exerciser (HE-MEM).</li>
-<li>Traffic Generator to memory (HE-MEM-TG).
-     Port Gasket (PRG). </li>
 <li>HPS Copy Engine.</li>
+<li>Port Gasket (PRG). </li>
+<li>HSSI host exerciser in the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> Region (HE-HSSI).</li>
+<li>Memory Host Exerciser in the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> Region (HE-MEM).</li>
+<li>Traffic Generator to memory in the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> Region (HE-MEM-TG).</li>
 </ul>
 </li>
 <li>Arm® AMBA® 4 AXI4 Streaming to Memory Map (ST2MM) Module that routes <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr> CSR accesses to <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> and board peripherals.</li>
@@ -3422,10 +3413,9 @@ The <abbr title="FPGA Interface Manager, Provides platform management, functiona
 <p><em>Figure: SmartNIC N6001-PL <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Diagram</em>
 <a class="glightbox" href="../images/PR_Gasket_Agilex.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/PR_Gasket_Agilex.png" /></a></p>
 <h4 id="143-platform-interface-manager"><strong>1.4.3 Platform Interface Manager</strong><a class="headerlink" href="#143-platform-interface-manager" title="Permanent link">&para;</a></h4>
-<p>The <abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr> provides a way to abstract the AXI4-Stream interface to the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> by providing a library of shims that convert the host channel native
-packet into other protocols such as AXI4 memory-mapped, Avalon<sup>&reg;</sup> streaming (Avalon-ST) or Avalon<sup>&reg;</sup> memory-mapped (Avalon-MM). </p>
+<p>The Platform Interface Manager (<abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr>) is a transformation layer between an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and native <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> device interfaces. It aims to provide consistent <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>-side interfaces and semantics, making AFUs portable across <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> releases. </p>
 <p>The FPGA or <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developer implements these interface abstractions in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region (afu_main) of the design.  </p>
-<p>For more information, refer to <a href="https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/">Workload Developer Guide: <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> for Agilex® 7 PCIe Attach FPGAs</a>.</p>
+<p>For more information, refer to the <a href="https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_core_concepts.md"><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr> Core Concepts</a>.</p>
 <h4 id="144-platform-feature-discovery"><strong>1.4.4 Platform Feature Discovery</strong><a class="headerlink" href="#144-platform-feature-discovery" title="Permanent link">&para;</a></h4>
 <p>This reference design comes with specific FPGA drivers that are upstreamed to linux-dfl.  These drivers abstract the hardware and operating system specific details of the platform to the host. </p>
 <p>The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> implements a device feature header (DFH) at the beginning of each host-discoverable feature in a linked list format that allows an FPGA platform driver running on the host to discover <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>, port, and <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> features. </p>
@@ -3809,7 +3799,7 @@ packet into other protocols such as AXI4 memory-mapped, Avalon<sup>&reg;</sup> s
 * Slot Number is 0.
 * VF Active, VF Number and PF number are obtained from the Data Mover Header Packet. </p>
 <h2 id="4-platform-interface-manager"><strong>4 Platform Interface Manager</strong><a class="headerlink" href="#4-platform-interface-manager" title="Permanent link">&para;</a></h2>
-<p>The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> interfaces to an application in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region through AXI4-Stream channels.  This format allows the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> to access the host channel's raw interface without any translation. </p>
+<p>The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> interfaces to an application in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region through AXI4-Stream channels, or AXI4-MM interface in the case of the Memory-SS.  This format allows the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> to access the host channel's raw interface without any translation. </p>
 <p>As a <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> developer, you have the option to provide the raw data format associated with the host interface channel to the workload or <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developer or you can provide an intermediate protocol using Platform Interface Manager Components or your own custom interface.</p>
 <p>If you expose the raw AXI4-Stream interface of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>, workload developers also have the option to convert to a desired protocol using the <abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr> resources as well.  </p>
 <p>Refer to the Workload Developer Guide for more information on using the <abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr> in your design.</p>
@@ -4369,7 +4359,7 @@ The PF/VF Mux/Demux is an M X N switch that allows any M port to target any N po
 <tr>
 <td align="center">ddr4_mem[1].ref_clk</td>
 <td align="center">150MHz</td>
-<td>Refclk for 32-bit EMIF channel 0</td>
+<td>Refclk for 32-bit EMIF channel 1</td>
 <td align="center">&#10004;</td>
 <td align="center">&#10004;</td>
 <td align="center">&#10004;</td>
@@ -4377,7 +4367,7 @@ The PF/VF Mux/Demux is an M X N switch that allows any M port to target any N po
 <tr>
 <td align="center">ddr4_mem[2].ref_clk</td>
 <td align="center">150MHz</td>
-<td>Refclk for 32-bit EMIF channel 0</td>
+<td>Refclk for 32-bit EMIF channel 2</td>
 <td align="center">&#10004;</td>
 <td align="center">&#10006;</td>
 <td align="center">&#10004;</td>
@@ -4385,7 +4375,7 @@ The PF/VF Mux/Demux is an M X N switch that allows any M port to target any N po
 <tr>
 <td align="center">ddr4_mem[3].ref_clk</td>
 <td align="center">150MHz</td>
-<td>Refclk for 32-bit EMIF channel 0</td>
+<td>Refclk for 32-bit EMIF channel 3</td>
 <td align="center">&#10004;</td>
 <td align="center">&#10006;</td>
 <td align="center">&#10004;</td>
@@ -4486,7 +4476,7 @@ The PF/VF Mux/Demux is an M X N switch that allows any M port to target any N po
 </thead>
 <tbody>
 <tr>
-<td align="center"><code>PCIE_PERST_n</code> pin</td>
+<td align="center"><code>PCIE_RESET_N</code></td>
 <td>Active low PCIe reset pin from the PCIe card edge that may be set by the host machine for cold or warm resets.</td>
 </tr>
 <tr>
@@ -4517,8 +4507,8 @@ The PF/VF Mux/Demux is an M X N switch that allows any M port to target any N po
 </table>
 <p>Upon power-on, the reset module in the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> holds the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> in reset until all the reset conditions are de-activated:</p>
 <ul>
-<li><code>nPERST</code> signal is asserted.</li>
-<li>The <code>INIT_DONE</code> pin is driven high to indicate core configuration is complete.</li>
+<li><code>PCIE_RESET_N</code> signal is asserted.</li>
+<li>The <code>ninit_done</code> pin is de-asserted by the configuration monitor to indicate core configuration is complete.</li>
 <li>The SYS IOPLL is locked.</li>
 <li>The reset status from PCIe hard IP is de-asserted indicating the IP is ready for transfer. </li>
 </ul>
@@ -4578,6 +4568,7 @@ The only way to invoke a system reset to the <abbr title="FPGA Interface Manager
 An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> sends interrupt to the MSI-X module in the PCIE SS on the AXI interrupt request channel. The MSI-X table entries and PBA vectors are implemented in the PCIE SS.</p>
 <p>Please refer to the <a href="https://www.intel.com/content/www/us/en/docs/programmable/790711/23-4-1-0-0/introduction.html">AXI Streaming IP for PCI Express User Guide</a> for more information.</p>
 <h2 id="10-external-memory-interface-emif"><strong>10 External Memory Interface (EMIF)</strong><a class="headerlink" href="#10-external-memory-interface-emif" title="Permanent link">&para;</a></h2>
+<p>The EMIF subsystem is configured according the memories on the board. If HPS is enabled in the board, one of the channel is configured for HPS. Please check the board specific configuration.</p>
 <p>The table below shows the capabilities of the memory populated on the boards for each reference design. Note that ECC is only enabled by default for HPS memory channels. You may enable ECC on channels that support it by modifying the memory subsystem. Refer to the Shell Developer Guides for instructions.</p>
 <p><strong>Table 10-1 Memory Subsystem Configuration for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Agilex PCIe Attach Target Boards</strong></p>
 <table>
@@ -5123,23 +5114,59 @@ An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in
 </tr>
 </tbody>
 </table>
+<p>To modify the user clocks to a desired frequency, the clock-frequency-low and clock-frequency-high fields are set in the  <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>'s .json file. During <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, the SW will try to provide the closest possible frequency to the value specified in the .json file.</p>
 <h4 id="pll-reconfiguration">PLL Reconfiguration<a class="headerlink" href="#pll-reconfiguration" title="Permanent link">&para;</a></h4>
 <p>The blue bit stream hardware exposes the low level IOPLL reconfiguration interfaces directly to software control. Through the USR_CLK_FREQ_CMD0 register software can select the reference clock, assert the PLL power down pin and issue reads and writes on the IOPLL Avalon-mm reconfiguration bus. Through the USR_CLK_FREQ_STS0 register software can query the IOPLL active reference clock, locked status and readdata returned from the IOPLL AVMM interface for read requests. </p>
 <h4 id="clock-frequency-counter">Clock Frequency Counter<a class="headerlink" href="#clock-frequency-counter" title="Permanent link">&para;</a></h4>
 <p>The user clocks, generated by the reconfigurable IOPLL, are connected to a frequency measurement circuit. Software selects which of the two clocks to measure by setting the clock select bit in the USER_CLK_FREQ_CMD1 register. After 10ms software can read the frequency, in 10 KHz units, from the USER_CLK_FREQ_STS1 register. Reading this register before 10ms has passed will return undefined data but otherwise has no effect. </p>
-<h4 id="configuring-user-clocks">Configuring User Clocks<a class="headerlink" href="#configuring-user-clocks" title="Permanent link">&para;</a></h4>
-<p>To program the user clock to the desired frequency, user will set the clock-frequency-low and clock-frequency-high fields in the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> GBS .json file to the desired frequency value. During <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, SW will try to provide the closest possible frequency to the value specified in the .json file. </p>
 <h2 id="13-host-exercisers"><strong>13 Host Exercisers</strong><a class="headerlink" href="#13-host-exercisers" title="Permanent link">&para;</a></h2>
 <p>The Host Exerciser (HE) modules are responsible for generating traffic with the intent of exercising the specific interface they are designed to connect to. They are intended to test the interface in simulation and hardware, enable measurement of bandwidth and other performance KPIs and, in come cases, provide an example of data movement between interfaces (PCIe to DDR for e.g.) for adoption into a customer application. </p>
+<p>The default <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> shell contains 4 types of host exercisers:</p>
+<table>
+<thead>
+<tr>
+<th>Host Exerciser Name</th>
+<th>Expansion</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HE-LB</td>
+<td>Host Exerciser Loopback</td>
+<td>A traffic generator that exercises the path from host to host memory in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> via PCIe</td>
+</tr>
+<tr>
+<td>HE-MEM</td>
+<td>Host Exerciser Memory</td>
+<td>A traffic generator that exercise the path from host to local memory (e.g. external DDR) via PCIe</td>
+</tr>
+<tr>
+<td>HE-MEM-TG</td>
+<td>Host Exerciser Memory Traffic Generator</td>
+<td></td>
+</tr>
+<tr>
+<td>HE-HSSI</td>
+<td>Host Exerciser High Speed Serial Interface</td>
+<td></td>
+</tr>
+</tbody>
+</table>
 <p>### <strong>13.1 HE-LB and HE-MEM Host Exerciser</strong></p>
 <p>The Host Exerciser Loopback module is a traffic generator that can be attached both to host memory, over PCIe (HE-LB), and to local memory, such as board-attached DDR (HE-MEM). The Host Exerciser (HE) is responsible for generating traffic with the intention of exercising the path from the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> to the Host at full bandwidth as well as demonstrating data path correctness.
 The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> picks up the HE-LB module behind the <abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr> (Platform Interface Manager).  The <abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr> converts the AXI with TLP out of the PCIe SS to standard Arm® AMBA® 4 AXI4 (MM for completions and Lite for CSR) interfaces. The figure below shows how the HE-LB is instantiated in the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>.</p>
 <p><strong>Figure 13-1 HE-LB Dataflow Diagram</strong>
-<a class="glightbox" href="../images/he-lb.svg" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/he-lb.svg" /></a></p>
+<a class="glightbox" href="../images/he-lb-flow.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/he-lb-flow.png" /></a></p>
 <p>The exerciser has two primary modes: loopback, in which read data is fed back as writes, and read/write mode, in which reads and writes are generated independently. Furthermore, the host_exerciser software provided with OPAE that drives the RTL has two major modes: "lpbk" and "mem". These modes only select the UUID of the HE <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>, with lpbk selecting a version configured with no local memory (56e203e9-864f-49a7-b94b-12284c31e02b) and mem seeking a version with local memory (8568ab4e-6ba5-4616-bb65-2a578330a8eb). The behavior of each engine with and without local memory is described below.</p>
 <p><strong>Figure 13-2 HE Engine Hierarchy</strong></p>
 <p><a class="glightbox" href="../images/he-engine.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="../images/he-engine.png" /></a></p>
 <p>For more details of HE-LB and HE-MEM IP, please refer to ofs-fim-common/src/common/he_lb/README.md</p>
+<p>### <strong>13.1 Host Exerciser Memory Traffic Generator (HE-MEM-TG)</strong></p>
+<p>The memory traffic generator (HE-MEM-TG) provides a way for users to characterize local memory channel bandwidth with a variety of traffic configuration features including request burst size, read/write interleave count, address offset, address strobe, and data pattern.</p>
+<p>The HE-MEM-TG is connected via AXI-MM to the available local memory channels not already attached to HE-MEM. For example, if there are 4 total memory channels, HE-MEM will connect to channel 0, and HE-MEM-TG will connect to channels 1-3. It has a separate CSR block for <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> feature information and high-level status, including a TG_CAPABILITY register that describes the available traffic generators with a 1 bit active high mask and a TG_STAT register that provides the 4-bit, one-hot status of each TG in adjacent fields. The status is decoded left to right as follows: pass, fail, timeout, active. For additional details, refer to the <a href="https://github.com/OFS/ofs-fim-common/blob/release/ofs-2024.2/src/common/mem_tg/MEM_TG_CSR.xls">MEM_TG CSR table</a></p>
+<p>Each traffic generator is configured through a separate Avalon-MM interface at incremental offsets of 0x1000 from the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> DFH. The default configuration for each TG performs a single-word write followed by a read at address 0. Triggering the start of the test on a TG will initiate a counter to measure the duration of the test which is recorded in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> CSR block and used to report memory channel bandwidth.</p>
+<p><a class="glightbox" href="../images/he_mem_tg_diagram.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="he_mem_tg_diagram" src="../images/he_mem_tg_diagram.png" /></a></p>
 <h3 id="132-hssi-host-exerciser-he-hssi"><strong>13.2 HSSI Host Exerciser (HE-HSSI)</strong><a class="headerlink" href="#132-hssi-host-exerciser-he-hssi" title="Permanent link">&para;</a></h3>
 <p>HE-HSSI is an Ethernet <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> that handles client side ethernet traffic. The reference HE-HSSI has following features:</p>
 <ul>

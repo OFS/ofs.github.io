@@ -11,9 +11,11 @@
       <node id="3">
         <label>stdint.h</label>
       </node>
-      <node id="6">
-        <label>opae/types_enum.h</label>
-        <link refid="types__enum_8h"/>
+      <node id="1">
+        <label>docs/sw/include/opae/error.h</label>
+        <link refid="error_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
       </node>
       <node id="4">
         <label>stddef.h</label>
@@ -30,18 +32,12 @@
         <childnode refid="6" relation="include">
         </childnode>
       </node>
-      <node id="1">
-        <label>docs/sw/include/opae/error.h</label>
-        <link refid="error_8h"/>
-        <childnode refid="2" relation="include">
-        </childnode>
+      <node id="6">
+        <label>opae/types_enum.h</label>
+        <link refid="types__enum_8h"/>
       </node>
     </incdepgraph>
     <invincdepgraph>
-      <node id="3">
-        <label>docs/sw/samples/hello_events/hello_events.c</label>
-        <link refid="hello__events_8c"/>
-      </node>
       <node id="2">
         <label>docs/sw/include/opae/fpga.h</label>
         <link refid="fpga_8h"/>
@@ -59,6 +55,10 @@
         <link refid="error_8h"/>
         <childnode refid="2" relation="include">
         </childnode>
+      </node>
+      <node id="3">
+        <label>docs/sw/samples/hello_events/hello_events.c</label>
+        <link refid="hello__events_8c"/>
       </node>
     </invincdepgraph>
       <sectiondef kind="func">
