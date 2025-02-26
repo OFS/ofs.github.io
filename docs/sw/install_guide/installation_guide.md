@@ -5,7 +5,7 @@ OPAE SDK releases are available on [GitHub](https://github.com/OPAE/opae-sdk/rel
 Source code for the OPAE DFL device driver for Linux is also available on [GitHub](https://github.com/OPAE/linux-dfl).
 
 ## Install the Fedora  ##
-Download the Fedora  (x86_64 version) installation file in [fedora](https://getfedora.org/en/workstation/download/), and install the Fedora  in yourserver. You can choose Fedora Workstation or Fedora server.
+Download the Fedora (x86_64 version) installation file in [fedora](https://getfedora.org/en/workstation/download/), and install the Fedora  in your server. You can choose Fedora Workstation or Fedora server.
 
 ## Build the kernel and DFL drivers ##
 
@@ -31,7 +31,7 @@ $ sed -i -r 's/CONFIG_SYSTEM_TRUSTED_KEYS=.*/CONFIG_SYSTEM_TRUSTED_KEYS=""/' .co
 $ sed -i '/^CONFIG_DEBUG_INFO_BTF/ s/./#&/' .config
 $ echo 'CONFIG_DEBUG_ATOMIC_SLEEP=y' >> .config
 $ make olddefconfig
-```
+``` 
 
 Compile and install the new kernel.
 ```console

@@ -11,7 +11,7 @@ This diagram shows the FPGA board interface development separation from the inte
 - Scripts for both compilation setup
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
 
-Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/). This guide covers logic in the AFU Main (PR) region.
+Please notice that the AFU region consists of both static and PR logic in the above block diagram. Creating AFU logic for the static region is described in [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/). This guide covers logic in the AFU Main (PR) region.
 
 
 ### **1.1 Document Organization**
@@ -63,7 +63,7 @@ Verify your development has the above tools installed.
 The following server and PAC card are required to run the examples in this guide:
 
 1. Intel® FPGA PAC D5005 with root entry hash erased (Please contact Altera® for root entry hash erase instructions). The standard Intel® FPGA PAC D5005 card is programmed only to allow the FIM binary files signed by Altera® to be loaded. The root entry hash erases process will allow unsigned FIM binary files to be loaded.
-2. Intel® FPGA PAC D5005 installed in a qualified server following instructions in [Board Installation Guide: OFS for Acceleration Development Platforms](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/adp_board_installation_guidelines).
+2. Intel® FPGA PAC D5005 installed in a qualified server following instructions in [Board Installation Guide: OFS for Acceleration Development Platforms](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/adp_board_installation_guidelines).
 
 ### **1.3 Acceleration Functional Unit (AFU) Development Flow**
 
@@ -162,7 +162,7 @@ The following resources are available to assist in creating an AFU:
 
 [PIM Core Concepts](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_core_concepts.md) provides details on using the PIM and its capabilities. 
 
-[PIM Based AFU Developer Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/ug_dev_pim_based_afu/) provides details on interfacing your AFU to the FIM using the PIM.
+[PIM Based AFU Developer Guide](https://ofs.github.io/ofs-2024.3-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/ug_dev_pim_based_afu/) provides details on interfacing your AFU to the FIM using the PIM.
 
 The [examples-afu](https://github.com/OFS/examples-afu.git) repo provides several AFU examples: 
 
@@ -249,7 +249,7 @@ Please refer to Unit Level Simulation if you would like to make any simulation [
 
 Note that both development and hardware testing can be performed on the same server if desired.
 
-This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [Board Installation Guide: OFS for Acceleration Development Platforms](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/adp_board_installation_guidelines). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
+This guide uses Intel® FPGA PAC D5005 as the target OFS-compatible FPGA PCIe card platform for demonstration steps. The Intel® FPGA PAC D5005 must be fully installed following [Board Installation Guide: OFS for Acceleration Development Platforms](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/adp_board_installation_guidelines). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate a user-developed AFU.
 
 
 > **_NOTE:_**  
@@ -296,11 +296,15 @@ Use RedHat® Enterprise Linux® (RHEL) 8.6 for compatibility with your developme
 
 Prior to installing Quartus:
 
-1. Ensure you have at least 64 GB of free space for Quartus Prime Pro installation and your development work.
-  * Intel® recommends that your system be configured to provide virtual memory equal in size or larger than the recommended physical RAM size that is required to process your design.
+1. Ensure you have sufficient free disk space for Quartus Prime Pro installation and your development work.
+
   * The disk space may be significantly more based on the device families included in the install. Prior to installation, the disk space should be enough to hold both zipped tar files and uncompressed installation files. After successful installation, delete the downloaded zipped files and uncompressed zip files to release the disk space.
 
-2. Perform the following steps to satisfy the required dependencies.
+2. Ensure you have sufficient RAM available for OFS compilations with Quartus
+
+  * It is recommended you have at least 128 GB of RAM to compile OFS designs.
+
+3. Perform the following steps to satisfy the required dependencies.
 
   ```bash
   $ sudo dnf install -y gcc gcc-c++ make cmake libuuid-devel rpm-build autoconf automake bison boost boost-devel libxml2 libxml2-devel make ncurses grub2 bc csh flex glibc-locale-source libnsl ncurses-compat-libs 
@@ -314,7 +318,7 @@ Prior to installing Quartus:
   $ sudo ln -s /usr/bin/python3 /usr/bin/python
   ```
 
-3. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
+4. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
 
   The installation path must satisfy the following requirements:
 
@@ -323,9 +327,7 @@ Prior to installing Quartus:
   * Only English characters
   * No spaces
 
-4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
-
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1). The patches for this release are No patches for this release.
+5. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -382,22 +384,25 @@ git clone --recurse-submodules  https://github.com/OFS/ofs-d5005.git
 > 
 
 Edit your bashrc file ~/.bashrc to add the following lines:
+
 ```sh
 export OFS_ROOTDIR=$OFS_BUILD_ROOT/ofs-d5005
 export WORKDIR=$OFS_ROOTDIR
 export VERDIR=$OFS_ROOTDIR/verification
 ```
+
 ```sh
 cd ofs-d5005
 ```
 
 Select the latest [OFS Release](https://github.com/OFS/ofs-d5005/releases/)
-```sh
+
+```bash
 git checkout tags/ofs-2024.1-1
 ```
 
 > **_Console Output:_**  
->```sh
+>
 > You are in 'detached HEAD' state. You can look around, make experimental changes and commit them, and you can discard any commits you make in this state without impacting any branches by performing another checkout.
 >
 >If you want to create a new branch to retain commits you create, you may do so (now or later) by using -b with the checkout command again. Example:
@@ -414,9 +419,9 @@ cd  $OFS_ROOTDIR
 ls
 ```
 > **_Console Output:_**  
->```sh
+>
 > eval_scripts ipss ofs-common license  LICENSE.md  README.md  sim  src  syn  verification
->```
+>
 > 
 
 
@@ -776,7 +781,7 @@ sudo fpgainfo fme
 
 The base FIM used in AFU compilation must be loaded on the board. In this step, you will load the generated FIM binary into the Intel® FPGA PAC D5005 FPGA flash. By performing this step, subsequent AFU developed in this guide will use this base FIM and allow your newly created AFU to match the base FIM loaded on the board.
 
-More information related to fpgaupdate is located [Software Installation Guide: OFS for PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach).
+More information related to fpgaupdate is located [Software Installation Guide: OFS for PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach).
 
 Run fpgasupdate to load the image into the user location of the Intel® FPGA PAC D5005 FPGA flash and the <span title='Remote System Update, A Remote System Update operation sends an instruction to the Intel® FPGA PAC D5005 that triggers a power cycle of the card only, forcing reconfiguration.'>**RSU** </span> command to reboot the PCIE Card:
 
@@ -784,6 +789,7 @@ Run fpgasupdate to load the image into the user location of the Intel® FPGA PAC
 sudo fpgasupdate $OFS_ROOTDIR/work_d5005/syn/syn_top/output_files/d5005_page1_unsigned.bin 3b:00.0
 ```
 Run rsu command to re-configure FPGA on Intel® FPGA PAC D5005.
+
 ```sh
 sudo rsu bmcimg 3b:00.0
 ```
@@ -793,7 +799,7 @@ sudo fpgainfo fme
 ```
 
 > **_Console Output:_**  
->```sh
+>
 >
 >Board Management Controller, MAX10 NIOS FW version: 2.0.8
 >Board Management Controller, MAX10 Build version: 2.0.8
@@ -808,7 +814,6 @@ sudo fpgainfo fme
 >Pr Interface Id                  : a195b6f7-cf23-5a2b-8ef9-1161e184ec4e
 >Boot Page                        : user
 >
-
 
 ## **3.0 OPAE Software Development Kit**
 
@@ -1467,7 +1472,7 @@ In this section you will set up your server to support ASE by independently down
 
 #### **5.1.1. Install OPAE SDK**
 
-The Intel® FPGA PAC D5005 PAC card requires **opae-2.12.0-5**. Follow the instructions documented in the [Software Installation Guide: OFS for PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach) to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card. Make sure to check out the cloned repository to tag **2.12.0-5** and branch **release/2.12.0**.
+The Intel® FPGA PAC D5005 PAC card requires **opae-2.12.0-5**. Follow the instructions documented in the [Software Installation Guide: OFS for PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach) to build and install the required OPAE SDK for the Intel® FPGA PAC D5005 PAC card. Make sure to check out the cloned repository to tag **2.12.0-5** and branch **release/2.12.0**.
 
 ```bash
 git checkout tags/2.12.0-5 -b release/2.12.0
@@ -2101,18 +2106,9 @@ if __name__ == "__main__":
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 
 
-<!-- include ./docs/hw/doc_modules/links.md --> 
+ 

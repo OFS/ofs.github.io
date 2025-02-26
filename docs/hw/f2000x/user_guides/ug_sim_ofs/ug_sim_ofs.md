@@ -1,4 +1,4 @@
-# UVM Simulation User Guide: Open FPGA Stack for Intel Agilex 7 SoC Attach FPGAs
+# UVM Simulation User Guide: Open FPGA Stack for Agilex™ 7 SoC Attach FPGAs
 
 | Term       | Description                                                  |
 | ---------- | ------------------------------------------------------------ |
@@ -140,7 +140,7 @@ Verification components include:
 ### **4.2 Base FIM DUT**
 
 
-The hardware architecture of an Intel Agilex 7 FIM is based on the OFS hardware architecture. The following is the list of features and subsystems supported in the base shell.
+The hardware architecture of an Agilex™ 7 FIM is based on the OFS hardware architecture. The following is the list of features and subsystems supported in the base shell.
 
     •	PCIe Subsystem
     •	HSSI Subsystem
@@ -155,14 +155,14 @@ The hardware architecture of an Intel Agilex 7 FIM is based on the OFS hardware 
 
 **Figure 2 DUT Base Shell Diagram**
 
-Figure 2 shows the high level architecture of an Intel Agilex 7 Base Shell. It has a Gen4x16, 100G Ethernet Datapath in a 2x4x25G configuration. The Intel Agilex 7 Base Shell is a shell that will enable a user to build other shell variants for a custom configuration. For the f2000x board there is one shell variant
+Figure 2 shows the high level architecture of an Agilex™ 7 Base Shell. It has a Gen4x16, 100G Ethernet Datapath in a 2x4x25G configuration. The Agilex™ 7 Base Shell is a shell that will enable a user to build other shell variants for a custom configuration. For the f2000x board there is one shell variant
 
 base_x16<br>
 
 ### **4.3 Full Chip Level Verification Archiecture for FIM**
 
 
-Figure 3 shows a graphical representation a full chip testbench that includes major RTL blocks depicted in a OFS Intel Agilex 7 based UVM environment 
+Figure 3 shows a graphical representation a full chip testbench that includes major RTL blocks depicted in a OFS Agilex™ 7 based UVM environment 
 
 ![](images/ofs-uvm_testbench_architecture.png)
 
@@ -1544,17 +1544,8 @@ The "svt_pcie_driver_app_transaction_base_sequence" is part of Synopsys PCIe VIP
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/f2000x/doc_modules/links.md --> 
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 
+

@@ -1,6 +1,6 @@
 # **Software Developer Journey Guide: Open FPGA Stack**
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## **1 Introduction**
 
@@ -20,7 +20,7 @@ The general development flow is depicted in the diagram below and discussed in m
 
 ## **2 Evaluate OFS**
 
-The repositories in the OFS site are tagged based on year and release number.  For example, a tag of 2024.2-1 indicates the first release package of the quarter.  If there are updates to this release package, the last number will be incremented by 1, such as 2024.2-2. Not all repositories follow the exact same naming scheme; both the OPAE SDK user space software and Linux DFL Backport kernel driver repository tags differ from their hardware counterparts. See the below table for a summary of the most recent release versions for each software component:
+The repositories in the OFS site are tagged based on year and release number.  For example, a tag of 2024.3-1 indicates the first release package of the quarter.  If there are updates to this release package, the last number will be incremented by 1, such as 2024.3-2. Not all repositories follow the exact same naming scheme; both the OPAE SDK user space software and Linux DFL Backport kernel driver repository tags differ from their hardware counterparts. See the below table for a summary of the most recent release versions for each software component:
 
 **Table 1: Combined OPAE and Platform Version Summary**
 
@@ -28,10 +28,10 @@ The OPAE SDK repository is located at [https://github.com/OFS/opae-sdk](https://
 
 |Component|Platform|Most Recent Release|
 |-----|-----|-----|
-|OPAE SDK| Intel® FPGA SmartNIC N6000-PL| 2.13.0-3|
-|OPAE SDK| Intel® FPGA SmartNIC N6001-PL| 2.13.0-3|
-|OPAE SDK| Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)| 2.13.0-3|
-|OPAE SDK| Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)| 2.13.0-3|
+|OPAE SDK| Intel® FPGA SmartNIC N6000-PL| 2.14.0-2|
+|OPAE SDK| Intel® FPGA SmartNIC N6001-PL| 2.14.0-2|
+|OPAE SDK| Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)| 2.14.0-2|
+|OPAE SDK| Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)| 2.14.0-2|
 |OPAE SDK| Intel® FPGA PAC D5005|2.12.0-5 |
 |OPAE SDK| IPU Platform F2000X-PL| 2.12.0-5|
 
@@ -41,10 +41,10 @@ The Linux DFL repository is located at [https://github.com/OFS/linux-dfl](https:
 
 |Component|Platform|Most Recent Release|
 |-----|-----|-----|
-|Linux DFL| Intel® FPGA SmartNIC N6000-PL| intel-1.11.0-2|
-|Linux DFL| Intel® FPGA SmartNIC N6001-PL| intel-1.11.0-2|
-|Linux DFL| Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)| intel-1.11.0-2|
-|Linux DFL| Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)|intel-1.11.0-2 |
+|Linux DFL| Intel® FPGA SmartNIC N6000-PL| intel-1.12.0-1|
+|Linux DFL| Intel® FPGA SmartNIC N6001-PL| intel-1.12.0-1|
+|Linux DFL| Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)| intel-1.12.0-1|
+|Linux DFL| Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)|intel-1.12.0-1 |
 |Linux DFL| Intel® FPGA PAC D5005| ofs-2024.1-6.1-2|
 |Linux DFL| IPU Platform F2000X-PL|ofs-2024.1-6.1-2 |
 
@@ -62,21 +62,21 @@ Before evaluating an OFS product, you will need to choose a platform and associa
 
 Set up your card and software in a server using the steps provided in one of the corresponding **Getting Started Guides** and leverage the appended binaries in the official OFS release repository release page under the "Assets" tab to preview the software and design functionality the OFS framework out of the box. **Getting Started Guides** are available for the following FIM(shell) designs:
 
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/latest/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/latest/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (I-Series Development Kit (2xR-Tile, 1xF-Tile))](https://ofs.github.io/latest/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/)
-* [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/latest/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/)
+* [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/latest/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
+* [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/latest/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
+* [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (I-Series Development Kit (2xR-Tile, 1xF-Tile))](https://ofs.github.io/latest/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/)
+* [Getting Started Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/latest/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/)
 * [Getting Started Guide: OFS for Stratix 10® FPGA PCIe Attach FPGAs](https://ofs.github.io/latest/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/)
 
 Every OFS release has been validated against a specific OS release. This information, alongside any recommended BIOS settings changes, can be found in the **Getting Started Guides**.
 
 ## **3 Select a Starting Shell/FIM**
 
-To begin your development, start with an existing shell that most closely matches your device and end solution. The OFS site has both Intel Intel Agilex 7 and Stratix 10 FPGA reference designs you can use as a starting point for your own design. These designs can be ported to different device OPNs if a different resource utilization is required, although that will not be covered here.
+To begin your development, start with an existing shell that most closely matches your device and end solution. The OFS site has both Agilex™ 7 and Stratix 10 FPGA reference designs you can use as a starting point for your own design. These designs can be ported to different device OPNs if a different resource utilization is required, although that will not be covered here.
 
-To begin you may want to learn more about Intel Stratix 10 and Intel Agilex 7 family offerings.  Please refer to the following links:
+To begin you may want to learn more about Intel Stratix 10 and Agilex™ 7 family offerings.  Please refer to the following links:
 
-* [Intel Agilex 7 Product Page](https://www.intel.com/content/www/us/en/products/details/fpga/agilex/7.html)
+* [Agilex™ 7 Product Page](https://www.intel.com/content/www/us/en/products/details/fpga/agilex/7.html)
 * [Intel Stratix 10 Product Page](https://www.intel.com/content/www/us/en/products/details/fpga/stratix/10.html)
 
 In this document, we assume you have downloaded and configured your device with the appropriate pre-compiled binary image for your chosen OFS release and platform without any further customization. For more information on your OFS Shell design and its available key features go to [https://ofs.github.io/latest](https://ofs.github.io/latest), choose your shell design on the top navigation bar, and select the **Shell Technical Reference Manual** and **Shell Developer Guide**. You can also review the [FPGA Developer Journey Guide: Open FPGA Stack](./../ug_fpga_developer/ug_fpga_developer.md) document.
@@ -157,17 +157,8 @@ When testing a custom written user space application, you can use the following 
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/common/doc_modules/links.md -->
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+
+

@@ -1,6 +1,6 @@
-# OFS Getting Started Guide for Intel Agilex 7 SoC Attach FPGAs
+# OFS Getting Started Guide for Agilex™ 7 SoC Attach FPGAs
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1.0 About this Document
 
@@ -80,7 +80,7 @@ Not all components shown in Table 2 will have an update available upon release. 
 
 ### 1.4 Board Installation and Server Requirements
 
-The F2000X-PL device physical setup procedure and required server settings are detailed in this device's [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation). Please review this document and follow proper procedure when installing your device. The rest of this document will assume you have completed basic platform bring-up.
+The F2000X-PL device physical setup procedure and required server settings are detailed in this device's [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation). Please review this document and follow proper procedure when installing your device. The rest of this document will assume you have completed basic platform bring-up.
 
 ### 1.5 Reference Documents
 
@@ -138,7 +138,7 @@ The IPU Platform F2000X-PL ships with a Yocto image pre-programmed in NVMe, whic
 
 2. Ensure your Minicom terminal settings match those shown below. You must direct Minicom to the USB device created in `/dev` associated with your RS-232 to USB Adapter cable. This cable must be attached to a server that is *separate* from the one housing your IPU Platform F2000X-PL. Check the server logs in `dmesg` to figure out which device is associated with your cable: `[    7.637291] usb 1-4: FTDI USB Serial Device converter now attached to ttyUSB0`. In this example the special character file `/dev/ttyUSB0` is associated with our cable, and can be connected to using the following command: `sudo minicom --color=on -D /dev/ttyUSB0`.
     
-    ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/minicom_settings.PNG)
+    ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/minicom_settings.PNG)
 
 3. Change the SoC boot order to boot from USB first. Reboot the server. From your
     serial Minicom terminal, watch your screen and
@@ -148,22 +148,22 @@ The IPU Platform F2000X-PL ships with a Yocto image pre-programmed in NVMe, whic
     
      Main setup menu:
     
-    ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu1.png)
+    ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu1.png)
     
-    ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu2.png)
+    ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu2.png)
     
      Your order of boot devices may differ. You need to move the USB flash
      up to Boot Option \#1 by first using the down arrow key to highlight
      the USB device then use '+' key to move the USB device to \#1 as
      shown below:
     
-    ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu3.png)
+    ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/mainmenu3.png)
     
     Press 'F4' to save and exit.
 
 4. You will boot into Yocto automatically. Log in with username `root` and an empty password using Minicom. Take note of the IP address of the board, you can use this to log in without needing the serial cable.
     
-     ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/yocto_login.PNG)
+     ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/yocto_login.PNG)
     
     Verify that you have booted from the USB and not the on-board NVMe `lsblk -no pkname $(findmnt -n / | awk '{ print $2 }')`. You should see a device matching `/dev/sd*`, and *not* `nvme*n*p*`. If you see `nvme*n*p*`, then review the previous steps.
     
@@ -306,7 +306,7 @@ If the factory image has been updated, Intel strongly recommends you immediately
 
 You can determine which region of flash was used to configure their FPGA device using the command `fpgainfo fme` and looking at the row labelled **Boot Page**.
 
-When loading a new FPGA SR image, use the command `rsu fpga`. When loading a new BMC image, use the command `rsu bmc`. When using the RSU command, you may select which image will be configured to the selected device. For example, when performing an RSU for the Intel Agilex 7 FPGA, you may select to configure the **user1**, **user2**, or **factory** image. When performing an RSU for the C10 BMC, you may select to configure the user or factory image. You may also use RSU to reconfigure the SDM on devices that support it. The RSU command sends an instruction to the BMC to reconfigure the selected device from an image stored in flash.
+When loading a new FPGA SR image, use the command `rsu fpga`. When loading a new BMC image, use the command `rsu bmc`. When using the RSU command, you may select which image will be configured to the selected device. For example, when performing an RSU for the Agilex™ 7 FPGA, you may select to configure the **user1**, **user2**, or **factory** image. When performing an RSU for the C10 BMC, you may select to configure the user or factory image. You may also use RSU to reconfigure the SDM on devices that support it. The RSU command sends an instruction to the BMC to reconfigure the selected device from an image stored in flash.
 
 ```bash
 $ rsu fpga --page=user1 15:00.0
@@ -336,11 +336,11 @@ The ICX-D SoC NVMe comes pre-programmed with BIOS v7 (0ACRH007). This version wi
 
 1. Check your BIOS Version. Reboot the SoC and wait for the BIOS version to be shown. In this example, the BIOS will need to be updated.
     
-    ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/bios_setup_splash.PNG)
+    ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/bios_setup_splash.PNG)
 
 2. Download both the ICX-D SoC Update image and [APTIO V AMI Firmware Update Utility](https://www.ami.com/bios-uefi-utilities/#aptiov). Unzip the BIOS update image and locate your BIOS update binary. Unzip Aptio_V_AMI_Firmware_Update_Utility.zip, and then navigate to Aptio_V_AMI_Firmware_Update_Utility\afu\afuefi\64 and unzip AfuEfi64.zip. The file we need from this package is called AfuEfix64.efi.
     
-    ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/ami_webpage.png)
+    ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/ami_webpage.png)
 
 3. Copy both files over to the SoC into /boot/EFI using the SoC's IP.
     
@@ -351,7 +351,7 @@ The ICX-D SoC NVMe comes pre-programmed with BIOS v7 (0ACRH007). This version wi
 
 4. Reboot the SoC from a TTY Serial terminal. Watch your screen and press 'ESC' key to go into BIOS setup mode. Select 'Built-in EFI Shell'.
     
-    ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/uefi_builtin_shell.png)
+    ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/uefi_builtin_shell.png)
 
 5. At EFI prompt enter the following:
     
@@ -363,19 +363,19 @@ The ICX-D SoC NVMe comes pre-programmed with BIOS v7 (0ACRH007). This version wi
     
     Press 'E'. When the update has completed type 'reset -w' to reboot.
     
-    ![](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/afutool.png)
+    ![](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/afutool.png)
 
 6. Watch your screen and press 'ESC' key to go into BIOS setup mode. Verify BIOS version matches expectation.
     
-    [](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/correctbios_Version.png)
+    [](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/correctbios_Version.png)
 
 7. Click the right arrow key six times to move from 'Main' set up menu to 'Boot' setup. Select NVMe as the primary boot source.
     
-    [](/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/post_bios_update_nvme.png)
+    [](/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/images/post_bios_update_nvme.png)
 
 ## 4.0 Compiling a Custom Yocto SoC Image
 
-Custom Yocto image compilation steps are shown in the [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach).
+Custom Yocto image compilation steps are shown in the [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach).
 
 ## 5.0 Verifying the ICX-D SoC OPAE SDK
 
@@ -549,7 +549,7 @@ This section will discuss OPAE SDK utilities that were not covered by previous s
 
 ## 6.0 Setting up the Host
 
-The steps to set up the host and build and install the OPAE SDK are shown in the [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach).
+The steps to set up the host and build and install the OPAE SDK are shown in the [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach).
 
 ### 6.1 Verifying the SoC Attach Solution on the Host
 
@@ -638,17 +638,8 @@ LimitMEMLOCK=infinity
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+
+

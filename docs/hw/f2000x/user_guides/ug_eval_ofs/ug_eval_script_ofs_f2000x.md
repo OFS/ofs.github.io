@@ -107,7 +107,7 @@ By following the setup steps and using the OFS evaluation script you can quickly
 
 This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
-* Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 4.2 of the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/). 
+* Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 4.2 of the [Shell Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/). 
 * Synopsys<sup>&reg;</sup> VCS Simulator : The simulator can be downloaded in the Synopsys page [here](https://www.synopsys.com/verification/simulation/vcs.html)
 * Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator : The simulator can be downloaded in the Siemens page [here](https://eda.sw.siemens.com/en-US/ic/questa/simulation/advanced-simulator/)
 
@@ -117,20 +117,21 @@ This script uses the following set of software tools which should be installed u
 
 1. Download tar(scripts_ofs-2024.1-1_external.tar.gz) from the assets tab of the [release page](https://github.com/OFS/ofs-f2000x-pl/releases)
 2. Untar to folder using the following command
+
+```bash
+    tar -xvf scripts_ofs-2024.1-1_external.tar.gz
 ```
- tar -xvf scripts_ofs-2024.1-1_external.tar.gz
-````
  
-3. The folder structure containing the clone script (ofs-clone_repositories.sh) and evaluation script (ofs_f2000x_eval.sh) is as shown in the figure 2-2
+1. The folder structure containing the clone script (ofs-clone_repositories.sh) and evaluation script (ofs_f2000x_eval.sh) is as shown in the figure 2-2
 
 **Figure 2-2 Directory Structure for the clone script**
 
-``` sh
-## ofs_scripts
-##      -> host_chan_mmio.stp
-##      -> ofs_f2000x_eval.sh
-##      -> README_ofs_f2000x_eval.txt
-## ofs-clone_repositories.sh
+```bash
+    ## ofs_scripts
+    ##      -> host_chan_mmio.stp
+    ##      -> ofs_f2000x_eval.sh
+    ##      -> README_ofs_f2000x_eval.txt
+    ## ofs-clone_repositories.sh
 ```
 
 4. Open the clone script ofs-clone_repositories.sh in any text editor
@@ -138,42 +139,49 @@ This script uses the following set of software tools which should be installed u
    
 Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
     
+```bash
     export http_proxy=<user_proxy>
     export https_proxy=<user_proxy>
     export no_proxy=<user_proxy> 
+```
    
 6. Please enter the license file locations (lines 11-13) for the following tool variables
-```
+   
+```bash
     export LM_LICENSE_FILE=<user_license>
     export DW_LICENSE_FILE=<user_license>
     export SNPSLMD_LICENSE_FILE=<user_license>
 ```
 
-7. Add the name of the directory where you want the platform repositories to be cloned (line 19)
-```
+1. Add the name of the directory where you want the platform repositories to be cloned (line 19)
+
+```bash
 export OFS_RELEASE=ofs-2024.1-1
 ```
 
-8. After setting the required variables, source the clone script based on which platform you want to test
-```
+1. After setting the required variables, source the clone script based on which platform you want to test
+
+```bash
 source ofs-clone_repositories.sh
 ```
-9.  The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-3.
+
+1.  The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-3.
         
 **Figure 2-3 Directory Structure for OFS Project**
 
 ![](images/ofs_f2000x_clone_menu.png)
 
 10. Once the repositories are cloned, navigate to the directory where you cloned
-```
+
+```bash
 cd ofs-2024.1-1
 ```
 
-11. After cloning, the OFS repositories cloned will look as per Figure 2-4.
-
+1.  After cloning, the OFS repositories cloned will look as per Figure 2-4.
 
 **Figure 2-4 Directory Structure for OFS Project**
-```sh
+
+```bash
 ## ofs-2024.1-1
 ##  f2000x(OFS platform)
 ##   -> examples-afu
@@ -194,18 +202,22 @@ a)  Set-Up Proxy Server (lines 67-69)
 
 Please enter the location of your proxy server to allow access to external internet to build software packages.
     
+```bash
     export http_proxy=<user_proxy>
     export https_proxy=<user_proxy>
     export no_proxy=<user_proxy>
+```
 
 b) Tools Location (line 87, 88, 89, 90)
 
 Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
 
+```bash
     export QUARTUS_TOOLS_LOCATION=/home
     export SYNOPSYS_TOOLS_LOCATION=/home
     export QUESTASIM_TOOLS_LOCATION=/home
     export ONEAPI_TOOLS_LOCATION=/opt
+```
 
 In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools 
 
@@ -213,37 +225,49 @@ c) PCIe (Bus Number)
 
 The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
 
+```bash
     export OFS_CARD0_BUS_NUMBER=b1
+```
 
  The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerator card plugged into a server. 
 
+```bash
     lspci | grep acc
     
-    b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
-    b1:00.1 Processing accelerators: Intel Corporation Device bcce<br>
-    b1:00.2 Processing accelerators: Intel Corporation Device bcce<br>
-    b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
-    b1:00.4 Processing accelerators: Intel Corporation Device bcce<br>
+    b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    b1:00.1 Processing accelerators: Intel Corporation Device bcce
+    b1:00.2 Processing accelerators: Intel Corporation Device bcce
+    b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device
+    b1:00.4 Processing accelerators: Intel Corporation Device bcce
+```
 
 The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
 
+```bash
     export OFS_CARD0_BUS_NUMBER=b1
+```
 
 The user can also run the following command on the ofs_f2000x_eval.sh script to automatically change the bus number to b1 in the ofs_f2000x_eval.sh script.
 
+```bash
 grep -rli 'b1' * | xargs -i@ sed -i 'b1' @
+```
 
 if the bus number is 85 for example 
 
-    85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
-    85:00.1 Processing accelerators: Intel Corporation Device bcce<br>
-    85:00.2 Processing accelerators: Intel Corporation Device bcce<br>
-    85:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
-    85:00.4 Processing accelerators: Intel Corporation Device bcce<br>
+```bash
+    85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    85:00.1 Processing accelerators: Intel Corporation Device bcce
+    85:00.2 Processing accelerators: Intel Corporation Device bcce
+    85:00.3 Processing accelerators: Red Hat, Inc. Virtio network device
+    85:00.4 Processing accelerators: Intel Corporation Device bcc
+```
 
 the command to change to 85 in the evaluation script would be
 
+```bash
 grep -rli 'b1' * | xargs -i@ sed -i '85' @
+```
 
 ### **OFS Platform (Example:= n6000, n6001, fseries-dk, iseries-dk, custom_board) choice (line 173)**
 
@@ -1166,17 +1190,8 @@ This section will describe the most common compile build scenarios if a user wan
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/f2000x/doc_modules/links.md --> 
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 
+

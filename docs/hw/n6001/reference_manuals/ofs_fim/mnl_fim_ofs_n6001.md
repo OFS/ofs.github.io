@@ -1,4 +1,14 @@
-# **Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs**
+<style>
+table {
+  border-collapse: collapse;
+}
+th, td {
+  border: 1px solid black;
+  padding: 8px;
+}
+</style>
+
+# **Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs**
 
 ## **1 Overview**
 
@@ -6,8 +16,7 @@
 ### **1.1 About this Document**
 
 
-This document describes the hardware architecture for the PCIe attach reference FIM of the Open FPGA Stack (OFS)
-targeting the Agilex<sup>&reg;</sup> FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell."
+This document describes the hardware architecture for the Agilex™ 7 PCIe Attach reference FIMs of the Open FPGA Stack (OFS) targeting the Agilex™ 7 FPGA.  After reviewing this document you should understand the features and functions of the components that comprise the FPGA Interface Manager (FIM), also known as the "shell". Different target boards have different default FIM configurations. 
 
 
 ### **1.2 Glossary**
@@ -49,20 +58,20 @@ This table defines some of the common terms used when discussing OFS.
 |Universal Verification Methodology	|UVM	|A modular, reusable, and scalable testbench structure via an API framework.  In the context of OFS, the UVM enviroment provides a system level simulation environment for your design.|
 |Virtual Function Input/Output	|VFIO	|An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)|
 
+
 ### **1.3 Introduction to Open FPGA Stack**
 
-The Open FPGA Stack (OFS) is a modular infrastructure of hardware
-platform components, open source upstreamed software, and broad
-ecosystem support that enables an efficient path to develop a custom FPGA platform.  OFS provides a framework of FPGA synthesizable code, simulation environment and synthesis/simulation scripts. 
+The Open FPGA Stack (OFS) is a modular infrastructure of hardware platform components, open source upstreamed software, and broad ecosystem support that enables an efficient path to develop a custom FPGA platform.  OFS provides a framework of FPGA synthesizable code, simulation environment and synthesis/simulation scripts. 
+
 The key components of OFS include:
 
--   Target development platforms such as Intel-branded Programmable Acceleration Cards (PACs), Acceleration Development Platforms (ADPs) and third-party platforms.
+- Target development platforms such as Altera-branded development kits, Acceleration Development Platforms (ADPs), and third-party platforms.
 
 - Board Management Controller RTL and firmware that supports telemetry monitoring and capability for remote configuration updates.
 
 - Source accessible, modular FPGA Interface  manager (FIM) RTL with a UVM infrastructure unit tests that can be leveraged for your own custom FIM design. The FIM can be thought of as the FPGA shell that provides the I/O ring and timing closed management components for the FPGA.
 
-- Basic building blocks for interconnect and PF/VF translation and arbitration; Platform Interface Manager (PIM) which provides Avalon<sup>&reg;</sup> bus compliant interfaces.
+- Basic building blocks for interconnect and PF/VF translation and arbitration; Platform Interface Manager (PIM) which provides Avalon<sup>&reg;</sup> and Arm® AMBA® 4 AXI4 bus compliant interfaces.
 
 - AFU examples both in the git repository and workload examples provided by 3rd party vendors.
 
@@ -76,22 +85,21 @@ The key components of OFS include:
 
 - Support for other frameworks to be built on top of the OPAE such as DPDK 
 
-
 These components are available under the https://github.com/OFS site.
 
-<p>The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Altera Opensource Technology GitHub location, which requires entitlement access.  To request access, please contact your local Altera sales representative.</p>
+The OFS hardware repository supports hardware development and simulation.  Repositories for OFS high level design support and board management controller RTL and firmware source code are also provided.  These repositories can be found in the Altera Opensource Technology GitHub location.
 
 **Table 1-2 OFS Hardware Repositories**
 
 | Repository| Contains                                                               |
 |:--------------------------:|------------------------------------------------------------------------|
-| [ofs-n6001](https://github.com/OFS/ofs-agx7-pcie-attach) | Contains FIM or shell RTL, automated compilation scripts, and unit tests and UVM framework.  |
+| [ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach) | Contains FIM or shell RTL, automated compilation scripts, and unit tests and UVM framework.  |
 | [oneapi-asp](https://github.com/OFS/oneapi-asp) | Contains the hardware and software components you need to develop your own OneAPI board support package    |
 | [ofs-platform-afu-bbb](https://github.com/OFS/ofs-platform-afu-bbb.git) |  Contains the files and scripts to build the platform interface manager.|
 | [ofs-examples-afu](https://github.com/OFS/examples-afu.git) |  Contains AFU examples you can use.|
-| [ofs-bmc](https://github.com/otcshare/ofs-bmc) | Provides the OFS Board Management Controller RTL, firmware, scripts and collateral targeting the Intel® FPGA SmartNIC N6001-PL which can be leveraged for your own OFS design.  |
-|
+| [ofs-bmc](https://github.com/otcshare/ofs-bmc) <sup>**1**</sup>| Provides the OFS Board Management Controller RTL, firmware, scripts and collateral targeting the Intel® FPGA SmartNIC N6001-PL which can be leveraged for your own OFS design.  |
 
+<sup>**1**</sup> Access to BMC repositories requires entitlement access.  To request access, please contact your local Altera sales representative.
 
 **Table 1-3 OFS Software Repositories**
 
@@ -99,9 +107,10 @@ These components are available under the https://github.com/OFS site.
 |:-:|-------------------------------------|
 | [opae-sdk](https://github.com/OFS/opae-sdk)   |  Contains the files for building and installing OPAE SDK from source.|
 | [linux-dfl](https://github.com/OFS/linux-dfl) | Contains OFS Linux drivers that are being upstreamed to the Linux kernel. |
+| [linux-dfl-backport](https://github.com/OFS/linux-dfl-backport) | Contains  the backport version of the linux-dfl kernel driver for FPGA devices. |
 | [opae-sim](https://github.com/OFS/opae-sim.git) | Contains the files for an AFU developer to build the Accelerator Functional Unit Simulation Environment (ASE) for workload development.|
 
-Providing the hardware and software source code and supporting test frameworks in a GitHub repository allows you to customize your designs with the latest versions easily.
+Providing the hardware and software source code and supporting test frameworks in a GitHub repository allows you to easily customize your designs with the latest versions.
 
 ### **1.4 OFS Features**
 
@@ -109,7 +118,6 @@ Providing the hardware and software source code and supporting test frameworks i
 The OFS architecture within the FPGA comprises two partitions:
 
 -   FPGA Interface Manager (FIM)
-
 -   Accelerator Functional Unit (AFU)
 
 The FIM or shell provides platform management functionality, clocks, resets and interface access to the host and peripheral features of the acceleration
@@ -120,72 +128,88 @@ The AFU partition is provided for custom acceleration workloads and may contain 
 
 #### **1.4.1 FPGA Interface Manager (FIM)**
 
-The primary components of the FPGA Interface Manager or shell of this reference design are: 
+The primary components of the FPGA Interface Manager, or shell, of each target board's default reference design are given in the following table:
 
-* PCIe Subsystem
-* HSSI Subsystem
-* Memory Subsystem
-* Hard Processor System
-* Reset Controller
-* FPGA Management Engine
-* AFU Peripheral Fabric for AFU accesses to other interface peripherals
-* Board Peripheral Fabric for master to slave CSR accesses from Host or AFU
-* Platform Management Controller Interface (PMCI) to the board management controller
+*Table: Default FIM Components*
+
+| FIM Component | SmartNIC N6001-PL | SmartNIC N6000-PL | F-Series Development Kit | I-Series Development Kit |
+| --- | --- | --- | --- | --- |
+| PCIe Subsystem | &#10004; | &#10004; | &#10004; | &#10004; |
+| HSSI Subsystem | &#10004; | &#10004; | &#10004; | &#10004; |
+| Memory Subsystem | &#10004; | &#10006; <sup>[1]</sup> | &#10004; | &#10004; |
+| Hard Processor System | &#10004; | &#10004; | &#10004; | &#10006; <sup>[2]</sup> |
+| Reset Controller | &#10004; | &#10004; | &#10004; | &#10004; |
+| FPGA Management Engine | &#10004; | &#10004; | &#10004; | &#10004; |
+| AFU Peripheral Fabric for AFU accesses to other interface peripherals | &#10004; | &#10004; | &#10004; | &#10004; |
+| Board Peripheral Fabric for master to slave CSR accesses from Host or AFU | &#10004; | &#10004; | &#10004; | &#10004; |
+| Platform Management Controller Interface (PMCI) to the board management controller | &#10004; | &#10004; | &#10006; <sup>[3]</sup> | &#10006; <sup>[3]</sup> |
+
+>  <sup>[1]</sup> The n6000 default shell design does not have the memory subsystem enabled. It can be enabled by following the instructions in Section 4.7.2 of the PCIe Attach F-Series (P-Tile/E-Tile) Shell Developer Guide: Add or remove the Memory Sub-System<br>
+>  <sup>[2]</sup> The HPS is not enabled in the FIM for the I-Series Development Kit<br>
+>  <sup>[3]</sup> The F-Series Development Kit and I-Series Development Kit do not use the OFS BMC, and therefore do not use the PCMI.<br>
 
 The AFU Region provides design space for custom workloads and contains both static and partial reconfiguration regions.  Partial reconfiguration allows you to update your specific logic blocks or entire workload while the rest of your static design is still in operation.
 
 Note that the BMC RTL and firmware that works with this OFS design provided in a separate entitled repository.  Please email ofs.github@intel.com if you would like to use our BMC code for your own design.
 
-**Figure 1-2 OFS for OFS FIM for Agilex OFS Block Diagram**
-
+*Figure: OFS FIM for Intel® FPGA SmartNIC N6001-PL Block Diagram*
 
 ![](images/Agilex_Fabric_Features.png)
 
-The table provides an overview of the OFS features targeting the Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex devices.
+*Figure: OFS FIM for Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) Block Diagram*
 
-**Table 1-4 OFS FIM for Agilex® 7 FPGA Features**
+![](images/F-tile-PCIe-Attach.png)
 
-| Key Feature                           | Description                                                  |
-| ------------------------------------- | ------------------------------------------------------------ |
-| PCIe                                  | P-tile PCIe* Gen4x16                                         |
-| Virtualization                        | Includes support for 5 physical functions/4 virtual functions with ability to expand to the P-tile PCIe Hard IP maximum (8PFs, 2K VFs per each Endpoint). |
-| Memory                                | 5 DDR Channels:* One HPS DDR4 bank, x40 (x32 Data and x8 ECC), 1200 MHz, 1GB each* Four Fabric DDR4 banks, x32 (no ECC), 1200 MHz, 4GB |
-| Ethernet                              | Eight Arm® AMBA® 4 AXI4-Stream channels of 25G Ethernet interfacing to an E-tile Ethernet Subsystem. |
-| Hard Processor System                 | 64-bit quad core Arm® Cortex®-A53 MPCore with integrated peripherals. |
-| Configuration and Board Manageability | * FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration)* Platform Controller Management Interface (PMCI) Module contained within the Agilex FPGA that interfaces through Avalon-Streaming x8 QuadSPI and SPI to a Board Management Controller |
-| Partial Reconfiguration               | Partial Reconfiguration region supported in hardware and software |
-| OneAPI                                | OneAPI Acceleration Support Package (ASP) provided with compiled FIM to support OneAPI Runtime |
-| Software Support                      | * Linux DFL drivers targeting OFS FIMs<br>* OPAE Software Development Kit* OPAE Tools |
+*Figure: OFS FIM for Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) Block Diagram*
+
+![](images/I-Series-PCIe-Attach.png)
+
+The table provides an overview of the OFS features targeting the Agilex™ 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex devices.
+
+**Table 1-4 OFS FIM Features**
+
+| Key Feature | SmartNIC N6001-PL | F-Series Development Kit | I-Series Development Kit |
+| :-: | :-- | :-- | :-- |
+| PCIe | P-tile PCIe Gen4x16 | F-tile PCIe Gen4x16 | R-tile PCIe 1xGen5x16<br>R-tile PCIe 2xGen5x8<br>R-tile PCIe 1xGen4x16 |
+| Virtualization | 5 physical functions/3 virtual functions with ability to expand | 5 physical functions/3 virtual functions with ability to expand | 5 physical functions/3 virtual functions with ability to expand |
+| Memory | 5 DDR Channels:<br>&bull; One HPS DDR4 bank, x40 (x32 Data and x8 ECC), 1200 MHz, 1GB each<br>&bull; Four Fabric DDR4 banks, x32 (no ECC), 1200 MHz, 4GB | 3 DDR Channels:<br>&bull; One HPS DDR4 bank, x40 (x32 Data and x8 ECC), 2400 MHz, 1GB each<br>&bull; Two Fabric DDR4 banks, x64 (no ECC), 2400 MHz, 8GB | Four Fabric DDR4 channels consisting of:<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Two x64 (no ECC), 2666 MHz, 8GB Component memory<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Two x64 (no ECC), 2666 MHz, 8GB UDIMM memory <br><br>OR<br><br>Three Fabric DDR4 channels consisting of:<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; Two x64 (no ECC), 2666 MHz, 8GB Component memory<br>&nbsp;&nbsp;&nbsp;&nbsp;&bull; One x64 (no ECC), 2666 MHz, 8GB RDIMM memory <sup>**1**</sup> |
+| Ethernet | &bull; N6001-PL: 2x4x25GbE, 2x4x10GbE, or 2x100GbE </br>&bull; N6000-PL: 4x100GbE | 2x4x25GbE | 2x4x25GbE, 2x200GbE, 2x400GbE |
+| Hard Processor System | 64-bit quad core Arm® Cortex®-A53 MPCore with integrated peripherals. | 64-bit quad core Arm® Cortex®-A53 MPCore with integrated peripherals. | Not enabled |
+| Configuration and Board Manageability | &bull; FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration)<br>&bull; Platform Controller Management Interface (PMCI) Module for Board Management Controller | &bull; FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration)| &bull; FPGA Management Engine that provides general control of common FPGA tasks (ex. error reporting, partial reconfiguration) |
+| Partial Reconfiguration | Supported | Supported | Supported |
+| OneAPI | OneAPI Acceleration Support Package (ASP) provided with compiled FIM to support OneAPI Runtime | OneAPI Acceleration Support Package (ASP) provided with compiled FIM to support OneAPI Runtime | OneAPI Acceleration Support Package (ASP) provided with compiled FIM to support OneAPI Runtime |
+| Software Support | &bull; Linux DFL drivers targeting OFS FIMs<br>&bull; OPAE Software Development Kit<br>&bull; OPAE Tools | &bull; Linux DFL drivers targeting OFS FIMs<br>&bull; OPAE Software Development Kit<br>&bull; OPAE Tools | &bull; Linux DFL drivers targeting OFS FIMs<br>&bull; OPAE Software Development Kit<br>&bull; OPAE Tools |
+| Target Board | &bull; [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/content-details/779620/a-smartnic-for-accelerating-communications-and-networking-workloads.html)</br>&bull; [Intel® 7 FPGA SmartNIC N6000-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html) | [Agilex™ 7 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) | [Agilex™ 7 7 FPGA I-Series Development Kit (2xR-Tile, F-Tile)](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) |
+
+<sup>**1**</sup> The default OFS shell design targeting the Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) was validated with two Micron MTA8ATF1G64AZ-2G6E1 DDR4 SDRAM UDIMM modules in DIMM slots A and B. Note that the DK-DEV-AGI027RA development kit comes with a single 16GB RDIMM module. If you plan to use the single RDIMM module that comes with the development kit, refer to the [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/) for instructions on building a shell design for the RDIMM configuration.
 
 
 ##### **Subsystem Interfaces**
 
 The PCIe, Memory and Ethernet interfaces in this design use a new flexible subsystem design that provides a standard Arm® AMBA® 4 AXI4 interface.  To access these FPGA IP Subsystem documents. Please go to the links below:
-* [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf)
+* [AXI Streaming IP for PCI Express User Guide](https://www.intel.com/content/www/us/en/docs/programmable/790711/24-3-1/introduction.html)
 * [Memory Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/secure/content-details/686148/memory-subsystem-intel-fpga-ip-user-guide-for-intel-agilex-ofs.html?wapkw=686148&DocID=686148)
-* [Ethernet Subsystem Intel FPGA IP User Guide](https://cdrdv2-public.intel.com/773414/intelofs-773413-773414.pdf) (public document)
+* [Ethernet Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/docs/programmable/773413/24-1-25-0-0/introduction.html) (public document)
 
 ##### **Hard Processor System (HPS)**
 
-The HPS SoC contains a 64-bit quad core ARM® Cortex®-A53 MPCore with a variety of integrated modules such as on-chip RAM, Ethernet, USB, UARTs and SPI controllers and memory controllers.  For more information about the Agilex HPS, please refer to the [Agilex Hard Processor System Technical Reference Manual](https://www.intel.com/content/dam/www/programmable/us/en/pdfs/literature/hb/agilex/mnl-1100.pdf).
+The HPS SoC contains a 64-bit quad core ARM® Cortex®-A53 MPCore with a variety of integrated modules such as on-chip RAM, Ethernet, USB, UARTs and SPI controllers and memory controllers.  For more information about the Agilex HPS, please refer to the [Agilex Hard Processor System Technical Reference Manual](https://www.intel.com/content/www/us/en/docs/programmable/683567/23-1/hard-processor-system-technical-reference.html).
 
 ##### **FPGA Management Engine (FME)**
 
-The FIM contains only one FME, regardless of the number of host interfaces to the FIM. The FME provides management features for the platform and
-controls reset and loading of the AFU into the partial reconfiguration region of the FPGA.
+The FIM contains only one FME, regardless of the number of host interfaces to the FIM. The FME provides management features for the platform and controls reset and loading of the AFU into the partial reconfiguration region of the FPGA.
 
-Any feature, such as a memory interface or global error control that you want to control through FME, must expose its capability to host software drivers.  New features are exposed to the FME by adding a device feature header (DFH) register at the beginning of the feature's control status register (CSR) space. The FME CSR maps to physical function 0 (PF0) Base address register 0 (BAR0) so that software can access it through a single PCIe link.  For more information about DFHs, refer to the [FPGA Device Feature List Framework Overview](https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst).
+Any feature, such as a memory interface or global error control that you want to control through FME, must expose its capability to host software drivers.  New features are exposed to the FME by adding a device feature header (DFH) register at the beginning of the feature's control status register (CSR) space. The FME CSR maps to physical function 0 (PF0) Base address register 0 (BAR0) so that software can access it through a single PCIe link.  For more information about DFHs, refer to the [FPGA Device Feature List Framework Overview](https://github.com/OFS/linux-dfl-backport/blob/intel/fpga-ofs-dev-6.6-lts/Documentation/fpga/dfl.rst).
 
 ##### **Streaming Datapath**
 
-The FIM implements an AXI4-Stream bus protocol for data transfer in the FIM.
-AXI4-Stream channels send data packets to and from the host channel IP without data abstraction. Memory-mapped I/O (MMIO) CSR accesses are routed to the ST2MM module, which converts the AXI4-Stream to an AXI4 memory-mapped protocol.
+The FIM implements an AXI4-Stream bus protocol for data transfer in the FIM. AXI4-Stream channels send data packets to and from the host channel IP without data abstraction. Memory-mapped I/O (MMIO) CSR accesses are routed to the ST2MM module, which converts the AXI4-Stream to an AXI4 memory-mapped protocol.
 
 ##### **Virtualization**
 
 This design supports virtualization by making use of the virtualization functionality in the PCIe Hard IP and mapping packets to the appropriate physical or virtual function through a PF/VF multiplexer.  
 
-This reference FIM example supports 5 PFs and 4 VFs; however, you may extend your configuration to whatever the PCIe Hard IP can support or your application requires.
+The reference FIM example enables 5 PFs and 3 VFs by default; however, you may extend your configuration to whatever the PCIe Hard IP can support or your application requires.
 
 #### **1.4.2 AFU**
 
@@ -200,11 +224,11 @@ In this design, the AFU region is comprised of:
    * ST2MM module.
    * Null Host exerciser (HE_NULL) stub.
    * PCIe loopback host exerciser (HE-LB).
-   * HSSI host exerciser (HE-HSSI).
-   * Memory Host Exerciser (HE-MEM).
-   * Traffic Generator to memory (HE-MEM-TG).
-       Port Gasket (PRG). 
    * HPS Copy Engine.
+   * Port Gasket (PRG). 
+   * HSSI host exerciser in the PR Region (HE-HSSI).
+   * Memory Host Exerciser in the PR Region (HE-MEM).
+   * Traffic Generator to memory in the PR Region (HE-MEM-TG).
 * Arm® AMBA® 4 AXI4 Streaming to Memory Map (ST2MM) Module that routes MMIO CSR accesses to FME and board peripherals.
 * Host exercisers to test PCIe, memory and HSSI interfaces (these can be removed from the AFU region after your FIM design is complete to provide more resource area for workloads)
 * HPS Copy Engine to copy second-stage bootloader and Linux OS image from Host DDR to HPS DDR.  
@@ -226,18 +250,19 @@ For this design the PF/VF Mux provides the following mappings (found in src/afu_
 | Null Host exerciser (HE_NULL) stub               |      PF3      |
 | HPS Copy Engine Module                      |      PF4      |
 
-**Figure 1-3 AFU Diagram**
+The figure below highlights the AFU portion of the OFS block diagram for the SmartNIC N6001-PL as an example. 
+
+*Figure: SmartNIC N6001-PL AFU Diagram*
 ![](images/PR_Gasket_Agilex.png)
 
 
 #### **1.4.3 Platform Interface Manager**
 
-The PIM provides a way to abstract the AXI4-Stream interface to the AFU by providing a library of shims that convert the host channel native
-packet into other protocols such as AXI4 memory-mapped, Avalon<sup>&reg;</sup> streaming (Avalon-ST) or Avalon<sup>&reg;</sup> memory-mapped (Avalon-MM). 
+The Platform Interface Manager (PIM) is a transformation layer between an AFU and native FIM device interfaces. It aims to provide consistent AFU-side interfaces and semantics, making AFUs portable across OFS releases. 
 
 The FPGA or AFU developer implements these interface abstractions in the AFU region (afu_main) of the design.  
 
-For more information, refer to [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).
+For more information, refer to the [PIM Core Concepts](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_core_concepts.md).
 
 #### **1.4.4 Platform Feature Discovery** 
 
@@ -251,7 +276,6 @@ During host discovery, the driver traverses the DFH of the first feature from th
 
 The software must continue traversing the linked list until it sees the EOL (End-Of-List) bit set to 1 in the "next DFH offset" field it inspects.  A 1 indicates this is the last feature in the feature set. The figure below gives a simple illustration of the feature discovery by traversing the DFH registers. This model is similar to how PCIe enumeration occurs.
 
-
 **Figure 1-4 Device Feature Header Linked List Traversal**
 
 ![](images/DFH-traversal.png)
@@ -260,9 +284,12 @@ The software must continue traversing the linked list until it sees the EOL (End
 
 OFS provides FIM designs you can use as a starting point for your own custom design. These designs target a specific programmable acceleration card or development kit and exercise key FPGA device interfaces. 
 
-The Agilex<sup>&reg;</sup> code line for OFS targets the Intel N6001-PL FPGA SmartNIC Platform.  FIM designs are released to <https://github.com/OFS/ofs-agx7-pcie-attach> for evaluation and use. 
+ FIM designs are released to [https://github.com/OFS/ofs-agx7-pcie-attach] for evaluation and use. The provided reference designs can target the following boards:
 
-In addition to the OFS FIM for Agilex that targets the Intel N6001-PL FPGA SmartNIC Platform, vertical market FIMs are available for the Intel N6000-PL SmartNIC Platform. 
+* Intel® FPGA SmartNIC N6001-PL
+* Intel® FPGA SmartNIC N6000-PL
+* Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
+* Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
 
 #### **1.4.6 FIM Simulation**
 
@@ -280,8 +307,7 @@ Verification components include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found [here](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2024.2/verification) for evaluation and use. Please refer to the [UVM Simulation User Guide: OFS for Agilex® 7 PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/) for more information.
-
+The verification infrastructure can be found in the [verification directory](https://github.com/OFS/ofs-agx7-pcie-attach/tree/release/ofs-2024.3/verification) for evaluation and use. Please refer to the [UVM Simulation User Guide: OFS for Agilex™ 7 PCIe Attach](https://ofs.github.io/ofs-2024.3-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/) for more information.
 
 ## **2 OFS High Level Architecture**
 
@@ -303,33 +329,41 @@ Depending on your design goals, you can present peripherals to software as:
 ![](images/OFS-Datapaths.PNG)
 
 ## **3 PCIe Subsystem**
-The FIM's PCIe Subsystem is a hierarchical design that targets the P-tile PCIe* hard IP and is configured to support Gen4 speeds and Arm® AMBA® 4 AXI4 Data Mover functional mode.  The IP supports SR-IOV and is configured to provide 5 PFs and 4 VFs.  Native PCIe TLP packets are sent through the PCIe using Arm® AMBA® 4 AXI4 Stream Protocol.  Before they reach the AFU, the packets go through an adapter in the subsystem that converts any headers to a data mover format.  Tag allocation and management for packets sent from the application to the host are done by the PF/VF Mux that is part of the AFU region.
 
-**Figure 3-1 OFS FIM RX-TX Datapath**
+The FIM's PCIe Subsystem is a hierarchical design that targets the PCIe Hard IP and is configured to support Gen4/Gen5 speeds. The default FIM uses the AXI Streaming Intel FPGA IP for PCIe Express. The IP supports SR-IOV and is configured to provide 5 PFs and 3 VFs by default.  Native PCIe TLP packets are sent through the PCIe using Arm® AMBA® 4 AXI4 Stream Protocol. Tag allocation and management for packets sent from the application to the host are done by the PF/VF Mux that is part of the AFU region.
 
-![](images/PCIe_ss_block_diagram.png)
+Note that this default PCIe-SS does not support Arm® AMBA® 4 AXI4 Data Mover functional mode. If Data Mover mode is required, you must instead build the FIM using the Intel FPGA IP Subsystem for PCI Express by changing build settings prior to FIM compilation; refer to the Shell Developer Guides for instructions on making this change.
+
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+
+**Figure 3-1 AXI Streaming Intel FPGA IP for PCIe Express Block Diagram**
+
+![](images/axi_stream_pcie_ss_block_diagram.png)
 
 Some key features of the PCIe interface are:
 
-| Feature                      | OFS for Agilex FPGA PCIe Subsystem Configuration |
-| ---------------------------- | :----------------------------------------------------------: |
-| Mode                         |                         PCIe Gen4x16                         |
-| Port Mode                    |                       Native Endpoint                        |
-| SR-IOV                       |                          5PFs, 4VFs                          |
-| MSI-X Support                |                             Yes                              |
-| Functional Mode              |                          Data Mover                          |
-| Profile                      |                            Basic                             |
-| TLP Bypass                   |                              No                              |
-| Header Packing Scheme        |                            Simple                            |
-| Data Width                   |                      512-bit (64-byte)                       |
-| AXI-ST Clock Frequency       |                           400 MHz                            |
-| Tags Supported               |                             128                              |
-| Reordering                   |     No reordering of requests, no completion reordering      |
-| Maximum Payload Size         |                          512 Bytes                           |
-| Memory Requests Supported    |                        1CL, 2CL, 4CL                         |
-| MMIO transaction Size        |                            4B, 8B                            |
-| Control Shadow Interface     |                           Enabled                            |
-| Completion Timeout Interface |                           Enabled                            |
+*Table: PCIe Subsystem OFS Default Configuration*
+
+| Feature | n6001 | n6000 | fseries-dk | iseries-dk |
+| --- | :--------: | :--------: | :--------: | :--------: |
+| Mode | PCIe Gen4x16 | PCIe Gen4x16 | PCIe Gen4x16 | PCIe Gen5x16|
+| Port Mode | Native Endpoint | Native Endpoint | Native Endpoint | Native Endpoint |
+| SR-IOV | 5PFs, 3VFs (configurable) | 5PFs, 3VFs (configurable) | 5PFs, 3VFs (configurable) | 5PFs, 3VFs (configurable) |
+| MSI-X Support | Yes | Yes | Yes | Yes |
+| Profile | Basic | Basic | Basic | Basic |
+| TLP Bypass | No | No | No | No |
+| Header Packing Scheme | Simple | Simple | Simple | HIP Native Mode |
+| Data Width | 512-bit (64-byte) | 512-bit (64-byte) | 512-bit (64-byte) | 1024-bit (128-byte) |
+| AXI-ST Clock Frequency | 500 MHz (configurable) | 350 MHz (configurable) | 500 MHz (configurable) | 500 MHz (configurable) |
+| Tags Supported | 512 | 512 | 512 | 512 |
+| Maximum Payload Size | 512 Bytes | 512 Bytes | 512 Bytes | 512 Bytes |
+| Completion Timeout Interface | Enabled | Enabled | Enabled | Enabled |
+| Reordering | Not supported (available with PIM) | Not supported (available with PIM) | Not supported (available with PIM) | Not supported (available with PIM) |
+| Control Shadow Interface | Enabled | Enabled | Enabled | Enabled |
+| MMIO transaction Size | 4B, 8B | 4B, 8B | 4B, 8B | 4B, 8B |
+
 
 The PCIe PF, VF and Base Address Register (BAR) configuration can be modified in the PCIe Subsystem Platform Designer GUI interface.  The current implementation for the OFS FIM for Agilex FPGA is as follows:
 
@@ -344,20 +378,18 @@ The PCIe PF, VF and Base Address Register (BAR) configuration can be modified in
 | PF0  | VF0  | Memory Host Exerciser (HE-MEM)                   | BAR0 | 256 KB   |
 | PF0  | VF1  | HSSI Host Exerciser (HE-HSSI)                    | BAR0 | 256 KB   |
 | PF0  | VF2  | Memory Traffic Generator (HE-MEM-TG)             | BAR0 | 256 KB   |
-| PF1  | VF0  | Null Host exerciser (HE_NULL)                    | BAR0 | 4 KB     |
+| PF1  |      | Null Host exerciser (HE_NULL)                    | BAR0 | 4 KB     |
 | PF2  |      | PCIe Loopback (HE-LB)                            | BAR0 | 256 KB   |
 | PF3  |      | Null Host exerciser (HE_NULL)                    | BAR0 | 4 KB     |
 | PF4  |      | HPS Copy Engine                                  | BAR0 | 4 KB     |
 
 ### **3.1 PCIe Subsystem Header Format**
 
-The first 32 bytes of the TLP from the PCIe subsystem denotes the PCIe header. There are two types of header format supported – Power User Mode header and Data Mover mode header. The tuser_vendor[0] bit on the AXI4-Stream channel indicates the header format of the TLP; tuser_vendor[0] =0 indicates Power User Mode header and tuser_vendor[0] =1 indicates Data Mover Mode header.
+The first 32 bytes of the TLP from the PCIe subsystem denotes the PCIe header. The default PCIe-SS in the OFS FIM for Agilex FPGA only supports the Power User Mode Header. If using Data Mover Mode with the old IP, then the tuser_vendor[0] bit on the AXI4-Stream channel indicates the header format of the TLP; tuser_vendor[0] =0 indicates Power User Mode header and tuser_vendor[0] =1 indicates Data Mover Mode header.
 
-
-The OFS FIM for Agilex FPGA implements the Data Mover Functional Mode.  With this implementation, the application has the flexibility to use either mode for PCIe transaction, as shown in the following table. For more detailed information about the PCIe Subsystem, see the PCIe Subsystem FPGA User Guide. 
+For more detailed information about the PCIe Subsystem, see the PCIe Subsystem FPGA User Guide. 
 
 **Table 3-2 PCIe Subsystem Header Format Support for OFS for Agilex FPGA**
-
 
 | Direction        | Type     | Power User | Data Mover |
 | ---------------- | -------- | ---------- | ---------- |
@@ -369,43 +401,6 @@ The OFS FIM for Agilex FPGA implements the Data Mover Functional Mode.  With thi
 | Endpoint to Host | CPL/CPLd | Yes        | Yes        |
 | Endpoint to Host | Msg      | Yes        | Yes        |
 
-
-
-#### **3.1.1 Power User Header Format**
-
-The Power User Format provides user complete control over PCIe Hard IP. The user can implement functionality of interest with finer control over PCIe Transaction Layer Packet (TLP), credit handling and various mode provided by HIP. 
-
-The lower 16 bytes of the Power User Format are standard PCIe header as defined by PCIe specification, and the upper 16 bytes are specific to the PCIe Subsystem FPGA IP. 
-
-**Table 3-3 Power User Header Format**
-
-![](images/pu_header_format.PNG)
-
-The mapping of the PCIe defined header to the lower 16 bytes of the AXI4-Stream data channel is shown in the figure below. Each double word (DW) or 4 bytes in the PCIe header is mapped from big-endian to little-endian on AXI-S data channel.  
-
-**Figure 3-2 Power User Header Mapping to Arm® AMBA® 4 AXI4 Channel**
-
-![](images/pcie_tlp_mapping.PNG)
-
-#### **3.1.2 Data Mover Header Format**
-
-The data mover mode allows high bandwidth data transfers to and from Host memory. It hides the complexity of handling PCIe TLPs. This format provides a simple interface for reading and writing to Host Memory. The data mover checks link partner credits before transmitting packets. It also provides MSI-X interrupt generation capability. 
-
-In Data Mover Mode, the lower 16 bytes are data mover specific and do not follow a PCIe standard header.  
-
-**Table 3-4 Data Mover Header Format**
-
-![](images/dm_header_format.PNG)
-
-
-The mapping of the data mover header to the lower 16 bytes of the AXI-S data channel is shown below. Each byte in the data mover header is mapped directly to the AXI-S data channel.  
-
-
-**Figure 3-3 Data Mover Header Mapping to Arm® AMBA® 4 AXI4 Channel**
-
-![](images/pcie_tlp_mapping_dm.PNG)
-
-
 ### **3.2 PCIe Subsystem Interface Module**
 
 The PCIe Subsystem Interface module (/ipss/pcie/rtl/pcie_ss_if.sv), provides the supporting interface between software and the PCIe subsystem.  
@@ -416,7 +411,7 @@ The interface module provides the following:
 * Control and Status Registers
 * Indirect access to PCIe subsystem CSR registers through a CSR mailbox in the PCIe Subsystem Interface.
 
-### **3.3 Data Mover Request Cycles**
+### **3.3 PCIe Request Cycles**
 
 For Host read request cycles using the OFS FIM for Agilex FPGA:
 
@@ -437,12 +432,7 @@ For AFU/application request cycles using the OFS FIM for Agilex FPGA:
 * Slot Number is 0 (non-0 only for switch)
 * VF Active, VF number and PF number are obtained from Data Mover Header Packet.
 
-**Figure 3-4 Data Mover Request Cycles**
-
-![](images/dm_request_cycles.png)
-
-
-### **3.4 Data Mover Completion Cycles**
+### **3.4 PCIe Completion Cycles**
 
 For Host completion cycles using the OFS FIM for Agilex FPGA:
 
@@ -461,22 +451,15 @@ For AFU/application completion cycles using the OFS FIM for Agilex FPGA:
 * Slot Number is 0.
 * VF Active, VF Number and PF number are obtained from the Data Mover Header Packet. 
 
-
-**Figure 3-5 Data Mover Completion Cycles**
-
-![](images/dm_completion_cycles.png)
-
-
-
 ## **4 Platform Interface Manager**
 
-The FIM interfaces to an application in the AFU region through AXI4-Stream channels.  This format allows the AFU to access the host channel's raw interface without any translation. 
+The FIM interfaces to an application in the AFU region through AXI4-Stream channels, or AXI4-MM interface in the case of the Memory-SS.  This format allows the AFU to access the host channel's raw interface without any translation. 
 
 As a FIM developer, you have the option to provide the raw data format associated with the host interface channel to the workload or AFU developer or you can provide an intermediate protocol using Platform Interface Manager Components or your own custom interface.
 
 If you expose the raw AXI4-Stream interface of the FIM, workload developers also have the option to convert to a desired protocol using the PIM resources as well.  
 
-Refer to the AFU Developer Guide and the FPGA Interface Manager Developer Guide for more information on using the PIM in your design.
+Refer to the Workload Developer Guide for more information on using the PIM in your design.
 
 
 ## **5 Interconnect Fabric**
@@ -495,15 +478,15 @@ TLP packets sent from upstream PCIe Subsystem on AXI4-Stream channel are demulti
 
 All host MMIO requests targeting PF0 BAR0 are routed to the ST2MM module. The ST2MM converts MMIO TLP packets into AXI-Lite memory requests and places the requests onto AFU Peripheral Fabric (APF). AFU peripherals, such as OFS managed AFU features and ST2MM, and Board Peripheral Fabric (BPF) are interconnected by APF. The BPF is the interconnect fabric one hierarchy below APF which connects all the board peripherals. Both APF and BPF allow multiple AXI4-Lite master and slave interconnect topology.
 
-If you are modifying the APF or BPF connections, you must use Platform Designer to generate the fabrics directly.  Please refer to the FPGA Interface Manager Developer Guide for directions on what files must be modified and how to generate the interconnect.
+If you are modifying the APF or BPF connections, you must re-generate the fabrics. OFS provides a helper script to perform this task.
 
-For modifying the PF/VF mux you must update the tools/pfvf_config_tool/pcie_host.ofss file and run the ofs-fim-common/pfvf_config_tool/gen_ofs_settings.py script to initiate the PCIe SS and PF/VF mux parameters to be regenerated before running the FIm build script.  
+For modifying the PF/VF mux you may edit the PCIe OFS Settings (OFSS) file to implement the desired PF/VF settings.
 
-For details on these modifications, please refer to the shel developer guide for your target board:
+For details on these modifications, please refer to the shell developer guide for your target board:
 
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
 
 ### **5.1	AFU Peripheral Fabric (APF)**
 
@@ -517,13 +500,12 @@ The address mapping for components interconnected by the APF is listed below. Al
 
 | Address           | Size (Byte) | Feature                                                      |
 | ----------------- | ----------- | ------------------------------------------------------------ |
-| 0x00000–0x3FFFF   | 256K        | Board Peripherals<br/>(See BPF address mapping)              |
-| AFU Peripherals   |             |                                                              |
+| 0x00000–0x3FFFF   | 256K        | Board Peripherals<br/>(See BPF address mapping table)              |
 | 0x40000 – 0x4FFFF | 64K         | ST2MM                                                        |
 | 0x50000 – 0x5FFFF | 64K         | Reserved                                                     |
 | 0x60000 – 0x60FFF | 4K          | UART                     |
 | 0x61000 – 0x6FFFF | 4K          | Reserved | 
-| 0x70000 – 0x7FFFF | 56K         | PR Gasket:4K= PR Gasket DFH, control and status4K= Port DFH4K=User Clock52K=Remote STP |
+| 0x70000 – 0x7FFFF | 56K         | PR Gasket:</br>&nbsp;&nbsp;&nbsp;&nbsp;PR Gasket DFH (4K)</br>&nbsp;&nbsp;&nbsp;&nbsp;Control and status (4K)</br>&nbsp;&nbsp;&nbsp;&nbsp;Port DFH (4K)</br>&nbsp;&nbsp;&nbsp;&nbsp;User Clock (4K)</br>&nbsp;&nbsp;&nbsp;&nbsp;Remote STP (52K) |
 | 0x80000 – 0x80FFF | 4K          | AFU Error Reporting                                          |
 
 ### **5.2	Board Peripheral Fabric (BPF)**
@@ -534,15 +516,17 @@ The address mapping for components interconnected by BPF is listed below. All co
 
 **Table 5-2 BPF Address Mapping**
 
-| Address           | Size (Byte) | Feature               | Master |
-| ----------------- | ----------- | --------------------- | ------ |
-| 0x00000 – 0x0FFFF | 64K         | FME (FME, Error, etc) | No     |
-| 0x10000 – 0x10FFF | 4K          | PCIe Interface        | No     |
-| 0x11000 – 0x11FFF | 4K          | Reserved              | -      |
-| 0x12000 – 0x12FFF | 4K          | QSFP Controller 0     | No     |
-| 0x13000 – 0x13FFF | 4K          | QSFP Controller 1     | No     |
-| 0x14000 – 0x14FFF | 4K          | Ethernet Subsystem    | No     |
-| 0x20000 – 0x3FFFF | 128K        | PMCI Controller       | Yes    |
+| Address           | Size (Byte) | Feature                   |
+| ----------------- | ----------- | ---------------------     |
+| 0x00000 – 0x0FFFF | 64K         | FME (FME, Error, etc)     |
+| 0x10000 – 0x10FFF | 4K          | PCIe Interface            |
+| 0x11000 – 0x11FFF | 4K          | Reserved                  |
+| 0x12000 – 0x12FFF | 4K          | QSFP Controller 0         |
+| 0x13000 – 0x13FFF | 4K          | QSFP Controller 1         |
+| 0x14000 – 0x14FFF | 4K          | Ethernet Subsystem        |
+| 0x15000 - 0x15FFF | 4K          | External Memory Interface |
+| 0x16000 - 0x19FFF | 40K         | Reserved                  |
+| 0x20000 – 0x3FFFF | 128K        | PMCI Controller           |
 
 ### **5.3 Arm® AMBA® 4 AXI4-Stream PF/VF Mux/Demux**
 
@@ -583,7 +567,7 @@ The default mapping is shown below:
 |HPS Copy Engine Module |PF4|
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+For information on how to modify the PF/VF mapping for your own design, refer to the [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
 
 ### **5.4 AFU Interface Handler**
 
@@ -659,7 +643,7 @@ For example, when a feature is mapped to an MMIO region, the CSR registers of th
 
 ### **6.1 Feature Region**
 
-A group of related CSRs can be categorized as a feature region. For example, a DMA engine has queue management function and quality of service (QoS) function; these are two different features of the DMA engine. A feature region is contained within a single PCIe BAR and cannot span across two BAR region boundaries. 
+A group of related CSRs can be categorized as a feature region. A feature region is contained within a single PCIe BAR and cannot span across two BAR region boundaries. 
 
 A Device Feature Header (DFH) is a block of registers that mark the start of the feature region and sub-feature region, and you must place it at the first address of the region. Each DFH starts at 4KB boundary. A DFH register contains information that OPAE software requires to enumerate the feature. It also has an offset field that points to the next DFH in a feature list. OPAE software traverses the linked list of DFHs in each BAR region to discover all the features implemented on the platform. 
 
@@ -667,7 +651,7 @@ The `EOL` field in a DFH Start marks the end of a DFH list and is only set in th
 
 #### **6.1.1 Device Feature Header (DFH) Structure**
 
-All DFHs must follow a specific structure to be compatible with OPAE software.  Note that only features you want to be exposed to the OPAE software must have a DFH.  For the latest information on DFH structure, please refer to https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#device-feature-list-dfl-overview.
+All DFHs must follow a specific structure to be compatible with OPAE software.  Note that only features you want to be exposed to the OPAE software must have a DFH.  For the latest information on DFH structure, please refer to the [FPGA DFL Framework Overview](https://github.com/OFS/linux-dfl-backport/blob/intel/fpga-ofs-dev-6.6-lts/Documentation/fpga/dfl.rst).
 
 
 **6.2 Control and Status Registers**
@@ -724,28 +708,28 @@ The table below captures the FIM and AFU features in the supported BAR regions. 
 
 | Offset  | Feature CSR set                   |
 | :-----: | --------------------------------- |
-| 0x00000 | FME                               |
-| 0x01000 | Thermal Management                |
-| 0x03000 | Global Performance                |
-| 0x04000 | Global Error                      |
-| 0x10000 | PCIe                              |
-| 0x12000 | QSFP0                             |
-| 0x13000 | QSFP1                             |
-| 0x20000 | PMCI                              |
-| 0x40000 | ST2MM                             |
-| 0x60000 | Transceiver CSR Interface         |
-| 0x61000 | Virtual UART                      |
-| 0x62000 | EMIF                              |
-| 0x70000 | Port Gasket PR logic              |
-| 0x71000 | Port Gasket Port interface        |
-| 0x73000 | Port Gasket Remote Signal Tap     |
-| 0x80000 | AFU Interface Handler- AFU Errors |
+| 0x0_0000 | FME                               |
+| 0x0_1000 | Thermal Management                |
+| 0x0_3000 | Global Performance                |
+| 0x0_4000 | Global Error                      |
+| 0x1_0000 | PCIe                              |
+| 0x1_2000 | QSFP0                             |
+| 0x1_3000 | QSFP1                             |
+| 0x1_4000 | HSSI (Ethernet)                   |
+| 0x1_5000 | EMIF                              |
+| 0x2_0000 | PMCI                              |
+| 0x4_0000 | ST2MM                             |
+| 0x6_0000 | UART                              |
+| 0x7_0000 | Port Gasket PR logic              |
+| 0x7_1000 | Port Gasket Port interface        |
+| 0x7_3000 | Port Gasket Remote Signal Tap     |
+| 0x8_0000 | AFU Interface Handler- AFU Errors |
 
 **Table 6-8: PF0 BAR4 Features**
 
 | Offset  | Feature CSR set     |
 | :-----: | ------------------- |
-| 0x03000 | MSI-X Vector Tables |
+| 0x0_3000 | MSI-X Vector Tables |
 
 ## **7 Clocks**
 
@@ -753,20 +737,19 @@ The following table provides external clock sources which correspond to pins on 
 
 **Table 7-1: External Clock Source**
 
-|Clock |Frequency |	Description |
-|:----------------:|:---------:|--------------------|
-|SYS_RefClk | 100 MHz |Reference clock to system IOPLL (sys_pll) which provides FIM system clocks.|
-|PCIE_REFCLK |	100MHz |	PCIe reference clock 0 |
-|PCIE_REFCLK |	100MHz |	PCIe reference clock 1 |
-|qsfp_ref_clk |	156.25 MHz |	Ethernet Reference Clock |
-|ddr4_x32[0].ref_clk |	150MHz |	Refclk for 32-bit EMIF channel 0 |
-|ddr4_x32[1].ref_clk |	150 MHz |	Refclk for 32-bit EMIF channel 1|
-|ddr4_x40[0].ref_clk |	150 MHz |	Refclk for 40-bit EMIF channel 0|
-|ddr4_x40[1].ref_clk |	150 MHz |	Refclk for 40-bit EMIF channel 1|
-|ddr4_hps.ref_clk |	150 MHz |	Refclk for HPS EMIF|
-|sdm_config_clk |	125 MHz |	Refclk for HPS EMIF|
-|hps_refclk |	25 MHz |	Refclk for HPS EMIF|
-|altera_reserved_tck |	10 MHz |	Refclk for HPS EMIF|
+| Clock | Frequency | Description | N6001 | fseries-dk | iseries-dk | 
+| :----------------: | :---------: | -------------------- | :---: | :---: | :---: |
+| SYS_REFCLK | 100 MHz |Reference clock to system IOPLL (sys_pll) which provides FIM system clocks. | &#10004; | &#10004; | &#10004; |
+| PCIE_REFCLK0 | 100MHz | PCIe reference clock 0 | &#10004; | &#10004; | &#10004; |
+| PCIE_REFCLK1 | 100MHz | PCIe reference clock 1 | &#10004; | &#10006; | &#10004; |
+| qsfp_ref_clk | 156.25 MHz | Ethernet Reference Clock | &#10004; | &#10004; | &#10004; |
+| ddr4_mem[0].ref_clk | 150MHz | Refclk for 32-bit EMIF channel 0 | &#10004; | &#10004; | &#10004; |
+| ddr4_mem[1].ref_clk |	150MHz | Refclk for 32-bit EMIF channel 1 | &#10004; | &#10004; | &#10004; |
+| ddr4_mem[2].ref_clk |	150MHz | Refclk for 32-bit EMIF channel 2 | &#10004; | &#10006; | &#10004; |
+| ddr4_mem[3].ref_clk |	150MHz | Refclk for 32-bit EMIF channel 3 | &#10004; | &#10006; | &#10004; |
+| ddr4_hps.ref_clk | 150 MHz | Refclk for HPS EMIF | &#10004; | &#10004; | &#10006; |
+| sdm_config_clk \| FPGA_OSC_CLK1 | 125 MHz | SDM Configuration Clock | &#10004; | &#10004; | &#10004; |
+| hps_refclk \| HPS_OSC_CLK | 25 MHz |	Refclk for HPS | &#10004; | &#10004; | &#10006; |
 
 
 **Table 7-2: Internal Clocks**
@@ -775,11 +758,15 @@ Internal clock generated by the IOPLL as `outclk` outputs.
 
 | outclk# |    Clock    | Frequency  | Description                                                  |
 | :-----: | :---------: | :--------: | :----------------------------------------------------------- |
-| outclk0 |   clk_sys   |  470 MHz   | System clock. Primary clock for PCIe Datapath                |
+| outclk0 |   clk_sys   |  500 MHz<sup>**1**</sup>   | System clock. Primary clock for PCIe Datapath |
 | outclk1 |  clk_100m   |  100 MHz   | For RemoteSTP and user clock, or any logic that requires a 100 MHz clock. |
-| outclk2 |  clk_100m   |  175 MHz   | Drives AFU in PR slot                                        |
+| outclk2 |   clk_sys_div2   |  250 MHz<sup>**1**</sup> | System clock div2 |
 | outclk3 | clk_ptp_slv | 155.56 MHz | Unused                                                       |
 | outclk4 |   clk_50m   |   50 MHz   | Drives Virtual UART                                          |
+| outclk5 |   clk_sys_div4   |  125 MHz<sup>**1**</sup> | System clock div4 |
+| outclk6 |   clk_350m   |  333.33 MHz | Unused |
+
+<sup>**1**</sup> The system clock frequency can be changed using OFSS files at build time.
 
 ## **8 Reset**
 
@@ -793,7 +780,7 @@ The FIM system reset signals are driven according to their respective requiremen
 
 | Reset             | Description |                                                                                                       
 |:-----------------:|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `nPERST` pin        | Active low PCIe reset pin from the PCIe card edge that may be set by the host machine for cold or warm resets.  |
+| `PCIE_RESET_N`      | Active low PCIe reset pin from the PCIe card edge that may be set by the host machine for cold or warm resets.  |
 | `nCONFIG` pin       | Active low input to the FPGA that causes the FPGA to lose its configuration data, enter a reset state, and tri-state all I/O pins. Host software must reload the FPGA FIM after nCONFIG is activated. |
 | `ninit_done`        | Active low signal indicating FPGA core configuration is complete and FPGA has entered usermode.  This signal is provided by the configuration monitor block in rst_ctrl.sv.                                                                   |
 | `pcie_reset_status` | Active high reset status from PCIe hard IP. When driven high, this signal indicates that the PCIe IP core is not ready for usermode.                                                                  |
@@ -803,8 +790,8 @@ The FIM system reset signals are driven according to their respective requiremen
 
 Upon power-on, the reset module in the FIM holds the FIM in reset until all the reset conditions are de-activated:
 
- * `nPERST` signal is asserted.
-* The `INIT_DONE` pin is driven high to indicate core configuration is complete.
+* `PCIE_RESET_N` signal is asserted.
+* The `ninit_done` pin is de-asserted by the configuration monitor to indicate core configuration is complete.
 * The SYS IOPLL is locked.
 * The reset status from PCIe hard IP is de-asserted indicating the IP is ready for transfer. 
 
@@ -819,9 +806,12 @@ THe following table lists the reset outputs from the `rst_ctrl.sv` block.
 
 | Reset             | Description |                                                                                                       
 |:-----------------:|---------------------------------------------------------------------------------------------------------------------------|
-| `rst_n_sys` pin        | System general reset synchronous to `clk_sys`.  This is a warm reset of the FPGA logic.  Sticky bits in the FME and other CSR registers will not be reset by this signal.  |
-| `rst_n_100m` pin       | System general reset synchronous to clk_100m. |
-| `ninit_done`        | Active low signal indicating FPGA core configuration is complete and FPGA has entered usermode.  This signal is provided by the configuration monitor block in rst_ctrl.sv.                                                                   |
+| `ninit_done` | Active low signal indicating FPGA core configuration is complete and FPGA has entered usermode.  This signal is provided by the configuration monitor block in rst_ctrl.sv.                                                                   |
+| `rst_n_sys` | System general reset synchronous to `clk_sys`.  This is a warm reset of the FPGA logic.  Sticky bits in the FME and other CSR registers will not be reset by this signal.  |
+| `rst_n_100m` | System general reset synchronous to `clk_100m`. |
+| `rst_n_50m` | System general reset synchronous to `clk_50m`. |
+| `rst_n_sys_div2` | System general reset synchronous to `clk_sys_div2`. |
+| `rst_n_ptp_slv` | System general reset synchronous to `clk_ptp_slv`. |
 | `pwr_good_n` | Hardware reset conditioned by `ninit_done` and the `pll_locked` signal.  The signal is generally set when power has been cycled or a physical hardware fault has occurred, requiring a reset of the FPGA logic.   This signal is synchronous to `clk_sys`.                                                                  |
 | `pcie_cold_rst_ack_n`        | Hardware reset conditioned by the `pcie_reset_status` which is a summary reset driven by the PCIe Hard IP logic tile on the FPGA die.  This signal is synchronous to `clk_sy`s.|
 | `pcie_warm_rst_ack_n`        | Soft reset conditioned by `nPERST` when the pcie_reset_status is not asserted, meaning a warm reset is desired.  Cold reset sticky bits in the PCIe subsystem will not be reset by this signal.|
@@ -830,30 +820,151 @@ THe following table lists the reset outputs from the `rst_ctrl.sv` block.
 ## **9 Interrupts**
 
 
-The OFS platform supports interrupts through MSI-X feature. The MSI-X Interrupt feature handles FME and AFU interrupts. FME interrupts are primarily used to notify the host of error events happened in the FIM. When any of the bit in the FME error status registers is set, an interrupt request is sent to the MSI-X module. There are FME error status registers for OFS for Agilex FPGA features. 
-An AFU sends interrupt to the MSI-X module in the PCIE SS on the AXI interrupt request channel. The MSI-X table entries and PBA vectors are implemented in the PCIE SS. The PCIE SS supports upto 4096 vectors in "Static MSI-X mode.
+The OFS platform supports interrupts through MSI-X feature. The MSI-X Interrupt feature handles FME and AFU interrupts. FME interrupts are primarily used to notify the host of error events happened in the FIM. When any of the bits in the FME error status registers is set, an interrupt request is sent to the MSI-X module. There are FME error status registers for OFS for Agilex FPGA features. 
+An AFU sends interrupt to the MSI-X module in the PCIE SS on the AXI interrupt request channel. The MSI-X table entries and PBA vectors are implemented in the PCIE SS.
 
-Please refer to the [Intel FPGA IP Subsystem for PCI Express IP User Guide](https://github.com/OFS/ofs.github.io/blob/main/docs/hw/common/user_guides/ug_qs_pcie_ss.pdf) for more information.
+Please refer to the [AXI Streaming IP for PCI Express User Guide](https://www.intel.com/content/www/us/en/docs/programmable/790711/24-3-1/introduction.html) for more information.
 
 
 ## **10 External Memory Interface (EMIF)**
 
+The EMIF subsystem is configured according the memories on the board. If HPS is enabled in the board, one of the channel is configured for HPS. Please check the board specific configuration.
 
-There are 5 EMIF channels (5 DDR4 banks) on the Intel® FPGA SmartNIC N6001-PL.  Banks 3D and 2A are dedicated for HPS use, and Banks 3B, 3A, and 2B are connected to the HE-MEM exerciser module in AFU. The provided FIM reference design implements ECC for the HPS external memory bank while ECC is not implemented for the fabric external memory interfaces. The Intel® FPGA SmartNIC N6001-PL that this design targets supports ECC on all banks except 2B and the user may create a FIM design with ECC support.  Both memory subsystem and HE-MEM implement AXI-MM interface.
+The table below shows the capabilities of the memory populated on the boards for each reference design. Note that ECC is only enabled by default for HPS memory channels. You may enable ECC on channels that support it by modifying the memory subsystem. Refer to the Shell Developer Guides for instructions.
 
-**Table 10-1 Memory Subsystem Configuration on the Intel® FPGA SmartNIC N6001-PL**
+**Table 10-1 Memory Subsystem Configuration for OFS Agilex PCIe Attach Target Boards**
 
-This table shows the capabilities of the memory populated on the Intel® FPGA SmartNIC N6001-PL for reference.
+<table>
+  <tr>
+    <th>Reference Design Target Board</th>
+    <th>Memory Channel</th>
+    <th>FPGA I/O Bank</th>
+    <th>Width</th>
+    <th>ECC Width</th>
+    <th>ECC Default</th>
+    <th>Speed</th>
+    <th>Size</th>
+  </tr>
+  <tr>
+    <td rowspan="6">n6001</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">0</td>
+    <td style="text-align: center;">2A</td>
+    <td style="text-align: center;">x32</td>
+    <td style="text-align: center;">No ECC</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2400</td>
+    <td style="text-align: center;">4 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">1</td>
+    <td style="text-align: center;">3B</td>
+    <td style="text-align: center;">x32</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2400</td>
+    <td style="text-align: center;">4 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">2</td>
+    <td style="text-align: center;">2B</td>
+    <td style="text-align: center;">x32</td>
+    <td style="text-align: center;">No ECC</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2400</td>
+    <td style="text-align: center;">4 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">3</td>
+    <td style="text-align: center;">3A</td>
+    <td style="text-align: center;">x32</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2400</td>
+    <td style="text-align: center;">4 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">HPS</td>
+    <td style="text-align: center;">3D</td>
+    <td style="text-align: center;">x32</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Enabled</td>
+    <td style="text-align: center;">2400</td>
+    <td style="text-align: center;">1 GB</td>
+  </tr>
+  <tr>
+    <td rowspan="4">fseries-dk</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">0</td>
+    <td style="text-align: center;">2C, 2D</td>
+    <td style="text-align: center;">x64</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2400</td>
+    <td style="text-align: center;">8 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">1</td>
+    <td style="text-align: center;">2E, 2F</td>
+    <td style="text-align: center;">x64</td>
+    <td style="text-align: center;">No ECC</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2400</td>
+    <td style="text-align: center;">8 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">HPS</td>
+    <td style="text-align: center;">3D</td>
+    <td style="text-align: center;">x32</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Enabled</td>
+    <td style="text-align: center;">2400</td>
+    <td style="text-align: center;">8 GB</td>
+  </tr>
+  <tr>
+    <td rowspan="5">iseries-dk</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">0</td>
+    <td style="text-align: center;">3C,3D</td>
+    <td style="text-align: center;">x64</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2666</td>
+    <td style="text-align: center;">8 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">1</td>
+    <td style="text-align: center;">3A,3B</td>
+    <td style="text-align: center;">x64</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2666</td>
+    <td style="text-align: center;">8 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">2</td>
+    <td style="text-align: center;">2C,2F</td>
+    <td style="text-align: center;">x64</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2666</td>
+    <td style="text-align: center;">8 GB</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">3</td>
+    <td style="text-align: center;">2B,2E</td>
+    <td style="text-align: center;">x64</td>
+    <td style="text-align: center;">x8</td>
+    <td style="text-align: center;">Disabled</td>
+    <td style="text-align: center;">2666</td>
+    <td style="text-align: center;">8 GB</td>
+  </tr>
+</table>
 
-| FPGA I/O Bank | Width | ECC Width | ECC Supported | Speed |     Size      |
-| ------------- | :---: | :-------: | :-----------: | :--: | :------------: |
-| 3D, HPS       |  x32  |    x8     |      1GB      | 2400 | Three 256Mx16  |
-| 3B            |  x32  |    x8     |      4GB      | 2400 | Three 1024Mx16 |
-| 3A            |  x32  |    x8     |      4GB      | 2400 | Three 1024Mx16 |
-| 2B            |  x32  |  No ECC   |      4GB      | 2400 |  Two 1024Mx16  |
-| 2A, HPS       |  x32  |    x8     |      1GB      | 2400 |  Two 1024Mx16  |
-
-
+The diagram below shows the general connectivity of the EMIF.
 
 **Figure 10-1: EMIF Interfaces**
 
@@ -861,107 +972,283 @@ This table shows the capabilities of the memory populated on the Intel® FPGA Sm
 
 ### **10.1 EMIF CSR**
 
-The CSR for the EMIF feature is memory mapped to the FME BAR region. The following table captures the EMIF CSR registers.
-
-**Table 10-2: EMIF CSR Registers**
-
-| EMIF_DFH          | 0x62000 |        | 0x300000001000100F | EMIF Management DFH            |
-| ----------------- | ------- | ------ | ------------------ | ------------------------------ |
-| **FIELD NAME**        | **RANGE**   | **ACCESS** | **DEFAULT**            | **DESCRIPTION**                    |
-| FeatureType       | [63:60] | RO     | 0x3                | Feature Type = Private Feature |
-| Reserved40        | [59:40] | RsvdZ  | 0x0                | Reserved                       |
-| NextDfhByteOffset | [39:16] | RO     | 0x1000             | Next DFH Byte offset           |
-| FeatureRev        | [15:12] | RO     | 0x0                | Feature Revision               |
-| FeatureID         | [11:0]  | RO     | 0x9                | Feature Id                     |
-
-| EMIF_STAT  | 0x62008 |        | 0x0000000000000000 | EMIF Status                                           |
-| ---------- | ------- | ------ | ------------------ | ----------------------------------------------------- |
-| **FIELD NAME** | **RANGE**   | **ACCESS** | **DEFAULT**            | **DESCRIPTION**                                           |
-| Reserved   | [63:8]  | RsvdZ  | 0x0                | Reserved                                              |
-| CalFailure | [7:4]   | RO     | 0x0                | EMIF PHY Calibration Failure (1 bit per interface)    |
-| CalSuccess | [3:0]   | RO     | 0x0                | EMIF PHY Calibration Successful (1 bit per interface) |
-
-| EMIF_CAPABILITY | 0x62010 |        | 0x000000000000000F | EMIF Capability Register                         |
-| --------------- | ------- | ------ | ------------------ | ------------------------------------------------ |
-| **FIELD NAME**      | **RANGE**   | **ACCESS** | **DEFAULT**            | **DESCRIPTION**                                      |
-| Reserved        | [63:4]  | RsvdZ  | 0x0                | Reserved                                         |
-| EMIFCap         | [3:0]   | RO     | 0xF                | Attached Memory Capability (1 bit per interface) |			
-
-​			
+The CSRs for the memory subsystem reside at address 0x15000 in the BPF. The CSRs are defined in `ofs-fim-common/src/fpga_family/agilex/mem_ss/xls/EMIF_CSR.xls`.
 
 ## **11 Ethernet Subsystem**
 
-
 ### **11.1 Ethernet Subsystem Overview**
 
+The Ethernet Subsystem (hssi_ss) provides portability to different Ethernet configurations across platforms and generations and reusability of the hardware framework and software stack. 
 
-The Ethernet Subsystem (hssi_ss) provides portability to different Ethernet configurations across platforms and generations and reusability of the hardware framework and software stack. This reference FIM implements an E-tile Ethernet Subsystem IP in a 2x4x25GbE configuration and provides a Linux driver that can be leveraged for customization. Each group of 4x25GbE routes to a QSFP.
+The table below shows the validated Ethernet configurations for each target board.
 
-For more information about how to reconfigure the Ethernet Subsystem please refer to the [Ethernet Subsystem Intel FPGA IP](https://cdrdv2-public.intel.com/773414/intelofs-773413-773414.pdf).
+**Table 11-1: Validated Ethernet Configurations for example OFS FIMs for Agilex FPGAs**
 
+<table>
+  <tr>
+    <th>Reference Design Target Board</th>
+    <th>Ethernet Configuration</th>
+  </tr>
+  <tr>
+    <td rowspan="4">n6001</td>
+  </tr>
+  <tr>
+    <td>2x4x25 GbE</td>
+  </tr>
+  <tr>
+    <td>2x4x10 GbE</td>
+  </tr>
+  <tr>
+    <td>2x100 GbE</td>
+  </tr>
+  <tr>
+    <td>fseries-dk</td>
+    <td>2x4x25 GbE</td>
+  </tr>
+  <tr>
+    <td rowspan="4">iseries-dk</td>
+  </tr>
+  <tr>
+    <td>2x4x25 GbE</td>
+  </tr>
+  <tr>
+    <td>2x200 GbE</td>
+  </tr>
+  <tr>
+    <td>2x400 GbE</td>
+  </tr>
+</table>
 
-**Table 11-1: Ethernet Configurations for example OFS FIMs for Agilex FPGAs**
+You may use OFS Settings (OFSS) files to select one of these configurations at build time. Please refer to the Shell Developer Guides for instructions.
 
-| Parameter                                     | Configuration for PCIe Attach Agilex OFS (2x4x25GbE) |
-| --------------------------------------------- | ---------------------------------------------------------- |
-| IP file name                                  | hssi_ss_8x25g                                              |
-| Number of ports enabled                       | 8                                                          |
-| Enabled ports                                 | Port 0-7                                                   |
-| Port{x} profile                               | 25GbE                                                      |
-| Port{x} subprofile                            | MAC+PCS                                                    |
-| Port{x} RSFEC                                 | True                                                       |
-| Port{x} PTP                                   | False                                                      |
-| Enable AN/LT                                  | False                                                      |
-| Enable NPDME                                  | True                                                       |
-| Enable JTAG to Avalon master bridge           | False                                                      |
-| Enable Tx packet classifier                   | NA                                                         |
-| PTP accuracy mode                             | NA                                                         |
-| Enable iCAL and pCAL recipe at power          | True                                                       |
-| TX/RX maximum frame size                      | 1518                                                       |
-| Enforce maximum frame size                    | False                                                      |
-| Link fault generation mode                    | Bidirectional                                              |
-| Stop TX traffic when link partner sends PAUSE | Yes                                                        |
-| Bytes to remove from RX frames                | Remove CRC bytes                                           |
-| Forward RX PAUSE requests                     | False                                                      |
-| Use source address insertion                  | False                                                      |
-| Enable TX/RX VLAN detection                   | True                                                       |
-| Enable asynchronous adapter clocks            | False                                                      |
-| Enable preamble Passthrough                   | False                                                      |
-| Enable asynchronous adapter clocks            | False                                                      |
-| Enable preamble Passthrough                   | False                                                      |
-| Enable strict preamble check                  | False                                                      |
-| Enable strict SFD check                       | False                                                      |
-| Average IPG                                   | 12                                                         |
-| Enable adaptation load soft IP                | True                                                       |
-| Additional IPG removed as per AM period       | 0                                                          |
+For more information on the Ethernet Subsystem IP, please refer to the [Ethernet Subsystem Intel FPGA IP User Guide](https://www.intel.com/content/www/us/en/docs/programmable/773413/24-1-25-0-0/introduction.html).
 
-
-
-
-To determine which Transceiver Subsystem port maps to the QSFP A and B lanes, please refer to the following table:
+The table below describes how the QSFP lanes are mapped to the Ethernet Subsystem ports.
 
 **Table 11-2: Transceiver Subsystem Port Mapping**	
 
-| Port number | Configuration for PCIe Attach Agilex OFS (2x4x25GbE) |
-|:-----------:| ---------------------------------------------------------- |
-| 1           | QSFP-A Lane-0                                              |
-| 2           | QSFP-A Lane-1                                              |
-| 3           | QSFP-A Lane-2                                              |
-| 4           | QSFP-A Lane-3                                              |
-| 5           | QSFP-B Lane-0                                              |
-| 6           | QSFP-B Lane-1                                              |
-| 7           | QSFP-B Lane-2                                              |
-| 8           | QSFP-B Lane-3                                              |
-| 9           | NA                                                         |
-| 10          | NA                                                         |
-| 11          | NA                                                         |
-| 12          | NA                                                         |
-| 13          | NA                                                         |
-| 14          | NA                                                         |
-| 15          | NA                                                         |
-| 16          | NA                                                         |
-
-
+<table>
+  <tr>
+    <th rowspan="3" style="text-align: center;">Ethernet-SS</br>Port Number</th>
+    <th colspan="14" style="text-align: center;">Reference Design Target Board</th>
+  </tr>
+  <tr>
+    <th colspan="6" style="text-align: center;">n6001</th>
+    <th colspan="2"style="text-align: center;">fseries-dk</th>
+    <th colspan="6" style="text-align: center;">iseries-dk</th>
+  </tr>
+  <tr>
+    <th colspan="2" style="text-align: center;">2x4x25 GbE</td>
+    <th colspan="2" style="text-align: center;">2x4x10 GbE</td>
+    <th colspan="2" style="text-align: center;">2x100 GbE</td>
+    <th colspan="2" style="text-align: center;">2x4x25 GbE</td>
+    <th colspan="2" style="text-align: center;">2x4x25 GbE</td>
+    <th colspan="2" style="text-align: center;">2x200 GbE</td>
+    <th colspan="2" style="text-align: center;">1x400 GbE</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">0</td>
+    <td style="text-align: center;" rowspan="4">QSFPA</br>0:3</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" rowspan="4">QSFPA</br>0:3</td>
+    <td style="text-align: center;">10 GbE</td>
+    <td style="text-align: center;" >QSFPA</br>0:3</td>
+    <td style="text-align: center;">100GCAUI-4</td>
+    <td style="text-align: center;" rowspan="8">QSFPDD</br>0:7</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" rowspan="8">QSFPDD1</br>0:7</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">1</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">10 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">2</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">10 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">3</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">10 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">4</td>
+    <td style="text-align: center;" rowspan="4">QSFPB</br>0:3</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" rowspan="4">QSFPB</br>0:3</td>
+    <td style="text-align: center;">10 GbE</td>
+    <td style="text-align: center;">QSFPB</br>0:3</td>
+    <td style="text-align: center;">100GCAUI-4</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">5</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">10 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">6</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">10 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">7</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">10 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;">25 GbE</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">8</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;">QSFPDD1</br>0:3</td>
+    <td style="text-align: center;">200GAUI-4</td>
+    <td style="text-align: center;">QSFPDD1</br>0:7</td>
+    <td style="text-align: center;">400GAUI-8</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">9</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">10</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">11</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">12</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;">QSFPDD1</br>4:7</td>
+    <td style="text-align: center;">200GAUI-4</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">13</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">14</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  <tr>
+    <td style="text-align: center;">15</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+    <td style="text-align: center;">16</td>
+    <td style="text-align: center;" colspan="6">N/A</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  </tr>
+    <td style="text-align: center;">17</td>
+    <td style="text-align: center;" colspan="6">N/A</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  </tr>
+    <td style="text-align: center;">18</td>
+    <td style="text-align: center;" colspan="6">N/A</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+  </tr>
+    <td style="text-align: center;">19</td>
+    <td style="text-align: center;" colspan="6">N/A</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+    <td style="text-align: center;" colspan="2">-</td>
+  </tr>
+</table>
 
 **Figure 11-1: Transceiver Subsystem Block Diagram**
 
@@ -971,57 +1258,51 @@ A host exerciser, named he-hssi, is provided in the pr_slot of the AFU partition
 
 ### **11.2 Parameterization Options**
 
-The Ethernet Subsystem features are highly parameterized to provide the various features/configurations required for the different FIMs. The macro defines can be added to the `ofs_top.qsf` file and are as follows:
+The Ethernet Subsystem features are highly parameterized to provide the various features/configurations required for the different FIMs. The HSSI OFSS files found in `ofs-agx7-pcie-attach/tools/ofss_config/hssi` can be used to change the configuration of the HSSI-SS. You may also create your own OFSS file for custom configuration. The provided OFSS files are described in the following table:
 
-* ETH_100G: includes 100G related logic. Used to generate 2x1x100G.
-* ETH_10G:  includes 10G related logic. Used to generate 2x4x10G
-* ETH_25G: includes 25G related logic (Default behaviour even with no `DEFINES). Used to generate 2x4x25G
+*Table: Provided HSSI OFSS Files*
 
-Parameterization is also included in the ofs_fim_eth_plat_defines.svh package file:
+| OFSS File Name | Location | Type | Description | Supported Board |
+| --- | --- | --- | --- | --- |
+| `hssi_8x10.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 8x10 GbE | N6001 |
+| `hssi_8x25.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 8x25 GbE | N6001 |
+| `hssi_2x100.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 2x100 GbE | N6001 |
+| `hssi_1x400_ftile.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be F-Tile 1x400 GbE | iseries-dk |
+| `hssi_4x100.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be 4x100 GbE | N6000 |
+| `hssi_8x25_ftile.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP configuration to be F-Tile 8x25 GbE | fseries-dk \| iseries-dk |
+| `hssi_2x200_ftile.ofss` | `$OFSS_ROOTDIR/tools/ofss_config/hssi` | hssi | Defines the Ethernet-SS IP to be 2x200 GbE | iseries-dk |
 
-•	INCLUDE_HSSI_PORT_{n}: These are available for every port. If defined for a particular port, that indicates that port is enabled.
-•	
-Based on which INCLUDE_HSSI_PORT_{n} is defined in ofs_fim_eth_plat_defines_pkg.svh file, hssi_ss IP needs to be configured manually to have only those ports enabled. 
+The following parameters are defined in `ofs-fim-common/src/fpga_family/agilex/hssi_ss/inc/ofs_fim_eth_plat_if_pkg.sv`: 
 
-Following are parameters defined in ofs_fim_eth_plat_if_pkg.sv: 
-
-•	MAX_NUM_ETH_CHANNELS: This indicates how many maximum ethernet channels are supported for platfrom
-•	NUM_QSFP_PORTS: Indicates number of QSFP cages are available on a platform
-•	NUM_ETH_CHANNELS: Indicates number of channels present for a FIM, i.e. number for ports for Transceiver SS IP 
-•	NUM_QSFP_LANES: Number of lanes per QSFP port
-•	NUM_LANES: Number of lanes per HSSI port
-•	ETH_PACKET_WIDTH: Datawidth of client side AXI-ST interface coming from HSSI SS IP. This is not an user configurabale parameter. User need update this value to reflect HSSI SS IP client side data width for selected configuration.
-
+*	MAX_NUM_ETH_CHANNELS: This indicates how many maximum ethernet channels are supported for platfrom
+*	NUM_QSFP_PORTS_USED: Indicates number of QSFP cages on the board that are used by the target HSSI configuration
+*	NUM_ETH_CHANNELS: Number of ethernet ports used by target hssi configuration. E.g. for 8x25G, 8 HSSI ports are active on HSSI IP
+*	NUM_QSFP_LANES: Number of lanes per QSFP cage
+*	NUM_LANES: Number of XCVR Lanes per Port used by the configuration. For ex. for 100GCAUI-4, 4 lanes per HSSI port are used
+*	ETH_PACKET_WIDTH: Datawidth of client side AXI-ST interface coming from HSSI SS IP. This is not an user configurabale parameter. User need update this value to reflect HSSI SS IP client side data width for selected configuration.
 
 ### **11.3 OFS Ethernet Subsystem Interface Module**
-
 
 A wrapper around the Transceiver Subsystem integrates the following features:
 * DFH registers 
 * Control & status registers 
-* Indirect access to Transceiver SS CSR registers via CSR mailbox in the HSSI SS interface 
-
 
 #### **11.3.1	Ethernet Subsystem Control and Status Register (CSR) Map**
 
+The Ethernet Subsystem connects to the BPF which is memory mapped to PF0 BAR0. The Ethernet Subsystem CSR space in the FIM consists of two parts:
 
-The Ethernet Subsystem connects to the APF which is memory mapped to PF0 BAR0. The Ethernet Subsystem CSR space in the FIM consists of two parts:
+* HSSI Subsystem CSRs assigned from offset 0x000 to 0x7FF
+* HSSI Wrapper CSRs are added to FIM at offset 0x800 to 0xFFF
 
-* Ethernet Subsystem CSRs assigned from offset 0x000 to 0x7FF
-* Additional CSRs are added to FIM at offset 0x800 to 0xFFF
+The PCIe subsystem uses AXI Memory Mapped accesses to read and write HSSI Subsystem Control and Status Registers in the FIM. The HSSI Subsystem CSR Map structure is designed to scale according to IP capabilities.
 
-The PCIe subsystem uses AXI Memory Mapped accesses to read and write Ethernet Subsystem Control and Status Registers in the FIM. The Ethernet Subsystem CSR Map structure is designed to scale according to IP capabilities.
-
-The Ethernet Subsystem CSR Map can be found `ipss/hssi/HSSI_SS_CSR.xls`.
-
+The Ethernet Subsystem CSR Map can be found `ofs-agx7-pcie-attach/ipss/hssi/HSSI_SS_CSR.xls`.
 
 ### **11.4 Ethernet Subsytem Software**
-
 
 There are two pieces of software related to running the Ethernet Subsystem: The Linux* dfl network driver and the user space OPAE Tools.
 
 #### **11.4.1 Ethernet Subsystem Linux Driver**
-
 
 The Ethernet subystem is exposed as a feature in the PCIe PF BAR0 region.  It has a Device Feature Header (DFH) specifying the interface. 
 
@@ -1030,19 +1311,18 @@ The primary functionality of the driver is to interact with the ethernet MAC and
 
 To read a register offset in the MAC/PHY write the offset to the regaddr file as a C hex string (e.g. 0x04) and then read the value as string out of regval file. To write a register offset in the MAC/PHY write the offset to the regaddr file as a C hex string (e.g. 0x04) and then write the value as a C hex string to regval file.
 
-
 #### **11.4.2	Ethernet Subsystem OPAE User Space Tool**
 
-
 User space OPAE Tools that are part of OPAE SDK provide support for the Ethernet Subsystem.  You can use the --help option to print more information about each of these commands:
+
 * hssi: Provides a means of interacting with the 10G and 100G HSSI AFUs through the host exerciser.
 * hssiloopback: Enables and disables Ethernet loopback.
 * hssistats: Provides MAC statistics.
 
 ## **12 Partial Reconfiguration**
 
+Partial Reconfiguration (PR) is an Altera FPGA technology that allows users to reconfigure parts of the FPGA device dynamically, while the remainder of the device continues to operate. In a non-partial reconfiguration flow, any change to the design requires full reprogramming of the entire configuration RAM (CRAM) arrays in the device. With partial reconfiguration, you can dynamically reprogram one or more CRAM frames. A partial reconfiguration design has a static region, and a PR region, which can be modified to implement new logic. The portion of the CRAM on the chip to be reconfigured is contained within a PR region.
 
-Partial Reconfiguration (PR) is an Altera FPGA technology that allows users to reconfigure parts of the FPGA device dynamically, while the remainder of the device continues to operate. In a non-partial reconfiguration flow, any change to the design requires full reprogramming of the entire configuration RAM (CRAM) arrays in the device. With partial reconfiguration, you can dynamically reprogram one or more CRAM frames. A partial reconfiguration design has a static region, and a PR regions, which can be modified to implement new logic. The portion of the CRAM on the chip to be reconfigured is contained within a PR region.
 For the PR flow, your design must be partitioned into static region and reconfigurable region. The static region is the area of your FPGA that is not reconfigured without reprogramming the entire FPGA. An area of the chip that you plan to partially reconfigure is a PR region. 
 
 The Port Gasket contains all the PR specific modules and logic, such as PR slot reset/freeze control, user clock, remote STP etc. For this reference example only one PR slot is supported.
@@ -1071,61 +1351,72 @@ uclk_usr_div2: 156.2 MHz
 |:-------:|:--------:|:----------:|:--------------|
 |0-400 MHz| 0-800 MHz |0-400 MHz |Clocks set on 2x relationship for L<400 MHz |
 |400-800 MHz | 400-800 MHz |400-800 MHz |Clks are equal for L>400 MHz |
+ 
+To modify the user clocks to a desired frequency, the clock-frequency-low and clock-frequency-high fields are set in the  AFU's .json file. During PR, the SW will try to provide the closest possible frequency to the value specified in the .json file.
 
-PLL Reconfiguration 
+#### PLL Reconfiguration 
 
 The blue bit stream hardware exposes the low level IOPLL reconfiguration interfaces directly to software control. Through the USR_CLK_FREQ_CMD0 register software can select the reference clock, assert the PLL power down pin and issue reads and writes on the IOPLL Avalon-mm reconfiguration bus. Through the USR_CLK_FREQ_STS0 register software can query the IOPLL active reference clock, locked status and readdata returned from the IOPLL AVMM interface for read requests. 
 
- 
-
-Clock Frequency Counter 
+#### Clock Frequency Counter 
 
 The user clocks, generated by the reconfigurable IOPLL, are connected to a frequency measurement circuit. Software selects which of the two clocks to measure by setting the clock select bit in the USER_CLK_FREQ_CMD1 register. After 10ms software can read the frequency, in 10 KHz units, from the USER_CLK_FREQ_STS1 register. Reading this register before 10ms has passed will return undefined data but otherwise has no effect. 
-
- 
-
-Configuring User Clocks 
-
-To program the user clock to the desired frequency, user will set the clock-frequency-low and clock-frequency-high fields in the PR AFU GBS .json file to the desired frequency value. During PR, SW will try to provide the closest possible frequency to the value specified in the .json file. 
-
 
 ## **13 Host Exercisers**
 
 The Host Exerciser (HE) modules are responsible for generating traffic with the intent of exercising the specific interface they are designed to connect to. They are intended to test the interface in simulation and hardware, enable measurement of bandwidth and other performance KPIs and, in come cases, provide an example of data movement between interfaces (PCIe to DDR for e.g.) for adoption into a customer application. 
 
- ### **13.1 HE-LB and HE-MEM Host Exerciser**
+The default OFS shell contains 4 types of host exercisers:
 
+| Host Exerciser Name | Expansion | Description |
+| --- | --- | --- |
+| HE-LB | Host Exerciser Loopback | A traffic generator that exercises the path from host to host memory in the AFU via PCIe |
+| HE-MEM | Host Exerciser Memory | A traffic generator that exercise the path from host to local memory (e.g. external DDR) via PCIe |
+| HE-MEM-TG | Host Exerciser Memory Traffic Generator |
+| HE-HSSI | Host Exerciser High Speed Serial Interface |
+
+ ### **13.1 HE-LB and HE-MEM Host Exerciser**
 
 The Host Exerciser Loopback module is a traffic generator that can be attached both to host memory, over PCIe (HE-LB), and to local memory, such as board-attached DDR (HE-MEM). The Host Exerciser (HE) is responsible for generating traffic with the intention of exercising the path from the AFU to the Host at full bandwidth as well as demonstrating data path correctness.
 The FIM picks up the HE-LB module behind the PIM (Platform Interface Manager).  The PIM converts the AXI with TLP out of the PCIe SS to standard Arm® AMBA® 4 AXI4 (MM for completions and Lite for CSR) interfaces. The figure below shows how the HE-LB is instantiated in the FIM.
 
-
 **Figure 13-1 HE-LB Dataflow Diagram**
-![](images/he-lb.svg)
+![](images/he-lb-flow.png)
 
 The exerciser has two primary modes: loopback, in which read data is fed back as writes, and read/write mode, in which reads and writes are generated independently. Furthermore, the host_exerciser software provided with OPAE that drives the RTL has two major modes: "lpbk" and "mem". These modes only select the UUID of the HE AFU, with lpbk selecting a version configured with no local memory (56e203e9-864f-49a7-b94b-12284c31e02b) and mem seeking a version with local memory (8568ab4e-6ba5-4616-bb65-2a578330a8eb). The behavior of each engine with and without local memory is described below.
 
-**Figure 13-2 HE Engine Heirarchy**
+**Figure 13-2 HE Engine Hierarchy**
+
 ![](images/he-engine.png)
 
 For more details of HE-LB and HE-MEM IP, please refer to ofs-fim-common/src/common/he_lb/README.md
 
 
+ ### **13.1 Host Exerciser Memory Traffic Generator (HE-MEM-TG)**
+
+The memory traffic generator (HE-MEM-TG) provides a way for users to characterize local memory channel bandwidth with a variety of traffic configuration features including request burst size, read/write interleave count, address offset, address strobe, and data pattern.
+
+The HE-MEM-TG is connected via AXI-MM to the available local memory channels not already attached to HE-MEM. For example, if there are 4 total memory channels, HE-MEM will connect to channel 0, and HE-MEM-TG will connect to channels 1-3. It has a separate CSR block for AFU feature information and high-level status, including a TG_CAPABILITY register that describes the available traffic generators with a 1 bit active high mask and a TG_STAT register that provides the 4-bit, one-hot status of each TG in adjacent fields. The status is decoded left to right as follows: pass, fail, timeout, active. For additional details, refer to the [MEM_TG CSR table](https://github.com/OFS/ofs-fim-common/blob/release/ofs-2024.3/src/common/mem_tg/MEM_TG_CSR.xls)
+
+Each traffic generator is configured through a separate Avalon-MM interface at incremental offsets of 0x1000 from the AFU DFH. The default configuration for each TG performs a single-word write followed by a read at address 0. Triggering the start of the test on a TG will initiate a counter to measure the duration of the test which is recorded in the AFU CSR block and used to report memory channel bandwidth.
+
+![he_mem_tg_diagram](images/he_mem_tg_diagram.png)
+
 ### **13.2 HSSI Host Exerciser (HE-HSSI)**
 
  HE-HSSI is an Ethernet AFU that handles client side ethernet traffic. The reference HE-HSSI has following features:
 
-* HE-HSSI provides an E-tile compatible interface with the Transceiver Subsystem.
+* HE-HSSI provides a compatible interface with the Ethernet Subsystem.
 * Includes a traffic generator and checker or monitor
-* Provides pause signals to the Transceiver Subsystem for XON and XOFF generation
+* Provides pause signals to the Ethernet Subsystem for XON and XOFF generation
 * Generates traffic or incoming traffic that can be looped back into transmit path by enabling loopback mode, which will bypass traffic generator
 * At the HE-HSSI interface boundary the Ethernet data interface is AXI4-Stream with 64-bit data at eth_clk clock
-
 * The Traffic generator and checker modules have a 64-bit data interface at eth_clk clock.
 * The traffic generator supports the following modes:
-    * Fixed length or Random Length
-    * Incremental pattern or Random pattern
-* Traffic checker does a 32-bit crc check in 10/25G. In the 100G configuration, there is no data integrity check, only a packet counter. 
+  * Fixed length or Random Length
+  * Incremental pattern or Random pattern
+* Traffic checker does a 32-bit crc check in 10/25G. In the 100G configuration, there is no data integrity check, only a packet counter.
+
 * The CSR of this AFU is accessible through AXI4-Stream PCIe TLP interface
 * The PCIe TLP to CSR Interface Conversion module converts PCIe TLPs into simple CSR interface
 * The CSR space of the traffic generator and checker modules are accessed in an indirect way using mailbox registers
@@ -1160,7 +1451,7 @@ The CSR excel for HE-HSSI module can be found at ofs-common/src/common/he_hssi/H
 
 **13.3 HE-Null Overview**
 
-This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg.  To find out more about these compiler directives, refer to the [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/).
+This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the build script command line options such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg.  To find out more about these compiler directives, refer to the Shell Developer Guides.
 
 **Table 13-1  HE-Null DFH**
 
@@ -1176,35 +1467,13 @@ This module is a simple stub that is used to replace various HE and other blocks
 ![](images/he-null-diagram.png)
 
 
-## **14 Reliability, Accessibility, Serviceability (RAS) and Error Handling**
+## **14 Error Handling**
 
 1. Downstream AFU checker: Identifies AFU violations.  For example, these checker flags violations of the interface specification. 
 2. Upstream software or PCIe link checker: Identifies invalid traffic from PCIe that violates FIM or PCIe specifications. For example, this checker flags an application sending traffic if it violates the FIM specification or creates a PCIe link issue by causing completion timeout or malformed TLP. 
 3. FIM - Checks for bugs in the FIM fabric.
 
-Errors reported by the checker are logged in either the FME error registers or Port error registers, or both, as shown in the table below.  For more details on each of the registers, please refer to ofs-fim-common/src/common/fme/xls/n6000/FME_CSR.xls or the SystemVerilog file: ofs-common/src/common/fme/fme_csr.sv.
-
-
-**Table 14-1: Error Registers**
-
-|MMIO Region  |Area  |Register  |Description  |
-|:---------:|:---------:|---------|---------|
-|FME     |  CoreFIM      |FME_ERROR|FME Error Status Register 0.  Registers parity errors, underflow or overflow errors and access mismatches.         |
-|FME     | CoreFIM |  FME_ERROR0_MASK |  FME Error Mask Register 0.  Write a 0 to mask errors in the FME Error Status Register 0. |
-|FME     |  External   |  PCIE0_ERROR     |PCIe0 Error Status Register.         |
-|FME      |  External  | PCIE0_ERROR_MASK  |  PCIe0 Error Mask Register 0.  Write a 0 to mask errors in the PCIe0 Error Status Register 0.       |
-|FME | CoreFIM    |  FME_FIRST_ERROR       |  First FME Error Register.       |
-|FME     | CoreFIM |  FME_NEXT_ERROR   | FME Next Error Register.        |
-|FME     |  CoreFIM | RAS_NOFAT_ERR_STAT  | Reliability/Accessibility/Serviceability (RAS) Non-Fatal Error Status Register. |
-|FME    |CoreFIM |RAS_NOFAT_ERR_MASK| RAS Non-Fatal Error Mask Register. Write 0 to mask error fields in RAS_NOFAT_ERR_STAT Register.|
-|FME|CoreFIM |	RAS_CATFAT_ERR_STAT |	RAS Catastrophic and Fatal Errors Status Register.| 
-|FME| CoreFIM| RAS_CATFAT_ERR_MASK |	RAS Catastrophic and Fatal Errors Mask Register. Write 0 to mask error fields in the RAS_CATFAT_ERR_STAT Register.|
-|FME| CoreFIM |	RAS_ERROR_INJ |	RAS error Injection Register. |
-|PORT|CoreFIM |	PORT_ERROR |	Port Error Status Register. |
-|PORT| CoreFIM| PORT_FIRST_ERROR| Port First Error Register . |
-|PORT| CoreFIM| PORT_MALFORMED_REQ0 |	Port Malformed Request Register 0.  Provides malformed request header LSBs. |
-|PORT| CoreFIM  | PORT_MALFORMED_REQ1 |	Port Malformed Request Register 1.  Provides malformed request header MSBs. |
-
+Errors reported by the checker are logged in either the FME error registers or Port error registers, or both, as shown in the table below.  For more details on each of the registers, please refer to `ofs-fim-common/src/common/fme/xls/n6001/FME_CSR.xls` or the SystemVerilog file: ofs-common/src/common/fme/fme_csr.sv.
 
 ### **14.1 FME Errors**
 
@@ -1222,16 +1491,11 @@ The FME_ERROR0 register flags CoreFIM FME errors in the Global Error (GLBL_ERROR
 
 #### **14.1.2 PCIE0_ERROR**
 
-The PCIe Avalon-ST to AXI4-Stream bridge monitors the PCIe link for errors and logs any such errors in the PCIE0_ERROR register (in PCIE0 feature region) and PCIE0_ERROR register in the GLBL_ERR private feature.    The error bits in the PCIE0_ERROR register are sticky bits that you can only clear through software or through a system reset. Writing a 1 to the error field in the register clears the corresponding error bit. Writing a 1 to the corresponding bit in PCIE0_ERROR0_MASK masks the error.  
+The PCIe Avalon-ST to AXI4-Stream bridge monitors the PCIe link for errors and logs any such errors in the PCIE0_ERROR register (in PCIE0 feature region). The error bits in the PCIE0_ERROR register are sticky bits that you can only clear through software or through a system reset. Writing a 1 to the error field in the register clears the corresponding error bit. Writing a 1 to the corresponding bit in PCIE0_ERROR0_MASK masks the error.
 
-If you have other external FME features, you can add similar <external_module>_ERROR registers to this space. Please refer to the following spreadsheet in the release branch found at: /ipss/pcie/rtl/PCIE_CSR.xls or the SystemVerilog file: ipss/pcie/rtl/pcie_csr.sv for more details on this register. 
+If you have other external FME features, you can add similar <external_module>_ERROR registers to this space. Please refer to the following spreadsheet in the release branch found at: `ofs-fim-common/src/fpga_family/agilex/pcie_ss/PCIE_CSR.xls` or the SystemVerilog file: `ofs-fim-common/src/fpga_family/agilex/pcie_ss/pcie_csr.sv` for more details on this register. 
 
----
-**NOTE**
-
-The PCIE0_ERROR register is located in both the Global Error external feature memory space and a separate PCIe external feature memory space.  OPAE software supports the PCIe external feature memory space beginning at offset 0x40000 for OFS EA and going forward.  PCIe registers beginning at 0x4000 in the Global Error external feature memory space is there for backward compatibility to the Intel FPGA PAC D5005 v2.0.1 Acceleration Stack.
-
----
+>**NOTE**: The PCIE0_ERROR register is located in both the Global Error external feature memory space and a separate PCIe external feature memory space.  OPAE software supports the PCIe external feature memory space beginning at offset 0x40000 for OFS EA and going forward.  PCIe registers beginning at 0x4000 in the Global Error external feature memory space is there for backward compatibility to the Intel FPGA PAC D5005 v2.0.1 Acceleration Stack.
 
 #### **14.1.3	FME_FIRST_ERROR, FME_NEXT_ERROR**
 
@@ -1241,11 +1505,7 @@ Likewise, the FME_NEXT_ERROR indicates which of the FME error reporting register
 Please refer to the file in the ofs-fim-common repository folder: src/common/fme/fme_csr.sv for individual register field descriptions or the SystemVerilog file src/common/fme/fme_csr.sv.
 
 
-#### **14.1.4	Reliability, Accessibility, Serviceability (RAS) Error Status** 
 
-The RAS feature in CoreFIM labels errors as non-fatal, fatal or catastrophic based on their impact to the system. 
-* A non-fatal error usually originates from software or an AFU.  With a non-fatal error, the user application may still be able to recover from the error by performing a soft reset on the AFU, fixing the user application software if necessary, and clearing the error. On the other hand, a fatal or catastrophic error is non-recoverable and requires the platform to be reset.
-* Non-fatal errors are logged in the RAS_NOFAT_ERR_STAT register and fatal or catastrophic errors are logged in the RAS_CATFAT_ERR_STAT register.
 
 ##### **14.1.4.1	Non-Fatal Errors**
 
@@ -1257,10 +1517,8 @@ Please refer to the following file in the ofs-fim-common resository: src/common/
 The RAS_CATFAT_ERR_STAT is a read-only status register that is specifically added for the RAS feature. It captures the high-level status of errors that can only be recovered with a system reset. Therefore, the error bits in the RAS_CATFAT_ERR_STAT register are read-only and can only be cleared by system reset or masked through RAS_CATFAT_ERR_MASK.
 Please refer to the following file in the ofs-fim-common resository: src/common/fme/xls/n6000/FME_CSR.xls for individual register field descriptions or the SystemVerilog file: src/common/fme/fme_csr.sv.
 
-#### **14.1.5	RAS Error Injection**
 
-For software testing purposes, you can inject non-fatal, fatal and catastrophic errors into the platform through the RAS_ERROR_INJ register.  These errors are reported in the RAS_CATFAT_ERR_STAT and RAS_NOFAT_ERR_STAT registers.
-Please refer to the following file in the ofs-fim-common resository: src/common/fme/xls/n6000/FME_CSR.xls for individual register field descriptions or the SystemVerilog file: src/common/fme/fme_csr.sv.
+
 #### **14.1.6	FME Error Interrupts**
 
 In an event of an FME error, the MSI-X module in the FIM generates an interrupt so the host can decide on the next course of action. The FIM does not stall upstream and downstream traffic after the FME error. However, a port error triggered by invalid request from a user AFU stalls all the traffic going from AFU to PCIe.
@@ -1286,12 +1544,7 @@ When software receives a non-fatal error interrupt which does not require a syst
 
 * Result: The *_ERROR & *_FIRST_ERROR registers begin capturing new errors.
 
----
-**NOTE**
-
-A system reset can only clear RAS Error status registers.
-
----
+>**NOTE**: A system reset can only clear RAS Error status registers.
 
 ### **14.2 MMIO Requests**
 
@@ -1303,16 +1556,16 @@ The PCIe hard IP in the FIM guarantees that only TLP packets for the functions a
 
 ### **14.2.2 MMIO Request Decoding**
 
-The packet router and memory decoder in the FIM ensure that only legal MMIO requests are forwarded to the targeted MMIO region. Full address and BAR decoding is done both in the packet router and the memory decoder to ensure the requests are forwarded to the designated CSR region as defined in the [MMIO Regions](#mmio_regions) chapter.  Any unsolicited/illegal MMIO request is dropped, and an error is reported back to host through the FME error register.
+The packet router and memory decoder in the FIM ensure that only legal MMIO requests are forwarded to the targeted MMIO region. Full address and BAR decoding is done both in the packet router and the memory decoder to ensure the requests are forwarded to the designated CSR region as defined in the MMIO Regions section of this manual.  Any unsolicited/illegal MMIO requests are dropped, and an error is reported back to host through the FME error register.
 
 ### **14.2.3 Unused FME/Port CSR Regions**
 
-All the CSR slaves in FIM which are mapped to the FME or Port CSR regions must always respond to MMIO read requests targeting its associated CSR region. A CSR slave must return all 0s for MMIO reads to its unused CSR region such as a reserved space or a region where no CSR register is implemented for the address.
-The FIM ensures MMIO reads to FME or Port CSR regions that are not mapped to any CSR slave always gets a response of all 0s. The memory decoder module and fake responder module in the FIM provide this guaranteed response.
+All the CSR slaves in the FIM which are mapped to the FME or Port CSR regions must always respond to MMIO read requests targeting its associated CSR region. A CSR slave must return all 0s for MMIO reads to its unused CSR region such as a reserved space or a region where no CSR register is implemented for the address.
+The FIM ensures MMIO reads to the FME or Port CSR regions that are not mapped to any CSR slave always gets a response of all 0s. The memory decoder module and fake responder module in the FIM provide this guaranteed response.
 
 ### **14.2.4 Unsupported MMIO Request**
 
-Any MMIO request targeting FME or Port CSR regions with a length or address alignment that are not  supported by the FIM is dropped, and an error is logged in PCIE0_ERROR register. The MMIO checker module in the FIM guarantees this response. When an unsupported MMIO read request to the FIM CSR region is detected, the FIM sends back a CPL (completion without data) with error status (UR) back to host.
+Any MMIO requests targeting FME or Port CSR regions with a length or address alignment that are not  supported by the FIM are dropped, and an error is logged in PCIE0_ERROR register. The MMIO checker module in the FIM guarantees this response. When an unsupported MMIO read request to the FIM CSR region is detected, the FIM sends back a CPL (completion without data) with error status (UR) back to host.
 
 ### **14.2.5 AFU Access Violation**
 
@@ -1320,34 +1573,23 @@ AFU access violations refer to the scenarios where a PF is attempting to access 
 
 ### **14.2.6	AFU MMIO Response Timeout**
 
-An AFU MMIO Response timeout functions in the same manner described in the [MMIO Response Timeout](#mmio-resp-timeout) section.
+An AFU MMIO Response timeout functions in the same manner described in the MMIO Response Timeout section.
 
 ## **15 OFS Design Hierarchy**
 
-
-Files for design, build and unit test simulation are found at https://github.com/OFS/ofs-agx7-pcie-attach, release branch ${{ N6001_OFS_FIM_BRANCH }}.
+Files for design, build, and unit test simulation are found at https://github.com/OFS/ofs-agx7-pcie-attach, release branch release/ofs-2024.3.
 
 ### **15.1 Design Guidance**
 
-The OFS FIM is designed with configurability and scalability in mind.  At a high level, these are the necessary steps for a user to customize the design.  Please refer to the shell devloper guide for your target board for detailed design guidance. 
+The OFS FIM is designed with configurability and scalability in mind. Please refer to the shell devloper guide for your target board for detailed design guidance. You can find detailed instructions for customizing the FIM design.
 
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
-* [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xR-tile, F-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xF-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/)
+* [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/)
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 

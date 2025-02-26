@@ -1,6 +1,6 @@
 # **Shell Technical Reference Manual for Agilex 7 SoC Attach: Open FPGA Stack**
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1 Overview
 
@@ -124,7 +124,7 @@ The AFU partition is provided for custom acceleration workloads and may contain 
 
 #### 1.4.1 FPGA Interface Manager (FIM)
 
-The updated OFS architecture for Agilex® 7 FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of this reference design are: 
+The updated OFS architecture for Agilex™ 7 FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of this reference design are: 
 
 * P-tile PCIe Subsystem
 * E-Tile Ethernet Subsystem
@@ -143,9 +143,9 @@ Note that as discussed previously, the BMC RTL and firmware, the OFS OPAE softwa
 
 ![Agilex OFS Block Diagram](images/Agilex_Fabric_Features.svg)
 
-The table provides an overview of the OFS features targeting the Agilex® 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex 7 devices.
+The table provides an overview of the OFS features targeting the Agilex™ 7 FPGA.  This reference FIM (shell) is a starting point for your custom FPGA design.  With this initial starting point, you can add or subtract interfaces or ports to different Agilex 7 devices.
 
-**Table 1-4 OFS FIM for Agilex® 7 FPGA Features**
+**Table 1-4 OFS FIM for Agilex™ 7 FPGA Features**
 
 | Key Feature                           | Description                                                  |
 | ------------------------------------- | ------------------------------------------------------------ |
@@ -287,7 +287,7 @@ Verification components include:
 
 -   FIM coverage to collect functional data
 
-The verification infrastructure can be found [here](https://github.com/OFS/ofs-f2000x-pl/tree/release/ofs-2024.1/verification) for evaluation and use. Please refer to the [UVM Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/) for more information.
+The verification infrastructure can be found [here](https://github.com/OFS/ofs-f2000x-pl/tree/release/ofs-2024.1/verification) for evaluation and use. Please refer to the [UVM Simulation User Guide: OFS for Agilex™ 7 SoC Attach](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/) for more information.
 
 
 ## 2 OFS High Level Architecture
@@ -1354,7 +1354,7 @@ The CSR excel for HE-HSSI module can be found at ofs-fim-common/src/common/he_hs
 
 ### 13.3 HE-Null Overview
 
-This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg. To find out more about these compiler directives, refer to the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/).
+This module is a simple stub that is used to replace various HE and other blocks in the FIM whenever they are bypassed using the qsf compiler directive such as null_he_lb, null_he_hssi, null_he_mem and null_he_mem_tg. To find out more about these compiler directives, refer to the [Shell Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/).
 
 **Table 13-1 HE-Null DFH**
 
@@ -1544,7 +1544,7 @@ The OFS FIM is designed with configurability and scalability in mind.  At a high
 | 2    | Update Arm® AMBA® 4 AXI4-Stream PF/VF MUX-DEMUX configuration (if necessary) | * The PF/VF MUX-DEMUX is parameterized for flexibility. You can change, add or delete PF or VF functions by updating the top_cfg_pkg.sv file. * You also have the option of keeping the default configuration and tying off the unused VFs if needed. |
 | 3    | Update top level and AFU level as necessary                  | * If you integrating additional external interfaces, make the edits at the top level (ofs_top.sv) and propagate the interface down to the AFU level (afu_top.sv and soc_afu_top.sv) |
 | 4    | Add user implemented function(s) in AFU                      | * All of your implemented functions must have the required Arm® AMBA® 4 AXI4-Stream interface for both the data path and the MMIO control path to CSRs. <br />* All CSRs in the user-implemented function must have the required DFH layout. <br />* See host exerciser CSRs for reference. |
-| 5    | Update UVM testbench                                         | * The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory, and Ethernet. <br />* User must update the UVM testbench to reflect new RTL behavior for any customization changes. <br />See The [UVM Simulation User Guide: OFS for Agilex® 7 SoC Attach](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/) |
+| 5    | Update UVM testbench                                         | * The OFS full chip UVM environment is coded specifically for verifying the default configuration containing the host exercisers for the PCIe, memory, and Ethernet. <br />* User must update the UVM testbench to reflect new RTL behavior for any customization changes. <br />See The [UVM Simulation User Guide: OFS for Agilex™ 7 SoC Attach](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/) |
 
 For more information on modifying the FIM, refer to the [FPGA Interface Manager Developer's Guide]
 
@@ -1552,18 +1552,9 @@ For more information on modifying the FIM, refer to the [FPGA Interface Manager 
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/f2000x/doc_modules/links.md --> 
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 
+
 

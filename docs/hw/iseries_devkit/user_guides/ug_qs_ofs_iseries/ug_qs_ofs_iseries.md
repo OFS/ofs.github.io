@@ -1,10 +1,10 @@
-# Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
+# Getting Started Guide: Open FPGA Stack for Agilex™ 7 FPGAs Targeting the Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1.0 About This Document
 
-The purpose of this document is to help users get started in evaluating the 2024.2-1 version of the PCIe Attach release targeting the I-Series Development Kit. After reviewing this document, a user shall be able to:
+The purpose of this document is to help users get started in evaluating the 2024.3-1 version of the PCIe Attach release targeting the I-Series Development Kit. After reviewing this document, a user shall be able to:
 
 - Set up a server environment according to the Best Known Configuration (BKC)
 - Load and verify firmware targeting the FIM and AFU regions of the Agilex FPGA
@@ -13,9 +13,22 @@ The purpose of this document is to help users get started in evaluating the 2024
 
 ### 1.1 Audience
 
-The information in this document is intended for customers evaluating the PCIe Attach shell targeting Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile). This platform is a Development Kit intended to be used as a starting point for evaluation and development.
+The information in this document is intended for customers evaluating the PCIe Attach shell targeting Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile). This platform is a Development Kit intended to be used as a starting point for evaluation and development.
 
 *Note: Code command blocks are used throughout the document. Commands that are intended for you to run are preceded with the symbol '$', and comments with '#'. Full command output may not be shown.*
+
+The minimal viable flow for dev kit installation through environment validation is as follows for I Series:
+
+```mermaid
+flowchart TB
+    classDef gr fill:green,color:white;
+    classDef bl fill:blue,color:white;
+    classDef cy fill:cyan,color:white;
+
+    board("Board Installation Guidelines: Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)"):::bl --> sw
+    sw("Software Installation Guide: Open FPGA Stack for PCIe Attach"):::bl --> qs
+    qs("Review starting in section 4.1 OPAE Tools Overview of this document"):::bl
+```
 
 ### 1.2 Terminology
 
@@ -59,16 +72,16 @@ The information in this document is intended for customers evaluating the PCIe A
 
 #### Table 2: Software and Component Version Summary for OFS PCIe Attach targeting the I-Series Development Kit
 
-The OFS 2024.2-1 PCIe Attach release is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents.
+The OFS 2024.3-1 PCIe Attach release is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents.
 
 | Component | Version |
 | ----- | -----  |
-| Quartus | https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html, patches: 0.18, 0.26 |
-| Host Operating System | https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software |
+| Quartus | https://www.intel.com/content/www/us/en/software-kit/839515/intel-quartus-prime-pro-edition-design-software-version-24-3-for-linux.html, patches: No patches for this release |
+| Host Operating System | https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software |
 | OneAPI-ASP | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1, patches: 0.02 |
-| OFS Platform AFU BBB  | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1|
-| OFS FIM Common Resources| https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1 |
-| AFU Examples | https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1 |
+| OFS Platform AFU BBB  | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1|
+| OFS FIM Common Resources| https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.3-1 |
+| AFU Examples | https://github.com/OFS/examples-afu/releases/tag/ofs-2024.3-1 |
 | OPAE-SIM | https://github.com/OPAE/opae-sim |
 
 #### Table 3: Programmable Firmware Version Summary for OFS PCIe Attach Targeting the I-Series Development Kit
@@ -77,22 +90,22 @@ OFS releases include pre-built binaries for the FPGA, OPAE SDK and Linux DFL whi
 
 | Component | Version| Link |
 | ----- | ----- | ----- |
-| FIM (shell) | Pr Interface ID: b7855572-6ca9-58b8-bd11-44e1f1ab329f  | https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1 |
-| Host OPAE SDK| https://github.com/OPAE/opae-sdk, tag: 2.13.0-3| https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3 |
-| Host Linux DFL Drivers| https://github.com/OPAE/linux-dfl, tag: intel-1.11.0-2 | https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2|
+| FIM (shell) | Pr Interface ID: e09af8b2-4760-5e7f-813a-a606201ce3dc  | https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1 |
+| Host OPAE SDK| https://github.com/OPAE/opae-sdk, tag: 2.14.0-2| https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2 |
+| Host Linux Backport DFL Drivers| https://github.com/OPAE/linux-dfl, tag: intel-1.12.0-1 | https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-1|
 
 #### Table 4: Hardware BKC for OFS PCIe Attach
 
-The following table highlights the hardware which composes the Best Known Configuration (BKC) for the OFS 2024.2-1 PCIe Attach release. The Intel FPGA Download Cable II is not required when using the I Series Dev Kit, as the device has an on-board blaster.
+The following table highlights the hardware which composes the Best Known Configuration (BKC) for the OFS 2024.3-1 PCIe Attach release. The Intel FPGA Download Cable II is not required when using the I Series Dev Kit, as the device has an on-board blaster.
 
 | Component | Link |
 | ----- | ----- |
-| Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html |
+| Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html |
 | (optional) Intel FPGA Download Cable II| https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html|
 
 ### 1.4 Board Installation and Server Settings
 
-Instructions detailing the board installation guidelines for an I-Series Dev Kit including server BIOS settings and regulatory information can be found in the [Board Installation Guide: OFS for Agilex® 7 PCIe Attach Development Kits]. This document also covers the installation of a JTAG cable, which is required for shell programming.
+Instructions detailing the board installation guidelines for an I-Series Dev Kit including server BIOS settings and regulatory information can be found in the [Board Installation Guide: OFS for Agilex™ 7 PCIe Attach Development Kits](../../../common/board_installation/devkit_board_installation/devkit_board_installation_guidelines.md). This document also covers the installation of a JTAG cable, which is required for shell programming.
 
 ### 1.5 Reference Documents
 
@@ -129,19 +142,19 @@ cd ~/intelFPGA_pro/quartus/bin
 
 ### 1.7 Upgrading the I-Series Development Kit FIM via JTAG
 
-Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1). After programming the shell and installing both the OPAE SDK and Linux DFL kernel drivers as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
+Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2024.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1). After programming the shell and installing both the OPAE SDK and Backport Linux DFL kernel drivers as shown in the [Software Installation Guide: OFS for PCIe Attach FPGAs], you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
 
 #### Table 5: FIM Version
 
 |Identifier|Value|
 |-----|-----|
-|Pr Interface ID|b7855572-6ca9-58b8-bd11-44e1f1ab329f|
-|Bitstream ID|360571656856467345|
+|Pr Interface ID|e09af8b2-4760-5e7f-813a-a606201ce3dc|
+|Bitstream ID|360571656009101231|
 
-1. Download and unpack the artifacts from [the 2024.2-1 release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/iseries-2x200-images_ofs-2024-2-1.tar.gz). The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage, therefore if the server is power cycled, you will need to reload the FPGA .sof file.
+1. Download and unpack the artifacts from [the 2024.3-1 release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.3-1/iseries-dk-images_ofs-2024-3-1.tar.gz). The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage, therefore if the server is power cycled, you will need to reload the FPGA .sof file.
 
     ```bash
-    wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/iseries-2x200-images_ofs-2024-2-1.tar.gz
+    wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.3-1/iseries-dk-images_ofs-2024-3-1.tar.gz
     tar xf iseries-dk-images.tar.gz
     cd iseries-dk-images/
     
@@ -155,13 +168,13 @@ Intel provides a pre-built FIM that can be used out-of-box for platform bring-up
 
 3. Start the Quartus Prime Programmer GUI interface, `quartus_pgmw &`, located in the `bin` directory of your Quartus installation. Select "Hardware Setup", double click the AGI FPGA Development Kit hardware item and change the hardware frequency to 16MHz.
 
-    ![QProgrammer Hardware Setup](/ofs-2024.2-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_qprogrammer_hardwaresetup.png)
+    ![QProgrammer Hardware Setup](/ofs-2024.3-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_qprogrammer_hardwaresetup.png)
 
 4. On the home screen select "Auto Detect" and accept the default device.
 
 5. Left click on the line for device AGIB027R29A (the Agilex device) and hit "Change File". Load ofs_top.sof from the artifacts directory and check "Program / Configure". Hit start.
 
-    ![QProgrammer Auto Detect](/ofs-2024.2-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_qprogrammer_autodetect.png)
+    ![QProgrammer Auto Detect](/ofs-2024.3-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_qprogrammer_autodetect.png)
 
 6. Re-add the card to the PCIe bus. This step is not necessary if no image was loaded beforehand.
 
@@ -177,15 +190,15 @@ Intel provides a pre-built FIM that can be used out-of-box for platform bring-up
 
 ### 2.1 Hardware Components
 
-The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
 OFS is a hardware and software infrastructure that provides an efficient approach to developing a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board.
 
 #### 2.1.1 FPGA Interface Manager
 
-![iSeries-PCIe-Attach](/ofs-2024.2-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_fim_overview.jpg)
+![iSeries-PCIe-Attach](/ofs-2024.3-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/images/iseries_fim_overview.jpg)
 
-The FPGA Interface Manager (FIM), or shell of the FPGA provides platform management functionality, clocks, resets, and interface access to the host and peripheral features on the acceleration platform. The OFS architecture for Intel Agilex 7 FPGA provides modularity, configurability, and scalability. The primary components of the FPGA Interface Manager or shell of the reference design are:
+The FPGA Interface Manager (FIM), or shell of the FPGA provides platform management functionality, clocks, resets, and interface access to the host and peripheral features on the acceleration platform. The OFS architecture for Agilex™ 7 FPGA provides modularity, configurability, and scalability. The primary components of the FPGA Interface Manager or shell of the reference design are:
 
 * PCIe Subsystem - a hierarchical design that targets the P-tile PCIe hard IP and is configured to support bifurcated Gen 5 speeds
 * Ethernet Subsystem - provides portability to different Ethernet configurations across platforms and generations and reusability of the hardware framework and software stack.
@@ -198,7 +211,7 @@ The FPGA Interface Manager (FIM), or shell of the FPGA provides platform managem
 
 The FPGA Management Engine (FME) provides management features for the platform and the loading/unloading of accelerators through partial reconfiguration. Each feature of the FME exposes itself to the kernel-level OFS drivers on the host through a Device Feature Header (DFH) register that is placed at the beginning of Control Status Register (CSR) space. Only one PCIe link can access the FME register space in a multi-host channel design architecture at a time.
 
-*Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
+*Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
 
 #### 2.1.2 AFU
 
@@ -224,13 +237,13 @@ In this design, the AFU region is comprised of:
 
 The AFU has the option to consume native packets from the host or interface channels or to instantiate a shim provided by the Platform Interface Manager (PIM) to translate between protocols.
 
-*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
+*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
 
 ### 2.2 OFS Software Overview
 
 The responsibility of the OFS kernel drivers is to act as the lowest software layer in the FPGA software stack, providing a minimalist driver implementation between the host software and functionality that has been implemented on the development platform. This leaves the implementation of IP-specific software in user-land, not the kernel. The OFS software stack also provides a mechanism for interface and feature discovery of FPGA platforms.
 
-The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space, and can be found on the [OPAE SDK Github](https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3).
+The OPAE SDK is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The OPAE SDK resides exclusively in user-space, and can be found on the [OPAE SDK Github](https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2).
 
 The OFS drivers decompose implemented functionality, including external FIM features such as HSSI, EMIF and SPI, into sets of individual Device Features. Each Device Feature has its associated Device Feature Header (DFH), which enables a uniform discovery mechanism by software. A set of Device Features are exposed through the host interface in a Device Feature List (DFL). The OFS drivers discover and "walk" the Device Features in a Device Feature List and associate each Device Feature with its matching kernel driver.
 
@@ -240,27 +253,27 @@ In this way the OFS software provides a clean and extensible framework for the c
 
 ## 3.0 OFS DFL Kernel Drivers
 
-OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on [the wiki](https://github.com/OPAE/linux-dfl/wiki).
+OFS Backport DFL driver software provides the bottom-most API to FPGA platforms for this release. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on [the wiki](https://github.com/OPAE/linux-dfl/wiki).
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
-The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1).
+The Backport DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1).
 
-You can also build and install the software stack yourself from source as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
+You can also build and install the software stack yourself from source as shown in the [Software Installation Guide: OFS for PCIe Attach FPGAs].
 
 ## 4.0 OPAE Software Development Kit
 
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit [opae.github.io](https://opae.github.io/latest/index.html).
 
-The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3). This repository is open source and does not require any permissions to access.
+The OPAE SDK source code is contained within a single GitHub repository hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2). This repository is open source and does not require any permissions to access.
 
-You may choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1).
+You may choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1).
 
-Instructions on building and installing the OPAE SDK from source can be found in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
+Instructions on building and installing the OPAE SDK from source can be found in the [Software Installation Guide: OFS for PCIe Attach FPGAs].
 
 ### 4.1 OPAE Tools Overview
 
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.13.0-3/doc/src/fpga_tools/readme.md).
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.14.0-2/doc/src/fpga_tools/readme.md).
 
 A list of all tools included in the OPAE SDK release can be found on the [OPAE FPGA Tools](https://ofs.github.io/ofs-2023.3/sw/fpga_tools/fpgadiag/) tab of ofs.github.io.
 
@@ -277,13 +290,7 @@ For systems with multiple FPGA devices, you can specify the BDF to limit the out
 The following examples walk through sample outputs generated by `fpgainfo`. As the I-Series Development Kit does not contain a traditional BMC as used by other OFS products, those lines in `fpgainfo`'s output will not return valid objects. The subcommand `fpgainfo bmc` will likewise fail to report telemetry data.
 
 ```bash
-Intel Acceleration Development Platform N6001
-board_n6000.c:306:read_bmcfw_version() **ERROR** : Failed to get read object
-board_n6000.c:482:print_board_info() **ERROR** : Failed to read bmc version
-board_n6000.c:332:read_max10fw_version() **ERROR** : Failed to get read object
-board_n6000.c:488:print_board_info() **ERROR** : Failed to read max10 version
-Board Management Controller NIOS FW version:
-Board Management Controller Build version:
+Intel Acceleration JTAG PCI Development Kit
 //****** FME ******//
 Interface                        : DFL
 Object Id                        : 0xEF00001
@@ -294,9 +301,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571656856467345
+Bitstream Id                     : 360571656009101231
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : b7855572-6ca9-58b8-bd11-44e1f1ab329f
+Pr Interface Id                  : e09af8b2-4760-5e7f-813a-a606201ce3dc
 Boot Page                        : N/A
 ```
 
@@ -343,7 +350,7 @@ clearing error
 The reference FIM and unchanged FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. There are three HEMs present in the Intel OFS Reference FIM - HE-LPBK, HE-MEM, and HE-HSSI. These exercisers are tied to three different VFs that must be enabled before they can be used.
 Execution of these exercisers requires you bind specific VF endpoint to **vfio-pci**. The host-side software looks for these endpoints to grab the correct FPGA resource.
 
-Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
+Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/latest/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
 
 ##### Table 6: Module PF/VF Mappings
 

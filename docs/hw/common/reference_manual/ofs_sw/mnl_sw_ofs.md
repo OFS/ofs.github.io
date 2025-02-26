@@ -3875,13 +3875,13 @@ The “rsu” key in the “opae” section of a configuration is an array of rs
 
 If the “enabled” key is false or if it is omitted, then that “rsu” array entry is skipped, and parsing continues.  When disabled, the device(s) mentioned in that array entry will not be available for the rsu command. The “devices” array lists one or more PF identifiers.  Each array value must be a string, and it must match a device that is described in the “configurations” “devices” section.  The “fpga_default_sequences” key of the “rsu” section specifies a JSON key.  The configuration searches for that JSON key at the global level of the configuration file, and when found applies its value as the valid set of fpga boot sequences that can be used with the rsu fpgadefault subcommand. 
 
- ```C
+```c
 “fpgareg”: fpgareg script 
- ```
+```
 
 The “fpgareg” key in the “opae” section of a configuration is an array of fpgareg script configuration data.  Each item in the array matches one or more PF/VF devices to an fpgareg configuration. 
 
- ```C
+```c
 { 
 
   “configurations”: { 
@@ -3911,7 +3911,7 @@ The “fpgareg” key in the “opae” section of a configuration is an array o
   }, 
 
 } 
- ```
+```
 
 <p align = "center">Figure 113 "opae" / "fpgareg" key   </p>
 
@@ -3971,7 +3971,7 @@ This mapping is used by the SDK’s metrics API to determine the method of acces
 
 OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks such as DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality.
 
-The OFS driver software can be found in the [OFS repository - linux-dfl](https://github.com/OFS/linux-dfl), under the linux-dfl specific category. This repository has an associated [OFS repository - linux-dfl](https://github.com/OFS/linux-dfl/wiki) that includes the following information:
+The OFS driver software can be found in the OFS repositories [linux-dfl](https://github.com/OFS/linux-dfl) and [linux-dfl-backport](https://github.com/OFS/linux-dfl-backport). These repositoryies have an associated [OFS repository - linux-dfl](https://github.com/OFS/linux-dfl/wiki) that includes the following information:
 
 - An description of the three available branch archetypes
 - Configuration tweaks required while building the kernel
@@ -4751,7 +4751,7 @@ Done
 
 ## **Appendix A - Integrating an N6001 Based Custom Platform with DFL and OPAE**
 
-The process of adding a custom device to the DFL framework and OPAE SDK requires changes to files 
+The process of adding a custom device to the DFL framework (backport or not) and OPAE SDK requires changes to files 
 in several locations. In this section we will walk through the additions necessary to instruct the kernel's probe and match function
 to associate your new device with OPAE, choose the correct OPAE plugin to associate with your board, and change basic descriptors to properly
 display the name of your new custom platform when using OPAE's management interfaces. 
@@ -4764,11 +4764,8 @@ settings in the PCIe IP necessary to change the following PCIe IDs for both the 
 - Subsystem Vendor ID
 - Subsystem Device ID
 
-This document will not cover the process by which a FIM can be modified to support these new IDs. Refer to section **5.7 How to 
-change the PCIe device ID and Vendor ID** in  [F2000x](../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md) FIM Developer guide or section **10.0 How to 
-change the PCIe device ID and Vendor ID** in the [N6001](../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md) FIM Developer guide
-for an overview of this process. The following sections assume you have a FIM that has been configured with new IDs. This FIM can be loaded
-onto your N6001 board using either the SOF via a USB-BlasterII cable and the Quartus Programmer, or by using the OPAE command `fpgasupdate` consuming a compatible binary programming
+This document will not cover the process by which a FIM can be modified to support these new IDs. Refer to the [Shell Developer Guide: Agilex™ 7 SoC Attach: Open FPGA Stack](../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs.md#4441-walkthrough-modify-pcie-sub-system-and-pfvf-mux-configuration-using-ip-presets) or [Shell Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6000-PL / Intel® FPGA SmartNIC N6001-PL PCIe Attach](../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001.md#444-pcie-sub-system-configuration-using-ip-presets) FIM Developer guide
+for an overview of this process. The following sections assume you have a FIM that has been configured with new IDs. This FIM can be loaded onto your N6001 board using either the SOF via a USB-BlasterII cable and the Quartus Programmer, or by using the OPAE command `fpgasupdate` consuming a compatible binary programming
 file. The following values will be used as our new device IDs.
 
 | ID Type               | PF0           | PF0-VF            |
@@ -4785,8 +4782,8 @@ learn how to build and install. Your versions may not match those in the documen
 
 | Software      | Version       | Build Instructions                  |
 | -----         | -----         | -----                               |
-| OPAE SDK      | 2.3.0-1       | [**4.0 OPAE Software Development Kit**](../../sw_installation/pcie_attach/sw_install_pcie_attach.md) |
-| linux-dfl     | ofs-2022.3-2  | [**3.0 Intel OFS DFL Kernel Drivers**](../../sw_installation/pcie_attach/sw_install_pcie_attach.md)  |
+| OPAE SDK      | 2.3.0-1       | [**4.0 OPAE Software Development Kit**](../../sw_installation/pcie_attach/sw_install_pcie_attach.md#40-opae-software-development-kit) |
+| linux-dfl     | ofs-2022.3-2  | [**3.0 Intel OFS DFL Kernel Drivers**](../../sw_installation/pcie_attach/sw_install_pcie_attach.md#30-ofs-dfl-kernel-drivers)  |
 
 The following steps will enable your device to use the OPAE SDK. We will call our new device the "Intel FPGA Programmable Acceleration Card N6002".
 This device is identical to the Intel FPGA Programmable Acceleration Card N6001, and will use the pre-existing plugins and feature ID associated with that device. We will also use the enum value `FPGA_HW_DCP_N6002` to describe our new board
@@ -5028,16 +5025,7 @@ User2 Image Info                 : 9804075d2e8a71a192ec89602f2f5544
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/doc_modules/links.md --> 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 

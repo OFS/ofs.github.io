@@ -1,4 +1,4 @@
-# Evaluation User Guide: OFS for Agilex® 7 PCIe Attach
+# Evaluation User Guide: OFS for Agilex™ 7 PCIe Attach
 
 
 ## **1 Overview**
@@ -7,7 +7,7 @@
 ### **1.1 About this Document**
 
 
-This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL, Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) development platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
+This document serves as a set-up and user guide for the checkout and evaluation of an Intel® FPGA SmartNIC N6001-PL, Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) development platform using Open FPGA Stack (OFS). After reviewing the document, you will be able to:
 
 * Use the script to run through the most common build and simulation flows when using OFS
 
@@ -20,18 +20,18 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 
 | Component | Version |  Description |
 | --------- | ------- | -------|
-| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html), [Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html), [Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html), | Agilex platform you can use for your custom board development |
-| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2024.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1) | OFS Shell RTL for Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
-| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-2024.2-1](https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
-| OPAE SDK | [Branch: 2.13.0-3](https://github.com/OFS/opae-sdk/tree/2.13.0-3), [Tag: 2.13.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3) | Open Programmable Acceleration Engine Software Development Kit |
-| Kernel Drivers | [Branch: intel-1.11.0-2](https://github.com/OFS/linux-dfl/tree/intel-1.11.0-2), [Tag: intel-1.11.0-2](https://github.com/OFS/linux-dfl/releases/tag/intel-1.11.0-2) | OFS specific kernel drivers|
-| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.13.0-2](https://github.com/OFS/opae-sim/releases/tag/2.13.0-2) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Quartus Prime Pro Edition Design Software | 24.1 [Quartus® Prime Pro Edition Linux] | Software tool for Altera FPGA Development|
-| Operating System | [RHEL 8.10](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
+| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://www.intel.com/content/www/us/en/products/details/fpga/platforms/smartnic/n6000-pl-platform.html), [Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html), [Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agi027.html), | Agilex platform you can use for your custom board development |
+| OFS FIM Source Code| [Branch: https://github.com/OFS/ofs-agx7-pcie-attach](https://github.com/OFS/ofs-agx7-pcie-attach), [Tag: ofs-2024.3-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1) | OFS Shell RTL for Agilex FPGA (targeting Intel® FPGA SmartNIC N6001-PL) |
+| AFU Examples| [Branch: examples-afu](https://github.com/OFS/examples-afu) , [Tag:ofs-2024.3-1](https://github.com/OFS/examples-afu/releases/tag/ofs-2024.3-1) | Tutorials and simple examples for the Accelerator Functional Unit region (workload region)|
+| OPAE SDK | [Branch: 2.14.0-2](https://github.com/OFS/opae-sdk/tree/2.14.0-2), [Tag: 2.14.0-2](https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2) | Open Programmable Acceleration Engine Software Development Kit |
+| Kernel Drivers | [Branch: intel-1.12.0-1](https://github.com/OFS/linux-dfl-backport/tree/intel-1.12.0-1), [Tag: intel-1.12.0-1](https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-1) | OFS specific kernel drivers|
+| OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.14.0-1](https://github.com/OFS/opae-sim/releases/tag/2.14.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
+| Quartus Prime Pro Edition Design Software | 24.3 [Quartus® Prime Pro Edition Linux] | Software tool for Altera FPGA Development|
+| Operating System | [Red Hat Linux](https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software) RHEL 9.4 |  Operating system on which this script has been tested |
 
 <br>
 
-A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2024.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1) official release drop on GitHub.
+A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA SmartNIC N6001-PL can be found on the [OFS ofs-2024.3-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1) official release drop on GitHub.
 
 <br>
 
@@ -44,14 +44,14 @@ Two scripts have been developed to allow the user to clone, build, compile and t
 
 > **_NOTE:_**  
 >
->**This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all example steps. Additionally, this guide and the example steps can be used with other platforms, such as the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile).**
+>**This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all example steps. Additionally, this guide and the example steps can be used with other platforms, such as the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile).**
 >
 
 ### **2.1 Pre-Requisites**
 
 This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
-* Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 1.3.4 of the [Shell Developer Guide: OFS for Agilex® 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/). 
+* Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded here: [Quartus Pro Prime Download](https://www.intel.com/content/www/us/en/software-kit/839515/intel-quartus-prime-pro-edition-design-software-version-24-3-for-linux.html). For details on installation of required patches and quartus installation, refer to section 1.3.4 of the [Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (P-tile, E-tile) FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/). 
 * Synopsys<sup>&reg;</sup> VCS Simulator : This simulator can be downloaded from the Synopsys web page [here](https://www.synopsys.com/verification/simulation/vcs.html)
 * Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator : This simulator can be downloaded from the Siemens web page [here](https://eda.sw.siemens.com/en-US/ic/questa/simulation/advanced-simulator/)
 
@@ -59,130 +59,151 @@ This script uses the following set of software tools which should be installed u
 
 ![](images/ofs_n6001_tools_menu.png)
 
+### **2.2 Agilex™ 7 PCIe Attach Clone and Evaluation Script download and modification**
 
-### **2.2 Agilex® 7 PCIe Attach Clone and Evaluation Script download and modification**
+1. Download the tar file `scripts_ofs-2024.3_external.tar.gz` from the assets tab of the [OFS 2024.3 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1)
 
-1. Download the follwing tar file (scripts_ofs-2024.2_external.tar.gz) from the assets tab of the [release page](https://github.com/OFS/ofs-agx7-pcie-attach/releases)
 2. Untar to a user folder using the following command
-```
- tar -xvf scripts_ofs-2024.1-1_external.tar.gz
-````
+
+    ```bash
+    tar -xvf scripts_ofs-2024.1-1_external.tar.gz
+    ```
  
 3. The folder structure containing the clone script (ofs-clone_repositories.sh) and evaluation script (ofs-agx7-pcie-attach_eval.sh) is as shown below in Figure 2-2
 
-**Figure 2-2 Directory Structure for the clone script**
-
-``` sh
-## ofs_scripts
-##      -> host_chan_mmio.stp
-##      -> ofs-agx7-pcie-attach_eval.sh
-##      -> README_ofs-agx7-pcie-attach_eval.txt
-## ofs-clone_repositories.sh
-```
-
+    **Figure 2-2 Directory Structure for the clone script**
+    
+    ```bash
+    ## ofs_scripts
+    ##      -> host_chan_mmio.stp
+    ##      -> ofs-agx7-pcie-attach_eval.sh
+    ##      -> README_ofs-agx7-pcie-attach_eval.txt
+    ## ofs-clone_repositories.sh
+    ```
+    
 4. Open the clone script ofs-clone_repositories.sh in any text editor
 5. Please enter the location of your proxy server to allow access to external internet to build software packages. (lines 6-8)
    
-Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
-    
-    export http_proxy=<user_proxy>
-    export https_proxy=<user_proxy>
-    export no_proxy=<user_proxy> 
-   
+    Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
+        
+    ```
+        export http_proxy=<user_proxy>
+        export https_proxy=<user_proxy>
+        export no_proxy=<user_proxy> 
+    ```   
+
 6. Please enter the license file locations (lines 11-13) for the following tool variables
-```
-    export LM_LICENSE_FILE=<user_license>
-    export DW_LICENSE_FILE=<user_license>
-    export SNPSLMD_LICENSE_FILE=<user_license>
-```
+
+    ```
+        export LM_LICENSE_FILE=<user_license>
+        export SNPSLMD_LICENSE_FILE=<user_license>
+    ```
 
 7. Add the name of the directory where you want the platform repositories to be cloned (line 19)
-```
-export OFS_RELEASE=ofs-2024.2-1
-```
+
+    ```
+    export OFS_RELEASE=ofs-2024.3-1
+    ```
 
 8. After setting the required variables, source the clone script with the following command
-```
-source ofs-clone_repositories.sh
-```
-9.  The ofs-clone_repositories.sh script has different platforms to choose from the menu as shown below in Figure 2-3. For the Intel® FPGA SmartNIC N6001-PL the user will choose option 3
+
+    ```
+    source ofs-clone_repositories.sh
+    ```
+
+9. The ofs-clone_repositories.sh script has different platforms to choose from the menu as shown below in Figure 2-3. For the Intel® FPGA SmartNIC N6001-PL the user will choose option 3
         
-**Figure 2-3 Directory Structure for OFS Project**
+    **Figure 2-3 Directory Structure for OFS Project**
+    
+    ![](images/ofs_clone_menu.png)
+    
+    1.  Once the repositories are cloned, the user can navigate to the following directory
+    ```
+    cd ofs-2024.3-1
+    ```
+    
+10. After cloning, the OFS repositories will be shown below in Figure 2-4.
 
-![](images/ofs_clone_menu.png)
-
-10. Once the repositories are cloned, the user can navigate to the following directory
-```
-cd ofs-2024.2-1
-```
-
-11. After cloning, the OFS repositories will be shown below in Figure 2-4.
-
-
-**Figure 2-4 Directory Structure for OFS Project**
-```sh
-## ofs-2024.2-1
-##  N6001(OFS platform)
-##   -> examples-afu
-##   -> ofs-agx7-pcie-attach
-##   -> oneapi-asp
-##   -> oneAPI-samples
-##   -> opae-sim
-##   -> opae-sdk
-##   -> linux-dfl
-##   -> ofs-agx7-pcie-attach_eval.sh
-##   -> README_ofs-agx7-pcie-attach_eval.txt
-##   -> host_chan_mmio.stp
-``` 
+    
+    **Figure 2-4 Directory Structure for OFS Project**
+    
+    ```sh
+    ## ofs-2024.3-1
+    ##  N6001(OFS platform)
+    ##   -> examples-afu
+    ##   -> ofs-agx7-pcie-attach
+    ##   -> oneapi-asp
+    ##   -> oneAPI-samples
+    ##   -> opae-sim
+    ##   -> opae-sdk
+    ##   -> linux-dfl-backport
+    ##   -> ofs-agx7-pcie-attach_eval.sh
+    ##   -> README_ofs-agx7-pcie-attach_eval.txt
+    ##   -> host_chan_mmio.stp
+    ``` 
 
 12. Once the repositories are cloned, open the platform specific evaluation script, e.g., in ofs-agx7-pcie-attach_eval.sh and follow the instructions below which explains which line numbers to change to adapt this script to the user environment. 
-
-a) Tools Location (line 87, 88, 89, 90)
-
-Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
-
-    export QUARTUS_TOOLS_LOCATION=/home
-    export SYNOPSYS_TOOLS_LOCATION=/home
-    export QUESTASIM_TOOLS_LOCATION=/home
-    export ONEAPI_TOOLS_LOCATION=/opt
-
-In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools 
-
-b) PCIe (Bus Number)
-
-The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
-
-    export OFS_CARD0_BUS_NUMBER=b1
-
- The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerator card plugged into a server. 
-
-    lspci | grep acc
     
-    b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
-    b1:00.1 Processing accelerators: Intel Corporation Device bcce<br>
-    b1:00.2 Processing accelerators: Intel Corporation Device bcce<br>
-    b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
-    b1:00.4 Processing accelerators: Intel Corporation Device bcce<br>
+    a) Tools Location (line 87, 88, 89, 90)
+    
+    Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
+    
+    ```bash
+        export QUARTUS_TOOLS_LOCATION=/home
+        export SYNOPSYS_TOOLS_LOCATION=/home
+        export QUESTASIM_TOOLS_LOCATION=/home
+        export ONEAPI_TOOLS_LOCATION=/opt
+    ```
+    
+    In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools 
+    
+    b) PCIe (Bus Number)
+    
+    The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
+    
+    ```bash
+        export OFS_CARD0_BUS_NUMBER=b1
+    ```
+    
+     The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerator card plugged into a server.
+    
+    ```bash
+        lspci | grep acc
+        
+        b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+        b1:00.1 Processing accelerators: Intel Corporation Device bcce
+        b1:00.2 Processing accelerators: Intel Corporation Device bcce
+        b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device
+        b1:00.4 Processing accelerators: Intel Corporation Device bcce
+    ```
+    
+    The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
+    
+    ```bash
+        export OFS_CARD0_BUS_NUMBER=b1
+    ```
+    
+    The user can also run the following command on the ofs-agx7-pcie-attach_eval.sh script to automatically change the bus number to b1 in the ofs-agx7-pcie-attach_eval.sh script.
+    
+    ```bash
+    grep -rli 'b1' * | xargs -i@ sed -i 'b1' @
+    ```
+    
+    if the bus number is 85 for example 
+    
+    ```bash
+        85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+        85:00.1 Processing accelerators: Intel Corporation Device bcce
+        85:00.2 Processing accelerators: Intel Corporation Device bcce
+        85:00.3 Processing accelerators: Red Hat, Inc. Virtio network device
+        85:00.4 Processing accelerators: Intel Corporation Device bcce
+    ```
 
-The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
-
-    export OFS_CARD0_BUS_NUMBER=b1
-
-The user can also run the following command on the ofs-agx7-pcie-attach_eval.sh script to automatically change the bus number to b1 in the ofs-agx7-pcie-attach_eval.sh script.
-
-grep -rli 'b1' * | xargs -i@ sed -i 'b1' @
-
-if the bus number is 85 for example 
-
-    85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
-    85:00.1 Processing accelerators: Intel Corporation Device bcce<br>
-    85:00.2 Processing accelerators: Intel Corporation Device bcce<br>
-    85:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
-    85:00.4 Processing accelerators: Intel Corporation Device bcce<br>
-
-the command to change to 85 in the evaluation script would be
-
-grep -rli 'b1' * | xargs -i@ sed -i '85' @
+    the command to change to 85 in the evaluation script would be
+    
+    ```bash
+    grep -rli 'b1' * | xargs -i@ sed -i '85' @
+    ```
 
 ### **OFS Platform (Example:= n6000, n6001, fseries-dk, iseries-dk, custom_board) choice (line 173)**
 
@@ -241,18 +262,17 @@ By selecting "Check Versions of Operating System and Quartus Premier Design Suit
                 <br>
                 Checking Licenses<br>
                 LM_LICENSE_FILE is set to port@socket number:port@socket number<br>
-                DW_LICENSE_FILE is set to port@socket number:port@socket number<br>
                 SNPSLMD_LICENSE_FILE is set to port@socket number:port@socket number<br>
                 <br>
                 Checking Tool versions<br>
-                QUARTUS_HOME is set to /home/intelFPGA_pro/24.1/quartus<br>
-                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/24.1/quartus<br>
-                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/24.1/quartus/../ip<br>
-                QSYS_ROOTDIR is set to /home/intelFPGA_pro/24.1/quartus/../qsys/bin<br>
+                QUARTUS_HOME is set to /home/intelFPGA_pro/24.3/quartus<br>
+                QUARTUS_ROOTDIR is set to /home/intelFPGA_pro/24.3/quartus<br>
+                IMPORT_IP_ROOTDIR is set to /home/intelFPGA_pro/24.3/quartus/../ip<br>
+                QSYS_ROOTDIR is set to /home/intelFPGA_pro/24.3/quartus/../qsys/bin<br>
                 <br>
                 Checking QPDS Patches<br>
                 Quartus Prime Shell<br>
-                Version 24.1 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
+                Version 24.3 Build XXX XX/XX/XXXX Patches X.XX SC Pro Edition<br>
                 Copyright (C) XXXX  Intel Corporation. All rights reserved.<br>
                 <br>
                </td>
@@ -305,7 +325,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
                 Bitstream Version                : 5.0.1<br>
                 Pr Interface Id                  : 7dbb989d-5eb9-54f4-8a74-40ddff52e0e2<br>
                 <br>
-                Note: This feature is not supported on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+                Note: This feature is not supported on the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
 <br>
             <br>
         </tr>
@@ -374,7 +394,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
                 ( 1) FPGA E-Tile Temperature [Remote] : 33.50 Celsius<br>
                 etc ......................<br>
                 <br>
-                Note: This feature is not supported on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+                Note: This feature is not supported on the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </td>        
         </tr>
@@ -441,7 +461,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
                 Port6                            :25GbE        DOWN<br>
                 Port7                            :25GbE        DOWN<br>
             <br>
-                Note: This feature is not supported on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+                Note: This feature is not supported on the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </tr>
      </tbody>
@@ -450,7 +470,7 @@ Identifies card by PCIe number, checks power, temperature and current firmware c
 ### **3.1.3 OFS PF/VF MUX MENU**
 
 
-This menu reports the number of PF/VF functions in the reference example and also allows you to reduce the number to 1PF and 1VF to reduce resource utilisation and create a larger area for your workload development. This selection is optional and if the user wants to implement the default number of PF's and VF's then option 9, 10 and 11 should not be used.  Additionally the code used to make the PF/VF modification can be leveraged to increase or modify the number of PF/VFs in the existing design within the limits that the PCIe Subsystem supports (8PF/2K VFs)
+This menu reports the number of PF/VF functions in the reference example and also allows you to reduce the number to 1PF and 1VF to reduce resource utilization and create a larger area for your workload development. This selection is optional and if the user wants to implement the default number of PF's and VF's then option 9, 10 and 11 should not be used.  Additionally the code used to make the PF/VF modification can be leveraged to increase or modify the number of PF/VFs in the existing design within the limits that the PCIe Subsystem supports (8PF/2K VFs)
 
 ![](images/ofs_pf_vf_mux_menu_n6001.png)
 
@@ -690,7 +710,7 @@ The following submenu allows you to:
             <br>
             Boot Page : user1<br>
             <br>
-            Note: This feature is not supported on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+            Note: This feature is not supported on the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </td>        
         </tr>
@@ -698,7 +718,7 @@ The following submenu allows you to:
             <td>21 - Program FIM Image into user1 area for Hardware</td>
             <td>This option programs the FIM image "ofs_top_page1_unsigned_user1.bin" into user1 area in flash<br>
             <br>
-            Note: Please refer to the Getting Started Guide for details on flashing images for the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+            Note: Please refer to the Getting Started Guide for details on flashing images for the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </td>        
         </tr>
@@ -712,7 +732,7 @@ The following submenu allows you to:
             2022-11-10 11:26:34,368 - rescanning PCIe bus: /sys/devices/pci0000:b0/pci_bus/0000:b0<br>
             2022-11-10 11:26:35,965 - RSU operation complete<br>
             <br>
-            Note: Please refer to the Getting Started Guide for details on flashing images for the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+            Note: Please refer to the Getting Started Guide for details on flashing images for the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
         </tr>
 </td>        
         </tr>
@@ -1048,11 +1068,11 @@ Builds, compiles and runs full chip simulation tests.  The user should execute t
     <tbody>
         <tr>
             <td>57 - Check UVM software versions for Project</td>
-            <td>DESIGNWARE_HOME is set to /home/synopsys/vip_common/vip_Q-2020.03A<br>
-                UVM_HOME  is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel/etc/uvm<br>
-                VCS_HOME is set to /home/synopsys/vcsmx/S-2021.09-SP1/linux64/rhel<br>
-                VERDIR is set to /home/user_area/ofs-X.X.X/ofs-agx7-pcie-attach/verification<br>
-                VIPDIR is set to /home/user_area/ofs-X.X.X/ofs-agx7-pcie-attach/verification<br>
+            <td>DESIGNWARE_HOME is set to /home/synopsys/vip_common/vip_V-2024.03D<br>
+                UVM_HOME  is set to /home/synopsys/vcsmx/U-2023.03-SP2-1/linux64/rhel/etc/uvm<br>
+                VCS_HOME is set to /home/synopsys/vcsmx/U-2023.03-SP2-1/linux64/rhel<br>
+                VERDIR is set to /home/user_area/ofs-2024.3/ofs-agx7-pcie-attach/verification<br>
+                VIPDIR is set to /home/user_area/ofs-2024.3/ofs-agx7-pcie-attach/verification<br>
             <br>
 </td>        
         <tr>
@@ -1102,7 +1122,7 @@ A user can run a sequence of tests and execute them sequentially. In the example
         <tr>
             <td>62 - Build and Simulate Complete Project</td>
             <td>Generating Log File with date and timestamp<br>
-                Log file written to /home/guest/ofs-2.3.1/log_files/ofs-agx7-pcie-attach_log_2022_11_10-093649/ofs-agx7-pcie-attach_eval.log<br>
+                Log file written to /home/guest/ofs-2024.3/log_files/ofs-agx7-pcie-attach_log_2022_11_10-093649/ofs-agx7-pcie-attach_eval.log<br>
             <br>
 </tr>
      </tbody>
@@ -1267,18 +1287,9 @@ This section will describe the most common compile build scenarios if a user wan
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/doc_modules/links.md -->
-<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+
+ 
 

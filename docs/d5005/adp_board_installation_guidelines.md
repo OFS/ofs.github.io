@@ -1,6 +1,6 @@
 # Board Installation Guidelines: Intel® FPGA SmartNIC N6000/1-PL, Intel® FPGA PAC D5005
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1.0 Introduction
 
@@ -73,10 +73,10 @@ The following table provides a picture reference for the hardware components dis
 
 | Component | Image |
 | --------- | ------- |
-| Intel® FPGA SmartNIC N6001-PL (SKU2) | ![HARDWARE_1_N6000](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_1_N6000.png) |
-| Supermicro Server SYS-220HE | ![HARDWARE_2_SERVER](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_2_SERVER.png)|
-| Intel FPGA Download Cable II (Only Required for manual flashing) |![HARDWARE_3_JTAG](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_3_JTAG.png) |
-| 2x5 Extension header - Samtech Part No: ESQ-105-13-L-D (Only Required for manual flashing) |![HARDWARE_4_EXTENDER](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_4_EXTENDER.png) |
+| Intel® FPGA SmartNIC N6001-PL (SKU2) | ![HARDWARE_1_N6000](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_1_N6000.png) |
+| Supermicro Server SYS-220HE | ![HARDWARE_2_SERVER](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_2_SERVER.png)|
+| Intel FPGA Download Cable II (Only Required for manual flashing) |![HARDWARE_3_JTAG](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_3_JTAG.png) |
+| 2x5 Extension header - Samtech Part No: ESQ-105-13-L-D (Only Required for manual flashing) |![HARDWARE_4_EXTENDER](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/HARDWARE_4_EXTENDER.png) |
 
 In addition to the above, all OFS ADP platforms require an auxillary power cable for the 12 V-Auxiliary 2x4 PCIe* power connector. This cable will differ between server vendors - review the pinout of the power connector on the [Intel® FPGA Programmable Acceleration Card D5005 Data Sheet](https://www.intel.com/content/www/us/en/docs/programmable/683568/current/power.html) or [Intel FPGA SmartNIC N6001-PL Data Sheet - SKU2](https://www.intel.com/content/www/us/en/search.html?ws=text#q=n6001%20data%20sheet&sort=relevancy) (content ID=723837) as a reference for ordering. Although this is *not always the case*, often the standard 2x4 PCIe power connector that is required to enable a GPU in your server will also work for an FPGA-based ADP.
 
@@ -138,6 +138,11 @@ You must enable Intel VT-x/VT-d technologies for the PCIe slot housing your ADP.
 
 3. If not already, enable the option **Intel VT for Directed I/O (VT-d)**.
 
+Then, depending on your design, you must also enable the following for your dev kit's PCIe slot:
+
+- PCIe slot width **must** be set to your design's width (1x16, 2x8)
+- PCIe slot generation **must** be set to your design's supported generation (4, 5)
+
 ### 3.1 Server Fan Speed
 
 The recommended fan speed setting is to use the 100% preset. If using a different
@@ -158,7 +163,7 @@ Please refer to sections 8.1 and 8.2 of the [Intel FPGA Programmable Acceleratio
 
 The Intel N6000/1-PL FPGA SmartNIC Platforms are officially verified in the upper middle PCIe x16 slot (Slot 3). If using a different slot, refer to the information in [Table 5 PCIe Slot Mapping](#table-5-pcie-slot-mapping) for which port settings to change in server BIOS.
 
-![SERVER_1](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_1.png)
+![SERVER_1](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/SERVER_1.png)
 
 #### Table 5: PCIe Slot Mapping
 
@@ -176,7 +181,7 @@ The following instructions will help to ensure safe installation of an ADP platf
 1. Position the board over the selected connector on the motherboard.
 2. Press down gently and firmly to seat the card in the PCIe slot, and then secure the bracket to the system chassis with the retention screw.
 
-![SERVER_2](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_2.png)
+![SERVER_2](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/SERVER_2.png)
 
 #### Table 6: ADP Installation Procedure
 
@@ -189,7 +194,7 @@ The following instructions will help to ensure safe installation of an ADP platf
 
 Do not bend the card while inserting into a slot. Do not apply much pressure in regions 2 or 3 while inserting.
 
-![SERVER_3](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_3.png)
+![SERVER_3](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/SERVER_3.png)
 
 ### 4.3 Removal Procedure for The Intel® FPGA PAC D5005 and Intel® FPGA SmartNIC N6000/1-PL into a Server
 
@@ -199,7 +204,7 @@ The following instructions will help to ensure safe removal of the platforms fro
 2. Remove the retention bracket screw.
 3. Carefully lift the card out of the PCIe slot.
 
-![SERVER_4](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_4.png)
+![SERVER_4](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/SERVER_4.png)
 
 #### Table 7: ADP Removal Procedure
 
@@ -211,4 +216,4 @@ The following instructions will help to ensure safe removal of the platforms fro
 
 Do not bend the card while removing it from the slot.
 
-![SERVER_5](/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/images/SERVER_5.png)
+![SERVER_5](/ofs-2024.3-1/hw/common/board_installation/adp_board_installation/images/SERVER_5.png)

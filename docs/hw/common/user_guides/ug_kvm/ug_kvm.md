@@ -1,7 +1,7 @@
 Virtual machine User Guide: Open FPGA Stack + KVM 
 ===
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## Document scope 
 
@@ -40,7 +40,7 @@ Virtualization: VT-x
 
 In this example, the output shows that the system supports Intel VT-x virtualization technology. If the "Virtualization" field is empty, the system does not have support for virtualization. Keep in mind that even if the system has support for virtualization, it may not be enabled in the BIOS or the operating system itself.
 
-Check the following for the bios configuration, [**Enabling Intel VT-d Technology**](https://ofs.github.io/ofs-2024.2-1/n6001/adp_board_installation_guidelines/#30-server-settings)
+Check the following for the bios configuration, [**Enabling Intel VT-d Technology**](https://ofs.github.io/ofs-2024.3-1/n6001/adp_board_installation_guidelines/#30-server-settings)
 
 ## 3. Verify Environment Setup
 
@@ -139,10 +139,10 @@ After completing these steps, you should be able to use the virt-manager GUI app
 
 Before creating the virtual machine, ensure the DFL drivers are installed in your host machine. For your chosen OFS platform, refer to the **Getting Stared User Guide** and associated **Software Installation Guidelines** for a complete overview of the software installation process. The following are the current available getting started guides for OFS enabled platforms:
 
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/latest/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/latest/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
-* [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (I-Series Development Kit (2xR-Tile, 1xF-Tile))](https://ofs.github.io/latest/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/)
-* [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/latest/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/)
+* [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](https://ofs.github.io/latest/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/)
+* [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))](https://ofs.github.io/latest/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/)
+* [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (I-Series Development Kit (2xR-Tile, 1xF-Tile))](https://ofs.github.io/latest/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/)
+* [Getting Started Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/latest/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/)
 * [Getting Started Guide: OFS for Stratix 10® FPGA PCIe Attach FPGAs](https://ofs.github.io/latest/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/)
 
 To create a Red Hat 8.10 or Ubuntu 22.04  virtual machine (VM) using `virt-manager` and share PCI devices with the VM, you will need to perform the following steps:
@@ -153,21 +153,21 @@ To create a Red Hat 8.10 or Ubuntu 22.04  virtual machine (VM) using `virt-manag
 sudo virt-manager&
 ```
 
-<img src="/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img2.png" alt="img2" style="zoom:50%;" />
+<img src="/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img2.png" alt="img2" style="zoom:50%;" />
 
 2. Create a new connection from the menu File-> "Add Connection," Use the default options and click "Connect."
 
-   ![img3](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img3.png)
+   ![img3](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img3.png)
 
-   ![img4](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img4.png)
+   ![img4](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img4.png)
 
 3. In the `virt-manager` window, click the "New virtual machine" button.
 
-   ![img3](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img3.png)
+   ![img3](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img3.png)
 
 4. In the "New VM" wizard, select "Local install media (ISO image or CDROM)" as the installation source, and then click "Forward."
 
-   <img src="/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img6.png" alt="img6" style="zoom:67%;" />
+   <img src="/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img6.png" alt="img6" style="zoom:67%;" />
 
    * Get the Red Hat image from the following link.
 
@@ -180,49 +180,49 @@ sudo virt-manager&
 
 5. In the next step, Click Browse -> Browse local, select the Red Hat 8.10 ISO image as the installation source and click "Forward".
 
-   ![img7](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img7.png)
+   ![img7](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img7.png)
 
-   ![img8](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img8.png)
+   ![img8](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img8.png)
 
    Note: if the system is not detected, disable "Automatic detected from the installation media/source" and type ubuntu and select 19.10 (this should be fine for the 22.04); this step is necessary to copy the default values for the specific OS
 
-   ![img10](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img10.png)
+   ![img10](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img10.png)
 
 6. In the next step, specify a name and location for the VM, and select the desired memory and CPU configuration. in our case, 16 cores and 64 GB of RAM; Click "Forward" to continue.
 
-   ![img12](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img12.png)
+   ![img12](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img12.png)
 
 7. Select "enable storage for this virtual machine," Select "Create a new disk for the virtual machine," and enter a size for the virtual disk (at least 200~300GB in case you need to compile the design) or create a custom storage.
 
-   ![img13](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img13.png)
+   ![img13](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img13.png)
 
    1. If you need to create custom storage, select "Select or Create custom storage" and click "Manage."
 
-      ![img14](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img14.png)
+      ![img14](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img14.png)
 
    2. Click on the "+" icon (Bottom left) to create the storage pool.
 
-      ![image-20221213155215073](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/image-20221213155215073.png)
+      ![image-20221213155215073](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/image-20221213155215073.png)
 
    3. In the "Create a new storage pool" dialog, enter a name for the storage pool and select the type of storage pool you want to create; select the Target Path and Click "Finish."
 
-      ![img16](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img16.png)
+      ![img16](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img16.png)
 
    4. Select the pool and later click on the "+" icon (The Icon is on the right side of the Volume label) to create the New Storage Volume.
 
-      ![image-20221213155420459](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/image-20221213155420459.png)
+      ![image-20221213155420459](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/image-20221213155420459.png)
 
    5. In the "Create Storage Volume" dialog, Define the name and format (keep with the default qcow2) and select the Max Capacity (at least 200~300GB  in case you need to compile the design); click "Finish" to create the disk.
 
-      ![img21](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img21.png)
+      ![img21](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img21.png)
 
    6. Once the disk is created, it will appear in your virtual machine's list of storage devices. You can now use this disk just like any other disk. Select from the list and Click "Choose Volume."
 
-      ![img18](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img18.png)
+      ![img18](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img18.png)
 
 8. In the next step, select the "Customize configuration before install" option and click "Finish."
 
-   ![img24](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img24.png)
+   ![img24](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img24.png)
 
 ### 5.1 Passing Devices to the VM
 
@@ -248,13 +248,13 @@ PCIe s:b:d.f                     : 0000:b1:00.0
 
 ​               
 
-<img src="/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img25.png" alt="img25" style="zoom:67%;" />
+<img src="/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img25.png" alt="img25" style="zoom:67%;" />
 
-<img src="/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" />
+<img src="/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" />
 
-![image-20221213160028673](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/image-20221213160028673.png)
+![image-20221213160028673](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/image-20221213160028673.png)
 
-<img src="/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/image-20221213160128900.png" alt="image-20221213160128900" style="zoom:80%;" />
+<img src="/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/image-20221213160128900.png" alt="image-20221213160128900" style="zoom:80%;" />
 
 #### 5.1.2 Deployment Mode
 
@@ -392,9 +392,9 @@ The following table contains a mapping between each VF, Accelerator GUID, and co
 
 5. Ensure you add the desired VF in your PCIE devices list.
 
-   ![](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img25.png)
+   ![](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img25.png)
 
-   ![](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png)
+   ![](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png)
 
 #### 5.1.3 2 PF Mode
 
@@ -419,9 +419,9 @@ For FIMs that support the dual PF architecture, you have the option to pass thro
 
 2. Pass through any required hardware endpoints, select "Add Hardware" -> "PCI Host Device".
 
-   <img src="/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img25.png" alt="img25.png" style="zoom:67%;" />
+   <img src="/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img25.png" alt="img25.png" style="zoom:67%;" />
 
-   <img src="/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" />
+   <img src="/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/image-20221213155919267.png" alt="image-20221213155919267" style="zoom:80%;" />
 
 3. Run the following command on the host and VM to allocate hugepages for workload testing:
 
@@ -505,13 +505,13 @@ For FIMs that support the dual PF architecture, you have the option to pass thro
 
 4. Click on "Begin Installation." and follow the wizard installation of the OS.
 
-   ![image-20221213160221768](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/image-20221213160221768.png)
+   ![image-20221213160221768](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/image-20221213160221768.png)
 
 5. Once the VM is created, you can start it by selecting it in the `virt-manager` window and clicking the "Run" button. This will boot the VM and start the Red Hat 8.10/Ubuntu installation process. Follow the on-screen instructions to complete the installation.
 
-   ![img26](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img26.png)
+   ![img26](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img26.png)
 
-   ![img27](/ofs-2024.2-1/hw/common/user_guides/ug_kvm/images/img27.png)
+   ![img27](/ofs-2024.3-1/hw/common/user_guides/ug_kvm/images/img27.png)
 
 6. Under your virtual machine, configure your VM proxy:
 
@@ -519,7 +519,7 @@ For FIMs that support the dual PF architecture, you have the option to pass thro
    * Ubuntu [Define proxy settings](https://help.ubuntu.com/stable/ubuntu-help/net-proxy.html.en)
    * [Configure Git to use a proxy](https://gist.github.com/evantoli/f8c23a37eb3558ab8765)
 
-7. To include OPAE in your virtual machine, follow the instructions from the following link  [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.2-1) select your desired platform from the OFS Software tab and select Software Installation Guide. To install the DFL drivers, please follow the instructions from the following link  [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.2-1) select your desired platform from the OFS Software tab and select Software Installation Guide.
+7. To include OPAE in your virtual machine, follow the instructions from the following link  [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.3-1) select your desired platform from the OFS Software tab and select Software Installation Guide. To install the DFL drivers, please follow the instructions from the following link  [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.3-1) select your desired platform from the OFS Software tab and select Software Installation Guide.
 
 8. Use the OPAE SDK tool opae.io (under your virtual machine) to check default driver binding using your card under test PCIe B:D.F (Management mode).
 
@@ -538,7 +538,7 @@ For FIMs that support the dual PF architecture, you have the option to pass thro
 
 9. Use the Virtual function (Not supported at management mode)
 
-   1.  Ensure the [DFL kernel drivers is install in your VM system](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach/#30-ofs-dfl-kernel-drivers)
+   1.  Ensure the [DFL kernel drivers is install in your VM system](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach/#30-ofs-dfl-kernel-drivers)
 
    2.  Bind VFs to VFIO driver
 
@@ -589,16 +589,6 @@ After the installation, you can use `virt-manager` to manage and configure the V
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.

@@ -1,15 +1,15 @@
 # **AFU Host Software Developer Guide**
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 The host application is used to control the AFU and manage data transfer between the host and the AFU.   The host channel provides two interfaces between the host and AFU, MMIO and Host Memory.   MMIO is used to read/write the CSR interface of the AFU, and the Host Memory interface is used to share data between the AFU and Host user space. 
-![](/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/images/SW_Model.png)
+![](/ofs-2024.3-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/images/SW_Model.png)
 
 
 ## **1. Host Application Flow**
 The OPAE SDK provides a library with routines to setup and manage the AFU.  The basic host application flow is as follows:
 
-![](/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/images/SW_Flow.png)
+![](/ofs-2024.3-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/images/SW_Flow.png)
 
 When creating the host application, the following OPAE Header Files are required:
 - opae/fpga.h  - For the OPAE C API library 
@@ -311,19 +311,10 @@ To run the host application, you will need to:
 
 See the associated AFU Developer Guide for details.
 
-<!-- include ./docs/hw/doc_modules/links.md -->
+
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.

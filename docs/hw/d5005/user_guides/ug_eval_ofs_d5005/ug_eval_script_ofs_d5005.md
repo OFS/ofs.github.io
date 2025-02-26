@@ -53,7 +53,7 @@ This document serves as a set-up and user guide for the checkout and evaluation 
 | OPAE SDK | [Branch: 2.12.0-5](https://github.com/OFS/opae-sdk/tree/2.12.0-5), [Tag: 2.12.0-5](https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5) | Open Programmable Acceleration Engine Software Development Kit |
 | Kernel Drivers | [Branch: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/tree/ofs-2024.1-6.1-2), [Tag: ofs-2024.1-6.1-2](https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2) | OFS specific kernel drivers|
 | OPAE Simulation| [Branch: opae-sim](https://github.com/OFS/opae-sim), [Tag: 2.12.0-5](https://github.com/OFS/opae-sim/releases/tag/2.12.0-1) | Accelerator Simulation Environment for hardware/software co-simulation of your AFU (workload)|
-| Quartus Prime Pro Edition Design Software | 23.4 [Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html) | Software tool for FPGA Development|
+| Quartus Prime Pro Edition Design Software | 23.4 [Quartus® Prime Pro Edition Linux](https://www.intel.com/content/www/us/en/software-kit/782411/intel-quartus-prime-pro-edition-design-software-version-24-3-for-linux.html) | Software tool for FPGA Development|
 | Operating System | [RHEL 8.6](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) |  Operating system on which this script has been tested |
 
 A download page containing the release and already-compiled FIM binary artifacts that you can use for immediate evaluation on the Intel® FPGA PAC D5005 can be found on the [OFS 2024.1-1](https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1) official release drop on GitHub.
@@ -98,7 +98,7 @@ By following the setup steps and using the OFS evaluation script you can quickly
 
 This script uses the following set of software tools which should be installed using the directory structure below. Tool versions can vary.
 
-* Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 4.1 of the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/). 
+* Quartus<sup>&reg;</sup> Prime Pro Software : The software can be downloaded [here](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html). For details on installation of required patches and quartus installation, refer to section 4.1 of the [Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/). 
 * Synopsys<sup>&reg;</sup> VCS Simulator : The simulator can be downloaded in the Synopsys page [here](https://www.synopsys.com/verification/simulation/vcs.html)
 * Siemens<sup>&reg;</sup> Questa<sup>&reg;</sup> Simulator : The simulator can be downloaded in the Siemens page [here](https://eda.sw.siemens.com/en-US/ic/questa/simulation/advanced-simulator/)
 
@@ -110,132 +110,158 @@ This script uses the following set of software tools which should be installed u
 
 1. Download tar(scripts_ofs-2024.1-1_external.tar.gz) from the assets tab of the [release page](https://github.com/OFS/ofs-d5005/releases)
 2. Untar to folder using the following command
-```
- tar -xvf scripts_ofs-2024.1-1_external.tar.gz
-````
+
+    ```bash
+     tar -xvf scripts_ofs-2024.1-1_external.tar.gz
+    ```
  
 3. The folder structure containing the clone script (ofs-clone_repositories.sh) and evaluation script (ofs_d5005_eval.sh) is as shown in the figure 2-2
 
-**Figure 2-2 Directory Structure for the clone script**
+    **Figure 2-2 Directory Structure for the clone script**
+    
+    ```bash
+        ## ofs_scripts
+        ##      -> host_chan_mmio.stp
+        ##      -> ofs_d5005_eval.sh
+        ##      -> README_ofs_d5005_eval.txt
+        ## ofs-clone_repositories.sh
+    ```
 
-``` sh
-## ofs_scripts
-##      -> host_chan_mmio.stp
-##      -> ofs_d5005_eval.sh
-##      -> README_ofs_d5005_eval.txt
-## ofs-clone_repositories.sh
-```
 4. Open the clone script ofs-clone_repositories.sh in any text editor
 5. Please enter the location of your proxy server to allow access to external internet to build software packages. (lines 6-8)
    
-Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
-    
-    export http_proxy=<user_proxy>
-    export https_proxy=<user_proxy>
-    export no_proxy=<user_proxy> 
+    Note: Failing to add proxy server will prevent cloning of repositories and the user will be unable to build the OFS framework.
+        
+    ```bash
+        export http_proxy=<user_proxy>
+        export https_proxy=<user_proxy>
+        export no_proxy=<user_proxy> 
+    ```
    
 6. Please enter the license file locations (lines 11-13) for the following tool variables
-```
-    export LM_LICENSE_FILE=<user_license>
-    export DW_LICENSE_FILE=<user_license>
-    export SNPSLMD_LICENSE_FILE=<user_license>
-```
+
+    ```bash
+        export LM_LICENSE_FILE=<user_license>
+        export DW_LICENSE_FILE=<user_license>
+        export SNPSLMD_LICENSE_FILE=<user_license>
+    ```
 
 7. Add the name of the directory where you want the platform repositories to be cloned (line 19)
-```
-export OFS_RELEASE=ofs-2024.1-1
-```
+
+    ```bash
+    export OFS_RELEASE=ofs-2024.1-1
+    ```
 
 8. After setting the required variables, source the clone script based on which platform you want to test
-```
-source ofs-clone_repositories.sh
-```
+
+    ```bash
+    source ofs-clone_repositories.sh
+    ```
+
 9.  The script ofs-clone_repositories.sh has different platforms to choose from the menu to clone as shown in the figure 2-3.
         
-**Figure 2-3 Directory Structure for OFS Project**
-
-![](images/ofs_clone_menu.png)
+    **Figure 2-3 Directory Structure for OFS Project**
+    
+    ![](images/ofs_clone_menu.png)
 
 10. Once the repositories are cloned, navigate to the directory where you cloned
-```
-cd ofs-2024.1-1
-```
 
-11. After cloning, the OFS repositories cloned will look as per Figure 2-4.
+    ```bash
+    cd ofs-2024.1-1
+    ```
+    
+11.  After cloning, the OFS repositories cloned will look as per Figure 2-4.
 
-
-**Figure 2-4 Directory Structure for OFS Project**
-```sh
-## ofs-2024.1-1
-##  d5005(OFS platform)
-##   -> examples-afu
-##   -> ofs-d5005
-##   -> oneapi-asp
-##   -> oneAPI-samples
-##   -> opae-sim
-##   -> opae-sdk
-##   -> linux-dfl
-##   -> ofs_d5005_eval.sh
-##   -> README_ofs_d5005_eval.txt
-##   -> host_chan_mmio.stp
-``` 
+    
+    **Figure 2-4 Directory Structure for OFS Project**
+    
+    ```bash
+    ## ofs-2024.1-1
+    ##  d5005(OFS platform)
+    ##   -> examples-afu
+    ##   -> ofs-d5005
+    ##   -> oneapi-asp
+    ##   -> oneAPI-samples
+    ##   -> opae-sim
+    ##   -> opae-sdk
+    ##   -> linux-dfl
+    ##   -> ofs_d5005_eval.sh
+    ##   -> README_ofs_d5005_eval.txt
+    ##   -> host_chan_mmio.stp
+    ```
 
 12. Once the repositories are cloned, in the platform specific evaluation script, for e.g., in ofs_d5005_eval.sh, please follow the instructions below which explains which line numbers to change to adapt this script to the user environment. 
 
-a)  Set-Up Proxy Server (lines 67-69)
-
-Please enter the location of your proxy server to allow access to external internet to build software packages.
+    a)  Set-Up Proxy Server (lines 67-69)
     
-    export http_proxy=<user_proxy>
-    export https_proxy=<user_proxy>
-    export no_proxy=<user_proxy>
+    Please enter the location of your proxy server to allow access to external internet to build software packages.
+    
+    ```bash
+        export http_proxy=<user_proxy>
+        export https_proxy=<user_proxy>
+        export no_proxy=<user_proxy>
+    ```
 
-b) Tools Location (line 87, 88, 89, 90)
+    b) Tools Location (line 87, 88, 89, 90)
+    
+    Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
+    
+    ```bash
+        export QUARTUS_TOOLS_LOCATION=/home
+        export SYNOPSYS_TOOLS_LOCATION=/home
+        export QUESTASIM_TOOLS_LOCATION=/home
+        export ONEAPI_TOOLS_LOCATION=/opt
+    ```
+    
+    In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools 
+    
+    c) PCIe (Bus Number)
+    
+    The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
+    
+    ```bash
+        export OFS_CARD0_BUS_NUMBER=b1
+    ```
+    
+    The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerator card plugged into a server. 
 
-Set Location of Quartus, Synopsys, Questasim and oneAPI Tools
-
-    export QUARTUS_TOOLS_LOCATION=/home
-    export SYNOPSYS_TOOLS_LOCATION=/home
-    export QUESTASIM_TOOLS_LOCATION=/home
-    export ONEAPI_TOOLS_LOCATION=/opt
-
-In the example above /home is used as the base location of Quartus, Synopsys and Questasim tools, /opt is used for the oneAPI tools 
-
-c) PCIe (Bus Number)
-
-The Bus number must be entered by the user after installing the hardware in the chosen server, in the example below "b1" is the Bus Number for a single card as defined in the evaluation script.
-
-    export OFS_CARD0_BUS_NUMBER=b1
-
- The evaluation script uses the bus number as an identifier to interrogate the card. The command below will identify the accelerator card plugged into a server. 
-
+    ```bash
     lspci | grep acc
     
-    b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
-    b1:00.1 Processing accelerators: Intel Corporation Device bcce<br>
-    b1:00.2 Processing accelerators: Intel Corporation Device bcce<br>
-    b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
-    b1:00.4 Processing accelerators: Intel Corporation Device bcce<br>
-
-The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
-
-    export OFS_CARD0_BUS_NUMBER=b1
-
-The user can also run the following command on the ofs_d5005_eval.sh script to automatically change the bus number to b1 in the ofs_d5005_eval.sh script.
-
-grep -rli 'b1' * | xargs -i@ sed -i 'b1' @
-
-if the bus number is 85 for example 
-
-    85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)<br>
-    85:00.1 Processing accelerators: Intel Corporation Device bcce<br>
-    85:00.2 Processing accelerators: Intel Corporation Device bcce<br>
-    85:00.3 Processing accelerators: Red Hat, Inc. Virtio network device<br>
-    85:00.4 Processing accelerators: Intel Corporation Device bcce<br>
-
-the command to change to 85 in the evaluation script would be
-
-grep -rli 'b1' * | xargs -i@ sed -i '85' @
+    b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+    b1:00.1 Processing accelerators: Intel Corporation Device bcce
+    b1:00.2 Processing accelerators: Intel Corporation Device bcce
+    b1:00.3 Processing accelerators: Red Hat, Inc. Virtio network device
+    b1:00.4 Processing accelerators: Intel Corporation Device bcce
+    ```
+    
+    The result identifies the card as being assigned "b1" as the bus number so the entry in the script changes to
+    
+    ```bash
+        export OFS_CARD0_BUS_NUMBER=b1
+    ```
+    
+    The user can also run the following command on the ofs_d5005_eval.sh script to automatically change the bus number to b1 in the ofs_d5005_eval.sh script.
+    
+    ```bash
+    grep -rli 'b1' * | xargs -i@ sed -i 'b1' @
+    ```
+    
+    if the bus number is 85 for example 
+    
+    ```bash
+        85:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+        85:00.1 Processing accelerators: Intel Corporation Device bcce
+        85:00.2 Processing accelerators: Intel Corporation Device bcce
+        85:00.3 Processing accelerators: Red Hat, Inc. Virtio network device
+        85:00.4 Processing accelerators: Intel Corporation Device bcce
+    ```
+    
+    the command to change to 85 in the evaluation script would be
+    
+    ```bash
+    grep -rli 'b1' * | xargs -i@ sed -i '85' @
+    ```
 
 ### **OFS Platform (Example:= n6000, n6001, fseries-dk, iseries-dk, custom_board) choice (line 173)**
 
@@ -526,17 +552,8 @@ This section will describe the most common compile build scenarios if a user wan
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/d5005/doc_modules/links.md --> 
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 
+

@@ -1,10 +1,10 @@
 # **PIM Based AFU Developer Guide**
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## **1. Introduction**
 
 When creating an AFU, a designer needs to decide what type of interfaces the platform (FIM) should provide to the AFU.  The FIM can provide the native interfaces (i.e. PCIe TLP commands) or standard memory mapped interfaces (i.e. AXI-MM or AVMM) by using the PIM.  The PIM is an abstraction layer consisting of a collection of SystemVerilog interfaces and shims to enable partial AFU portability across hardware despite variations in hardware topology and native interfaces. The PIM adds a level of logic between the AFU and the FIM converting the native interfaces from the FIM to match the interfaces provided by the AFU.
-![](/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/images/PIM_top_intro.png)
+![](/ofs-2024.3-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/images/PIM_top_intro.png)
 
 
 This guide will walk you through creating a PIM-Based AFU, including:
@@ -45,7 +45,7 @@ Example N6001 FIM .ini file, `<pr_build_template>/hw/lib/platform/platform_db/of
 ```sh
 ;; Platform Interface Manager configuration
 ;;
-;; Intel® Agilex adp board
+;; Agilex™ adp board
 ;; OFS FIM
 ;;
 ;; Local memory with AXI-MM interface
@@ -551,7 +551,7 @@ import ofs_fim_eth_if_pkg::*;
  
 ## **5. Host Software Development**
 
-The host application is used to control the AFU and manage data transfer between the host and the AFU. Refer to the [AFU Host Software Developer Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_host_software/ug_dev_afu_host_software/) for creating a host application.
+The host application is used to control the AFU and manage data transfer between the host and the AFU. Refer to the [AFU Host Software Developer Guide](https://ofs.github.io/ofs-2024.3-1/hw/common/user_guides/afu_dev/ug_dev_afu_host_software/ug_dev_afu_host_software/) for creating a host application.
 
 ## **6. Packaging the AFU**
 Besides the RTL and software files, an AFU requires an Accelerator Description File and source list file.  These files are used during the build process.
@@ -670,21 +670,12 @@ example_afu
     |-- Makefile
 ```
 
-<!-- include ./docs/hw/n6001/doc_modules/links.md -->
 
-<!-- include ./docs/hw/doc_modules/links.md -->
+
+
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.

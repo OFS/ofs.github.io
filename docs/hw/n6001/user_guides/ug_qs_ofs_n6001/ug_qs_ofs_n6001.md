@@ -1,10 +1,10 @@
 # Getting Started Guide: Open FPGA Stack for Intel<sup>&reg;</sup> Agilex FPGAs Targeting the Intel® FPGA SmartNIC N6000/1-PL
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1.0 Introduction
 
-The purpose of this document is to help users get started in evaluating the 2024.2-1 version of the Open FPGA Stack (OFS) for the Intel Agilex FPGA targeting the Intel N6000/1-PL FPGA SmartNIC Platform. After reviewing the document a user shall be able to:
+The purpose of this document is to help users get started in evaluating the 2024.3-1 version of the Open FPGA Stack (OFS) for the Agilex™ FPGA targeting the Intel N6000/1-PL FPGA SmartNIC Platform. After reviewing the document a user shall be able to:
 
 - Set up their server environment according to the Best Known Configuration (BKC)
 - Build and install the OFS Linux Kernel drivers
@@ -18,6 +18,19 @@ The purpose of this document is to help users get started in evaluating the 2024
 The information in this document is intended for customers evaluating the PCIe Attach shell targeting Intel N6000/1-PL FPGA SmartNIC Platforms. These platforms are Development Kits intended to be used as a starting point for evaluation and development.
 
 *Note: Code command blocks are used throughout the document. Commands that are intended for you to run are preceded with the symbol '$', and comments with '#'. Full command output may not be shown.*
+
+The minimal viable flow for dev kit installation through environment validation is as follows for N6001:
+
+```mermaid
+flowchart TB
+    classDef gr fill:green,color:white;
+    classDef bl fill:blue,color:white;
+    classDef cy fill:cyan,color:white;
+
+    board("Board Installation Guidelines: Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)"):::bl --> sw
+    sw("Software Installation Guide: Open FPGA Stack for PCIe Attach"):::bl --> qs
+    qs("Review starting in section 4.6 OPAE Tools Overview"):::bl
+```
 
 ### 1.2 Terminology
 
@@ -52,18 +65,18 @@ The information in this document is intended for customers evaluating the PCIe A
 
 ### 1.3 References and Versions
 
-The OFS 2024.2-1 Release targeting the Intel® FPGA SmartNIC N6000/1-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
+The OFS 2024.3-1 Release targeting the Intel® FPGA SmartNIC N6000/1-PL is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions which compose this release.
 
-The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2024.2-1 release.
+The following table highlights the hardware which makes up the Best Known Configuration (BKC) for the OFS 2024.3-1 release.
 
 #### Table 2: Hardware BKC
 
 | Component | Version |
 | --------- | ------- |
-| 1 x Intel® FPGA SmartNIC N6001-PL, SKU2 | ![HARDWARE_1_N6000](/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_1_N6000.png) |
-| 1 x Supermicro Server SYS-220HE | ![HARDWARE_2_SERVER](/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_2_SERVER.png)|
-| 1 x Intel FPGA Download Cable II (Only Required for manual flashing) |![HARDWARE_3_JTAG](/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_3_JTAG.png) |
-| 1 x 2x5 Extension header - Samtech Part No: ESQ-105-13-L-D (Only Required for manual flashing) |![HARDWARE_4_EXTENDER](/ofs-2024.2-1/hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_4_EXTENDER.png) |
+| 1 x Intel® FPGA SmartNIC N6001-PL, SKU2 | ![HARDWARE_1_N6000](/ofs-2024.3-1/hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_1_N6000.png) |
+| 1 x Supermicro Server SYS-220HE | ![HARDWARE_2_SERVER](/ofs-2024.3-1/hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_2_SERVER.png)|
+| 1 x Intel FPGA Download Cable II (Only Required for manual flashing) |![HARDWARE_3_JTAG](/ofs-2024.3-1/hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_3_JTAG.png) |
+| 1 x 2x5 Extension header - Samtech Part No: ESQ-105-13-L-D (Only Required for manual flashing) |![HARDWARE_4_EXTENDER](/ofs-2024.3-1/hw/n6001/user_guides/ug_qs_ofs_n6001/images/HARDWARE_4_EXTENDER.png) |
 
 The following table highlights the versions of the software which compose the OFS stack. The installation of the OPAE SDK on top of the Linux DFL drivers will be discussed in their relevant sections in this document.
 
@@ -71,17 +84,17 @@ The following table highlights the versions of the software which compose the OF
 
 | Component | Version |
 | --------- | ------- |
-| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1> under "Known Issues"|
-| OPAE SDK | [2.13.0-3](https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3)|
-| Kernel Drivers |[intel-1.11.0-2](https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2)|
-| OneAPI-ASP | [ofs-2024.2-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1)  |
-| OFS FIM Source Code for N6001| [ofs-2024.2-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1) |
+| FPGA Platform | [Intel® FPGA SmartNIC N6001-PL](https://cdrdv2.intel.com/v1/dl/getContent/723837?explicitVersion=true), release notes: <https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1> under "Known Issues"|
+| OPAE SDK | [2.14.0-2](https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2)|
+| Backport Kernel Drivers |[intel-1.12.0-1](https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-1)|
+| OneAPI-ASP | [ofs-2024.3-1](https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1)  |
+| OFS FIM Source Code for N6001| [ofs-2024.3-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1) |
 | OFS FIM Common Resources| [Tag: ofs-fim-common-1.1.0-rc2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-fim-common-1.1.0-rc2) |
-|OFS Platform AFU BBB | [ofs-2024.2-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1) |
-| Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 24.1 for Linux](https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html)  |
-| Operating System | [RedHat® Enterprise Linux® (RHEL) 8.10](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software) |
+|OFS Platform AFU BBB | [ofs-2024.3-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1) |
+| Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 24.3 for Linux](https://www.intel.com/content/www/us/en/software-kit/839515/intel-quartus-prime-pro-edition-design-software-version-24-3-for-linux.html)  |
+| Operating System | [RedHat® Enterprise Linux® (RHEL) 9.4](https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software) |
 
-The following table highlights the differences between N6000/1 PL FPGA SmartNIC platforms (SKU1/SKU2). Use this table to identify which version of the N6000/1-PL FPGA SmartNIC platform you have. The board identification printed by the `fpgainfo fme` commands depends on both the OPAE SDK and Linux DFL drivers to be installed as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
+The following table highlights the differences between N6000/1 PL FPGA SmartNIC platforms (SKU1/SKU2). Use this table to identify which version of the N6000/1-PL FPGA SmartNIC platform you have. The board identification printed by the `fpgainfo fme` commands depends on both the OPAE SDK and Linux DFL drivers to be installed as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.3-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 #### Table 4: Intel N6000/1-PL FPGA SmartNIC Platform SKU Mapping
 
@@ -90,24 +103,24 @@ The following table highlights the differences between N6000/1 PL FPGA SmartNIC 
 |N6000| Q1613314XXXXX | PCIe Gen 4 1x16 mechanical bifurcated 2x8 logical to host, with one PCIe Gen 4x8 endpoint reserved for Intel E810-C-CAM2 NIC, the other reserved for FIM| "Intel Acceleration Development Platform N6000"|
 |N6001| Q0216514XXXXX | PCIe Gen 4 1x16 mechanical and logical connection between host and FIM| "Intel Acceleration Development Platform N6001"|
 
-The following table highlights the programmable firmware versions that are supported on the Intel N6000/1-PL FPGA SmartNIC Platform in the [OFS 2024.2-1 release](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1). Programming and verifying these components is discussed in their respective sections.
+The following table highlights the programmable firmware versions that are supported on the Intel N6000/1-PL FPGA SmartNIC Platform in the [OFS 2024.3-1 release](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1). Programming and verifying these components is discussed in their respective sections.
 
 #### Table 5: Intel® FPGA SmartNIC N6000/1-PL Programmable Component Version Summary
 
 | Component | Version |
 | ----- | ----- |
-| PR Interface ID |  a791757d-38a6-5159-a7fc-e1a61157a07b  |
-| Bitstream ID | 360571656856467345 |
+| PR Interface ID |  e376f074-6a22-55b1-a162-f734ff17e253  |
+| Bitstream ID | 360571656009101231 |
 | BMC RTL | 3.15.2 |
 | BMC NIOS FW| 3.15.2 |
 
 ### 1.4 Reference Documents
 
-Documentation is collected on [https://ofs.github.io/ofs-2024.1-1/](https://ofs.github.io/ofs-2024.1-1/).
+Documentation is collected on [https://ofs.github.io/latest/](https://ofs.github.io/latest/).
 
 ### 1.5 Board Installation and Server Setup
 
-Platform installation instructions, server BIOS settings and regulatory information can be found in the [Board Installation Guide: OFS for Acceleration Development Platforms](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/adp_board_installation/adp_board_installation_guidelines).
+Platform installation instructions, server BIOS settings and regulatory information can be found in the [Board Installation Guide: OFS for Acceleration Development Platforms](../../../common/board_installation/adp_board_installation/adp_board_installation_guidelines.md).
 
 #### Table 6: SuperMicro Server BMC BKC
 
@@ -120,17 +133,17 @@ Platform installation instructions, server BIOS settings and regulatory informat
 ### 2.1 Hardware Components
 
 The OFS hardware architecture decomposes all designs into a standard
-set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
 OFS is a hardware and software infrastructure that provides an efficient approach to developing a custom FPGA-based platform or workload using an Intel, 3rd party, or custom board.
 
 #### 2.1.1 FPGA Interface Manager
 
-![OFS_FIM](/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.png)
+![OFS_FIM](/ofs-2024.3-1/hw/n6001/reference_manuals/ofs_fim/images/Agilex_Fabric_Features.png)
 
 The FPGA Interface Manager (FIM), or shell of the FPGA provides platform management
 functionality, clocks, resets, and interface access to the host and
-peripheral features on the acceleration platform. The OFS architecture for Intel Agilex FPGA provides modularity, configurability and scalability.  The primary components of the FPGA Interface Manager or shell of the reference design are:
+peripheral features on the acceleration platform. The OFS architecture for Agilex™ FPGA provides modularity, configurability and scalability.  The primary components of the FPGA Interface Manager or shell of the reference design are:
 
 - PCIe Subsystem - a hierarchical design that targets the P-tile PCIe hard IP and is configured to support Gen4 speeds and Arm AXI4-Stream Data Mover functional mode.
 - Ethernet Subsystem - provides portability to different Ethernet configurations across platforms and generations and reusability of the hardware framework and software stack.
@@ -150,7 +163,7 @@ register that is placed at the beginning of Control Status Register
 (CSR) space. Only one PCIe link can access the FME register space in a
 multi-host channel design architecture at a time.
 
-*Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
+*Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).*
 
 #### 2.1.2 AFU
 
@@ -182,7 +195,7 @@ native packets from the host or interface channels or to instantiate a
 shim provided by the Platform Interface Manager (PIM) to translate
 between protocols.
 
-*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
+*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
 
 ### 2.2 OFS Software Overview
 
@@ -211,24 +224,24 @@ features.
 
 ## 3.0 OFS DFL Kernel Drivers
 
-OFS DFL driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on https://github.com/OPAE/linux-dfl/wiki.
+OFS Backport DFL driver software provides the bottom-most API to FPGA platforms for this release. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by OFS. Applications may be built on top of these frameworks and libraries. The OFS software does not cover any out-of-band management interfaces. OFS driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the DFL framework, and instructions on how to port DFL driver patches to other kernel distributions can be found on https://github.com/OPAE/linux-dfl/wiki.
 
 An in-depth review of the Linux device driver architecture can be found on [opae.github.io](https://opae.github.io/latest/docs/drv_arch/drv_arch.html).
 
-The DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1).
+The Backport DFL driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1).
 
-Build and installation instructions are detailed in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
+Build and installation instructions are detailed in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.3-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 ## 4.0 OPAE Software Development Kit
 
 The OPAE SDK software stack sits in user space on top of the OFS kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit the [opae reference](https://opae.github.io/2.3.0/index.html) page.
 
 The OPAE SDK source code is contained within a single GitHub repository
-hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
+hosted at the [OPAE Github](https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2). This repository is open source and does not require any permissions to access. You have two options to install OPAE as discussed below - using pre-built packages offered by Intel, or building the source code locally.
 
-The OPAE SDK can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1).
+The OPAE SDK can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions on the [OFS 2024.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1).
 
-You can choose to build and install the OPAE SDK from source, which is detailed in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
+You can choose to build and install the OPAE SDK from source, which is detailed in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.3-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
 
 ### 4.4 FPGA Device Access Permissions
 
@@ -275,7 +288,7 @@ LimitMEMLOCK=infinity
 
 ### 4.6 OPAE Tools Overview
 
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.13.0-3/doc/src/fpga_tools/readme.md). The following command outputs were captured using an N6001 device.
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.14.0-2/doc/src/fpga_tools/readme.md). The following command outputs were captured using an N6001 device.
 
 #### 4.6.1 Board Management with fpgainfo
 
@@ -304,13 +317,13 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571656856467345
+Bitstream Id                     : 360571656009101231
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
+Pr Interface Id                  : e376f074-6a22-55b1-a162-f734ff17e253
 Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : a791757d-38a6-5159-a7fc-e1a61157a07b
-User2 Image Info                 : a791757d-38a6-5159-a7fc-e1a61157a07b
+User1 Image Info                 : e376f074-6a22-55b1-a162-f734ff17e253
+User2 Image Info                 : e376f074-6a22-55b1-a162-f734ff17e253
 
 ```
 
@@ -329,9 +342,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571656856467345
+Bitstream Id                     : 360571656009101231
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
+Pr Interface Id                  : e376f074-6a22-55b1-a162-f734ff17e253
 ( 1) VCCRT_GXER_0V9 Voltage                             : 0.91 Volts
 ( 2) FPGA VCCIO_1V2 Voltage                             : 1.21 Volts
 ( 3) Inlet 12V Aux Rail Current                         : 0.87 Amps
@@ -352,7 +365,7 @@ The **fpgad** is a service that can help you protect the server from crashing wh
 .
 *Note: Qualified OEM server systems should provide the required cooling for your workloads. Therefore, using **fpgad** may be optional.*
 
-When the opae-tools-extra-2.13.0-3.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
+When the opae-tools-extra-2.14.0-2.x86_64  package is installed, **fpgad** is placed in the OPAE binaries directory (default: /usr/bin). The configuration file fpgad.cfg is located at /etc/opae. The log file fpgad.log which monitors **fpgad** actions is located at /var/lib/opae/.
 The **fpgad** periodically reads the sensor values and if the values exceed the warning threshold stated in the fpgad.conf or the hardware defined warning threshold, it masks the PCIe Advanced Error Reporting (AER) registers for the Intel N6000/1-PL FPGA SmartNIC Platform to avoid system reset.
 Use the following command to start the **fpgad** service:
 
@@ -478,16 +491,16 @@ The Intel® FPGA SmartNIC N6000/1-PL ships with a factory, user1, and user2 prog
 
 Use the following chart for information on the Bitstream ID and Pr Interface ID, two unique values reported by `fpgainfo` which can be used to identify the loaded FIM.
 
-##### Table 7: FIM Version Summary for OFS 2024.2-1 Release
+##### Table 7: FIM Version Summary for OFS 2024.3-1 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| ofs-2024.2-1| 360571656856467345| a791757d-38a6-5159-a7fc-e1a61157a07b| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1)|
+| ofs-2024.3-1| 360571656009101231| e376f074-6a22-55b1-a162-f734ff17e253| ofs_top_page[1/2]_unsigned_user[1/2].bin | [ofs-2024.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1)|
 | ofs-n6001-0.9.0-rc2 |  0x50102025AD3DD11| 92ec8960-2f2f-5544-9804-075d2e8a71a1 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-n6001/releases/tag/ofs-n6001-0.9.1)|
 | OFS-2.3.0 |  0x50102022267A9ED| f59830f7-e716-5369-a8b0-e7ea897cbf82 | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.3.0 Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.3.0)|
 | OFS-2.2.0 | 0x501020295B081F0 | 8c157a52-1cf2-5d37-9514-944af0a060da | ofs_top_page[1/2]_unsigned_user[1/2].bin|[ofs-2.2.0-beta Release Page](https://github.com/otcshare/intel-ofs-fim/releases/tag/ofs-2.2.0-beta)|
 
-##### Table 8: BMC Version Summary for OFS 2024.2-1 Release
+##### Table 8: BMC Version Summary for OFS 2024.3-1 Release
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
 | 3.15.2 | AC_BMC_RSU_user_retail_3.15.2_unsigned.rsu | n/a|
@@ -614,7 +627,7 @@ clearing error
 The reference FIM and unchanged FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. There are three HEMs present in the Intel OFS Reference FIM - HE-LPBK, HE-MEM, and HE-HSSI. These exercisers are tied to three different VFs that must be enabled before they can be used.
 Execution of these exercisers requires you bind specific VF endpoint to **vfio-pci**. The host-side software looks for these endpoints to grab the correct FPGA resource.
 
-Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
+Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
 
 ##### Table 9: Module PF/VF Mappings
 
@@ -951,9 +964,9 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571656856467345
+Bitstream Id                     : 360571656009101231
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
+Pr Interface Id                  : e376f074-6a22-55b1-a162-f734ff17e253
 //****** HSSI information ******//
 HSSI version                     : 1.0
 Number of ports                  : 8
@@ -1069,17 +1082,17 @@ The `hssi_loopback` utility works in conjunction with a packet generator acceler
 
 The `hssistats` tool provides the MAC statistics.
 
-## 5.0 Upgrading the Intel® FPGA SmartNIC N6000/1-PL with 2024.2-1 Version of the BMC and FIM
+## 5.0 Upgrading the Intel® FPGA SmartNIC N6000/1-PL with 2024.3-1 Version of the BMC and FIM
 
-If your Intel® FPGA SmartNIC N6000/1-PL does not have the 2024.1 version of the FIM and BMC, use this section to begin your upgrade process. The upgrade process depends on both the OPAE SDK and kernel drivers, which were installed in the [Software Installation Guide: PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md). Use the output of **fpgainfo** and compare against the table below to determine if an upgade is necessary.
+If your Intel® FPGA SmartNIC N6000/1-PL does not have the 2024.2-1 version of the FIM and BMC, use this section to begin your upgrade process. The upgrade process depends on both the OPAE SDK and kernel drivers, which were installed in the [Software Installation Guide: PCIe Attach](/ofs-2024.3-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md). Use the output of **fpgainfo** and compare against the table below to determine if an upgade is necessary.
 
-### Table 11: FIM Version Summary for Intel OFS 2024.2-1 Release
+### Table 11: FIM Version Summary for Intel OFS 2024.3-1 Release
 
 | FIM Version | Bitstream ID | Pr Interface ID | File Name | Download Location|
 | ----- | ----- | ----- | ----- | ----- |
-| 1 | 360571656856467345 | a791757d-38a6-5159-a7fc-e1a61157a07b | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1)|
+| 1 | 360571656009101231 | e376f074-6a22-55b1-a162-f734ff17e253 | ofs_top_page[1 / 2]_unsigned_user[1 / 2].bin|[ofs-2024.3-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1)|
 
-### Table 12: BMC Version Summary for Intel OFS 2024.2-1 Release
+### Table 12: BMC Version Summary for Intel OFS 2024.3-1 Release
 
 | BMC FW and RTL Version | File Name | Download Location|
 | ----- | ----- | ----- |
@@ -1100,32 +1113,33 @@ SubVendor Id                     : 0x8086
 SubDevice Id                     : 0x1771
 Socket Id                        : 0x00
 Ports Num                        : 01
-Bitstream Id                     : 360571656856467345
+Bitstream Id                     : 360571656009101231
 Bitstream Version                : 5.0.1
-Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
+Pr Interface Id                  : e376f074-6a22-55b1-a162-f734ff17e253
 Boot Page                        : user1
 Factory Image Info               : a2b5fd0e7afca4ee6d7048f926e75ac2
-User1 Image Info                 : a791757d-38a6-5159-a7fc-e1a61157a07b
-User2 Image Info                 : a791757d-38a6-5159-a7fc-e1a61157a07b
+User1 Image Info                 : e376f074-6a22-55b1-a162-f734ff17e253
+User2 Image Info                 : e376f074-6a22-55b1-a162-f734ff17e253
 ```
 
-1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2024.2-1 (Intel Agilex)](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
+1. If your output does not match the table above, download the appropriate FIM image from the [Intel OFS 2024.3-1 (Agilex™)](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1) release page. Once downloaded transfer the file over to the server and use the **fpgasupdate** utility to perform an upgrade of the BMC.
 
-```bash
-$ sudo fpgasupdate AC_BMC_RSU_user_retail_3.15.2_unsigned.rsu
-[2022-04-14 16:32:47.93] [WARNING ] Update starting. Please do not interrupt.                                           
-[2022-04-14 16:32:47.93] [INFO    ] updating from file /home/user/AC_BMC_RSU_user_retail_3.15.2_unsigned.rsu with size 904064                                   
-[2022-04-14 16:32:47.94] [INFO    ] waiting for idle                                                                    
-[2022-04-14 16:32:47.94] [INFO    ] preparing image file                                                                
-[2022-04-14 16:33:26.98] [INFO    ] writing image file                                                                  
-(100%) [████████████████████] [904064/904064 bytes][Elapsed Time: 0:00:00.00]                                           
-[2022-04-14 16:33:26.98] [INFO    ] programming image file                                                              
-(100%) [████████████████████] [Elapsed Time: 0:00:26.02]                                                                 
-[2022-04-14 16:33:53.01] [INFO    ] update of 0000:b1:00.0 complete                                                     
-[2022-04-14 16:33:53.01] [INFO    ] Secure update OK                                                                    
-[2022-04-14 16:33:53.01] [INFO    ] Total time: 0:01:05.07
-sudo rsu bmcimg
-```
+    ```bash
+    $ sudo fpgasupdate AC_BMC_RSU_user_retail_3.15.2_unsigned.rsu
+    [2022-04-14 16:32:47.93] [WARNING ] Update starting. Please do not interrupt.                                           
+    [2022-04-14 16:32:47.93] [INFO    ] updating from file /home/user/AC_BMC_RSU_user_retail_3.15.2_unsigned.rsu with size 904064                                   
+    [2022-04-14 16:32:47.94] [INFO    ] waiting for idle                                                                    
+    [2022-04-14 16:32:47.94] [INFO    ] preparing image file                                                                
+    [2022-04-14 16:33:26.98] [INFO    ] writing image file                                                                  
+    (100%) [████████████████████] [904064/904064 bytes][Elapsed Time: 0:00:00.00]                                           
+    [2022-04-14 16:33:26.98] [INFO    ] programming image file                                                              
+    (100%) [████████████████████] [Elapsed Time: 0:00:26.02]                                                                 
+    [2022-04-14 16:33:53.01] [INFO    ] update of 0000:b1:00.0 complete                                                     
+    [2022-04-14 16:33:53.01] [INFO    ] Secure update OK                                                                    
+    [2022-04-14 16:33:53.01] [INFO    ] Total time: 0:01:05.07
+    sudo rsu bmcimg
+    ```
+
 2. Load the new FIM image.
 
 	```bash
@@ -1149,17 +1163,8 @@ sudo rsu bmcimg
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/n6001/doc_modules/links.md -->  
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+  
+

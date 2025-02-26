@@ -1,12 +1,12 @@
-The Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) has an on-board FPGA Download Cable II module which is used to program the FPGA via JTAG.
+The Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) has an on-board FPGA Download Cable II module which is used to program the FPGA via JTAG.
 
 Perform the following steps to establish a JTAG connection with the fseries-dk.
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))] for instructions on setting up a deployment environment.
 
-* This walkthrough requires a workstation with Quartus Prime Pro Version 24.1 tools installed, specifically the `jtagconfig` tool.
+* This walkthrough requires a workstation with Quartus Prime Pro Version 24.3 tools installed, specifically the `jtagconfig` tool.
 
 Steps:
 
@@ -21,7 +21,7 @@ Steps:
 4. Use the `jtagconfig` tool to check that the JTAG chain contains the AGFB027R24C2E2VR2 device.
 
     ```bash
-    <QUARTUS_INSTALL_DIR>/24.1/quartus/bin/jtagconfig
+    <QUARTUS_INSTALL_DIR>/24.3/quartus/bin/jtagconfig
     ```
 
     Example expected output:

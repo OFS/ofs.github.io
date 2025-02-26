@@ -1,15 +1,15 @@
-# **AFU Developer Guide: OFS for Agilex® 7 FPGA SoC Attach FPGAs**
+# **AFU Developer Guide: OFS for Agilex™ 7 FPGA SoC Attach FPGAs**
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## **1. Introduction**
 
 
-This document is a design guide for the creation of an Accelerator Functional Unit (AFU) using Open FPGA Stack (OFS) for Agilex® 7 FPGAs SoC Attach. The AFU concept consists of separating out the FPGA design development process into two parts, the construction of the foundational FPGA Interface Manager (FIM), and the development of the Acceleration Function Unit (AFU), as shown in the diagram below.
+This document is a design guide for the creation of an Accelerator Functional Unit (AFU) using Open FPGA Stack (OFS) for Agilex™ 7 FPGAs SoC Attach. The AFU concept consists of separating out the FPGA design development process into two parts, the construction of the foundational FPGA Interface Manager (FIM), and the development of the Acceleration Function Unit (AFU), as shown in the diagram below.
 
 ![](./images/FIM_top_intro.png)
 
-This diagram shows the separation of FPGA board interface development from the internal FPGA workload creation.  This separation starts with the FPGA Interface Manager (FIM) which consists of the external interfaces and board management functions.  The FIM is the base system layer and is typically provided by board vendors. The FIM interface is specific to a particular physical platform.  The AFU makes use of the external interfaces with user defined logic to perform a specific application.  By separating out the lengthy and complicated process of developing and integrating external interfaces for an FPGA into a board allows the AFU developer to focus on the needs of their workload.  OFS for Agilex® 7 FPGAs SoC Attach provides the following tools for rapid AFU development:
+This diagram shows the separation of FPGA board interface development from the internal FPGA workload creation.  This separation starts with the FPGA Interface Manager (FIM) which consists of the external interfaces and board management functions.  The FIM is the base system layer and is typically provided by board vendors. The FIM interface is specific to a particular physical platform.  The AFU makes use of the external interfaces with user defined logic to perform a specific application.  By separating out the lengthy and complicated process of developing and integrating external interfaces for an FPGA into a board allows the AFU developer to focus on the needs of their workload.  OFS for Agilex™ 7 FPGAs SoC Attach provides the following tools for rapid AFU development:
 
 - Scripts for both compilation and simulation setup
 - Optional Platform Interface Manager (PIM) which is a set of SystemVerilog shims and scripts for flexible FIM to AFU interfacing
@@ -17,7 +17,7 @@ This diagram shows the separation of FPGA board interface development from the i
 - Integration with Open Programmable Acceleration Engine (OPAE) SDK for rapid software development for your AFU application
   
 
-Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/). This guide covers logic in the AFU Main region.
+Please notice in the above block diagram that the AFU region consists of static and partial reconfiguration (PR) regions where the PR region can be dynamically reconfigured while the remaining FPGA design continues to function.  Creating AFU logic for the static region is described in [Shell Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/). This guide covers logic in the AFU Main region.
 
 ### **1.1. Document Organization**
 
@@ -25,7 +25,7 @@ Please notice in the above block diagram that the AFU region consists of static 
 This document is organized as follows:
 
 - Description of design flow
-- Interfaces and functionality provided in the Agilex® 7 FPGAs SoC Attach FIM
+- Interfaces and functionality provided in the Agilex™ 7 FPGAs SoC Attach FIM
 - Setup of the AFU Development environment
 - Synthesize the AFU example
 - Testing the AFU example on the IPU Platform F2000X-PL card
@@ -36,12 +36,12 @@ This guide provides theory followed by tutorial steps to solidify your AFU devel
 
 > **_NOTE:_**  
 >
->**This guide uses the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL as the platform for all tutorial steps. Additionally, this guide and the tutorial steps can be used with other Agilex® 7 FPGAs SoC Attach platforms..**
+>**This guide uses the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL as the platform for all tutorial steps. Additionally, this guide and the tutorial steps can be used with other Agilex™ 7 FPGAs SoC Attach platforms..**
 >
 >**Some of the document links in this guide are specific to the IPU Platform F2000X-PL .   If using a different platform, please use the associated documentation for your platform as there could be differences in building the FIM and downloading FIM images.**  
 >
 
-If you have worked with previous Altera® Programmable Acceleration products, you will find out that OFS for Agilex® 7 FPGAs SoC Attach is similar. However, there are differences and you are advised to carefully read and follow the tutorial steps to fully understand the design tools and flow.
+If you have worked with previous Altera® Programmable Acceleration products, you will find out that OFS for Agilex™ 7 FPGAs SoC Attach is similar. However, there are differences and you are advised to carefully read and follow the tutorial steps to fully understand the design tools and flow.
 
 
 ### **1.2. Prerequisite**
@@ -56,7 +56,7 @@ This guide assumes you have the following FPGA logic design-related knowledge an
 * Simulation of complex RTL using industry standard simulators (Synopsys® VCS® or Siemens® QuestaSim®).
 * Signal Tap Logic Analyzer tool in the Quartus® Prime Pro Edition software.
 
-You are strongly encouraged to review the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/).
+You are strongly encouraged to review the [Shell Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/).
 
 ### **1.3. Acceleration Functional Unit (AFU) Development Flow**
 
@@ -118,7 +118,7 @@ The following resources are available to assist in creating an AFU:
 
 [PIM Core Concepts](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_core_concepts.md) provides details on using the PIM and its capabilities. 
 
-[PIM Based AFU Developer Guide](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/ug_dev_pim_based_afu/) provides details on interfacing your AFU to the FIM using the PIM.
+[PIM Based AFU Developer Guide](https://ofs.github.io/ofs-2024.3-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/ug_dev_pim_based_afu/) provides details on interfacing your AFU to the FIM using the PIM.
 
 The [examples-afu](https://github.com/OFS/examples-afu.git) repo provides several AFU examples: 
 
@@ -137,7 +137,7 @@ These examples can be run with the current OFS FIM package.  There are three [AF
      * Host memory, providing a DMA interface.
      * MMIO, providing a CSR interface.  
    * [Local Memory](https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_ifc_local_mem.md)
-* Host software example interfacing to the CSR interface and host memory interface, using the [OPAE C API](https://ofs.github.io/ofs-2024.2-1/sw/fpga_api/prog_guide/readme/#opae-c-api-programming-guide).
+* Host software example interfacing to the CSR interface and host memory interface, using the [OPAE C API](https://ofs.github.io/ofs-2024.3-1/sw/fpga_api/prog_guide/readme/#opae-c-api-programming-guide).
 * Accelerator Description File .json file
 * Source file list
 
@@ -168,7 +168,7 @@ A typical development and hardware test environment consists of a development se
 
 Note: both development and hardware testing can be performed on the same server if desired.
 
-This guide uses IPU Platform F2000X-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The IPU Platform F2000X-PL must be fully installed following the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
+This guide uses IPU Platform F2000X-PL as the target OFS compatible FPGA PCIe card for demonstration steps.  The IPU Platform F2000X-PL must be fully installed following the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation). If using a different OFS FPGA PCIe card, contact your supplier for instructions on how to install and operate user developed AFUs.
 
 The following is a summary of the steps to set up for AFU development:
 
@@ -190,11 +190,15 @@ Use Ubuntu 22.04 LTS for compatibility with your development flow and also testi
 
 Prior to installing Quartus:
 
-1. Ensure you have at least 64 GB of free space for Quartus Prime Pro installation and your development work.
-  * Intel® recommends that your system be configured to provide virtual memory equal in size or larger than the recommended physical RAM size that is required to process your design.
+1. Ensure you have sufficient free disk space for Quartus Prime Pro installation and your development work.
+
   * The disk space may be significantly more based on the device families included in the install. Prior to installation, the disk space should be enough to hold both zipped tar files and uncompressed installation files. After successful installation, delete the downloaded zipped files and uncompressed zip files to release the disk space.
 
-2. Perform the following steps to satisfy the required dependencies.
+2. Ensure you have sufficient RAM available for OFS compilations with Quartus
+
+  * It is recommended you have at least 128 GB of RAM to compile OFS designs.
+
+3. Perform the following steps to satisfy the required dependencies.
 
   ```bash
   $ sudo dnf install -y gcc gcc-c++ make cmake libuuid-devel rpm-build autoconf automake bison boost boost-devel libxml2 libxml2-devel make ncurses grub2 bc csh flex glibc-locale-source libnsl ncurses-compat-libs 
@@ -208,7 +212,7 @@ Prior to installing Quartus:
   $ sudo ln -s /usr/bin/python3 /usr/bin/python
   ```
 
-3. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
+4. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
 
   The installation path must satisfy the following requirements:
 
@@ -217,9 +221,7 @@ Prior to installing Quartus:
   * Only English characters
   * No spaces
 
-4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
-
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1). The patches for this release are 0.17.
+5. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -264,7 +266,7 @@ The OFS provided Quartus build scripts require the following tools. Verify these
 
 ### **2.4. Installation of OPAE SDK**
 
-Working with the IPU Platform F2000X-PL card requires **opae-2.12.0-5**. Follow the instructions in the [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) to build and install the required OPAE SDK for the IPU Platform F2000X-PL. Make sure to check out the cloned repository to tag **2.12.0-5** and branch **release/2.12.0**.
+Working with the IPU Platform F2000X-PL card requires **opae-2.12.0-5**. Follow the instructions in the [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) to build and install the required OPAE SDK for the IPU Platform F2000X-PL. Make sure to check out the cloned repository to tag **2.12.0-5** and branch **release/2.12.0**.
 
 ```sh
 $ git checkout tags/2.12.0-5 -b release/2.12.0
@@ -316,9 +318,9 @@ To download and untar the pr_build_template:
 
 ```sh
 $ cd $OFS_BUILD_ROOT
-$ wget https://github.com/OFS/ofs-f2000x-pl/releases/download/ofs-2024.1-1/f2000x-images_ofs-2024-2.tar.gz
-$ tar -zxvf f2000x-images_ofs-2024-2.tar.gz
-$ cd f2000x-images_ofs-2024-2/
+$ wget https://github.com/OFS/ofs-f2000x-pl/releases/download/ofs-2024.1-1/f2000x-images_ofs-2024-2-1.tar.gz
+$ tar -zxvf f2000x-images_ofs-2024-2-1.tar.gz
+$ cd f2000x-images_ofs-2024-2-1/
 $ mkdir pr_build_template
 $ tar -zxvf pr_build_template.tar.gz -C ./pr_build_template
 $ cd pr_build_template
@@ -326,7 +328,7 @@ $ export OPAE_PLATFORM_ROOT=$PWD
 
 ```
 
-To build your own FIM and generate the PR build tree for the IPU Platform F2000X-PL platform, refer the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/) and follow the Out-of-Tree PR FIM build flow.  If you are using a different platform, refer to the Shell Developer Guide for your platform and follow the Out-of-Tree PR FIM build flow.
+To build your own FIM and generate the PR build tree for the IPU Platform F2000X-PL platform, refer the [Shell Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/) and follow the Out-of-Tree PR FIM build flow.  If you are using a different platform, refer to the Shell Developer Guide for your platform and follow the Out-of-Tree PR FIM build flow.
 
 ### **2.7. Download FIM to FPGA**
 
@@ -336,7 +338,7 @@ The AFU requires that the FIM from which the AFU is derived be loaded onto the F
 If you are using the IPU Platform F2000X-PL release package downloaded in the previous section, copy the associated FIM files to the SoC:
 ```sh
 # On Development Host
-$ cd $OFS_BUILD_ROOT/f2000x-images_ofs-2024-2/
+$ cd $OFS_BUILD_ROOT/f2000x-images_ofs-${{ env.COMMON_OFS_RELEASE_TAR }}/
 $ scp ofs_top_page1_unsigned_user1.bin <user>@<SoC IP address>:</remote/directory>
 $ scp ofs_top_page2_unsigned_user2.bin <user>@<SoC IP address>:</remote/directory>
 
@@ -353,7 +355,7 @@ $ sudo rsu fpga --page=user1
 
 ```
 
-If you are using a different platform, refer to the documentation for your platform to download the FIM images onto your Agilex® SoC Attach Platform.
+If you are using a different platform, refer to the documentation for your platform to download the FIM images onto your Agilex™ SoC Attach Platform.
 
 ### **2.8. Set up required Environment Variables**
 
@@ -880,7 +882,7 @@ In this section you will set up your server to support ASE by independently down
 #### **4.1.1. Install OPAE SDK**
 
 
-The F2000x SKU2 card requires **2.12.0-5**. Follow the instructions in the [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) to build and install the required OPAE SDK for the IPU Platform F2000X-PL. Make sure to check out the cloned repository to tag **2.12.0-5** and branch **release/2.12.0**.
+The F2000x SKU2 card requires **2.12.0-5**. Follow the instructions in the [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) to build and install the required OPAE SDK for the IPU Platform F2000X-PL. Make sure to check out the cloned repository to tag **2.12.0-5** and branch **release/2.12.0**.
 
 ```sh
 $ git checkout tags/2.12.0-5 -b release/2.12.0
@@ -1333,21 +1335,12 @@ if __name__ == "__main__":
 ## **7. How to modify the PF/VF MUX configuration**
 
 
-For information on how to modify the PF/VF mapping for your own design, refer to the [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/).
+For information on how to modify the PF/VF mapping for your own design, refer to the [Shell Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/).
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+
+

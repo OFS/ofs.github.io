@@ -1,29 +1,29 @@
 # **Shell Developer Guide: Agilex<sup>&reg;</sup> 7 SoC Attach: Open FPGA Stack**
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## **1 Introduction**
 
 ### **1.1 About This Document**
 
-This document serves as a guide for OFS Agilex® 7 SoC Attach developers targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. The following topics are covered in this guide:
+This document serves as a guide for OFS Agilex™ 7 SoC Attach developers targeting the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL. The following topics are covered in this guide:
 
-* Compiling the OFS Agilex® 7 SoC Attach FIM design
-* Simulating the OFS Agilex® 7 SoC Attach FIM design
-* Customizing the OFS Agilex® 7 SoC Attach FIM design
-* Configuring the FPGA with an OFS Agilex® 7 SoC Attach FIM design
+* Compiling the OFS Agilex™ 7 SoC Attach FIM design
+* Simulating the OFS Agilex™ 7 SoC Attach FIM design
+* Customizing the OFS Agilex™ 7 SoC Attach FIM design
+* Configuring the FPGA with an OFS Agilex™ 7 SoC Attach FIM design
 
 This document uses the  Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL as the platform to illustrate key points and demonstrate how to extend the capabilities provided in OFS.  The demonstration steps serve as a tutorial for the development of your OFS knowledge.  
 
-This document covers OFS architecture lightly. For more details on the OFS architecture, please see [Shell Technical Reference Manual: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/).
+This document covers OFS architecture lightly. For more details on the OFS architecture, please see [Shell Technical Reference Manual: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/).
 
 ### **1.1.1 Knowledge Prerequisites**
 
 It is recommended that you have the following knowledge and skills before using this developer guide.
 
-* Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2024.2-1).
-* Review the [release notes](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1) for the Agilex® 7 SoC Attach Reference Shells, with careful consideration of the **Known Issues**.
-* Review of [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/).
+* Basic understanding of OFS and the difference between OFS designs. Refer to the [OFS Welcome Page](https://ofs.github.io/ofs-2024.3-1).
+* Review the [release notes](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1) for the Agilex™ 7 SoC Attach Reference Shells, with careful consideration of the **Known Issues**.
+* Review of [Getting Started Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/).
 * FPGA compilation flows using Quartus® Prime Pro Edition.
 * Static Timing closure, including familiarity with the Timing Analyzer tool in Quartus Prime Pro Version 23.4, applying timing constraints, Synopsys* Design Constraints (.sdc) language and Tcl scripting, and design methods to close on timing critical paths.
 * RTL (System Verilog) and coding practices to create synthesized logic.
@@ -32,11 +32,11 @@ It is recommended that you have the following knowledge and skills before using 
 
 ### **1.2. FIM Development Theory**
 
-This section will help you understand how the OFS Agilex® 7 SoC Attach FIM can be developed to fit your design goals.
+This section will help you understand how the OFS Agilex™ 7 SoC Attach FIM can be developed to fit your design goals.
 
-The [Default FIM Features](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#121-default-fim-features) section provides general information about the default features of the OFS Agilex® 7 SoC Attach FIM so you can become familiar with the default design. For more detailed information about the FIM architecture, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/).
+The [Default FIM Features](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#121-default-fim-features) section provides general information about the default features of the OFS Agilex™ 7 SoC Attach FIM so you can become familiar with the default design. For more detailed information about the FIM architecture, refer to the [Shell Technical Reference Manual: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/).
 
-The [Customization Options](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#122-customization-options) section then gives suggestions of how this default design can be customized. Step-by-step walkthroughs for many of the suggested customizations are later described in the [FIM Customization](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-fim-customization) section.
+The [Customization Options](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#122-customization-options) section then gives suggestions of how this default design can be customized. Step-by-step walkthroughs for many of the suggested customizations are later described in the [FIM Customization](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-fim-customization) section.
 
 FIM development for a new card generally consists of the following steps:
 
@@ -76,7 +76,7 @@ FIM development for a new card generally consists of the following steps:
 
 ### **1.2.1 Default FIM Features**
 
-Agilex® 7 SoC Attach OFS supports the following features.
+Agilex™ 7 SoC Attach OFS supports the following features.
 
 |                                     | FIM BASE                                    |
 | ----------------------------------- | ------------------------------------------- |
@@ -94,7 +94,7 @@ The FIM also integrates:
 * Remote Signal Tap
 * Partial Reconfiguration of the SoC AFU
 
-The Host exercisers are provided for the quick evaluation of the FIM and can be leveraged for the verification of the platform's functionality and capabilities.  The host exercisers can be removed by the designer to release FPGA real estate to accommodate new workload functions. To compile the FIM without host exercisers go to [How to compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu).
+The Host exercisers are provided for the quick evaluation of the FIM and can be leveraged for the verification of the platform's functionality and capabilities.  The host exercisers can be removed by the designer to release FPGA real estate to accommodate new workload functions. To compile the FIM without host exercisers go to [How to compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#53-how-to-compile-the-fim-in-preparation-for-designing-your-afu).
 
 OFS is extensible to meet the needs of a broad set of customer applications.  The general use cases listed below are examples where the OFS base design is easily extended to build a custom FIM:
 
@@ -132,7 +132,7 @@ As can be seen in this diagram, the OFS FPGA structure has a natural separation 
 
 #### **1.2.1.2 Interfaces**
 
-The key interfaces in the OFS Agilex® 7 SoC Attach design are listed below.
+The key interfaces in the OFS Agilex™ 7 SoC Attach design are listed below.
 
 * Host interface 
   * PCIe Gen4 x 16
@@ -149,7 +149,7 @@ The key interfaces in the OFS Agilex® 7 SoC Attach design are listed below.
 
 #### **1.2.1.3 Subsystems**
 
-The *FIM Subsystems* Table  describes the Platform Designer IP subsystems used in the OFS Agilex Agilex® 7 SoC Attach f2000x FIM.
+The *FIM Subsystems* Table  describes the Platform Designer IP subsystems used in the OFS Agilex Agilex™ 7 SoC Attach f2000x FIM.
 
 *Table: FIM Subsystems*
 
@@ -202,7 +202,7 @@ In the default design, the SoC and Host AFUs are isolated from each other. You m
 
 #### **1.2.1.4 Host Exercisers**
 
-The default AFU workloads in the OFS Agilex® 7 SoC Attach f2000x FIM contains several modules called Host Exercisers which are used to exercise the interfaces on the board. The *Host Exerciser Descriptions* Table describes these modules.
+The default AFU workloads in the OFS Agilex™ 7 SoC Attach f2000x FIM contains several modules called Host Exercisers which are used to exercise the interfaces on the board. The *Host Exerciser Descriptions* Table describes these modules.
 
 *Table: Host Exerciser Descriptions*
 
@@ -217,7 +217,7 @@ The host exercisers can be removed from the design at compile-time using command
 
 #### **1.2.1.5 Module Access via APF/BPF**
 
-The OFS Agilex Agilex® 7 SoC Attach f2000x FIM uses AXI4-Lite interconnect logic named the AFU Peripheral Fabric (APF) and Board Peripheral Fabric (BPF) to access the registers of the various modules in the design. The APF/BPF modules define master/slave interactions, namely between the SoC/Host software and AFU and board peripherals. The following tables describe the address mapping of the APF and BPF for both the SoC and the Host.
+The OFS Agilex Agilex™ 7 SoC Attach f2000x FIM uses AXI4-Lite interconnect logic named the AFU Peripheral Fabric (APF) and Board Peripheral Fabric (BPF) to access the registers of the various modules in the design. The APF/BPF modules define master/slave interactions, namely between the SoC/Host software and AFU and board peripherals. The following tables describe the address mapping of the APF and BPF for both the SoC and the Host.
 
 *Table: SoC APF Address Map*
 
@@ -260,31 +260,31 @@ The OFS Agilex Agilex® 7 SoC Attach f2000x FIM uses AXI4-Lite interconnect logi
 
 ### **1.2.2 Customization Options**
 
-OFS is designed to be easily customizable to meet your design needs. The *OFS FIM Customization Examples Table* lists the general user flows for OFS Agilex® 7 SoC Attach f2000x FIM development, along with example customizations for each user flow, plus links to step-by-step walkthroughs where available.
+OFS is designed to be easily customizable to meet your design needs. The *OFS FIM Customization Examples Table* lists the general user flows for OFS Agilex™ 7 SoC Attach f2000x FIM development, along with example customizations for each user flow, plus links to step-by-step walkthroughs where available.
 
 *Table: OFS FIM Customization Examples*
 
 | Walkthrough Name |
 | --- |
-| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
-| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
-| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
-| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
-| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#416-walkthrough-debug-the-fim-with-signal-tap) |
-| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
-| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#431-walkthrough-resize-the-partial-reconfiguration-region) |
-| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4431-walkthrough-modify-the-pcie-sub-system-and-pf-vf-mux-configuration-using-ofss) |
-| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4441-walkthrough-modify-pcie-sub-system-and-pf-vf-mux-configuration-using-ip-presets) |
-| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#451-walkthrough-create-a-minimal-fim) |
-| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
-| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
-| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
-| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
-| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
-| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
-| [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) |
-| [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) |
-| [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) |
+| [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) |
+| [Modify and run unit tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#413-walkthrough-modify-and-run-unit-tests-for-a-fim-that-has-a-new-module) |
+| [Modify and run UVM tests for a FIM that has a new module](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#414-walkthrough-modify-and-run-uvm-tests-for-a-fim-that-has-a-new-module) |
+| [Hardware test a FIM that has a new module](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#415-walkthrough-hardware-test-a-fim-that-has-a-new-module) |
+| [Debug the FIM with Signal Tap](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#416-walkthrough-debug-the-fim-with-signal-tap) |
+| [Compile the FIM in preparation for designing your AFU](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-walkthrough-compile-the-fim-in-preparation-for-designing-your-afu) |
+| [Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#431-walkthrough-resize-the-partial-reconfiguration-region) |
+| [Modify the PCIe Sub-System and PF/VF MUX Configuration Using OFSS](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4431-walkthrough-modify-the-pcie-sub-system-and-pf-vf-mux-configuration-using-ofss) |
+| [Modify PCIe Sub-System and PF/VF MUX Configuration Using IP Presets](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4441-walkthrough-modify-pcie-sub-system-and-pf-vf-mux-configuration-using-ip-presets) |
+| [Create a Minimal FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#451-walkthrough-create-a-minimal-fim) |
+| [Migrate to a Different Agilex Device Number](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#461-walkthrough-migrate-to-a-different-agilex-device-number) |
+| [Modify the Memory Sub-System Using IP Presets With OFSS](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#471-walkthrough-modify-the-memory-sub-system-using-ip-presets-with-ofss) |
+| [Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#481-walkthrough-modify-the-ethernet-sub-system-channels-with-pre-made-hssi-ofss) |
+| [Add Channels to the Ethernet Sub-System Channels With Custom HSSI OFSS](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#482-walkthrough-add-channels-to-the-ethernet-sub-system-channels-with-custom-hssi-ofss) |
+| [Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#483-walkthrough-modify-the-ethernet-sub-system-with-pre-made-hssi-ofss-plus-additional-modifications) |
+| [Modify the Ethernet Sub-System Without HSSI OFSS](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#484-walkthrough-modify-the-ethernet-sub-system-without-hssi-ofss) |
+| [Set up JTAG](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) |
+| [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) |
+| [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) |
 
 ### **1.3 Development Environment**
 
@@ -292,21 +292,21 @@ This section describes the components required for OFS FIM development, and prov
 
 Note that your development machine may be different than your deployment machine where the FPGA card is installed. FPGA development work and deployment work can be performed either on the same machine, or on different machines as desired. Refer to the following guides for instructions on setting up an OFS deployment environment.
 
-* [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation)
-* [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach)
+* [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation)
+* [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach)
 
 The recommended Best Known Configuration (BKC) operating system for development of the OFS FIM is RedHatEnterprise Linux® (RHEL) 8.6, which is the assumed operating system for this developer guide. 
 
 The recommended development environment requires the following:
 
 1. Workstation or server with a Quartus Prime Pro Version 23.4 installed on a Quartus Prime Pro-supported Linux distribution.  See [Operating System Support](https://www.intel.com/content/www/us/en/support/programmable/support-resources/design-software/os-support.html).  The Linux distribution known to work with this version of RedHatEnterprise Linux® (RHEL) 8.6 . Note, Windows is not supported.
-2. Compilation targeting Agilex® 7 FPGA devices requires a minimum of 64 GB of RAM.
+2. Compilation targeting Agilex™ 7 FPGA devices requires a minimum of 64 GB of RAM.
 3. Simulation of lower level functionality (not chip level) is supported by Synopsys<sup>&reg;</sup> VCS and Mentor Graphics<sup>&reg;</sup> QuestaSim SystemVerilog simulators.
 4. Simulation of chip level requires Synopsys VCS and VIP
 
-You may modify the build scripts and pin files to target different boards with Agilex® 7 FPGA devices.
+You may modify the build scripts and pin files to target different boards with Agilex™ 7 FPGA devices.
 
-Testing the Agilex® 7 SoC Attach on the IPU Platform F2000X-PL hardware requires a deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+Testing the Agilex™ 7 SoC Attach on the IPU Platform F2000X-PL hardware requires a deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
 #### **1.3.1 Development Tools**
 
@@ -333,11 +333,15 @@ Use Ubuntu 22.04 LTS for compatibility with your development flow and also testi
 
 Prior to installing Quartus:
 
-1. Ensure you have at least 64 GB of free space for Quartus Prime Pro installation and your development work.
-  * Intel® recommends that your system be configured to provide virtual memory equal in size or larger than the recommended physical RAM size that is required to process your design.
+1. Ensure you have sufficient free disk space for Quartus Prime Pro installation and your development work.
+
   * The disk space may be significantly more based on the device families included in the install. Prior to installation, the disk space should be enough to hold both zipped tar files and uncompressed installation files. After successful installation, delete the downloaded zipped files and uncompressed zip files to release the disk space.
 
-2. Perform the following steps to satisfy the required dependencies.
+2. Ensure you have sufficient RAM available for OFS compilations with Quartus
+
+  * It is recommended you have at least 128 GB of RAM to compile OFS designs.
+
+3. Perform the following steps to satisfy the required dependencies.
 
   ```bash
   $ sudo dnf install -y gcc gcc-c++ make cmake libuuid-devel rpm-build autoconf automake bison boost boost-devel libxml2 libxml2-devel make ncurses grub2 bc csh flex glibc-locale-source libnsl ncurses-compat-libs 
@@ -351,7 +355,7 @@ Prior to installing Quartus:
   $ sudo ln -s /usr/bin/python3 /usr/bin/python
   ```
 
-3. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
+4. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
 
   The installation path must satisfy the following requirements:
 
@@ -360,9 +364,7 @@ Prior to installing Quartus:
   * Only English characters
   * No spaces
 
-4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
-
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1). The patches for this release are 0.17.
+5. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 
@@ -389,9 +391,9 @@ Prior to installing Quartus:
 
 #### **1.3.2 FIM Source Files**
 
-OFS provides a framework of FPGA synthesizable code, simulation environment, and synthesis/simulation scripts.  FIM designers can use the provided code as-is, modify the provided code, or add new code to meet your specific product requirements. Instructions for compiling the existing design is given in the [FIM Compilation](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2-fim-compilation) section, while instructions for customizing the default design can be found in the [FIM Customization](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-fim-customization) section.
+OFS provides a framework of FPGA synthesizable code, simulation environment, and synthesis/simulation scripts.  FIM designers can use the provided code as-is, modify the provided code, or add new code to meet your specific product requirements. Instructions for compiling the existing design is given in the [FIM Compilation](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2-fim-compilation) section, while instructions for customizing the default design can be found in the [FIM Customization](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#4-fim-customization) section.
 
-The source files for the OFS Agilex® 7 SoC Attach FIM are provided in the following repository: [https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1).
+The source files for the OFS Agilex™ 7 SoC Attach FIM are provided in the following repository: [https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1](https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1).
 
 Some essential directories in the repository are described as follows:
 
@@ -412,7 +414,7 @@ Some essential directories in the repository are described as follows:
 |  |  common
 |  |  scripts
 |  |  unit_test    // Contains files for all unit tests
-|  src             // Contains source files for Agilex Agilex® 7 SoC Attach FIM
+|  src             // Contains source files for Agilex Agilex™ 7 SoC Attach FIM
 |  |  afu_top      // Contains top-level source files for AFU
 |  |  includes     // Contains source file header files
 |  |  pd_qsys      // Contains source files related to APF/BPF fabric
@@ -433,7 +435,7 @@ Some essential directories in the repository are described as follows:
 
 ##### **1.3.2.1 Walkthrough: Clone FIM Repository**
 
-Perform the following steps to clone the OFS Agilex® 7 SoC Attach FIM Repository:
+Perform the following steps to clone the OFS Agilex™ 7 SoC Attach FIM Repository:
 
 1. Create a new directory to use as a clean starting point to store the retrieved files.
     ```bash
@@ -498,7 +500,6 @@ Perform the following steps to set the required environment variables. These env
   export LM_LICENSE_FILE=<YOUR_LM_LICENSE_FILE>
 
   # Set Synopsys License path (if using Synopsys for simulation)
-  export DW_LICENSE_FILE=<YOUR_DW_LICENSE_FILE>
   export SNPSLMD_LICENSE_FILE=<YOUR_SNPSLMD_LICENSE_FILE>
 
   # Set Quartus Installation Directory - e.g. $QUARTUS_ROOTDIR/bin contains Quartus executables
@@ -527,6 +528,8 @@ Perform the following steps to set the required environment variables. These env
   export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/vip_Q-2020.03A
   export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.F2000X_SIM_VCS_VER_SH }}/linux64/rhel/etc/uvm
   export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.F2000X_SIM_VCS_VER_SH }}/linux64/rhel
+  export VCS_TARGET_ARCH=linux64
+  export VMR_MODE_FLAG=64
   export MTI_HOME=$QUARTUS_ROOTDIR/../questa_fse
   export VERDIR=$OFS_ROOTDIR/verification
   export VIPDIR=$VERDIR
@@ -542,7 +545,7 @@ Perform the following steps to set the required environment variables. These env
 
 This walkthrough guides you through the process of setting up your development environment in preparation for FIM development. This flow only needs to be done once on your development machine.
 
-1. Ensure that Quartus Prime Pro Version 23.4 for Linux with Agilex® 7 FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions. Quartus Prime Pro Version 23.4 is the currently verified version of Quartus Prime Pro used for building the FIM and AFU images.  Porting to newer versions of Quartus Prime Pro may be performed by developers, however, you will need to verify operation.
+1. Ensure that Quartus Prime Pro Version 23.4 for Linux with Agilex™ 7 FPGA device support is installed on your development machine. Refer to the [Install Quartus Prime Pro Software](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1311-walkthrough-install-quartus-prime-pro-software) section for step-by-step installation instructions. Quartus Prime Pro Version 23.4 is the currently verified version of Quartus Prime Pro used for building the FIM and AFU images.  Porting to newer versions of Quartus Prime Pro may be performed by developers, however, you will need to verify operation.
 
   1. Verify version number
 
@@ -601,7 +604,7 @@ This walkthrough guides you through the process of setting up your development e
       cmake version 3.15
       ```
 
-3. Clone the ofs-f2000x-pl repository if not already cloned. Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+3. Clone the ofs-f2000x-pl repository if not already cloned. Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
 4. Install UART IP license patch `.02`.
 
@@ -637,7 +640,7 @@ This walkthrough guides you through the process of setting up your development e
   quartus_sh --version
   ```
 
-5. Set required environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+5. Set required environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 This concludes the walkthrough for setting up your development environment. At this point you are ready to begin FIM development.
 
@@ -645,13 +648,13 @@ This concludes the walkthrough for setting up your development environment. At t
 
 This section describes the process of compiling OFS FIM designs using the provided build scripts. It contains two main sections:
 
-* [Compilation Theory](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#21-compilation-theory) - Describes the theory behind FIM compilation
-* [Compilation Flows](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#22-compilation-flows) - Describes the process of compiling a FIM
+* [Compilation Theory](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#21-compilation-theory) - Describes the theory behind FIM compilation
+* [Compilation Flows](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#22-compilation-flows) - Describes the process of compiling a FIM
 
 The walkthroughs provided in this section are:
 
-* [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim)
-* [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2261-walkthrough-manually-generate-ofs-out-of-tree-pr-fim)
+* [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim)
+* [Manually Generate OFS Out-Of-Tree PR FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2261-walkthrough-manually-generate-ofs-out-of-tree-pr-fim)
 
 ### **2.1 Compilation Theory**
 
@@ -682,9 +685,9 @@ build_top.sh [-k] [-p] [-e] [--stage=<action>] [--ofss=<ip_config>] <build_targe
 | `<fim_options>` | `flat` \| `null_he_lb` \| `null_he_hssi` \| `null_he_mem` \| `null_he_mem_tg` \| `no_hssi` | Used to change how the FIM is built.</br>&nbsp;&nbsp;&bull; `flat` - Compiles a flat design (no PR assignments). This is useful for bringing up the design on a new board without dealing with PR complexity.</br>&nbsp;&nbsp;&bull; `null_he_lb` - Replaces the Host Exerciser Loopback (HE_LBK) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_hssi` - Replaces the Host Exerciser HSSI (HE_HSSI) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`.</br>&nbsp;&nbsp;&bull; `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`. </br>&nbsp;&nbsp;&bull; `no_hssi` - Removes the HSSI-SS from the FIM. </br>More than one FIM option may be passed included in the `<fim_options>` list by concatenating them separated by commas. For example: `<build_target>:flat,null_he_lb,null_he_hssi` | Optional | 
 | `<work_dir_name>` | String | Specifies the name of the work directory in which the FIM will be built. If not specified, the default target is `$OFS_ROOTDIR/work` | Optional |
 
-Refer to [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) which provides step-by-step instructions for running the `build_top.sh` script with some of the different available options.
+Refer to [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) which provides step-by-step instructions for running the `build_top.sh` script with some of the different available options.
 
-If you wish to compile the f2000x FIM using the Quartus Prime Pro GUI, you must at least run the setup portion of the `build_top.sh` script before compiling with the GUI. For instructions on compiling the FIM using the Quartus GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui) section.
+If you wish to compile the f2000x FIM using the Quartus Prime Pro GUI, you must at least run the setup portion of the `build_top.sh` script before compiling with the GUI. For instructions on compiling the FIM using the Quartus GUI, refer to the [Compiling the OFS FIM Using Quartus GUI](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-compiling-the-ofs-fim-using-quartus-gui) section.
 
 The build scripts included with OFS are verified to run in a bash shell. Other shells have not been tested. The full build script typically takes around 3 hours to complete.
 
@@ -712,7 +715,7 @@ An HE_NULL FIM refers to a design with one, some, or all of the Host Exercisers 
 * `null_he_mem` - Replaces the Host Exerciser Memory (HE_MEM) with `he_null`
 * `null_he_mem_tg` - Replaces the Host Exerciser Memory Traffic Generator with `he_null`
 
-The [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) section gives step-by-step instructions for this flow.
+The [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) section gives step-by-step instructions for this flow.
 
 #### **2.1.2 OFSS File Usage**
 
@@ -906,27 +909,27 @@ The output files include programmable images and compilation reports. The *OFS B
 | ofs_top_page1_unsigned_user1.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User1 Image. This file is used to load the FPGA flash User1 Image using the fpgasupdate tool. **Unsigned** means that the image has been signed with an empty header. |
 | ofs_top_page2_user2.bin |  This is an input file to PACSign to generate `ofs_top_page2_unsigned_user2.bin`. This file is created by taking the `ofs_top.bin` file and assigning the User2 or appending factory block information. |
 | ofs_top_page2_unsigned_user2.bin | This is the unsigned FPGA binary image generated by the PACSign utility for the User2 Image. This file is used to load the FPGA flash User2 Image using the fpgasupdate tool. **Unsigned** means that the image has been signed with an empty header. |
-| ofs_top.sof | This image is used to generate `ofs_top.bin`, and can also be used to program the Agilex® 7 FPGA device directly through JTAG |
+| ofs_top.sof | This image is used to generate `ofs_top.bin`, and can also be used to program the Agilex™ 7 FPGA device directly through JTAG |
 
 >**Note:** The `build/output_files/timing_report` directory contains clocks report, failing paths and passing margin reports. 
 
 ### **2.2 Compilation Flows**
 
-This section provides information for using the build script to generate different FIM types. Walkthroughs are provided for each compilation flow. These walkthroughs require that the development environment has been set up as described in the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) section.
+This section provides information for using the build script to generate different FIM types. Walkthroughs are provided for each compilation flow. These walkthroughs require that the development environment has been set up as described in the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) section.
 
 #### **2.2.1 Flat FIM**
 
-A flat FIM is compiled such that there is no partial reconfiguration region, and the entire design is built as a flat design. This is useful for compiling new designs without worrying about the complexity introduced by partial reconfiguration. The flat compile removes the PR region and PR IP; thus, you cannot use the `-p` build flag when using the `flat` compile setting. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+A flat FIM is compiled such that there is no partial reconfiguration region, and the entire design is built as a flat design. This is useful for compiling new designs without worrying about the complexity introduced by partial reconfiguration. The flat compile removes the PR region and PR IP; thus, you cannot use the `-p` build flag when using the `flat` compile setting. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
 
 #### **2.2.2 In-Tree PR FIM**
 
-An In-Tree PR FIM is the default compilation if no compile flags or compile settings are used. This flow will compile the design with the partial reconfiguration region, but it will not create a relocatable PR directory tree to aid in AFU development. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+An In-Tree PR FIM is the default compilation if no compile flags or compile settings are used. This flow will compile the design with the partial reconfiguration region, but it will not create a relocatable PR directory tree to aid in AFU development. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
 
 #### **2.2.3 Out-of-Tree PR FIM**
 
 An Out-of-Tree PR FIM will compile the design with the partial reconfiguration region, and will create a relocatable PR directory tree to aid in AFU workload development. This is especially useful if you are developing a FIM to be used by another team developing AFU workloads. This is the recommended build flow in most cases. There are two ways to create the relocatable PR directory tree:
 
-* Run the FIM build script with the `-p` option. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
+* Run the FIM build script with the `-p` option. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for this flow.
 * Run the `generate_pr_release.sh` script after running the FIM build script. Refer to the **Walkthrough: Manually Generate OFS Out-Of-Tree PR FIM** Section step-by-step instructions for this flow.
 
 In both cases, the `generate_pr_release.sh` is run to create the relocatable build tree. This script is located at `$OFS_ROOTDIR/ofs-common/scripts/common/syn/generate_pr_release.sh`. Usage for this script is as follows:
@@ -970,17 +973,17 @@ After generating the relocatable build tree, it is located in the `$OFS_ROOTDIR/
 
 ### **2.2.5 Walkthrough: Compile OFS FIM**
 
-Perform the following steps to compile the OFS Agilex® 7 SoC Attach FIM for the f2000x:
+Perform the following steps to compile the OFS Agilex™ 7 SoC Attach FIM for the f2000x:
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the root directory.
 
@@ -996,7 +999,7 @@ Steps:
     ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x work_f2000x_oot_pr
     ```
     
-    Refer to the [Create a Relocatable PR Directory Tree](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim) section for more information on out-of-tree PR builds.
+    Refer to the [Create a Relocatable PR Directory Tree](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-create-a-relocatable-pr-directory-tree-from-the-base_x16-fim) section for more information on out-of-tree PR builds.
 
   * Flat FIM using OFSS
 
@@ -1105,13 +1108,13 @@ This walkthrough describes how to manually generate an Out-Of-Tree PR FIM.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the root directory.
 
@@ -1141,13 +1144,13 @@ Perform the following steps to change the compilation seed for the FIM build.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Edit the `SEED` assignment in the `$OFS_ROOTDIR/syn/syn_top/ofs_top.qsf` file to your desired seed value. The value can be any non-negative integer value.
 
@@ -1159,7 +1162,7 @@ Steps:
   set_global_assignment -name SEED 2
   ```
 
-4. Build the FIM. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) section for instructions.
+4. Build the FIM. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) section for instructions.
 
 #### **2.2.8 Compiling the OFS FIM Using Quartus GUI**
 
@@ -1167,11 +1170,11 @@ Perform the following steps to compile the OFS FIM using the Quartus GUI:
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
 2. Run the setup portion of the build script. This takes a few seconds to complete.
 
@@ -1270,9 +1273,9 @@ The *Gen Sim Files Script Options* table describes the options for the `gen_sim_
 
 <sup>**[1]**</sup> Using OFSS is required for the N6000, F-Series Development Kit (2xF-Tile), and the I-Series Development Kit (2xR-Tile, 1xF-Tile).
 
-Refer to the [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#321-walkthrough-run-individual-unit-level-simulation) section for an example of the simulation files generation flow.
+Refer to the [Run Individual Unit Level Simulation](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#321-walkthrough-run-individual-unit-level-simulation) section for an example of the simulation files generation flow.
 
-When running regression tests, you may use the `-g` command line argument to generate simulation files; refer to the [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#331-walkthrough-run-regression-unit-level-simulation) section for step-by-step instructions.
+When running regression tests, you may use the `-g` command line argument to generate simulation files; refer to the [Run Regression Unit Level Simulation](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#331-walkthrough-run-regression-unit-level-simulation) section for step-by-step instructions.
 
 ### **3.2 Individual Unit Tests**
 
@@ -1320,13 +1323,13 @@ Perform the following steps to run an individual unit test on either the SoC or 
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the simulation directory.
 
@@ -1368,7 +1371,8 @@ Steps:
 
     ```bash
     sh run_sim.sh TEST=dfh_walker VCSMX=1
-
+    ```
+    
 7. Once the test has completed, the test summary will be shown. The following is an example test summary after running the SoC DFH Walker Test:
 
   ```bash
@@ -1413,13 +1417,13 @@ Perform the following steps to run comprehensive regression unit tests.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Navigate to the test directory you wish to run from.
 
@@ -1480,7 +1484,7 @@ Steps:
 
 ## **4 FIM Customization**
 
-This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+This section describes how to perform specific customizations of the FIM, and provides step-by-step walkthroughs for these customizations. Each walkthrough can be done independently. These walkthroughs require a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment. The *FIM Customization Walkthroughs* table lists the walkthroughs that are provided in this section. Some walkthroughs include steps for testing on hardware. Testing on hardware requires that you have a deployment environment set up. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
 *Table: FIM Customization Walkthroughs*
 
@@ -1546,7 +1550,7 @@ We will add the Hello FIM module to an un-used address space in the SoC MMIO reg
 |0x133000|Remote SignalTap (Port Gasket)|
 |0x140000|AFU Errors (AFU Interface Handler)|
 
-Refer to the [FIM Technical Reference Manual: Interconnect Fabric](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/#5-interconnect-fabric) for more information on the default MMIO region.
+Refer to the [FIM Technical Reference Manual: Interconnect Fabric](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/#5-interconnect-fabric) for more information on the default MMIO region.
 
 ##### **4.1.1.2 Hello FIM CSR**
 
@@ -1585,13 +1589,13 @@ Perform the following steps to add a new module to the OFS FIM that can be acces
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Modify `syn/syn_top/ofs_top.qsf`
 
@@ -2090,13 +2094,13 @@ Perform the following steps to modify the unit test files to support a FIM that 
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
+1. This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Modify `$OFS_ROOTDIR/sim/unit_test/soc_tests/dfh_walker/test_csr_defs.sv`
 
@@ -2249,9 +2253,9 @@ Perform the following steps to modify the UVM simulation files to support a desi
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
+* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design in order to simulate.
 
 Steps:
 
@@ -2419,15 +2423,15 @@ Perform the following steps to program and hardware test a FIM that has had a ne
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex™ 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
-* This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
+* This walkthrough uses a FIM design that has been generated with a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for generating a Hello FIM design.
 
 Steps:
 
 1. Start in your deployment environment.
 
-2. Program the FPGA with the Hello FIM image. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
+2. Program the FPGA with the Hello FIM image. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
 
 3. Run the `fpgainfo fme` command to determine the PCIe B:D.F of your board. In this example, the PCIe B:D.F is `15:00.0`.
    
@@ -2632,11 +2636,11 @@ Signal Tap uses the FPGA Download Cable II USB device to provide access.  Please
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex™ 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
-* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
+* This walkthrough uses a FIM design that has had a Hello FIM module added to it. Refer to the [Add a new module to the OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#412-walkthrough-add-a-new-module-to-the-ofs-fim) section for step-by-step instructions for creating a Hello FIM design. You do not need to compile the design.
 
 Steps:
 
@@ -2650,7 +2654,7 @@ Steps:
    
   * If you are adding signal tap to a new design that has not yet been synthesized, perform the following steps to synthesize the design.
 
-    1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+    1. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
     2. Run the build script with the `-e` option to synthesize the design.
 
@@ -2769,11 +2773,11 @@ Steps:
   ***********************************
   ```
 
-18. Set up a JTAG connection to the f2000x. Refer to [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
+18. Set up a JTAG connection to the f2000x. Refer to [Set up JTAG](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
 19. Copy the `ofs_top.sof` and `stp_for_hello_fim.stp` files to the machine which is connected to the f2000x via JTAG.
 
-20. From the JTAG connected machine, program the `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/output_files/ofs_top.sof` image to the f2000x FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) section for step-by-step programming instructions.
+20. From the JTAG connected machine, program the `$OFS_ROOTDIR/work_hello_fim_with_stp/syn/syn_top/output_files/ofs_top.sof` image to the f2000x FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) section for step-by-step programming instructions.
 
 21. Open Quartus Signal Tap GUI.
 
@@ -2785,11 +2789,11 @@ Steps:
    
   ![](images/stp_open_STP_For_Hello_FIM.stp.png)
    
-23. In the right pane of the Signal Tap GUI, in the **Hardware:** selection box select the cable `USB-BlasterII`. In the **Device:** selection box select the Agilex® 7 FPGA device.
+23. In the right pane of the Signal Tap GUI, in the **Hardware:** selection box select the cable `USB-BlasterII`. In the **Device:** selection box select the Agilex™ 7 FPGA device.
 
   ![](images/stp_select_usbBlasterII_hardware.png)
    
-24.   If the Agilex® 7 FPGA is not displayed in the **Device:** list, click the **'Scan Chain'** button to re-scan the JTAG device chain.
+24.   If the Agilex™ 7 FPGA is not displayed in the **Device:** list, click the **'Scan Chain'** button to re-scan the JTAG device chain.
 
 25. If not already set, you can create the trigger conditions. In this example, we will capture data on a rising edge of the Read Address Valid signal.
    
@@ -2830,13 +2834,13 @@ Perform the following steps to compile a FIM for where the exercisers are remove
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Compile the FIM with the HE_NULL compile options
 
@@ -2854,7 +2858,7 @@ Steps:
 
 ### **4.3 Partial Reconfiguration Region**
 
-To take advantage of the available resources in the Agilex® 7 FPGA for an AFU design, you can adjust the size of the AFU PR partition. An example reason for the changing the size of PR region is if you add more logic to the FIM region, then you may need to reduce the size of the PR region to fit the additional logic into the static region.  Similiarly, if you reduce logic in the FIM region, then you can increase the size of the PR region to provide more logic resources for the AFU.
+To take advantage of the available resources in the Agilex™ 7 FPGA for an AFU design, you can adjust the size of the AFU PR partition. An example reason for the changing the size of PR region is if you add more logic to the FIM region, then you may need to reduce the size of the PR region to fit the additional logic into the static region.  Similiarly, if you reduce logic in the FIM region, then you can increase the size of the PR region to provide more logic resources for the AFU.
 
 After the compilation of the FIM, the resources usage broken down by partitions is reported in the `Logic Lock Region Usage Summary` sections of following two files:
 
@@ -2884,7 +2888,7 @@ Perform the following steps to customize the resources allocated to the AFU in t
 
   Each region is made up of rectangles defined by the origin (X0,Y0) and the top right corner (X1,Y1).
 
-2. Use Quartus Chip Planner to identify the locations of the resources available within the Agilex® 7 FPGA for placement and routing your AFU. The image below shows the default floorplan for the f2000x Agilex® 7 FPGA.
+2. Use Quartus Chip Planner to identify the locations of the resources available within the Agilex™ 7 FPGA for placement and routing your AFU. The image below shows the default floorplan for the f2000x Agilex™ 7 FPGA.
 
   ![](images/chip_planner_coordinates.png)
 
@@ -2910,12 +2914,12 @@ Refer to the following documentation for more information on how to optimize the
 
 The PCIe sub-system IP and PF/VF MUX can be modified either using the OFSS flow or the IP Presets flow. The OFSS flow supports a subset of all available PCIe Sub-system settings, while the IP Preset flow can make any available PCIe Sub-system settings change. With PCIe-SS modifcations related to the PFs and VFs, the PF/VF MUX logic is automatically configured based on the PCIe-SS configuration when using OFSS. The sections below describe each flow.
 
-* [PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-pcie-configuration-using-ofss)
-* [PCIe Sub-System configuration Using IP Presets](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-pcie-sub-system-configuration-using-ip-presets)
+* [PCIe Configuration Using OFSS](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#443-pcie-configuration-using-ofss)
+* [PCIe Sub-System configuration Using IP Presets](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#444-pcie-sub-system-configuration-using-ip-presets)
 
 #### **4.4.1 PF/VF MUX Configuration**
 
-The default PF/VF MUX configuration for OFS Agilex® 7 SoC Attach FIM for the f2000x can support up to 8 PFs and 2000 VFs distributed accross all PFs on both the Host and the SoC.
+The default PF/VF MUX configuration for OFS Agilex™ 7 SoC Attach FIM for the f2000x can support up to 8 PFs and 2000 VFs distributed accross all PFs on both the Host and the SoC.
 
 For reference FIM configurations, you must have at least 1 PF on the Host, and at least 1 PF with 1 VF on the SoC. This is because the PR region cannot be left unconnected. PFs must be consecutive. The *PFVF Limitations* table describes the supported number of PFs and VFs.
 
@@ -2984,15 +2988,15 @@ Perform the following steps to modify the PF/VF MUX configuration.
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex™ 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Decide which PCIe PF/VFs require modification.  If you are modifying host side PF/VF configuration, you must edit file `pcie_host.ofss` file found in `$OFS_ROOTDIR/tools/pfvf_config_tool`.  If you want to modify SoC-side PF/VF configuration, edit the `pcie_soc.ofss` file found in the same location. The the following code shows the default Host OFSS file:
 
@@ -3067,7 +3071,7 @@ Steps:
 
 9. Switch to your deployment environment.
 
-10. Program the `.bin` image to the f2000x FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
+10. Program the `.bin` image to the f2000x FPGA. Refer to the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step programming instructions.
 
 11. From the Host, verify the number of VFs on the PFs. In this example, we defined 4 VFs on PF0 in Step 5.
 
@@ -3131,15 +3135,15 @@ Perform the following steps to use an IP preset file to configure the PCIe Sub-s
 
 Pre-requisites:
 
-* This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment to build the FIM. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex™ 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. [OPTIONAL] Run the `setup` stage of the build script using your desired OFSS configration to create a working directory for the target board. In this example we will target the f2000x.
 
@@ -3149,8 +3153,9 @@ Steps:
 
 4. Open the host PCIe-SS using Quartus Parameter Editor. If you performed Step 3, open the PCIe-SS IP from the work directory; otherwise, open the PCIe-SS IP from the source files.
 
-  ```bash
-  qsys-edit $OFS_ROOTDIR/work_f2000x/ipss/pcie/qip/pcie_ss.ip
+    ```bash
+    qsys-edit $OFS_ROOTDIR/work_f2000x/ipss/pcie/qip/pcie_ss.ip
+    ```
 
 5. Modify the settings as desired. In this example we will change the **Revision ID** to `0x2`. In the **IP Parameter Editor**, scroll down and expand the **PCIe Interfaces Ports Settings -> Port 0 -> PCIe0 Device Identification Registers -> PCIe0 PF0 IDs** tab and make this change.
 
@@ -3205,7 +3210,7 @@ Steps:
 
   >**Note:** OPAE FPGA management commands require recognition of the FPGA PCIe Device ID for control.  If there is a problem between OPAE management recognition of FPGA PCIe values, then control of the card will be lost.  For this reason, you are strongly encouraged to program the FPGA via JTAG to load the test FPGA image.  If there is a problem with the SOF image working with your host software that is updated for the new PCIe settings, then you can load a known good SOF file to recover.  Once you sure that both the software and FPGA work properly, you can load the FPGA into FPGA flash using the OPAE command `fpgasupdate`.
 
-14. Program the image to the f2000x FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step JTAG programming instructions, or the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step RSU programming instructions.
+14. Program the image to the f2000x FPGA. Refer to the [Program the FPGA via JTAG](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#52-walkthrough-program-the-fpga-via-jtag) Section for step-by-step JTAG programming instructions, or the [Program the FPGA via RSU](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#531-walkthrough-program-the-fpga-via-rsu) Section for step-by-step RSU programming instructions.
 
 15. Use `lspci` to verify that the PCIe changes have been implemented.
 
@@ -3227,7 +3232,7 @@ Steps:
   NUMANode:       1
   ```
 
->**Note:** Some changes to software may be required to work with certain new PCIe settings. These changes are described in [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.2-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) 
+>**Note:** Some changes to software may be required to work with certain new PCIe settings. These changes are described in [Software Reference Manual: Open FPGA Stack](https://ofs.github.io/ofs-2024.3-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) 
 
 #### **4.5.1 Walkthrough: Create a Minimal FIM**
 
@@ -3235,15 +3240,15 @@ Perform the following steps to create a Minimal FIM. A minimal FIM is one that h
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
-* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex™ 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 To create this minimal FIM, perform the following steps:
 
 3. Edit the Host PCIe OFSS file to use the minimal number of  PFs (1).
@@ -3285,11 +3290,11 @@ To create this minimal FIM, perform the following steps:
   ./ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x:null_he_lb,null_he_hssi,null_he_mem,null_he_mem_tg,no_hssi work_f2000x_minimal_fim
   ```
 
-6. The build will complete with reduced resources as compared to the base version. You may review the floorplan in Quartus Chip Planner and modify the Logic Lock regions to allocate more resources to the PR region if desired. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan. 
+6. The build will complete with reduced resources as compared to the base version. You may review the floorplan in Quartus Chip Planner and modify the Logic Lock regions to allocate more resources to the PR region if desired. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan. 
 
 ### **4.6 Migrate to a Different Agilex Device Number**
 
-The following instructions enable you to change the Agilex 7 FPGA device part number of the f2000x, for example, to migrate to a device with a larger density. Be aware that this release works with Agilex® 7 FPGAs that have P-tile for PCIe and E-tile for Ethernet.
+The following instructions enable you to change the Agilex 7 FPGA device part number of the f2000x, for example, to migrate to a device with a larger density. Be aware that this release works with Agilex™ 7 FPGAs that have P-tile for PCIe and E-tile for Ethernet.
 
 The default device for the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL is AGFC023R25A2E2VR0
 
@@ -3299,13 +3304,13 @@ This walkthrough describes how to change the device to a larger density with the
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the design repository. See the [Clone the OFS Git Repo](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
+1. Clone the design repository. See the [Clone the OFS Git Repo](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#421-clone-the-ofs-git-repo) section.
 
-2. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
+2. Set the environment variables as described in the [Setting Up Required Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#441-setting-up-required-environment-variables) section.
 
 3. Navigate to the OFS Root Directory
 
@@ -3376,7 +3381,7 @@ Steps:
   ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x:flat  <YOUR_WORK_DIRECTORY>
   ```
 
-6. To enable the PR region, use Quartus Chip Planner to analyze the compiled flat design and adjust the Logic Lock constraints defined in `$OFS_ROOTDIR/syn/setup/pr_assignments.tcl` for the new device layout. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for instructions. Re-compile the design with the out-of-tree PR region enabled.
+6. To enable the PR region, use Quartus Chip Planner to analyze the compiled flat design and adjust the Logic Lock constraints defined in `$OFS_ROOTDIR/syn/setup/pr_assignments.tcl` for the new device layout. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for instructions. Re-compile the design with the out-of-tree PR region enabled.
 
   ```bash
   cd $OFS_ROOTDIR
@@ -3393,13 +3398,13 @@ In this example we will modify the Memory Subsystem to enable ECC on all of the 
 
 Pre-requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Open the Memory Subsystem IP file in Platform Designer to perform the required edits. 
 
@@ -3545,7 +3550,7 @@ Steps:
   ofs-common/scripts/common/syn/build_top.sh -p --ofss tools/ofss_config/f2000x.ofss f2000x <YOUR_WORK_DIRECTORY>
   ```
 
-11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+11. You may need to adjust the floorplan of the design in order to meet timing after a design change such as this. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
 
 ### **4.8 Modify the Ethernet Sub-System**
 
@@ -3557,17 +3562,17 @@ This section describes the flows for modifying the Ethernet Sub-System. There ar
 
 #### **4.8.1 Walkthrough: Modify the Ethernet Sub-System Channels With Pre-Made HSSI OFSS**
 
-This walkthrough describes how to use OFSS to configure the Ethernet-SS. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This walkthrough is useful for users who only need to leverage the pre-made, natively supported HSSI OFSS settings.
+This walkthrough describes how to use OFSS to configure the Ethernet-SS. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This walkthrough is useful for users who only need to leverage the pre-made, natively supported HSSI OFSS settings.
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Edit the `$OFS_ROTDIR/tools/ofss_config/f2000x.ofss` file to use the desired Ethernet-SS OFSS configuration. The pre-provided OFSS configurations are as follows:
 
@@ -3605,13 +3610,13 @@ This walkthrough describes how to create an use a custom OFSS file to add channe
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Create a new HSSI OFSS file `$OFS_ROOTDIR/tools/ofss_config/hssi/hssi_12x25.ofss` with the following contents. In this example we are using 12 channels.
 
@@ -3679,21 +3684,21 @@ Steps:
   ./ofs-common/scripts/common/syn/build_top.sh --ofss tools/ofss_config/f2000x.ofss f2000x:flat work_f2000x_12x25g
   ```
 
-10. You may need to adjust the floorplan in order to compile with a PR region that meets timing. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
+10. You may need to adjust the floorplan in order to compile with a PR region that meets timing. Refer to the [How to Resize the Partial Reconfiguration Region](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#54-how-to-resize-the-partial-reconfiguration-region) section for information regarding modifications to the floorplan.
 
 #### **4.8.3 Walkthrough: Modify the Ethernet Sub-System With Pre-Made HSSI OFSS Plus Additional Modifications**
 
-This walkthrough describes how to use OFSS to first modify the Ethernet-SS, then make additional modifications on top. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This flow is useful for users who whish to leverage pre-made OFSS settings, but make additional modifications not natively supported by OFSS.
+This walkthrough describes how to use OFSS to first modify the Ethernet-SS, then make additional modifications on top. Refer to section [HSSI IP OFSS File](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#2126-hssi-ip-ofss-file) for detailed information about modifications supported by Ethernet-SS OFSS files. This flow is useful for users who whish to leverage pre-made OFSS settings, but make additional modifications not natively supported by OFSS.
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Edit the `$OFS_ROTDIR/tools/ofss_config/f2000x.ofss` file to use the desired Ethernet-SS OFSS configuration starting point. Examples for using pre-provided HSSI OFSS files are given below.
 
@@ -3784,13 +3789,13 @@ This walkthrough describes how to modify the Ethernet-SS wihout using OFSS. This
 
 Pre-Requisites:
 
-* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
+* This walkthrough requires a development environment. Refer to the [Set Up Development Environment](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#134-walkthrough-set-up-development-environment) Section for instructions on setting up a development environment.
 
 Steps:
 
-1. Clone the OFS Agilex® 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
+1. Clone the OFS Agilex™ 7 SoC Attach FIM repository (or use an existing cloned repository). Refer to the [Clone FIM Repository](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1321-walkthrough-clone-fim-repository) section for step-by-step instructions.
 
-2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
+2. Set development environment variables. Refer to the [Set Development Environment Variables](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#1331-walkthrough-set-development-environment-variables) section for step-by-step instructions.
 
 3. Open the Ethernet-SS IP in Quartus Parameter Editor. Make your modifications in the Parameter Editor.
 
@@ -3831,7 +3836,7 @@ The f2000x  has a 10 pin JTAG header on the top side of the board.  This JTAG he
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex™ 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a workstation with Quartus Prime Pro Version 23.4 tools installed, specifically the `jtagconfig` tool.
 
@@ -3859,7 +3864,7 @@ Steps:
     ![f2000x_jtag_sm_server](images/f2000x_jtag_sm_server.png)
 
 
-5. There are two JTAG modes that exist. Short-chain mode is when only the Cyclone 10 device is on the JTAG chain. Long-chain mode is when both the Cyclone 10 and the Agilex® 7 FPGA are on the JTAG chain. Check which JTAG mode the f2000x board is in by running the following command.
+5. There are two JTAG modes that exist. Short-chain mode is when only the Cyclone 10 device is on the JTAG chain. Long-chain mode is when both the Cyclone 10 and the Agilex™ 7 FPGA are on the JTAG chain. Check which JTAG mode the f2000x board is in by running the following command.
 
   ```bash
   $QUARTUS_ROOTDIR/bin/jtagconfig
@@ -3872,7 +3877,7 @@ Steps:
     020F60DD    10CL080(Y|Z)/EP3C80/EP4CE75
     ```
 
-  * Example output when in long-chain mode (both Cyclone 10 and Agilex® 7 FPGA):
+  * Example output when in long-chain mode (both Cyclone 10 and Agilex™ 7 FPGA):
 
     ```bash
     1) USB-BlasterII [3-4]
@@ -3880,7 +3885,7 @@ Steps:
     234150DD   AGFC023R25A(.|AE|R0)
     ```
 
-  If the Agilex® 7 FPGA does not appear on the chain, ensure that the switches described in Step 1 have been set correctly and power cycle the board. Also ensure that the JTAG Longchain bit is set to `0` in BMC Register 0x378. The BMC registers are accessed through SPI control registers at addresses 0x8040C and 0x80400 in the PMCI. Use the following commands to clear the JTAG Longchain bit in BMC register 0x378. 
+  If the Agilex™ 7 FPGA does not appear on the chain, ensure that the switches described in Step 1 have been set correctly and power cycle the board. Also ensure that the JTAG Longchain bit is set to `0` in BMC Register 0x378. The BMC registers are accessed through SPI control registers at addresses 0x8040C and 0x80400 in the PMCI. Use the following commands to clear the JTAG Longchain bit in BMC register 0x378. 
 
   >**Note**: These commands must be executed as root user from the SoC.
 
@@ -3908,11 +3913,11 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® I
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex™ 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
+* This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `SOF` image.
 
-* This walkthrough requires a JTAG connection to the f2000x. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
+* This walkthrough requires a JTAG connection to the f2000x. Refer to the [Set up JTAG](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#51-walkthrough-set-up-jtag) section for step-by-step instructions.
 
 * This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL is connected via JTAG.
 
@@ -4014,21 +4019,21 @@ Steps:
   ```
 
 
-4. Click **Auto Detect** and make sure the Agilex® 7 FPGA is shown in the JTAG chain. Select the Cyclone 10 and Agilex® 7 FPGA if prompted.
+4. Click **Auto Detect** and make sure the Agilex™ 7 FPGA is shown in the JTAG chain. Select the Cyclone 10 and Agilex™ 7 FPGA if prompted.
    
   ![](images/stp_autodetect_agilex.png)
    
-5. Right-click on the cell in the **File** column for the Agilex® 7 FPGA and click on **Change file**
+5. Right-click on the cell in the **File** column for the Agilex™ 7 FPGA and click on **Change file**
 
   ![](images/stp_change_file_hello_fim.png)
       
-6. Select the **.sof** file that you wish to configure the Agilex® 7 FPGA with.
+6. Select the **.sof** file that you wish to configure the Agilex™ 7 FPGA with.
   
 7. Tick the checkbox below "Program/Configure" column and click on **Start** to program this .sof file.
 
   ![](images/stp_program_hello_fim.png)
 
-8. After successful programming, you can close the "Quartus Prime Programmer" software. You can answer 'No' if a dialog pops up asking to save the **'Chain.cdf'** file. This completes the Agilex® 7 FPGA .sof programming.
+8. After successful programming, you can close the "Quartus Prime Programmer" software. You can answer 'No' if a dialog pops up asking to save the **'Chain.cdf'** file. This completes the Agilex™ 7 FPGA .sof programming.
 
 9. Re-plug the PCIe ports on both the SoC and Host.
 
@@ -4087,7 +4092,7 @@ Steps:
   Factory Image Info               : None
   ```
 
-  >**Note:** The **Image Info** fields will not change, because these represent the images stored in flash. In this example, we are programming the Agilex® 7 FPGA directly, thus only the Bitstream ID should change.
+  >**Note:** The **Image Info** fields will not change, because these represent the images stored in flash. In this example, we are programming the Agilex™ 7 FPGA directly, thus only the Bitstream ID should change.
 
 #### **5.3 Remote System Update**
 
@@ -4101,9 +4106,9 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® I
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex® 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex™ 7 SoC Attach deployment environment. Refer to the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) and [Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach) for instructions on setting up a deployment environment.
 
-* This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
+* This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Compile OFS FIM](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/#225-walkthrough-compile-ofs-fim) Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
 
 Steps:
 
@@ -4376,19 +4381,10 @@ The following example without the Ethernet Subsystem (no_hssi) + no host exercis
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/doc_modules/links.md -->
-<!-- include ./docs/hw/f2000x/doc_modules/links.md --> 
-<!-- include ./docs/hw/f2000x/dev_guides/fim_dev/links.md --> 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+
+ 
+ 
 

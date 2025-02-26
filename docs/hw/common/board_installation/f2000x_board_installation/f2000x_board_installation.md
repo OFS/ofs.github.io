@@ -1,6 +1,6 @@
 # Board Installation Guidelines: IPU Platform F2000X-PL
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1.0 About this Document
 
@@ -48,11 +48,11 @@ The information in this document is intended for customers evaluating the IPU Pl
 #### Table 2: Related Documentation
 | Name |
 | --- |
-| [Automated Evaluation User Guide: OFS for Agilex® 7 SoC Attach FPGAs] | 
-| [Shell Technical Reference Manual: OFS for Agilex® 7 SoC Attach FPGAs] |
+| [Automated Evaluation User Guide: OFS for Agilex™ 7 SoC Attach FPGAs] | 
+| [Shell Technical Reference Manual: OFS for Agilex™ 7 SoC Attach FPGAs] |
 | [Software Reference Manual: Open FPGA Stack] |
-| [Shell Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs] |
-| [Workload Developer Guide: OFS for Agilex® 7 SoC Attach FPGAs] |
+| [Shell Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs] |
+| [Workload Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs] |
 | [Security User Guide: Open FPGA Stack] |
 | [KVM User Guide: Open FPGA Stack] |
 | [Docker User Guide: Open FPGA Stack] |
@@ -74,7 +74,7 @@ The host server must meet the following minimal specifications:
 
 #### 1.2.2 Host BIOS
 
-Te Host BIOS settings known to work with the IPU Platform F2000X-PL:
+The Host BIOS settings known to work with the IPU Platform F2000X-PL:
 
 - PCIe slot width must be **x16**
 - PCIe slot speed must be **4**
@@ -120,8 +120,8 @@ The airflow requirements for optimal heat sink performance at minimum is
 characteristic of CAT 3 servers or PCIe SIG Level 7 thermal profiles, in
 both, forward & reverse flow, see figure below:
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG)
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/air_temp_vs_flowrate.PNG)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/modified_pcie_sig.png)
 
 As the IPU Platform F2000X-PL is a development platform, it is not
 integrated into the server baseband management controller closed loop
@@ -132,7 +132,7 @@ fan settings to run constantly at 100% with the server chassis lid closed to pre
 
 #### Figure 1: External Connections
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/external_connections.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/external_connections.png)
 
 The items listed Table 6 in are known to work for external connectivity. Specific links are given for convenience, other products may be used but have not been tested.
 
@@ -164,7 +164,7 @@ switches **SW2** and **SW3** and make sure the switches are set as shown in
 
 #### Figure 2: Board Switch Settings
 
-![](/ofs-2024.2-1/hw/f2000x/dev_guides/fim_dev/images/f2000x_switch_locations.png)
+![](/ofs-2024.3-1/hw/f2000x/dev_guides/fim_dev/images/f2000x_switch_locations.png)
 
 #### 1.5.1 USB to Serial Adapter
 
@@ -177,14 +177,14 @@ installed. See *Figure 3* for an example of cable routing.
 
 #### Figure 3: Cable Routing
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/cablerouting.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/cablerouting.png)
 
 The USB to serial connection is shown in *Figure 4* where the White wire
 is TXD, Black wire is ground and Green wire is RXD.
 
 #### Figure 4: USB to Serial Adapter connection
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/serialadapterconnection.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/serialadapterconnection.png)
 
 #### 1.5.2 IPU JTAG
 
@@ -199,11 +199,11 @@ riser while programming.
 
 #### Figure 5: USB Blaster II Connection
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/usblasterIIconnection.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/usblasterIIconnection.png)
 
 #### Figure 6: USB Blaster II Installation
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/blasterinserver.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/blasterinserver.png)
 
 #### 1.5.3 Power
 
@@ -218,7 +218,7 @@ the board as depicted in the picture below.
 
 #### Figure 7: 12V PCIe AUX Connector Location
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/12vpcieconnector.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/12vpcieconnector.png)
 
 Refer the table below for pinout details.
 
@@ -239,7 +239,7 @@ See Auxiliary power connection in *Figure 8*.
 
 #### Figure 8: Auxiliary Power Connection
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/auxpowerconnector.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/auxpowerconnector.png)
 
 #### 1.5.4 USB Hub Connection
 
@@ -249,7 +249,7 @@ hub. See *Figure 9*.
 
 #### Figure 9: USB Hub Connection
 
-![](/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/images/usbhubconnection.png)
+![](/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/images/usbhubconnection.png)
 
 #### 1.5.5 Creating a Bootable USB Flash Drive for the SoC
 

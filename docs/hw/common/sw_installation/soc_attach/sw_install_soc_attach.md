@@ -1,6 +1,6 @@
-# Software Installation Guide: Intel Agilex 7 SoC Attach FPGAs
+# Software Installation Guide: Agilex™ 7 SoC Attach FPGAs
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1.0 About this Document
 
@@ -63,7 +63,7 @@ Not all components shown in Table 2 will have an update available upon release. 
 
 ## 2.0 Updating the IPU Platform F2000X-PL
 
-Every IPU Platform F2000X-PL ships with pre-programmed firmware for the FPGA **user1**, **user2**, and **factory** images, the Cyclone 10 **BMC RTL and FW**, the **SoC NVMe**, and the **SoC BIOS**. In this software installation guide, we will only be focusing on the building and loading of a new SoC NVMe image. Board setup and configuration for the IPU Platform F2000X-PL is discussed in the [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/).
+Every IPU Platform F2000X-PL ships with pre-programmed firmware for the FPGA **user1**, **user2**, and **factory** images, the Cyclone 10 **BMC RTL and FW**, the **SoC NVMe**, and the **SoC BIOS**. In this software installation guide, we will only be focusing on the building and loading of a new SoC NVMe image. Board setup and configuration for the IPU Platform F2000X-PL is discussed in the [Getting Started Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/).
 
 ## 3.0 Compiling a Custom Yocto SoC Image
 
@@ -104,13 +104,13 @@ The uncompressed Yocto image can be loaded onto a flash drive as discussed in se
 
 ## 4.0 Verifying the ICX-D SoC Software Stack
 
-The reference SoC Attach FIM and unaltered FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. Full supported functionality of the HEMs is documented in this platform's associated [Getting Started Guide: OFS for Agilex® 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/) and will not be covered here.
+The reference SoC Attach FIM and unaltered FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. Full supported functionality of the HEMs is documented in this platform's associated [Getting Started Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2024.3-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/) and will not be covered here.
 
 ## 5.0 Setting up the Host
 
 External SoC Attach supports testing Host to FPGA latency, MMIO latency, and MMIO bandwidth. This testing is accomplished using the utility `host_exerciser` on the host, which is included as a part of OPAE. This section will cover the installation and verification flow for a host interacting with the SoC Attach workload.
 
-Review [Section 1.2 Server Requirements](#12-server-requirements) of the [Board Installation Guide: OFS For Agilex® 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) for a list of changes required on the host to support an IPU Platform F2000X-PL and for a list of supported OS distributions. Installation will require an active internet connection to resolve dependencies.
+Review [Section 1.2 Server Requirements](#12-server-requirements) of the [Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL](https://ofs.github.io/ofs-2024.3-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation) for a list of changes required on the host to support an IPU Platform F2000X-PL and for a list of supported OS distributions. Installation will require an active internet connection to resolve dependencies.
 
 The following software checks may be run on the host to verify the FPGA has been detected and has auto-negotiated the correct PCIe link width/speed. These commands do not require any packages to be installed. We are using PCIe BDF `b1:00.0` as an example address.
 
@@ -217,17 +217,8 @@ After rebooting, check that `proc/cmdline` reflects your changes.
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/f2000x/doc_modules/links.md -->
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+
+

@@ -1,6 +1,6 @@
 # Docker User Guide: Open FPGA Stack: Intel® Open FPGA Stack
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1 Introduction
 
@@ -45,13 +45,11 @@ The OFS provides the flexibility to support various orchestration or management 
 
 The OFS release targeting the compatible OFS Platform's is built upon tightly coupled software and firmware versions. Use this section as a general reference for the versions in this release.
 
-The following table highlights the hardware that comprises the Best-Known Configuration (BKC) for the OFS release. For a detailed explanation and safety information regarding the setup go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.2-1) select your desired platform and select Getting stated guide. This site walks you through the BIOS configuration changes needed to enable the OFS Platform's.
-
-
+The following table highlights the hardware that comprises the Best-Known Configuration (BKC) for the OFS release. For a detailed explanation and safety information regarding the setup go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.3-1) select your desired platform and select Getting stated guide. This site walks you through the BIOS configuration changes needed to enable the OFS Platform's.
 
 ## 3.0 Development Installation
 
-Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4 requires a specific version. For this guide, [Red Hat Linux ](https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.2/x86_64/product-software) is used for general instructions. 
+Docker engines have cross-compatibility with multiple systems, but the host server does not require any specific distribution. However, the Quartus<sup>&reg;</sup> Prime Pro Edition Version 24.3 requires a specific version. For this guide, [Red Hat Linux ] is used for general instructions. 
 
 The OFS Docker image includes all the libraries and tools required by the OFS and OPAE SDK (Python, Perl, CMake, and so on).
 
@@ -59,14 +57,14 @@ The OFS Docker image includes all the libraries and tools required by the OFS an
 
 <a name="3.1"></a>
 
-Building AFUs with OFS for Intel Agilex FPGA requires the build machine to have at least 64 GB of RAM.
+Building AFUs with OFS for Agilex™ FPGA requires the build machine to have at least 64 GB of RAM.
 
-Go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.2-1) select your desired platform and select Getting stated guide for a list of detailed steps for the Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4 installation.  
+Go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.3-1) select your desired platform and select Getting stated guide for a list of detailed steps for the Quartus<sup>&reg;</sup> Prime Pro Edition Version 24.3 installation.  
 
 ### 3.2 Docker Engine installation
-## RHEL 8.10
+## RHEL 9.4
 
-The Docker installation steps for RHEL 8.10 are the following:
+The Docker installation steps for RHEL 9.4 are the following:
 
 1. Remove old versions; older versions of Docker were called `docker` or `docker-engine`. If these are installed, uninstall them, along with associated dependencies. Also, uninstall `Podman` and the related dependencies if installed already.
 
@@ -334,7 +332,7 @@ Now you are ready to start the container, and you should be prepared to run it:
 
 2. Using the previous example now, you can execute the docker run command.
    ```sh
-   docker run --rm -itd --name myOFS -v=/home/intelFPGA_pro/24.1:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm -itd --name myOFS -v=/home/intelFPGA_pro/24.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    bdc1289fb0813bb325b55dd11df4eeec252143d6745a6e5772638fbc107d0949
    ```
 3. Now the docker container should be available.
@@ -370,10 +368,10 @@ The OFS container has two possible ways to interact with the container:
      quartus_syn --version
      
      Quartus Prime Synthesis
-     Version Quartus Prime Pro Version 24.1
+     Version Quartus Prime Pro Version 24.3
      ```
      
-  4. Everything is set up correctly. Please go to the following link for more information related to the [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.2-1) select your desired platform and select Getting stated guide.
+  4. Everything is set up correctly. Please go to the following link for more information related to the [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.3-1) select your desired platform and select Getting stated guide.
   
      **Tip:** If you need to de-attach without stopping the container, you can use Ctrl+P or Ctrl+Q. For custom combinations, for example, `docker attach --detach-keys="ctrl-a"  myOFS` and if you press CTRL+A you will exit the container without killing it.
   
@@ -394,7 +392,7 @@ The OFS container has two possible ways to interact with the container:
      ###########################################################################################
      
      Checking Linux release
-     Linux version 4.18.0-dfl .....
+     Linux version 5.14.0-dfl .....
      
      ....
          
@@ -402,12 +400,14 @@ The OFS container has two possible ways to interact with the container:
      ```
      
    3. The Intel Docker image includes the script ofs_extratool.sh to allow you to change the seed value.
+   
      ```sh
      sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs_extratool.sh -s 5
      ```
+
       Now you can control and compile the design. You can use the interactive or de-attach mode.
   
-  4. If you need to save the log file and output files use the following command 
+  3. If you need to save the log file and output files use the following command 
   
      ```sh
      sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs_extratool.sh -e
@@ -419,7 +419,7 @@ The OFS container has two possible ways to interact with the container:
 
 The OFS docker image allows you to connect with your FPGA Platform. The main difference from the development installation process is that you are able to test with real hardware, but you must have a specific requirement to have a fully compatible system. 
 
-Information related to host setup please go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.2-1) select your desired platform and select Getting stated guide.
+Information related to host setup please go to [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.3-1) select your desired platform and select Getting stated guide.
 
 ### 4.1 Installation of Deployment server
 
@@ -429,7 +429,7 @@ Once you ensure the DFL drivers are installed, follow the below steps:
    * [2.1 Quartus installation](#21-quartus-installation)
    * [2.2 Docker Engine installation](#22-docker-engine-installation)
    * [2.3 Load Docker Image installation](#23-load-docker-image-installation)
-2. The steps required for DFL driver installation are documented [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.2-1) select your desired platform and select Getting stated guide.
+2. The steps required for DFL driver installation are documented [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.3-1) select your desired platform and select Getting stated guide.
 
 Now you should have all the steps required, and you can run the docker image directly.
 
@@ -443,10 +443,10 @@ Now you are ready to start the container, and should be prepared to run it (Note
    docker run --rm --privileged -itd --name myOFS -v=<yourintallationfolder>:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    ```
 
-   Example, my Quartus installation is located at "/home/intelFPGA_pro/24.1" as a result, my  command should be 
+   Example, my Quartus installation is located at "/home/intelFPGA_pro/24.3" as a result, my  command should be 
 
    ```sh
-   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/24.1:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/24.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    bdc1289fb0813bb325b55dd11df4eeec252143d6745a6e5772638fbc107d0949
    ```
 
@@ -459,7 +459,7 @@ Now you are ready to start the container, and should be prepared to run it (Note
 2. Execute the docker run command.
 
    ```sh
-   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/24.1:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
+   docker run --rm --privileged -itd --name myOFS -v=/home/intelFPGA_pro/24.3:/home/intelFPGA_pro/:ro -v=DataOFS:/dataofs ofs:latest /bin/bash
    25b41eb4d232de9c750b52ddc6b92a3db612200e5993f55733b59068898623d7
    ```
 
@@ -496,10 +496,10 @@ The OFS container has two possible ways to interact with the container:
      quartus_syn --version
      
      Quartus Prime Synthesis
-     Version 24.1
+     Version 24.3
      ```
      
-  4. Everything is set up correctly. Please go to the following link for more information related to the [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.2-1) select your desired platform and select User Guide,  Technical Reference Manual, Developer Guide, or Getting Started Guide.
+  4. Everything is set up correctly. Please go to the following link for more information related to the [Open FPGA Stack (OFS) Collateral Site](https://ofs.github.io/ofs-2024.3-1) select your desired platform and select User Guide,  Technical Reference Manual, Developer Guide, or Getting Started Guide.
   
      **Tip:** If you need to de-attach without stopping the container you can use Ctrl+P or Ctrl+Q. For custom, combinations use for example `docker attach --detach-keys="ctrl-a"  myOFS` and if you press CTRL+A you will exit the container, without killing it.
   
@@ -511,51 +511,40 @@ The OFS container has two possible ways to interact with the container:
   
   2. Run the script and make a selection, you can directly execute with the following command:
   
-     Let's use option 3   - Identify  Platform Hardware via PCIe; remember the DFL drivers need be installed. 
+      Let's use option 3   - Identify  Platform Hardware via PCIe; remember the DFL drivers need be installed. 
   
-  
-  ```sh
-  $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs-agx7-pcie-attach_eval.sh 3
-  
-  Go to selection: 3
-  
-  
-  PCIe card detected as
-  
-  
-  b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
-  b1:00.1 Processing accelerators: Intel Corporation Device bcce
-  b1:00.2 Processing accelerators: Intel Corporation Device bcce
-  b1:00.4 Processing accelerators: Intel Corporation Device bcce
-  
-  Host Server is connected to SINGLE card configuration
-  
-  cycle complete exiting...
-  ```
+      
+      ```sh
+      $ sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs-agx7-pcie-attach_eval.sh 3
+      
+      Go to selection: 3
+      
+      
+      PCIe card detected as
+      
+      
+      b1:00.0 Processing accelerators: Intel Corporation Device bcce (rev 01)
+      b1:00.1 Processing accelerators: Intel Corporation Device bcce
+      b1:00.2 Processing accelerators: Intel Corporation Device bcce
+      b1:00.4 Processing accelerators: Intel Corporation Device bcce
+      
+      Host Server is connected to SINGLE card configuration
+      
+      cycle complete exiting...
+      ```
   
   3. The Intel Docker image includes the script ofs_extratool.sh to allow you to change the seed value.
     
-        ```sh
-        sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs_extratool.sh -s 5
-        ```
+      ```sh
+      sudo docker exec -it myOFS /home/OFS_BUILD_ROOT/ofs_extratool.sh -s 5
+      ```
   
-  Now you can control and compile the design using the interactive or de-attach mode.
-  
-  
+      Now you can control and compile the design using the interactive or de-attach mode.
   
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/doc_modules/links.md --> 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 

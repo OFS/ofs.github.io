@@ -1,4 +1,4 @@
-# UVM Simulation User Guide: OFS for Intel® Agilex® PCIe Attach
+# UVM Simulation User Guide: OFS for Agilex™ PCIe Attach
 
 | Term                      | Abbreviation | Description                                                  |
 | :------------------------------------------------------------:| :------------:| ------------------------------------------------------------ |
@@ -44,7 +44,9 @@
 ### **1.1 About this Document**
 
 
-This document serves as a set-up and user guide for the UVM simulation tool using Open FPGA Stack (OFS) for Agilex® 7 FPGAs PCIe Attach and the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile). After reviewing the document, you will be able to:
+This document serves as a set-up and user guide for the UVM simulation tool using Open FPGA Stack (OFS) for Agilex™ 7 FPGAs PCIe Attach and the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile). After reviewing the document, you will be able to:
+
+> **Note:** UVM simulation is not supported for OFS designs using R-Tile devices, such as the Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile).
 
 
 -   Set-up the UVM verification tool suite
@@ -55,7 +57,7 @@ This document serves as a set-up and user guide for the UVM simulation tool usin
 
 > **_NOTE:_**  
 >
->**This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all example steps. Additionally, this guide and the example steps can be used with other platforms, such as the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile).** 
+>**This guide uses the Intel® FPGA SmartNIC N6001-PL as the platform for all example steps. Additionally, this guide and the example steps can be used with other platforms, such as the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile).** 
 >
 
 ## **2 Introduction to UVM**
@@ -218,8 +220,8 @@ To run the tutorial steps in this guide requires the following development envir
 
 | Item                      | Version|
 | ------------------------- | ----------|
-| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 24.1|
-| Simulator                 | Synopsys VCS S-2023.03-SP2-1 or newer for UVM simulation of top level FIM |
+| Intel Quartus Prime Pro   | Intel Quartus Prime Pro 24.3|
+| Simulator                 | Synopsys VCS U-2023.03-SP2-1 or newer for UVM simulation of top level FIM |
 
 
 ## **5.1 UVM Prerequisite**
@@ -231,8 +233,8 @@ The OFS FIM source code is included in the OTCShare GitHub repository. Create a 
 
 Navigate to location for storage of OFS source, create the top-level source directory and clone OFS repositories.
 
-    $ mkdir ofs-2024.2-1
-    $ cd ofs-2024.2-1
+    $ mkdir ofs-2024.3-1
+    $ cd ofs-2024.3-1
     $ export OFS_BUILD_ROOT=$PWD
     $ git clone --recurse-submodules https://github.com/OFS/ofs-agx7-pcie-attach.git
     
@@ -245,13 +247,13 @@ Navigate to location for storage of OFS source, create the top-level source dire
     Resolving deltas  ..., done.
     
     $ cd ofs-agx7-pcie-attach
-    $ git checkout tags/ofs-2024.2-1
+    $ git checkout tags/ofs-2024.3-1
 
 Verify that the correct tag/branch have been checked out        
 
     $ git describe --tags
     
-    $ ofs-2024.2-1
+    $ ofs-2024.3-1
 
 ## **5.2 License Requirements**
 
@@ -278,12 +280,12 @@ The Qualified Verification IPs will help to detect incorrect protocol behavior e
 
 The following tools are required for successful UVM set-up
 
-* Python 3.6.8
-* Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
-* Synopsys Verdi S-2023.03-SP2-1 License <br>
+* Python 3.8.10
+* Synopsys PCIE and AMBA AXI UVM VIP V-2024.03D License
+* Synopsys Verdi U-2023.03-SP2-1 License <br>
     Note: Makefile can be modified to use DVE instead of Verdi
 
-* VCS S-2023.03-SP2-1 License 
+* VCS U-2023.03-SP2-1 License 
 
 ## **5.4 Creating a Software Tools Script**
 
@@ -304,7 +306,7 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export WORKDIR=$OFS_ROOTDIR
 
 ## Quartus Tools
-    export QUARTUS_HOME=<user_path>/intelFPGA_pro/24.1/quartus
+    export QUARTUS_HOME=<user_path>/intelFPGA_pro/24.3/quartus
     export QUARTUS_ROOTDIR=$QUARTUS_HOME
     export QUARTUS_INSTALL_DIR=$QUARTUS_ROOTDIR
     export QUARTUS_ROOTDIR_OVERRIDE=$QUARTUS_ROOTDIR
@@ -313,10 +315,12 @@ The license environment variables LM_LICENSE_FILE and SNPSLMD_LICENSE_FILE can p
     export PATH=$QUARTUS_HOME/bin:$QUARTUS_HOME/qsys/bin:$QUARTUS_HOME/sopc_builder/bin/:$PATH
 
 ## Synopsys Verification Tools
-    export DESIGNWARE_HOME=<user_path>/synopsys/vip_common/vip_Q-2020.03A
+    export DESIGNWARE_HOME=<user_path>/synopsys/vip_common/vip_V-2024.03D
     export PATH=$DESIGNWARE_HOME/bin:$PATH
-    export UVM_HOME=<user_path>/synopsys/vcsmx/S-2023.03-SP2-1/linux64/rhel/etc/uvm
-    export VCS_HOME=<user_path>/synopsys/vcsmx/S-2023.03-SP2-1/linux64/rhel
+    export UVM_HOME=<user_path>/synopsys/vcsmx/U-2023.03-SP2-1/linux64/rhel/etc/uvm
+    export VCS_TARGET_ARCH=linux64
+    export VMR_MODE_FLAG=64
+    export VCS_HOME=<user_path>/synopsys/vcsmx/U-2023.03-SP2-1/linux64/rhel
     export PATH=$VCS_HOME/bin:$PATH
     export VERDIR=$OFS_ROOTDIR/verification
     export VIPDIR=$VERDIR
@@ -1174,7 +1178,7 @@ To compile all IPs for the Synopsys VCS simulater targetting the Intel® FPGA Sm
     
         gmake -f Makefile_VCS.mk cmplib_adp
 
-To compile all IPs for the Synopsys VCS simulater targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To compile all IPs for the Synopsys VCS simulater targetting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1194,7 +1198,7 @@ To compile RTL and Testbench for the Synopsys VCS simulater targetting the Intel
     
         gmake -f Makefile_VCS.mk build_adp DUMP=1
 
-To compile RTL and Testbench for the Synopsys VCS simulater targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To compile RTL and Testbench for the Synopsys VCS simulater targetting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1208,7 +1212,7 @@ If the user wants to compile all IPs and RTL Testbench in one command for Synops
     
         gmake -f Makefile_VCS.mk build_all 
 
-If the user wants to compile all IPs and RTL Testbench in one command for Synopsys VCS targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
+If the user wants to compile all IPs and RTL Testbench in one command for Synopsys VCS targetting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
 
         cd $VERDIR/scripts
     
@@ -1222,7 +1226,7 @@ To run a simulation for Synopsys VCS targetting the Intel® FPGA SmartNIC N6001-
     
         gmake -f Makefile_VCS.mk run TESTNAME=ofs_mmio_test 
 
-To run a simulation for Synopsys VCS targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To run a simulation for Synopsys VCS targetting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile):
 
         cd $VERDIR/scripts
     
@@ -1238,7 +1242,7 @@ Or
 
         gmake -f Makefile_VCS.mk build_run TESTNAME=<test_case_name> DUMP=1
 
-To dump the waveform, "DUMP=1" must be added into the command line for Synopsys VCS build and simulation targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile):
+To dump the waveform, "DUMP=1" must be added into the command line for Synopsys VCS build and simulation targetting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile):
 
         gmake -f Makefile_VCS.mk build_adp FTILE_SIM=1 DUMP=1
     
@@ -1294,11 +1298,11 @@ If the user wants to run the complete set of UVM tests in one command for VCS ta
     python uvm_regress.py -l -n 8 -p adp -k <pkg_name> -s vcs -c none
     
 
-If the user wants to run the complete set of UVM tests in one command for VCS targetting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
+If the user wants to run the complete set of UVM tests in one command for VCS targetting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) then follow the procedure below
 
     python uvm_regress.py -l -n 8 -p adp -k <pkg_name> -s vcs -c none -e -t ftile
 
-Test Packages for Intel® FPGA SmartNIC N6001-PL and Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) are listed below:
+Test Packages for Intel® FPGA SmartNIC N6001-PL and Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) are listed below:
 
     <pkg_name> :top_pkg (it contains two packages test_pkg + test_long_pkg)
                :test_pkg
@@ -1367,7 +1371,7 @@ The following commands shows how to launch DVE and check the coverage reports
     
         dve -full64 -cov -covdir <dirname.vdb> &
 
-Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
 
 The following command allows to run a single testcase with coverage enabled
 
@@ -1548,17 +1552,8 @@ The "svt_pcie_driver_app_transaction_base_sequence" is part of Synopsys PCIe VIP
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
-<!-- include ./docs/hw/n6001/doc_modules/links.md --> 
-<!-- include ./docs/hw/doc_modules/links.md -->
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
+ 
+

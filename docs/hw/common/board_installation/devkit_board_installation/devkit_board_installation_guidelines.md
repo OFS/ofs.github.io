@@ -1,6 +1,6 @@
-# Board Installation Guidelines: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
+# Board Installation Guidelines: Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
 
-Last updated: **July 16, 2024** 
+Last updated: **February 26, 2025** 
 
 ## 1.0 Introduction
 
@@ -60,19 +60,19 @@ The information in this document is intended for customers evaluating the PCIe A
 
 #### Table 2: Hardware BKC for OFS PCIe Attach targeting the F-Series Development Kit
 
-The following table highlights the hardware which composes the Best Known Configuation (BKC) for the OFS 2024.2-1 PCIe Attach release targeting F-Series Development Kit.
+The following table highlights the hardware which composes the Best Known Configuation (BKC) for the OFS 2024.3-1 PCIe Attach release targeting F-Series Development Kit.
 
 *Note: The Dell R750 server product line is known not to work with this release.*
 
 | Component | Link |
 | ----- | ----- |
-| Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html |
+| Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html |
 | Intel FPGA Download Cable II (optional) | https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html|
 | SuperMicro SYS-220HE-FTNR| https://www.supermicro.com/en/products/system/hyper/2u/sys-220he-ftnr |
 
 In addition to the above, both OFS enabled development kit platforms require either an auxillary power cable for the 12 V-Auxiliary 2x4 PCIe* power connector, or the standalone AC Power Supply with associated 2x4 power connector. You must choose one of these modes to operate your device in.
 
-A server ATX power cable will differ between vendors - review the pinout of the power connector on the [Intel Agilex® 7 FPGA I-Series Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/power-guidelines.html) or [Intel Agilex® 7 F-Series FPGA (Two F-Tiles) Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/power-guidelines.html) as a reference for ordering. Although this is *not always the case*, often the standard 2x4 PCIe power connector that is required to enable a GPU in your server will also work for an FPGA-based development kit.
+A server ATX power cable will differ between vendors - review the pinout of the power connector on the [Agilex™ 7 FPGA I-Series Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/power-guidelines.html) or [Agilex™ 7 F-Series FPGA (Two F-Tiles) Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/power-guidelines.html) as a reference for ordering. Although this is *not always the case*, often the standard 2x4 PCIe power connector that is required to enable a GPU in your server will also work for an FPGA-based development kit.
 
 In addition, the server used to house either dev kit must meet the following guidelines:
 
@@ -87,10 +87,12 @@ Both platforms ship with an embedded Intel® FPGA Download Cable II on the rear 
 
 These are the host BIOS settings known to work with the either dev kit. Information about the server's currently loaded firmware and BIOS settings can be found through its remote access controller, or by manually entering the BIOS by hitting a specific key during power on. Your specific server platform will include instructions on proper BIOS configuration and should be followed when altering settings.
 
-- PCIe slot width must be set to x16
-- PCIe slot speed must be set to 4
+- PCIe slot width **must** be set to your design's width (1x16, 2x8)
+- PCIe slot generation **must** be set to your design's supported generation (4, 5)
 - PCIe slot must have iommu enabled
 - Intel VT for Directed I/O (VT-d) must be enabled
+
+*Note: Using 'auto' for PCIe training in the BIOS can potentially cause enumeration issues. It is always recommended to manually set your PCIe slot bifurcation settings to exactly match those for your design.*
 
 ### 2.2 Server Fan Speed
 
@@ -108,42 +110,42 @@ Light pipes located on the top of the QSFP cages for the F-Series Dev Kit may or
 
 1. The DK-DEV-AGF027F1ES (or it is called the F - tile Dev Kit, or FM86 Dev Kit) has LED light pipes on top of the QSFP cages.
 
-    ![ftile_qsfp_light_pipe](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe.png)
+    ![ftile_qsfp_light_pipe](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe.png)
     
     These light pipes interfere with the server PCIe slot faceplate.
-    ![ftile_qsfp_light_pipe_interference_r750](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_interference_r750.png)
+    ![ftile_qsfp_light_pipe_interference_r750](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_interference_r750.png)
 
 2. The light pipes can be easily removed by prying them off using a small screwdriver for leverage, then pushing the light pipes back to remove the retaining clips from the QSFP cage.
         
-    ![ftile_qsfp_light_pipe_removal_part1](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part1.png)
+    ![ftile_qsfp_light_pipe_removal_part1](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part1.png)
     
-    ![ftile_qsfp_light_pipe_removal_part2](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part2.png)
+    ![ftile_qsfp_light_pipe_removal_part2](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part2.png)
     
-    ![ftile_qsfp_light_pipe_removal_part3](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part3.png)
+    ![ftile_qsfp_light_pipe_removal_part3](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_qsfp_light_pipe_removal_part3.png)
 
 ### 3.2 Default Switch Settings
 
 Double check that your development kit switch settings match those listed as the default positions in the user guide prior to installation. An F Tile Dev Kit is used as an example in this section.
 
-1. Board switch definitions can be found in the [Intel Agilex® 7 F-Series FPGA (Two F-Tiles) Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) or [Intel Agilex® 7 FPGA I-Series Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/default-setting.html).
+1. Board switch definitions can be found in the [Agilex™ 7 F-Series FPGA (Two F-Tiles) Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/739942/current/overview.html) or [Agilex™ 7 FPGA I-Series Development Kit User Guide](https://www.intel.com/content/www/us/en/docs/programmable/683288/current/default-setting.html).
 
-    ![ftile_board_switches_diagram](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_diagram.png)
+    ![ftile_board_switches_diagram](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_diagram.png)
     
     See the image below for SW1, SW4 and SW3.
     
-    ![](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_picture.png)
+    ![](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_switches_picture.png)
     
     Before inserting into a server, set SW5 to 'ON'.
     
-    ![ftile_board_sw5_on](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_sw5_on.png)
+    ![ftile_board_sw5_on](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_board_sw5_on.png)
 
 2. Below shows an F-Series Dev Kit installed into a PCIe riser with the light pipes removed.
     
-    ![ftile_final_installation_r750](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/ftile_final_installation_r750.png)
+    ![ftile_final_installation_r750](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/ftile_final_installation_r750.png)
 
 ### 3.3 Physical Installation Procedure
 
-The following instructions will help ensure safe installation of the Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) into a supported server platform. Safety and Regulatory information can be found under the product page for either development kit. It is assumed you have previously removed the light pipes mounted above the F-Series Dev Kit's QSFP cages before attempting to slot into a server mounted riser if they are an issue.
+The following instructions will help ensure safe installation of the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile) into a supported server platform. Safety and Regulatory information can be found under the product page for either development kit. It is assumed you have previously removed the light pipes mounted above the F-Series Dev Kit's QSFP cages before attempting to slot into a server mounted riser if they are an issue.
 
 1. Position the board over the selected connector on the motherboard
 2. Press down gently and firmly seat the card in a PCIe slot. Depending on the server model being used, you may need to secure a retention screw or rotate retention clips over the development kit's faceplate.
@@ -156,15 +158,15 @@ Both Development Kits have an on-board FPGA Download Cable II module which is us
 
 Pre-requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Software Installation Guide: PCIe Attach](https://ofs.github.io/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Software Installation Guide: OFS for PCIe Attach FPGAs] for instructions on setting up a deployment environment.
 
-* This walkthrough requires a workstation with Quartus Prime Pro Version 24.1 tools installed, specifically the `jtagconfig` tool.
+* This walkthrough requires a workstation with Quartus Prime Pro Version 24.3 tools installed, specifically the `jtagconfig` tool.
 
 Steps:
 
 1. Refer to the following figure for Steps 2 and 3.
 
-  ![agilex_ftile_dev_kit](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/images/agilex_ftile_dev_kit.png)
+  ![agilex_ftile_dev_kit](/ofs-2024.3-1/hw/common/board_installation/devkit_board_installation/images/agilex_ftile_dev_kit.png)
 
 2. Locate Single DIP Switch **SW2** and 4-position DIP switch **SW3** on the fseries-dk. These switches control the JTAG setup for the board. Ensure that both **SW2** and **SW3.3** are set to `ON`.
 
@@ -173,7 +175,7 @@ Steps:
 4. Use the `jtagconfig` tool to check that the JTAG chain contains the AGFB027R24C2E2VR2 device.
 
     ```bash
-    <QUARTUS_INSTALL_DIR>/24.1/quartus/bin/jtagconfig
+    <QUARTUS_INSTALL_DIR>/24.3/quartus/bin/jtagconfig
     ```
 
     Example expected output:
