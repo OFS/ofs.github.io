@@ -1,0 +1,3175 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../../../reference_manual/oneapi_asp/oneapi_asp_ref_mnl/">
+      
+      
+        <link rel="next" href="../../soc_attach/sw_install_soc_attach/">
+      
+      <link rel="icon" href="../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>Software Installation Guide OFS for PCIe Attach - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#software-installation-guide-open-fpga-stack-for-pcie-attach" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Software Installation Guide OFS for PCIe Attach
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_s10_pcie_attach/" class="md-tabs__link">
+        Stratix® 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_agx7_pcie_attach/" class="md-tabs__link">
+        Agilex™ 7 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../doc_modules/contents_agx7_soc_attach/" class="md-tabs__link">
+        Agilex SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../user_guides/oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        OFS Software
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/ug_sw_developer/ug_sw_developer/" class="md-nav__link">
+        Software Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix® 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix® 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_s10_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/adp_board_installation_guidelines/" class="md-nav__link">
+        Board Installation Guide (Intel® FPGA PAC D5005)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex™ 7 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex™ 7 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_agx7_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Board Installation Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Board Installation Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/adp_board_installation_guidelines/" class="md-nav__link">
+        Intel® FPGA SmartNIC N6000/1-PL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../board_installation/devkit_board_installation/devkit_board_installation_guidelines/" class="md-nav__link">
+        Agilex™ 7 FPGA I-Series and F-Series Development Kits
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Getting Started Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        OFS for Agilex™ 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        OFS for Agilex™ 7 FPGA F-Series Development Kit (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        OFS for Intel® FPGA SmartNIC N6001-PL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+          Shell Developer Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Shell Developer Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach I-Series (2xR-Tile, F-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach F-Series (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        PCIe Attach F-Series (P-Tile/E-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_10">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_11">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/ug_troubleshoot/ug_agx7_troubleshoot/" class="md-nav__link">
+        Troubleshooting Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../doc_modules/contents_agx7_soc_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../board_installation/f2000x_board_installation/f2000x_board_installation/" class="md-nav__link">
+        Board Installation Guide (Intel® IPU Platform F2000X-PL)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../user_guides/oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        oneAPI ASP Getting Started User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Software Installation Guide OFS for PCIe Attach
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Software Installation Guide OFS for PCIe Attach
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-about-this-document" class="md-nav__link">
+    1.0 About This Document
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 About This Document">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-audience" class="md-nav__link">
+    1.1 Audience
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Audience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-1-terminology" class="md-nav__link">
+    Table 1: Terminology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-2-software-and-component-version-summary-for-ofs-pcie-attach" class="md-nav__link">
+    Table 2: Software and Component Version Summary for OFS PCIe Attach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-3-release-pages-for-each-pcie-attach-platform" class="md-nav__link">
+    Table 3: Release Page(s) for each PCIe Attach Platform
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-server-requirements" class="md-nav__link">
+    1.2 Server Requirements
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Server Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-host-bios" class="md-nav__link">
+    1.2.1 Host BIOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-host-server-kernel-and-grub-configuration" class="md-nav__link">
+    1.2.2 Host Server Kernel and GRUB Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-ofs-software-overview" class="md-nav__link">
+    2.0 OFS Software Overview
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-ofs-dfl-kernel-drivers" class="md-nav__link">
+    3.0 OFS DFL Kernel Drivers
+  </a>
+  
+    <nav class="md-nav" aria-label="3.0 OFS DFL Kernel Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup" class="md-nav__link">
+    3.1 OFS DFL Backport Kernel Driver Installation Environment Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source" class="md-nav__link">
+    3.2 Building and Installing the OFS DFL Backport Kernel Drivers from Source
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages" class="md-nav__link">
+    3.3 Installing the OFS DFL Backport Kernel Drivers from Pre-Built Packages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-opae-software-development-kit" class="md-nav__link">
+    4.0 OPAE Software Development Kit
+  </a>
+  
+    <nav class="md-nav" aria-label="4.0 OPAE Software Development Kit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-opae-sdk-installation-environment-setup" class="md-nav__link">
+    4.1 OPAE SDK Installation Environment Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 OPAE SDK Installation Environment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-4-opae-package-description" class="md-nav__link">
+    Table 4: OPAE Package Description
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-installing-the-opae-sdk-with-pre-built-packages" class="md-nav__link">
+    4.2 Installing the OPAE SDK with Pre-Built Packages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide OFS for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference_manual/driver_dev_qs/driver_dev_qs/" class="md-nav__link">
+        Driver Development Quick Start Guidelines for Linux DFL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
+          OPAE FPGA Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#10-about-this-document" class="md-nav__link">
+    1.0 About This Document
+  </a>
+  
+    <nav class="md-nav" aria-label="1.0 About This Document">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#11-audience" class="md-nav__link">
+    1.1 Audience
+  </a>
+  
+    <nav class="md-nav" aria-label="1.1 Audience">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-1-terminology" class="md-nav__link">
+    Table 1: Terminology
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-2-software-and-component-version-summary-for-ofs-pcie-attach" class="md-nav__link">
+    Table 2: Software and Component Version Summary for OFS PCIe Attach
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#table-3-release-pages-for-each-pcie-attach-platform" class="md-nav__link">
+    Table 3: Release Page(s) for each PCIe Attach Platform
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-server-requirements" class="md-nav__link">
+    1.2 Server Requirements
+  </a>
+  
+    <nav class="md-nav" aria-label="1.2 Server Requirements">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#121-host-bios" class="md-nav__link">
+    1.2.1 Host BIOS
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#122-host-server-kernel-and-grub-configuration" class="md-nav__link">
+    1.2.2 Host Server Kernel and GRUB Configuration
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#20-ofs-software-overview" class="md-nav__link">
+    2.0 OFS Software Overview
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#30-ofs-dfl-kernel-drivers" class="md-nav__link">
+    3.0 OFS DFL Kernel Drivers
+  </a>
+  
+    <nav class="md-nav" aria-label="3.0 OFS DFL Kernel Drivers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup" class="md-nav__link">
+    3.1 OFS DFL Backport Kernel Driver Installation Environment Setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source" class="md-nav__link">
+    3.2 Building and Installing the OFS DFL Backport Kernel Drivers from Source
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages" class="md-nav__link">
+    3.3 Installing the OFS DFL Backport Kernel Drivers from Pre-Built Packages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#40-opae-software-development-kit" class="md-nav__link">
+    4.0 OPAE Software Development Kit
+  </a>
+  
+    <nav class="md-nav" aria-label="4.0 OPAE Software Development Kit">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-opae-sdk-installation-environment-setup" class="md-nav__link">
+    4.1 OPAE SDK Installation Environment Setup
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1 OPAE SDK Installation Environment Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#table-4-opae-package-description" class="md-nav__link">
+    Table 4: OPAE Package Description
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#42-installing-the-opae-sdk-with-pre-built-packages" class="md-nav__link">
+    4.2 Installing the OPAE SDK with Pre-Built Packages
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="software-installation-guide-open-fpga-stack-for-pcie-attach">Software Installation Guide: Open FPGA Stack for PCIe Attach<a class="headerlink" href="#software-installation-guide-open-fpga-stack-for-pcie-attach" title="Permanent link">&para;</a></h1>
+<p>Last updated: <strong>February 26, 2025</strong> </p>
+<h2 id="10-about-this-document">1.0 About This Document<a class="headerlink" href="#10-about-this-document" title="Permanent link">&para;</a></h2>
+<p>The purpose of this document is to help users get started in setting up their local environments and installing the most recent release of the PCIe Attach software stack on the host. This document will not cover the process of board installation or platform bring-up. After reviewing this document, a user shall be able to:</p>
+<ul>
+<li>Set up a server environment according to the Best Known Configuration (<abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr>)</li>
+<li>Build and install the OPAE Software Development Kit (SDK) on the host</li>
+<li>Build and install the Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver stack on the host</li>
+</ul>
+<p>The simplest flow for installing <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> are shown below:</p>
+<pre class="mermaid"><code>flowchart TB
+    classDef gr fill:green,color:white;
+    classDef bl fill:blue,color:white;
+
+    release_page("Review Table 3: Release Page(s) for each PCIe Attach Platform"):::gr --- 3_1_dfl_env
+    3_1_dfl_env("3.1 OFS DFL Backport Kernel Driver Installation Environment Setup"):::bl --&gt; 3_3_dfl_prebuilt
+    3_3_dfl_prebuilt("3.3 Installing the OFS DFL Backport Kernel Drivers from Pre-Built Packages"):::bl --&gt; 4_1_opae_env
+    4_1_opae_env("4.1 OPAE SDK Installation Environment Setup"):::bl --&gt; 4_2_opae_prebuilt
+    4_2_opae_prebuilt("4.2 Installing the OPAE SDK with Pre-Built Packages"):::bl</code></pre>
+<h3 id="11-audience">1.1 Audience<a class="headerlink" href="#11-audience" title="Permanent link">&para;</a></h3>
+<p>The information in this document is intended for customers evaluating a PCIe Attach shell. The PCIe Attach shell design is supported on a number of board offerings, including the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile), Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile), Intel® FPGA SmartNIC N6001-PL, and Intel® FPGA <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr> D5005.</p>
+<p><em>Note: Code command blocks are used throughout the document. Comments are preceded with '#'. Full command output may not be shown for the sake of brevity.</em></p>
+<h4 id="table-1-terminology">Table 1: Terminology<a class="headerlink" href="#table-1-terminology" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th align="center">Term</th>
+<th align="center">Abbreviation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Advanced Error Reporting</td>
+<td align="center"><abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr></td>
+<td>The PCIe <abbr title="Advanced Error Reporting, The PCIe AER driver is the extended PCI Express error reporting capability providing more robust error reporting.">AER</abbr> driver is the extended PCI Express error reporting capability providing more robust error reporting. <a href="https://docs.kernel.org/PCI/pcieaer-howto.html?highlight=aer">(link)</a></td>
+</tr>
+<tr>
+<td align="center">Accelerator Functional Unit</td>
+<td align="center"><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr></td>
+<td>Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region is the part of the design where an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may reside. This <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> may or may not be a partial reconfiguration region.</td>
+</tr>
+<tr>
+<td align="center">Basic Building Block</td>
+<td align="center"><abbr title="Basic Building Block, Features within an AFU or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the FIM's AFU and host interface requires. All BBBs must have a (globally unique identifier) GUID.">BBB</abbr></td>
+<td>Features within an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or part of an FPGA interface that can be reused across designs. These building blocks do not have stringent interface requirements like the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>'s <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and host interface requires. All BBBs must have a (globally unique identifier) GUID.</td>
+</tr>
+<tr>
+<td align="center">Best Known Configuration</td>
+<td align="center"><abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr></td>
+<td>The software and hardware configuration Intel uses to verify the solution.</td>
+</tr>
+<tr>
+<td align="center">Board Management Controller</td>
+<td align="center"><abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr></td>
+<td>Supports features such as board power managment, flash management, configuration management, and board telemetry monitoring and protection. The majority of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> logic is in a separate component, such as an Intel® Max® 10 or Intel Cyclone® 10 device; a small portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> known as the PMCI resides in the main Agilex FPGA.</td>
+</tr>
+<tr>
+<td align="center">Configuration and Status Register</td>
+<td align="center">CSR</td>
+<td>The generic name for a register space which is accessed in order to interface with the module it resides in (e.g. <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>, <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr>, various sub-systems and modules).</td>
+</tr>
+<tr>
+<td align="center">Data Parallel C++</td>
+<td align="center">DPC++</td>
+<td>DPC++ is Intel’s implementation of the SYCL standard. It supports additional attributes and language extensions which ensure DCP++ (SYCL) is efficiently implanted on Intel hardware.</td>
+</tr>
+<tr>
+<td align="center">Device Feature List</td>
+<td align="center"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td>The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver to automatically load the drivers required for a given FPGA configuration. This concept is the foundation for the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software framework. <a href="https://docs.kernel.org/fpga/dfl.html">(link)</a></td>
+</tr>
+<tr>
+<td align="center">FPGA Interface Manager</td>
+<td align="center"><abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr></td>
+<td>Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> resides in the static region of the FPGA and contains the FPGA Management Engine (<abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr>) and I/O ring.</td>
+</tr>
+<tr>
+<td align="center">FPGA Management Engine</td>
+<td align="center"><abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr></td>
+<td>Performs reconfiguration and other FPGA management functions. Each FPGA device only has one <abbr title="FPGA Management Engine, Provides a way to manage the platform and enable acceleration functions on the platform.">FME</abbr> which is accessed through PF0.</td>
+</tr>
+<tr>
+<td align="center">Host Exerciser Module</td>
+<td align="center"><abbr title="Host Exerciser Module, Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc.">HEM</abbr></td>
+<td>Host exercisers are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (<abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>), data transfer from host to FPGA, <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr>, host to FPGA memory, etc.</td>
+</tr>
+<tr>
+<td align="center">Input/Output Control</td>
+<td align="center"><abbr title="Input/Output Control, System calls used to manipulate underlying device parameters of special files.">IOCTL</abbr></td>
+<td>System calls used to manipulate underlying device parameters of special files.</td>
+</tr>
+<tr>
+<td align="center">Intel Virtualization Technology for Directed I/O</td>
+<td align="center"><abbr title="Intel Virtualization Technology for Directed I/O, Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.">Intel VT-d</abbr></td>
+<td>Extension of the VT-x and VT-I processor virtualization technologies which adds new support for I/O device virtualization.</td>
+</tr>
+<tr>
+<td align="center">Joint Test Action Group</td>
+<td align="center"><abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr></td>
+<td>Refers to the IEEE 1149.1 <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> standard; Another FPGA configuration methodology.</td>
+</tr>
+<tr>
+<td align="center">Memory Mapped Input/Output</td>
+<td align="center"><abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr></td>
+<td>The memory space users may map and access both control registers and system memory buffers with accelerators.</td>
+</tr>
+<tr>
+<td align="center">oneAPI Accelerator Support Package</td>
+<td align="center">oneAPI-asp</td>
+<td>A collection of hardware and software components that enable oneAPI kernel to communicate with oneAPI runtime and <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> shell components. oneAPI ASP hardware components and oneAPI kernel form the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> region of a oneAPI system in <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>.</td>
+</tr>
+<tr>
+<td align="center">Open FPGA Stack</td>
+<td align="center"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr></td>
+<td><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> is a software and hardware infrastructure providing an efficient approach to develop a custom FPGA-based platform or workload using an Intel, 3<sup>rd</sup> party, or custom board.</td>
+</tr>
+<tr>
+<td align="center">Open Programmable Acceleration Engine Software Development Kit</td>
+<td align="center"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> resides exclusively in user-space.</td>
+</tr>
+<tr>
+<td align="center">Platform Interface Manager</td>
+<td align="center"><abbr title="Platform Interface Manager, An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that AFU developers can use to handle clock crossing, response sorting, buffering and different protocols.">PIM</abbr></td>
+<td>An interface manager that comprises two components: a configurable platform specific interface for board developers and a collection of shims that <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> developers can use to handle clock crossing, response sorting, buffering and different protocols.</td>
+</tr>
+<tr>
+<td align="center">Platform Management Controller Interface</td>
+<td align="center">PMCI</td>
+<td>The portion of the <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> that resides in the Agilex FPGA and allows the FPGA to communicate with the primary <abbr title="Board Management Controller, Acts as the Root of Trust (RoT) on the Intel FPGA PAC platform. Supports features such as power sequence management and board monitoring through on-board sensors.">BMC</abbr> component on the board.</td>
+</tr>
+<tr>
+<td align="center">Partial Reconfiguration</td>
+<td align="center"><abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr></td>
+<td>The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. For <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> designs, the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region is referred to as the pr_slot.</td>
+</tr>
+<tr>
+<td align="center">Port</td>
+<td align="center">N/A</td>
+<td>When used in the context of the fpgainfo port command it represents the interfaces between the static FPGA fabric and the <abbr title="Partial Reconfiguration, The ability to dynamically reconfigure a portion of an FPGA while the remaining FPGA design continues to function. In the context of Intel FPGA PAC, a PR bitstream refers to an Intel FPGA PAC AFU. Refer to Partial Reconfiguration support page.">PR</abbr> region containing the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>.</td>
+</tr>
+<tr>
+<td align="center">Remote System Update</td>
+<td align="center"><abbr title="Remote System Update, A Remote System Update operation sends an instruction to the Intel FPGA PAC D5005 device that triggers a power cycle of the card only, forcing reconfiguration.">RSU</abbr></td>
+<td>The process by which the host can remotely update images stored in flash through PCIe. This is done with the OPAE software command "fpgasupdate".</td>
+</tr>
+<tr>
+<td align="center">Secure Device Manager</td>
+<td align="center">SDM</td>
+<td>The SDM is the point of entry to the FPGA for <abbr title="Joint Test Action Group, Refers to the IEEE 1149.1 JTAG standard; Another FPGA configuration methodology.">JTAG</abbr> commands and interfaces, as well as for device configuration data (from flash, SD card, or through PCI Express* hard IP).</td>
+</tr>
+<tr>
+<td align="center">Static Region</td>
+<td align="center">SR</td>
+<td>The portion of the FPGA design that cannot be dynamically reconfigured during run-time.</td>
+</tr>
+<tr>
+<td align="center">Single-Root Input-Output Virtualization</td>
+<td align="center"><abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr></td>
+<td>Allows the isolation of PCI Express resources for manageability and performance.</td>
+</tr>
+<tr>
+<td align="center">SYCL</td>
+<td align="center">SYCL</td>
+<td>SYCL (pronounced "sickle") is a royalty-free, cross-platform abstraction layer that enables code for heterogeneous and offload processors to be written using modern ISO C++ (at least C++ 17). It provides several features that make it well-suited for programming heterogeneous systems, allowing the same code to be used for CPUs, GPUs, FPGAs or any other hardware accelerator. SYCL was developed by the Khronos Group, a non-profit organization that develops open standards (including OpenCL) for graphics, compute, vision, and multimedia. SYCL is being used by a growing number of developers in a variety of industries, including automotive, aerospace, and consumer electronics.</td>
+</tr>
+<tr>
+<td align="center">Test Bench</td>
+<td align="center"><abbr title="Testbench, Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.">TB</abbr></td>
+<td>Testbench or Verification Environment is used to check the functional correctness of the Design Under Test (DUT) by generating and driving a predefined input sequence to a design, capturing the design output and comparing with-respect-to expected output.</td>
+</tr>
+<tr>
+<td align="center">Universal Verification Methodology</td>
+<td align="center"><abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr></td>
+<td>A modular, reusable, and scalable testbench structure via an API framework.  In the context of <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>, the <abbr title="Universal Verification Methodology, A modular, reusable, and scalable testbench structure via an API framework.">UVM</abbr> enviroment provides a system level simulation environment for your design.</td>
+</tr>
+<tr>
+<td align="center">Virtual Function Input/Output</td>
+<td align="center"><abbr title="Virtual Function Input/Output, An IOMMU/device agnostic framework for exposing direct device access to userspace.">VFIO</abbr></td>
+<td>An Input-Output Memory Management Unit (IOMMU)/device agnostic framework for exposing direct device access to userspace. (link)</td>
+</tr>
+</tbody>
+</table>
+<h4 id="table-2-software-and-component-version-summary-for-ofs-pcie-attach">Table 2: Software and Component Version Summary for <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> PCIe Attach<a class="headerlink" href="#table-2-software-and-component-version-summary-for-ofs-pcie-attach" title="Permanent link">&para;</a></h4>
+<p>The <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> PCIe Attach release is built upon tightly coupled software and Operating System version(s). The repositories listed below are where the source code resides for each of the components discussed in this document.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Version</th>
+<th>Download Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Host Operating System</td>
+<td>RedHat® Enterprise Linux® (RHEL) 9.4</td>
+<td><a href="https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software">link</a></td>
+</tr>
+<tr>
+<td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></td>
+<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2"> 2.14.0-2 </a></td>
+<td><a href="https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2"> 2.14.0-2 </a></td>
+</tr>
+<tr>
+<td>Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr></td>
+<td><a href="https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-1">intel-1.12.0-1</a></td>
+<td><a href="https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-1">intel-1.12.0-1</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="table-3-release-pages-for-each-pcie-attach-platform">Table 3: Release Page(s) for each PCIe Attach Platform<a class="headerlink" href="#table-3-release-pages-for-each-pcie-attach-platform" title="Permanent link">&para;</a></h4>
+<p>This is a comprehensive list of the platform(s) whose software build and installation steps are covered in this document.</p>
+<table>
+<thead>
+<tr>
+<th>Platform</th>
+<th>Release Page Link</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stratix® 10 FPGA</td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1</td>
+</tr>
+<tr>
+<td>Intel® FPGA SmartNIC N6001-PL</td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1</td>
+</tr>
+<tr>
+<td>Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)</td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1</td>
+</tr>
+<tr>
+<td>Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)</td>
+<td>https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1</td>
+</tr>
+</tbody>
+</table>
+<h3 id="12-server-requirements">1.2 Server Requirements<a class="headerlink" href="#12-server-requirements" title="Permanent link">&para;</a></h3>
+<h4 id="121-host-bios">1.2.1 Host BIOS<a class="headerlink" href="#121-host-bios" title="Permanent link">&para;</a></h4>
+<p>These are the host BIOS settings required to work with the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> stack, which relies on <abbr title="Single-Root Input-Output Virtualization, Allows the isolation of PCI Express resources for manageability and performance.">SR-IOV</abbr> for some of its functionality. Information about any given server's currently loaded firmware and BIOS settings can be found through its remote access controller, or by manually entering the BIOS by hitting a specific key during power on. Your specific server platform will include instructions on proper BIOS configuration and should be followed when altering settings. Ensure the following has been set:</p>
+<ul>
+<li>PCIe slot width <strong>must</strong> be set to your design's width (1x16, 2x8)</li>
+<li>PCIe slot generation <strong>must</strong> be set to your design's supported generation (4, 5)</li>
+<li>Intel VT for Directed I/O (VT-d) must be enabled</li>
+</ul>
+<p>Specific BIOS paths are not listed here as they can differ between BIOS vendors and versions.</p>
+<h4 id="122-host-server-kernel-and-grub-configuration">1.2.2 Host Server Kernel and GRUB Configuration<a class="headerlink" href="#122-host-server-kernel-and-grub-configuration" title="Permanent link">&para;</a></h4>
+<p>While many host Linux kernel and OS distributions may work with this design, only the following configuration(s) have been tested. You will need to download and install the OS on your host of choice; we will build the required kernel alongside the Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver set.</p>
+<ul>
+<li>OS: RedHat® Enterprise Linux® (RHEL) 9.4</li>
+<li>Kernel: 5.14.0-dfl</li>
+</ul>
+<h3 id="20-ofs-software-overview">2.0 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Software Overview<a class="headerlink" href="#20-ofs-software-overview" title="Permanent link">&para;</a></h3>
+<p>The responsibility of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> kernel drivers is to act as the lowest software layer in the FPGA software stack, providing a minimalist driver implementation between the host software and functionality that has been implemented on the development platform. This leaves the implementation of IP-specific software in user-land, not the kernel. The <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software stack also provides a mechanism for interface and feature discovery of FPGA platforms.</p>
+<p>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> is a software framework for managing and accessing programmable accelerators (FPGAs). It consists of a collection of libraries and tools to facilitate the development of software applications and accelerators. The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> resides exclusively in user-space, and can be found on the <a href="https://github.com/OFS/opae-sdk"><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> Github</a>.</p>
+<p>The <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> drivers decompose implemented functionality, including external <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> features such as HSSI, EMIF and SPI, into sets of individual Device Features. Each Device Feature has its associated Device Feature Header (DFH), which enables a uniform discovery mechanism by software. A set of Device Features are exposed through the host interface in a Device Feature List (<abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr>). The <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> drivers discover and "walk" the Device Features in a Device Feature List and associate each Device Feature with its matching kernel driver.</p>
+<p>In this way the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software provides a clean and extensible framework for the creation and integration of additional functionalities and their features.</p>
+<p><em>Note: A deeper dive on available SW APIs and programming model is available in the <a href="https://ofs.github.io/ofs-2024.3-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/">Software Reference Manual: Open FPGA Stack</a>, on <a href="https://docs.kernel.org/fpga/dfl.html?highlight=fpga">kernel.org</a>, and through the <a href="https://github.com/OFS/linux-dfl/wiki">Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> wiki pages</a>.</em></p>
+<h2 id="30-ofs-dfl-kernel-drivers">3.0 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Drivers<a class="headerlink" href="#30-ofs-dfl-kernel-drivers" title="Permanent link">&para;</a></h2>
+<p><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver software provides the bottom-most API to FPGA platforms. Libraries such as OPAE and frameworks like DPDK are consumers of the APIs provided by <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>. Applications may be built on top of these frameworks and libraries. The <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> software does not cover any out-of-band management interfaces. <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> driver software is designed to be extendable, flexible, and provide for bare-metal and virtualized functionality. An in depth look at the various aspects of the driver architecture such as the API, an explanation of the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> framework, and instructions on how to port <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver patches to other kernel distributions can be found on <a href="https://github.com/OPAE/linux-dfl/wiki">https://github.com/OPAE/linux-dfl/wiki</a>.</p>
+<p>An in-depth review of the Linux device driver architecture can be found on <a href="https://opae.github.io/latest/docs/drv_arch/drv_arch.html">opae.github.io</a>.</p>
+<p>The <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver suite can be automatically installed using a supplied Python 3 installation script. This script ships with a README detailing execution instructions, and currently only supported the PCIe Attach release. Its usage is detailed in the relevant Quick Start Demonstration Guideline for your platform and will not be covered here.</p>
+<h3 id="31-ofs-dfl-backport-kernel-driver-installation-environment-setup">3.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Driver Installation Environment Setup<a class="headerlink" href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup" title="Permanent link">&para;</a></h3>
+<p>All <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel driver primary release code for this release resides in the <a href="https://github.com/OFS/linux-dfl-backport">Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport GitHub repository</a>. This repository is open source and does not require any special permissions to access. It includes a snapshot of the Linux kernel with <em>most</em> of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers included in <code>/drivers/fpga/*</code>. Download, configuration, and compilation will be discussed in this section. Refer back to section <a href="#122-host-server-kernel-and-grub-configuration">1.2.2 Host Server Kernel and GRUB Configuration</a> for a list of supported Operating System(s).</p>
+<p>You can choose to install the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> kernel drivers by either using pre-built binaries created for supported OS release(s), or by building them on your local server. If you decide to use the pre-built packages available on your platform's release page, skip to section <a href="#33-installing-the-ofs-dfl-kernel-drivers-from-pre-built-packages">3.3 Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Kernel Drivers from Pre-Built Packages</a>. Regardless of your choice you will need to follow the two steps in this section to prepare your server environment for installation.</p>
+<p>This installation process assumes the user has access to an internet connection to clone specific GitHub repositories, and to satisfy package dependencies.</p>
+<ol>
+<li>
+<p>It is recommended you lock your Red Hat release version to 9.4 to prevent accidental upgrades. Update installed system packages to their latest versions. We need to enable the code-ready-builder and EPEL repositories.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>subscription-manager<span class="w"> </span>release<span class="w"> </span>--set<span class="o">=</span><span class="m">9</span>.4
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>update
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>subscription-manager<span class="w"> </span>repos<span class="w"> </span>--enable<span class="w"> </span>codeready-builder-for-rhel-9-x86_64-rpms
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+</code></pre></div>
+</li>
+<li>
+<p>Install the following package dependencies if building and installing drivers from source. If you do not require the use of a proxy to pull in downloads using <code>dnf</code>, you can safely remove those parameters from the following commands:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>If<span class="w"> </span>you<span class="w"> </span>require<span class="w"> </span>the<span class="w"> </span>use<span class="w"> </span>of<span class="w"> </span>a<span class="w"> </span>proxy,<span class="w"> </span>add<span class="w"> </span>it<span class="w"> </span>to<span class="w"> </span>DNF<span class="w"> </span>using<span class="w"> </span>by<span class="w"> </span>editing<span class="w"> </span>the<span class="w"> </span>following<span class="w"> </span>file
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/dnf/dnf.conf
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="c1"># Include your proxy by adding the following line, replacing the URL with your proxy&#39;s URL</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="c1"># proxy=http://proxy.server.com:port</span>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+<a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-devel<span class="w"> </span>python3-jsonschema<span class="w"> </span>python3-pyyaml<span class="w"> </span>git<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>make<span class="w"> </span>cmake<span class="w"> </span>libuuid-devel<span class="w"> </span>json-c-devel<span class="w"> </span>hwloc-devel<span class="w"> </span>tbb-devel<span class="w"> </span>cli11-devel<span class="w"> </span>spdlog-devel<span class="w"> </span>libedit-devel<span class="w"> </span>systemd-devel<span class="w"> </span>doxygen<span class="w"> </span>python3-sphinx<span class="w"> </span>pandoc<span class="w"> </span>rpm-build<span class="w"> </span>rpmdevtools<span class="w"> </span>python3-virtualenv<span class="w"> </span>yaml-cpp-devel<span class="w"> </span>libudev-devel<span class="w"> </span>libcap-devel<span class="w"> </span>numactl-devel<span class="w"> </span>bison<span class="w"> </span>flex<span class="w"> </span>automake<span class="w"> </span>autoconf
+<a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
+<a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--user<span class="w"> </span>jsonschema<span class="w"> </span>virtualenv<span class="w"> </span>pudb<span class="w"> </span>pyyaml<span class="w"> </span>setuptools<span class="w"> </span>pybind11
+<a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+<a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="c1"># If setuptools and pybind11 were already installed</span>
+<a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>--user<span class="w"> </span>pybind11<span class="w"> </span>setuptools
+<a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+<a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="c1"># Check that required kernel files are installed. Requires a reboot after</span>
+<a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-5.14.0-427.13.1.el9_4.x86_64
+<a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-devel-5.14.0-427.13.1.el9_4.x86_64
+<a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-devel-matched-5.14.0-427.13.1.el9_4.x86_64
+<a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>kernel-headers-5.14.0-427.13.1.el9_4.x86_64
+<a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>
+<a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--default-kernel
+<a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a><span class="c1"># This should be set to 5.14.0-427.13.1.el9_4.x86_64$. If not, change with the following:</span>
+<a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--default-kernel<span class="w"> </span>/boot/vmlinuz-5.14.0-427.13.1.el9_4.x86_64
+<a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>
+<a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>sudo<span class="w"> </span>reboot
+</code></pre></div>
+<p>Now you have the choice to either follow the steps in section <a href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source">3.2 Building and Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Source</a> or <a href="#33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages">3.3 Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Pre-Built Packages</a>.</p>
+</li>
+</ol>
+<h3 id="32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source">3.2 Building and Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Source<a class="headerlink" href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source" title="Permanent link">&para;</a></h3>
+<p>This section assumes you have already read through and followed any relevant environment setup steps in <a href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup">Section 3.1 3.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Driver Installation Environment Setup</a></p>
+<p>It is recommended you create an empty top level directory for your <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> related repositories to keep the working environment clean. All steps in this installation will use a generic top-level directory at <code>/home/OFS/</code>. If you have created a different top-level directory, replace this path with your custom path.</p>
+<ol>
+<li>
+<p>Initialize an empty git repository and clone the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> driver source code:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>mkdir<span class="w"> </span>/home/OFS/
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>git<span class="w"> </span>init
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OFS/linux-dfl-backport
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/linux-dfl-backport
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/intel-1.12.0-1
+</code></pre></div>
+<p><em>Note: The linux-dfl repository is roughly 5 GB in size.</em></p>
+</li>
+<li>
+<p>Verify that the correct tag/branch have been checked out.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>git<span class="w"> </span>describe<span class="w"> </span>--tags
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>intel-1.12.0-1
+</code></pre></div>
+<p><em>Note: If two different tagged releases are tied to the same commit, running git describe tags may report the other release's tag. This is why the match is made explicit.</em></p>
+</li>
+<li>
+<p>Build the kernel.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/linux-dfl-backport
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>make<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>rpm
+</code></pre></div>
+</li>
+<li>
+<p>Install the newly compiled RPM package and reboot.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>sudo<span class="w"> </span>rpm<span class="w"> </span>-i<span class="w"> </span>intel-fpga-dfl-dkms-<span class="se">\*</span>.noarch.rpm
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>sudo<span class="w"> </span>reboot
+</code></pre></div>
+</li>
+<li>
+<p>Verify the <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers have been successfully installed by reading version information directly from <code>/lib/modules</code>. Recall that the name of the kernel built as a part of this section is 5.14.0-dfl. If the user set a different name for their kernel, change this path as needed:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nb">cd</span><span class="w"> </span>/usr/lib/modules/5.14.0-427.13.1.el9_4.x86_64/extra/
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>ls
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>8250_dfl.ko.xz<span class="w">        </span>dfl-n3000-nios.ko.xz<span class="w">       </span>intel-m10-bmc-log.ko.xz<span class="w">         </span>qsfp-mem-platform.ko.xz
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>dfl-afu.ko.xz<span class="w">         </span>dfl-pci.ko.xz<span class="w">              </span>intel-m10-bmc-pmci.ko.xz<span class="w">        </span>regmap-indirect-register.ko.xz
+<a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>dfl-cxl-cache.ko.xz<span class="w">   </span>dfl-pci-sva.ko.xz<span class="w">          </span>intel-m10-bmc-sec-update.ko.xz<span class="w">  </span>regmap-mmio.ko.xz
+<a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>dfl-emif.ko.xz<span class="w">        </span>dfl-platform.ko.xz<span class="w">         </span>intel-m10-bmc-spi.ko.xz<span class="w">         </span>regmap-spi-avmm.ko.xz
+<a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>dfl-fme-br.ko.xz<span class="w">      </span>dfl-priv-feat.ko.xz<span class="w">        </span>intel-s10-phy.ko.xz<span class="w">             </span>s10hssi.ko.xz
+<a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>dfl-fme.ko.xz<span class="w">         </span>fpga-bridge.ko.xz<span class="w">          </span>n5010-hssi.ko.xz<span class="w">                </span>spi-altera-core.ko.xz
+<a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>dfl-fme-mgr.ko.xz<span class="w">     </span>fpga-mgr.ko.xz<span class="w">             </span>n5010-phy.ko.xz<span class="w">                 </span>spi-altera-dfl.ko.xz
+<a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>dfl-fme-region.ko.xz<span class="w">  </span>fpga-region.ko.xz<span class="w">          </span>ptp_dfl_tod.ko.xz<span class="w">               </span>spi-altera-platform.ko.xz
+<a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>dfl-hssi.ko.xz<span class="w">        </span>intel-m10-bmc-hwmon.ko.xz<span class="w">  </span>qsfp-mem-core.ko.xz<span class="w">             </span>uio-dfl.ko.xz
+<a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>dfl.ko.xz<span class="w">             </span>intel-m10-bmc.ko.xz<span class="w">        </span>qsfp-mem-dfl.ko.xz
+</code></pre></div>
+<p>If an <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> device that is compatible with these drivers is installed on the server, you can double check the driver versions by listing the currently loaded kernel modules with <code>lsmod</code>:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>lsmod<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>dfl
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>dfl_pci_sva<span class="w">            </span><span class="m">20480</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>ptp_dfl_tod<span class="w">            </span><span class="m">16384</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>dfl_cxl_cache<span class="w">          </span><span class="m">24576</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>dfl_hssi<span class="w">               </span><span class="m">16384</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>spi_altera_dfl<span class="w">         </span><span class="m">20480</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>spi_altera_core<span class="w">        </span><span class="m">16384</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>spi_altera_dfl
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>dfl_fme_mgr<span class="w">            </span><span class="m">20480</span><span class="w">  </span><span class="m">1</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>qsfp_mem_dfl<span class="w">           </span><span class="m">16384</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>uio_dfl<span class="w">                </span><span class="m">20480</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>qsfp_mem_core<span class="w">          </span><span class="m">20480</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>qsfp_mem_dfl
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>dfl_n3000_nios<span class="w">         </span><span class="m">20480</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>uio<span class="w">                    </span><span class="m">32768</span><span class="w">  </span><span class="m">1</span><span class="w"> </span>uio_dfl
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>dfl_fme_br<span class="w">             </span><span class="m">16384</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>dfl_emif<span class="w">               </span><span class="m">16384</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>dfl_fme_region<span class="w">         </span><span class="m">20480</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>8250_dfl<span class="w">               </span><span class="m">16384</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>dfl_fme<span class="w">                </span><span class="m">57344</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>dfl_afu<span class="w">                </span><span class="m">45056</span><span class="w">  </span><span class="m">1</span>
+<a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>dfl_pci<span class="w">                </span><span class="m">20480</span><span class="w">  </span><span class="m">0</span>
+<a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>dfl<span class="w">                    </span><span class="m">49152</span><span class="w">  </span><span class="m">16</span><span class="w"> </span>dfl_pci,s10hssi,uio_dfl,dfl_hssi,dfl_fme,n5010_hssi,intel_m10_bmc_pmci,dfl_fme_br,qsfp_mem_dfl,dfl_n3000_nios,8250_dfl,ptp_dfl_tod,dfl_afu,spi_altera_dfl,dfl_emif,dfl_cxl_cache
+<a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>fpga_region<span class="w">            </span><span class="m">20480</span><span class="w">  </span><span class="m">3</span><span class="w"> </span>dfl_fme_region,dfl_fme,dfl
+<a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>fpga_bridge<span class="w">            </span><span class="m">24576</span><span class="w">  </span><span class="m">4</span><span class="w"> </span>dfl_fme_region,fpga_region,dfl_fme,dfl_fme_br
+<a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a>fpga_mgr<span class="w">               </span><span class="m">28672</span><span class="w">  </span><span class="m">4</span><span class="w"> </span>dfl_fme_region,fpga_region,dfl_fme_mgr,dfl_fme
+<a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>drm<span class="w">                   </span><span class="m">741376</span><span class="w">  </span><span class="m">6</span><span class="w"> </span>drm_kms_helper,ast,drm_shmem_helper,dfl_cxl_cache
+</code></pre></div>
+</li>
+<li>
+<p>Four kernel parameters must be added to the boot command line for the newly installed kernel. They will be visible on next boot. If you wish to set your <em>hugepgaes</em> settings on a per-session basis you can remove them from the <em>grubby</em> command and see the note below.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--update-kernel<span class="w"> </span>/boot/vmlinuz-5.14.0-427.13.1.el9_4.x86_64<span class="w"> </span>--args<span class="w"> </span><span class="s2">&quot;intel_iommu=on pcie=realloc hugepagesz=2M hugepages=200&quot;</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>sudo<span class="w"> </span>grub2-mkconfig<span class="w"> </span>-o<span class="w"> </span>/boot/grub2/grub.cfg<span class="w"> </span>--update-bls-cmdline
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>sudo<span class="w"> </span>reboot
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># after reboot</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>cat<span class="w"> </span>/proc/cmdline
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nv">BOOT_IMAGE</span><span class="o">=(</span>hd0,gpt3<span class="o">)</span>/vmlinuz-5.14.0-427.13.1.el9_4.x86_64<span class="w"> </span>...<span class="w"> </span>rhgb<span class="w"> </span>quiet<span class="w"> </span><span class="nv">intel_iommu</span><span class="o">=</span>on<span class="w"> </span><span class="nv">pcie</span><span class="o">=</span>realloc<span class="w"> </span><span class="nv">hugepagesz</span><span class="o">=</span>2M<span class="w"> </span><span class="nv">hugepages</span><span class="o">=</span><span class="m">200</span>
+</code></pre></div>
+<p><em>Note: If you wish to instead set hugepages on a per session basis, you can perform the following steps. These settings will be lost on reboot.</em></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/huge<span class="w"> </span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>mount<span class="w"> </span>-t<span class="w"> </span>hugetlbfs<span class="w"> </span>nodev<span class="w"> </span>/mnt/huge<span class="w"> </span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="nb">echo</span><span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/devices/system/node/node0/hugepages/hugepages-2048kB/nr_hugepages<span class="w"> </span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="nb">echo</span><span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/devices/system/node/node1/hugepages/hugepages-2048kB/nr_hugepages<span class="w"> </span>
+</code></pre></div>
+<p>A list of all <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> drivers and their purpose is maintained on the <a href="https://github.com/OFS/linux-dfl/wiki/FPGA-DFL-Driver-Modules#fpga-driver-modules"><abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Wiki</a>.</p>
+</li>
+</ol>
+<h3 id="33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages">3.3 Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Pre-Built Packages<a class="headerlink" href="#33-installing-the-ofs-dfl-backport-kernel-drivers-from-pre-built-packages" title="Permanent link">&para;</a></h3>
+<p>This section assumes you have already read through and followed any relevant environment setup steps in <a href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup">Section 3.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Driver Installation Environment Setup</a></p>
+<p>To use the pre-built Linux <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> packages, you first need to download the files from your chosen platform's release page under the Artifacts tab. The name will resemble kernel-*.tar.gz. You can also browse the releases on the <a href="https://github.com/OFS/linux-dfl-backport/releases">backport site</a>.</p>
+<ol>
+<li>Download and install the pre-built kernel package.</li>
+</ol>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>wget<span class="w"> </span>https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/intel-fpga-dfl-dkms-1.12.0-1.2025.01.17.g1ed87c2.noarch.rpm
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>sudo<span class="w"> </span>rpm<span class="w"> </span>-i<span class="w"> </span>intel-fpga-dfl-dkms-1.12.0-1.2025.01.17.g1ed87c2.noarch.rpm
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># Double check the new kernel is your boot target</span>
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--default-kernel
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>/boot/vmlinuz-5.14.0-427.13.1.el9_4.x86_64
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1"># If not, set the new kernel as your default boot target</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>sudo<span class="w"> </span>grubby<span class="w"> </span>--set-default<span class="w"> </span>/boot/vmlinuz-5.14.0-427.13.1.el9_4.x86_64
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>sudo<span class="w"> </span>reboot
+</code></pre></div>
+<p>Continue from step 5 of <a href="#32-building-and-installing-the-ofs-dfl-backport-kernel-drivers-from-source">Section 3.2 Building and Installing the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Drivers from Source</a>.</p>
+<h2 id="40-opae-software-development-kit">4.0 OPAE Software Development Kit<a class="headerlink" href="#40-opae-software-development-kit" title="Permanent link">&para;</a></h2>
+<p>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> software stack sits in user space on top of the <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> kernel drivers. It is a common software infrastructure layer that simplifies and streamlines integration of programmable accelerators such as FPGAs into software applications and environments. OPAE consists of a set of drivers, user-space libraries, and tools to discover, enumerate, share, query, access, manipulate, and reconfigure programmable accelerators. OPAE is designed to support a layered, common programming model across different platforms and devices. To learn more about OPAE, its documentation, code samples, an explanation of the available tools, and an overview of the software architecture, visit <a href="https://opae.github.io/latest/index.html">opae.github.io</a>.</p>
+<p>The <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> source code is contained within a single GitHub repository hosted at the <a href="https://github.com/OFS/opae-sdk/releases/tag/2.14.0-2">OPAE Github</a>. This repository is open source and does not require any permissions to access.</p>
+<p>You can choose to install the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> by either using pre-built binaries created for the <abbr title="Best Known Configuration, The exact hardware configuration Intel has optimized and validated the solution against.">BKC</abbr> OS, or by building them on your local server. If you decide to use the pre-built packages available on your chosen platform's release page, skip to section <a href="#44-installing-the-opae-sdk-with-pre-built-packages">4.3 Installing the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> with Pre-built Packages</a>. Regardless of your choice you will need to follow the steps in this section to prepare your server for installation.</p>
+<p>You may also choose to use the supplied Python 3 installation script. This script ships with a README detailing execution instructions and is available on the PCIe Attach's platform release page. It can be used to automate installation of the pre-built packages, or to build from source.</p>
+<h3 id="41-opae-sdk-installation-environment-setup">4.1 <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> Installation Environment Setup<a class="headerlink" href="#41-opae-sdk-installation-environment-setup" title="Permanent link">&para;</a></h3>
+<p>This installation process assumes you have access to an internet connection to pull specific GitHub repositories, and to satisfy package dependencies.</p>
+<h4 id="table-4-opae-package-description">Table 4: OPAE Package Description<a class="headerlink" href="#table-4-opae-package-description" title="Permanent link">&para;</a></h4>
+<table>
+<thead>
+<tr>
+<th>Package Name</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>opae</td>
+<td><abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> is a collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE. It provides a library implementing the OPAE C API for presenting a streamlined and easy-to-use interface for software applications to discover, access, and manage FPGA devices and accelerators using the OPAE software stack.</td>
+</tr>
+<tr>
+<td>opae-debuginfo</td>
+<td>This package provides debug information for package opae. Debug information is useful when developing applications that use this package or when debugging this package.</td>
+</tr>
+<tr>
+<td>opae-debugsource</td>
+<td>This package provides debug sources for package opae. Debug sources are useful when developing applications that use this package or when debugging this package.</td>
+</tr>
+<tr>
+<td>opae-devel</td>
+<td>OPAE headers, tools, sample source, and documentation</td>
+</tr>
+<tr>
+<td>opae-devel-debuginfo</td>
+<td>This package provides debug information for package opae-devel. Debug information is useful when developing applications that use this package or when debugging this package.</td>
+</tr>
+<tr>
+<td>opae-tools</td>
+<td>This package contains OPAE base tools binaries</td>
+</tr>
+<tr>
+<td>opae-extra-tools</td>
+<td>Additional OPAE tools</td>
+</tr>
+<tr>
+<td>opae-extra-tools-debuginfo</td>
+<td>This package provides debug information for package opae-extra-tools. Debug information is useful when developing applications that use this package or when debugging this package.</td>
+</tr>
+</tbody>
+</table>
+<ol>
+<li>
+<p>Lock your RHEL installation to RHEL 9.4 and enable the ncessary repositories. If you have already completed these steps from <a href="#31-ofs-dfl-backport-kernel-driver-installation-environment-setup">3.1 <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> <abbr title="Device Feature List, A concept inherited from OFS. The DFL drivers provide support for FPGA devices that are designed to support the Device Feature List. The DFL, which is implemented in RTL, consists of a self-describing data structure in PCI BAR space that allows the DFL driver to automatically load the drivers required for a given FPGA configuration.">DFL</abbr> Backport Kernel Driver Installation Environment Setup</a> you can skip them here.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>subscription-manager<span class="w"> </span>release<span class="w"> </span>--set<span class="o">=</span><span class="m">9</span>.4
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>update
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>subscription-manager<span class="w"> </span>repos<span class="w"> </span>--enable<span class="w"> </span>codeready-builder-for-rhel-9-x86_64-rpms
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
+</code></pre></div>
+</li>
+<li>
+<p>Remove any currently installed OPAE packages.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>remove<span class="w"> </span>opae*
+</code></pre></div>
+</li>
+<li>
+<p>Initialize an empty git repository and clone the tagged <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> source code.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>git<span class="w"> </span>init
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OFS/opae-sdk<span class="w"> </span>opae-sdk
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/opae-sdk
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>git<span class="w"> </span>checkout<span class="w"> </span>tags/2.14.0-2
+</code></pre></div>
+</li>
+<li>
+<p>Verify that the correct tag/branch have been checkout out.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>git<span class="w"> </span>describe<span class="w"> </span>--tags
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="m">2</span>.14.0-2
+</code></pre></div>
+</li>
+<li>
+<p>Set up a temporary python virtual environment to build OPAE, which will allow you to customize the python installation without affecting system packages.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>
+<a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>python3<span class="w"> </span>python3-pip<span class="w"> </span>python3-devel<span class="w"> </span>python3-jsonschema<span class="w"> </span>python3-pyyaml<span class="w"> </span>git<span class="w"> </span>gcc<span class="w"> </span>gcc-c++<span class="w"> </span>make<span class="w"> </span>cmake<span class="w"> </span>libuuid-devel<span class="w"> </span>json-c-devel<span class="w"> </span>hwloc-devel<span class="w"> </span>tbb-devel<span class="w"> </span>cli11-devel<span class="w"> </span>spdlog-devel<span class="w"> </span>libedit-devel<span class="w"> </span>systemd-devel<span class="w"> </span>doxygen<span class="w"> </span>python3-sphinx<span class="w"> </span>pandoc<span class="w"> </span>rpm-build<span class="w"> </span>rpmdevtools<span class="w"> </span>python3-virtualenv<span class="w"> </span>yaml-cpp-devel<span class="w"> </span>libudev-devel<span class="w"> </span>libcap-devel<span class="w"> </span>make<span class="w"> </span>automake<span class="w"> </span>autoconf
+<a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+<a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a><span class="c1"># Create and source a python virtual environment</span>
+<a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>opae_venv
+<a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a><span class="o">(</span>opae_venv<span class="o">)</span><span class="w"> </span><span class="nb">source</span><span class="w"> </span>opae_venv/bin/activate
+<a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="o">(</span>opae_venv<span class="o">)</span><span class="w"> </span>python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pybind11<span class="w"> </span>wheel<span class="w"> </span>pyyaml<span class="w"> </span>jsonschema<span class="w"> </span><span class="nv">setuptools</span><span class="o">==</span><span class="m">70</span>.0<span class="w"> </span>
+<a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="o">(</span>opae_venv<span class="o">)</span><span class="w"> </span>./opae-sdk/packaging/opae/rpm/create<span class="w"> </span>unrestricted
+<a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a><span class="o">(</span>opae_venv<span class="o">)</span><span class="w"> </span><span class="nb">exit</span>
+</code></pre></div>
+</li>
+<li>
+<p>Install the packages you just created.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="nb">cd</span><span class="w"> </span>/home/OFS/opae-sdk/packaging/opae/rpm
+<a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>opae-*.src.rpm<span class="w"> </span>
+<a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>-y<span class="w"> </span>opae*.rpm
+</code></pre></div>
+</li>
+<li>
+<p>Check that all packages have been installed and match expectation:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>rpm<span class="w"> </span>-qa<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>opae
+<a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>opae-2.14.0-2.el9.x86_64.rpm
+<a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>opae-debuginfo-2.14.0-2.el9.x86_64.rpm
+<a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>opae-debugsource-2.14.0-2.el9.x86_64.rpm
+<a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>opae-devel-2.14.0-2.el9.x86_64.rpm
+<a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>opae-devel-debuginfo-2.14.0-2.el9.x86_64.rpm
+<a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>opae-extra-tools-2.14.0-2.el9.x86_64.rpm
+<a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>opae-extra-tools-debuginfo-2.14.0-2.el9.x86_64.rpm
+</code></pre></div>
+</li>
+</ol>
+<h3 id="42-installing-the-opae-sdk-with-pre-built-packages">4.2 Installing the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> with Pre-Built Packages<a class="headerlink" href="#42-installing-the-opae-sdk-with-pre-built-packages" title="Permanent link">&para;</a></h3>
+<p>You can skip the entire build process and use a set of pre-built binaries supplied by Altera. Visit your chosen platform's release page. Ender the Assets tab you will see a file named opae-sdk-2.14.0-2-x86_64-rockylinux-9.zip on the <a href="https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.3-1"><abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> release page</a>. Download this package and extract its contents:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a>unzip<span class="w"> </span>xf<span class="w"> </span>opae-*.zip
+</code></pre></div>
+<p>For a fast installation you can delete the source RPM as it isn't necessary, and install all remaining OPAE RPMs:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a>rm<span class="w"> </span>opae-*.src.rpm
+<a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>sudo<span class="w"> </span>dnf<span class="w"> </span>localinstall<span class="w"> </span>opae*.rpm
+</code></pre></div>
+<h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
+<p>Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.</p>
+<p>OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>

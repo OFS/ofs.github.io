@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.9.1" xml:lang="en-US">
+  <compounddef id="struct__opae__hash__map__item" kind="struct" language="C++" prot="public">
+    <compoundname>_opae_hash_map_item</compoundname>
+    <includes refid="hash__map_8h" local="no">hash_map.h</includes>
+      <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct__opae__hash__map__item_1a83d20755f2946b33143f012d562b6546" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* _opae_hash_map_item::key</definition>
+        <argsstring></argsstring>
+        <name>key</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/include/opae/hash_map.h" line="71" column="6" bodyfile="docs/sw/include/opae/hash_map.h" bodystart="71" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__opae__hash__map__item_1ab7fd39c7db7526d2c5c7e11a8e503931" prot="public" static="no" mutable="no">
+        <type>void *</type>
+        <definition>void* _opae_hash_map_item::value</definition>
+        <argsstring></argsstring>
+        <name>value</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/include/opae/hash_map.h" line="72" column="6" bodyfile="docs/sw/include/opae/hash_map.h" bodystart="72" bodyend="-1"/>
+      </memberdef>
+      <memberdef kind="variable" id="struct__opae__hash__map__item_1a5df34b385ff3e95d2a5fdbcbb2c6294c" prot="public" static="no" mutable="no">
+        <type>struct <ref refid="struct__opae__hash__map__item" kindref="compound">_opae_hash_map_item</ref> *</type>
+        <definition>struct _opae_hash_map_item* _opae_hash_map_item::next</definition>
+        <argsstring></argsstring>
+        <name>next</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="docs/sw/include/opae/hash_map.h" line="73" column="26" bodyfile="docs/sw/include/opae/hash_map.h" bodystart="73" bodyend="-1"/>
+      </memberdef>
+      </sectiondef>
+    <briefdescription>
+<para>List link item. </para>
+    </briefdescription>
+    <detaileddescription>
+<para>This structure provides the association between key and value. When the supplied hash function for keys A and B returns the same bucket index, both A and B can co-exist on the same list rooted at the bucket index. </para>
+    </detaileddescription>
+    <collaborationgraph>
+      <node id="1">
+        <label>_opae_hash_map_item</label>
+        <link refid="struct__opae__hash__map__item"/>
+        <childnode refid="1" relation="usage">
+          <edgelabel>next</edgelabel>
+        </childnode>
+      </node>
+    </collaborationgraph>
+    <location file="docs/sw/include/opae/hash_map.h" line="70" column="1" bodyfile="docs/sw/include/opae/hash_map.h" bodystart="70" bodyend="74"/>
+    <listofallmembers>
+      <member refid="struct__opae__hash__map__item_1a83d20755f2946b33143f012d562b6546" prot="public" virt="non-virtual"><scope>_opae_hash_map_item</scope><name>key</name></member>
+      <member refid="struct__opae__hash__map__item_1a5df34b385ff3e95d2a5fdbcbb2c6294c" prot="public" virt="non-virtual"><scope>_opae_hash_map_item</scope><name>next</name></member>
+      <member refid="struct__opae__hash__map__item_1ab7fd39c7db7526d2c5c7e11a8e503931" prot="public" virt="non-virtual"><scope>_opae_hash_map_item</scope><name>value</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>
