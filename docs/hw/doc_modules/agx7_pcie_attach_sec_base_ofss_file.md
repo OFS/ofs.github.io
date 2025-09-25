@@ -10,7 +10,7 @@ Currently supported configuration options for an OFSS file with IP type `ofs` ar
 | `[settings]` | `platform` | `n6001` | `n6000` | `n6001` | `n6001` |
 | | `family` | `agilex` | `agilex` | `agilex` | `agilex` |
 | | `fim` | `base_x16` | `base_x16` | `base_x16` | `base_x16` |
-| | `part` | `AGFB014R24A2E2V` | `AGFB014R24A2E2V` | `AGFB027R24C2E2VR2` | `AGIB027R29A1E2VR3` |
+| | `part` | `AGFB014R24A2E2V` | `AGFB014R24A2E2V` | `AGFB027R24C2E2VR2` | `AGIB027R29A1E1VB` |
 | | `device_id` | `6001` | `6000` | `6001` | `6001` |
 | `[pcie.settings]` | `pcie_gen` | `4` | `4` | `4` | `5` |
 | `[pcie]` | `subsys_dev_id` | `1771` | `1770` | `1` | `1` |

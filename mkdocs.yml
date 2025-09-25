@@ -126,17 +126,20 @@ nav:
       - Virtualization:
           - Docker User Guide: 'd5005/ug_docker.md'
           - KVM User Guide: 'd5005/ug_kvm.md'
-  - Agilex® 7 PCIe Attach OFS:
+  - Agilex™ PCIe Attach OFS:
       - Overview: 'hw/doc_modules/contents_agx7_pcie_attach.md'
       - Board Installation Guides:
         - Intel® FPGA SmartNIC N6000/1-PL: 'n6001/adp_board_installation_guidelines.md'
-        - Agilex® 7 FPGA I-Series and F-Series Development Kits: 'hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines.md'
+        - Agilex™ 7 FPGA I-Series and F-Series Development Kits: 'hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines.md'
+        - Agilex™ 5 FPGA Modular Development Kit: 'hw/common/board_installation/agx5_devkit_installation/agx5_devkit_install.md'
       - Software Installation Guide: 'hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md'
       - Getting Started Guides:
-          - OFS for Agilex® 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile): 'hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries.md'
-          - OFS for Agilex® 7 FPGA F-Series Development Kit (2xF-Tile): 'hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile.md'
+          - OFS for Agilex™ 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile): 'hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries.md'
+          - OFS for Agilex™ 7 FPGA F-Series Development Kit (2xF-Tile): 'hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile.md'
+          - OFS for Agilex™ 5 FPGA Modular Development Kit: 'hw/agx5/user_guides/ug_qs_ofs_agx5/ug_qs_ofs_agx5.md'  
           - OFS for Intel® FPGA SmartNIC N6001-PL: 'hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md'
       - Automated Evaluation Guide: 'hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach.md'
+      - Shell Technical Reference Manual: 'hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001.md'
       - Shell Developer Guides:
           - PCIe Attach I-Series (2xR-Tile, F-Tile): 'hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev.md'
           - PCIe Attach F-Series (2xF-Tile): 'hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev.md'
@@ -144,14 +147,16 @@ nav:
       - HPS Developer Guide: 'hw/n6001/dev_guides/hps_dev/hps_developer_ug.md'
       - Simulation User Guide: 'hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach.md' 
       - Workload Development:
-          - Workload Developer Guide: 'hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach.md'
+          - Agilex™ 7 Workload Developer Guide: 'hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach.md'
+          - Agilex™ 5 Workload Developer Guide: 'hw/agx5/dev_guides/afu_dev/ug_dev_afu_ofs_agx5.md'         
           - PIM Based AFU Developer Guide: 'n6001/ug_dev_pim_based_afu.md'
           - AFU Host Software Developer Guide: 'n6001/ug_dev_afu_host_software.md'
           - AFU Simulation Environment User Guide: 'n6001/ug_dev_afu_sim_env.md'
       - Virtualization:
           - Docker User Guide: 'n6001/ug_docker.md'
           - KVM User Guide: 'n6001/ug_kvm.md'
-  - Agilex SoC Attach OFS:
+      - Troubleshooting Guide: 'hw/common/user_guides/ug_troubleshoot/ug_agx7_troubleshoot.md'
+  - Agilex™ SoC Attach OFS:
       - Overview: 'hw/doc_modules/contents_agx7_soc_attach.md'
       - Board Installation Guide (Intel® IPU Platform F2000X-PL): 'hw/common/board_installation/f2000x_board_installation/f2000x_board_installation.md'
       - Software Installation Guide for SoC Attach: 'hw/common/sw_installation/soc_attach/sw_install_soc_attach.md'
@@ -174,9 +179,10 @@ nav:
       - oneAPI Accelerator Support Package(ASP) Reference Manual: hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl.md
 
   - OFS Software:
-    - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
     - Software Installation Guide OFS for PCIe Attach: 'hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md'
     - Software Installation Guide OFS for SoC Attach: 'hw/common/sw_installation/soc_attach/sw_install_soc_attach.md'
+    - Software Reference Manual: 'hw/common/reference_manual/ofs_sw/mnl_sw_ofs.md'
+    - Driver Development Quick Start Guidelines for Linux DFL: 'hw/common/reference_manual/driver_dev_qs/driver_dev_qs.md'
     - OPAE FPGA Tools:
        - fpgainfo: sw/fpga_tools/fpgainfo/fpgainfo.md
        - fpgasupdate: sw/fpga_tools/fpgasupdate/fpgasupdate.md
@@ -238,36 +244,64 @@ markdown_extensions:
 
 env: 
 # DEVICE - The FPGA device family on the target board.
-  N6001_DEVICE: Agilex® 7 FPGA
-  N6000_DEVICE: Agilex® 7 FPGA
-  FTILE_DK_DEVICE: Agilex® 7 FPGA
-  ISERIES_DK_DEVICE: Agilex® 7 FPGA
-  F2000X_DEVICE: Agilex® 7 FPGA
+  N6001_DEVICE: Agilex™ 7 FPGA
+  N6000_DEVICE: Agilex™ 7 FPGA
+  FTILE_DK_DEVICE: Agilex™ 7 FPGA
+  ISERIES_DK_DEVICE: Agilex™ 7 FPGA
+  F2000X_DEVICE: Agilex™ 7 FPGA
   D5005_DEVICE: Stratix® 10 FPGA
+  ONEAPI_N6001_DEVICE: Agilex™ 7 FPGA
+  ONEAPI_N6000_DEVICE: Agilex™ 7 FPGA
+  ONEAPI_FTILE_DK_DEVICE: Agilex™ 7 FPGA
+  ONEAPI_ISERIES_DK_DEVICE: Agilex™ 7 FPGA
+  ONEAPI_F2000X_DEVICE: N/A
+  ONEAPI_D5005_DEVICE: Stratix® 10 FPGA
+  AGX5_MODULAR_DEVICE: Agilex™ 5 FPGA
 
 # DESIGN - The reference design for the target board.
-  N6001_DESIGN: Agilex® 7 PCIe Attach
-  N6000_DESIGN: Agilex® 7 PCIe Attach
-  FTILE_DK_DESIGN: Agilex® 7 PCIe Attach
-  ISERIES_DK_DESIGN: Agilex® 7 PCIe Attach
-  F2000X_DESIGN: Agilex® 7 SoC Attach
+  N6001_DESIGN: Agilex™ 7 PCIe Attach
+  N6000_DESIGN: Agilex™ 7 PCIe Attach
+  FTILE_DK_DESIGN: Agilex™ 7 PCIe Attach
+  ISERIES_DK_DESIGN: Agilex™ 7 PCIe Attach
+  F2000X_DESIGN: Agilex™ 7 SoC Attach
   D5005_DESIGN: Stratix® 10 PCIe Attach
+  ONEAPI_N6001_DESIGN: Agilex™ 7 PCIe Attach
+  ONEAPI_N6000_DESIGN: Agilex™ 7 PCIe Attach
+  ONEAPI_FTILE_DK_DESIGN: Agilex™ 7 PCIe Attach
+  ONEAPI_ISERIES_DK_DESIGN: Agilex™ 7 PCIe Attach
+  ONEAPI_F2000X_DESIGN: N/A
+  ONEAPI_D5005_DESIGN: Stratix® 10 PCIe Attach
+  AGX5_MODULAR_DESIGN: Agilex™ 5 PCIe Attach
 
 # BOARD - The name of the target board.
   N6001_BOARD: Intel® FPGA SmartNIC N6001-PL
   N6000_BOARD: Intel® FPGA SmartNIC N6000-PL
-  FTILE_DK_BOARD: Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
-  ISERIES_DK_BOARD: Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
+  FTILE_DK_BOARD: Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
+  ISERIES_DK_BOARD: Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
   F2000X_BOARD: Intel® Infrastructure Processing Unit (Intel® IPU) Platform F2000X-PL 
   D5005_BOARD: Intel® FPGA PAC D5005
+  ONEAPI_N6001_BOARD: Intel® FPGA SmartNIC N6001-PL
+  ONEAPI_N6000_BOARD: Intel® FPGA SmartNIC N6000-PL
+  ONEAPI_FTILE_DK_BOARD: Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
+  ONEAPI_ISERIES_DK_BOARD: Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
+  ONEAPI_F2000X_BOARD: N/A
+  ONEAPI_D5005_BOARD: Intel® FPGA PAC D5005
+  AGX5_MODULAR: Agilex™ 5 FPGA E-Series 065B Modular Development Kit
 
 # MODEL_L - The name of the target board model without branding.
   N6001_MODEL_L: SmartNIC N6001-PL
   N6000_MODEL_L: SmartNIC N6000-PL
   FTILE_DK_MODEL_L: F-Series Development Kit
   ISERIES_DK_MODEL_L: I-Series Development Kit
+  AGX5_MOD_DK_MODEL_L: Agilex 5 Modular Development Kit
   F2000X_MODEL_L: IPU Platform F2000X-PL
   D5005_MODEL_L: PAC D5005
+  ONEAPI_N6001_MODEL_L: SmartNIC N6001-PL
+  ONEAPI_N6000_MODEL_L: SmartNIC N6000-PL
+  ONEAPI_FTILE_DK_MODEL_L: F-Series Development Kit
+  ONEAPI_ISERIES_DK_MODEL_L: I-Series Development Kit
+  ONEAPI_F2000X_MODEL_L: N/A
+  ONEAPI_D5005_MODEL_L: PAC D5005
 
 # MODEL - The short name of the target board model, lowercase for use in scripts.
   N6001_MODEL: n6001
@@ -276,86 +310,163 @@ env:
   ISERIES_DK_MODEL: iseries-dk
   F2000X_MODEL: f2000x
   D5005_MODEL: d5005
+  AGX5_MOD_MODEL: agx5 modular-dk
+  AGX5_MOD_DK_MODEL: eseries-mdk
+  ONEAPI_N6001_MODEL: n6001
+  ONEAPI_N6000_MODEL: n6000
+  ONEAPI_FTILE_DK_MODEL: fseries-dk
+  ONEAPI_ISERIES_DK_MODEL: iseries-dk
+  ONEAPI_F2000X_MODEL: N/A
+  ONEAPI_D5005_MODEL: d5005
   
 # MPN - Manufacturer part number of the device on the target board.
   N6001_MPN: AGFB014R24A2E2V
   N6000_MPN: AGFB014R24A2E2V
   FTILE_DK_MPN: AGFB027R24C2E2VR2
-  ISERIES_DK_MPN: AGIB027R29A1E2VR3
+  ISERIES_DK_MPN: AGIB027R29A1E1VB
   F2000X_MPN: AGFC023R25A2E2VR0 
   D5005_MPN: 1SX280HN2F43E2VG
+  ADGX5_MOD_MPN: A5ED065BB32AE6SR0
+  ONEAPI_N6001_MPN: AGFB014R24A2E2V
+  ONEAPI_N6000_MPN: AGFB014R24A2E2V
+  ONEAPI_FTILE_DK_MPN: AGFB027R24C2E2VR2
+  ONEAPI_ISERIES_DK_MPN: AGIB027R29A1E1VB
+  ONEAPI_F2000X_MPN: N/A
+  ONEAPI_D5005_MPN: 1SX280HN2F43E2VG
 
 # OFS_VER - OFS version number, without the "ofs" prefix
-  N6001_OFS_VER: 2024.2-1
-  N6000_OFS_VER: 2024.2-1
-  FTILE_DK_OFS_VER: 2024.2-1
-  ISERIES_DK_OFS_VER: 2024.2-1
+  N6001_OFS_VER: 2025.1-1
+  N6000_OFS_VER: 2025.1-1
+  FTILE_DK_OFS_VER: 2025.1-1
+  ISERIES_DK_OFS_VER: 2025.1-1
+  AGX5_MOD_DK_OFS_VER: 2025.1-1
   F2000X_OFS_VER: 2024.1-1
   D5005_OFS_VER: 2024.1-1
+  AGX5_MODULAR_OFS_VER: 2025.1-1
+  ONEAPI_N6001_OFS_VER: 2024.2-1
+  ONEAPI_N6000_OFS_VER: 2024.2-1
+  ONEAPI_FTILE_DK_OFS_VER: 2024.2-1
+  ONEAPI_ISERIES_DK_OFS_VER: 2024.2-1
+  ONEAPI_F2000X_OFS_VER: N/A
+  ONEAPI_D5005_OFS_VER: 2024.1-1
 
 # GH_RELEASE_PAGE_NAME - The title of the release page in the OFS FIM repositories.
-  N6001_GH_RELEASE_PAGE_NAME: ofs-2024.2-1 Release for Agilex 7 PCIe Attach Reference Shells
-  N6000_GH_RELEASE_PAGE_NAME: ofs-2024.2-1 Release for Agilex 7 PCIe Attach Reference Shells
-  FTILE_DK_GH_RELEASE_PAGE_NAME: ofs-2024.2-1 Release for Agilex 7 PCIe Attach Reference Shells
-  ISERIES_DK_GH_RELEASE_PAGE_NAME: ofs-2024.2-1 Release for Agilex 7 PCIe Attach Reference Shells
+  N6001_GH_RELEASE_PAGE_NAME: ofs-2025.1-1 Release for Agilex 7 PCIe Attach Reference Shells
+  N6000_GH_RELEASE_PAGE_NAME: ofs-2025.1-1 Release for Agilex 7 PCIe Attach Reference Shells
+  FTILE_DK_GH_RELEASE_PAGE_NAME: ofs-2025.1-1 Release for Agilex 7 PCIe Attach Reference Shells
+  ISERIES_DK_GH_RELEASE_PAGE_NAME: ofs-2025.1-1 Release for Agilex 7 PCIe Attach Reference Shells
   F2000X_GH_RELEASE_PAGE_NAME: ofs-2024.1-1 Release for Agilex 7 SoC Attach Reference Shell
   D5005_GH_RELEASE_PAGE_NAME: ofs-2024.1-1 Release for Stratix 10 PCIe Attach Reference Shells
+  ONEAPI_N6001_GH_RELEASE_PAGE_NAME: ofs-2024.2-1 Release for Agilex 7 PCIe Attach Reference Shells
+  ONEAPI_N6000_GH_RELEASE_PAGE_NAME: ofs-2024.2-1 Release for Agilex 7 PCIe Attach Reference Shells
+  ONEAPI_FTILE_DK_GH_RELEASE_PAGE_NAME: ofs-2024.2-1 Release for Agilex 7 PCIe Attach Reference Shells
+  ONEAPI_ISERIES_DK_GH_RELEASE_PAGE_NAME: ofs-2024.2-1 Release for Agilex 7 PCIe Attach Reference Shells
+  ONEAPI_F2000X_GH_RELEASE_PAGE_NAME: N/A
+  ONEAPI_D5005_GH_RELEASE_PAGE_NAME: ofs-2024.1-1 Release for Stratix 10 PCIe Attach Reference Shells
 
 # OFS_FIM_RELEASE - The release version. This should match the tag.
-  N6001_OFS_FIM_RELEASE: ofs-2024.2-1
-  N6000_OFS_FIM_RELEASE: ofs-2024.2-1
-  FTILE_DK_OFS_FIM_RELEASE: ofs-2024.2-1
-  ISERIES_DK_OFS_FIM_RELEASE: ofs-2024.2-1
+  N6001_OFS_FIM_RELEASE: ofs-2025.1-1
+  N6000_OFS_FIM_RELEASE: ofs-2025.1-1
+  FTILE_DK_OFS_FIM_RELEASE: ofs-2025.1-1
+  ISERIES_DK_OFS_FIM_RELEASE: ofs-2025.1-1
   F2000X_OFS_FIM_RELEASE: ofs-2024.1-1
   D5005_OFS_FIM_RELEASE: ofs-2024.1-1
+  ONEAPI_N6001_OFS_FIM_RELEASE: ofs-2024.2-1
+  ONEAPI_N6000_OFS_FIM_RELEASE: ofs-2024.2-1
+  ONEAPI_FTILE_DK_OFS_FIM_RELEASE: ofs-2024.2-1
+  ONEAPI_ISERIES_DK_OFS_FIM_RELEASE: ofs-2024.2-1
+  ONEAPI_F2000X_OFS_FIM_RELEASE: N/A
+  ONEAPI_D5005_OFS_FIM_RELEASE: ofs-2024.1-1
 
 # OFS_FIM_TAG - The OFS FIM repos release tag. This should match the release version.
-  N6001_OFS_FIM_TAG: ofs-2024.2-1
-  N6000_OFS_FIM_TAG: ofs-2024.2-1
-  FTILE_DK_OFS_FIM_TAG: ofs-2024.2-1
-  ISERIES_DK_OFS_FIM_TAG: ofs-2024.2-1
+  N6001_OFS_FIM_TAG: ofs-2025.1-1
+  N6000_OFS_FIM_TAG: ofs-2025.1-1
+  FTILE_DK_OFS_FIM_TAG: ofs-2025.1-1
+  ISERIES_DK_OFS_FIM_TAG: ofs-2025.1-1
+  AGX5_MOD_DK_OFS_FIM_TAG: ofs-2025.1-1
   F2000X_OFS_FIM_TAG: ofs-2024.1-1
   D5005_OFS_FIM_TAG: ofs-2024.1-1
+  ONEAPI_N6001_OFS_FIM_TAG: ofs-2024.2-1
+  ONEAPI_N6000_OFS_FIM_TAG: ofs-2024.2-1
+  ONEAPI_FTILE_DK_OFS_FIM_TAG: ofs-2024.2-1
+  ONEAPI_ISERIES_DK_OFS_FIM_TAG: ofs-2024.2-1
+  ONEAPI_F2000X_OFS_FIM_TAG: N/A
+  ONEAPI_D5005_OFS_FIM_TAG: ofs-2024.1-1
 
 # OFS_COMMON_TAG - The ofs-fim-common repository tag.
-  N6001_OFS_COMMON_TAG: ofs-2024.2-1
-  N6000_OFS_COMMON_TAG: ofs-2024.2-1
-  FTILE_DK_OFS_COMMON_TAG: ofs-2024.2-1
-  ISERIES_DK_OFS_COMMON_TAG: ofs-2024.2-1
+  N6001_OFS_COMMON_TAG: ofs-2025.1-1
+  N6000_OFS_COMMON_TAG: ofs-2025.1-1
+  FTILE_DK_OFS_COMMON_TAG: ofs-2025.1-1
+  ISERIES_DK_OFS_COMMON_TAG: ofs-2025.1-1
+  AGX5_MOD_DK_OFS_COMMON_TAG: ofs-2025.1-1
   F2000X_OFS_COMMON_TAG: ofs-2024.1-1
   D5005_OFS_COMMON_TAG: ofs-2024.1-1
+  ONEAPI_N6001_OFS_COMMON_TAG: ofs-2025.1-1
+  ONEAPI_N6000_OFS_COMMON_TAG: ofs-2024.2-1
+  ONEAPI_FTILE_DK_OFS_COMMON_TAG: ofs-2024.2-1
+  ONEAPI_ISERIES_DK_OFS_COMMON_TAG: ofs-2024.2-1
+  ONEAPI_F2000X_OFS_COMMON_TAG: N/A
+  ONEAPI_D5005_OFS_COMMON_TAG: ofs-2024.1-1
 
 # EXAMPLES_AFU_TAG - The examples-afu repository tag.
-  N6001_EXAMPLES_AFU_TAG: ofs-2024.2-1
-  N6000_EXAMPLES_AFU_TAG: ofs-2024.2-1
-  FTILE_DK_EXAMPLES_AFU_TAG: ofs-2024.2-1
-  ISERIES_DK_EXAMPLES_AFU_TAG: ofs-2024.2-1
+  N6001_EXAMPLES_AFU_TAG: ofs-2024.3-1
+  N6000_EXAMPLES_AFU_TAG: ofs-2024.3-1
+  FTILE_DK_EXAMPLES_AFU_TAG: ofs-2024.3-1
+  ISERIES_DK_EXAMPLES_AFU_TAG: ofs-2024.3-1
+  AGX5_MOD_EXAMPLES_AFU_TAG: ofs-2024.3-1
   F2000X_EXAMPLES_AFU_TAG: ofs-2024.1-1
   D5005_EXAMPLES_AFU_TAG: ofs-2024.1-1
+  ONEAPI_N6001_EXAMPLES_AFU_TAG: ofs-2024.2-1
+  ONEAPI_N6000_EXAMPLES_AFU_TAG: ofs-2024.2-1
+  ONEAPI_FTILE_DK_EXAMPLES_AFU_TAG: ofs-2024.2-1
+  ONEAPI_ISERIES_DK_EXAMPLES_AFU_TAG: ofs-2024.2-1
+  ONEAPI_F2000X_EXAMPLES_AFU_TAG: N/A
+  ONEAPI_D5005_EXAMPLES_AFU_TAG: ofs-2024.1-1
 
 # OFS_PLATFORM_AFU_BBB_TAG - The ofs-platform-afu-bbb repository tag.
-  N6001_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.2-1
-  N6000_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.2-1
-  FTILE_DK_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.2-1
-  ISERIES_DK_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.2-1
+  N6001_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.3-1
+  N6000_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.3-1
+  FTILE_DK_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.3-1
+  ISERIES_DK_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.3-1
+  AGX5_MOD_DK_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.3-1
   F2000X_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.1-1
   D5005_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.1-1
+  ONEAPI_N6001_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.2-1
+  ONEAPI_N6000_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.2-1
+  ONEAPI_FTILE_DK_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.2-1
+  ONEAPI_ISERIES_DK_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.2-1
+  ONEAPI_F2000X_OFS_PLATFORM_AFU_BBB_TAG: N/A
+  ONEAPI_D5005_OFS_PLATFORM_AFU_BBB_TAG: ofs-2024.1-1
 
 # OFS_FIM_REPO - The FIM repository names.
   N6001_OFS_FIM_REPO: ofs-agx7-pcie-attach
   N6000_OFS_FIM_REPO: ofs-agx7-pcie-attach
   FTILE_DK_OFS_FIM_REPO: ofs-agx7-pcie-attach
   ISERIES_DK_OFS_FIM_REPO: ofs-agx7-pcie-attach
+  AGX5_MOD_DK_OFS_FIM_REPO: ofs-agx5-pcie-attach
   F2000X_OFS_FIM_REPO: ofs-f2000x-pl 
   D5005_OFS_FIM_REPO: ofs-d5005
+  ONEAPI_N6001_OFS_FIM_REPO: ofs-agx7-pcie-attach
+  ONEAPI_N6000_OFS_FIM_REPO: ofs-agx7-pcie-attach
+  ONEAPI_FTILE_DK_OFS_FIM_REPO: ofs-agx7-pcie-attach
+  ONEAPI_ISERIES_DK_OFS_FIM_REPO: ofs-agx7-pcie-attach
+  ONEAPI_F2000X_OFS_FIM_REPO: N/A
+  ONEAPI_D5005_OFS_FIM_REPO: ofs-d5005
 
 # OFS_FIM_BRANCH - The branch name in the OFS FIM repos
-  N6001_OFS_FIM_BRANCH: release/ofs-2024.2
-  N6000_OFS_FIM_BRANCH: release/ofs-2024.2
-  FTILE_DK_OFS_FIM_BRANCH: release/ofs-2024.2
-  ISERIES_DK_OFS_FIM_BRANCH: release/ofs-2024.2
+  N6001_OFS_FIM_BRANCH: release/ofs-2025.1
+  N6000_OFS_FIM_BRANCH: release/ofs-2025.1
+  FTILE_DK_OFS_FIM_BRANCH: release/ofs-2025.1
+  ISERIES_DK_OFS_FIM_BRANCH: release/ofs-2025.1
+  AGX5_MOD_DK_OFS_FIM_BRANCH: release/ofs-2025.1
   F2000X_OFS_FIM_BRANCH: release/ofs-2024.1
   D5005_OFS_FIM_BRANCH: release/ofs-2024.1
+  ONEAPI_N6001_OFS_FIM_BRANCH: release/ofs-2024.2
+  ONEAPI_N6000_OFS_FIM_BRANCH: release/ofs-2024.2
+  ONEAPI_FTILE_DK_OFS_FIM_BRANCH: release/ofs-2024.2
+  ONEAPI_ISERIES_DK_OFS_FIM_BRANCH: release/ofs-2024.2
+  ONEAPI_F2000X_OFS_FIM_BRANCH: N/A
+  ONEAPI_D5005_OFS_FIM_BRANCH: release/ofs-2024.1
 
 # BMC_REPO_URL - The location of BMC source files.
   N6001_BMC_REPO_URL: https://github.com/otcshare/ofs-bmc
@@ -364,6 +475,12 @@ env:
   ISERIES_DK_BMC_REPO_URL: N/A
   F2000X_BMC_REPO_URL: https://github.com/intel-collab/networking.ipu.f2000x-pl.bmc.rtl
   D5005_BMC_REPO_URL: https://github.com/otcshare/intel-fpga-bmc
+  ONEAPI_N6001_BMC_REPO_URL: https://github.com/otcshare/ofs-bmc
+  ONEAPI_N6000_BMC_REPO_URL: https://github.com/otcshare/ofs-bmc
+  ONEAPI_FTILE_DK_BMC_REPO_URL: N/A
+  ONEAPI_ISERIES_DK_BMC_REPO_URL: N/A
+  ONEAPI_F2000X_BMC_REPO_URL: N/A
+  ONEAPI_D5005_BMC_REPO_URL: https://github.com/otcshare/intel-fpga-bmc
 
 # BMC_RTL_VER - The version of the BMC RTL.
   N6001_BMC_RTL_VER: 3.15.2
@@ -372,6 +489,12 @@ env:
   ISERIES_DK_BMC_RTL_VER: N/A
   F2000X_BMC_RTL_VER: 1.2.4
   D5005_BMC_RTL_VER: 2.0.8
+  ONEAPI_N6001_BMC_RTL_VER: 3.15.2
+  ONEAPI_N6000_BMC_RTL_VER: 3.15.2
+  ONEAPI_FTILE_DK_BMC_RTL_VER: N/A
+  ONEAPI_ISERIES_DK_BMC_RTL_VER: N/A
+  ONEAPI_F2000X_BMC_RTL_VER: N/A
+  ONEAPI_D5005_BMC_RTL_VER: 2.0.8
 
 # BMC_FW_VER - The version of the BMC FW
   N6001_BMC_FW_VER: 3.15.2
@@ -380,47 +503,88 @@ env:
   ISERIES_DK_BMC_FW_VER: N/A
   F2000X_BMC_FW_VER: 1.2.4
   D5005_BMC_FW_VER: 2.0.8
+  ONEAPI_N6001_BMC_FW_VER: 3.15.2
+  ONEAPI_N6000_BMC_FW_VER: 3.15.2
+  ONEAPI_FTILE_DK_BMC_FW_VER: N/A
+  ONEAPI_ISERIES_DK_BMC_FW_VER: N/A
+  ONEAPI_F2000X_BMC_FW_VER: N/A
+  ONEAPI_D5005_BMC_FW_VER: 2.0.8
 
 # QUARTUS_PRO_VER_S - Short Quartus Prime Pro version
-  N6001_QUARTUS_PRO_VER_S: 24.1
-  N6000_QUARTUS_PRO_VER_S: 24.1 
-  FTILE_DK_QUARTUS_PRO_VER_S: 24.1 
-  ISERIES_DK_QUARTUS_PRO_VER_S: 24.1
+  N6001_QUARTUS_PRO_VER_S: 25.1
+  N6000_QUARTUS_PRO_VER_S: 25.1
+  FTILE_DK_QUARTUS_PRO_VER_S: 25.1
+  ISERIES_DK_QUARTUS_PRO_VER_S: 25.1
+  AGX5_MOD_DK_QUARTUS_PRO_VER_S: 25.1
   F2000X_QUARTUS_PRO_VER_S: 23.4
   D5005_QUARTUS_PRO_VER_S: 23.4
+  ONEAPI_N6001_QUARTUS_PRO_VER_S: 24.1
+  ONEAPI_N6000_QUARTUS_PRO_VER_S: 24.1 
+  ONEAPI_FTILE_DK_QUARTUS_PRO_VER_S: 24.1 
+  ONEAPI_ISERIES_DK_QUARTUS_PRO_VER_S: 24.1
+  ONEAPI_F2000X_QUARTUS_PRO_VER_S: N/A
+  ONEAPI_D5005_QUARTUS_PRO_VER_S: 23.4
 
 # QUARTUS_PRO_VER_L - Long Quartus Prime Pro version
-  N6001_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 24.1
-  N6000_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 24.1
-  FTILE_DK_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 24.1
-  ISERIES_DK_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 24.1
+  N6001_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 25.1
+  N6000_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 25.1
+  FTILE_DK_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 25.1
+  ISERIES_DK_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 25.1
   F2000X_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 23.4
   D5005_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 23.4
+  AGX5_MOD_DK_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 25.1
+  ONEAPI_N6001_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 24.1
+  ONEAPI_N6000_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 24.1
+  ONEAPI_FTILE_DK_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 24.1
+  ONEAPI_ISERIES_DK_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 24.1
+  ONEAPI_F2000X_QUARTUS_PRO_VER_L: N/A
+  ONEAPI_D5005_QUARTUS_PRO_VER_L: Quartus Prime Pro Version 23.4
 
 # QUARTUS_PATCHES - Required Quartus patch list
-  N6001_QUARTUS_PATCHES: 0.18, 0.26
-  N6000_QUARTUS_PATCHES: 0.18, 0.26
-  FTILE_DK_QUARTUS_PATCHES: 0.18, 0.26
-  ISERIES_DK_QUARTUS_PATCHES: 0.18, 0.26
+  N6001_QUARTUS_PATCHES: No patches for this release
+  N6000_QUARTUS_PATCHES: No patches for this release
+  FTILE_DK_QUARTUS_PATCHES: No patches for this release
+  ISERIES_DK_QUARTUS_PATCHES: No patches for this release
+  AGX5_MOD_DK_QUARTUS_PATCHES: No patches for this release
   F2000X_QUARTUS_PATCHES: 0.17
   D5005_QUARTUS_PATCHES: No patches for this release
+  ONEAPI_N6001_QUARTUS_PATCHES:  0.18, 0.26
+  ONEAPI_N6000_QUARTUS_PATCHES:  0.18, 0.26
+  ONEAPI_FTILE_DK_QUARTUS_PATCHES:  0.18, 0.26
+  ONEAPI_ISERIES_DK_QUARTUS_PATCHES: 0.18, 0.26
+  ONEAPI_F2000X_QUARTUS_PATCHES: N/A
+  ONEAPI_D5005_QUARTUS_PATCHES: No patches for this release
 
 # QUARTUS_PATCH_TAR - name of the .tar.gz patches we provide in the release assets
-  N6001_QUARTUS_PATCH_TAR: patch-agx7-2024-2-1.tar.gz
-  N6000_QUARTUS_PATCH_TAR: patch-agx7-2024-2-1.tar.gz
-  FTILE_DK_QUARTUS_PATCH_TAR: patch-agx7-2024-2-1.tar.gz
-  ISERIES_DK_QUARTUS_PATCH_TAR: patch-agx7-2024-2-1.tar.gz
-  F2000X_QUARTUS_PATCH_TAR: patch-agx7-2024-1-1.tar.gz
+  N6001_QUARTUS_PATCH_TAR: None
+  N6000_QUARTUS_PATCH_TAR: None
+  FTILE_DK_QUARTUS_PATCH_TAR: None
+  ISERIES_DK_QUARTUS_PATCH_TAR: None
+  AGX5_MOD_DK_QUARTUS_PATCH_TAR: None
+  F2000X_QUARTUS_PATCH_TAR: None
   D5005_QUARTUS_PATCH_TAR: None
+  ONEAPI_N6001_QUARTUS_PATCH_TAR: None
+  ONEAPI_N6000_QUARTUS_PATCH_TAR: None
+  ONEAPI_FTILE_DK_QUARTUS_PATCH_TAR: None
+  ONEAPI_ISERIES_DK_QUARTUS_PATCH_TAR: None
+  ONEAPI_F2000X_QUARTUS_PATCH_TAR: N/A
+  ONEAPI_D5005_QUARTUS_PATCH_TAR: None
 
 
 # QUARTUS_URL - Link to Quartus download page.
-  N6001_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html
-  N6000_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html
-  FTILE_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html
-  ISERIES_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html
+  N6001_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
+  N6000_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
+  FTILE_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
+  ISERIES_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
+  AGX5_MOD_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
   F2000X_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html
   D5005_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html
+  ONEAPI_N6001_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/819137/intel-quartus-prime-pro-edition-design-software-version-24-1-b115-for-linux.html
+  ONEAPI_N6000_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/819137/intel-quartus-prime-pro-edition-design-software-version-24-1-b115-for-linux.html
+  ONEAPI_FTILE_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/819137/intel-quartus-prime-pro-edition-design-software-version-24-1-b115-for-linux.html
+  ONEAPI_ISERIES_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/819137/intel-quartus-prime-pro-edition-design-software-version-24-1-b115-for-linux.html
+  ONEAPI_F2000X_QUARTUS_URL: N/A
+  ONEAPI_D5005_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html
 
 # BMC_QUARTUS_VER - Quartus version for BMC.
   N6001_BMC_QUARTUS_VER: Quartus Standard Version 23.1
@@ -429,263 +593,495 @@ env:
   ISERIES_DK_BMC_QUARTUS_VER: N/A
   F2000X_BMC_QUARTUS_VER: Quartus Standard Version 20.1
   D5005_BMC_QUARTUS_VER: Quartus Standard Version 18.1
+  ONEAPI_N6001_BMC_QUARTUS_VER: Quartus Standard Version 23.1
+  ONEAPI_N6000_BMC_QUARTUS_VER: Quartus Standard Version 23.1
+  ONEAPI_FTILE_DK_BMC_QUARTUS_VER: N/A
+  ONEAPI_ISERIES_DK_BMC_QUARTUS_VER: N/A
+  ONEAPI_F2000X_BMC_QUARTUS_VER: N/A
+  ONEAPI_D5005_BMC_QUARTUS_VER: Quartus Standard Version 18.1
 
 # OFS_FIM_TAG_PAGE_URL - URL of the tag page. Athough this typically the same as the URL of the release page, they can be different.
-  N6001_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
-  N6000_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
-  FTILE_DK_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
-  ISERIES_DK_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  N6001_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1
+  N6000_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1
+  FTILE_DK_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1
+  ISERIES_DK_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1
+  AGX5_MOD_DK_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx5-pcie-attach/releases/tag/ofs-2025.1-1
   F2000X_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1
   D5005_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1
+  ONEAPI_N6001_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  ONEAPI_N6000_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  ONEAPI_FTILE_DK_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  ONEAPI_ISERIES_DK_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  ONEAPI_F2000X_OFS_FIM_TAG_PAGE_URL: N/A
+  ONEAPI_D5005_OFS_FIM_TAG_PAGE_URL: https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1
 
 # OFS_FIM_RELEASE_PAGE_URL - URL of the release page. Athough this typically the same as the URL of the tag page, they can be different.
-  N6001_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
-  N6000_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
-  FTILE_DK_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
-  ISERIES_DK_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  N6001_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1
+  N6000_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1
+  FTILE_DK_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1
+  ISERIES_DK_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1
+  AGX5_MOD_DK_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx5-pcie-attach/releases/tag/ofs-2025.1-1
   F2000X_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2024.1-1
   D5005_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1
+  ONEAPI_N6001_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  ONEAPI_N6000_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  ONEAPI_FTILE_DK_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  ONEAPI_ISERIES_DK_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1
+  ONEAPI_F2000X_OFS_FIM_RELEASE_PAGE_URL: N/A
+  ONEAPI_D5005_OFS_FIM_RELEASE_PAGE_URL: https://github.com/OFS/ofs-d5005/releases/tag/ofs-2024.1-1
 
 # HOST_OS_L - Long name of the host operating system.
-  N6001_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.10
-  N6000_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.10
-  FTILE_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.10
-  ISERIES_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.10
+  N6001_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 9.4
+  N6000_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 9.4
+  FTILE_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 9.4
+  ISERIES_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 9.4
+  AGX5_MOD_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 9.4
   F2000X_HOST_OS_L: Ubuntu 22.04 LTS
   D5005_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.6
+  ONEAPI_N6001_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.10
+  ONEAPI_N6000_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.10
+  ONEAPI_FTILE_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.10
+  ONEAPI_ISERIES_DK_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.10
+  ONEAPI_F2000X_HOST_OS_L: N/A
+  ONEAPI_D5005_HOST_OS_L: RedHat® Enterprise Linux® (RHEL) 8.6
 
 # HOST_OS_S - Short name of the host operating system
-  N6001_HOST_OS_S: RHEL 8.10
-  N6000_HOST_OS_S: RHEL 8.10
-  FTILE_DK_HOST_OS_S: RHEL 8.10
-  ISERIES_DK_HOST_OS_S: RHEL 8.10
+  N6001_HOST_OS_S: RHEL 9.4
+  N6000_HOST_OS_S: RHEL 9.4
+  FTILE_DK_HOST_OS_S: RHEL 9.4
+  ISERIES_DK_HOST_OS_S: RHEL 9.4
+  AGX5_MOD_DK_HOST_OS_S: RHEL 9.4
   F2000X_HOST_OS_S: Ubuntu 22.04
   D5005_HOST_OS_S: RHEL 8.6
+  ONEAPI_N6001_HOST_OS_S: RHEL 8.10
+  ONEAPI_N6000_HOST_OS_S: RHEL 8.10
+  ONEAPI_FTILE_DK_HOST_OS_S: RHEL 8.10
+  ONEAPI_ISERIES_DK_HOST_OS_S: RHEL 8.10
+  ONEAPI_F2000X_HOST_OS_S: N/A
+  ONEAPI_D5005_HOST_OS_S: RHEL 8.6
 
 # DEV_OS - Best known configuration operating system for development
-  N6001_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.10
-  N6000_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.10
-  FTILE_DK_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.10
-  ISERIES_DK_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.10
+  N6001_DEV_OS: RedHatEnterprise Linux® (RHEL) 9.4
+  N6000_DEV_OS: RedHatEnterprise Linux® (RHEL) 9.4
+  FTILE_DK_DEV_OS: RedHatEnterprise Linux® (RHEL) 9.4
+  ISERIES_DK_DEV_OS: RedHatEnterprise Linux® (RHEL) 9.4
   F2000X_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.6
   D5005_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.6
+  AGX5_MOD_DK_DEV_OS: RedHatEnterprise Linux® (RHEL) 9.4
+  ONEAPI_N6001_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.10
+  ONEAPI_N6000_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.10
+  ONEAPI_FTILE_DK_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.10
+  ONEAPI_ISERIES_DK_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.10
+  ONEAPI_F2000X_DEV_OS: N/A
+  ONEAPI_D5005_DEV_OS: RedHatEnterprise Linux® (RHEL) 8.6
 
 # PYTHON_VER - Python version
-  N6001_PYTHON_VER: 3.6.8
-  N6000_PYTHON_VER: 3.6.8
-  FTILE_DK_PYTHON_VER: 3.6.8
-  ISERIES_DK_PYTHON_VER: 3.6.8
+  N6001_PYTHON_VER: 3.8.10
+  N6000_PYTHON_VER: 3.8.10
+  FTILE_DK_PYTHON_VER: 3.8.10
+  ISERIES_DK_PYTHON_VER: 3.8.10
+  AGX5_MOD_DK_PYTHON_VER: 3.8.10
   F2000X_PYTHON_VER: 3.6.8
   D5005_PYTHON_VER: 3.6.8
+  ONEAPI_N6001_PYTHON_VER: 3.6.8
+  ONEAPI_N6000_PYTHON_VER: 3.6.8
+  ONEAPI_FTILE_DK_PYTHON_VER: 3.6.8
+  ONEAPI_ISERIES_DK_PYTHON_VER: 3.6.8
+  ONEAPI_F2000X_PYTHON_VER: N/A
+  ONEAPI_D5005_PYTHON_VER: 3.6.8
 
 # CMAKE_VER - cmake version
-  N6001_CMAKE_VER: 3.15
-  N6000_CMAKE_VER: 3.15
-  FTILE_DK_CMAKE_VER: 3.15
-  ISERIES_DK_CMAKE_VER: 3.15
+  N6001_CMAKE_VER: 3.26.5
+  N6000_CMAKE_VER: 3.26.5
+  FTILE_DK_CMAKE_VER: 3.26.5
+  ISERIES_DK_CMAKE_VER: 3.26.5
+  AGX5_MOD_DK_CMAKE_VER: 3.26.5
   F2000X_CMAKE_VER: 3.15
   D5005_CMAKE_VER: 3.15
+  ONEAPI_N6001_CMAKE_VER: 3.15
+  ONEAPI_N6000_CMAKE_VER: 3.15
+  ONEAPI_FTILE_DK_CMAKE_VER: 3.15
+  ONEAPI_ISERIES_DK_CMAKE_VER: 3.15
+  ONEAPI_F2000X_CMAKE_VER: N/A
+  ONEAPI_D5005_CMAKE_VER: 3.15
 
 # GCC_VER - gcc version shortened
-  N6001_GCC_VER: 8.5.0
-  N6000_GCC_VER: 8.5.0
-  FTILE_DK_GCC_VER: 8.5.0
-  ISERIES_DK_GCC_VER: 8.5.0
+  N6001_GCC_VER: 11.5.0
+  N6000_GCC_VER: 11.5.0
+  FTILE_DK_GCC_VER: 11.5.0
+  ISERIES_DK_GCC_VER: 11.5.0
   F2000X_GCC_VER: 8.5.0
   D5005_GCC_VER: 8.5.0
+  AGX5_MOD_DK_GCC_VER: 11.5.0
+  ONEAPI_N6001_GCC_VER: 8.5.0
+  ONEAPI_N6000_GCC_VER: 8.5.0
+  ONEAPI_FTILE_DK_GCC_VER: 8.5.0
+  ONEAPI_ISERIES_DK_GCC_VER: 8.5.0
+  ONEAPI_F2000X_GCC_VER: N/A
+  ONEAPI_D5005_GCC_VER: 8.5.0
 
 # GCC_FULL_VER - gcc version long
-  N6001_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
-  N6000_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
-  FTILE_DK_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
-  ISERIES_DK_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
+  N6001_GCC_FULL_VER: 11.5.0 20240719 (Red Hat 11.5.0-2)
+  N6000_GCC_FULL_VER: 11.5.0 20240719 (Red Hat 11.5.0-2)
+  FTILE_DK_GCC_FULL_VER: 11.5.0 20240719 (Red Hat 11.5.0-2)
+  ISERIES_DK_GCC_FULL_VER: 11.5.0 20240719 (Red Hat 11.5.0-2)
+  AGX5_MOD_DK_GCC_FULL_VER: 11.5.0 20240719 (Red Hat 11.5.0-2)
   F2000X_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
   D5005_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
+  ONEAPI_N6001_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
+  ONEAPI_N6000_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
+  ONEAPI_FTILE_DK_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
+  ONEAPI_ISERIES_DK_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
+  ONEAPI_F2000X_GCC_FULL_VER: N/A
+  ONEAPI_D5005_GCC_FULL_VER: 8.5.0 20210514 (Red Hat 8.5.0-10)
 
 # GIT_VER - git version
-  N6001_GIT_VER: 1.8.3.1
-  N6000_GIT_VER: 1.8.3.1
-  FTILE_DK_GIT_VER: 1.8.3.1
-  ISERIES_DK_GIT_VER: 1.8.3.1
+  N6001_GIT_VER: 2.43.0
+  N6000_GIT_VER: 2.43.0
+  FTILE_DK_GIT_VER: 2.43.0
+  ISERIES_DK_GIT_VER: 2.43.0
+  AGX5_MOD_DK_GIT_VER: 2.43.0
   F2000X_GIT_VER: 1.8.3.1
   D5005_GIT_VER: 1.8.3.1
+  ONEAPI_N6001_GIT_VER: 1.8.3.1
+  ONEAPI_N6000_GIT_VER: 1.8.3.1
+  ONEAPI_FTILE_DK_GIT_VER: 1.8.3.1
+  ONEAPI_ISERIES_DK_GIT_VER: 1.8.3.1
+  ONEAPI_F2000X_GIT_VER: N/A
+  ONEAPI_D5005_GIT_VER: 1.8.3.1
 
 # PERL_VER - perl version
-  N6001_PERL_VER: 5.8.8
-  N6000_PERL_VER: 5.8.8
-  FTILE_DK_PERL_VER: 5.8.8
-  ISERIES_DK_PERL_VER: 5.8.8
+  N6001_PERL_VER: 5.32.1
+  N6000_PERL_VER: 5.32.1
+  FTILE_DK_PERL_VER: 5.32.1
+  ISERIES_DK_PERL_VER: 5.32.1
+  AGX5_MOD_DK_PERL_VER: 5.32.1
   F2000X_PERL_VER: 5.8.8
   D5005_PERL_VER: 5.8.8
+  ONEAPI_N6001_PERL_VER: 5.8.8
+  ONEAPI_N6000_PERL_VER: 5.8.8
+  ONEAPI_FTILE_DK_PERL_VER: 5.8.8
+  ONEAPI_ISERIES_DK_PERL_VER: 5.8.8
+  ONEAPI_F2000X_PERL_VER: N/A
+  ONEAPI_D5005_PERL_VER: 5.8.8
 
 # OPAE_TAG - opae-sdk repository tag
-  N6001_OPAE_TAG: 2.13.0-3
-  N6000_OPAE_TAG: 2.13.0-3
-  FTILE_DK_OPAE_TAG: 2.13.0-3
-  ISERIES_DK_OPAE_TAG: 2.13.0-3
+  N6001_OPAE_TAG: 2.14.0-3
+  N6000_OPAE_TAG: 2.14.0-3
+  FTILE_DK_OPAE_TAG: 2.14.0-3
+  ISERIES_DK_OPAE_TAG: 2.14.0-3
+  AGX5_MOD_DK_OPAE_TAG: 2.14.0-3
   F2000X_OPAE_TAG: 2.12.0-5
   D5005_OPAE_TAG: 2.12.0-5
+  ONEAPI_N6001_OPAE_TAG: 2.13.0-3
+  ONEAPI_N6000_OPAE_TAG: 2.13.0-3
+  ONEAPI_FTILE_DK_OPAE_TAG: 2.13.0-3
+  ONEAPI_ISERIES_DK_OPAE_TAG: 2.13.0-3
+  ONEAPI_F2000X_OPAE_TAG: N/A
+  ONEAPI_D5005_OPAE_TAG: 2.12.0-5
 
 # OPAE_BRANCH - opae-sdk repository branch
-  N6001_OPAE_BRANCH: release/2.13.0
-  N6000_OPAE_BRANCH: release/2.13.0
-  FTILE_DK_OPAE_BRANCH: release/2.13.0
-  ISERIES_DK_OPAE_BRANCH: release/2.13.0
+
+  N6001_OPAE_BRANCH: release/2.14.0
+  N6000_OPAE_BRANCH: release/2.14.0
+  FTILE_DK_OPAE_BRANCH: release/2.14.0
+  ISERIES_DK_OPAE_BRANCH: release/2.14.0
+  AGX5_MOD_DK_OPAE_BRANCH: release/2.14.0
   F2000X_OPAE_BRANCH: release/2.12.0
   D5005_OPAE_BRANCH: release/2.12.0
+  ONEAPI_N6001_OPAE_BRANCH: release/2.13.0
+  ONEAPI_N6000_OPAE_BRANCH: release/2.13.0
+  ONEAPI_FTILE_DK_OPAE_BRANCH: release/2.13.0
+  ONEAPI_ISERIES_DK_OPAE_BRANCH: release/2.13.0
+  ONEAPI_F2000X_OPAE_BRANCH: N/A
+  ONEAPI_D5005_OPAE_BRANCH: release/2.12.0
+
 
 # OPAE_SIM_TAG - opae-sim repository tag
-  N6001_OPAE_SIM_TAG: 2.13.0-2
-  N6000_OPAE_SIM_TAG: 2.13.0-2
-  FTILE_DK_OPAE_SIM_TAG: 2.13.0-2
-  ISERIES_DK_OPAE_SIM_TAG: 2.13.0-2
+  N6001_OPAE_SIM_TAG: 2.14.0-1
+  N6000_OPAE_SIM_TAG: 2.14.0-1
+  FTILE_DK_OPAE_SIM_TAG: 2.14.0-1
+  ISERIES_DK_OPAE_SIM_TAG: 2.14.0-1
+  AGX5_MOD_DK_OPAE_SIM_TAG: 2.14.0-1
   F2000X_OPAE_SIM_TAG: 2.12.0-1
   D5005_OPAE_SIM_TAG: 2.12.0-1
+  ONEAPI_N6001_OPAE_SIM_TAG: 2.13.0-2
+  ONEAPI_N6000_OPAE_SIM_TAG: 2.13.0-2
+  ONEAPI_FTILE_DK_OPAE_SIM_TAG: 2.13.0-2
+  ONEAPI_ISERIES_DK_OPAE_SIM_TAG: 2.13.0-2
+  ONEAPI_F2000X_OPAE_SIM_TAG: N/A
+  ONEAPI_D5005_OPAE_SIM_TAG: 2.12.0-1
 
 # OPAE_SIM_BRANCH - opae-sim repository branch
-  N6001_OPAE_SIM_BRANCH: release/2.13.0
-  N6000_OPAE_SIM_BRANCH: release/2.13.0
-  FTILE_DK_OPAE_SIM_BRANCH: release/2.13.0
-  ISERIES_DK_OPAE_SIM_BRANCH: release/2.13.0
+  N6001_OPAE_SIM_BRANCH: release/2.14.0
+  N6000_OPAE_SIM_BRANCH: release/2.14.0
+  FTILE_DK_OPAE_SIM_BRANCH: release/2.14.0
+  ISERIES_DK_OPAE_SIM_BRANCH: release/2.14.0
+  AGX5_MOD_DK_OPAE_SIM_BRANCH: release/2.14.0
   F2000X_OPAE_SIM_BRANCH: release/2.12.0
   D5005_OPAE_SIM_BRANCH: release/2.12.0
+  ONEAPI_N6001_OPAE_SIM_BRANCH: release/2.13.0
+  ONEAPI_N6000_OPAE_SIM_BRANCH: release/2.13.0
+  ONEAPI_FTILE_DK_OPAE_SIM_BRANCH: release/2.13.0
+  ONEAPI_ISERIES_DK_OPAE_SIM_BRANCH: release/2.13.0
+  ONEAPI_F2000X_OPAE_SIM_BRANCH: N/A
+  ONEAPI_D5005_OPAE_SIM_BRANCH: release/2.12.0
 
 # KERNEL_VER_BASE - Kernel version base
-  N6001_KERNEL_VER_BASE: 4.18.0
-  N6000_KERNEL_VER_BASE: 4.18.0
-  FTILE_DK_KERNEL_VER_BASE: 4.18.0
-  ISERIES_DK_KERNEL_VER_BASE: 4.18.0
+  N6001_KERNEL_VER_BASE: 5.14.0
+  N6000_KERNEL_VER_BASE: 5.14.0
+  FTILE_DK_KERNEL_VER_BASE: 5.14.0
+  ISERIES_DK_KERNEL_VER_BASE: 5.14.0
+  AGX5_MOD_DK_KERNEL_VER_BASE: 5.14.0
   F2000X_KERNEL_VER_BASE: 6.1.78
   D5005_KERNEL_VER_BASE: 6.1.78
+  ONEAPI_N6001_KERNEL_VER_BASE: 4.18.0
+  ONEAPI_N6000_KERNEL_VER_BASE: 4.18.0
+  ONEAPI_FTILE_DK_KERNEL_VER_BASE: 4.18.0
+  ONEAPI_ISERIES_DK_KERNEL_VER_BASE: 4.18.0
+  ONEAPI_F2000X_KERNEL_VER_BASE: N/A
+  ONEAPI_D5005_KERNEL_VER_BASE: 6.1.78
 
 # KERNEL_VER_S - Short Kernel version
-  N6001_KERNEL_VER_S: 4.18.0-dfl
-  N6000_KERNEL_VER_S: 4.18.0-dfl
-  FTILE_DK_KERNEL_VER_S: 4.18.0-dfl
-  ISERIES_DK_KERNEL_VER_S: 4.18.0-dfl
+
+  N6001_KERNEL_VER_S: 5.14.0-dfl
+  N6000_KERNEL_VER_S: 5.14.0-dfl
+  FTILE_DK_KERNEL_VER_S: 5.14.0-dfl
+  ISERIES_DK_KERNEL_VER_S: 5.14.0-dfl
+  AGX5_MOD_DK_KERNEL_VER_S: 5.14.0-dfl
   F2000X_KERNEL_VER_S: 6.1.78-dfl
   D5005_KERNEL_VER_S: 6.1.78-dfl
+  ONEAPI_N6001_KERNEL_VER_S: 4.18.0-dfl
+  ONEAPI_N6000_KERNEL_VER_S: 4.18.0-dfl
+  ONEAPI_FTILE_DK_KERNEL_VER_S: 4.18.0-dfl
+  ONEAPI_ISERIES_DK_KERNEL_VER_S: 4.18.0-dfl
+  ONEAPI_F2000X_KERNEL_VER_S: N/A
+  ONEAPI_D5005_KERNEL_VER_S: 6.1.78-dfl
 
 # KERNEL_VER_L - Long Kernel version
-  N6001_KERNEL_VER_L: 4.18.0-553.el8_10.x86_64
-  N6000_KERNEL_VER_L: 4.18.0-553.el8_10.x86_64
-  FTILE_DK_KERNEL_VER_L: 4.18.0-553.el8_10.x86_64
-  ISERIES_DK_KERNEL_VER_L: 4.18.0-553.el8_10.x86_64
+  N6001_KERNEL_VER_L: 5.14.0-427.42.1.el9_4.x86_64
+  N6000_KERNEL_VER_L: 5.14.0-427.42.1.el9_4.x86_64
+  FTILE_DK_KERNEL_VER_L: 5.14.0-427.42.1.el9_4.x86_64
+  ISERIES_DK_KERNEL_VER_L: 5.14.0-427.42.1.el9_4.x86_64
+  AGX5_MOD_DK_KERNEL_VER_L: 5.14.0-427.42.1.el9_4.x86_64
   F2000X_KERNEL_VER_L: 6.1.78-dfl-202402222130.8011222165-1
   D5005_KERNEL_VER_L: 6.1.78-dfl-202402222130.8011222165-1
+  ONEAPI_N6001_KERNEL_VER_L: 5.14.0-427.42.1.el9_4.x86_64
+  ONEAPI_N6000_KERNEL_VER_L: 45.14.0-427.42.1.el9_4.x86_64
+  ONEAPI_FTILE_DK_KERNEL_VER_L: 5.14.0-427.42.1.el9_4.x86_64
+  ONEAPI_ISERIES_DK_KERNEL_VER_L: 5.14.0-427.42.1.el9_4.x86_64
+  ONEAPI_F2000X_KERNEL_VER_L: N/A
+  ONEAPI_D5005_KERNEL_VER_L: 6.1.78-dfl-202402222130.8011222165-1
 
 # KERNEL_TAG - Kernel tag
-  N6001_KERNEL_TAG: intel-1.11.0-2
-  N6000_KERNEL_TAG: intel-1.11.0-2
-  FTILE_DK_KERNEL_TAG: intel-1.11.0-2
-  ISERIES_DK_KERNEL_TAG: intel-1.11.0-2
+  N6001_KERNEL_TAG: intel-1.12.0-2
+  N6000_KERNEL_TAG: intel-1.12.0-2
+  FTILE_DK_KERNEL_TAG: intel-1.12.0-2
+  ISERIES_DK_KERNEL_TAG: intel-1.12.0-2
   F2000X_KERNEL_TAG: ofs-2024.1-6.1-2
+  AGX5_MOD_DK_KERNEL_TAG: intel-1.12.0-2
   D5005_KERNEL_TAG: ofs-2024.1-6.1-2
+  ONEAPI_N6001_KERNEL_TAG: intel-1.12.0-2
+  ONEAPI_N6000_KERNEL_TAG: intel-1.12.0-2
+  ONEAPI_FTILE_DK_KERNEL_TAG: intel-1.12.0-2
+  ONEAPI_ISERIES_DK_KERNEL_TAG: intel-1.12.0-2
+  ONEAPI_F2000X_KERNEL_TAG: N/A
+  ONEAPI_D5005_KERNEL_TAG: ofs-2024.1-6.1-2
 
 # BITSTREAM_ID - Bitstream ID
-  N6001_BITSTREAM_ID: 0x5010202F300F791
-  N6000_BITSTREAM_ID: 0x5010202F300F791
-  FTILE_DK_BITSTREAM_ID: 0x5010202F300F791
-  ISERIES_DK_BITSTREAM_ID: 0x5010202F300F791
+  N6001_BITSTREAM_ID: 0x5010202C07F2FAF
+  N6000_BITSTREAM_ID: 0x5010202C07F2FAF
+  FTILE_DK_BITSTREAM_ID: 0x5010202C07F2FAF
+  ISERIES_DK_BITSTREAM_ID: 0x5010202C07F2FAF
+  AGX5_MOD_DK_BITSTREAM_ID: 0x501020236DBC939
   F2000X_BITSTREAM_ID: 0x501030220D669AB
   D5005_BITSTREAM_ID: 0x4010002183C88A9
+  ONEAPI_N6001_BITSTREAM_ID: 0x5010202F300F791
+  ONEAPI_N6000_BITSTREAM_ID: 0x5010202F300F791
+  ONEAPI_FTILE_DK_BITSTREAM_ID: 0x5010202F300F791
+  ONEAPI_ISERIES_DK_BITSTREAM_ID: 0x5010202F300F791
+  ONEAPI_F2000X_BITSTREAM_ID: N/A
+  ONEAPI_D5005_BITSTREAM_ID: 0x4010002183C88A9
 
 # PR_ID - Partial reconfiguration region interface ID
-  N6001_PR_ID: a791757d-38a6-5159-a7fc-e1a61157a07b
-  N6000_PR_ID: a791757d-38a6-5159-a7fc-e1a61157a07b
-  FTILE_DK_PR_ID: 98ed516f-d24d-5b71-ae12-e78cd641e4be
-  ISERIES_DK_PR_ID: b7855572-6ca9-58b8-bd11-44e1f1ab329f
+  N6001_PR_ID: e376f074-6a22-55b1-a162-f734ff17e253
+  N6000_PR_ID: N/A
+  FTILE_DK_PR_ID: 5a2d5e39-7ef2-58f8-b0b9-a737303ab4ab
+  ISERIES_DK_PR_ID: e09af8b2-4760-5e7f-813a-a606201ce3dc
+  AGX5_MOD_DK_PR_ID: 8fee156c-67fb-5326-be8c-2c751c9b21a4
   F2000X_PR_ID: c2dac77b-757c-5e27-a566-aad3ffba2f4e
   D5005_PR_ID: a195b6f7-cf23-5a2b-8ef9-1161e184ec4e
+  ONEAPI_N6001_PR_ID: a791757d-38a6-5159-a7fc-e1a61157a07b
+  ONEAPI_N6000_PR_ID: faf1a0fd-fda0-5d91-9646-6c39be5dc1c1
+  ONEAPI_FTILE_DK_PR_ID: 98ed516f-d24d-5b71-ae12-e78cd641e4be
+  ONEAPI_ISERIES_DK_PR_ID: b7855572-6ca9-58b8-bd11-44e1f1ab329f
+  ONEAPI_F2000X_PR_ID: N/A
+  ONEAPI_D5005_PR_ID: a195b6f7-cf23-5a2b-8ef9-1161e184ec4e
 
 # SIM_UVM_PCIE - 
-  N6001_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
-  N6000_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
-  FTILE_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
-  ISERIES_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  N6001_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP V-2024.03D License
+  N6000_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP V-2024.03D License
+  FTILE_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP V-2024.03D License
+  ISERIES_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP V-2024.03D License
+  AGX5_MOD_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP V-2024.03D License
   F2000X_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
   D5005_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  ONEAPI_N6001_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  ONEAPI_N6000_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  ONEAPI_FTILE_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  ONEAPI_ISERIES_DK_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
+  ONEAPI_F2000X_SIM_UVM_PCIE: N/A
+  ONEAPI_D5005_SIM_UVM_PCIE: Synopsys PCIE and AMBA AXI UVM VIP Q-2020.03A License
 
 # SIM_UVM_LIC
-  N6001_SIM_UVM_LIC: Synopsys Verdi S-2023.03-SP2-1 License
-  N6000_SIM_UVM_LIC: Synopsys Verdi S-2023.03-SP2-1 License
-  FTILE_DK_SIM_UVM_LIC: Synopsys Verdi S-2023.03-SP2-1 License
-  ISERIES_DK_SIM_UVM_LIC: Synopsys Verdi S-2023.03-SP2-1 License
+  N6001_SIM_UVM_LIC: Synopsys Verdi U-2023.03-SP2-1 License
+  N6000_SIM_UVM_LIC: Synopsys Verdi U-2023.03-SP2-1 License
+  FTILE_DK_SIM_UVM_LIC: Synopsys Verdi U-2023.03-SP2-1 License
+  ISERIES_DK_SIM_UVM_LIC: Synopsys Verdi U-2023.03-SP2-1 License
+  AGX5_MOD_DK_SIM_UVM_LIC: Synopsys Verdi U-2023.03-SP2-1 License
   F2000X_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
   D5005_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
+  ONEAPI_N6001_SIM_UVM_LIC: Synopsys Verdi S-2023.03-SP2-1 License
+  ONEAPI_N6000_SIM_UVM_LIC: Synopsys Verdi S-2023.03-SP2-1 License
+  ONEAPI_FTILE_DK_SIM_UVM_LIC: Synopsys Verdi S-2023.03-SP2-1 License
+  ONEAPI_ISERIES_DK_SIM_UVM_LIC: Synopsys Verdi S-2023.03-SP2-1 License
+  ONEAPI_F2000X_SIM_UVM_LIC: N/A
+  ONEAPI_D5005_SIM_UVM_LIC: Synopsys Verdi R-2020.12-SP2 License
 
 # SIM_UVM_LIC_VCS
-  N6001_SIM_UVM_LIC_VCS: VCS S-2023.03-SP2-1 License
-  N6000_SIM_UVM_LIC_VCS: VCS S-2023.03-SP2-1 License
-  FTILE_DK_SIM_UVM_LIC_VCS: VCS S-2023.03-SP2-1 License
-  ISERIES_DK_SIM_UVM_LIC_VCS: VCS S-2023.03-SP2-1 License
+  N6001_SIM_UVM_LIC_VCS: VCS U-2023.03-SP2-1 License
+  N6000_SIM_UVM_LIC_VCS: VCS U-2023.03-SP2-1 License
+  FTILE_DK_SIM_UVM_LIC_VCS: VCS U-2023.03-SP2-1 License
+  ISERIES_DK_SIM_UVM_LIC_VCS: VCS U-2023.03-SP2-1 License
+  AGX5_MOD_DK_SIM_UVM_LIC_VCS: VCS U-2023.03-SP2-1 License
   F2000X_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
   D5005_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
+  ONEAPI_N6001_SIM_UVM_LIC_VCS: VCS S-2023.03-SP2-1 License
+  ONEAPI_N6000_SIM_UVM_LIC_VCS: VCS S-2023.03-SP2-1 License
+  ONEAPI_FTILE_DK_SIM_UVM_LIC_VCS: VCS S-2023.03-SP2-1 License
+  ONEAPI_ISERIES_DK_SIM_UVM_LIC_VCS: VCS S-2023.03-SP2-1 License
+  ONEAPI_F2000X_SIM_UVM_LIC_VCS: N/A
+  ONEAPI_D5005_SIM_UVM_LIC_VCS: VCS R-2020.12-SP2 License
 
 # SIM_VCS_VER_S - VCS Simulator version short
-  N6001_SIM_VCS_VER_S: S-2023.03-SP2-1
-  N6000_SIM_VCS_VER_S: S-2023.03-SP2-1
-  FTILE_DK_SIM_VCS_VER_S: S-2023.03-SP2-1
-  ISERIES_DK_SIM_VCS_VER_S: S-2023.03-SP2-1
+  N6001_SIM_VCS_VER_S: U-2023.03-SP2-1
+  N6000_SIM_VCS_VER_S: U-2023.03-SP2-1
+  FTILE_DK_SIM_VCS_VER_S: U-2023.03-SP2-1
+  ISERIES_DK_SIM_VCS_VER_S: U-2023.03-SP2-1
+  AGX5_MOD_DK_SIM_VCS_VER_S: U-2023.03-SP2-1
   F2000X_SIM_VCS_VER_S: S-2021.09-SP1
   D5005_SIM_VCS_VER_S: S-2021.09-SP1
+  ONEAPI_N6001_SIM_VCS_VER_S: S-2023.03-SP2-1
+  ONEAPI_N6000_SIM_VCS_VER_S: S-2023.03-SP2-1
+  ONEAPI_FTILE_DK_SIM_VCS_VER_S: S-2023.03-SP2-1
+  ONEAPI_ISERIES_DK_SIM_VCS_VER_S: S-2023.03-SP2-1
+  ONEAPI_F2000X_SIM_VCS_VER_S: N/A
+  ONEAPI_D5005_SIM_VCS_VER_S: S-2021.09-SP1
 
 # SIM_VCS_VER_L - VCS Simulator version long
-  N6001_SIM_VCS_VER_L: Synopsys VCS S-2023.03-SP2-1
-  N6000_SIM_VCS_VER_L: Synopsys VCS S-2023.03-SP2-1
-  FTILE_DK_SIM_VCS_VER_L: Synopsys VCS S-2023.03-SP2-1
-  ISERIES_DK_SIM_VCS_VER_L: Synopsys VCS S-2023.03-SP2-1
-
+  N6001_SIM_VCS_VER_L: Synopsys VCS U-2023.03-SP2-1
+  N6000_SIM_VCS_VER_L: Synopsys VCS U-2023.03-SP2-1
+  FTILE_DK_SIM_VCS_VER_L: Synopsys VCS U-2023.03-SP2-1
+  ISERIES_DK_SIM_VCS_VER_L: Synopsys VCS U-2023.03-SP2-1
+  AGX5_MOD_DK_SIM_VCS_VER_L: Synopsys VCS U-2023.03-SP2-1
   F2000X_SIM_VCS_VER_L: Synopsys VCS S-2021.09-SP1
   D5005_SIM_VCS_VER_L: Synopsys VCS S-2021.09-SP1
+  ONEAPI_N6001_SIM_VCS_VER_L: Synopsys VCS S-2023.03-SP2-1
+  ONEAPI_N6000_SIM_VCS_VER_L: Synopsys VCS S-2023.03-SP2-1
+  ONEAPI_FTILE_DK_SIM_VCS_VER_L: Synopsys VCS S-2023.03-SP2-1
+  ONEAPI_ISERIES_DK_SIM_VCS_VER_L: Synopsys VCS S-2023.03-SP2-1
+  ONEAPI_F2000X_SIM_VCS_VER_L: N/A
+  ONEAPI_D5005_SIM_VCS_VER_L: Synopsys VCS S-2021.09-SP1
 
 # DESIGNWARE_VER - Designware version
-  N6001_DESIGNWARE_VER: vip_Q-2020.03A
-  N6000_DESIGNWARE_VER: vip_Q-2020.03A
-  FTILE_DK_DESIGNWARE_VER: vip_Q-2020.03A
-  ISERIES_DK_DESIGNWARE_VER: vip_Q-2020.03A
+  N6001_DESIGNWARE_VER: vip_V-2024.03D
+  N6000_DESIGNWARE_VER: vip_V-2024.03D
+  FTILE_DK_DESIGNWARE_VER: vip_V-2024.03D
+  ISERIES_DK_DESIGNWARE_VER: vip_V-2024.03D
+  AGX5_DK_DESIGNWARE_VER: vip_V-2024.03D
   F2000X_DESIGNWARE_VER: vip_Q-2020.03A
   D5005_DESIGNWARE_VER: vip_Q-2020.03A
+  ONEAPI_N6001_DESIGNWARE_VER: vip_Q-2020.03A
+  ONEAPI_N6000_DESIGNWARE_VER: vip_Q-2020.03A
+  ONEAPI_FTILE_DK_DESIGNWARE_VER: vip_Q-2020.03A
+  ONEAPI_ISERIES_DK_DESIGNWARE_VER: vip_Q-2020.03A
+  ONEAPI_F2000X_DESIGNWARE_VER: N/A
+  ONEAPI_D5005_DESIGNWARE_VER: vip_Q-2020.03A
 
 # SIM_UVM_QS - Questasim simulator version
-  N6001_SIM_UVM_QS: 2024.1
-  N6000_SIM_UVM_QS: 2024.1
-  FTILE_DK_SIM_UVM_QS: 2024.1
-  ISERIES_DK_SIM_UVM_QS: 2024.1
+  N6001_SIM_UVM_QS: 2024.3
+  N6000_SIM_UVM_QS: 2024.3
+  FTILE_DK_SIM_UVM_QS: 2024.3
+  ISERIES_DK_SIM_UVM_QS: 2024.3
+  AGX5_MOD_DK_SIM_UVM_QS: 2024.3
   F2000X_SIM_UVM_QS: 2023.4
   D5005_SIM_UVM_QS: 2023.4
+  ONEAPI_N6001_SIM_UVM_QS: 2024.1
+  ONEAPI_N6000_SIM_UVM_QS: 2024.1
+  ONEAPI_FTILE_DK_SIM_UVM_QS: 2024.1
+  ONEAPI_ISERIES_DK_SIM_UVM_QS: 2024.1
+  ONEAPI_F2000X_SIM_UVM_QS: N/A
+  ONEAPI_D5005_SIM_UVM_QS: 2023.4
 
 # EXAMPLES_AFU_REPO_URL - examples-afu repository URL
   N6001_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
   N6000_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
   FTILE_DK_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
   ISERIES_DK_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
+  AGX5_MOD_DK_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
   F2000X_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
   D5005_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
+  ONEAPI_N6001_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
+  ONEAPI_N6000_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
+  ONEAPI_FTILE_DK_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
+  ONEAPI_ISERIES_DK_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
+  ONEAPI_F2000X_EXAMPLES_AFU_REPO_URL: N/A
+  ONEAPI_D5005_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
 
 # EXAMPLES_AFU_TAG_URL - examples-afu tag URL
-  N6001_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1
-  N6000_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1
-  FTILE_DK_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1
-  ISERIES_DK_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1
+  N6001_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.3-1
+  N6000_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.3-1
+  FTILE_DK_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.3-1
+  ISERIES_DK_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.3-1
+  AGX5_MOD_DK_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.3-1
   F2000X_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1
   D5005_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1
+  ONEAPI_N6001_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1
+  ONEAPI_N6000_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1
+  ONEAPI_FTILE_DK_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1
+  ONEAPI_ISERIES_DK_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1
+  ONEAPI_F2000X_EXAMPLES_AFU_TAG_URL: N/A
+  ONEAPI_D5005_EXAMPLES_AFU_TAG_URL: https://github.com/OFS/examples-afu/releases/tag/ofs-2024.1-1
 
 # OFS_PLATFORM_AFU_BBB_REPO_URL - ofs-platform-afu-bbb repository URL
   N6001_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
   N6000_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
   FTILE_DK_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
   ISERIES_DK_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
+  AGX5_MOD_DK_OFS_PLATFORM_AGU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
   F2000X_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
   D5005_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
+  ONEAPI_N6001_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
+  ONEAPI_N6000_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
+  ONEAPI_FTILE_DK_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
+  ONEAPI_ISERIES_DK_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
+  ONEAPI_F2000X_OFS_PLATFORM_AFU_BBB_REPO_URL: N/A
+  ONEAPI_D5005_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
 
 # OFS_PLATFORM_AFU_BBB_TAG_URL - ofs-platform-afu-bbb repository tag URL
-  N6001_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1
-  N6000_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1
-  FTILE_DK_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1
-  ISERIES_DK_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1
+  N6001_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1
+  N6000_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1
+  FTILE_DK_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1
+  ISERIES_DK_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1
+  AGX5_MOD_DK_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1
   F2000X_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.1-1
   D5005_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.1-1
+  ONEAPI_N6001_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1
+  ONEAPI_N6000_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1
+  ONEAPI_FTILE_DK_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1
+  ONEAPI_ISERIES_DK_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1
+  ONEAPI_F2000X_OFS_PLATFORM_AFU_BBB_TAG_URL: N/A
+  ONEAPI_D5005_OFS_PLATFORM_AFU_BBB_TAG_URL: https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.1-1
 
 # OPAE_SIM_REPO_URL - opae-sim repository URL
   N6001_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
@@ -694,22 +1090,43 @@ env:
   ISERIES_DK_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
   F2000X_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
   D5005_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
+  AGX5_MOD_DK_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
+  ONEAPI_N6001_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
+  ONEAPI_N6000_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
+  ONEAPI_FTILE_DK_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
+  ONEAPI_ISERIES_DK_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
+  ONEAPI_F2000X_OPAE_SIM_REPO_URL: N/A
+  ONEAPI_D5005_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
 
 # OFS_FIM_REPO_URL - OFS FIM repository URL
   N6001_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx7-pcie-attach
   N6000_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx7-pcie-attach
   FTILE_DK_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx7-pcie-attach
   ISERIES_DK_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx7-pcie-attach
+  AGX5_MOD_DK_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx5-pcie-attach
   F2000X_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-f2000x-pl 
   D5005_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-d5005
+  ONEAPI_N6001_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx7-pcie-attach
+  ONEAPI_N6000_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx7-pcie-attach
+  ONEAPI_FTILE_DK_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx7-pcie-attach
+  ONEAPI_ISERIES_DK_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-agx7-pcie-attach
+  ONEAPI_F2000X_OFS_FIM_REPO_URL: N/A
+  ONEAPI_D5005_OFS_FIM_REPO_URL: https://github.com/OFS/ofs-d5005
 
 # DOC_REPO_URL - OFS collateral site contents page for each OFS target
-  N6001_DOC_REPO_URL: https://ofs.github.io/ofs-2024.1-1/hw/doc_modules/contents_agx7_pcie_attach/
-  N6000_DOC_REPO_URL: https://ofs.github.io/ofs-2024.1-1/hw/doc_modules/contents_agx7_pcie_attach/
-  FTILE_DK_DOC_REPO_URL: https://ofs.github.io/ofs-2024.1-1/hw/doc_modules/contents_agx7_pcie_attach/
-  ISERIES_DK_DOC_REPO_URL: https://ofs.github.io/ofs-2024.1-1/hw/doc_modules/contents_agx7_pcie_attach/
+  N6001_DOC_REPO_URL: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_agx7_pcie_attach/
+  N6000_DOC_REPO_URL: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_agx7_pcie_attach/
+  FTILE_DK_DOC_REPO_URL: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_agx7_pcie_attach/
+  ISERIES_DK_DOC_REPO_URL: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_agx7_pcie_attach/
+  AGX5_MOD_DK_DOC_REPO_URL: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_agx5_pcie_attach/
   F2000X_DOC_REPO_URL: https://ofs.github.io/ofs-2024.1-1/hw/doc_modules/contents_agx7_soc_attach/
-  D5005_DOC_REPO_URL: https://ofs.github.io/ofs-2024.1-1/hw/doc_modules/contents_s10_pcie_attach/
+  D5005_DOC_REPO_URL: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_s10_pcie_attach/
+  ONEAPI_N6001_DOC_REPO_URL: https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_agx7_pcie_attach/
+  ONEAPI_N6000_DOC_REPO_URL: https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_agx7_pcie_attach/
+  ONEAPI_FTILE_DK_DOC_REPO_URL: https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_agx7_pcie_attach/
+  ONEAPI_ISERIES_DK_DOC_REPO_URL: https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_agx7_pcie_attach/
+  ONEAPI_F2000X_DOC_REPO_URL: N/A
+  ONEAPI_D5005_DOC_REPO_URL: https://ofs.github.io/ofs-2024.2-1/hw/doc_modules/contents_s10_pcie_attach/
 
 # OPAE_SDK_REPO_URL - opae-sdk repository URL
   N6001_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
@@ -717,64 +1134,107 @@ env:
   FTILE_DK_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
   ISERIES_DK_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
   F2000X_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
+  AGX5_MOD_DK_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
   D5005_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
+  ONEAPI_N6001_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
+  ONEAPI_N6000_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
+  ONEAPI_FTILE_DK_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
+  ONEAPI_ISERIES_DK_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
+  ONEAPI_F2000X_OPAE_SDK_REPO_URL: N/A
+  ONEAPI_D5005_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
 
 # OPAE_SDK_TAG_URL - opae-sdk tag url
-  N6001_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3
-  N6000_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3
-  FTILE_DK_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3
-  ISERIES_DK_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3
+  N6001_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.14.0-3
+  N6000_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.14.0-3
+  FTILE_DK_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.14.0-3
+  ISERIES_DK_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.14.0-3
+  AGX5_MOD_DK_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.14.0-3
   F2000X_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5
   D5005_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5
+  ONEAPI_N6001_OPAE_SDK_TAG_URL:  https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3
+  ONEAPI_N6000_OPAE_SDK_TAG_URL:  https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3
+  ONEAPI_FTILE_DK_OPAE_SDK_TAG_URL:  https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3
+  ONEAPI_ISERIES_DK_OPAE_SDK_TAG_URL:  https://github.com/OFS/opae-sdk/releases/tag/2.13.0-3
+  ONEAPI_F2000X_OPAE_SDK_TAG_URL: N/A
+  ONEAPI_D5005_OPAE_SDK_TAG_URL: https://github.com/OFS/opae-sdk/releases/tag/2.12.0-5
 
 # OFS_COMMON_RELEASE_URL - ofs-common release URL
-  N6001_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1
-  N6000_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1
-  FTILE_DK_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1
-  ISERIES_DK_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1
+  N6001_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.3-1
+  N6000_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.3-1
+  FTILE_DK_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.3-1
+  ISERIES_DK_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.3-1
+  AGX5_MOD_DK_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.3-1
   F2000X_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1
   D5005_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1
+  ONEAPI_N6001_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1
+  ONEAPI_N6000_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1
+  ONEAPI_FTILE_DK_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1
+  ONEAPI_ISERIES_DK_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1
+  ONEAPI_F2000X_OFS_COMMON_RELEASE_URL: N/A
+  ONEAPI_D5005_OFS_COMMON_RELEASE_URL: https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.1-1
 
 # ONEAPI_ASP_TAG - OneAPI ASP Tag
-  N6001_ONEAPI_ASP_TAG: ofs-2024.2-1
-  N6000_ONEAPI_ASP_TAG: ofs-2024.2-1
-  FTILE_DK_ONEAPI_ASP_TAG: ofs-2024.2-1
-  ISERIES_DK_ONEAPI_ASP_TAG: ofs-2024.2-1
+  N6001_ONEAPI_ASP_TAG: ofs-2024.2-2
+  N6000_ONEAPI_ASP_TAG: ofs-2024.2-2
+  FTILE_DK_ONEAPI_ASP_TAG: ofs-2024.2-2
+  ISERIES_DK_ONEAPI_ASP_TAG: ofs-2024.2-2
   F2000X_ONEAPI_ASP_TAG: N/A
-  D5005_ONEAPI_ASP_TAG: ofs-2024.1-1
+  D5005_ONEAPI_ASP_TAG: ofs-2024.2-2
 
 # ONEAPI_ASP_PATCHES - OneAPI ASP Patches
-  N6001_ONEAPI_ASP_PATCHES: 0.02
-  N6000_ONEAPI_ASP_PATCHES: 0.02
-  FTILE_DK_ONEAPI_ASP_PATCHES: 0.02
-  ISERIES_DK_ONEAPI_ASP_PATCHES: 0.02
-  F2000X_ONEAPI_ASP_PATCHES: N/A
+  N6001_ONEAPI_ASP_PATCHES: 
+  N6000_ONEAPI_ASP_PATCHES: 
+  FTILE_DK_ONEAPI_ASP_PATCHES: 
+  ISERIES_DK_ONEAPI_ASP_PATCHES: 
+  AGX5_MOD_DK_ONEAPI_ASP_PATCHES:
+  F2000X_ONEAPI_ASP_PATCHES: 
   D5005_ONEAPI_ASP_PATCHES: 0.01iofs
-  ONEAPI_ASP_EDITOR: False
+  ONEAPI_ASP_EDITOR: True
 
 # LINUX_DFL_REPO_URL - linux-dfl repository URL
   N6001_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
   N6000_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
   FTILE_DK_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
   ISERIES_DK_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
+  AGX5_MOD_DK_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
   F2000X_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl
   D5005_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl
+  ONEAPI_N6001_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
+  ONEAPI_N6000_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
+  ONEAPI_FTILE_DK_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
+  ONEAPI_ISERIES_DK_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl-backport
+  ONEAPI_F2000X_LINUX_DFL_REPO_URL: N/A
+  ONEAPI_D5005_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl
 
 # LINUX_DFL_TAG_URL - linux-dfl tag URL
-  N6001_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2
-  N6000_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2
-  FTILE_DK_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2
-  ISERIES_DK_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2
+  N6001_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-2
+  N6000_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-2
+  FTILE_DK_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-2
+  ISERIES_DK_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-2
+  AGX5_MOD_DK_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.12.0-2
   F2000X_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2
   D5005_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2
+  ONEAPI_N6001_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2
+  ONEAPI_N6000_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2
+  ONEAPI_FTILE_DK_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2
+  ONEAPI_ISERIES_DK_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl-backport/releases/tag/intel-1.11.0-2
+  ONEAPI_F2000X_LINUX_DFL_TAG_URL: N/A
+  ONEAPI_D5005_LINUX_DFL_TAG_URL: https://github.com/OFS/linux-dfl/releases/tag/ofs-2024.1-6.1-2
 
 # LINUX_DFL_TAG - linux-dfl tag
-  N6001_LINUX_DFL_TAG: intel-1.11.0-2
-  N6000_LINUX_DFL_TAG: intel-1.11.0-2
-  FTILE_DK_LINUX_DFL_TAG: intel-1.11.0-2
-  ISERIES_DK_LINUX_DFL_TAG: intel-1.11.0-2
+  N6001_LINUX_DFL_TAG: intel-1.12.0-2
+  N6000_LINUX_DFL_TAG: intel-1.12.0-2
+  FTILE_DK_LINUX_DFL_TAG: intel-1.12.0-2
+  ISERIES_DK_LINUX_DFL_TAG: intel-1.12.0-2
+  AGX5_MOD_DK_LINUX_DFL_TAG: intel-1.12.0-2
   F2000X_LINUX_DFL_TAG: ofs-2024.1-6.1-2
   D5005_LINUX_DFL_TAG: ofs-2024.1-6.1-2
+  ONEAPI_N6001_LINUX_DFL_TAG: intel-1.12.0-2
+  ONEAPI_N6000_LINUX_DFL_TAG: intel-1.12.0-2
+  ONEAPI_FTILE_DK_LINUX_DFL_TAG: intel-1.12.0-2
+  ONEAPI_ISERIES_DK_LINUX_DFL_TAG: intel-1.12.0-2
+  ONEAPI_F2000X_LINUX_DFL_TAG: N/A
+  ONEAPI_D5005_LINUX_DFL_TAG: ofs-2024.1-6.1-2
 
 # ONEAPI_ASP_TAG_URL - OneAPI ASP tag url. This matches the release page URL.
   N6001_ONEAPI_ASP_TAG_URL: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1
@@ -793,123 +1253,225 @@ env:
   D5005_ONEAPI_ASP_RELEASE_URL: https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1
 
 # REDHAT_MAJOR_VERSION - Redhat major version number
-  N6001_REDHAT_MAJOR_VERSION: 8
-  N6000_REDHAT_MAJOR_VERSION: 8
-  FTILE_DK_REDHAT_MAJOR_VERSION: 8
-  ISERIES_DK_REDHAT_MAJOR_VERSION: 8
+  N6001_REDHAT_MAJOR_VERSION: 9
+  N6000_REDHAT_MAJOR_VERSION: 9
+  FTILE_DK_REDHAT_MAJOR_VERSION: 9
+  ISERIES_DK_REDHAT_MAJOR_VERSION: 9
+  AGX5_MOD_DK_REDHAT_MAJOR_VERSION: 9
   F2000X_REDHAT_MAJOR_VERSION: N/A
   D5005_REDHAT_MAJOR_VERSION: 8
+  ONEAPI_N6001_REDHAT_MAJOR_VERSION: 8
+  ONEAPI_N6000_REDHAT_MAJOR_VERSION: 8
+  ONEAPI_FTILE_DK_REDHAT_MAJOR_VERSION: 8
+  ONEAPI_ISERIES_DK_REDHAT_MAJOR_VERSION: 8
+  ONEAPI_F2000X_REDHAT_MAJOR_VERSION: N/A
+  ONEAPI_D5005_REDHAT_MAJOR_VERSION: 8
 
 # REDHAT_MINOR_VERSION - Redhat minor version number
-  N6001_REDHAT_MINOR_VERSION: 10
-  N6000_REDHAT_MINOR_VERSION: 10
-  FTILE_DK_REDHAT_MINOR_VERSION: 10
-  ISERIES_DK_REDHAT_MINOR_VERSION: 10
+  N6001_REDHAT_MINOR_VERSION: 4
+  N6000_REDHAT_MINOR_VERSION: 4
+  FTILE_DK_REDHAT_MINOR_VERSION: 4
+  ISERIES_DK_REDHAT_MINOR_VERSION: 4
+  AGX5_MOD_DK_REDHAT_MINOR_VERSION: 4
   F2000X_REDHAT_MINOR_VERSION: N/A
   D5005_REDHAT_MINOR_VERSION: 6
+  ONEAPI_N6001_REDHAT_MINOR_VERSION: 10
+  ONEAPI_N6000_REDHAT_MINOR_VERSION: 10
+  ONEAPI_FTILE_DK_REDHAT_MINOR_VERSION: 10
+  ONEAPI_ISERIES_DK_REDHAT_MINOR_VERSION: 10
+  ONEAPI_F2000X_REDHAT_MINOR_VERSION: N/A
+  ONEAPI_D5005_REDHAT_MINOR_VERSION: 6
   
 # SERVER_BIOS_VERSION - BIOS version of the server
   N6001_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
   N6000_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
   FTILE_DK_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
   ISERIES_DK_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
+  AGX5_MOD_DK_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
   F2000X_SERVER_BIOS_VERSION: N/A
   D5005_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
+  ONEAPI_N6001_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
+  ONEAPI_N6000_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
+  ONEAPI_FTILE_DK_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
+  ONEAPI_ISERIES_DK_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
+  ONEAPI_F2000X_SERVER_BIOS_VERSION: N/A
+  ONEAPI_D5005_SERVER_BIOS_VERSION: American Megatrends International, LLC(1.4)
 
 # UPDATE_BIOS_VERSION - BIOS version that needs to be updated on the ICXD
   N6001_UPDATE_BIOS_VERSION: N/A
   N6000_UPDATE_BIOS_VERSION: N/A
   FTILE_DK_UPDATE_BIOS_VERSION: N/A
+  AGX5_MOD_DK_UPDATE_BIOS_VERSION: N/A
   ISERIES_DK_UPDATE_BIOS_VERSION: N/A
   F2000X_UPDATE_BIOS_VERSION: 0ACRH608_REL
   D5005_UPDATE_BIOS_VERSION: N/A
+  ONEAPI_N6001_UPDATE_BIOS_VERSION: N/A
+  ONEAPI_N6000_UPDATE_BIOS_VERSION: N/A
+  ONEAPI_FTILE_DK_UPDATE_BIOS_VERSION: N/A
+  ONEAPI_ISERIES_DK_UPDATE_BIOS_VERSION: N/A
+  ONEAPI_F2000X_UPDATE_BIOS_VERSION: N/A
+  ONEAPI_D5005_UPDATE_BIOS_VERSION: N/A
 
 # UPDATE_BIOS_FILE_NAME - BIOS version file name that needs to be updated on the ICXD
   N6001_UPDATE_BIOS_FILE_NAME: N/A
   N6000_UPDATE_BIOS_FILE_NAME: N/A
   FTILE_DK_UPDATE_BIOS_FILE_NAME: N/A
   ISERIES_DK_UPDATE_BIOS_FILE_NAME: N/A
+  AGX5_MOD_DK_UPDATE_BIOS_FILE_NAME: N/A
   F2000X_UPDATE_BIOS_FILE_NAME: 0ACRH608_REL.BIN
   D5005_UPDATE_BIOS_FILE_NAME: N/A
+  ONEAPI_N6001_UPDATE_BIOS_FILE_NAME: N/A
+  ONEAPI_N6000_UPDATE_BIOS_FILE_NAME: N/A
+  ONEAPI_FTILE_DK_UPDATE_BIOS_FILE_NAME: N/A
+  ONEAPI_ISERIES_DK_UPDATE_BIOS_FILE_NAME: N/A
+  ONEAPI_F2000X_UPDATE_BIOS_FILE_NAME: N/A
+  ONEAPI_D5005_UPDATE_BIOS_FILE_NAME: N/A
 
 # HOST_OS_DL_URL - Host OS download URL
-  N6001_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software
-  N6000_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software
-  FTILE_DK_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software
-  ISERIES_DK_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software
+  N6001_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software
+  N6000_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software
+  FTILE_DK_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software
+  ISERIES_DK_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software
+  AGX5_MOD_DK_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software
   F2000X_HOST_OS_DL_URL: https://ubuntu.com/download/desktop
   D5005_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software
+  ONEAPI_N6001_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software
+  ONEAPI_N6000_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software
+  ONEAPI_FTILE_DK_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software
+  ONEAPI_ISERIES_DK_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software
+  ONEAPI_F2000X_HOST_OS_DL_URL: N/A
+  ONEAPI_D5005_HOST_OS_DL_URL: https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.6/x86_64/product-software
 
 # ARTIFACTS_DOWNLOAD_URL - URL to download OFS FIM artifacts from the release
-  N6001_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/n6001-images_ofs-2024-2-1.tar.gz
+  N6001_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2025.1-1/n6001-images_ofs-2025-1-1.tar.gz
   N6000_ARTIFACTS_DOWNLOAD_URL: N/A
-  FTILE_DK_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/fseries-images_ofs-2024-2-1.tar.gz
-  ISERIES_DK_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/iseries-2x200-images_ofs-2024-2-1.tar.gz
+  FTILE_DK_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2025.1-1/fseries-dk-images_ofs-2025-1-1.tar.gz
+  ISERIES_DK_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2025.1-1/iseries-dk-images_ofs-2025-1-1.tar.gz
+  AGX5_MOD_DK_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx5-pcie-attach/releases/download/ofs-2025.1-1/eseries-mdk-images_ofs-2025-1-1.tar.gz
   F2000X_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-f2000x-pl/releases/download/ofs-2024.1-1/f2000x-images_ofs-2024-1-1.tar.gz
   D5005_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-d5005/releases/download/ofs-2024.1-1/d5005-images_ofs_2024-1-1.tar.gz
+  ONEAPI_N6001_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/n6001-images_ofs-2024-2-1.tar.gz
+  ONEAPI_N6000_ARTIFACTS_DOWNLOAD_URL: N/A
+  ONEAPI_FTILE_DK_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/fseries-dk-images_ofs-2024-2-1.tar.gz
+  ONEAPI_ISERIES_DK_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/iseries-dk-images_ofs-2024-2-1.tar.gz
+  ONEAPI_F2000X_ARTIFACTS_DOWNLOAD_URL: N/A
+  ONEAPI_D5005_ARTIFACTS_DOWNLOAD_URL: https://github.com/OFS/ofs-d5005/releases/download/ofs-2024.1-1/d5005-images_ofs_2024-1-1.tar.gz
 
 # YOCTO_WIC_DOWNLOAD_URL - 
   N6001_YOCTO_WIC_DOWNLOAD_URL: N/A
   N6000_YOCTO_WIC_DOWNLOAD_URL: N/A
   FTILE_DK_YOCTO_WIC_DOWNLOAD_URL: N/A
   ISERIES_DK_YOCTO_WIC_DOWNLOAD_URL: N/A
+  AGX5_MOD_DK_YOCTO_WIC_DOWNLOAD_URL: N/A
   F2000X_YOCTO_WIC_DOWNLOAD_URL: https://github.com/OFS/meta-ofs/releases/download/ofs-2024.1-2/core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic.gz
   D5005_YOCTO_WIC_DOWNLOAD_URL: N/A
+  ONEAPI_N6001_YOCTO_WIC_DOWNLOAD_URL: N/A
+  ONEAPI_N6000_YOCTO_WIC_DOWNLOAD_URL: N/A
+  ONEAPI_FTILE_DK_YOCTO_WIC_DOWNLOAD_URL: N/A
+  ONEAPI_ISERIES_DK_YOCTO_WIC_DOWNLOAD_URL: N/A
+  ONEAPI_F2000X_YOCTO_WIC_DOWNLOAD_URL: N/A
+  ONEAPI_D5005_YOCTO_WIC_DOWNLOAD_URL: N/A
 
 # YOCTO_WIC_NAME - 
   N6001_YOCTO_WIC_NAME: N/A
   N6000_YOCTO_WIC_NAME: N/A
   FTILE_DK_YOCTO_WIC_NAME: N/A
   ISERIES_DK_YOCTO_WIC_NAME: N/A
+  AGX5_MOD_DK_YOCTO_WIC_NAME: N/A
   F2000X_YOCTO_WIC_NAME: core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic.gz
   D5005_YOCTO_WIC_NAME: N/A
+  ONEAPI_N6001_YOCTO_WIC_NAME: N/A
+  ONEAPI_N6000_YOCTO_WIC_NAME: N/A
+  ONEAPI_FTILE_DK_YOCTO_WIC_NAME: N/A
+  ONEAPI_ISERIES_DK_YOCTO_WIC_NAME: N/A
+  ONEAPI_F2000X_YOCTO_WIC_NAME: N/A
+  ONEAPI_D5005_YOCTO_WIC_NAME: N/A
 
 # YOCTO_WIC_NAME_UNCOMPRESSED - 
   N6001_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
   N6000_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
   FTILE_DK_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
   ISERIES_DK_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
+  AGX5_MOD_DK_YOCTO_WIC_NAME: N/A
   F2000X_YOCTO_WIC_NAME_UNCOMPRESSED: core-image-full-cmdline-intel-corei7-64-20240227185330.rootfs.wic
   D5005_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
+  ONEAPI_N6001_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
+  ONEAPI_N6000_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
+  ONEAPI_FTILE_DK_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
+  ONEAPI_ISERIES_DK_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
+  ONEAPI_F2000X_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
+  ONEAPI_D5005_YOCTO_WIC_NAME_UNCOMPRESSED: N/A
 
 # META_OFS_TAG_URL - meta-ofs repository tag URL
   N6001_META_OFS_TAG_URL: N/A
   N6000_META_OFS_TAG_URL: N/A
   FTILE_DK_META_OFS_TAG_URL: N/A
   ISERIES_DK_META_OFS_TAG_URL: N/A
+  AGX5_MOD_DK_META_OFS_TAG_URL: N/A
   F2000X_META_OFS_TAG_URL: https://github.com/OFS/meta-ofs/releases/tag/ofs-2024.1-2
   D5005_META_OFS_TAG_URL: N/A
+  ONEAPI_N6001_META_OFS_TAG_URL: N/A
+  ONEAPI_N6000_META_OFS_TAG_URL: N/A
+  ONEAPI_FTILE_DK_META_OFS_TAG_URL: N/A
+  ONEAPI_ISERIES_DK_META_OFS_TAG_URL: N/A
+  ONEAPI_F2000X_META_OFS_TAG_URL: N/A
+  ONEAPI_D5005_META_OFS_TAG_URL: N/A
 
 # META_OFS_TAG - meta-ofs repository tag
   N6001_META_OFS_TAG: N/A
   N6000_META_OFS_TAG: N/A
   FTILE_DK_META_OFS_TAG: N/A
   ISERIES_DK_META_OFS_TAG: N/A
+  AGX5_MOD_DK_META_OFS_TAG: N/A
   F2000X_META_OFS_TAG: ofs-2024.1-2
   D5005_META_OFS_TAG: N/A
+  ONEAPI_N6001_META_OFS_TAG: N/A
+  ONEAPI_N6000_META_OFS_TAG: N/A
+  ONEAPI_FTILE_DK_META_OFS_TAG: N/A
+  ONEAPI_ISERIES_DK_META_OFS_TAG: N/A
+  ONEAPI_F2000X_META_OFS_TAG: N/A
+  ONEAPI_D5005_META_OFS_TAG: N/A
 
 # SOC_OS - 
   N6001_SOC_OS: N/A
   N6000_SOC_OS: N/A
   FTILE_DK_SOC_OS: N/A
+  AGX5_MOD_DK_SOC_OS: N/A
   ISERIES_DK_SOC_OS: N/A
   F2000X_SOC_OS: meta-intel-ese Reference Distro 1.0-ESE (kirkstone)
   D5005_SOC_OS: N/A
+  ONEAPI_N6001_SOC_OS: N/A
+  ONEAPI_N6000_SOC_OS: N/A
+  ONEAPI_FTILE_DK_SOC_OS: N/A
+  ONEAPI_ISERIES_DK_SOC_OS: N/A
+  ONEAPI_F2000X_SOC_OS: N/A
+  ONEAPI_D5005_SOC_OS: N/A
 
 # META_OFS_REPO_URL - meta-ofs repository URL
   N6001_META_OFS_REPO_URL: N/A
   N6000_META_OFS_REPO_URL: N/A
   FTILE_DK_META_OFS_REPO_URL: N/A
   ISERIES_DK_META_OFS_REPO_URL: N/A
+  AGX5_MOD_DK_META_OFS_REPO_URL: N/A
   F2000X_META_OFS_REPO_URL: https://github.com/OFS/meta-ofs
   D5005_META_OFS_REPO_URL: N/A
+  ONEAPI_N6001_META_OFS_REPO_URL: N/A
+  ONEAPI_N6000_META_OFS_REPO_URL: N/A
+  ONEAPI_FTILE_DK_META_OFS_REPO_URL: N/A
+  ONEAPI_ISERIES_DK_META_OFS_REPO_URL: N/A
+  ONEAPI_F2000X_META_OFS_REPO_URL: N/A
+  ONEAPI_D5005_META_OFS_REPO_URL: N/A
+
+# Release images tar extension 
+  N6001_OFS_RELEASE_TAR: 2025-1-1
+  F2000X_OFS_RELEASE_TAR: 2024-1-1
+  AGX5_MOD_DK_OFS_RELEASE_TAR : 2025-1-1
 
 # Common
   COMMON_ALTERA_FPGA: Altera® FPGA
-  COMMON_QUARTUS_VER: Quartus<sup>&reg;</sup> Prime Pro Edition Version 23.4
-  COMMON_OFS_RELEASE: 2024.2
-  COMMON_OFS_RELEASE_TAR: 2024-2
-  COMMON_OPAE_SIM_TAG: 2.13.0-2
+  COMMON_QUARTUS_VER: Quartus<sup>&reg;</sup> Prime Pro Edition Version 25.1
+  COMMON_OFS_RELEASE: 2025.1-1
+  COMMON_OPAE_SIM_TAG: 2.14.0-1
   COMMON_QUARTUS_PRO: Quartus® Prime Pro Edition Software
   COMMON_QUARTUS_SIMPLE: Quartus® software
   COMMON_ONEAPI_BASE_TOOLKIT: oneAPI Base Toolkit (Base Kit)
@@ -919,13 +1481,15 @@ env:
   COMMON_ONEAPI_ASP_REPO_URL: https://github.com/OFS/oneapi-asp
   COMMON_OPAE_SDK_REPO_URL: https://github.com/OFS/opae-sdk
   COMMON_LINUX_DFL_REPO_URL: https://github.com/OFS/linux-dfl
+  COMMON_LINUX_DFL_BACKPORT_REPO_URL: https://github.com/OFS/linux-dfl-backport
   COMMON_OFS_PLATFORM_AFU_BBB_REPO_URL: https://github.com/OFS/ofs-platform-afu-bbb.git
-  COMMON_AFU_BBB_TAG: ofs-2024.1-1
+  COMMON_AFU_BBB_TAG: ofs-2024.3-1
   COMMON_OPAE_SIM_REPO_URL: https://github.com/OFS/opae-sim.git
   COMMON_INTEL_FPGA_BBB_REPO_URL: https://github.com/OPAE/intel-fpga-bbb.git
   COMMON_EXAMPLES_AFU_REPO_URL: https://github.com/OFS/examples-afu.git
   COMMON_N6001_N6000_BOARD: Intel® FPGA SmartNIC N6000/1-PL
-  COMMON_QUARTUS_PRIME_PRO_VER_S_LINK: 24-1
+  COMMON_QUARTUS_PRIME_PRO_VER_S_LINK: 25-1
 
 # OFS_mkdocs_release - Used to automatically update the release number in documentation links files
-  OFS_mkdocs_release: ofs-2024.2-1
+  OFS_mkdocs_release: ofs-2025.1-1
+  OFS_mkdocs_release_2024_2_1: ofs-2024.2-1

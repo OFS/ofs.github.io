@@ -25,7 +25,6 @@ Perform the following steps to set the required environment variables. These env
   export LM_LICENSE_FILE=<YOUR_LM_LICENSE_FILE>
 
   # Set Synopsys License path (if using Synopsys for simulation)
-  export DW_LICENSE_FILE=<YOUR_DW_LICENSE_FILE>
   export SNPSLMD_LICENSE_FILE=<YOUR_SNPSLMD_LICENSE_FILE>
 
   # Set Quartus Installation Directory - e.g. $QUARTUS_ROOTDIR/bin contains Quartus executables
@@ -54,6 +53,8 @@ Perform the following steps to set the required environment variables. These env
   export DESIGNWARE_HOME=$TOOLS_LOCATION/synopsys/vip_common/vip_Q-2020.03A
   export UVM_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.SIM_VCS_VER_SH }}/linux64/rhel/etc/uvm
   export VCS_HOME=$TOOLS_LOCATION/synopsys/vcsmx/${{ env.SIM_VCS_VER_SH }}/linux64/rhel
+  export VCS_TARGET_ARCH=linux64
+  export VMR_MODE_FLAG=64
   export MTI_HOME=$QUARTUS_ROOTDIR/../questa_fse
   export VERDIR=$OFS_ROOTDIR/verification
   export VIPDIR=$VERDIR

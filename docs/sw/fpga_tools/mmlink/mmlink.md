@@ -73,5 +73,7 @@ user    soft   memlock           10000
 Exit terminal and log into a new terminal.
 
 Verify that the locked memory is now set: 
-```
+
+```bash
 $ ulimit -l 10000
+```

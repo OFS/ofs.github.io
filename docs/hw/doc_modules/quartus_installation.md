@@ -4,11 +4,15 @@ Use ${{ env.HOST_OS_L }} for compatibility with your development flow and also t
 
 Prior to installing Quartus:
 
-1. Ensure you have at least 64 GB of free space for Quartus Prime Pro installation and your development work.
-  * Intel® recommends that your system be configured to provide virtual memory equal in size or larger than the recommended physical RAM size that is required to process your design.
+1. Ensure you have sufficient free disk space for Quartus Prime Pro installation and your development work.
+
   * The disk space may be significantly more based on the device families included in the install. Prior to installation, the disk space should be enough to hold both zipped tar files and uncompressed installation files. After successful installation, delete the downloaded zipped files and uncompressed zip files to release the disk space.
 
-2. Perform the following steps to satisfy the required dependencies.
+2. Ensure you have sufficient RAM available for OFS compilations with Quartus
+
+  * It is recommended you have at least 128 GB of RAM to compile OFS designs.
+
+3. Perform the following steps to satisfy the required dependencies.
 
   ```bash
   $ sudo dnf install -y gcc gcc-c++ make cmake libuuid-devel rpm-build autoconf automake bison boost boost-devel libxml2 libxml2-devel make ncurses grub2 bc csh flex glibc-locale-source libnsl ncurses-compat-libs 
@@ -22,7 +26,7 @@ Prior to installing Quartus:
   $ sudo ln -s /usr/bin/python3 /usr/bin/python
   ```
 
-3. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
+4. Create the default installation path: <home directory>/intelFPGA_pro/<version number>, where <home directory> is the default path of the Linux workstation, or as set by the system administrator and <version> is your Quartus version number.
 
   The installation path must satisfy the following requirements:
 
@@ -31,9 +35,7 @@ Prior to installing Quartus:
   * Only English characters
   * No spaces
 
-4. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
-
-5. Install required Quartus patches. The Quartus patch `.run` files can be found in the **Assets** tab on the [OFS Release GitHub page](${{ env.OFS_FIM_RELEASE_PAGE_URL }}). The patches for this release are ${{ env.QUARTUS_PATCHES }}.
+5. Download your required Quartus Prime Pro Linux version [here](https://www.intel.com/content/www/us/en/products/details/fpga/development-tools/quartus-prime/resource.html).
 
 6. After running the Quartus Prime Pro installer, set the PATH environment variable to make utilities `quartus`, `jtagconfig`, and `quartus_pgm` discoverable. Edit your bashrc file `~/.bashrc` to add the following line:
 

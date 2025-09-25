@@ -1,6 +1,6 @@
 # **AFU Simulation Environment User Guide**
 
-Last updated: **July 16, 2024** 
+Last updated: **September 25, 2025** 
 
 ## **1. Intended Audience**
 
@@ -25,12 +25,12 @@ To use the ASE Environment you must have source code in a language that RTL simu
 
 **Note: The ASE supports one AFU and one application at a time. The ASE does not support multiple-slot simulation.**
 
-![](/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/platform.png)
+![](/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/platform.png)
 
 ### **2.1. AFU Simulation Environment (ASE) Overview** ###
 ASE is a dual-process simulator. One process runs an AFU RTL simulation. The other process connects to software that runs on the RTL AFU simulation. This unified simulation environment reduces AFU hardware and software development time. The OPAE software distribution includes the ASE.
 
-![](/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_overview.png)
+![](/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_overview.png)
 
 The ASE provides two interfaces:
 
@@ -66,7 +66,7 @@ When using ASE in the application development cycle, consider the following limi
 
 ### **2.4 ASE-Based AFU Design Workflow** ###
 
-![](/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/workflow_rev1.png)
+![](/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/workflow_rev1.png)
 
 AFU development using the ASE includes the following four stages:
 
@@ -84,7 +84,7 @@ AFU development using the ASE includes the following four stages:
 
 4. In-system Deployment: Test the AF in system hardware. Use Signal Tap to debug problems. Develop platform-specific software optimizations.
 
-![](/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/portability_rev1.png)
+![](/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/portability_rev1.png)
 
 The AFU RTL code and OPAE software code you create in the ASE is compatible with the Quartus Prime PAR software if the following two conditions are true:
 
@@ -104,8 +104,8 @@ In the simulation environment, complete the following steps to create an AF bits
 The OPAE software release includes the ASE. The current OPAE ASE release supports both Acceleration Stack for the Intel® Xeon® Processor with Integrated FPGA and Acceleration Stack for a programmable FPGA acceleration card for Intel® Xeon® processors.
 
 The ASE is available only on 64-bit Linux operating systems with one of the following simulators:
-* Synopsys® VCS® Simulator (S-2023.03-SP2-1 or newer)
-* Siemens® QuestaSim® Simulator (2024.1 or newer)
+* Synopsys® VCS® Simulator (U-2023.03-SP2-1 or newer)
+* Siemens® QuestaSim® Simulator (2024.3 or newer)
 
 Consult your RTL simulator vendor for Synopsys® or Siemens® for specific simulation requirements.
 
@@ -114,16 +114,16 @@ The following Linux locations should exist and be writeable. In most Linux distr
 
 Here are the other ASE requirements:
 
-* C-Compiler: gcc 8.5.0 or above
+* C-Compiler: gcc 11.5.0 or above
 
     * Boost Development libraries
     * UUID Development libraries
     * JSON Development libraries
     * Please see the dependencies of the OPAE System library build process
 
-* CMake: version 3.15 or above
-* Python: version 3.6.8 or above
-* Intel Quartus Prime Pro 24.1: The ASE must find the ```$QUARTUS_HOME/eda/sim_lib/``` directory. You specify this directory during project definition in the Intel Quartus Prime Pro Edition software.
+* CMake: version 3.26.5 or above
+* Python: version 3.8.10 or above
+* Intel Quartus Prime Pro 25.1: The ASE must find the ```$QUARTUS_HOME/eda/sim_lib/``` directory. You specify this directory during project definition in the Intel Quartus Prime Pro Edition software.
 
 The ASE provides the ```env_check.sh``` bash script in the ```/opae-sim/ase/scripts``` directory. Run this script to verify the your installation.
 
@@ -298,7 +298,7 @@ Use the ASE cleanup script located in ```scripts/ipc_clean.py``` to kill zombie 
 
 The AFU ASE is a server-client simulation environment. The AFU RTL is the server process. The software application compiled and linked to the  OPAE ASE library is the client process. Communication between server and client uses named pipes. The ASE abstracts most of the simulation infrastructure. You do not need to modify it.
 
-![](/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_server_client_process.png)
+![](/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_server_client_process.png)
 
 
 **Server Process**:
@@ -343,10 +343,11 @@ $ export LD_LIBRARY_PATH=/usr/lib64
 $ export OFS_PLATFORM_AFU_BBB=<path to ofs-platform-afu_bbb directory> 
 
   ## For VCS, set the following:
+$ export VCS_TARGET_ARCH=linux64
+$ export VMR_MODE_FLAG=64
 $ export VCS_HOME=<Set the path to VCS installation directory>
 $ export PATH=$VCS_HOME/bin:$PATH
 $ export SNPSLMD_LICENSE_FILE=<License File Server>
-$ export DW_LICENSE_FILE=<DesignWare License File Server>
 
   ## For QuestaSIM, set the following:
 $ export MTI_HOME=<path to QuestaSIM installation directory>
@@ -633,15 +634,6 @@ The following list of ASE errors and warnings is not comprehensive:
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
-No product or component can be absolutely secure. 
-Performance varies by use, configuration and other factors.
-Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
-The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
-You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.
