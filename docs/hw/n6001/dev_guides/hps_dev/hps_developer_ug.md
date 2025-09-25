@@ -1,8 +1,8 @@
-# Hard Processor System Software Developer Guide: OFS for Intel Agilex FPGAs Targeting Intel® N6000/1-PL FPGA SmartNIC Platform
+# Hard Processor System Software Developer Guide: OFS for Agilex™ FPGAs Targeting Intel® N6000/1-PL FPGA SmartNIC Platform
 
 [Quartus Prime Pro Version: 23.1](https://www.intel.com/content/www/us/en/search.html?ws=text#q=quartus%20prime%20pro%2023.1&sort=relevancy)
 
-Last updated: Last updated: **July 16, 2024** 
+Last updated: Last updated: **September 25, 2025** 
 
 ## Glossary
 
@@ -54,7 +54,7 @@ Last updated: Last updated: **July 16, 2024**
 
 ## 1.0 Introduction
 
-The Open FPGA Stack (OFS) is a modular collection of hardware platform components, open source upstreamed software, and broad ecosystem support that enables an efficient path to develop a custom FPGA platform. OFS Provides a framework of FPGA synthesizable code, a simulation environment and synthesis/simulation scripts.  The updated OFS architecture for Intel Agilex FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are:
+The Open FPGA Stack (OFS) is a modular collection of hardware platform components, open source upstreamed software, and broad ecosystem support that enables an efficient path to develop a custom FPGA platform. OFS Provides a framework of FPGA synthesizable code, a simulation environment and synthesis/simulation scripts.  The updated OFS architecture for Agilex™ FPGA devices improves upon the modularity, configurability and scalability of the first release of the OFS architecture while maintaining compatibility with the original design.  The primary components of the FPGA Interface Manager or shell of the reference design are:
 
 - PCIe Subsystem
 - HSSI Subsystem
@@ -68,8 +68,8 @@ The Open FPGA Stack (OFS) is a modular collection of hardware platform component
 
 The Intel<sup>&reg;</sup> N6000-PL and N6001-PL FPGA SmartNIC Platforms are acceleration cards that use the OFS infrastructure. The key difference between these two platforms is:
  
-- Intel<sup>&reg;</sup> N6000-PL SmartNIC Platform has a bifurcated PCIe bus with Gen4x8 interfacing to the the Intel Agilex FPGA and Gen4x8 interfacing to an Intel E810 SmartNIC.  This platform is targeted specifically for VRAN, UPF and vCSR applications.  The FPGA designs targeting these vertical market applications were generated using the OFS infrastructure.
-- Intel<sup>&reg;</sup> N6001-PL SmartNIC Platform has a Gen4x16 interface directly to the Intel Agilex FPGa and is not populated with an Intel E810 SmartNIC.  This platform is the reference platform for the OFS reference designs for Intel Agilex FPGA.  
+- Intel<sup>&reg;</sup> N6000-PL SmartNIC Platform has a bifurcated PCIe bus with Gen4x8 interfacing to the the Agilex™ FPGA and Gen4x8 interfacing to an Intel E810 SmartNIC.  This platform is targeted specifically for VRAN, UPF and vCSR applications.  The FPGA designs targeting these vertical market applications were generated using the OFS infrastructure.
+- Intel<sup>&reg;</sup> N6001-PL SmartNIC Platform has a Gen4x16 interface directly to the Agilex™ FPGa and is not populated with an Intel E810 SmartNIC.  This platform is the reference platform for the OFS reference designs for Agilex™ FPGA.  
 
 Note: throughout this document "Intel N6000/1-PL FPGA SmartNIC Platform" denotes both cards. This document describes the software package that runs on the Hard Processor System (HPS) which is a key component within both platforms.
 
@@ -83,17 +83,17 @@ This document pulls much of its information from related Agilex FPGA documentati
 
 | **Document Title** |
 | --- |
-| [Intel® Agilex™ Hard Processor System Technical Reference Manual](https://www.intel.com/content/www/us/en/programmable/documentation/slu1548263438002.html) |
-| [Intel® Agilex™ SoC FPGA Boot User Guide](https://www.intel.com/content/www/us/en/programmable/documentation/pww1591206997703.html) |
-| [Intel® Agilex™ Configuration User Guide](https://www.intel.com/content/www/us/en/programmable/documentation/oex1546548090650.html) |
+| [Agilex™ Hard Processor System Technical Reference Manual](https://www.intel.com/content/www/us/en/programmable/documentation/slu1548263438002.html) |
+| [Agilex™ SoC FPGA Boot User Guide](https://www.intel.com/content/www/us/en/programmable/documentation/pww1591206997703.html) |
+| [Agilex™ Configuration User Guide](https://www.intel.com/content/www/us/en/programmable/documentation/oex1546548090650.html) |
 
 ### 1.2 Reference Images
 
 Intel has provided a set of two pre-compiled ITB images that can be used for exploration and evaluation of the HPS bring-up flow. These images contain the complete SSBL package specific to the board and can be copied to the N6000/1-PL SmartNIC Platform with an HPS enabled FIM loaded. Refer to [**Section 4.1 Example Boot**](#41-example-boot) for an example on how to use the built-in copy engine IP in tandem with the host-side `cpeng` software to transfer an SSBL.
 
-The package is found on the official [OFS 2024.2-1 Release on GitHub](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1). Two ITB artifacts are included at the bottom of the page under *Assets* - one with the Vendor Authorized Boot (VAB) certificate included, and one without. Which you choose to load depends on whether the currently loaded FIM requires VAB authentication. [**Section 4.3 Example Boot**](#43-example-boot) contains instructions on the boot flow using these files for platform bring up.
+The package is found on the official [OFS 2025.1-1 Release on GitHub](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1). Two ITB artifacts are included at the bottom of the page under *Assets* - one with the Vendor Authorized Boot (VAB) certificate included, and one without. Which you choose to load depends on whether the currently loaded FIM requires VAB authentication. [**Section 4.3 Example Boot**](#43-example-boot) contains instructions on the boot flow using these files for platform bring up.
 
-The default username for these two images is `root` and the password is empty. A good place to start after loading the ITB is to set up SSH for file transfers and the remote console, as seen in [**8.0 Connecting remotely to the HPS using `ssh`**](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/#80-connecting-remotely-to-the-hps-using-ssh).
+The default username for these two images is `root` and the password is empty. A good place to start after loading the ITB is to set up SSH for file transfers and the remote console, as seen in [**8.0 Connecting remotely to the HPS using `ssh`**](https://ofs.github.io/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/#80-connecting-remotely-to-the-hps-using-ssh).
 
 ## 2.0 Architecture Overview
 
@@ -123,11 +123,11 @@ The HPS is connected to the AFU and implements all the board specific flows that
 
 ### 2.1 HPS Peripherals
 
-**Figure 1  Intel Agilex FPGA HPS Peripherals**
+**Figure 1  Agilex™ FPGA HPS Peripherals**
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image1.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/Image1.png)
 
-The Intel Agilex™ SoC integrates a full-featured Arm<sup>&reg;</sup> Cortex-A53<sup>&reg;</sup> MPCore Processor.
+The Agilex™ SoC integrates a full-featured Arm<sup>&reg;</sup> Cortex-A53<sup>&reg;</sup> MPCore Processor.
 
 The Cortex-A53 MPCore supports high-performance applications and provides the capability for secure processing and virtualization.
 
@@ -155,7 +155,7 @@ Each CPU in the processor has the following features:
 
 A Snoop Control Unit (SCU) maintains coherency between the CPUs and communicates with the system Cache Coherency Unit (CCU). At a system level, the Cortex-A53 MPCore interfaces to a Generic Interrupt Controller (GIC), CCU, and System Memory Management Unit (SMMU).
 
-Beyond the Arm Cortex-A53 MPCore Processor, the HPS integrates a variety of useful peripherals for use in your design, such as Ethernet, USB, Memory Controller, on-chip RAM, SPI, UART and more. Refer to the [Intel® Agilex™ Hard Processor System Technical Reference Manual](https://www.intel.com/content/www/us/en/programmable/documentation/slu1548263438002.html) for more information.
+Beyond the Arm Cortex-A53 MPCore Processor, the HPS integrates a variety of useful peripherals for use in your design, such as Ethernet, USB, Memory Controller, on-chip RAM, SPI, UART and more. Refer to the [Agilex™ Hard Processor System Technical Reference Manual](https://www.intel.com/content/www/us/en/programmable/documentation/slu1548263438002.html) for more information.
 
 ### 2.2 Zarlink Device
 
@@ -167,15 +167,15 @@ The software in HPS can access the Clock generator through SPI to enable write a
 
 A host with OPAE SDK and Linux DFL installed will provide the `hps` OPAE command with related options to transfer images from host to the HPS image. The module in the OFS FIM and HPS software that performs this transfer is called the Copy Engine (CPE), which is included by default within the HPS image.
 
-Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](../../user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md) for platform and software installation instructions.
+Refer to the [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)](../../user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001.md) for platform and software installation instructions.
 
 The CPE software is patched into Linux on the HPS in Yocto through the *meta-intel-fpga-refdes* layer. This service is *daemonized* and requires `systemd` in order to operate. This service will communicate with the HPS IP integrated in the FIM in order to coordinate and monitor file transfers from the host CPE software to DDR connected the HPS. The CPE HPS-side software takes advantage of the built-in I/O lightweight kernel module to communicate with the FIM's HPS IP. It can restart the transfer if the initial transfer of the image is not successful. The CPE can also serve as reference on how to integrate your own *systemd* service in the Linux build running on the HPS.
 
 ### 2.4 Boot Flow
 
-The boot flow for the Agilex OFS design for the Intel N6000/1-PL FPGA SmartNIC Platform is an FPGA-first boot flow, meaning the Intel Agilex Secure Device Manager (SDM) configures the FPGA first and then boots the HPS. Alternatively, you can boot the HPS first and then configure the FPGA core as part of the Second-Stage Boot Loader (SSBL) or after the Operating System (OS) boots. HPS-first boot is not covered in this document, but for more information please refer to the [Intel® Agilex™ SoC FPGA Boot User Guide](https://www.intel.com/content/www/us/en/programmable/documentation/pww1591206997703.html).
+The boot flow for the Agilex OFS design for the Intel N6000/1-PL FPGA SmartNIC Platform is an FPGA-first boot flow, meaning the Agilex™ Secure Device Manager (SDM) configures the FPGA first and then boots the HPS. Alternatively, you can boot the HPS first and then configure the FPGA core as part of the Second-Stage Boot Loader (SSBL) or after the Operating System (OS) boots. HPS-first boot is not covered in this document, but for more information please refer to the [Agilex™ SoC FPGA Boot User Guide](https://www.intel.com/content/www/us/en/programmable/documentation/pww1591206997703.html).
 
-For the FPGA-first boot flow supported by the Intel Agilex OFS FIM, the First Stage Bootloader is part of FPGA bitstream. The available Secure Device Manager (SDM) in the FPGA initially configures the FPGA core and periphery in this mode. The first stage bootloader is produced as a part of a U-Boot build and cna be manually inserted into a Quartus generated SOF file as shown in step 7 of [**Section 9.2 Configuring the HPS**](#92-configuring-the-hps).
+For the FPGA-first boot flow supported by the Agilex™ OFS FIM, the First Stage Bootloader is part of FPGA bitstream. The available Secure Device Manager (SDM) in the FPGA initially configures the FPGA core and periphery in this mode. The first stage bootloader is produced as a part of a U-Boot build and cna be manually inserted into a Quartus generated SOF file as shown in step 7 of [**Section 9.2 Configuring the HPS**](#92-configuring-the-hps).
 
 After completion, the HPS boots. All the I/O, including the HPS-allocated I/O, are configured, and brought out of tri-state. If the HPS is not booted:
 
@@ -186,7 +186,7 @@ After completion, the HPS boots. All the I/O, including the HPS-allocated I/O, a
 
 **Figure 2. Typical FPGA First Configuration Steps**
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image2.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/Image2.png)
 
 The flow includes the Time from Power-on-Reset (TPOR) to boot completion (TBoot\_Complete).
 
@@ -233,7 +233,7 @@ The HPS FSBL is part of the static region (SR) FPGA bitstream. Intel provides th
     1. `quartus_sign` tool
     2. OPAE `PACSign` tool
 
-Signing with PACSign ensures the security of the BMC RSU update process to the flash, and requires a compatible binary file. Quartus signing provides ensures security when the bitstream is configured through the SDM into the Intel Agilex FPGA device using Vendor Authorized Boot.
+Signing with PACSign ensures the security of the BMC RSU update process to the flash, and requires a compatible binary file. Quartus signing provides ensures security when the bitstream is configured through the SDM into the Agilex™ FPGA device using Vendor Authorized Boot.
 
 Vendor Authorized Bootloader (VAB) considers the SDM as a trusted root entity such that when firmware is authenticated and booted and is running on the SDM with dedicated crypto HW IP blocks, it is considered a trusted entity. As such it is trusted to perform the authentication and authorization steps for subsequent bitstreams.
 
@@ -244,7 +244,7 @@ The SSBL + Linux is a part of an itb file and may also be signed with Quartus\_s
 ## 3.0 Environment Setup
 ### 3.1 Building U-Boot
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image3.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/Image3.png)
 
 When creating a development environment using `meta-bake.py` both U-Boot and the patches required to work with the Intel N6000/1-PL FPGA SmartNIC Platform are located at */meta-opae-fpga/tools/meta-bake/build/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/build/socfpga_agilex_n6000_defconfig*. To review the required patches applied to U-Boot, navigate to */meta-opae-fpga/tools/meta-bake/build/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/git/patches*. From there, using git commands such as `git status` and `git branch` will show changes to the build environment. 
 
@@ -473,9 +473,9 @@ This image is made up of the following components:
 - Linux Kernel image
 - Root filesystem (rootfs) consisting of kernel modules as well as user space software.
 
-### 4.2 Booting OFS FIM for Intel Agilex FPGA
+### 4.2 Booting OFS FIM for Agilex™ FPGA
 
-As mentioned before, the Intel N6000/1-PL FPGA SmartNIC boot flow is an FPGA-first boot flow which requires that the Intel Agilex FPGA to be configured with the necessary components (SPL/FSBL, copyengine) in order for the HPS to boot.
+As mentioned before, the Intel N6000/1-PL FPGA SmartNIC boot flow is an FPGA-first boot flow which requires that the Agilex™ FPGA to be configured with the necessary components (SPL/FSBL, copyengine) in order for the HPS to boot.
 
 SD/eMMC is not supported for FSBL for HPS first
 
@@ -558,7 +558,7 @@ $ hps heartbeat
 [2021-09-25 01:59:46.723] [heartbeat] [info] heartbeat value: 0x70015
 ```
 
-4. Login to HPS as user, root, with no password over serial connection. This process is covered in [**8.0 Connecting remotely to the HPS using `ssh`**](https://ofs.github.io/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/#80-connecting-remotely-to-the-hps-using-ssh).
+4. Login to HPS as user, root, with no password over serial connection. This process is covered in [**8.0 Connecting remotely to the HPS using `ssh`**](https://ofs.github.io/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/#80-connecting-remotely-to-the-hps-using-ssh).
 
 
 ``` bash
@@ -578,7 +578,7 @@ root@agilex:~#
 
 ### 5.2 Description
 
-hps is an application to aid in the development, deployment, and debugging of an HPS (hard processor system) on an Intel Agilex device using OFS. The current version of the hps program assumes an AFU (accelerator functional unit) is configured into the FPGA that can be discovered/accessed through an OPAE library and used for communicating with the HPS. When invoked with one of its subcommands, hps will enumerate the AFU for that subcommand before executing it.
+hps is an application to aid in the development, deployment, and debugging of an HPS (hard processor system) on an Agilex™ device using OFS. The current version of the hps program assumes an AFU (accelerator functional unit) is configured into the FPGA that can be discovered/accessed through an OPAE library and used for communicating with the HPS. When invoked with one of its subcommands, hps will enumerate the AFU for that subcommand before executing it.
 
 ### 5.3 Options
 
@@ -901,7 +901,7 @@ $ cd ..
 
 **Figure 3.1 N6000/1 Configs**
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image4.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/Image4.png)
 
 If you not see the defconfig desired, please checkout the correct branch version. Example config shown above is socfpga_v2021.10.
 
@@ -920,7 +920,7 @@ reg = <0 0x00000000 0 0x40000000>,<0 0x00000000 0 0x40000000>;
 ```
 **Figure 3.2 Device tree mismatches example**
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image5.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/Image5.png)
 
 Refer to 6. Host Side Startup
 
@@ -933,7 +933,7 @@ The error happen (Figure below) when the Images do not sign with VAB.
 
 **Figure 3.3 VAB certificate error example**
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/Image6.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/Image6.png)
 
 ## 7.0 Debugging
 
@@ -1066,35 +1066,35 @@ The following section will walk through the process by which eMMC, I2C, and UART
 
 ### 9.1 Configuring the FIM
 
-1. Configure eMMC, I2C, and UAET in Platform Designer. ACtual pin assignments are determined by the WNC board schematic. In Quartus, navigate to the HPS Processor Subsystem Intel Agilex FPGA IP -> Pin Mux and Peripherals -> Advanced -> Advanced IP Placement.
+1. Configure eMMC, I2C, and UAET in Platform Designer. ACtual pin assignments are determined by the WNC board schematic. In Quartus, navigate to the HPS Processor Subsystem Agilex™ FPGA IP -> Pin Mux and Peripherals -> Advanced -> Advanced IP Placement.
 
-![Pin Planner](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc1.png)
+![Pin Planner](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc1.png)
 
 Check your pin assigments for the eMMC, UART and I2C in the Pin Planner. If these assignments are not present, then they can be found at the following [link](https://github.com/OFS/ofs-n6001/blob/45a7dfbcdac16131aabf392457cfbbd51631888e/syn/setup/hps_loc.tcl#L4). Based on the changes shown above, the UART pins are removed on HPS IO3 and IO4 what are mapped on AG6 and AB1.
 
-![HPS Pin Assignments](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc2.png)
+![HPS Pin Assignments](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc2.png)
 
 2. Click Apply Selections->Generate HDL
 
-![Generate HDL](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc3.png)
+![Generate HDL](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc3.png)
 
 3. Check for instantiation in `top.sv`. Click Generate -> Show Instatiation Template.
 
-![Instatiation Template](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc4.png)
+![Instatiation Template](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc4.png)
 
 The following image demonstrates eMMC and I2C properly instatiated in `top.sv`.
 
-![top.sv Instatiation](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc5.png)
+![top.sv Instatiation](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc5.png)
 
 4. Add the following to the hps_ss modules in `top.sv`.
 
-![hps_ss part 1](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc6.png)
+![hps_ss part 1](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc6.png)
 
-![hps_ss part 2](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc7.png)
+![hps_ss part 2](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc7.png)
 
 5. Compile the design.
 
-![Compile](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc8.png)
+![Compile](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc8.png)
 
 ### 9.2 Configuring the HPS
 
@@ -1105,17 +1105,17 @@ CONFIG_CMD_MMC=y //Enable mmc command tool in uboot
 CONFIG_MMC_DW=y // support DesignWare Memory Card Interface
 ```
 
-![.config changes 1](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc9.png)
+![.config changes 1](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc9.png)
 
-![.config changes 1](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc10.png)
+![.config changes 1](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc10.png)
 
 2. Enable and configure I2C and eMMC in U-Boot (socfpga_agilex_n6000.dts). After building U-Boot with `meta-bake.py`, this file is located at *<build_directory>/agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/<version>git/arch/arm/dts/socfpga_agilex_n6000.dts*.
 
-![DTS Changes UBOOT](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc11.png)
+![DTS Changes UBOOT](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc11.png)
 
 3. Enable and configure I2C and eMMC in the Linux device tree (socfpga_agilex_n6000.dts). After building U-Boot with `meta-bake.py`, this file is located at *<build_directory>/agilex-n6000-rootfs/tmp/work-shared/agilex/kernel-source/arch/arm64/boot/dts/intel/socfpga_agilex_n6000.dts*.
 
-![DTS Changes Linux](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc12.png)
+![DTS Changes Linux](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc12.png)
 
 4. Compile Linux by navigating to the directory *agilex-n6000-rootfs/tmp/work/agilex-poky-linux/linux-socfpga-lts/5.10.60-lts+gitAUTOINC+c35d63f9c7-r0/linux-agilex-standard-build* and running the following:
 
@@ -1125,7 +1125,7 @@ $ make -j `nproc` Image dtbs
 
 5. Add the software utilities`util-linux-mkfs e2fsprogs.mke2fs e2fsprogs` in to the Linux RootFS. Thes utilities will be used to create a filsystem (ext4, FAT32, etc.) and partition the eMMC. Make the following changes in *meta-intel-fpga-refdes/recipes-images/poky/n6000-image-minimal.bb*.
 
-![Utility additions](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc13.png)
+![Utility additions](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc13.png)
 
 6. As an output from the Linux compilation from step 4 you will produce the files **Image** and **socfpga_agilex_n6000.dtb**. Transfer both over to the socfpga_agilex_n6000_defconfig directory. Rename **socfpga_agilex_n6000.dtb** to **linux.dtb**. Compile U-Boot by running `make` in directory *agilex-n6000-rootfs/tmp/work/agilex-poky-linux/u-boot-socfpga/1_v2021.07+gitAUTOINC+24e26ba4a0-r0/build/socfpga_agilex_n6000_defconfig/*. This compilation will produce both `spl/u-boot-spl-dtb.hex` and `u-boot.itb`. 
 
@@ -1146,7 +1146,7 @@ $ hps cpeng -f u-boot.itb
 
 During HPS boot you should see the following message if the eMMC has been properly configured.
 
-![EMMC Boot Message](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc14.png)
+![EMMC Boot Message](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc14.png)
 
 ### 9.3 eMMC Testing from the HPS
 
@@ -1158,7 +1158,7 @@ During HPS boot you should see the following message if the eMMC has been proper
 $ mmc erase 0x400 20
 ```
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc15.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc15.png)
 
 Write test data (at 0x00A00000) into the eMMC offset 0x400.
 
@@ -1166,7 +1166,7 @@ Write test data (at 0x00A00000) into the eMMC offset 0x400.
 $ mmc write 0x00A00000 0x400 10
 ```
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc16.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc16.png)
 
 Read test data (at 0x00A00040) back from eMMC offset 0x400.
 
@@ -1174,7 +1174,7 @@ Read test data (at 0x00A00040) back from eMMC offset 0x400.
 $ mmc read 0x00A00040 0x400 10
 ```
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc17.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc17.png)
 
 Data comparison at memory offset 0x00A00000 and 0x00A00040. Data should match.
 
@@ -1182,7 +1182,7 @@ Data comparison at memory offset 0x00A00000 and 0x00A00040. Data should match.
 $ cmp.l 0x00A00000 0x00A00040 10.
 ```
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc18.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc18.png)
 
 **The following memory test was run from Linux running on the HPS.**
 
@@ -1192,20 +1192,20 @@ $ cmp.l 0x00A00000 0x00A00040 10.
 $ fdisk -l
 ```
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc19.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc19.png)
 
 
 2. Create a primary partition on the eMMC.
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc20.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc20.png)
 
 3. Verify the partition has been created.
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc21.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc21.png)
 
 4. Format the ext3 filesystem in the partition you just created (p1).
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc22.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc22.png)
 
 5. Create the directory `mydata` in /mnt. Mount the eMMC p1 partition to `/mnt/mydata` and verify the filsystem mount was successful.
 
@@ -1215,7 +1215,7 @@ $ mount /dev/mmcblk0p1 /mnt/mydata
 $ df
 ```
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc23.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc23.png)
 
 6. Create a new text file and write some data in it - "Hello World!". After the device has been written to run `sync`, unmount eMMC p1 partition and verify the unmount was successful.
 
@@ -1225,7 +1225,7 @@ $ umount /dev/mmcblk0p1
 $ df
 ```
 
-![](/ofs-2024.2-1/hw/n6001/dev_guides/hps_dev/images/wnc24.png)
+![](/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/images/wnc24.png)
 
 ## layers.yaml Reference ##
 
@@ -1339,11 +1339,11 @@ Below are the Frequently Asked Questions:
 
 | Description| Link |
 | -----| ----- |
-|OFS Getting Started User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/|
-|Intel® FPGA Interface Manager Developer Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/|
-|Open FPGA Stack Technical Reference Manual for Intel Agilex FPGA PCIe Attach| https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/|
-|Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs| https://ofs.github.io/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/|
-|UVM Simulation User Guide: OFS for Intel® Agilex® PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/|
+|OFS Getting Started User Guide: OFS for Agilex™ PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/|
+|Intel® FPGA Interface Manager Developer Guide: OFS for Agilex™ PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/|
+|Open FPGA Stack Technical Reference Manual for Agilex™ FPGA PCIe Attach| https://ofs.github.io/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/|
+|Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs| https://ofs.github.io/hw/N6001/dev_guides/afu_dev/ug_dev_afu_n6001/|
+|UVM Simulation User Guide: OFS for Agilex™ PCIe Attach FPGAs| https://ofs.github.io/hw/n6001/user_guides/ug_sim_ofs_n6001/ug_sim_ofs_n6001/|
 |FPGA Device Feature List (DFL) Framework Overview| https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#fpga-device-feature-list-dfl-framework-overview|
 |ofs-platform-afu-bbb| https://github.com/OFS/ofs-platform-afu-bbb|
 |Connecting an AFU to a Platform using PIM| https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md|
@@ -1363,15 +1363,15 @@ Below are the Frequently Asked Questions:
 
 ## Notices & Disclaimers
 
-Intel<sup>&reg;</sup> technologies may require enabled hardware, software or service activation.
+Altera<sup>&reg;</sup> Corporation technologies may require enabled hardware, software or service activation.
 No product or component can be absolutely secure. 
 Performance varies by use, configuration and other factors.
 Your costs and results may vary. 
-You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Intel products described herein. You agree to grant Intel a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
-No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
+You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein.
+No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document.
 The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
-Intel disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
+Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade.
 You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. 
-<sup>&copy;</sup> Intel Corporation.  Intel, the Intel logo, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+<sup>&copy;</sup> Altera Corporation.  Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation.  Other names and brands may be claimed as the property of others. 
 
-OpenCL and the OpenCL logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 
+OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™. 

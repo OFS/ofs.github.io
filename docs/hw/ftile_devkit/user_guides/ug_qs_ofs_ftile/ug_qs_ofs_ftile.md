@@ -1,19 +1,32 @@
-# Getting Started Guide: Open FPGA Stack for Intel Agilex 7 FPGAs Targeting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile)
+# Getting Started Guide: Open FPGA Stack for Agilex™ 7 FPGAs Targeting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
 
-Last updated: **July 16, 2024** 
+Last updated: **September 25, 2025** 
 
 ## 1.0 About This Document
 
-The purpose of this document is to help users get started in evaluating the 2024.2-1 version of the PCIe Attach release targeting the F-Series Development Kit. This document will **not** cover [Board Installation Guidelines](https://ofs.github.io/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/) or [OFS Software Installation](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach). Instead it will recommend you use a software installer to allow for fast evaluation. After reviewing this document, a user shall be able to:
+The purpose of this document is to help users get started in evaluating the 2025.1-1 version of the PCIe Attach release targeting the F-Series Development Kit. This document will **not** cover [Board Installation Guidelines](https://ofs.github.io/ofs-2025.1-1/hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/) or [OFS Software Installation](/ofs-2025.1-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach). Instead it will recommend you use a software installer to allow for fast evaluation. After reviewing this document, a user shall be able to:
 
 - Set up a server environment according to the Best Known Configuration (BKC)
 - Load and verify firmware targeting the FIM and AFU regions of the AGFB027R24C2E2VR2 FPGA
 - Verify full stack functionality offered by the PCIe Attach OFS solution
 - Learn where to find additional information on other PCIe Attach ingredients
 
+The minimal viable flow for dev kit installation through environment validation is as follows for F Tile:
+
+```mermaid
+flowchart TB
+    classDef gr fill:green,color:white;
+    classDef bl fill:blue,color:white;
+    classDef cy fill:cyan,color:white;
+
+    board("Board Installation Guidelines: Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)"):::bl --> sw
+    sw("Software Installation Guide: Open FPGA Stack for PCIe Attach"):::bl --> qs
+    qs("Review starting in section 4.0 F-Series Development Kit JTAG Driver Setup"):::bl
+```
+
 ### 1.1 Audience
 
-The information in this document is intended for customers evaluating the PCIe Attach shell targeting the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile). This platform is a Development Kit  intended to be used as a starting point for evaluation and development of the Intel Agilex 7 FPGA F-Series with two F-Tiles.
+The information in this document is intended for customers evaluating the PCIe Attach shell targeting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile). This platform is a Development Kit  intended to be used as a starting point for evaluation and development of the Agilex™ 7 FPGA F-Series with two F-Tiles.
 
 *Note: Code command blocks are used throughout the document. Commands that are intended for you to run are preceded with the symbol '$', and comments with '#'. Full command output may not be shown.*
 
@@ -59,28 +72,28 @@ The information in this document is intended for customers evaluating the PCIe A
 
 #### Table 2: Software and Component Version Summary for OFS PCIe Attach targeting the F-Series Development Kit
 
-The OFS 2024.2-1 PCIe Attach release targeting the F-Series Development Kit is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents, but are shown here for the sake of completion.
+The OFS 2025.1-1 PCIe Attach release targeting the F-Series Development Kit is built upon tightly coupled software and Operating System version(s). The repositories listed below are used to manually build the Shell and the AFU portion of any potential workloads. Use this section as a general reference for the versions which compose this release. Specific instructions on building the FIM or AFU are discussed in their respective documents, but are shown here for the sake of completion.
 
 | Component | Version | Download Link |
 | ----- | ----- | ----- |
-| Quartus | Quartus Prime Pro Version 24.1 | https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-24-1-for-linux.html, patches: 0.18, 0.26 |
-| Host Operating System |  RedHat® Enterprise Linux® (RHEL) 8.10 | https://access.redhat.com/downloads/content/479/ver=/rhel---8/8.10/x86_64/product-software|
-| OneAPI-ASP| ofs-2024.2-1 | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1, patches: 0.02 |
-| OFS Platform AFU BBB| ofs-2024.2-1 | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.2-1 |
-| OFS FIM Common Resources| 2024.2-1| https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.2-1 |
-| AFU Examples| tag: ofs-2024.2-1| https://github.com/OFS/examples-afu/releases/tag/ofs-2024.2-1|
-| OPAE-SIM | tag: 2.13.0-2 | https://github.com/OPAE/opae-sim |
-| OFS SW Installer | [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1) |
+| Quartus | Quartus Prime Pro Version 25.1 | https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html, patches: No patches for this release |
+| Host Operating System |  RedHat® Enterprise Linux® (RHEL) 9.4 | https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software|
+| OneAPI-ASP| ofs-2024.2-2 | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1, patches: None |
+| OFS Platform AFU BBB| ofs-2025.1-1 | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1 |
+| OFS FIM Common Resources| 2025.1-1| https://github.com/OFS/ofs-fim-common/releases/tag/ofs-2024.3-1 |
+| AFU Examples| tag: ofs-2025.1-1| https://github.com/OFS/examples-afu/releases/tag/ofs-2024.3-1|
+| OPAE-SIM | tag: 2.14.0-1 | https://github.com/OPAE/opae-sim |
+| OFS SW Installer | [OFS 2025.1-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1) |
 
 #### Table 3: Hardware BKC for OFS PCIe Attach targeting the F-Series Development Kit
 
-The following table highlights the hardware which composes the Best Known Configuration (BKC) for the OFS 2024.2-1 PCIe Attach release targeting F-Series Development Kit.
+The following table highlights the hardware which composes the Best Known Configuration (BKC) for the OFS 2025.1-1 PCIe Attach release targeting F-Series Development Kit.
 
 *Note: The Dell R750 server product line is known not to work with this release.*
 
 | Component | Link |
 | ----- | ----- |
-| Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html |
+| Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) | https://www.intel.com/content/www/us/en/products/details/fpga/development-kits/agilex/agf027-and-agf023.html |
 | Intel FPGA Download Cable II| https://www.intel.com/content/www/us/en/products/sku/215664/intel-fpga-download-cable-ii/specifications.html|
 | SuperMicro SYS-220HE-FTNR| https://www.supermicro.com/en/products/system/hyper/2u/sys-220he-ftnr |
 
@@ -92,15 +105,15 @@ Documentation is collected on [https://ofs.github.io/ofs-2024.1-1/](https://ofs.
 
 ### 2.1 Hardware Components
 
-The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+The OFS hardware architecture decomposes all designs into a standard set of modules, interfaces, and capabilities. Although the OFS infrastructure provides a standard set of functionality and capability, the user is responsible for making the customizations to their specific design in compliance with the specifications outlined in the [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2025.1-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
 OFS is a hardware and software infrastructure that provides an efficient approach to developing a customer FPGA-based platform or workload using an Intel, 3rd party, or custom board.
 
 #### 2.1.1 FPGA Interface Manager
 
-![F-tile-PCIe-Attach](/ofs-2024.2-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/images/F-tile-PCIe-Attach.png)
+![F-tile-PCIe-Attach](/ofs-2025.1-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/images/F-tile-PCIe-Attach.png)
 
-The FPGA Interface Manager (FIM), or shell of the FPGA provides platform management functionality, clocks, resets, and interface access to the host and peripheral features on the acceleration platform. The OFS architecture for Intel Agilex 7 FPGA provides modularity, configurability, and scalability. The primary components of the FPGA Interface Manager or shell of the reference design are:
+The FPGA Interface Manager (FIM), or shell of the FPGA provides platform management functionality, clocks, resets, and interface access to the host and peripheral features on the acceleration platform. The OFS architecture for Agilex™ 7 FPGA provides modularity, configurability, and scalability. The primary components of the FPGA Interface Manager or shell of the reference design are:
 
 * PCIe Subsystem - a hierarchical design that targets the P-tile PCIe hard IP and is configured to support Gen4 speeds and Arm AXI4-Stream Data Mover functional mode.
 * Ethernet Subsystem - provides portability to different Ethernet configurations across platforms and generations and reusability of the hardware framework and software stack.
@@ -114,7 +127,7 @@ The FPGA Interface Manager (FIM), or shell of the FPGA provides platform managem
 
 The FPGA Management Engine (FME) provides management features for the platform and the loading/unloading of accelerators through partial reconfiguration. Each feature of the FME exposes itself to the kernel-level OFS drivers on the host through a Device Feature Header (DFH) register that is placed at the beginning of Control Status Register (CSR) space. Only one PCIe link can access the FME register space in a multi-host channel design architecture at a time.
 
-> Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
+> Note: For more information on the FIM and its external connections, refer to the [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2025.1-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/).
 
 #### 2.1.2 AFU
 
@@ -140,11 +153,11 @@ In this design, the AFU region is comprised of:
 
 The AFU has the option to consume native packets from the host or interface channels or to instantiate a shim provided by the Platform Interface Manager (PIM) to translate between protocols.
 
-*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
+*Note: For more information on the Platform Interface Manager and AFU development and testing, refer to the [Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/).*
 
 ## 3.0 Board Installation and Server Requirements
 
-Instructions detailing the board installation guidelines for an F-Tile Dev Kit including server BIOS settings and regulatory information can be found in the [Board Installation Guidelines: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/). This document also covers the installation of a JTAG cable, which is required for shell programming.
+Instructions detailing the board installation guidelines for an F-Tile Dev Kit including server BIOS settings and regulatory information can be found in the [Board Installation Guidelines: Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](/ofs-2025.1-1/hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/). This document also covers the installation of a JTAG cable, which is required for shell programming.
 
 ## 4.0 F-Series Development Kit JTAG Driver Setup
 
@@ -177,35 +190,35 @@ cd ~/intelFPGA_pro/quartus/bin
 
 ## 4.1 Upgrading the F-Series Development Kit FIM via JTAG
 
-Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1). After programming the shell and installing both the OPAE SDK and Linux DFL kernel drivers as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
+Intel provides a pre-built FIM that can be used out-of-box for platform bring-up. This shell design is available on the [OFS 2025.1-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1). After programming the shell and installing both the OPAE SDK and Backport Linux DFL kernel drivers as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2025.1-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md), you can confirm the correct FIM has been configured by checking the output of `fpgainfo fme` against the following table:
 
 #### Table 4: FIM Version
 
 |Identifier|Value|
 |-----|-----|
-|Pr Interface ID|98ed516f-d24d-5b71-ae12-e78cd641e4be|
-|Bitstream ID|360571656856467345|
+|Pr Interface ID|5a2d5e39-7ef2-58f8-b0b9-a737303ab4ab|
+|Bitstream ID|360571656009101231|
 
-You will need to download and unpack the artifact images for this release before upgrading your device. You also need to set up the F-Series Development Kit as outlined in the [Board Installation Guidelines: Intel Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) and Intel Agilex® 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](/ofs-2024.2-1/hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/). The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage. If the server is power cycled you will need to reload the FPGA .sof file.
+You will need to download and unpack the artifact images for this release before upgrading your device. You also need to set up the F-Series Development Kit as outlined in the [Board Installation Guidelines: Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) and Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)](/ofs-2025.1-1/hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines/). The file `ofs_top_hps.sof` is the base OFS FIM file. This file is loaded into the FPGA using the development kit built in USB Blaster. Please be aware this FPGA is not loaded into non-volatile storage. If the server is power cycled you will need to reload the FPGA .sof file.
 
 ```bash
-wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/fseries-images_ofs-2024-2-1.tar.gz
+wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2025.1-1/fseries-dk-images_ofs-2025-1-1.tar.gz
 tar xf fseries-dk-images.tar.gz
 cd fseries-dk-images/
 
 ```
 
-This walkthrough describes the steps to program the Agilex FPGA on the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) with a `SOF` image via JTAG.
+This walkthrough describes the steps to program the Agilex FPGA on the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) with a `SOF` image via JTAG.
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))))](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))))](https://ofs.github.io/ofs-2023.2/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/) for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `SOF` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM] Section for step-by-step instructions for generating a `SOF` image.
 
 * This walkthrough requires a JTAG connection to the fseries-dk. Refer to the [Walkthrough: Set up JTAG] section for step-by-step instructions.
 
-* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Agilex® 7 FPGA F-Series Development Kit (2x F-Tile) is connected via JTAG.
+* This walkthrough requires a Full Quartus Installation or Standalone Quartus Prime Programmer & Tools running on the machine where the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile) is connected via JTAG.
 
 Steps:
 
@@ -259,7 +272,7 @@ Steps:
   quartus_pgmw
   ```
 
-  ![quartus_pgmw](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw.png)
+  ![quartus_pgmw](/ofs-2025.1-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw.png)
 
 1. Click **Hardware Setup** to open the Hardware Setup dialog window.
 
@@ -267,7 +280,7 @@ Steps:
 
   2. In the **Hardware frequency** field enter `16000000` Hz
 
-      ![quartus_pgmw_hardware_setup](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_hardware_setup.png)
+      ![quartus_pgmw_hardware_setup](/ofs-2025.1-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_hardware_setup.png)
 
   3. Click **Close**
 
@@ -275,17 +288,17 @@ Steps:
 
 3. If prompted, select the AGFB027R24C2E2VR2 device. The JTAG chain should show the device.
 
-  ![quartus_pgmw_device_chain](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_device_chain.png)
+  ![quartus_pgmw_device_chain](/ofs-2025.1-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_device_chain.png)
 
 9. Right click the AGFB027R24C2E2VR2 row and selct **Change File**.
 
-  ![quartus_pgmw_change_file](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_change_file.png)
+  ![quartus_pgmw_change_file](/ofs-2025.1-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_change_file.png)
 
 1.  In the **Select New Programming File** window that opens, select  `ofs_top_hps.sof` and click **Open**.
 
 2.  Check the **Program/Configure** box for the AGFB027R24C2E2VR2 row, then click **Start**. Wait for the **Progress** bar to show `100% (Success)`.
 
-  ![quartus_pgmw_success](/ofs-2024.2-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_success.png)
+  ![quartus_pgmw_success](/ofs-2025.1-1/hw/ftile_devkit/dev_guides/fim_dev/images/quartus_pgmw_success.png)
 
 12. Close the Quartus Programmer GUI.
 
@@ -317,9 +330,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 360571656856467345
+  Bitstream Id                     : 360571656009101231
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : 98ed516f-d24d-5b71-ae12-e78cd641e4be
+  Pr Interface Id                  : 5a2d5e39-7ef2-58f8-b0b9-a737303ab4ab
   Boot Page                        : N/A
   ```
 
@@ -327,23 +340,23 @@ Steps:
 
 ### 5.0 OFS Software Installation from Script
 
-An overview of the OFS software stack responsibilities and components can be found in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2024.2-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md). In this document, we will instead use the provided PCIe Attach software installation script to quickly bring up the platform.
+An overview of the OFS software stack responsibilities and components can be found in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2025.1-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md). In this document, we will instead use the provided PCIe Attach software installation script to quickly bring up the platform.
 
-Before running the software installer, it is recommended you perform the following steps to lock your OS version to 8.6 and enable related repositories:
+Before running the software installer, it is recommended you perform the following steps to lock your OS version to 9.4 and enable related repositories:
 
 ```bash
-subscription-manager release --set=8.10
+subscription-manager release --set=9.4
 sudo dnf update
-subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
-sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+subscription-manager repos --enable codeready-builder-for-rhel-9-x86_64-rpms
+sudo dnf install https://dl.fedoraproject.org/pub/epel/epel-release-latest-9.noarch.rpm
 ```
 
-Download the OFS PCIe Attach installation script from the [OFS 2024.2-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2024.2-1). Unpack the files:
+Download the OFS PCIe Attach installation script from the [OFS 2025.1-1 Release Page](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1). Unpack the files:
 
 ```bash
-wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2024.2-1/pcieattach_sw_installer_2024.1.zip
+wget https://github.com/OFS/ofs-agx7-pcie-attach/releases/download/ofs-2025.1-1/pcieattach_sw_installer_2024.3.zip
 
-unzip pcieattach_sw_installer_2024.1.zip
+unzip pcieattach_sw_installer_2024.3.zip
 ```
 
 Executing the script without any input arguments will cause it to set up your local environment and will pull down and install pre-built OFS software artifacts. You can explore its other functionality as looking at the help output `ofs_sw_install.py -h` or though the included README. Execute the script.
@@ -356,22 +369,22 @@ You can check that all OPAE packages have been installed and match expectation:
     
 ```bash
 rpm -qa | grep opae
-opae-2.13.0-3.el8.x86_64.rpm
-opae-debuginfo-2.13.0-3.el8.x86_64.rpm
-opae-debugsource-2.13.0-3.el8.x86_64.rpm
-opae-devel-2.13.0-3.el8.x86_64.rpm
-opae-devel-debuginfo-2.13.0-3.el8.x86_64.rpm
-opae-extra-tools-2.13.0-3.el8.x86_64.rpm
-opae-extra-tools-debuginfo-2.13.0-3.el8.x86_64.rpm
+opae-2.14.0-3.el8.x86_64.rpm
+opae-debuginfo-2.14.0-3.el8.x86_64.rpm
+opae-debugsource-2.14.0-3.el8.x86_64.rpm
+opae-devel-2.14.0-3.el8.x86_64.rpm
+opae-devel-debuginfo-2.14.0-3.el8.x86_64.rpm
+opae-extra-tools-2.14.0-3.el8.x86_64.rpm
+opae-extra-tools-debuginfo-2.14.0-3.el8.x86_64.rpm
 ```
 
-To verify the DFL kernel and driver stack have been installed, perform a warm reboot and check with `uname`.
+To verify the Backport DFL kernel and driver stack have been installed, perform a warm reboot and check with `uname`.
 
 *Note: Your kernel version and tags may differ from the below, depending on script arguments*
 
 ```bash
 uname -r
-6.1.78-dfl
+4.18.0-553.5.1.el8_10.x86_64
 ```
 
 You can also check the contents of `/usr/lib/modules/<kernel name>/kernel/drivers`, or run `modinfo <driver name>`. Below is a list of the drivers which are loaded as a part of the F Tile Dev Kit Shell design:
@@ -429,7 +442,7 @@ LimitMEMLOCK=infinity
 
 ### 6.0 OPAE Tools Overview
 
-The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.13.0-3/doc/src/fpga_tools/readme.md).
+The following section offers a brief introduction including expected output values for the utilities included with OPAE. A full explanation of each command with a description of its syntax is available in the [opae-sdk GitHub repo](https://github.com/OPAE/opae-sdk/blob/2.14.0-3/doc/src/fpga_tools/readme.md).
 
 A list of all tools included in the OPAE SDK release can be found on the [OPAE FPGA Tools](https://ofs.github.io/latest/sw/fpga_tools/fpgadiag/) tab of ofs.github.io.
 
@@ -446,13 +459,7 @@ For systems with multiple FPGA devices, you can specify the BDF to limit the out
 The following examples walk through sample outputs generated by `fpgainfo`. As the F-Series Development Kit does not contain a traditional BMC as used by other OFS products, those lines in `fpgainfo`'s output will not return valid objects. The subcommand `fpgainfo bmc` will likewise fail to report telemetry data.
 
 ```bash
-Intel Acceleration Development Platform N6001
-board_n6000.c:306:read_bmcfw_version() **ERROR** : Failed to get read object
-board_n6000.c:482:print_board_info() **ERROR** : Failed to read bmc version
-board_n6000.c:332:read_max10fw_version() **ERROR** : Failed to get read object
-board_n6000.c:488:print_board_info() **ERROR** : Failed to read max10 version
-Board Management Controller NIOS FW version:
-Board Management Controller Build version:
+Intel Acceleration JTAG PCI Development Kit
 //****** FME ******//
 Interface                        : DFL
 Object Id                        : 0xEF00001
@@ -512,7 +519,7 @@ clearing error
 The reference FIM and unchanged FIM compilations contain Host Exerciser Modules (HEMs). These are used to exercise and characterize the various host-FPGA interactions, including Memory Mapped Input/Output (MMIO), data transfer from host to FPGA, PR, host to FPGA memory, etc. There are three HEMs present in the Intel OFS Reference FIM - HE-LPBK, HE-MEM, and HE-HSSI. These exercisers are tied to three different VFs that must be enabled before they can be used.
 Execution of these exercisers requires you bind specific VF endpoint to **vfio-pci**. The host-side software looks for these endpoints to grab the correct FPGA resource.
 
-Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex® 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2024.2-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
+Refer to the Intel [Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2025.1-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/) for a full description of these modules.
 
 #### Table 5: Module PF/VF Mappings
 
@@ -653,7 +660,7 @@ HE-HSSI is responsible for handling client-side ethernet traffic. It wraps the 1
 
 The `hssi` application provides a means of interacting with the 10G and with the 100G HSSI AFUs. In both 10G and 100G operating modes, the application initializes the AFU, completes the desired transfer as described by the mode- specific options, and displays the ethernet statistics by invoking `ethtool --statistics INTERFACE`.
 
-Due to Ethernet differential pair routing on the ES version of the Intel Agilex® 7 F-Series FPGA (Two F-Tiles) Development Kit, some differential pairs were swapped to improve signal routing.  To account for the pair swap, there is a requirement to run a script to invert the differential traces.  If you run the command “fpgainfo phy B:d.f” when the Ethernet ports are connected to known good sources and observe the following three ports are down as shown below:
+Due to Ethernet differential pair routing on the ES version of the Agilex™ 7 F-Series FPGA (Two F-Tiles) Development Kit, some differential pairs were swapped to improve signal routing.  To account for the pair swap, there is a requirement to run a script to invert the differential traces.  If you run the command “fpgainfo phy B:d.f” when the Ethernet ports are connected to known good sources and observe the following three ports are down as shown below:
 
 ```bash
 $ sudo fpgainfo phy b1:00.0
@@ -799,13 +806,7 @@ Releasing (0x8086,0xbcce) at 0000:b1:00.0 from vfio-pci
 Rebinding (0x8086,0xbcce) at 0000:b1:00.0 to dfl-pci
 
 sudo fpgainfo phy b1:00.0
-Intel Acceleration Development Platform N6001
-board_n6000.c:306:read_bmcfw_version() **ERROR** : Failed to get read object
-board_n6000.c:482:print_board_info() **ERROR** : Failed to read bmc version
-board_n6000.c:332:read_max10fw_version() **ERROR** : Failed to get read object
-board_n6000.c:488:print_board_info() **ERROR** : Failed to read max10 version
-Board Management Controller NIOS FW version:
-Board Management Controller Build version:
+Intel Acceleration JTAG PCI Development Kit
 //****** PHY ******//
 Interface                        : DFL
 Object Id                        : 0xEF00001
@@ -1097,4 +1098,129 @@ The `hssi_loopback` utility works in conjunction with a packet generator acceler
 The `hssistats` tool provides the MAC statistics.
 
 
-<!-- include ./docs/hw/doc_modules/links.md -->
+
+
+[Open FPGA Stack (OFS) Collateral Site]: https://ofs.github.io/ofs-2025.1-1
+[OFS Welcome Page]: https://ofs.github.io/ofs-2025.1-1
+[OFS Collateral for Stratix® 10 FPGA PCIe Attach Reference FIM]: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_s10_pcie_attach
+[OFS Collateral for Agilex™ 7 FPGA PCIe Attach Reference FIM]: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_agx7_pcie_attach
+[OFS Collateral for Agilex™ SoC Attach Reference FIM]: https://ofs.github.io/ofs-2025.1-1/hw/doc_modules/contents_agx7_soc_attach
+
+
+[Automated Evaluation User Guide: OFS for Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/
+[Automated Evaluation User Guide: OFS for Agilex™ 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/
+[Automated Evaluation User Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/
+
+
+[Board Installation Guide: OFS for Acceleration Development Platforms]: https://ofs.github.io/ofs-2025.1-1/hw/common/board_installation/adp_board_installation/adp_board_installation_guidelines
+[Board Installation Guide: OFS for Agilex™ 7 PCIe Attach Development Kits]: https://ofs.github.io/ofs-2025.1-1/hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines
+[Board Installation Guide: OFS For Agilex™ 7 SoC Attach IPU F2000X-PL]: https://ofs.github.io/ofs-2025.1-1/hw/common/board_installation/f2000x_board_installation/f2000x_board_installation
+[Board Installation Guide: OFS for Agilex™ 5 PCIe Attach Development Kits]: https://ofs.github.io/ofs-2025.1-1/hw/common/board_installation/devkit_board_installation/devkit_board_installation_guidelines
+
+
+[Software Installation Guide: OFS for PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach
+[Software Installation Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/sw_installation/soc_attach/sw_install_soc_attach
+
+
+[Getting Started Guide: OFS for Stratix 10® FPGA PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/
+[Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (I-Series Development Kit (2xR-Tile, 1xF-Tile))]: https://ofs.github.io/ofs-2025.1-1/hw/iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/
+[Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (F-Series Development Kit (2xF-Tile))]: https://ofs.github.io/ofs-2025.1-1/hw/ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/
+[Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)]: https://ofs.github.io/ofs-2025.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/
+[Getting Started Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/
+
+
+[Shell Technical Reference Manual: OFS for Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/
+[Shell Technical Reference Manual: OFS for Agilex™ 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/
+[Shell Technical Reference Manual: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/
+
+
+[Shell Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/
+[Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xR-tile, F-tile) FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/
+[Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (2xF-tile) FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/
+[Shell Developer Guide: OFS for Agilex™ 7 PCIe Attach (P-tile, E-tile) FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/
+[Shell Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/
+[Shell Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/
+
+
+[Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
+[Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/
+[Workload Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/
+[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/user_guides/afu_dev/ug_dev_afu_ofs_agx5/
+
+
+[oneAPI Accelerator Support Package (ASP): Getting Started User Guide]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/
+[oneAPI Accelerator Support Package(ASP) Reference Manual: Open FPGA Stack]: https://ofs.github.io/ofs-2025.1-1/hw/common/reference_manual/oneapi_asp/oneapi_asp_ref_mnl/
+
+
+[UVM Simulation User Guide: OFS for Stratix® 10 PCIe Attach]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/
+[UVM Simulation User Guide: OFS for Agilex™ 7 PCIe Attach]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/
+[UVM Simulation User Guide: OFS for Agilex™ 7 SoC Attach]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/
+
+
+[FPGA Developer Journey Guide: Open FPGA Stack]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/ 
+[PIM Based AFU Developer Guide]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_pim_based_afu/ug_dev_pim_based_afu/
+[AFU Simulation Environment User Guide]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/ug_dev_afu_sim_env/
+[AFU Host Software Developer Guide]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_host_software/ug_dev_afu_host_software/
+[Docker User Guide: Open FPGA Stack]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/ug_docker/ug_docker/
+[KVM User Guide: Open FPGA Stack]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/ug_kvm/ug_kvm/
+[Hard Processor System Software Developer Guide: OFS for Agilex™ FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/n6001/dev_guides/hps_dev/hps_developer_ug/
+[Software Reference Manual: Open FPGA Stack]: https://ofs.github.io/ofs-2025.1-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/
+[Troubleshooting Guide for OFS Agilex™ 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/ug_troubleshoot/ug_agx7_troubleshoot/
+
+
+[OFS repository - linux-dfl]: https://github.com/OFS/linux-dfl
+[OFS repository - linux-dfl - wiki page]: https://github.com/OFS/linux-dfl/wiki
+[OPAE SDK repository]: https://github.com/OFS/opae-sdk
+[OFS Site]: https://ofs.github.io
+[examples-afu]: https://github.com/OFS/examples-afu.git
+
+
+[Intel® oneAPI Base Toolkit (Base Kit)]: https://www.intel.com/content/www/us/en/developer/tools/oneapi/toolkits.html
+[Intel® oneAPI Toolkits Installation Guide for Linux* OS]: https://www.intel.com/content/www/us/en/develop/documentation/installation-guide-for-intel-oneapi-toolkits-linux/top.html
+[Intel® oneAPI Programming Guide]: https://www.intel.com/content/www/us/en/develop/documentation/oneapi-programming-guide/top.html
+[FPGA Optimization Guide for Intel® oneAPI Toolkits]: https://www.intel.com/content/www/us/en/develop/documentation/oneapi-fpga-optimization-guide/top.html
+[oneAPI-samples]: https://github.com/oneapi-src/oneAPI-samples.git
+[Intel® oneAPI DPC++/C++ Compiler Handbook for Intel® FPGAs]: https://www.intel.com/content/www/us/en/docs/oneapi-fpga-add-on/developer-guide/current.html
+
+
+[OPAE SDK]: https://ofs.github.io/ofs-2025.1-1/sw/fpga_api/quick_start/readme/
+[OFS DFL kernel driver]: https://ofs.github.io/ofs-2025.1-1/sw/fpga_api/quick_start/readme/#build-the-opae-linux-device-drivers-from-the-source
+
+
+[Connecting an AFU to a Platform using PIM]: https://github.com/OPAE/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
+[PIM Tutorial]: https://github.com/OFS/examples-afu/tree/main/tutorial/afu_types/01_pim_ifc
+[Non-PIM AFU Development]: https://github.com/OFS/examples-afu/tree/main/tutorial/afu_types/03_afu_main
+[Multi-PCIe Link AFUs]: https://github.com/OFS/examples-afu/tree/main/tutorial/afu_types/04_multi_link
+[VChan Muxed AFUs]:  https://github.com/OFS/examples-afu/tree/main/tutorial/afu_types/05_pim_vchan
+[PIM AFU Interface]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_AFU_interface.md
+[PIM Board Vendors]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_board_vendors.md
+[PIM Core Concepts]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_core_concepts.md
+[PIM IFC Host Channel]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_ifc_host_channel.md
+[PIM IFC Local Memory]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_ifc_local_mem.md
+[base_ifcs]: https://github.com/OFS/ofs-platform-afu-bbb/tree/master/plat_if_develop/ofs_plat_if/src/rtl/base_ifcs
+[ifcs_classes]: https://github.com/OFS/ofs-platform-afu-bbb/tree/master/plat_if_develop/ofs_plat_if/src/rtl/ifc_classes
+[utils]: https://github.com/OFS/ofs-platform-afu-bbb/tree/master/plat_if_develop/ofs_plat_if/src/rtl/utils
+[Device Feature List Overview]: https://github.com/OFS/linux-dfl/blob/fpga-ofs-dev/Documentation/fpga/dfl.rst#device-feature-list-dfl-overview
+
+
+
+[Token authentication requirements for Git operations]: https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations
+[4.0 OPAE Software Development Kit]: https://ofs.github.io/ofs-2025.1-1/hw/n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/#40-opae-software-development-kit
+[6.2 Installing the OPAE SDK On the Host]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/#62-installing-the-opae-sdk-on-the-host
+
+[Signal Tap Logic Analyzer: Introduction & Getting Started]: https://www.intel.com/content/www/us/en/programmable/support/training/course/odsw1164.html
+[Quartus Pro Prime Download]: https://www.intel.com/content/www/us/en/software-kit/839515/intel-quartus-prime-pro-edition-design-software-version-24-3-for-linux.html
+
+[Red Hat Linux]: https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software
+[OFS GitHub Docker]: https://github.com/OFS/ofs.github.io/tree/main/docs/hw/common/user_guides/ug_docker
+
+[Security User Guide: Open FPGA Stack]: https://github.com/otcshare/ofs-bmc/blob/main/docs/user_guides/security/ug-pac-security.md
+
+[Device Feature List Feature IDs]: https://github.com/OFS/dfl-feature-id/blob/main/dfl-feature-ids.rst
+
+[OFS 2024.1 F2000X-PL Release Notes]: https://github.com/OFS/ofs-f2000x-pl/releases/tag/ofs-2025.1-1
+
+[AXI Streaming IP for PCI Express User Guide]: https://www.intel.com/content/www/us/en/docs/programmable/790711/24-3-1/introduction.html
+
+[PIM Core Concepts]: https://github.com/OFS/ofs-platform-afu-bbb/blob/master/plat_if_develop/ofs_plat_if/docs/PIM_core_concepts.md
+

@@ -2,7 +2,7 @@ This walkthrough describes the steps to program the Agilex FPGA on the Intel® F
 
 Pre-Requisites:
 
-* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex® 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
+* This walkthrough requires an OFS Agilex PCIe Attach deployment environment. Refer to the [Getting Started Guide: OFS for Agilex™ 7 PCIe Attach FPGAs (Intel® FPGA SmartNIC N6001-PL/N6000-PL)] for instructions on setting up a deployment environment.
 
 * This walkthrough requires a `BIN` image which will be programmed to the Agilex FPGA. Refer to the [Walkthrough: Compile OFS FIM] Section for step-by-step instructions for generating a `BIN` image. The image used for programming must be formatted with PACsign before programming. This is done automatically by the build script.
 
@@ -39,9 +39,9 @@ Steps:
   SubDevice Id                     : 0x1771
   Socket Id                        : 0x00
   Ports Num                        : 01
-  Bitstream Id                     : 360571656856467345
+  Bitstream Id                     : 360571656009101231
   Bitstream Version                : 5.0.1
-  Pr Interface Id                  : a791757d-38a6-5159-a7fc-e1a61157a07b
+  Pr Interface Id                  : e376f074-6a22-55b1-a162-f734ff17e253
   Boot Page                        : user1
   Factory Image Info               : 9035190d637c383453173deb5de25fdd
   User1 Image Info                 : 893e691edfccfd0aecb1c332ad69551b
