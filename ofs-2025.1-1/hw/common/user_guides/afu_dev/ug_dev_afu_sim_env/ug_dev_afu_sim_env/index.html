@@ -1,0 +1,3194 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../../../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.3, mkdocs-material-9.1.9">
+    
+    
+      
+        <title>**AFU Simulation Environment User Guide** - OFS</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../../assets/stylesheets/main.85bb2934.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../../../../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+   <link href="../../../../../../assets/stylesheets/glightbox.min.css" rel="stylesheet"/><style>
+        html.glightbox-open { overflow: initial; height: 100%; }
+        .gslide-title { margin-top: 0px; user-select: text; }
+        .gslide-desc { color: #666; user-select: text; }
+        .gslide-image img { background: white; }
+        
+            .gscrollbar-fixer { padding-right: 15px; }
+            .gdesc-inner { font-size: 0.75rem; }
+            body[data-md-color-scheme="slate"] .gdesc-inner { background: var(--md-default-bg-color);}
+            body[data-md-color-scheme="slate"] .gslide-title { color: var(--md-default-fg-color);}
+            body[data-md-color-scheme="slate"] .gslide-desc { color: var(--md-default-fg-color);}
+            </style> <script src="../../../../../../assets/javascripts/glightbox.min.js"></script></head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#afu-simulation-environment-user-guide" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../../../.." title="OFS" class="md-header__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OFS
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              **AFU Simulation Environment User Guide**
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../../../../.." class="md-tabs__link">
+      Welcome
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../ug_fpga_developer/ug_fpga_developer/" class="md-tabs__link">
+        Start Here
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../doc_modules/contents_s10_pcie_attach/" class="md-tabs__link">
+        Stratix® 10 PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../doc_modules/contents_agx7_pcie_attach/" class="md-tabs__link">
+        Agilex™ PCIe Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../../doc_modules/contents_agx7_soc_attach/" class="md-tabs__link">
+        Agilex™ SoC Attach OFS
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../oneapi_asp/ug_oneapi_asp/" class="md-tabs__link">
+        oneAPI
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../../sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-tabs__link">
+        OFS Software
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../../../.." title="OFS" class="md-nav__button md-logo" aria-label="OFS" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    OFS
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ofs" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ofs
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../.." class="md-nav__link">
+        Welcome
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Start Here
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Start Here
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ug_fpga_developer/ug_fpga_developer/" class="md-nav__link">
+        FPGA Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ug_sw_developer/ug_sw_developer/" class="md-nav__link">
+        Software Developer Journey Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../doc_modules/Glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Stratix® 10 PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Stratix® 10 PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../doc_modules/contents_s10_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../d5005/adp_board_installation_guidelines/" class="md-nav__link">
+        Board Installation Guide (Intel® FPGA PAC D5005)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/user_guides/ug_qs_ofs_d5005/ug_qs_ofs_d5005/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/user_guides/ug_eval_ofs_d5005/ug_eval_script_ofs_d5005/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/reference_manuals/ofs_fim/mnl_fim_ofs_d5005/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/dev_guides/fim_dev/ug_dev_fim_ofs_d5005/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/dev_guides/afu_dev/ug_dev_afu_d5005/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../d5005/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../d5005/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../d5005/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../d5005/user_guides/ug_sim_ofs_d5005/ug_sim_ofs_d5005/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_3_10" id="__nav_3_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../d5005/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../d5005/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          Agilex™ PCIe Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex™ PCIe Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../doc_modules/contents_agx7_pcie_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_2" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
+          Board Installation Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_2">
+          <span class="md-nav__icon md-icon"></span>
+          Board Installation Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../n6001/adp_board_installation_guidelines/" class="md-nav__link">
+        Intel® FPGA SmartNIC N6000/1-PL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../board_installation/devkit_board_installation/devkit_board_installation_guidelines/" class="md-nav__link">
+        Agilex™ 7 FPGA I-Series and F-Series Development Kits
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../board_installation/agx5_devkit_installation/agx5_devkit_install/" class="md-nav__link">
+        Agilex™ 5 FPGA Modular Development Kit
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_4" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
+          Getting Started Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_4">
+          <span class="md-nav__icon md-icon"></span>
+          Getting Started Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../iseries_devkit/user_guides/ug_qs_ofs_iseries/ug_qs_ofs_iseries/" class="md-nav__link">
+        OFS for Agilex™ 7 FPGA I-Series Development Kit (2xR-Tile,1xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ftile_devkit/user_guides/ug_qs_ofs_ftile/ug_qs_ofs_ftile/" class="md-nav__link">
+        OFS for Agilex™ 7 FPGA F-Series Development Kit (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../agx5/user_guides/ug_qs_ofs_agx5/ug_qs_ofs_agx5/" class="md-nav__link">
+        OFS for Agilex™ 5 FPGA Modular Development Kit
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/user_guides/ug_qs_ofs_n6001/ug_qs_ofs_n6001/" class="md-nav__link">
+        OFS for Intel® FPGA SmartNIC N6001-PL
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ug_eval_script_ofs_agx7_pcie_attach/ug_eval_script_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/reference_manuals/ofs_fim/mnl_fim_ofs_n6001/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="0">
+          Shell Developer Guides
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_7">
+          <span class="md-nav__icon md-icon"></span>
+          Shell Developer Guides
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../iseries_devkit/dev_guides/fim_dev/ug_ofs_iseries_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach I-Series (2xR-Tile, F-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../ftile_devkit/dev_guides/fim_dev/ug_ofs_ftile_dk_fim_dev/" class="md-nav__link">
+        PCIe Attach F-Series (2xF-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/dev_guides/fim_dev/ug_dev_fim_ofs_n6001/" class="md-nav__link">
+        PCIe Attach F-Series (P-Tile/E-Tile)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../n6001/dev_guides/hps_dev/hps_developer_ug/" class="md-nav__link">
+        HPS Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ug_sim_ofs_agx7_pcie_attach/ug_sim_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_10" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_10">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/" class="md-nav__link">
+        Agilex™ 7 Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../agx5/dev_guides/afu_dev/ug_dev_afu_ofs_agx5/" class="md-nav__link">
+        Agilex™ 5 Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../n6001/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../n6001/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../n6001/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_11" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_4_11" id="__nav_4_11_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_11_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4_11">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../n6001/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../n6001/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../ug_troubleshoot/ug_agx7_troubleshoot/" class="md-nav__link">
+        Troubleshooting Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          Agilex™ SoC Attach OFS
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Agilex™ SoC Attach OFS
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../doc_modules/contents_agx7_soc_attach/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../board_installation/f2000x_board_installation/f2000x_board_installation/" class="md-nav__link">
+        Board Installation Guide (Intel® IPU Platform F2000X-PL)
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/user_guides/ug_qs_ofs_f2000x/ug_qs_ofs_f2000x/" class="md-nav__link">
+        Getting Started Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/user_guides/ug_eval_ofs/ug_eval_script_ofs_f2000x/" class="md-nav__link">
+        Automated Evaluation Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/reference_manuals/ofs_fim/mnl_fim_ofs/" class="md-nav__link">
+        Shell Technical Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/dev_guides/fim_dev/ug_dev_fim_ofs/" class="md-nav__link">
+        Shell Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_8" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_8" id="__nav_5_8_label" tabindex="0">
+          Workload Development
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_8_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_8">
+          <span class="md-nav__icon md-icon"></span>
+          Workload Development
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/" class="md-nav__link">
+        Workload Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../f2000x/ug_dev_pim_based_afu/" class="md-nav__link">
+        PIM Based AFU Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../f2000x/ug_dev_afu_host_software/" class="md-nav__link">
+        AFU Host Software Developer Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../f2000x/ug_dev_afu_sim_env/" class="md-nav__link">
+        AFU Simulation Environment User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../f2000x/user_guides/ug_sim_ofs/ug_sim_ofs/" class="md-nav__link">
+        Simulation User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5_10" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_5_10" id="__nav_5_10_label" tabindex="0">
+          Virtualization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_10_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_5_10">
+          <span class="md-nav__icon md-icon"></span>
+          Virtualization
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../f2000x/ug_docker/" class="md-nav__link">
+        Docker User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../f2000x/ug_kvm/" class="md-nav__link">
+        KVM User Guide
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+      
+      
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+          oneAPI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_6">
+          <span class="md-nav__icon md-icon"></span>
+          oneAPI
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../oneapi_asp/ug_oneapi_asp/" class="md-nav__link">
+        oneAPI ASP Getting Started User Guide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference_manual/oneapi_asp/oneapi_asp_ref_mnl/" class="md-nav__link">
+        oneAPI Accelerator Support Package(ASP) Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+          OFS Software
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7">
+          <span class="md-nav__icon md-icon"></span>
+          OFS Software
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../sw_installation/pcie_attach/sw_install_pcie_attach/" class="md-nav__link">
+        Software Installation Guide OFS for PCIe Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../sw_installation/soc_attach/sw_install_soc_attach/" class="md-nav__link">
+        Software Installation Guide OFS for SoC Attach
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference_manual/ofs_sw/mnl_sw_ofs/" class="md-nav__link">
+        Software Reference Manual
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../reference_manual/driver_dev_qs/driver_dev_qs/" class="md-nav__link">
+        Driver Development Quick Start Guidelines for Linux DFL
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_5" >
+      
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      
+      
+        <label class="md-nav__link" for="__nav_7_5" id="__nav_7_5_label" tabindex="0">
+          OPAE FPGA Tools
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_5_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_7_5">
+          <span class="md-nav__icon md-icon"></span>
+          OPAE FPGA Tools
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/fpgainfo/fpgainfo/" class="md-nav__link">
+        fpgainfo
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/fpgasupdate/fpgasupdate/" class="md-nav__link">
+        fpgasupdate
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/mmlink/mmlink/" class="md-nav__link">
+        mmlink
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/packager/packager/" class="md-nav__link">
+        packager
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/userclk/userclk/" class="md-nav__link">
+        userclk
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/hssi/hssi/" class="md-nav__link">
+        hssi
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/pci_device/pci_device/" class="md-nav__link">
+        pci_device
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/opae.io/opae.io/" class="md-nav__link">
+        opae.io
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/rsu/rsu/" class="md-nav__link">
+        rsu
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/host_exerciser/host_exerciser/" class="md-nav__link">
+        host_exerciser
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/hssi_ethernet/hssistats/" class="md-nav__link">
+        HSSI ethernet statistics
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/hssi_ethernet/hssimac/" class="md-nav__link">
+        HSSI ethernet mac
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/mem_tg/mem_tg/" class="md-nav__link">
+        mem_tg
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/vabtool/vabtool/" class="md-nav__link">
+        vabtool
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/opaevfio/opaevfio/" class="md-nav__link">
+        opaevfio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/ofs.uio/ofs.uio/" class="md-nav__link">
+        ofs.uio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/opaeuio/opaeuio/" class="md-nav__link">
+        opaeuio
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../../../../sw/fpga_tools/fpgad/fpgad/" class="md-nav__link">
+        fpgad
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-intended-audience" class="md-nav__link">
+    1. Intended Audience
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-introduction" class="md-nav__link">
+    2. Introduction
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Introduction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21-afu-simulation-environment-ase-overview" class="md-nav__link">
+    2.1. AFU Simulation Environment (ASE) Overview
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22-ase-capabilities" class="md-nav__link">
+    2.2. ASE Capabilities
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#23-ase-limitations" class="md-nav__link">
+    2.3. ASE Limitations
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#24-ase-based-afu-design-workflow" class="md-nav__link">
+    2.4 ASE-Based AFU Design Workflow
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-system-requirements" class="md-nav__link">
+    3. System Requirements
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-package-description" class="md-nav__link">
+    4. Package Description
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Package Description">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#41-ase-scripts" class="md-nav__link">
+    4.1. ASE Scripts
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1. ASE Scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#411-simulation-tool-set-up" class="md-nav__link">
+    4.1.1. Simulation Tool Set Up
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#412-ase-environment-check" class="md-nav__link">
+    4.1.2. ASE Environment Check
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#413-afu-simulation-using-the-ase" class="md-nav__link">
+    4.1.3. AFU Simulation Using the ASE
+  </a>
+  
+    <nav class="md-nav" aria-label="4.1.3. AFU Simulation Using the ASE">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#4131-afu_sim_setup" class="md-nav__link">
+    4.1.3.1. afu_sim_setup
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4132-rtl_src_configpy" class="md-nav__link">
+    4.1.3.2. rtl_src_config.py
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4133-generate_ase_environmentpy" class="md-nav__link">
+    4.1.3.3. generate_ase_environment.py
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#414-cleaning-the-ase-environment" class="md-nav__link">
+    4.1.4. Cleaning the ASE Environment
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-ase-usage" class="md-nav__link">
+    5. ASE Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ASE Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#51-ase-build-instructions" class="md-nav__link">
+    5.1. ASE Build Instructions
+  </a>
+  
+    <nav class="md-nav" aria-label="5.1. ASE Build Instructions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#511-install-opae-sdk" class="md-nav__link">
+    5.1.1. Install OPAE SDK
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#512-setup-required-ase-environment-variables" class="md-nav__link">
+    5.1.2. Setup Required ASE Environment Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#513-install-ase-tools" class="md-nav__link">
+    5.1.3. Install ASE Tools
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-ase-simulator-server-build-instructions" class="md-nav__link">
+    5.1.4. ASE Simulator (Server) Build Instructions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#514-ase-runtime-instructions" class="md-nav__link">
+    5.1.4. ASE Runtime Instructions
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#52-ase-makefile-targets" class="md-nav__link">
+    5.2. ASE Makefile Targets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#53-ase-makefile-variables" class="md-nav__link">
+    5.3. ASE Makefile Variables
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#54-ase-runtime-configuration-options" class="md-nav__link">
+    5.4. ASE Runtime Configuration Options
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#55-logging-verbosity-control" class="md-nav__link">
+    5.5. Logging Verbosity Control
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#56-troubleshooting-and-error-reference" class="md-nav__link">
+    5.6. Troubleshooting and Error Reference
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#notices-disclaimers" class="md-nav__link">
+    Notices &amp; Disclaimers
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="afu-simulation-environment-user-guide"><strong><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Simulation Environment User Guide</strong><a class="headerlink" href="#afu-simulation-environment-user-guide" title="Permanent link">&para;</a></h1>
+<p>Last updated: <strong>September 25, 2025</strong> </p>
+<h2 id="1-intended-audience"><strong>1. Intended Audience</strong><a class="headerlink" href="#1-intended-audience" title="Permanent link">&para;</a></h2>
+<p>The <em>Accelerator Functional Unit (<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>) Simulation Environment (ASE) User Guide</em> addresses both beginning and experienced developers. To be successful, you should have knowledge and experience in the following areas:</p>
+<ul>
+<li>C/C++</li>
+<li>Verilog/SystemVerilog</li>
+<li>RTL simulators such as Synopsys® VCS® or Siemens® QuestaSim®</li>
+</ul>
+<p>Alternatively, you can create a team that includes developers who specialize in either RTL or software development.
+Previous FPGA place and route (PAR) experience is not required to be successful, but PAR experience is also a useful skill.</p>
+<h2 id="2-introduction"><strong>2. Introduction</strong><a class="headerlink" href="#2-introduction" title="Permanent link">&para;</a></h2>
+<p>The ASE provides a consistent transaction-level hardware interface and software API that allows you to develop a production-quality Accelerated Functional Unit (<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>) and host software application.  The ASE supports both the Intel® Xeon® Processor with Integrated FPGA and the Intel Acceleration Stack for programmable FPGA acceleration card for Intel® Xeon® processors.</p>
+<p>To use the ASE Environment you must have source code in a language that RTL simulators can interpret. The following languages are possible:</p>
+<ul>
+<li>Verilog</li>
+<li>SystemVerilog</li>
+<li>VHDL</li>
+</ul>
+<p><strong>Note: The ASE supports one <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> and one application at a time. The ASE does not support multiple-slot simulation.</strong></p>
+<p><a class="glightbox" href="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/platform.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/platform.png" /></a></p>
+<h3 id="21-afu-simulation-environment-ase-overview"><strong>2.1. <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Simulation Environment (ASE) Overview</strong><a class="headerlink" href="#21-afu-simulation-environment-ase-overview" title="Permanent link">&para;</a></h3>
+<p>ASE is a dual-process simulator. One process runs an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL simulation. The other process connects to software that runs on the RTL <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> simulation. This unified simulation environment reduces <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> hardware and software development time. The OPAE software distribution includes the ASE.</p>
+<p><a class="glightbox" href="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_overview.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_overview.png" /></a></p>
+<p>The ASE provides two interfaces:</p>
+<ul>
+<li>Software: OPAE API implemented in the C programming language.</li>
+</ul>
+<ul>
+<li>Hardware: PCIe SS TLP specification implemented in SystemVerilog.</li>
+</ul>
+<p>Use these interfaces to deploy your IP on an <abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr> Integrated FPGA Platform.</p>
+<h3 id="22-ase-capabilities"><strong>2.2. ASE Capabilities</strong><a class="headerlink" href="#22-ase-capabilities" title="Permanent link">&para;</a></h3>
+<ul>
+<li>The ASE provides a protocol checker to ensure protocol correctness. The ASE also provides methods to identify potential issues early, before in-system deployment.</li>
+</ul>
+<ul>
+<li>The ASE can help identify certain lock conditions and Configuration and Status Registers (CSR) address mapping and pointer math errors.</li>
+</ul>
+<ul>
+<li>The ASE tracks memory requested from the accelerator. The memory model immediately flags illegal memory transactions to locations outside of requested memory spaces. Consequently, you can fix incorrect memory accesses early, during the simulation phase.</li>
+</ul>
+<ul>
+<li>The ASE does not guarantee that you can synthesize an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>. After you verify the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL functionality in the ASE, use the ASE and the Quartus&reg; Prime Pro Edition software iteratively to generate the Accelerator Function (AF).</li>
+</ul>
+<ul>
+<li>The ASE does not require administrator privileges. After installing all the required tools, you can run the ASE on a plain vanilla user Linux machine.</li>
+</ul>
+<h3 id="23-ase-limitations"><strong>2.3. ASE Limitations</strong><a class="headerlink" href="#23-ase-limitations" title="Permanent link">&para;</a></h3>
+<p>When using ASE in the application development cycle, consider the following limitations:</p>
+<ul>
+<li>The ASE is a transaction-level simulator. It does not model either Intel UPI- or PCIe-specific packet structures and protocol layers.</li>
+</ul>
+<ul>
+<li>The ASE does not simulate caching and is not a cache simulator. It cannot reliably simulate cache collisions or capacity issues.</li>
+</ul>
+<ul>
+<li>Although ASE models some latency parameters, it cannot model real-time system-specific latency. It is also not an accurate timing simulation of the design or latency and bandwidth of the real system. The ASE models enable you to develop functionally correct accelerators.</li>
+</ul>
+<ul>
+<li>The ASE does not simulate multi-<abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> or multi-socket configurations.</li>
+</ul>
+<h3 id="24-ase-based-afu-design-workflow"><strong>2.4 ASE-Based <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Design Workflow</strong><a class="headerlink" href="#24-ase-based-afu-design-workflow" title="Permanent link">&para;</a></h3>
+<p><a class="glightbox" href="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/workflow_rev1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/workflow_rev1.png" /></a></p>
+<p><abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> development using the ASE includes the following four stages:</p>
+<ol>
+<li>
+<p>Learning/Training: Learn to use ASE and understand the interface specifications and platform. Review sample code to get an understanding of the PCIe TLP specification and OPAE API function calls. Run samples in an ASE simulation.</p>
+</li>
+<li>
+<p>Development Phase: Use the ASE to develop <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL and software application in a single workflow. Develop RTL from the specification or by modifying existing sample RTL. The ASE includes a behavioral model of the FPGA Interface Manager (<abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr>) IP that provides immediate feedback on functionality during the development phase. The ASE flags errors in PCIe TLP protocols, transactions, and memory accesses. Consequently, you can fix these errors before moving to the time-consuming bitstream generation phase.</p>
+</li>
+<li>
+<p>Bitstream Generation: Once <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL and software are functionally correct, open the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL in the Intel Quartus Prime Pro Edition software. Run the place and route (PAR) tools for your platform.</p>
+<p>Use the Synthesis reports to correct problems in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL. Then, return to the development phase and revalidate in ASE.
+Bitstream generation can take hours depending on design complexity, area, and so on. After successful bitstream generation,
+perform timing analysis to check for timing corners, setup and hold violations, clock closure, and so on. After correcting
+failures found during timing analysis, revalidate in the ASE environment. When the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> is error-free, generate the Accelerator
+Function (AF) bitstream that represents the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>.</p>
+</li>
+<li>
+<p>In-system Deployment: Test the AF in system hardware. Use Signal Tap to debug problems. Develop platform-specific software optimizations.</p>
+</li>
+</ol>
+<p><a class="glightbox" href="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/portability_rev1.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/portability_rev1.png" /></a></p>
+<p>The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL code and OPAE software code you create in the ASE is compatible with the Quartus Prime PAR software if the following two conditions are true:</p>
+<ul>
+<li>The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL code is synthesizable.</li>
+<li>The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL code meets timing.</li>
+</ul>
+<p>In the simulation environment, complete the following steps to create an AF bitstream and program the hardware:
+1. Compile the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL in either the Synopsys® VCS® or in the Siemens® QuestaSim® simulators.
+2. Compile the software application for an ASE-specific implementation of the OPAE API.
+3. Synthesize the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL in the Quartus Prime Pro software to generate a bitstream.
+4. Program the hardware using this bitstream.</p>
+<p><strong>Note: The ASE only operates using the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL source code. It cannot take the AF bitstream as input.</strong></p>
+<h2 id="3-system-requirements"><strong>3. System Requirements</strong><a class="headerlink" href="#3-system-requirements" title="Permanent link">&para;</a></h2>
+<p>The OPAE software release includes the ASE. The current OPAE ASE release supports both Acceleration Stack for the Intel® Xeon® Processor with Integrated FPGA and Acceleration Stack for a programmable FPGA acceleration card for Intel® Xeon® processors.</p>
+<p>The ASE is available only on 64-bit Linux operating systems with one of the following simulators:
+* Synopsys® VCS® Simulator (U-2023.03-SP2-1 or newer)
+* Siemens® QuestaSim® Simulator (2024.3 or newer)</p>
+<p>Consult your RTL simulator vendor for Synopsys® or Siemens® for specific simulation requirements.</p>
+<p>The ASE uses Inter-Process Communication (IPC) constructs. Under most circumstances these constructs operate without glitches.
+The following Linux locations should exist and be writeable. In most Linux distributions, <code>/dev/shm</code> comes pre-mounted as a default option.</p>
+<p>Here are the other ASE requirements:</p>
+<ul>
+<li>C-Compiler: gcc 11.5.0 or above<p>* Boost Development libraries
+  * UUID Development libraries
+  * JSON Development libraries
+  * Please see the dependencies of the OPAE System library build process</p>
+</li>
+</ul>
+<ul>
+<li>CMake: version 3.26.5 or above</li>
+<li>Python: version 3.8.10 or above</li>
+<li>Intel Quartus Prime Pro 25.1: The ASE must find the <code>$QUARTUS_HOME/eda/sim_lib/</code> directory. You specify this directory during project definition in the Intel Quartus Prime Pro Edition software.</li>
+</ul>
+<p>The ASE provides the <code>env_check.sh</code> bash script in the <code>/opae-sim/ase/scripts</code> directory. Run this script to verify the your installation.</p>
+<p>Check the RTL simulator product information for supported operating systems, installation notes, and other related information.
+The RTL simulator must be able to perform the following functions:</p>
+<ul>
+<li>Compilation of the SystemVerilog Direct Programming Interface (DPI) constructs</li>
+<li>Compilation of the standard examples that are included in the installation</li>
+<li>Support for SystemC</li>
+</ul>
+<h2 id="4-package-description"><strong>4. Package Description</strong><a class="headerlink" href="#4-package-description" title="Permanent link">&para;</a></h2>
+<p>The opae-sim source directory tree is:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="w">    </span>OPAE_SIM_BASEDIR
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">        </span><span class="p">|</span>--<span class="w"> </span>ase
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>api
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>src
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>cmake
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span><span class="k">in</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>rtl
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>scripts
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="w">        </span><span class="p">|</span><span class="w">   </span><span class="p">|</span>--<span class="w"> </span>sw
+</code></pre></div>
+<p>This directory tree shows the package structure of the ASE distribution. The following directories implement and run the ASE simulator:</p>
+<ul>
+<li><code>ase</code>: This is the ASE simulator implementation directory. It contains the following subdirectories:
+    * <code>api/src</code>: This directory contains the OPAE Intel ASE implementation as a compiled library. You can link statically or dynamically to this library.
+    * <code>rtl</code>: This directory contains the RTL components of the ASE. You can compile this RTL for either platform.
+    * <code>scripts</code>: This directory contains several useful scripts. Refer to the ASE Scripts Section for more information.
+    * <code>sw</code>: This directory contains the software components of the ASE. All simulations require the software components.
+      The GNU Compiler Collection (GCC) compiles these components.</li>
+</ul>
+<h3 id="41-ase-scripts"><strong>4.1. ASE Scripts</strong><a class="headerlink" href="#41-ase-scripts" title="Permanent link">&para;</a></h3>
+<p>The ASE distribution under the <code>ase/scripts</code> includes several scripts. Use these scripts to initialize, set up, and clean an existing ASE simulation environment.</p>
+<h4 id="411-simulation-tool-set-up"><strong>4.1.1. Simulation Tool Set Up</strong><a class="headerlink" href="#411-simulation-tool-set-up" title="Permanent link">&para;</a></h4>
+<p>Use <code>ase/scripts/ase_setup_template.sh</code> as a template script to set up the required tools. This script has many empty placeholders for site- and environment-specific information. Consult your Electronic Design Automation (EDA) tools  administrator, or the RTL simulator user guides for help setting up the tools.</p>
+<h4 id="412-ase-environment-check"><strong>4.1.2. ASE Environment Check</strong><a class="headerlink" href="#412-ase-environment-check" title="Permanent link">&para;</a></h4>
+<p>This script checks the status of the OS distribution, distro, and available system libraries. This check is a non-exhaustive. It looks for only the most important dependencies, such as the GCC version, GLIBC version, and so on.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="w">    </span>$<span class="w"> </span>./ase/scripts/env_check.sh
+</code></pre></div>
+<h4 id="413-afu-simulation-using-the-ase"><strong>4.1.3. <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> Simulation Using the ASE</strong><a class="headerlink" href="#413-afu-simulation-using-the-ase" title="Permanent link">&para;</a></h4>
+<p>Before configuring the ASE, follow the instructions for building the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and ensure that either the OPAE installed <code>bin</code> or the OPAE build tree <code>bin</code> directory is on your shell's <code>PATH</code>.</p>
+<p>To simulate an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>, replicate the ASE source tree and add the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr>-specific configuration. The OPAE installation includes several scripts to accomplish this task. The primary script, <code>afu_sim_setup</code>, is in the OPAE <code>bin</code> directory.</p>
+<h5 id="4131-afu_sim_setup"><strong>4.1.3.1. afu_sim_setup</strong><a class="headerlink" href="#4131-afu_sim_setup" title="Permanent link">&para;</a></h5>
+<p>The <code>afu_sim_setup</code> script reads a file containing a list of RTL sources (\&lt;rtl_sources.txt>) and configures a simulation environment for the specified sources. The <code>afu_sim_setup</code> command copies your base ASE environment to the \&lt;target dir>.</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="w">    </span>$<span class="w"> </span>afu_sim_setup<span class="w"> </span>--sources<span class="o">=</span>&lt;rtl_sources.txt&gt;<span class="w"> </span>&lt;target<span class="w"> </span>dir&gt;
+</code></pre></div>
+* The only required argument to the <code>afu_sim_setup</code> command is the directory for the new <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> environment. Here are the usage:
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>usage:<span class="w"> </span>afu_sim_setup<span class="w"> </span><span class="o">[</span>-h<span class="o">]</span><span class="w"> </span>-s<span class="w"> </span>SOURCES<span class="w"> </span><span class="o">[</span>-p<span class="w"> </span>PLATFORM<span class="o">]</span><span class="w"> </span><span class="o">[</span>-t<span class="w"> </span><span class="o">{</span>VCS,QUESTA,MODELSIM<span class="o">}]</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">                     </span><span class="o">[</span>-f<span class="o">]</span><span class="w"> </span><span class="o">[</span>--ase-mode<span class="w"> </span>ASE_MODE<span class="o">]</span><span class="w"> </span><span class="o">[</span>--ase-verbose<span class="o">]</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">                     </span>dst
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Generate<span class="w"> </span>an<span class="w"> </span>ASE<span class="w"> </span>simulation<span class="w"> </span>environment<span class="w"> </span><span class="k">for</span><span class="w"> </span>an<span class="w"> </span>AFU.<span class="w"> </span>An<span class="w"> </span>ASE<span class="w"> </span>environment<span class="w"> </span>is
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>instantiated<span class="w"> </span>from<span class="w"> </span>the<span class="w"> </span>OPAE<span class="w"> </span>installation<span class="w"> </span>and<span class="w"> </span><span class="k">then</span><span class="w"> </span>configured<span class="w"> </span><span class="k">for</span><span class="w"> </span>the<span class="w"> </span>specified
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>AFU.<span class="w"> </span>AFU<span class="w"> </span><span class="nb">source</span><span class="w"> </span>files<span class="w"> </span>are<span class="w"> </span>specified<span class="w"> </span><span class="k">in</span><span class="w"> </span>a<span class="w"> </span>text<span class="w"> </span>file<span class="w"> </span>that<span class="w"> </span>is<span class="w"> </span>parsed<span class="w"> </span>by
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>rtl_src_config,<span class="w"> </span>which<span class="w"> </span>is<span class="w"> </span>also<span class="w"> </span>part<span class="w"> </span>of<span class="w"> </span>the<span class="w"> </span>OPAE<span class="w"> </span>base<span class="w"> </span>environment.
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>positional<span class="w"> </span>arguments:
+<a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="w">  </span>dst<span class="w">                   </span>Target<span class="w"> </span>directory<span class="w"> </span>path<span class="w"> </span><span class="o">(</span>directory<span class="w"> </span>must<span class="w"> </span>not<span class="w"> </span>exist<span class="o">)</span>.
+<a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+<a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>optional<span class="w"> </span>arguments:
+<a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="w">  </span>-h,<span class="w"> </span>--help<span class="w">            </span>show<span class="w"> </span>this<span class="w"> </span><span class="nb">help</span><span class="w"> </span>message<span class="w"> </span>and<span class="w"> </span><span class="nb">exit</span>
+<a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="w">  </span>-s<span class="w"> </span>SOURCES,<span class="w"> </span>--sources<span class="w"> </span>SOURCES
+<a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="w">                        </span>AFU<span class="w"> </span><span class="nb">source</span><span class="w"> </span>specification<span class="w"> </span>file<span class="w"> </span>that<span class="w"> </span>will<span class="w"> </span>be<span class="w"> </span>passed<span class="w"> </span>to
+<a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="w">                        </span>rtl_src_config.<span class="w"> </span>See<span class="w"> </span><span class="s2">&quot;rtl_src_config --help&quot;</span><span class="w"> </span><span class="k">for</span><span class="w"> </span>the
+<a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a><span class="w">                        </span>file<span class="err">&#39;</span>s<span class="w"> </span>syntax.<span class="w"> </span>rtl_src_config<span class="w"> </span>translates<span class="w"> </span>the<span class="w"> </span><span class="nb">source</span>
+<a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">                        </span>list<span class="w"> </span>into<span class="w"> </span>either<span class="w"> </span>Quartus<span class="w"> </span>or<span class="w"> </span>RTL<span class="w"> </span>simulator<span class="w"> </span>syntax.
+<a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a><span class="w">  </span>-p<span class="w"> </span>PLATFORM,<span class="w"> </span>--platform<span class="w"> </span>PLATFORM
+<a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a><span class="w">                        </span>FPGA<span class="w"> </span>Platform<span class="w"> </span>to<span class="w"> </span>simulate.
+<a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a><span class="w">  </span>-t<span class="w"> </span><span class="o">{</span>VCS,QUESTA,MODELSIM<span class="o">}</span>,<span class="w"> </span>--tool<span class="w"> </span><span class="o">{</span>VCS,QUESTA,MODELSIM<span class="o">}</span>
+<a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a><span class="w">                        </span>Default<span class="w"> </span>simulator.
+<a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a><span class="w">  </span>-f,<span class="w"> </span>--force<span class="w">           </span>Overwrite<span class="w"> </span>target<span class="w"> </span>directory<span class="w"> </span><span class="k">if</span><span class="w"> </span>it<span class="w"> </span>exists.
+<a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a><span class="w">  </span>--ase-mode<span class="w"> </span>ASE_MODE<span class="w">   </span>ASE<span class="w"> </span>execution<span class="w"> </span>mode<span class="w"> </span><span class="o">(</span>default,<span class="w"> </span>mode<span class="w"> </span><span class="m">3</span>,<span class="w"> </span>exits<span class="w"> </span>on
+<a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a><span class="w">                        </span>completion<span class="o">)</span>.<span class="w"> </span>See<span class="w"> </span>ase.cfg<span class="w"> </span><span class="k">in</span><span class="w"> </span>the<span class="w"> </span>target<span class="w"> </span>directory.
+<a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a><span class="w">  </span>--ase-verbose<span class="w">         </span>When<span class="w"> </span>set,<span class="w"> </span>ASE<span class="w"> </span>prints<span class="w"> </span>each<span class="w"> </span>CCI-P<span class="w"> </span>transaction<span class="w"> </span>to<span class="w"> </span>the
+<a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a><span class="w">                        </span><span class="nb">command</span><span class="w"> </span>line.<span class="w"> </span>Transactions<span class="w"> </span>are<span class="w"> </span>always<span class="w"> </span>logged<span class="w"> </span>to
+<a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a><span class="w">                        </span>work/ccip_transactions.tsv,<span class="w"> </span>even<span class="w"> </span>when<span class="w"> </span>not<span class="w"> </span>set.<span class="w"> </span>This
+<a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a><span class="w">                        </span>switch<span class="w"> </span>sets<span class="w"> </span>ENABLE_CL_VIEW<span class="w"> </span><span class="k">in</span><span class="w"> </span>ase.cfg.
+</code></pre></div></p>
+<ul>
+<li><code>--help</code> The <code>help</code> argument lists all the arguments to <code>afu_sim_setup</code>.</li>
+<li><code>--platform</code>: The <code>platform</code>argument specifies any platform defined in the platform database, including both
+  the Integrated FPGA Platform or the Intel <abbr title="Programmable Acceleration Card: FPGA based Accelerator card">PAC</abbr>. This argument is generally not required when a hardware platform
+  release is installed. In that case, the OPAE_PLATFORM_ROOT environment variable points to the hardware release,
+  which defines the platform.</li>
+</ul>
+<p><code>afu_sim_setup</code> is a wrapper for the following scripts. You can also access both of these scripts directly:</p>
+<ul>
+<li><code>rtl_src_config</code>: This script transforms the list of RTL sources into simulator configuration files.</li>
+</ul>
+<ul>
+<li><code>generate_ase_environment.py</code>: This script instantiates your simulated platform configuration.</li>
+</ul>
+<h5 id="4132-rtl_src_configpy"><strong>4.1.3.2. rtl_src_config.py</strong><a class="headerlink" href="#4132-rtl_src_configpy" title="Permanent link">&para;</a></h5>
+<p>The <code>rtl_src_config</code> script maps a simple text file containing a list of RTL source files to an ASE configuration file for simulation or an Quartus Prime Pro configuration file for synthesis. <code>rtl_src_config</code> also defines preprocessor variables. Source configuration files may be hierarchical, with one file including another. <code>rtl_src_config</code> can construct ASE-based simulation trees or Quartus build trees.</p>
+<p>Run <code>rtl_src_config --help</code> for a list of options and the required command syntax.</p>
+<h5 id="4133-generate_ase_environmentpy"><strong>4.1.3.3. generate_ase_environment.py</strong><a class="headerlink" href="#4133-generate_ase_environmentpy" title="Permanent link">&para;</a></h5>
+<p>The <code>/scripts/generate_ase_environment.py</code> generates platform configuration files. <code>afu_sim_setup</code> invokes it automatically. A legacy mode in <code>generate_ase_environment.py</code> performs a brute-force check of the specified <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL directories, attempting to define a compilation. This brute-force mode is imperfect and lists every file ending in <code>.sv, .vs, .vhd, or .v</code> and directories separated by <code>+</code>. It also may fail when compilation is order-dependent.</p>
+<p>Run <code>generate_ase_environment.py --help</code> for a list of arguments.</p>
+<p>The Synopsys and Siemens RTL simulators generate the following scripts.</p>
+<ul>
+<li>Synopsys: Creates <code>synopsys_sim.setup</code> and <code>vcs_run.tcl</code> in the configuration directory.</li>
+<li>Siemens: Creates <code>vsim_run.tcl</code> in the configuration directory.</li>
+</ul>
+<p>The run-time simultation uses the <code>.tcl</code> files.</p>
+<p>Details on generated files:
+* <code>vlog_files.list</code>: Lists all the Verilog and SystemVerilog files found in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> directory path.
+* <code>vhdl_files.list</code>: Lists all the VHDL files found in the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> directory path.
+* <code>ase_sources.mk</code>: Ties the above two files into <code>DUT_VLOG_SRC_LIST</code> and <code>DUT_VHD_SRC_LIST</code> Makefile variables.
+  * <code>ASE_PLATFORM</code>: Sets the platform type to the default type or the type you specify.
+  * Set additional VCS or QUESTA options using the <code>SNPS_{VLOGAN,VHDLAN,VCS}_OPT</code> or <code>MENT_{VLOG,VCOM,VSIM}_OPT</code> options
+    in the Makefile.</p>
+<p>The simulation files use absolute paths when possible. To improve portability across users and groups, substitute environment variables in the generated files that build and run the simulator.</p>
+<p><strong>Note: You should manually check this file for correctness before using it in the simulation.</strong></p>
+<h4 id="414-cleaning-the-ase-environment"><strong>4.1.4. Cleaning the ASE Environment</strong><a class="headerlink" href="#414-cleaning-the-ase-environment" title="Permanent link">&para;</a></h4>
+<p>Use the ASE cleanup script located in <code>scripts/ipc_clean.py</code> to kill zombie simulation processes and temporary files left behind by failed simulation processes or crashes.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="w">    </span>$<span class="w"> </span>./ase/scripts/ipc_clean.py
+<a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+<a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="w">    </span><span class="c1">############################################################</span>
+<a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="w">    </span><span class="c1">#                                                          #</span>
+<a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="w">    </span><span class="c1">#                ASE IPC Cleanup script                    #</span>
+<a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="w">    </span><span class="c1">#                                                          #</span>
+<a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="w">    </span><span class="c1">############################################################</span>
+<a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="w">    </span>IPC<span class="w"> </span>mounts<span class="w"> </span>seem<span class="w"> </span>to<span class="w"> </span>be<span class="w"> </span>readable...<span class="w"> </span>will<span class="w"> </span>attempt<span class="w"> </span>cleaning<span class="w"> </span>up<span class="w"> </span>IPC<span class="w"> </span>constructs<span class="w"> </span>by<span class="w"> </span>user<span class="w"> </span><span class="s1">&#39; user_foo &#39;</span>
+<a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="w">    </span>Removing<span class="w"> </span>.ase_ready<span class="w"> </span>file<span class="w"> </span>...
+<a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a><span class="w">    </span>Type<span class="w"> </span><span class="s1">&#39;y&#39;</span><span class="w"> </span>to<span class="w"> </span>clean<span class="w"> </span>up<span class="w"> </span>all<span class="w"> </span>zombie<span class="w"> </span>ase_simv<span class="w"> </span>processes<span class="w"> </span>:<span class="w"> </span>y
+<a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="w">    </span>Going<span class="w"> </span>ahead<span class="w"> </span>with<span class="w"> </span>cleaning<span class="w"> </span>up<span class="w"> </span>ASE<span class="w"> </span>processes<span class="w"> </span>opened<span class="w"> </span>by<span class="w">  </span>user_foo
+<a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="w">    </span>$
+</code></pre></div>
+<h2 id="5-ase-usage"><strong>5. ASE Usage</strong><a class="headerlink" href="#5-ase-usage" title="Permanent link">&para;</a></h2>
+<p>The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> ASE is a server-client simulation environment. The <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL is the server process. The software application compiled and linked to the  OPAE ASE library is the client process. Communication between server and client uses named pipes. The ASE abstracts most of the simulation infrastructure. You do not need to modify it.</p>
+<p><a class="glightbox" href="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_server_client_process.png" data-type="image" data-width="100%" data-height="auto" data-desc-position="bottom"><img alt="" src="/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_sim_env/images/ase_server_client_process.png" /></a></p>
+<p><strong>Server Process</strong>:
+* The server process interfaces to 3<sup>rd</sup>-Party RTL Simulator packages. The server process currently supports Questasim and Synopsys VCS via the SystemVerilog-DPI library and simulator software interface.
+* Named pipes implement communication to the client.  Named pipes also implement control, status and session management. The server process includes a pipe event monitoring engine.
+* SystemVerilog manages the PCIe interface. All PCIe events are logged and time stamped.
+* The buffer allocation calls map to POSIX Shared Memory (<code>/dev/shm</code>). The server-client processes share information about these buffers using named pipes.</p>
+<p><strong>Note: The Physical addresses generated in ASE are not realistic and are not replicable in-system.</strong></p>
+<p><strong>Client Process</strong>:
+* The client implements an OPAE interface and a library to access the ASE platform functionality including <abbr title="Memory Mapped Input/Output, Users may map and access both control registers and system memory buffers with accelerators.">MMIO</abbr>, Buffer management, and session control. The features available depend on the platform you specify at build time. These functions are available using the OPAE API.
+* The client process also provides a physical memory model that simulates the RTL <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> access to physical addresses. The physical memory model simulates address translation from virtual addresses to physical addresses.
+* A compiled program compiles and links to the ASE implementation of OPAE library. All OPAE calls route to ASE instead of the OPAE platform driver.</p>
+<p>Separate build scripts build the server and client processes.</p>
+<ul>
+<li>Server: A makefile in the <code>ase</code> directory compiles the ASE server process, containing the ASE Software, SystemVerilog engines and the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL logic code.</li>
+<li>Client: The main <code>cmake</code> script in the root of the distribution builds the OPAE library implementations for the System and ASE.  The cmake script installs the library in the  <code>lib</code> directory.</li>
+</ul>
+<h3 id="51-ase-build-instructions"><strong>5.1. ASE Build Instructions</strong><a class="headerlink" href="#51-ase-build-instructions" title="Permanent link">&para;</a></h3>
+<p>In this section you will set up your server to support ASE by independently downloading and installing <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and ASE. Then, set up the required environment variables.</p>
+<h4 id="511-install-opae-sdk"><strong>5.1.1. Install <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr></strong><a class="headerlink" href="#511-install-opae-sdk" title="Permanent link">&para;</a></h4>
+<p>Follow the instructions documented in the Software Installation Guide to build and install the required <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr>.</p>
+<h4 id="512-setup-required-ase-environment-variables"><strong>5.1.2. Setup Required ASE Environment Variables</strong><a class="headerlink" href="#512-setup-required-ase-environment-variables" title="Permanent link">&para;</a></h4>
+<p>The values set to the following environment variables assume the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> and ASE were installed in the default system directories below <code>/usr</code>. Setup these variables in the shell where ASE will be executed. You may wish to add these variables to the script you created to facilitate configuring your environment.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">QUARTUS_ROOTDIR</span><span class="o">=</span>&lt;path<span class="w"> </span>to<span class="w"> </span>Quartus<span class="w"> </span>Root<span class="w"> </span>Dir&gt;
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$QUARTUS_ROOTDIR</span>/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">OPAE_PLATFORM_ROOT</span><span class="o">=</span>&lt;path<span class="w"> </span>to<span class="w"> </span>PR<span class="w"> </span>build<span class="w"> </span>tree&gt;
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span>/usr/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/usr/lib/python*/site-packages
+<a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PWD</span>
+<a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LIBRARY_PATH</span><span class="o">=</span>/usr/lib
+<a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span>/usr/lib64
+<a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">OFS_PLATFORM_AFU_BBB</span><span class="o">=</span>&lt;path<span class="w"> </span>to<span class="w"> </span>ofs-platform-afu_bbb<span class="w"> </span>directory&gt;<span class="w"> </span>
+<a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
+<a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="c1">## For VCS, set the following:</span>
+<a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">VCS_TARGET_ARCH</span><span class="o">=</span>linux64
+<a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">VMR_MODE_FLAG</span><span class="o">=</span><span class="m">64</span>
+<a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">VCS_HOME</span><span class="o">=</span>&lt;Set<span class="w"> </span>the<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>VCS<span class="w"> </span>installation<span class="w"> </span>directory&gt;
+<a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$VCS_HOME</span>/bin:<span class="nv">$PATH</span>
+<a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">SNPSLMD_LICENSE_FILE</span><span class="o">=</span>&lt;License<span class="w"> </span>File<span class="w"> </span>Server&gt;
+<a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
+<a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">  </span><span class="c1">## For QuestaSIM, set the following:</span>
+<a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">MTI_HOME</span><span class="o">=</span>&lt;path<span class="w"> </span>to<span class="w"> </span>QuestaSIM<span class="w"> </span>installation<span class="w"> </span>directory&gt;
+<a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$MTI_HOME</span>/linux_x86_64/:<span class="nv">$MTI_HOME</span>/bin/:<span class="nv">$PATH</span>
+<a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">LM_LICENSE_FILE</span><span class="o">=</span>&lt;&gt;
+</code></pre></div>
+<h4 id="513-install-ase-tools"><strong>5.1.3. Install ASE Tools</strong><a class="headerlink" href="#513-install-ase-tools" title="Permanent link">&para;</a></h4>
+<p>ASE is an RTL simulator for OPAE-based AFUs. The simulator emulates both the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> software user space API and the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL interface. The majority of the <abbr title="FPGA Interface Manager, Provides platform management, functionality, clocks, resets and standard interfaces to host and AFUs. The FIM resides in the static region of the FPGA and contains the FPGA Management Engine (FME) and I/O ring.">FIM</abbr> as well as devices such as PCIe and local memory are emulated with simple functional models.</p>
+<p>ASE must be installed separatedly from the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr>. However, the recommendation is to install it in the same target directory as <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr>.  The following steps assume the <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr> was installed in the default system directories below <code>/usr</code>, if installed in a different directory, refer to https://github.com/<abbr title="Open FPGA Stack, A modular collection of hardware platform components, open source software, and broad ecosystem support that provides a standard and scalable model for AFU and software developers to optimize and reuse their designs.">OFS</abbr>/opae-sim for build options.</p>
+<ol>
+<li>
+<p>Clone the <code>opae-sim</code> repository.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span><span class="nv">$OFS_BUILD_ROOT</span>
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/OFS/opae-sim.git
+<a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>opae-sim
+<a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="c1"># Checkout tag and branch based on your OFS release</span>
+<a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>$<span class="w"> </span>git<span class="w"> </span>checkout<span class="w"> </span>tags/&lt;tag&gt;<span class="w"> </span>-b<span class="w"> </span>&lt;branch&gt;
+</code></pre></div></p>
+</li>
+<li>
+<p>Create a build directory and build ASE to be installed under the default system directories along with <abbr title="Open Programmable Acceleration Engine Software Development Kit, A collection of libraries and tools to facilitate the development of software applications and accelerators using OPAE.">OPAE SDK</abbr>.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>$<span class="w"> </span>mkdir<span class="w"> </span>build
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>build
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>$<span class="w"> </span>cmake<span class="w">  </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>/usr<span class="w"> </span>..
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>$<span class="w"> </span>make
+</code></pre></div></p>
+</li>
+</ol>
+<p>Optionally, if the desire is to install ASE binaries in a different location to the system's default, provide the path to CMAKE through the CMAKE_INSTALL_PREFIX switch, as follows.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>$<span class="w"> </span>cmake<span class="w"> </span>-DCMAKE_INSTALL_PREFIX<span class="o">=</span>&lt;&lt;/some/arbitrary/path&gt;&gt;<span class="w"> </span>..<span class="w">  </span>
+</code></pre></div></p>
+<ol>
+<li>Install ASE binaries and libraries under the system directory <code>/usr</code>.
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>$<span class="w"> </span>sudo<span class="w"> </span>make<span class="w"> </span>install<span class="w">  </span>
+</code></pre></div></li>
+</ol>
+<h4 id="514-ase-simulator-server-build-instructions"><strong>5.1.4. ASE Simulator (Server) Build Instructions</strong><a class="headerlink" href="#514-ase-simulator-server-build-instructions" title="Permanent link">&para;</a></h4>
+<p>ASE uses a platform differentiation key in the simulator Makefile to enable different platform features and produces asimulator configuration based on the differentiation key. These keys are set automatically by <code>afu_sim_setup</code>.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>$<span class="w"> </span>afu_sim_setup<span class="w"> </span>-s<span class="w"> </span>./hw/rtl/sources.txt<span class="w"> </span>-t<span class="w"> </span>VCS<span class="w"> </span>afu_sim
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+<a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+<a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>Copying<span class="w"> </span>ASE<span class="w"> </span>from<span class="w"> </span>/usr/local/share/opae/ase...
+<a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="c1">#################################################################</span>
+<a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="c1">#                                                               #</span>
+<a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="c1">#             OPAE Intel(R) Xeon(R) + FPGA Library              #</span>
+<a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="c1">#               AFU Simulation Environment (ASE)                #</span>
+<a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1">#                                                               #</span>
+<a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="c1">#################################################################</span>
+<a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+<a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>Tool<span class="w"> </span>Brand:<span class="w"> </span>VCS
+<a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>Loading<span class="w"> </span>platform<span class="w"> </span>database:<span class="w"> </span>/home/user/OFS_BUILD_ROOT/ofs-agx7-pcie-attach/work_pr/pr_build_template/hw/lib/platform/platform_db/ofs_agilex_adp.json
+<a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>Loading<span class="w"> </span>platform-params<span class="w"> </span>database:<span class="w"> </span>/usr/share/opae/platform/platform_db/platform_defaults.json
+<a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>Loading<span class="w"> </span>AFU<span class="w"> </span>database:<span class="w"> </span>/usr/share/opae/platform/afu_top_ifc_db/ofs_plat_afu.json
+<a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>Writing<span class="w"> </span>rtl/platform_afu_top_config.vh
+<a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>Writing<span class="w"> </span>rtl/platform_if_addenda.txt
+<a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>Writing<span class="w"> </span>rtl/platform_if_includes.txt
+<a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>Writing<span class="w"> </span>rtl/ase_platform_name.txt
+<a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>Writing<span class="w"> </span>rtl/ase_platform_config.mk<span class="w"> </span>and<span class="w"> </span>rtl/ase_platform_config.cmake
+<a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>ASE<span class="w"> </span>Platform:<span class="w"> </span>discrete<span class="w"> </span><span class="o">(</span>FPGA_PLATFORM_DISCRETE<span class="o">)</span>
+</code></pre></div>
+<p>Change directory to the targeted simuation directory <code>dst</code> and <code>make</code> simulation project. </p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>afu_sim
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>$<span class="w"> </span>make
+<a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="c1">#################################################################</span>
+<a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="c1">#                                                               #</span>
+<a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="c1">#             OPAE Intel(R) Xeon(R) + FPGA Library              #</span>
+<a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="c1">#               AFU Simulation Environment (ASE)                #</span>
+<a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="c1">#                                                               #</span>
+<a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="c1">#################################################################</span>
+<a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+<a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nv">SIMULATOR</span><span class="o">=</span>VCS
+<a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="nv">CC</span><span class="o">=</span>gcc
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="nv">FPGA_FAMILY</span><span class="o">=</span>agilex7
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>ASE<span class="w"> </span>platform<span class="w"> </span><span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>DISCRETE<span class="w"> </span>mode
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>Local<span class="w"> </span>memory<span class="w"> </span>model<span class="w"> </span><span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>BASIC
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>mkdir<span class="w"> </span>-p<span class="w"> </span>work/verilog_libs
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="nb">cd</span><span class="w"> </span>work<span class="p">;</span><span class="w"> </span>quartus_sh<span class="w"> </span>--simlib_comp<span class="w"> </span>-family<span class="w"> </span>agilex7<span class="w"> </span>-tool<span class="w"> </span>vcsmx<span class="w"> </span>-language<span class="w"> </span>verilog<span class="w"> </span>-gen_only<span class="w"> </span>-cmd_file<span class="w"> </span>quartus_vcs_verilog.sh<span class="p">;</span><span class="w"> </span>chmod<span class="w"> </span>a+x<span class="w"> </span>quartus_vcs_verilog.sh
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>...<span class="w">    </span>
+</code></pre></div>
+<h4 id="514-ase-runtime-instructions"><strong>5.1.4. ASE Runtime Instructions</strong><a class="headerlink" href="#514-ase-runtime-instructions" title="Permanent link">&para;</a></h4>
+<p>The ASE server-client simulator makes the server before the client. Use two terminal windows to start the simulation.</p>
+<ul>
+<li>Terminal 1: In the simulation directroy <code>dst</code>, run <code>make sim</code>. The ASE initializes and the <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> issues a reset and then waits for incoming transactions.
+The software application must wait until the "Ready for Simulation" message displays.</li>
+</ul>
+<p>Specify the environment variable <code>ASE_WORKDIR</code> Terminal 1.</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Invoke the simulator</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>$<span class="w"> </span>make<span class="w"> </span>sim
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="c1">#################################################################</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">#                                                               #</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="c1">#             OPAE Intel(R) Xeon(R) + FPGA Library              #</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="c1">#               AFU Simulation Environment (ASE)                #</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="c1">#                                                               #</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="c1">#################################################################</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="nv">SIMULATOR</span><span class="o">=</span>VCS
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="nv">CC</span><span class="o">=</span>gcc
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a><span class="nv">FPGA_FAMILY</span><span class="o">=</span>agilex7
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>ASE<span class="w"> </span>platform<span class="w"> </span><span class="nb">set</span><span class="w"> </span>to<span class="w"> </span>DISCRETE<span class="w"> </span>mode
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="w">    </span>.
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a><span class="w">    </span>.
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="w">    </span>.
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Transaction<span class="w"> </span>Logger<span class="w"> </span>started
+<a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Simulator<span class="w"> </span>started...
+<a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>+CONFIG<span class="w"> </span>/home/user/OFS_BUILD_ROOT/example_afu/afu_sim/ase.cfg<span class="w"> </span>file<span class="w"> </span>found<span class="w"> </span>!
+<a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>+SCRIPT<span class="w"> </span>/home/user/OFS_BUILD_ROOT/example_afu/afu_sim/ase_regress.sh<span class="w"> </span>file<span class="w"> </span>found<span class="w"> </span>!
+<a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>ASE<span class="w"> </span>running<span class="w"> </span>with<span class="w"> </span><span class="nv">seed</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w">           </span><span class="m">0</span>
+<a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>PID<span class="w"> </span>of<span class="w"> </span>simulator<span class="w"> </span>is<span class="w"> </span><span class="m">1822681</span>
+<a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Reading<span class="w"> </span>/home/user/OFS_BUILD_ROOT/example_afu/afu_sim/ase.cfg<span class="w"> </span>configuration<span class="w"> </span>file
+<a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>ASE<span class="w"> </span>was<span class="w"> </span>started<span class="w"> </span><span class="k">in</span><span class="w"> </span>Mode<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="o">(</span>Server-Client<span class="w"> </span>with<span class="w"> </span>Sw<span class="w"> </span>SIMKILL<span class="w"> </span><span class="o">(</span>long<span class="w"> </span>runs<span class="o">)</span>
+<a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>ASE<span class="w"> </span>Mode:<span class="w"> </span>Server-Client<span class="w"> </span>mode<span class="w"> </span>with<span class="w"> </span>SW<span class="w"> </span>SIMKILL<span class="w"> </span><span class="o">(</span>long<span class="w"> </span>runs<span class="o">)</span>
+<a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Inactivity<span class="w"> </span>kill-switch<span class="w">     </span>...<span class="w"> </span>DISABLED
+<a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Reuse<span class="w"> </span>simulation<span class="w"> </span>seed<span class="w">      </span>...<span class="w"> </span>ENABLED
+<a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>ASE<span class="w"> </span>Seed<span class="w">                   </span>...<span class="w"> </span><span class="m">1234</span>
+<a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>ASE<span class="w"> </span>Transaction<span class="w"> </span>view<span class="w">       </span>...<span class="w"> </span>DISABLED
+<a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>User<span class="w"> </span>Clock<span class="w"> </span>Frequency<span class="w">       </span>...<span class="w"> </span><span class="m">312</span>.500000<span class="w"> </span>MHz,<span class="w"> </span><span class="nv">T_uclk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">3200</span><span class="w"> </span>ps
+<a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Amount<span class="w"> </span>of<span class="w"> </span>physical<span class="w"> </span>memory<span class="w">  </span>...<span class="w"> </span><span class="m">128</span><span class="w"> </span>GB
+<a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Current<span class="w"> </span>Directory<span class="w"> </span>located<span class="w"> </span><span class="nv">at</span><span class="w"> </span><span class="o">=</span>&gt;
+<a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>/home/user/OFS_BUILD_ROOT/example_afu/afu_sim/work
+<a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Creating<span class="w"> </span>Messaging<span class="w"> </span>IPCs...
+<a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Information<span class="w"> </span>about<span class="w"> </span>allocated<span class="w"> </span><span class="nv">buffers</span><span class="w"> </span><span class="o">=</span>&gt;<span class="w"> </span>workspace_info.log
+<a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Sending<span class="w"> </span>initial<span class="w"> </span>reset...
+<a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a><span class="w">    </span>.
+<a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a><span class="w">    </span>.
+<a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a><span class="w">    </span>.
+<a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>ASE<span class="w"> </span>lock<span class="w"> </span>file<span class="w"> </span>.ase_ready.pid<span class="w"> </span>written<span class="w"> </span><span class="k">in</span><span class="w"> </span>work<span class="w"> </span>directory
+<a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>**<span class="w"> </span>ATTENTION<span class="w"> </span>:<span class="w"> </span>BEFORE<span class="w"> </span>running<span class="w"> </span>the<span class="w"> </span>software<span class="w"> </span>application<span class="w"> </span>**
+<a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Set<span class="w"> </span>env<span class="o">(</span>ASE_WORKDIR<span class="o">)</span><span class="w"> </span><span class="k">in</span><span class="w"> </span>terminal<span class="w"> </span>where<span class="w"> </span>application<span class="w"> </span>will<span class="w"> </span>run<span class="w"> </span><span class="o">(</span>copy-and-paste<span class="o">)</span><span class="w"> </span><span class="o">=</span>&gt;
+<a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span><span class="nv">$SHELL</span><span class="w">   </span><span class="p">|</span><span class="w"> </span>Run:
+<a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>---------+---------------------------------------------------
+<a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>bash/zsh<span class="w"> </span><span class="p">|</span><span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">ASE_WORKDIR</span><span class="o">=</span>/home/user/OFS_BUILD_ROOT/example_afu/afu_sim/work
+<a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>tcsh/csh<span class="w"> </span><span class="p">|</span><span class="w"> </span>setenv<span class="w"> </span>ASE_WORKDIR<span class="w"> </span>/home/user/OFS_BUILD_ROOT/example_afu/afu_sim/work
+<a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>For<span class="w"> </span>any<span class="w"> </span>other<span class="w"> </span><span class="nv">$SHELL</span>,<span class="w"> </span>consult<span class="w"> </span>your<span class="w"> </span>Linux<span class="w"> </span>administrator
+<a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span>
+<a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Ready<span class="w"> </span><span class="k">for</span><span class="w"> </span>simulation...
+<a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Press<span class="w"> </span>CTRL-C<span class="w"> </span>to<span class="w"> </span>close<span class="w"> </span>simulator...
+</code></pre></div>
+<p>You can close Terminal 1 <code>make sim</code> by issuing a <code>SIGTERM</code> to the relevant <code>ase_simv</code> process or by typing  <code>CTRL-C</code>.</p>
+<ul>
+<li>Terminal 2: First set the environment variable <code>ASE_WORKDIR</code> as specified in Terminal 1. In this example <code>ASE_WORKDIR</code> is set to <code>/home/user/OFS_BUILD_ROOT/example_afu/afu_sim/work</code>.  Then, start the software application using <code>with_ase</code>, which will run the binary using the ASE simulation library instead of the standard libopae-c.</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="w">    </span><span class="c1"># Set ASE_WORKDIR environment variable</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">ASE_WORKDIR</span><span class="o">=</span>/home/user/OFS_BUILD_ROOT/example_afu/afu_sim/work
+<a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+<a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="w">    </span><span class="c1"># Run the application</span>
+<a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="w">    </span>$<span class="w"> </span>with_ase<span class="w"> </span>./hello_fpga
+</code></pre></div>
+<p><strong>Note: After the application exits, the simulation is complete. Close the simulator to allow the waveform dump process to complete. In Terminal 1, type the <code>CTRL-C</code> command.</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Closing<span class="w"> </span>message<span class="w"> </span>queue<span class="w"> </span>and<span class="w"> </span>unlinking...
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Session<span class="w"> </span>code<span class="w"> </span>file<span class="w"> </span>removed
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Removing<span class="w"> </span>message<span class="w"> </span>queues<span class="w"> </span>and<span class="w"> </span>buffer<span class="w"> </span>handles<span class="w"> </span>...
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Cleaning<span class="w"> </span>session<span class="w"> </span>files...
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Simulation<span class="w"> </span>generated<span class="w"> </span>log<span class="w"> </span>files
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">          </span>Transactions<span class="w"> </span>file<span class="w">       </span><span class="p">|</span><span class="w"> </span><span class="nv">$ASE_WORKDIR</span>/log_ase_events.tsv
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">          </span>Workspaces<span class="w"> </span>info<span class="w">         </span><span class="p">|</span><span class="w"> </span><span class="nv">$ASE_WORKDIR</span>/workspace_info.log
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Tests<span class="w"> </span><span class="nv">run</span><span class="w">     </span><span class="o">=</span>&gt;<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Sending<span class="w"> </span><span class="nb">kill</span><span class="w"> </span>command...
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">  </span><span class="o">[</span>SIM<span class="o">]</span><span class="w">  </span>Simulation<span class="w"> </span><span class="nb">kill</span><span class="w"> </span><span class="nb">command</span><span class="w"> </span>received...
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="nv">$finish</span><span class="w"> </span>called<span class="w"> </span>from<span class="w"> </span>file<span class="w"> </span><span class="s2">&quot;/home/user//OFS_BUILD_ROOT/examples_afu/afu_sim/rtl/pcie_ss_tlp/ase_pcie_ss_emulator.sv&quot;</span>,<span class="w"> </span>line<span class="w"> </span><span class="m">388</span>.
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a><span class="nv">$finish</span><span class="w"> </span>at<span class="w"> </span>simulation<span class="w"> </span><span class="nb">time</span><span class="w">          </span><span class="m">16396997500</span>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="w">           </span>V<span class="w"> </span>C<span class="w"> </span>S<span class="w">   </span>S<span class="w"> </span>i<span class="w"> </span>m<span class="w"> </span>u<span class="w"> </span>l<span class="w"> </span>a<span class="w"> </span>t<span class="w"> </span>i<span class="w"> </span>o<span class="w"> </span>n<span class="w">   </span>R<span class="w"> </span>e<span class="w"> </span>p<span class="w"> </span>o<span class="w"> </span>r<span class="w"> </span>t
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>Time:<span class="w"> </span><span class="m">16396997500</span><span class="w"> </span>ps
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>CPU<span class="w"> </span>Time:<span class="w">    </span><span class="m">506</span>.240<span class="w"> </span>seconds<span class="p">;</span><span class="w">       </span>Data<span class="w"> </span>structure<span class="w"> </span>size:<span class="w">   </span><span class="m">4</span>.3Mb
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>Wed<span class="w"> </span>Mar<span class="w"> </span><span class="m">13</span><span class="w"> </span><span class="m">18</span>:26:28<span class="w"> </span><span class="m">2024</span>
+</code></pre></div>
+<p>Upon completion, the simulation generates the following files:</p>
+<ul>
+<li>Waveform dump: <code>make wave</code> opens the waveform for the selected tool.<p>* <code>$ASE_WORKDIR/inter.vpd</code>: VCS Waveform file
+  * <code>$ASE_WORKDIR/vsim.wlf</code>: Questa waveform file.</p>
+</li>
+</ul>
+<ul>
+<li><code>$ASE_WORKDIR/log_ase_events.tsv</code>: Events log listing all events observed between the host and afu interface. The timestamps indicate the corresponding time interval in the waveform dump VPD file.</li>
+<li><code>$ASE_WORKDIR/workspace_info.log</code>: Information about buffers the simulation opened.</li>
+</ul>
+<h3 id="52-ase-makefile-targets"><strong>5.2. ASE Makefile Targets</strong><a class="headerlink" href="#52-ase-makefile-targets" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">COMMAND</th>
+<th align="left">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">make</td>
+<td align="left">Build the HW Model using RTL supplied</td>
+</tr>
+<tr>
+<td align="left">make sim</td>
+<td align="left">Run simulator <br>- ASE can be run in one of 4 modes set in ase.cfg <br>- A regression mode can be enabled by writing ASE_MODE = 4 in ase.cfg and supplying an ase_regress.sh script</td>
+</tr>
+<tr>
+<td align="left">make wave</td>
+<td align="left">Open the waveform (if created) to be run after simulation completes</td>
+</tr>
+<tr>
+<td align="left">make clean</td>
+<td align="left">Clean simulation files</td>
+</tr>
+<tr>
+<td align="left">make distclean</td>
+<td align="left">Clean ASE sub-distribution</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-ase-makefile-variables"><strong>5.3. ASE Makefile Variables</strong><a class="headerlink" href="#53-ase-makefile-variables" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th align="left">Makefile switch</th>
+<th align="left">DESCRIPTION</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ASE_CONFIG</td>
+<td align="left">Directly input an ASE configuration file path (ase.cfg)</td>
+</tr>
+<tr>
+<td align="left">ASE_SCRIPT</td>
+<td align="left">Directly input an ASE regression file path (ase_regress.sh, for ASE_MODE=4)</td>
+</tr>
+<tr>
+<td align="left">SIMULATOR</td>
+<td align="left">Directly input a simulator brand (select between 'VCS' or 'QUESTA')</td>
+</tr>
+<tr>
+<td align="left">ASE_DISABLE_CHECKER</td>
+<td align="left">Legacy - Disable CCI-P protocol checker module (set to '1' might speed up simulation) <br><strong>WARNING</strong> =&gt; NO warnings on hazards,  protocol checks, timeouts will be  generated. This option must be ONLY used if the design is already CCI-P compliant and fast simulation of app-specific logic is needed</td>
+</tr>
+</tbody>
+</table>
+<h3 id="54-ase-runtime-configuration-options"><strong>5.4. ASE Runtime Configuration Options</strong><a class="headerlink" href="#54-ase-runtime-configuration-options" title="Permanent link">&para;</a></h3>
+<p>The ASE configuration file configures simulator behavior. An example configuration script is available at <code>ase/ase.cfg</code></p>
+<table>
+<thead>
+<tr>
+<th align="left">Switch Name</th>
+<th align="left">Default</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">ASE_MODE</td>
+<td align="left">1</td>
+<td align="left">ASE mode has the following valid values: <br>1 : Standard Server-Client Mode<br>2 : Simulator stops after <code>ASE_TIMEOUT</code> clocks<br>3 : Software shuts down simulator when client application releases session<br> 4 : Regression mode invoked by script<br>&gt;=5 : Ignored (revert to <code>ASE_MODE=1</code>)</td>
+</tr>
+<tr>
+<td align="left">ASE_TIMEOUT</td>
+<td align="left">50000 (only if <code>ASE_MODE=2</code>)</td>
+<td align="left">Watchdog timer shuts down simulator after <code>ASE_TIMEOUT</code> clocks of CCI-P interface inactivity.</td>
+</tr>
+<tr>
+<td align="left">ASE_NUM_TESTS</td>
+<td align="left">4 (only if <code>ASE_MODE=4</code>)</td>
+<td align="left">Number of tests in regression mode. If incorrectly set,  the simulator may exit pre-maturely or stall waiting for tests to get started.</td>
+</tr>
+<tr>
+<td align="left">ENABLE_REUSE_SEED</td>
+<td align="left">1</td>
+<td align="left">When set to 1, reuses the simulation seed, so that CCI-P transactions replay with the previous addresses. <br>When set to 0, obtains a new seed.</td>
+</tr>
+<tr>
+<td align="left">ASE_SEED</td>
+<td align="left">1234 (only if <code>ENABLE_REUSE_SEED=1</code>)</td>
+<td align="left">ASE seed setting, enabled when <code>ENABLE_REUSE_SEED</code> is set to 1, otherwise the simulations uses a different seed. <br>At the end of the simulation, the ASE writes the current seed to  <code>$ASE_WORKDIR/ase_seed.txt</code>.</td>
+</tr>
+<tr>
+<td align="left">ENABLE_CL_VIEW</td>
+<td align="left">1</td>
+<td align="left">The ASE prints all CCI-P transactions. On long simulation runs, setting <code>ENABLE_CL_VIEW</code> to 0 may reduce simulation time.</td>
+</tr>
+<tr>
+<td align="left">USR_CLK_MHZ</td>
+<td align="left">312.50000</td>
+<td align="left">Configurable User Clock (Read by simulator as float)</td>
+</tr>
+<tr>
+<td align="left">PHYS_MEMORY_AVAILABLE_GB</td>
+<td align="left">128</td>
+<td align="left">Restricts ASE address generation the specified memory range.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="55-logging-verbosity-control"><strong>5.5. Logging Verbosity Control</strong><a class="headerlink" href="#55-logging-verbosity-control" title="Permanent link">&para;</a></h3>
+<p>ASE provides the following three levels for logging message verbosity. By default, these messages print to <code>stdout</code>:</p>
+<ul>
+<li>ASE_INFO: Prints mandatory information messages required to specify operation.</li>
+<li>ASE_ERR: Prints error messages during operation.</li>
+<li>ASE_MSG: Prints general messages indicating check points in the ASE. Suppress these messages by setting the environment variable <code>ASE_LOG</code> to <code>0</code>.</li>
+</ul>
+<p>Two log levels are supported in ASE, controlled by env(ASE_LOG)</p>
+<ul>
+<li>ASE_LOG=0  | ASE_LOG_SILENT  : Only INFO, ERR messages are posted</li>
+<li>ASE_LOG!=0 | ASE_LOG_MESSAGE : All MSG, INFO, ERR messages are posted</li>
+</ul>
+<p>The following command include the ASE_MSG category:</p>
+<p><div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="w">    </span>$<span class="w"> </span><span class="nv">ASE_LOG</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>with_ase<span class="w"> </span>./hello_fpga
+</code></pre></div>
+You cannot suppress warnings and errors.</p>
+<h3 id="56-troubleshooting-and-error-reference"><strong>5.6. Troubleshooting and Error Reference</strong><a class="headerlink" href="#56-troubleshooting-and-error-reference" title="Permanent link">&para;</a></h3>
+<p>The following list of ASE errors and warnings is not comprehensive:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Observation</th>
+<th align="left">Problem</th>
+<th align="left">Next Steps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="left">Either all transactions are not seen or simulation ends earlier than expected.</td>
+<td align="left">ASE Simulation inactivity is too short for the application use-case to be successfully simulated in the ASE.</td>
+<td align="left">If using <code>ASE_MODE=2</code> (Daemon with timeout), in the <code>ase.cfg</code> file, increase the <code>ASE_TIMEOUT</code> setting or  disable <code>ASE_TIMEOUT</code>.</td>
+</tr>
+<tr>
+<td align="left">ASE simulation build error - compilation, or linking failed</td>
+<td align="left">GCC version might be too old.</td>
+<td align="left">Use the <code>./scripts/env_check.sh</code> script to identify issues.</td>
+</tr>
+<tr>
+<td align="left">Synopsys VCS-MX dumped stack while compiling or running</td>
+<td align="left">Possible corruption of compiled objects or problems with incremental compilation.</td>
+<td align="left">Clean the ASE environment using <br><code>$ make clean</code> <br> If this command fails, clean the distribution with <br><code>$ ./distclean.sh</code><br>then rebuild the simulation.</td>
+</tr>
+<tr>
+<td align="left">ERROR: Too many open files</td>
+<td align="left">Past ASE simulation runs did not close cleanly and may have left behind open IPC instances.</td>
+<td align="left">Use the  <code>./scripts/ipc_clean.py</code> script to clean IPC instances. <br>Check if the System Requirements have been met. <br>If problems continue, increase resource limits for your Linux distribution.</td>
+</tr>
+<tr>
+<td align="left"><code>$ASE_WORKDIR</code> environment variable has not been set up</td>
+<td align="left">Application cannot find a valid simulation session</td>
+<td align="left">Follow the steps printed when the ASE simulation starts. These instructions are in green text.</td>
+</tr>
+<tr>
+<td align="left"><code>.ase_timestamp</code> cannot be opened at <code>&lt;DIRECTORY&gt;</code></td>
+<td align="left">Simulator may not have been started yet. Note that when started, the simulator prints: <br>Ready for Simulation<br><code>$ASE_WORKDIR</code> may not set up correctly.</td>
+<td align="left">Check the ASE_WORKDIR  environment variable. <br><code>$ echo $ASE_WORKDIR</code> <br>Wait for simulator to print:<br> <code>Ready for Simulation</code></td>
+</tr>
+<tr>
+<td align="left"><code>ase_sources.mk: No such file or directory</code></td>
+<td align="left">ASE Environment has not been generated.</td>
+<td align="left">Generate an <abbr title="Accelerator Functional Unit, Hardware Accelerator implemented in FPGA logic which offloads a computational operation for an application from the CPU to improve performance. Note: An AFU region is the part of the design where an AFU may reside. This AFU may or may not be a partial reconfiguration region">AFU</abbr> RTL listing (in <code>vlog_files.list</code> and <code>ase_sources.mk</code>) configuration. <br> You can use <code>./scripts/generate_ase_environment.py</code>to generate these files.</td>
+</tr>
+<tr>
+<td align="left">An ASE instance is probably still running in current directory.</td>
+<td align="left">An ASE simulation is already running in the <code>$ASE_WORKDIR</code> directory.</td>
+<td align="left">If the simulation process is unusable or unreachable, use the <code>./scripts/ipc_clean.py</code> script to clean the simulation temporary files using: <br><code>$ make clean</code>. <br> Then rebuild the simulator.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="notices-disclaimers">Notices &amp; Disclaimers<a class="headerlink" href="#notices-disclaimers" title="Permanent link">&para;</a></h2>
+<p>Altera® Corporation technologies may require enabled hardware, software or service activation. No product or component can be absolutely secure. Performance varies by use, configuration and other factors. Your costs and results may vary. You may not use or facilitate the use of this document in connection with any infringement or other legal analysis concerning Altera or Intel products described herein. You agree to grant Altera Corporation a non-exclusive, royalty-free license to any patent claim thereafter drafted which includes subject matter disclosed herein. No license (express or implied, by estoppel or otherwise) to any intellectual property rights is granted by this document, with the sole exception that you may publish an unmodified copy. You may create software implementations based on this document and in compliance with the foregoing that are intended to execute on the Altera or Intel product(s) referenced in this document. No rights are granted to create modifications or derivatives of this document. The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications. Current characterized errata are available on request. Altera disclaims all express and implied warranties, including without limitation, the implied warranties of merchantability, fitness for a particular purpose, and non-infringement, as well as any warranty arising from course of performance, course of dealing, or usage in trade. You are responsible for safety of the overall system, including compliance with applicable safety-related requirements or standards. © Altera Corporation. Altera, the Altera logo, and other Altera marks are trademarks of Altera Corporation. Other names and brands may be claimed as the property of others.</p>
+<p>OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of the Khronos Group™.</p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../../../../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.indexes", "search.suggest", "search.highlight", "content.code.copy", "navigation.indexes", "toc.follow"], "search": "../../../../../../assets/javascripts/workers/search.208ed371.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"default": "ofs-2023.1", "provider": "mike"}}</script>
+    
+    
+      <script src="../../../../../../assets/javascripts/bundle.fac441b0.min.js"></script>
+      
+    
+  <script>document$.subscribe(() => {const lightbox = GLightbox({"touchNavigation": true, "loop": false, "zoomable": true, "draggable": true, "openEffect": "zoom", "closeEffect": "zoom", "slideEffect": "slide"});})</script></body>
+</html>
