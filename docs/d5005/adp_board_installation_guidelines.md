@@ -1,6 +1,6 @@
 # Board Installation Guidelines: Intel® FPGA SmartNIC N6000/1-PL, Intel® FPGA PAC D5005
 
-Last updated: **September 25, 2025** 
+Last updated: **October 23, 2025** 
 
 ## 1.0 Introduction
 

@@ -1,6 +1,6 @@
 # **AFU Simulation Environment User Guide**
 
-Last updated: **September 25, 2025** 
+Last updated: **October 23, 2025** 
 
 ## **1. Intended Audience**
 

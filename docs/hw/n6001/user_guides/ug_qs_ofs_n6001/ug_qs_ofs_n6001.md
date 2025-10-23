@@ -1,6 +1,6 @@
 # Getting Started Guide: Open FPGA Stack for Intel<sup>&reg;</sup> Agilex FPGAs Targeting the Intel® FPGA SmartNIC N6000/1-PL
 
-Last updated: **September 25, 2025** 
+Last updated: **October 23, 2025** 
 
 ## 1.0 Introduction
 
@@ -91,7 +91,7 @@ The following table highlights the versions of the software which compose the OF
 | OFS FIM Source Code for N6001| [ofs-2025.1-1](https://github.com/OFS/ofs-agx7-pcie-attach/releases/tag/ofs-2025.1-1) |
 | OFS FIM Common Resources| [Tag: ofs-fim-common-1.1.0-rc2](https://github.com/OFS/ofs-fim-common/releases/tag/ofs-fim-common-1.1.0-rc2) |
 |OFS Platform AFU BBB | [ofs-2025.1-1](https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1) |
-| Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 25.1 for Linux](https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html)  |
+| Intel Quartus Prime Pro Edition Design Software* | [Quartus Prime Pro Version 25.1 for Linux](https://www.intel.com/content/www/us/en/software-kit/851652/intel-quartus-prime-pro-edition-design-software-version-25-1-for-linux.html)  |
 | Operating System | [RedHat® Enterprise Linux® (RHEL) 9.4](https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software) |
 
 The following table highlights the differences between N6000/1 PL FPGA SmartNIC platforms (SKU1/SKU2). Use this table to identify which version of the N6000/1-PL FPGA SmartNIC platform you have. The board identification printed by the `fpgainfo fme` commands depends on both the OPAE SDK and Linux DFL drivers to be installed as shown in the [Software Installation Guide: Open FPGA Stack for PCIe Attach](/ofs-2025.1-1/hw/common/sw_installation/pcie_attach/sw_install_pcie_attach.md).
@@ -1362,7 +1362,7 @@ OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of 
 [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
 [Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/
 [Workload Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/
-[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/user_guides/afu_dev/ug_dev_afu_ofs_agx5/
+[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/dev_guides/afu_dev/ug_dev_afu_ofs_agx5/
 
 
 [oneAPI Accelerator Support Package (ASP): Getting Started User Guide]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/

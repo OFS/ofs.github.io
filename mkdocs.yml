@@ -572,11 +572,11 @@ env:
 
 
 # QUARTUS_URL - Link to Quartus download page.
-  N6001_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
-  N6000_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
-  FTILE_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
-  ISERIES_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
-  AGX5_MOD_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html
+  N6001_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851652/intel-quartus-prime-pro-edition-design-software-version-25-1-for-linux.html
+  N6000_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851652/intel-quartus-prime-pro-edition-design-software-version-25-1-for-linux.html
+  FTILE_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851652/intel-quartus-prime-pro-edition-design-software-version-25-1-for-linux.html
+  ISERIES_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851652/intel-quartus-prime-pro-edition-design-software-version-25-1-for-linux.html
+  AGX5_MOD_DK_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/851652/intel-quartus-prime-pro-edition-design-software-version-25-1-for-linux.html
   F2000X_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html
   D5005_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/794624/intel-quartus-prime-pro-edition-design-software-version-23-4-for-linux.html
   ONEAPI_N6001_QUARTUS_URL: https://www.intel.com/content/www/us/en/software-kit/819137/intel-quartus-prime-pro-edition-design-software-version-24-1-b115-for-linux.html
@@ -893,7 +893,7 @@ env:
   N6000_BITSTREAM_ID: 0x5010202C07F2FAF
   FTILE_DK_BITSTREAM_ID: 0x5010202C07F2FAF
   ISERIES_DK_BITSTREAM_ID: 0x5010202C07F2FAF
-  AGX5_MOD_DK_BITSTREAM_ID: 0x501020236DBC939
+  AGX5_MOD_DK_BITSTREAM_ID: 0x5010202CD1C019F
   F2000X_BITSTREAM_ID: 0x501030220D669AB
   D5005_BITSTREAM_ID: 0x4010002183C88A9
   ONEAPI_N6001_BITSTREAM_ID: 0x5010202F300F791
@@ -908,7 +908,7 @@ env:
   N6000_PR_ID: N/A
   FTILE_DK_PR_ID: 5a2d5e39-7ef2-58f8-b0b9-a737303ab4ab
   ISERIES_DK_PR_ID: e09af8b2-4760-5e7f-813a-a606201ce3dc
-  AGX5_MOD_DK_PR_ID: 8fee156c-67fb-5326-be8c-2c751c9b21a4
+  AGX5_MOD_DK_PR_ID: b68baf47-dd04-5ce7-ad8a-25a43bf2e30b
   F2000X_PR_ID: c2dac77b-757c-5e27-a566-aad3ffba2f4e
   D5005_PR_ID: a195b6f7-cf23-5a2b-8ef9-1161e184ec4e
   ONEAPI_N6001_PR_ID: a791757d-38a6-5159-a7fc-e1a61157a07b

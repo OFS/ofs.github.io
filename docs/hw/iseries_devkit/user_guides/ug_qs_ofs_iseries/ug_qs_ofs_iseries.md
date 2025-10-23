@@ -1,6 +1,6 @@
 # Getting Started Guide: Open FPGA Stack for Agilex™ 7 FPGAs Targeting the Agilex™ 7 FPGA I-Series Development Kit (2x R-Tile and 1xF-Tile)
 
-Last updated: **September 25, 2025** 
+Last updated: **October 23, 2025** 
 
 ## 1.0 About This Document
 
@@ -76,7 +76,7 @@ The OFS 2025.1-1 PCIe Attach release is built upon tightly coupled software and 
 
 | Component | Version |
 | ----- | -----  |
-| Quartus | https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html, patches: No patches for this release |
+| Quartus | https://www.intel.com/content/www/us/en/software-kit/851652/intel-quartus-prime-pro-edition-design-software-version-25-1-for-linux.html, patches: No patches for this release |
 | Host Operating System | https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software |
 | OneAPI-ASP | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1, patches: None |
 | OFS Platform AFU BBB  | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1|

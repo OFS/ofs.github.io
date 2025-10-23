@@ -1,6 +1,6 @@
 # Getting Started Guide: Open FPGA Stack for Agilex™ 7 FPGAs Targeting the Agilex™ 7 FPGA F-Series Development Kit (2x F-Tile)
 
-Last updated: **September 25, 2025** 
+Last updated: **October 23, 2025** 
 
 ## 1.0 About This Document
 
@@ -76,7 +76,7 @@ The OFS 2025.1-1 PCIe Attach release targeting the F-Series Development Kit is b
 
 | Component | Version | Download Link |
 | ----- | ----- | ----- |
-| Quartus | Quartus Prime Pro Version 25.1 | https://www.intel.com/content/www/us/en/software-kit/851653/intel-quartus-prime-pro-edition-design-software-version-25-1-for-windows.html, patches: No patches for this release |
+| Quartus | Quartus Prime Pro Version 25.1 | https://www.intel.com/content/www/us/en/software-kit/851652/intel-quartus-prime-pro-edition-design-software-version-25-1-for-linux.html, patches: No patches for this release |
 | Host Operating System |  RedHat® Enterprise Linux® (RHEL) 9.4 | https://access.redhat.com/downloads/content/479/ver=/rhel---9/9.4/x86_64/product-software|
 | OneAPI-ASP| ofs-2024.2-2 | https://github.com/OFS/oneapi-asp/releases/tag/ofs-2024.2-1, patches: None |
 | OFS Platform AFU BBB| ofs-2025.1-1 | https://github.com/OFS/ofs-platform-afu-bbb/releases/tag/ofs-2024.3-1 |
@@ -1145,7 +1145,7 @@ The `hssistats` tool provides the MAC statistics.
 [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
 [Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/
 [Workload Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/
-[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/user_guides/afu_dev/ug_dev_afu_ofs_agx5/
+[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/dev_guides/afu_dev/ug_dev_afu_ofs_agx5/
 
 
 [oneAPI Accelerator Support Package (ASP): Getting Started User Guide]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/

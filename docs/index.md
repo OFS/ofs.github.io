@@ -8,11 +8,11 @@
 <image src="hw/d5005/reference_manuals/ofs_fim/images/Base-FIM.png" align="left" padding="10px,3px,10px,10px" width="200" height="200">
 
 The reference shells, called FPGA Interface Manager (FIMs), provide an integrated, timing closed design with the most common interfaces for host attach applications. After selecting your starting shell, you can add or subtract interfaces depending on your application requirements.
-Then leverage the build scripts, RTL, unit tests, Universal Verification Methodology (UVM) environment, software and drivers for this reference shell as a starting point for your own FPGA platform solution.
+Then leverage the build scripts, RTL, unit tests, software and drivers for this reference shell as a starting point for your own FPGA platform solution.
 
 
-OFS currently targets Stratix<sup>&reg;</sup> 10 and Agilex<sup>&reg;</sup> 7 FPGA Device Families.  
-To find out more about Altera FPGAs, visit the [Stratix 10](https://www.intel.com/content/www/us/en/products/details/fpga/stratix/10.html) and [Agilex 7](https://www.intel.com/content/www/us/en/products/details/fpga/agilex/7.html) pages at Intel.com.
+OFS currently targets the Agilex<sup>&trade;</sup> 5, Agilex<sup>&trade;</sup> 7, and Stratix<sup>&reg;</sup> 10 FPGA Device Families.  
+To find out more about Altera FPGAs, visit the [Agilex 5](https://www.altera.com/products/fpga/agilex/5), [Agilex 7](https://www.altera.com/products/fpga/agilex/7), and [Stratix 10](https://www.intel.com/content/www/us/en/products/details/fpga/stratix/10.html) product pages at Altera.com.
 
 <br>
 
@@ -20,14 +20,14 @@ To find out more about Altera FPGAs, visit the [Stratix 10](https://www.intel.co
 
  1. If you are interested in a production card that uses OFS for your workload application development or for full deployment, please refer to the [**OFS Board Catalog**](https://www.intel.com/content/www/us/en/content-details/765730/open-fpga-stack-board-catalog.html).  
 
- 2. If you are an FPGA developer, refer to our [FPGA Developer Journey Guide: Open FPGA Stack](https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/ ) to understand the OFS development flow as well as the reference shells, tools and development boards you can use to gest started.  FPGA Developers interested in oneAPI should reference this guide as well.
+ 2. If you are an FPGA developer, refer to our [FPGA Developer Journey Guide: Open FPGA Stack](https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/ug_fpga_developer/ug_fpga_developer/) to understand the OFS development flow as well as the reference shells, tools and development boards you can use to gest started.  Additionally, you can use this [video](https://www.youtube.com/watch?v=VLXL9xHg9rM) to understand how to use OFS settings files (ofss) to modify your design.
  
  3. If you are a software developer, refer to our [Software Tab](https://ofs.github.io/ofs-2025.1-1/hw/common/reference_manual/ofs_sw/mnl_sw_ofs/) for driver and user space tool development resources.
 
  4. If you are an application developer, preview our overview [video](https://www.youtube.com/watch?v=i-z7Oyyg_l8) on how OFS can help you develop FPGA-based workloads and review one of the AFU Developer Guides to find the OFS resources available for creating your own application workload.
 
+* [Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs](https://ofs.github.io/ofs-2025.1-1/hw/agx5/dev_guides/afu_dev/ug_dev_afu_ofs_agx5/)
 * [Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs](https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/)
-* [Workload Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs](https://ofs.github.io/ofs-2025.1-1/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/)
 * [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs](https://ofs.github.io/ofs-2025.1-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/)
 
 Beyond the resources we have on this [site](https://ofs.github.io), you can navigate to the OFS GitHub repos by clicking the GitHub repository icon at the top left corner of this site page.
@@ -239,7 +239,7 @@ Accessing OFS ingredients to use within the development framework is easy.  The 
 [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
 [Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/
 [Workload Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/
-[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/user_guides/afu_dev/ug_dev_afu_ofs_agx5/
+[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/dev_guides/afu_dev/ug_dev_afu_ofs_agx5/
 
 
 [oneAPI Accelerator Support Package (ASP): Getting Started User Guide]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/

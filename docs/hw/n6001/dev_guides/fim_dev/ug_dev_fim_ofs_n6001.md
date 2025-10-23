@@ -1,6 +1,6 @@
 # Shell Developer Guide for Open FPGA Stack: Intel® FPGA SmartNIC N6000-PL / Intel® FPGA SmartNIC N6001-PL PCIe Attach
 
-Last updated: **September 25, 2025** 
+Last updated: **October 23, 2025** 
 
 ## **1. Introduction**
 
@@ -460,6 +460,7 @@ Refer to [Compile OFS FIM](https://ofs.github.io/ofs-2025.1-1/hw/n6001/dev_guide
 #### **2.1.1.1 Build Work Directory**
 
 
+The build script copies source files from the existing cloned repository into the specified work directory, which are then used for compilation. As such, any changes made in the base source files will be included in all subsequent builds, unless the `-k` option is used, in which case an existing work directories files are used as-is. Likewise, any changes made in a work directory is only applied to that work directory, and will not be updated in the base repository by default. When using OFSS files to modify the design, the build script will create a work directory and make the modifications in the work directory.
 
 #### **2.1.1.2 Null Host Exercisers**
 
@@ -5181,7 +5182,7 @@ OpenCL* and the OpenCL* logo are trademarks of Apple Inc. used by permission of 
 [Workload Developer Guide: OFS for Stratix® 10 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/d5005/dev_guides/afu_dev/ug_dev_afu_d5005/
 [Workload Developer Guide: OFS for Agilex™ 7 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/afu_dev/ug_dev_afu_ofs_agx7_pcie_attach/ug_dev_afu_ofs_agx7_pcie_attach/
 [Workload Developer Guide: OFS for Agilex™ 7 SoC Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/f2000x/dev_guides/afu_dev/ug_dev_afu_ofs_f2000x/
-[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/user_guides/afu_dev/ug_dev_afu_ofs_agx5/
+[Workload Developer Guide: OFS for Agilex™ 5 PCIe Attach FPGAs]: https://ofs.github.io/ofs-2025.1-1/hw/agx5/dev_guides/afu_dev/ug_dev_afu_ofs_agx5/
 
 
 [oneAPI Accelerator Support Package (ASP): Getting Started User Guide]: https://ofs.github.io/ofs-2025.1-1/hw/common/user_guides/oneapi_asp/ug_oneapi_asp/

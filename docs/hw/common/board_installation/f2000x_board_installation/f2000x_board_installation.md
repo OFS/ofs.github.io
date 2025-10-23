@@ -1,6 +1,6 @@
 # Board Installation Guidelines: IPU Platform F2000X-PL
 
-Last updated: **September 25, 2025** 
+Last updated: **October 23, 2025** 
 
 ## 1.0 About this Document
 
